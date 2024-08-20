@@ -83,12 +83,11 @@ public class SoundManager : MonoBehaviour
                 volumes = new float[(int)Sound.Max];
                 for (int i = 0; i < (int)Sound.Max; i++)
                 {
-                    volumes[(int)Sound.Main] =      Managers.Data.;
-                    volumes[(int)Sound.Bgm] =       Managers.Data.EFFECT_VOLUME;
-                    volumes[(int)Sound.Effect] =    Managers.Data.BGM_VOLUME;
-                    volumes[(int)Sound.Narration] = Managers.Data.NARRATION_VOLUME;
+                    volumes[(int)Sound.Main] =      float.Parse(Managers.GetData(Define.SaveData.MainVolume));
+                    volumes[(int)Sound.Bgm] =       float.Parse(Managers.GetData(Define.SaveData.Bgm));
+                    volumes[(int)Sound.Effect] =    float.Parse(Managers.GetData(Define.SaveData.Effect));
+                    volumes[(int)Sound.Narration] = float.Parse(Managers.GetData(Define.SaveData.Narration));;
                 }
-                
                 for (int i = 0; i < (int)Sound.Max; i++)
                 {
                     VOLUME_MAX[(int)Sound.Main] = VOLUME_MAX_MAIN;
@@ -109,7 +108,7 @@ public class SoundManager : MonoBehaviour
         _audioClips.Clear();
     }
 
-    public void SetPitch(Define.Sound type, float pitch = 1.0f)
+    public void SetPitch(Sound type, float pitch = 1.0f)
     {
         var audioSource = audioSources[(int)type];
         if (audioSource == null)

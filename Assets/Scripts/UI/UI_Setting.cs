@@ -18,28 +18,39 @@ public class UI_Setting : UI_Popup
      
     }
     
-       public enum UI_Type
-       {
-           MainVolume,
-           Narration,
-           Effect,
-           Bgm,
-           Resolution,
-           GraphicQuality,
-           Language,
-           ControlGuideOn
-       }
+   public enum UI_Type
+   {
+       MainVolume,
+       Narration,
+       Effect,
+       Bgm,
+       Resolution,
+       GraphicQuality,
+       Language,
+       ControlGuideOn
+   }
+
+   public enum ResolutionToggles
+   {
+       Resolution1280x720,
+       Resolution1920x1080,
+       Resolution2560x1440,
+   }
+   public enum GraphicQualityToggles
+   {
+       Low = 1,
+       Mid = 3,
+       High = 5,
+       Auto 
+   }
 
 
     //sensor-related part.-----------------------------------
     public static event Action OnRefreshEvent;
     public static event Action<string, DateTime> OnSceneQuit;
     public static event Action<string, DateTime> OnAppQuit;
-    private bool _isSensorRefreshable = true;
-    private bool _isXMLSavable = true;
 
-    private const int REFRESH_INTERIM_MIN = 10;
-    private readonly WaitForSeconds _wait = new(REFRESH_INTERIM_MIN);
+
     private Button[] _btns;
     // scene-related part -----------------------------------
 
@@ -60,41 +71,23 @@ public class UI_Setting : UI_Popup
         {
             Managers.UI.ClosePopupUI(this);
         });
-     
-
-        SetSlider();
+        
+        SetVolumeSlider();
     }
 
     private void RefreshSensor()
     {
-        if (!_isSensorRefreshable) return;
+      
 
-        StartCoroutine(ResetSensorRefreshable());
+       
         OnRefreshEvent?.Invoke();
     }
 
-    private IEnumerator ResetSensorRefreshable()
-    {
-        _isSensorRefreshable = false;
-        yield return _wait;
-        _isSensorRefreshable = true;
-    }
-
-    private IEnumerator XMLSaveCo()
-    {
-        OnSceneQuit?.Invoke(SceneManager.GetActiveScene().name, DateTime.Now);
-        yield return _wait;
-        _isXMLSavable = true;
-    }
+  
 
     private void OnSceneQuitAndToHomeScreen()
     {
-#if UNITY_EDITOR
-        Debug.Log("Scene Quit ");
-# endif
-        if (!_isXMLSavable) return;
-        _isXMLSavable = false;
-        StartCoroutine(XMLSaveCo());
+        
     }
 
     private void OnQuit()
@@ -111,7 +104,7 @@ public class UI_Setting : UI_Popup
         OnAppQuit?.Invoke(SceneManager.GetActiveScene().name, DateTime.Now);
         yield return new WaitForSeconds(1f);
         Application.Quit();
-        _isXMLSavable = true;
+       
     }
     
 
@@ -130,9 +123,9 @@ public class UI_Setting : UI_Popup
     }
 
     private WaitForSeconds _waitForSceneChange =new WaitForSeconds(1.0f); 
-    private IEnumerator ChangeScene()
-    {
-    }
+    // private IEnumerator ChangeScene()
+    // {
+    // }
 
     /// <summary>
     /// 씬이동 초기화 수행 전, 다양한 초기화를 진행합니다.
@@ -142,98 +135,62 @@ public class UI_Setting : UI_Popup
     }
     private Slider[] _volumeSliders = new Slider[(int)SoundManager.Sound.Max];
 
-    private void SetSlider()
+    private void SetVolumeSlider()
     {
-         _volumeSliders = new Slider[(int)SoundManager.Sound.Max];
-
-        _volumeSliders[(int)SoundManager.Sound.Main] = GetObject((int)UI_Type.MainVolume).GetComponent<Slider>();
-        _volumeSliders[(int)SoundManager.Sound.Main].value =
-            Managers.Sound.volumes[(int)SoundManager.Sound.Main];
-#if UNITY_EDITOR
-        Debug.Log($" 메인 볼륨 {Managers.Sound.volumes[(int)SoundManager.Sound.Main]}");
-#endif
-
-        _volumeSliders[(int)SoundManager.Sound.Bgm] = GetObject((int)UI_Type.BGMVolume).GetComponent<Slider>();
-
-        _volumeSliders[(int)SoundManager.Sound.Effect] = GetObject((int)UI_Type.EffectVolume).GetComponent<Slider>();
-
-        _volumeSliders[(int)SoundManager.Sound.Narration] =
-            GetObject((int)UI_Type.NarrationVolume).GetComponent<Slider>();
+        _volumeSliders = new Slider[(int)SoundManager.Sound.Max];
 
         for (var i = 0; i < (int)SoundManager.Sound.Max; i++)
         {
+            _volumeSliders[i] = GetObject((int)(UI_Type)i).GetComponent<Slider>();
             _volumeSliders[i].maxValue = Managers.Sound.VOLUME_MAX[i];
             _volumeSliders[i].value = Managers.Sound.volumes[i];
+
+#if UNITY_EDITOR
+            if (i == (int)SoundManager.Sound.Main)
+            {
+                Debug.Log($" 메인 볼륨 {Managers.Sound.volumes[i]}");
+            }
+#endif
+
+            int index = i;
+            _volumeSliders[i].onValueChanged.AddListener(_ =>
+            {
+                Managers.Sound.volumes[index] = _volumeSliders[index].value;
+                if (index == (int)SoundManager.Sound.Effect)
+                {
+                    Managers.Sound.Play(SoundManager.Sound.Effect, "Audio/TestSound/Test_Effect");
+                }
+                if (index == (int)SoundManager.Sound.Narration && !Managers.Sound.audioSources[index].isPlaying)
+                {
+                    Managers.Sound.Play(SoundManager.Sound.Narration, "Audio/TestSound/Test_Narration");
+                }
+
+                Managers.Sound.audioSources[index].volume =
+                    Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[index],
+                        Managers.Sound.volumes[(int)SoundManager.Sound.Main] *
+                        _volumeSliders[index].value);
+
+                if (index == (int)SoundManager.Sound.Main)
+                {
+                    UpdateLinkedVolumes();
+                }
+            });
         }
+    }
 
+    private void UpdateLinkedVolumes()
+    {
+        UpdateVolume((int)SoundManager.Sound.Bgm);
+        UpdateVolume((int)SoundManager.Sound.Effect);
+        UpdateVolume((int)SoundManager.Sound.Narration);
+    }
 
-        // default Volume값은 SoundManager에서 관리하며, 초기화 이후, UI Slider가 이를 참조하여 표출하도록 합니다.
-        // default Value는 시연 테스트에 결과에 따라 수정가능합니다. 
-        _volumeSliders[(int)SoundManager.Sound.Main].onValueChanged.AddListener(_ =>
-        {
-            Managers.Sound.volumes[(int)SoundManager.Sound.Main] =
-                _volumeSliders[(int)SoundManager.Sound.Main].value;
-            Managers.Sound.audioSources[(int)SoundManager.Sound.Main].volume =
-                Managers.Sound.volumes[(int)SoundManager.Sound.Main];
-
-            Managers.Sound.volumes[(int)SoundManager.Sound.Bgm] =
-                _volumeSliders[(int)SoundManager.Sound.Bgm].value;
-            Managers.Sound.audioSources[(int)SoundManager.Sound.Bgm].volume =
-                Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[(int)SoundManager.Sound.Bgm],
-                    Managers.Sound.volumes[(int)SoundManager.Sound.Main] *
-                    _volumeSliders[(int)SoundManager.Sound.Bgm].value);
-
-            Managers.Sound.volumes[(int)SoundManager.Sound.Effect] =
-                _volumeSliders[(int)SoundManager.Sound.Effect].value;
-            Managers.Sound.audioSources[(int)SoundManager.Sound.Effect].volume =
-                Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[(int)SoundManager.Sound.Effect],
-                    Managers.Sound.volumes[(int)SoundManager.Sound.Main] *
-                    _volumeSliders[(int)SoundManager.Sound.Effect].value);
-
-            Managers.Sound.volumes[(int)SoundManager.Sound.Narration] =
-                _volumeSliders[(int)SoundManager.Sound.Narration].value;
-            Managers.Sound.audioSources[(int)SoundManager.Sound.Narration].volume =
-                Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[(int)SoundManager.Sound.Narration],
-                    Managers.Sound.volumes[(int)SoundManager.Sound.Main] *
-                    _volumeSliders[(int)SoundManager.Sound.Narration].value);
-
-        //    A_SettingManager.SaveCurrentSetting(SensorManager.height,);
-
-
-        });
-        _volumeSliders[(int)SoundManager.Sound.Bgm].onValueChanged.AddListener(_ =>
-        {
-            Managers.Sound.volumes[(int)SoundManager.Sound.Bgm] =
-                _volumeSliders[(int)SoundManager.Sound.Bgm].value;
-            Managers.Sound.audioSources[(int)SoundManager.Sound.Bgm].volume =
-                Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[(int)SoundManager.Sound.Bgm],
-                    Managers.Sound.volumes[(int)SoundManager.Sound.Main] *
-                    _volumeSliders[(int)SoundManager.Sound.Bgm].value);
-        });
-
-        _volumeSliders[(int)SoundManager.Sound.Effect].onValueChanged.AddListener(_ =>
-        {
-            Managers.Sound.Play(SoundManager.Sound.Effect, "Audio/TestSound/Test_Effect");
-
-            Managers.Sound.volumes[(int)SoundManager.Sound.Effect] =
-                _volumeSliders[(int)SoundManager.Sound.Effect].value;
-            Managers.Sound.audioSources[(int)SoundManager.Sound.Effect].volume =
-                Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[(int)SoundManager.Sound.Effect],
-                    Managers.Sound.volumes[(int)SoundManager.Sound.Main] *
-                    _volumeSliders[(int)SoundManager.Sound.Effect].value);
-        });
-
-        _volumeSliders[(int)SoundManager.Sound.Narration].onValueChanged.AddListener(_ =>
-        {
-            if (!Managers.Sound.audioSources[(int)SoundManager.Sound.Narration].isPlaying)
-                Managers.Sound.Play(SoundManager.Sound.Narration, "Audio/TestSound/Test_Narration");
-            Managers.Sound.volumes[(int)SoundManager.Sound.Narration] =
-                _volumeSliders[(int)SoundManager.Sound.Narration].value;
-            Managers.Sound.audioSources[(int)SoundManager.Sound.Narration].volume =
-                Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[(int)SoundManager.Sound.Narration],
-                    Managers.Sound.volumes[(int)SoundManager.Sound.Main] *
-                    _volumeSliders[(int)SoundManager.Sound.Narration].value);
-        });
-
+    private void UpdateVolume(int index)
+    {
+        Managers.Sound.volumes[index] = _volumeSliders[index].value;
+        Managers.Sound.audioSources[index].volume =
+            Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[index],
+                Managers.Sound.volumes[(int)SoundManager.Sound.Main] *
+                _volumeSliders[index].value);
     }
 }

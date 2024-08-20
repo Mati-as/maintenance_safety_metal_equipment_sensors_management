@@ -21,7 +21,18 @@ public class Define
 		PointerDown,
 		PointerUp,
 	}
-	
+
+	public enum SaveData
+	{
+		MainVolume,
+		Narration,
+		Effect,
+		Bgm,
+		Resolution,
+		GraphicQuality,
+		Language,
+		ControlGuideOn
+	}
 	public const int BlockHit = 4500;
 	public const int BlockEventId = 5020;
 	public const int PleaseTouchScreen = 6501;

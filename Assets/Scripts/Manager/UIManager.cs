@@ -144,4 +144,10 @@ public class UIManager
 		CloseAllPopupUI();
 		SceneUI = null;
 	}
+	
+	public void SetResolution(int width, int height, bool fullscreen)
+	{
+		Screen.SetResolution(width, height, fullscreen);
+		// UI 레이아웃이나 스케일 조정을 위한 추가 로직을 여기에 추가
+	}
 }

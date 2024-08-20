@@ -9,7 +9,7 @@ public class Managers : MonoBehaviour
     private static SoundManager s_soundManager = new();
     private static DataManager s_dataManager = new();
     private static UIManager s_uiManager = new();
-    private static ContentManager s_contentManager = new(); 
+    private static ContentPlayManager _sContentPlayManager = new(); 
     private static ResourceManager s_resourceManager = new ResourceManager();
     
     
@@ -21,7 +21,7 @@ public class Managers : MonoBehaviour
     public static DataManager Data
     { get { Init(); return s_dataManager; }}
 
-    public static ContentManager Content;
+    public static ContentPlayManager ContentPlay;
     public static UIManager UI
     { get { Init(); return s_uiManager;}}
      public static ResourceManager Resource { get { Init(); return s_resourceManager; } }
@@ -34,12 +34,19 @@ public class Managers : MonoBehaviour
     public static SoundManager Sound
     { get { Init(); return s_soundManager; }}
 
-    public static string GetText(int id)
+    public string GetText(int id)
     {
         if (Managers.Data.Texts.TryGetValue(id, out TextData value) == false)
-            return "";
+            return null;
 
-        return value.kor.Replace("{userName}", Managers.Content);
+        return value.kor.Replace("{userName}", Managers.ContentPlay.Name);
+    }
+    public static string GetData(Define.SaveData idx)
+    {
+        if (Managers.Data.SaveData.TryGetValue((int)idx, out SaveData value) == false)
+            return "null";
+        return value.StrVal;
+
     }
 
     private void Start()

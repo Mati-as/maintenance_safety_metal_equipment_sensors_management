@@ -17,6 +17,7 @@ public class DataManager
     //
     // public Dictionary<int, ShopData> Shops { get; private set; }
     public Dictionary<int, TextData> Texts { get; private set; }
+    public Dictionary<int, SaveData> SaveData { get; private set; }
     // public Dictionary<int, StatData> Stats { get; private set; }
     // public Dictionary<int, PlayerData> Players { get; private set; }
     // public Dictionary<int, GoHomeData> GoHomes { get; private set; }
@@ -39,9 +40,10 @@ public class DataManager
     public void Init()
     {
         Texts = LoadXml<TextDataLoader, int, TextData>("TextData").MakeDict();
+        SaveData = LoadXml<SaveDataLoader, int, SaveData>("SettingData").MakeDict();
+        
         // Start = LoadSingleXml<StartData>("StartData");
         // SalaryNegotiation = LoadSingleXml<SalaryNegotiationData>("SalaryNegotiationData");
-        //
         // Shops = LoadXml<ShopDataLoader, int, ShopData>("ShopData").MakeDic();
         // Stats = LoadXml<StatDataLoader, int, StatData>("StatData").MakeDic();
         // Players = LoadXml<PlayerDataLoader, int, PlayerData>("PlayerData").MakeDic();
