@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerEx
 {
+    
     private Define.Scene _curSceneType = Define.Scene.Unknown;
 
     public Define.Scene CurrentSceneType

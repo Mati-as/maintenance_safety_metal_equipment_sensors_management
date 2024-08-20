@@ -1,10 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 
 public class Define
 {
+	
+	public enum Scene
+	{
+		Unknown,
+		Dev,
+		Release,
+	}
+
 	public enum UIEvent
 	{
 		Click,
@@ -12,71 +21,7 @@ public class Define
 		PointerDown,
 		PointerUp,
 	}
-
-	public enum Scene
-	{
-		Unknown,
-		Dev,
-		Game,
-	}
-
-	public enum Sound
-	{
-		Bgm,
-		Effect,
-		Speech,
-		Max,
-	}
-
-	public enum AnimState
-	{
-		None,
-		Idle,
-		Sweat,
-		Walking,
-		Working,
-		Attack,
-	}
-
-	public enum JobTitleType
-	{
-		Intern = 0, // 인게임에 배치만 하고 아무것도 안함
-		Sinib, // 주인공 시작
-		Daeri,
-		Gwajang,
-		Bujang,
-		Esa,
-		Sajang,
-		Cat,
-	}
-
-	public const int JOB_TITLE_TYPE_COUNT = (int)JobTitleType.Sajang + 1; // 고양이 제외
-	public const int MAX_COLLECTION_COUNT = 100;
-	public const int MAX_PROJECT_COUNT = 10;
-	public const int MAX_ENDING_COUNT = 10;
-
-	public enum StatType
-	{
-		MaxHp,
-		WorkAbility,
-		Likeability,
-		Luck,
-		Stress
-	}
-
-	public enum RewardType
-	{
-		Hp,
-		WorkAbility,
-		Likeability,
-		Luck,
-		Stress,
-		Money,
-		Block,
-		SalaryIncrease,
-		Promotion
-	}
-
+	
 	public const int BlockHit = 4500;
 	public const int BlockEventId = 5020;
 	public const int PleaseTouchScreen = 6501;
