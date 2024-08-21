@@ -73,7 +73,9 @@ public class Managers : MonoBehaviour
             s_soundManager.Init();
             _sContentPlayManager.Init();
 
-            Sound.Play(SoundManager.Sound.Bgm, "Bgm",0.1f);
+
+            UI.SetFullScreenMode(UIManager.FULLSCREEN_ON); 
+            UI.SetResolution(1920,1080,true); 
             Application.targetFrameRate = 60;
         }
     }

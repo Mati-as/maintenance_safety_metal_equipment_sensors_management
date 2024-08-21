@@ -2,13 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager
 {
 	int _order = -20;
 
+	public static readonly bool KOR = false;
+	public static readonly bool ENG = true;
+	public static readonly bool FULLSCREEN_ON = false;
+	public static readonly bool FULLSCREEN_OFF = true;
+	public static readonly bool CONTROL_GUIDE_ON = false;
+	public static readonly bool CONTROL_GUIDE_OFF = true;
+	
 	private bool _isFullScreen;
+	private bool _languageSetting;
+	private bool _isGuideOn;
 	public bool isFullScreen { get; set; }
+	public bool languageSetting { get; set; }
+	public bool isGuideOn { get; set; }
 
 	Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
 
@@ -159,5 +171,32 @@ public class UIManager
 	{
      	QualitySettings.SetQualityLevel((int)qualityLevel);
 		// UI 레이아웃이나 스케일 조정을 위한 추가 로직을 여기에 추가
+	}
+
+	public void SetFullScreenMode(bool isFullScreenMode)
+	{
+#if UNITY_EDITOR
+		Debug.Log($"Full Screen mode is {isFullScreenMode}");
+#endif
+		Screen.fullScreen = isFullScreenMode;
+	}
+
+	public void SetLanguageMode(bool mode)
+	{
+
+#if UNITY_EDITOR
+		string modename = mode ? "ENG" : "KOR";
+		Debug.Log($"Language mode is  {isGuideOn}");
+#endif
+		this.languageSetting = mode;
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
+	public void SetControlGuideOnMode(bool isGuideOn)
+	{
+#if UNITY_EDITOR
+		Debug.Log($"Control Guide Mode is {isGuideOn}");
+#endif
+		this.isGuideOn = isGuideOn;
 	}
 }

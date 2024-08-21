@@ -8,7 +8,7 @@ using UnityEngine.XR;
 
 public class UI_Setting : UI_Popup
 {
-       private enum Btns
+    private enum Btns
     {
    
         Btn_Close
@@ -33,6 +33,10 @@ public class UI_Setting : UI_Popup
        Slider_Narration,
        Slider_Effect,
        Slider_Bgm,
+       // -----------------
+       Slider_FullScreen,
+       Slider_Language,
+       Slider_ControlGuideOn
    }
 
    public enum Toggles
@@ -55,8 +59,11 @@ public class UI_Setting : UI_Popup
     public static event Action<string, DateTime> OnSceneQuit;
     public static event Action<string, DateTime> OnAppQuit;
 
+    public readonly int OFF = 0;
+    public readonly int ON = 1;
 
     private Button[] _btns;
+    private Slider[] _volumeSliders;
     // scene-related part -----------------------------------
 
     // Start is called before the first frame update
@@ -80,22 +87,89 @@ public class UI_Setting : UI_Popup
         GetToggle((int)Toggles.Toggle_GraphicQuality_High).onValueChanged.AddListener(_=>OnGraphicQualityChanged(Define.QaulityLevel.High));
         GetToggle((int)Toggles.Toggle_GraphicQuality_Auto).onValueChanged.AddListener(_=>OnGraphicQualityChanged(Define.QaulityLevel.Auto));
         
+        GetToggle((int)Toggles.Toggle_Main_Mute).onValueChanged.AddListener(isOn =>
+        {
+            if (GetToggle((int)Toggles.Toggle_Main_Mute).isOn)
+            {
+                Managers.Sound.SetMute(SoundManager.Sound.Main);
+                Managers.Sound.SetMute(SoundManager.Sound.Narration);
+                Managers.Sound.SetMute(SoundManager.Sound.Effect);
+                Managers.Sound.SetMute(SoundManager.Sound.Bgm);
+            }
+            else
+            {
+                Managers.Sound.SetMute(SoundManager.Sound.Main,false);
+                Managers.Sound.SetMute(SoundManager.Sound.Narration,false);
+                Managers.Sound.SetMute(SoundManager.Sound.Effect,false);
+                Managers.Sound.SetMute(SoundManager.Sound.Bgm,false);
+            }
+     
+        });
+
+        GetToggle((int)Toggles.Toggle_Narration_Mute).onValueChanged.AddListener(isOn => {
+            if (GetToggle((int)Toggles.Toggle_Narration_Mute).isOn)
+                Managers.Sound.SetMute(SoundManager.Sound.Narration);
+            else
+                Managers.Sound.SetMute(SoundManager.Sound.Narration,false);
+            
+        });
+
+        GetToggle((int)Toggles.Toggle_Effect_Mute).onValueChanged.AddListener(isOn => {
+            if (GetToggle((int)Toggles.Toggle_Effect_Mute).isOn)
+                Managers.Sound.SetMute(SoundManager.Sound.Effect);
+            else
+              Managers.Sound.SetMute(SoundManager.Sound.Effect,false);
+
+               
+        });
+
+        GetToggle((int)Toggles.Toggle_Bgm_Mute).onValueChanged.AddListener(isOn => {
+            if (GetToggle((int)Toggles.Toggle_Bgm_Mute).isOn)
+                Managers.Sound.SetMute(SoundManager.Sound.Bgm);
+            else
+                Managers.Sound.SetMute(SoundManager.Sound.Bgm,false);
+               
+        });
+
+        GetSlider((int)Sliders.Slider_FullScreen).onValueChanged.AddListener(_ =>
+        {
+            if (GetSlider((int)Sliders.Slider_FullScreen).value >= ON)
+                Managers.UI.SetFullScreenMode(UIManager.FULLSCREEN_ON);
+            else
+                Managers.UI.SetFullScreenMode(UIManager.FULLSCREEN_OFF);
+        });
+        
+        
+        GetSlider((int)Sliders.Slider_Language).onValueChanged.AddListener(_ =>
+        {
+            if (GetSlider((int)Sliders.Slider_FullScreen).value >= ON)
+                Managers.UI.SetLanguageMode(UIManager.ENG);
+            else
+                Managers.UI.SetLanguageMode(UIManager.KOR);
+        });
+        
+        
+        GetSlider((int)Sliders.Slider_ControlGuideOn).onValueChanged.AddListener(_ =>
+        {
+            if (GetSlider((int)Sliders.Slider_ControlGuideOn).value >= ON)
+                Managers.UI.SetControlGuideOnMode(UIManager.CONTROL_GUIDE_ON);
+            else
+                Managers.UI.SetControlGuideOnMode(UIManager.CONTROL_GUIDE_OFF);
+        });
+        
         
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
         {
             Managers.UI.ClosePopupUI(this);
         });
         
-        //SetVolumeSlider();
+        SetVolumeSlider();
 
         return true;
     }
 
     private void RefreshSensor()
     {
-      
-
-       
         OnRefreshEvent?.Invoke();
     }
 
@@ -149,44 +223,54 @@ public class UI_Setting : UI_Popup
     private void TerminateProcess()
     {
     }
-    private UnityEngine.UI.Slider[] _volumeSliders = new UnityEngine.UI.Slider[(int)SoundManager.Sound.Max];
+
+
 
     private void SetVolumeSlider()
     {
-        _volumeSliders = new UnityEngine.UI.Slider[(int)SoundManager.Sound.Max];
-
-        for (var i = 0; i < (int)SoundManager.Sound.Max; i++)
+        
+        _volumeSliders = new Slider[(int)SoundManager.Sound.Max];
+        for (int sliderIndex = 0; sliderIndex < (int)SoundManager.Sound.Max; sliderIndex++)
         {
-            _volumeSliders[i] = GetObject((int)(GameObj)i).GetComponent<UnityEngine.UI.Slider>();
+            _volumeSliders[sliderIndex] = GetSlider(sliderIndex);
+        }
+        
+
+        for (var i = 0; i < Managers.Sound.volumes.Length; i++)
+        {
             _volumeSliders[i].maxValue = Managers.Sound.VOLUME_MAX[i];
             _volumeSliders[i].value = Managers.Sound.volumes[i];
 
 #if UNITY_EDITOR
-            if (i == (int)SoundManager.Sound.Main)
+            if (i == (int)Sliders.Slider_Main)
             {
                 Debug.Log($" 메인 볼륨 {Managers.Sound.volumes[i]}");
             }
 #endif
 
-            int index = i;
+            int audioIndex = i;
             _volumeSliders[i].onValueChanged.AddListener(_ =>
             {
-                Managers.Sound.volumes[index] = _volumeSliders[index].value;
-                if (index == (int)SoundManager.Sound.Effect)
+                Managers.Sound.volumes[audioIndex] = _volumeSliders[audioIndex].value;
+                
+                if (audioIndex == (int)SoundManager.Sound.Effect)
                 {
-                    Managers.Sound.Play(SoundManager.Sound.Effect, "Audio/TestSound/Test_Effect");
+                    if (Managers.Sound.audioSources[(int)SoundManager.Sound.Effect] &&!Managers.Sound.audioSources[audioIndex].isPlaying)
+                        Managers.Sound.Play(SoundManager.Sound.Effect, "Audio/Test_Effect");
                 }
-                if (index == (int)SoundManager.Sound.Narration && !Managers.Sound.audioSources[index].isPlaying)
+                
+                
+                if (audioIndex == (int)Sliders.Slider_Narration && !Managers.Sound.audioSources[audioIndex].isPlaying)
                 {
-                    Managers.Sound.Play(SoundManager.Sound.Narration, "Audio/TestSound/Test_Narration");
+                    Managers.Sound.Play(SoundManager.Sound.Narration, "Audio/Test_Narration");
                 }
 
-                Managers.Sound.audioSources[index].volume =
-                    Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[index],
+                Managers.Sound.audioSources[audioIndex].volume =
+                    Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[audioIndex],
                         Managers.Sound.volumes[(int)SoundManager.Sound.Main] *
-                        _volumeSliders[index].value);
+                        _volumeSliders[audioIndex].value);
 
-                if (index == (int)SoundManager.Sound.Main)
+                if (audioIndex == (int)Sliders.Slider_Main)
                 {
                     UpdateLinkedVolumes();
                 }

@@ -14,12 +14,14 @@ public class SoundManager : MonoBehaviour
     public enum Sound
     {
         Main,
-        Bgm,
-        Effect,
         Narration,
+        Effect,
+        Bgm,
         Max
     }
 
+    
+    private bool[] _isMute = new bool[(int)Sound.Max];
     private float[] _volumes = new float[(int)Sound.Max];
     public float[] VOLUME_MAX = new float[(int)Sound.Max];
     
@@ -83,10 +85,10 @@ public class SoundManager : MonoBehaviour
                 volumes = new float[(int)Sound.Max];
                 for (int i = 0; i < (int)Sound.Max; i++)
                 {
-                    // volumes[(int)Sound.Main] =      float.Parse(Managers.GetData(Define.SaveData.MainVolume));
-                    // volumes[(int)Sound.Bgm] =       float.Parse(Managers.GetData(Define.SaveData.Bgm));
-                    // volumes[(int)Sound.Effect] =    float.Parse(Managers.GetData(Define.SaveData.Effect));
-                    // volumes[(int)Sound.Narration] = float.Parse(Managers.GetData(Define.SaveData.Narration));;
+                    volumes[(int)Sound.Main] =      0.3f;  //float.Parse(Managers.GetData(Define.SaveData.MainVolume));
+                    volumes[(int)Sound.Bgm] =       0.3f;  //float.Parse(Managers.GetData(Define.SaveData.Bgm));
+                    volumes[(int)Sound.Effect] =    0.3f;  //float.Parse(Managers.GetData(Define.SaveData.Effect));
+                    volumes[(int)Sound.Narration] = 0.3f;  //float.Parse(Managers.GetData(Define.SaveData.Narration));;
                 }
                 for (int i = 0; i < (int)Sound.Max; i++)
                 {
@@ -130,6 +132,14 @@ public class SoundManager : MonoBehaviour
     
         if (type == Sound.Bgm)
         {
+            if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Bgm])
+            {
+#if UNITY_EDITOR
+                Debug.Log("Currently Bgm is on Mute");
+#endif
+                return false;
+            }
+            
             var audioClip = Resources.Load<AudioClip>(path);
             if (audioClip == null)
                 return false;
@@ -146,6 +156,13 @@ public class SoundManager : MonoBehaviour
 
         if (type == Sound.Effect)
         {
+            if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Effect])
+            {
+#if UNITY_EDITOR
+                Debug.Log("Currently Bgm is on Mute");
+#endif
+                return false;
+            }
             var audioClip = GetAudioClip(path);
             if (audioClip == null)
                 return false;
@@ -158,6 +175,13 @@ public class SoundManager : MonoBehaviour
 
         if (type == Sound.Narration)
         {
+            if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Narration])
+            {
+#if UNITY_EDITOR
+                Debug.Log("Currently Bgm is on Mute");
+#endif
+                return false;
+            }
             var audioClip = GetAudioClip(path);
             if (audioClip == null)
             {
@@ -251,6 +275,12 @@ public class SoundManager : MonoBehaviour
         var audioSource = audioSources[(int)type];
         audioSource.Stop();
     }
+    
+    public void Pause(Sound type)
+    {
+        var audioSource = audioSources[(int)type];
+        audioSource.Pause();
+    }
 
     public float GetAudioClipLength(string path)
     {
@@ -272,52 +302,31 @@ public class SoundManager : MonoBehaviour
     }
     
     
-    // Sound관련 메소드 (legacy) 가을낙엽 컨텐츠에서 사용중.
-    // 추후 가을소풍 전용으로 사용하도록 클래스 구분하거나 리팩토링 필요 12/18/23
-    public  void FadeOut(Sound type,float volumeTarget = 0, float waitTime = 0.3f,
-        float outDuration = 0.5f, bool rollBack = false)
+    public void SetMute(Sound sound,bool isMute = true)
     {
-        
-        var audioSource = audioSources[(int)type];
-        audioSource.DOFade(0f, outDuration)
-            .SetDelay(waitTime)
-            .OnComplete(() =>
+#if UNITY_EDITOR
+        Debug.Log($"{sound} is muted");
+#endif
+        if(isMute)
+            Pause(sound);
+        else
+        {
+            if (sound == Sound.Bgm)
             {
-                if (!rollBack)
-                    audioSource.Pause();
-                else
-                    audioSource.Stop();
-            });
-    }
-
-
-    // Sound관련 메소드 (legacy) 가을낙엽 컨텐츠에서 사용중.
-    // 추후 가을소풍 전용으로 사용하도록 클래스 구분하거나 리팩토링 필요 12/18/23
-    public static void FadeOutSound(AudioSource audioSource, float volumeTarget = 0, float waitTime = 0.5f,
-        float outDuration = 0.5f, bool rollBack = false)
-    {
-        audioSource.DOFade(0f, outDuration).SetDelay(waitTime).OnComplete(() =>
-        {
-#if UNITY_EDITOR
+                audioSources[(int)sound].Play();
+            }
+            if (sound == Sound.Effect)
+            {
+                Play(SoundManager.Sound.Effect, "Audio/Test_Effect");
+            }
+            if (sound == Sound.Narration)
+            {
+                Play(SoundManager.Sound.Narration, "Audio/Test_Narration");
+            }
            
-#endif
-            if (!rollBack)
-                audioSource.Pause();
-            else
-                audioSource.Stop();
-        });
+        }
+        _isMute[(int)sound] = isMute;
     }
-
-    public static void FadeInAndOutSound(AudioSource audioSource, float targetVolume = 1f, float inDuration = 0.5f,
-        float fadeWaitTime = 0.5f, float outDuration = 0.5f, bool rollBack = false)
-    {
-#if UNITY_EDITOR
-     
-#endif
-        audioSource.Play();
-        audioSource.DOFade(targetVolume, inDuration).OnComplete(() =>
-        {
-            FadeOutSound(audioSource, 0f, fadeWaitTime, outDuration, rollBack);
-        });
-    }
+    
+    
 }

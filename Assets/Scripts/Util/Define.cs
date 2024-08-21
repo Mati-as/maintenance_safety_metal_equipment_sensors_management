@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class Define
 {
+	public enum LanguageMode
+	{
+		Kor,
+		Eng
+	}
 
 	public enum QaulityLevel
 	{
