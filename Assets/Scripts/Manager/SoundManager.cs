@@ -83,10 +83,10 @@ public class SoundManager : MonoBehaviour
                 volumes = new float[(int)Sound.Max];
                 for (int i = 0; i < (int)Sound.Max; i++)
                 {
-                    volumes[(int)Sound.Main] =      float.Parse(Managers.GetData(Define.SaveData.MainVolume));
-                    volumes[(int)Sound.Bgm] =       float.Parse(Managers.GetData(Define.SaveData.Bgm));
-                    volumes[(int)Sound.Effect] =    float.Parse(Managers.GetData(Define.SaveData.Effect));
-                    volumes[(int)Sound.Narration] = float.Parse(Managers.GetData(Define.SaveData.Narration));;
+                    // volumes[(int)Sound.Main] =      float.Parse(Managers.GetData(Define.SaveData.MainVolume));
+                    // volumes[(int)Sound.Bgm] =       float.Parse(Managers.GetData(Define.SaveData.Bgm));
+                    // volumes[(int)Sound.Effect] =    float.Parse(Managers.GetData(Define.SaveData.Effect));
+                    // volumes[(int)Sound.Narration] = float.Parse(Managers.GetData(Define.SaveData.Narration));;
                 }
                 for (int i = 0; i < (int)Sound.Max; i++)
                 {

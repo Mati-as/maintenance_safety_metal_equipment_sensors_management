@@ -46,11 +46,13 @@ public abstract class UI_Base : MonoBehaviour
 
 	protected void BindObject(Type type) { Bind<GameObject>(type);  }
 	protected void BindImage(Type type) { Bind<Image>(type);  }
-	protected void BindText(Type type) { Bind<TextMeshProUGUI>(type);  }
+	protected void BindTMP(Type type) { Bind<TextMeshProUGUI>(type);  }
+	protected void BindText(Type type) { Bind<Text>(type);  }
 	protected void BindButton(Type type) { Bind<Button>(type);  }
 
 	
-	
+	protected void BindToggle(Type type) { Bind<Toggle>(type);  }
+	protected void BindSlider(Type type) { Bind<Slider>(type);  }
 	
 	
 	protected T Get<T>(int idx) where T : UnityEngine.Object
@@ -65,6 +67,8 @@ public abstract class UI_Base : MonoBehaviour
 	protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
 	protected TextMeshProUGUI GetText(int idx) { return Get<TextMeshProUGUI>(idx); }
 	protected Button GetButton(int idx) { return Get<Button>(idx); }
+	protected Slider GetSlider(int idx) { return Get<Slider>(idx); }
+	protected Toggle GetToggle(int idx) { return Get<Toggle>(idx); }
 	protected Image GetImage(int idx) { return Get<Image>(idx); }
 
 	public static void BindEvent(GameObject go, Action action, Define.UIEvent type = Define.UIEvent.Click)

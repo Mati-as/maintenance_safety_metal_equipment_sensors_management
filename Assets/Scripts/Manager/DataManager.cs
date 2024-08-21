@@ -39,8 +39,8 @@ public class DataManager
 
     public void Init()
     {
-        Texts = LoadXml<TextDataLoader, int, TextData>("TextData").MakeDict();
-        SaveData = LoadXml<SaveDataLoader, int, SaveData>("SettingData").MakeDict();
+      //  Texts = LoadXml<TextDataLoader, int, TextData>("TextData").MakeDict();
+      //  SaveData = LoadXml<SaveDataLoader, int, SaveData>("SettingData").MakeDict();
         
         // Start = LoadSingleXml<StartData>("StartData");
         // SalaryNegotiation = LoadSingleXml<SalaryNegotiationData>("SalaryNegotiationData");

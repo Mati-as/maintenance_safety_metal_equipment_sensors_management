@@ -23,4 +23,9 @@ public class ContentPlayManager
         set { _contentPlayData.Name = value; }
     }
 
+    public void Init()
+    {
+ 
+    }
+
 }

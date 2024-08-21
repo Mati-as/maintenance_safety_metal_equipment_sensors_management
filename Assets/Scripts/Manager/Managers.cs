@@ -71,7 +71,9 @@ public class Managers : MonoBehaviour
             s_dataManager.Init();
             s_sceneManager.Init();
             s_soundManager.Init();
+            _sContentPlayManager.Init();
 
+            Sound.Play(SoundManager.Sound.Bgm, "Bgm",0.1f);
             Application.targetFrameRate = 60;
         }
     }

@@ -6,7 +6,14 @@ using UnityEngine;
 
 public class Define
 {
-	
+
+	public enum QaulityLevel
+	{
+		Low =  1,
+		Mid =  2,
+		High = 4,
+		Auto = 3
+	}
 	public enum Scene
 	{
 		Unknown,

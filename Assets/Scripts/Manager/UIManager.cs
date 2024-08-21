@@ -7,6 +7,9 @@ public class UIManager
 {
 	int _order = -20;
 
+	private bool _isFullScreen;
+	public bool isFullScreen { get; set; }
+
 	Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
 
 	public UI_Scene SceneUI { get; private set; }
@@ -148,6 +151,13 @@ public class UIManager
 	public void SetResolution(int width, int height, bool fullscreen)
 	{
 		Screen.SetResolution(width, height, fullscreen);
+		isFullScreen = fullscreen;
+		// UI 레이아웃이나 스케일 조정을 위한 추가 로직을 여기에 추가
+	}
+	
+	public void SetGraphicQuality(Define.QaulityLevel qualityLevel)
+	{
+     	QualitySettings.SetQualityLevel((int)qualityLevel);
 		// UI 레이아웃이나 스케일 조정을 위한 추가 로직을 여기에 추가
 	}
 }
