@@ -15,17 +15,17 @@ public class UI_Setting : UI_Popup
      
     }
     
-   public enum GameObj
-   {
-       MainVolume,
-       Narration,
-       Effect,
-       Bgm,
-       Resolution,
-       GraphicQuality,
-       Language,
-       ControlGuideOn
-   }
+   // public enum GameObj
+   // {
+   //     MainVolume,
+   //     Narration,
+   //     Effect,
+   //     Bgm,
+   //     Resolution,
+   //     GraphicQuality,
+   //     Language,
+   //     ControlGuideOn
+   // }
 
    public enum Sliders
    {

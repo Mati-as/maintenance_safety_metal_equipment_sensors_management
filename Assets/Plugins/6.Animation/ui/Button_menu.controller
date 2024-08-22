@@ -36,7 +36,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: uion
+    m_ConditionEvent: UI_On
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 160126616492026444}
@@ -86,13 +86,13 @@ AnimatorController:
   m_Name: Button_menu
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: uion
+  - m_Name: UI_On
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: uioff
+  - m_Name: UI_Off
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -147,7 +147,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: uioff
+    m_ConditionEvent: UI_Off
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8678041378731173698}

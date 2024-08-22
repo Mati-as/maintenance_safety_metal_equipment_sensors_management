@@ -32,6 +32,8 @@ public class Define
 		Pressed,
 		PointerDown,
 		PointerUp,
+		PointerEnter,
+		PointerExit
 	}
 
 	public enum SaveData
