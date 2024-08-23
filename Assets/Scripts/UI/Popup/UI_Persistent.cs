@@ -12,7 +12,6 @@ public class UI_Persistent : UI_Popup
         Btn_FullMenu,
         Btn_Setting,
         Btn_Close
-        
     }
 
     private Animator _activationAnimator;
@@ -24,6 +23,7 @@ public class UI_Persistent : UI_Popup
         if (base.Init() == false)
             return false;
         
+        DontDestroyOnLoad(gameObject);
         
         // BindObject(typeof(GameObj));
         BindButton(typeof(Btns));
@@ -31,8 +31,17 @@ public class UI_Persistent : UI_Popup
         _activationAnimator = GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject.GetComponent<Animator>();
         GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject.BindEvent(OnMouseEnterActivationBtn,Define.UIEvent.PointerEnter);
         GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject.BindEvent(OnMouseExitActivationBtn,Define.UIEvent.PointerExit);
+        
+        GetButton((int)Btns.Btn_Main).gameObject.BindEvent(OnMainBtnClicked,Define.UIEvent.PointerUp);
+        GetButton((int)Btns.Btn_Help).gameObject.BindEvent(OnHelpBtnClicked,Define.UIEvent.PointerUp);
+        GetButton((int)Btns.Btn_FullMenu).gameObject.BindEvent(OnFullMenuBtnClicked,Define.UIEvent.PointerUp);
+        GetButton((int)Btns.Btn_Setting).gameObject.BindEvent(OnSettingBtnClicked,Define.UIEvent.PointerUp);
+        GetButton((int)Btns.Btn_Close).gameObject.BindEvent(OnloseBtnClicked,Define.UIEvent.PointerUp);
         return true;
     }
+
+
+    #region Mouse Hover Logic 
 
     private void OnMouseEnterActivationBtn()
     {
@@ -44,6 +53,55 @@ public class UI_Persistent : UI_Popup
         _activationAnimator.SetBool(UI_OFF,false);    
     }
     private void OnMouseExitActivationBtn()
+    {
+        DeactivatePersistentUI();
+    }
+
+
+
+    #endregion
+
+
+    #region Btn Methods
+
+    private void OnMainBtnClicked()
+    {
+
+        if (Managers.UI.FindPopup<UI_Main>() == null)
+        {
+            Managers.UI.ShowPopupUI<UI_Main>();
+        }
+    }
+
+    private void OnHelpBtnClicked()
+    {
+        Managers.UI.ShowPopupUI<UI_Help>();
+    }
+
+    private void OnFullMenuBtnClicked()
+    {
+        Managers.UI.ShowPopupUI<UI_FullMenu>();
+    }
+
+    private void OnSettingBtnClicked()
+    {
+        Managers.UI.ShowPopupUI<UI_Setting>();
+    }
+
+
+    private void OnloseBtnClicked()
+    {
+        DeactivatePersistentUI();
+    }
+
+    #endregion
+    
+    
+    
+    
+    
+
+    private void DeactivatePersistentUI()
     {
 #if UNITY_EDITOR
         Debug.Log("Deactivate PersistentUI");

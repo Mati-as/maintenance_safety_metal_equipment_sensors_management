@@ -7,7 +7,7 @@ public class Managers : MonoBehaviour
 
     private static SceneManagerEx s_sceneManager = new();
     private static SoundManager s_soundManager = new();
-    private static DataManager s_dataManager = new();
+    private static DataManager _sDataManager = new();
     private static UIManager s_uiManager = new();
     private static ContentPlayManager _sContentPlayManager = new(); 
     private static ResourceManager s_resourceManager = new ResourceManager();
@@ -19,7 +19,7 @@ public class Managers : MonoBehaviour
 
     //  public static GameManagerEx Game { get { Init(); return s_gameManager; } }
     public static DataManager Data
-    { get { Init(); return s_dataManager; }}
+    { get { Init(); return _sDataManager; }}
 
     public static ContentPlayManager ContentPlay;
     public static UIManager UI
@@ -41,13 +41,7 @@ public class Managers : MonoBehaviour
 
         return value.kor.Replace("{userName}", Managers.ContentPlay.Name);
     }
-    public static string GetData(Define.SaveData idx)
-    {
-        if (Managers.Data.SaveData.TryGetValue((int)idx, out SaveData value) == false)
-            return "null";
-        return value.StrVal;
 
-    }
 
     private void Start()
     {
@@ -64,19 +58,37 @@ public class Managers : MonoBehaviour
 
             s_instance = Utils.GetOrAddComponent<Managers>(go);
             DontDestroyOnLoad(go);
-
-            //   s_adsManager.Init();
-            //   s_iapManager.Init();
+            
+            //DataMAnager는 반드시 제일 먼저 초기화 되어야합니다.
+            _sDataManager.Init();
+            
+            
             s_resourceManager.Init();
-            s_dataManager.Init();
             s_sceneManager.Init();
             s_soundManager.Init();
             _sContentPlayManager.Init();
 
+            InitialSet();
 
-            UI.SetFullScreenMode(UIManager.FULLSCREEN_ON); 
-            UI.SetResolution(1920,1080,true); 
-            Application.targetFrameRate = 60;
         }
+    }
+
+    private static void InitialSet()
+    {
+        UI.SetScreenMode((int)(Managers.Data.Preference[(int)Define.Preferences.Fullscreen]) == 0 ? false : true);
+
+        var resolution = (int)(Managers.Data.Preference[(int)Define.Preferences.Resolution]);
+        switch (resolution)
+        {
+            case 1280:  UI.SetResolution(1280,720,UI.isFullScreen);
+                break;
+            case 1920: UI.SetResolution(1920,1080,UI.isFullScreen);
+                break;
+            case 2560: UI.SetResolution(2560,1440,UI.isFullScreen);
+                break;
+            
+        }
+            
+        Application.targetFrameRate = 60;
     }
 }

@@ -10,6 +10,7 @@ public class InitialScene : BaseScene
             return false;
 
         SceneType = Define.Scene.Dev;
+        Managers.UI.ShowPopupUI<UI_Main>();
         Managers.UI.ShowPopupUI<UI_Persistent>();
         Managers.Sound.Play(SoundManager.Sound.Bgm, "Bgm");
         Debug.Log("Init");

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Xml;
 using UnityEngine;
 using static Define;
 
@@ -70,5 +71,14 @@ public class Utils
 	const int Esa = 5050;
 	const int Sajang = 5060;
 
+    #region XML
+    public static void ReadXML(ref XmlDocument doc, string path)
+    {
+        var Document = new XmlDocument();
+        Document.Load(path);
+        doc = Document;
+    }
+    
 
+    #endregion
 }

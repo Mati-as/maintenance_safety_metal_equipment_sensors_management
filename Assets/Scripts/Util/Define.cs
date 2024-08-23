@@ -8,16 +8,34 @@ public class Define
 {
 	public enum LanguageMode
 	{
-		Kor,
-		Eng
+		Eng,
+		Kor
 	}
 
 	public enum QaulityLevel
 	{
 		Low =  1,
 		Mid =  2,
+		Auto = 3,
 		High = 4,
-		Auto = 3
+	}
+
+	public enum Preferences
+	{
+		MainVol,
+		NarrationVol,
+		EffectVol,
+		BgmVol,
+		Fullscreen,
+		Resolution,
+		GraphicQuality,
+		EngMode,
+		ControlGuide, 
+		//---------
+		Mute_Main,
+		Mute_Narration,
+		Mute_Effect,
+		Mute_Bgm
 	}
 	public enum Scene
 	{

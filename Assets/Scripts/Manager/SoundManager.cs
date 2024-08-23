@@ -83,12 +83,15 @@ public class SoundManager : MonoBehaviour
                 audioSources[(int)Sound.Bgm].loop = true;
 
                 volumes = new float[(int)Sound.Max];
+                
+                Debug.Assert(Managers.Data!=null);
+                
                 for (int i = 0; i < (int)Sound.Max; i++)
                 {
-                    volumes[(int)Sound.Main] =      0.3f;  //float.Parse(Managers.GetData(Define.SaveData.MainVolume));
-                    volumes[(int)Sound.Bgm] =       0.3f;  //float.Parse(Managers.GetData(Define.SaveData.Bgm));
-                    volumes[(int)Sound.Effect] =    0.3f;  //float.Parse(Managers.GetData(Define.SaveData.Effect));
-                    volumes[(int)Sound.Narration] = 0.3f;  //float.Parse(Managers.GetData(Define.SaveData.Narration));;
+                    volumes[(int)Sound.Main] =     Managers.Data.Preference[(int)Define.Preferences.MainVol];
+                    volumes[(int)Sound.Narration] =Managers.Data.Preference[(int)Define.Preferences.NarrationVol];
+                    volumes[(int)Sound.Effect] =   Managers.Data.Preference[(int)Define.Preferences.EffectVol];
+                    volumes[(int)Sound.Bgm] =      Managers.Data.Preference[(int)Define.Preferences.BgmVol];
                 }
                 for (int i = 0; i < (int)Sound.Max; i++)
                 {
@@ -300,33 +303,43 @@ public class SoundManager : MonoBehaviour
         _audioClips.Add(path, audioClip);
         return audioClip;
     }
-    
-    
-    public void SetMute(Sound sound,bool isMute = true)
+
+
+    public void SetMute(Sound sound, bool isMute = true)
     {
+        var kindOfSoundMute = (Define.Preferences)(-1);
+
+        if (isMute)
+        {
+            Pause(sound);
+        }
+
+        else
+        {
+            if (sound == Sound.Main) audioSources[(int)sound].Play();
+
+            if (sound == Sound.Bgm) audioSources[(int)sound].Play();
+            if (sound == Sound.Effect) Play(Sound.Effect, "Audio/Test_Effect");
+            if (sound == Sound.Narration) Play(Sound.Narration, "Audio/Test_Narration");
+        }
+
+        if (sound == Sound.Main) kindOfSoundMute = Define.Preferences.Mute_Main;
+
+        if (sound == Sound.Bgm) kindOfSoundMute = Define.Preferences.Mute_Bgm;
+        if (sound == Sound.Effect) kindOfSoundMute = Define.Preferences.Mute_Bgm;
+        if (sound == Sound.Narration) kindOfSoundMute = Define.Preferences.Mute_Bgm;
+
+        _isMute[(int)sound] = isMute;
+
+
+        if (isMute)
+            Managers.Data.Preference[(int)kindOfSoundMute] = 0;
+        else
+            Managers.Data.Preference[(int)kindOfSoundMute] = 1;
+
+
 #if UNITY_EDITOR
         Debug.Log($"{sound} is muted");
 #endif
-        if(isMute)
-            Pause(sound);
-        else
-        {
-            if (sound == Sound.Bgm)
-            {
-                audioSources[(int)sound].Play();
-            }
-            if (sound == Sound.Effect)
-            {
-                Play(SoundManager.Sound.Effect, "Audio/Test_Effect");
-            }
-            if (sound == Sound.Narration)
-            {
-                Play(SoundManager.Sound.Narration, "Audio/Test_Narration");
-            }
-           
-        }
-        _isMute[(int)sound] = isMute;
     }
-    
-    
 }

@@ -6,21 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class UIManager
 {
+	
+
+    
+	
+	
 	int _order = -20;
 
 	public static readonly bool KOR = false;
 	public static readonly bool ENG = true;
-	public static readonly bool FULLSCREEN_ON = false;
-	public static readonly bool FULLSCREEN_OFF = true;
-	public static readonly bool CONTROL_GUIDE_ON = false;
-	public static readonly bool CONTROL_GUIDE_OFF = true;
+	public static readonly bool FULLSCREEN_MODE = true;
+	public static readonly bool WINDOWED_MODE = false;
+	public static readonly bool CONTROL_GUIDE_ON = true;
+	public static readonly bool CONTROL_GUIDE_OFF = false;
 	
 	private bool _isFullScreen;
 	private bool _languageSetting;
 	private bool _isGuideOn;
+
 	public bool isFullScreen { get; set; }
 	public bool languageSetting { get; set; }
-	public bool isGuideOn { get; set; }
+	public bool GuideOn { get; set; }
 
 	Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
 
@@ -173,20 +179,22 @@ public class UIManager
 		// UI 레이아웃이나 스케일 조정을 위한 추가 로직을 여기에 추가
 	}
 
-	public void SetFullScreenMode(bool isFullScreenMode)
+	public void SetScreenMode(bool isFullScreenMode)
 	{
 #if UNITY_EDITOR
 		Debug.Log($"Full Screen mode is {isFullScreenMode}");
 #endif
 		Screen.fullScreen = isFullScreenMode;
+		isFullScreen = isFullScreenMode;
+		Managers.Data.Preference[(int)Define.Preferences.Fullscreen] = isFullScreenMode? 1 : 0;
 	}
 
-	public void SetLanguageMode(bool mode)
+	public void SetEngMode(bool mode)
 	{
 
 #if UNITY_EDITOR
 		string modename = mode ? "ENG" : "KOR";
-		Debug.Log($"Language mode is  {isGuideOn}");
+		Debug.Log($"Language mode is  {GuideOn}");
 #endif
 		this.languageSetting = mode;
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -197,6 +205,6 @@ public class UIManager
 #if UNITY_EDITOR
 		Debug.Log($"Control Guide Mode is {isGuideOn}");
 #endif
-		this.isGuideOn = isGuideOn;
+		this.GuideOn = isGuideOn;
 	}
 }
