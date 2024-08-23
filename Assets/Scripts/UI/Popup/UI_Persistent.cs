@@ -23,7 +23,7 @@ public class UI_Persistent : UI_Popup
         if (base.Init() == false)
             return false;
         
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         
         // BindObject(typeof(GameObj));
         BindButton(typeof(Btns));

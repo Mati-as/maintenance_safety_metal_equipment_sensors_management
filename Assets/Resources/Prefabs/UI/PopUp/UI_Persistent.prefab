@@ -97,10 +97,55 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4867704590334754402}
     m_Modifications:
+    - target: {fileID: 1572653484608325924, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572653484608325924, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572653484608325924, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572653484608325924, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572653484608325924, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -136.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1572653484608325925, guid: 1bec3aef72b462647bddf70b725b1818,
         type: 3}
       propertyPath: m_Name
       value: Btn_Logo_MenuActivation
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572653484767073623, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 48.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572653485204387853, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572653485204387853, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572653485204387853, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 1572653486461972185, guid: 1bec3aef72b462647bddf70b725b1818,
         type: 3}
@@ -110,12 +155,12 @@ PrefabInstance:
     - target: {fileID: 8773915654297402956, guid: 1bec3aef72b462647bddf70b725b1818,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -9.099976
       objectReference: {fileID: 0}
     - target: {fileID: 8773915654297402956, guid: 1bec3aef72b462647bddf70b725b1818,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 10.700012
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bec3aef72b462647bddf70b725b1818, type: 3}

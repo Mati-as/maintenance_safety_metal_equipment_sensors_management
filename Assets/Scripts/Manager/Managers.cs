@@ -86,7 +86,6 @@ public class Managers : MonoBehaviour
                 break;
             case 2560: UI.SetResolution(2560,1440,UI.isFullScreen);
                 break;
-            
         }
             
         Application.targetFrameRate = 60;

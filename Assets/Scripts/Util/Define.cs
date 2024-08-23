@@ -6,10 +6,16 @@ using UnityEngine;
 
 public class Define
 {
+	public static int NO = 0;
+	public static int YES = 1;
+	public static int OFF = 0;
+	public static int ON = 1;
+	public static bool YES_BOOL = true;
+	public static bool No_BOOL = false;
 	public enum LanguageMode
 	{
-		Eng,
-		Kor
+		Kor,
+		Eng
 	}
 
 	public enum QaulityLevel

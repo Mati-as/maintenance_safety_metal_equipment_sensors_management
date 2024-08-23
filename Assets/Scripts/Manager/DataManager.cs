@@ -19,7 +19,7 @@ public class DataManager
 
     public  float[] Preference = new float[Enum.GetValues(typeof(Define.Preferences)).Length];
 
-    private bool _init;
+
 
     private readonly string SavedData;
     private readonly string Preferences;
@@ -27,13 +27,12 @@ public class DataManager
 
     public void Init()
     {
-        if (_init) return;
-        
+      
         SetXMLPath();
         CheckAndGenerateXmlFile(nameof(SavedData), settingXmlPath);
         LoadSettingParams();
 
-        _init = true;
+
 
         //      Texts = LoadXml<TextDataLoader, int, TextData>($"{nameof(TextData)}").MakeDict();
     }
@@ -61,8 +60,8 @@ public class DataManager
 
     #region XML을 통한 세팅 초기화 및 저장
 
-    public static XmlDocument xmlDoc_Setting;
-    public static string settingXmlPath;
+    public  XmlDocument xmlDoc_Setting;
+    public  string settingXmlPath;
 
 
     private void SetXMLPath()
@@ -74,7 +73,7 @@ public class DataManager
 #endif
     }
 
-    private void LoadSettingParams()
+    public void LoadSettingParams()
     {
  // read the xml document
     Utils.ReadXML(ref xmlDoc_Setting, settingXmlPath);
@@ -107,6 +106,7 @@ public class DataManager
     // load fullscreen setting
     var fullscreen = node.Attributes[nameof(Define.Preferences.Fullscreen)].Value;
     Managers.Data.Preference[(int)Define.Preferences.Fullscreen] = int.Parse(fullscreen);
+    Debug.Log($"fullscreen Value On Load-----------------------{fullscreen}");
     
     // load resolution setting
     var resolution = node.Attributes[nameof(Define.Preferences.Resolution)].Value;
@@ -150,16 +150,16 @@ public class DataManager
 
         var setting = xmlDoc_Setting.CreateElement(nameof(SavedData));
         setting.SetAttribute(nameof(Define.Preferences.MainVol),
-            Managers.Data.Preference[(int)Define.Preferences.MainVol].ToString("F2"));
+            Managers.Data.Preference[(int)Define.Preferences.MainVol].ToString("F2",CultureInfo.InvariantCulture));
 
         setting.SetAttribute(nameof(Define.Preferences.BgmVol),
-            Managers.Data.Preference[(int)Define.Preferences.BgmVol].ToString("F2"));
+            Managers.Data.Preference[(int)Define.Preferences.BgmVol].ToString("F2",CultureInfo.InvariantCulture));
 
         setting.SetAttribute(nameof(Define.Preferences.EffectVol),
-            Managers.Data.Preference[(int)Define.Preferences.EffectVol].ToString("F2"));
+            Managers.Data.Preference[(int)Define.Preferences.EffectVol].ToString("F2",CultureInfo.InvariantCulture));
 
         setting.SetAttribute(nameof(Define.Preferences.NarrationVol),
-            Managers.Data.Preference[(int)Define.Preferences.NarrationVol].ToString("F2"));
+            Managers.Data.Preference[(int)Define.Preferences.NarrationVol].ToString("F2",CultureInfo.InvariantCulture));
 
         setting.SetAttribute(nameof(Define.Preferences.Fullscreen),
             Managers.Data.Preference[(int)Define.Preferences.Fullscreen].ToString());
@@ -199,35 +199,7 @@ public class DataManager
         WriteXML(xmlDoc_Setting, settingXmlPath);
     }
 
-    private int MapEnumToInt(Define.Preferences preference)
-    {
-        var isEnumDeclarationError = false;
-        switch (preference)
-        {
-            case Define.Preferences.MainVol:
-                return 0; // 적절한 int 값을 매핑
-            case Define.Preferences.BgmVol:
-                return 1;
-            case Define.Preferences.EffectVol:
-                return 2;
-            case Define.Preferences.NarrationVol:
-                return 3;
-            case Define.Preferences.Fullscreen:
-                return 4;
-            case Define.Preferences.Resolution:
-                return 5;
-            case Define.Preferences.GraphicQuality:
-                return 6;
-            case Define.Preferences.EngMode:
-                return 7;
-            case Define.Preferences.ControlGuide:
-                return 8;
-            default:
-                isEnumDeclarationError = true;
-                Debug.Assert(!isEnumDeclarationError);
-                return -1;
-        }
-    }
+
 
     public void CheckAndGenerateXmlFile(string fileName, string path)
     {

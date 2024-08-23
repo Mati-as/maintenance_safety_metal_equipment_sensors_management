@@ -6,11 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager
 {
-	
-
     
-	
-	
 	int _order = -20;
 
 	public static readonly bool KOR = false;
@@ -21,11 +17,27 @@ public class UIManager
 	public static readonly bool CONTROL_GUIDE_OFF = false;
 	
 	private bool _isFullScreen;
-	private bool _languageSetting;
 	private bool _isGuideOn;
 
 	public bool isFullScreen { get; set; }
-	public bool languageSetting { get; set; }
+	
+	private int _languageSetting;
+	public int languageSetting
+	{
+		get
+		{
+			return _languageSetting;
+		}
+		set
+		{
+			if (value != _languageSetting)
+			{
+				_languageSetting = value;
+		
+			}
+		}
+	}
+
 	public bool GuideOn { get; set; }
 
 	Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
@@ -181,23 +193,27 @@ public class UIManager
 
 	public void SetScreenMode(bool isFullScreenMode)
 	{
-#if UNITY_EDITOR
-		Debug.Log($"Full Screen mode is {isFullScreenMode}");
-#endif
+
 		Screen.fullScreen = isFullScreenMode;
 		isFullScreen = isFullScreenMode;
-		Managers.Data.Preference[(int)Define.Preferences.Fullscreen] = isFullScreenMode? 1 : 0;
+		Managers.Data.Preference[(int)Define.Preferences.Fullscreen] = isFullScreenMode? Define.YES : Define.NO ;
+#if UNITY_EDITOR
+		Debug.Log($"Full Screen mode is {isFullScreenMode} :Preference{	Managers.Data.Preference[(int)Define.Preferences.Fullscreen]}");
+#endif
 	}
+	
+	
 
-	public void SetEngMode(bool mode)
+	public void SetEngMode(bool isEngMode)
 	{
 
 #if UNITY_EDITOR
-		string modename = mode ? "ENG" : "KOR";
-		Debug.Log($"Language mode is  {GuideOn}");
+		string modename = isEngMode ? "ENG" : "KOR";
+		Debug.Log($"EngMode is  {isEngMode}");
 #endif
-		this.languageSetting = mode;
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		
+		Managers.Data.Preference[(int)Define.Preferences.EngMode] = isEngMode? Define.YES  : Define.NO;
+	
 	}
 
 	public void SetControlGuideOnMode(bool isGuideOn)
@@ -206,5 +222,6 @@ public class UIManager
 		Debug.Log($"Control Guide Mode is {isGuideOn}");
 #endif
 		this.GuideOn = isGuideOn;
+		Managers.Data.Preference[(int)Define.Preferences.ControlGuide] = GuideOn? Define.YES : Define.NO ;
 	}
 }
