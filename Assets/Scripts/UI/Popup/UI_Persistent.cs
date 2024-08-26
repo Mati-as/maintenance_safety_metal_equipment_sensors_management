@@ -16,14 +16,15 @@ public class UI_Persistent : UI_Popup
 
     private Animator _activationAnimator;
     private readonly int UI_ON = Animator.StringToHash("UI_On");
-    private readonly int UI_OFF = Animator.StringToHash("UI_Off");
     private readonly Text[] hoverTexts = new Text[Enum.GetValues(typeof(Btns)).Length];
 
+    private Canvas _canvas;
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
- 
+
+        gameObject.GetComponent<Canvas>().sortingOrder = 20;
         BindButton(typeof(Btns));
         
 
@@ -34,6 +35,12 @@ public class UI_Persistent : UI_Popup
                 OnMouseEnterActivationBtn();
             }, Define.UIEvent.PointerEnter);
         
+        GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject
+            .BindEvent(() =>
+            {
+                OnMouseExitFromActivationBtn();
+            }, Define.UIEvent.PointerExit);
+
         
         SetupButton((int)Btns.Btn_Main, OnMainBtnClicked);
         SetupButton((int)Btns.Btn_Help, OnHelpBtnClicked);
@@ -66,10 +73,9 @@ public class UI_Persistent : UI_Popup
         Debug.Log("Hover Animation Activating");
 #endif
         _activationAnimator.SetBool(UI_ON, true);
-        _activationAnimator.SetBool(UI_OFF, false);
     }
 
-    private void OnMouseExitActivationBtn()
+    private void OnMouseExitFromActivationBtn()
     {
         DeactivatePersistentUI();
     }
@@ -81,7 +87,9 @@ public class UI_Persistent : UI_Popup
 
     private void OnMainBtnClicked()
     {
+        Managers.UI.CloseAllPopupUI();
         if (Managers.UI.FindPopup<UI_Main>() == null) Managers.UI.ShowPopupUI<UI_Main>();
+        if (Managers.UI.FindPopup<UI_Persistent>() == null) Managers.UI.ShowPopupUI<UI_Persistent>();
     }
 
     private void OnHelpBtnClicked()
@@ -117,7 +125,6 @@ public class UI_Persistent : UI_Popup
 #if UNITY_EDITOR
         Debug.Log("Deactivate PersistentUI");
 #endif
-        _activationAnimator.SetBool(UI_OFF, true);
         _activationAnimator.SetBool(UI_ON, false);
     }
 }

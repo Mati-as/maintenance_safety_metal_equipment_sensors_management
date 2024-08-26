@@ -24,7 +24,7 @@ public class UI_Main : UI_Popup
 
     private void OnMainStartBtnClicked()
     {
-
+        Managers.UI.ClosePopupUI(this);
         Managers.UI.ShowPopupUI<UI_DepthSelection>();
 #if UNITY_EDITOR
         Debug.Log("Main Content Start");

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Managers : MonoBehaviour
 {
@@ -9,14 +10,14 @@ public class Managers : MonoBehaviour
     private static SoundManager s_soundManager = new();
     private static DataManager _sDataManager = new();
     private static UIManager s_uiManager = new();
-    private static ContentPlayManager _sContentPlayManager = new(); 
+    private static ContentPlayManager s_contentPlayManager = new(); 
     private static ResourceManager s_resourceManager = new ResourceManager();
     
     
     public static DataManager Data
     { get { Init(); return _sDataManager; }}
 
-    public static ContentPlayManager ContentPlay;
+    public static ContentPlayManager ContentPlayManager  { get { Init(); return s_contentPlayManager;}}
     public static UIManager UI
     { get { Init(); return s_uiManager;}}
      public static ResourceManager Resource { get { Init(); return s_resourceManager; } }
@@ -27,12 +28,12 @@ public class Managers : MonoBehaviour
     public static SoundManager Sound
     { get { Init(); return s_soundManager; }}
 
-    public string GetText(int id)
+    public static string GetText(int id)
     {
         if (Managers.Data.Texts.TryGetValue(id, out TextData value) == false)
             return null;
 
-        return value.kor.Replace("{userName}", Managers.ContentPlay.Name);
+        return Data.Preference[(int)Define.Preferences.EngMode] == 0 ? value.kor:value.eng;
     }
 
 
@@ -59,7 +60,7 @@ public class Managers : MonoBehaviour
             s_resourceManager.Init();
             s_sceneManager.Init();
             s_soundManager.Init();
-            _sContentPlayManager.Init();
+            s_contentPlayManager.Init();
 
             InitialSet();
 
@@ -68,6 +69,7 @@ public class Managers : MonoBehaviour
 
     private static void InitialSet()
     {
+        
         UI.SetScreenMode((int)(Managers.Data.Preference[(int)Define.Preferences.Fullscreen]) == 0 ? false : true);
 
         var resolution = (int)(Managers.Data.Preference[(int)Define.Preferences.Resolution]);

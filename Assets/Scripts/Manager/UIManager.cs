@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager
 {
@@ -22,6 +25,51 @@ public class UIManager
 	public bool isFullScreen { get; set; }
 	
 	private int _languageSetting;
+	
+	
+// 	
+// 	//Cavnas 관련
+// 	public GraphicRaycaster GR;
+// 	public PointerEventData PED { get; private set; }
+// 	public List<RaycastResult> RaycastResults { get; protected set; }
+// 	public Vector3 screenPosition;
+// 	public Button btn;
+// 	public InputAction _mouseAction;
+// 	public void Init()
+// 	{
+// 		_mouseAction = new InputAction("Space", binding: "<Mouse>/leftButton", interactions: "press");
+// 		_mouseAction.performed += OnKeyPressed;
+// 	}
+// 	public void OnKeyPressed(InputAction.CallbackContext context)
+// 	{
+// 		//UI클릭을 위한 RayCast를 발생 및 Ray저장 
+// 		ShootRay();
+// 	}
+// 	public virtual void ShootRay()
+// 	{
+// 		//마우스 및 포인터 위치를 기반으로 하고싶은경우.
+// 		screenPosition = Mouse.current.position.ReadValue();
+//
+// 		PED.position = screenPosition;
+//
+// 		RaycastResults = new List<RaycastResult>();
+// 		GR.Raycast(PED, RaycastResults);
+//         
+// 		foreach (RaycastResult result in RaycastResults)
+// 		{
+// 			result.gameObject.TryGetComponent(out btn);
+// 			btn?.onClick?.Invoke();
+//             
+// 			result.gameObject.TryGetComponent(out UI_EventHandler eventHandler);
+// 			eventHandler?.OnClickHandler?.Invoke();
+// 		}
+//
+//
+//
+// #if UNITY_EDITOR
+//
+// #endif
+// 	}
 	public int languageSetting
 	{
 		get
@@ -43,6 +91,8 @@ public class UIManager
 	Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
 
 	public UI_Scene SceneUI { get; private set; }
+
+
 
 	public GameObject Root
 	{

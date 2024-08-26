@@ -19,8 +19,7 @@ public class TextData
 [Serializable, XmlRoot("ArrayOfTextData")]
 public class TextDataLoader : ILoader<int, TextData>
 {
-	public TextDataLoader()
-	{}
+	public TextDataLoader(){}
 	[XmlElement("TextData")]
 	public List<TextData> _textData = new List<TextData>();
 

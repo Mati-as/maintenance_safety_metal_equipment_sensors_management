@@ -32,9 +32,9 @@ public class DataManager
         CheckAndGenerateXmlFile(nameof(SavedData), settingXmlPath);
         LoadSettingParams();
 
+     
 
-
-        //      Texts = LoadXml<TextDataLoader, int, TextData>($"{nameof(TextData)}").MakeDict();
+        Texts = LoadXml<TextDataLoader, int, TextData>($"{nameof(TextData)}").MakeDict();
     }
 
     private Item LoadSingleXml<Item>(string name)
