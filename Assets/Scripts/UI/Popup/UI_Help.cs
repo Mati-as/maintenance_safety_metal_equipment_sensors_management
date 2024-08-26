@@ -2,6 +2,8 @@ public class UI_Help : UI_Popup
 {
     private enum Btns
     {
+        Prev,
+        Next,
         Btn_Close
     }
 

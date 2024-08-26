@@ -97,6 +97,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4867704590334754402}
     m_Modifications:
+    - target: {fileID: 233633102072387263, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 148
+      objectReference: {fileID: 0}
+    - target: {fileID: 233633102072387263, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -41
+      objectReference: {fileID: 0}
+    - target: {fileID: 331233961590901954, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_Name
+      value: HoverText
+      objectReference: {fileID: 0}
+    - target: {fileID: 331233961590901954, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 926241988294376392, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_Name
+      value: HoverText
+      objectReference: {fileID: 0}
+    - target: {fileID: 926241988294376392, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514683069964194195, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514683069964194195, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -84
+      objectReference: {fileID: 0}
     - target: {fileID: 1572653484608325924, guid: 1bec3aef72b462647bddf70b725b1818,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -151,6 +191,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Persistent_Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1999646461463424399, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_Text
+      value: "\uC804\uCCB4\uBA54\uB274"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2003204190329832785, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_Name
+      value: HoverText
+      objectReference: {fileID: 0}
+    - target: {fileID: 2003204190329832785, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695709493206094824, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_Name
+      value: HoverText
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695709493206094824, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247892324350261084, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8773915654297402956, guid: 1bec3aef72b462647bddf70b725b1818,
         type: 3}

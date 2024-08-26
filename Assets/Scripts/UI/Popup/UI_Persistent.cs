@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Persistent : UI_Popup
 {
@@ -15,49 +15,64 @@ public class UI_Persistent : UI_Popup
     }
 
     private Animator _activationAnimator;
-    private int UI_ON = Animator.StringToHash("UI_On");
-    private int UI_OFF = Animator.StringToHash("UI_Off");
-   
+    private readonly int UI_ON = Animator.StringToHash("UI_On");
+    private readonly int UI_OFF = Animator.StringToHash("UI_Off");
+    private readonly Text[] hoverTexts = new Text[Enum.GetValues(typeof(Btns)).Length];
+
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
-        
-        //DontDestroyOnLoad(gameObject);
-        
-        // BindObject(typeof(GameObj));
+ 
         BindButton(typeof(Btns));
+        
 
         _activationAnimator = GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject.GetComponent<Animator>();
-        GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject.BindEvent(OnMouseEnterActivationBtn,Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject.BindEvent(OnMouseExitActivationBtn,Define.UIEvent.PointerExit);
+        GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject
+            .BindEvent(() =>
+            {
+                OnMouseEnterActivationBtn();
+            }, Define.UIEvent.PointerEnter);
         
-        GetButton((int)Btns.Btn_Main).gameObject.BindEvent(OnMainBtnClicked,Define.UIEvent.PointerUp);
-        GetButton((int)Btns.Btn_Help).gameObject.BindEvent(OnHelpBtnClicked,Define.UIEvent.PointerUp);
-        GetButton((int)Btns.Btn_FullMenu).gameObject.BindEvent(OnFullMenuBtnClicked,Define.UIEvent.PointerUp);
-        GetButton((int)Btns.Btn_Setting).gameObject.BindEvent(OnSettingBtnClicked,Define.UIEvent.PointerUp);
-        GetButton((int)Btns.Btn_Close).gameObject.BindEvent(OnloseBtnClicked,Define.UIEvent.PointerUp);
+        
+        SetupButton((int)Btns.Btn_Main, OnMainBtnClicked);
+        SetupButton((int)Btns.Btn_Help, OnHelpBtnClicked);
+        SetupButton((int)Btns.Btn_FullMenu, OnFullMenuBtnClicked);
+        SetupButton((int)Btns.Btn_Setting, OnSettingBtnClicked);
+        SetupButton((int)Btns.Btn_Close, OnCloseBtnClicked);
+
         return true;
     }
 
+    // 버튼 설정을 위한 공통 메서드 입니다.
+    private void SetupButton(int btnIndex, Action onClickAction)
+    {
+        // 클릭 Up 이벤트 설정
+        GetButton(btnIndex).gameObject.BindEvent(onClickAction, Define.UIEvent.PointerUp);
 
-    #region Mouse Hover Logic 
+        // 텍스트 설정
+        hoverTexts[btnIndex] = GetButton(btnIndex).GetComponentInChildren<Text>();
+        hoverTexts[btnIndex].gameObject.SetActive(false);
+
+        // 마우스 포인터 이벤트 설정
+        GetButton(btnIndex).gameObject.BindEvent(() => { SetHoverText(btnIndex); }, Define.UIEvent.PointerEnter);
+        GetButton(btnIndex).gameObject.BindEvent(() => { SetHoverText(btnIndex, false); }, Define.UIEvent.PointerExit);
+    }
+    #region Mouse Hover Logic
 
     private void OnMouseEnterActivationBtn()
     {
-        
 #if UNITY_EDITOR
         Debug.Log("Hover Animation Activating");
 #endif
-        _activationAnimator.SetBool(UI_ON,true);    
-        _activationAnimator.SetBool(UI_OFF,false);    
+        _activationAnimator.SetBool(UI_ON, true);
+        _activationAnimator.SetBool(UI_OFF, false);
     }
+
     private void OnMouseExitActivationBtn()
     {
         DeactivatePersistentUI();
     }
-
-
 
     #endregion
 
@@ -66,11 +81,7 @@ public class UI_Persistent : UI_Popup
 
     private void OnMainBtnClicked()
     {
-
-        if (Managers.UI.FindPopup<UI_Main>() == null)
-        {
-            Managers.UI.ShowPopupUI<UI_Main>();
-        }
+        if (Managers.UI.FindPopup<UI_Main>() == null) Managers.UI.ShowPopupUI<UI_Main>();
     }
 
     private void OnHelpBtnClicked()
@@ -89,26 +100,24 @@ public class UI_Persistent : UI_Popup
     }
 
 
-    private void OnloseBtnClicked()
+    private void OnCloseBtnClicked()
     {
         DeactivatePersistentUI();
     }
 
     #endregion
-    
-    
-    
-    
-    
+
+    public void SetHoverText(int idx, bool isOn = true)
+    {
+        hoverTexts[idx].gameObject.SetActive(isOn);
+    }
 
     private void DeactivatePersistentUI()
     {
 #if UNITY_EDITOR
         Debug.Log("Deactivate PersistentUI");
 #endif
-        _activationAnimator.SetBool(UI_OFF,true);    
-        _activationAnimator.SetBool(UI_ON,false);    
+        _activationAnimator.SetBool(UI_OFF, true);
+        _activationAnimator.SetBool(UI_ON, false);
     }
-    
-    
 }

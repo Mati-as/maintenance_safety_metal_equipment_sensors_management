@@ -18,12 +18,14 @@ public class UI_Main : UI_Popup
      
         BindButton(typeof(Btns));
 
-        GetButton((int)Btns.Btn_Start).gameObject.BindEvent(OnMainStartBtnClicked, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.Btn_Start).gameObject.BindEvent(OnMainStartBtnClicked, Define.UIEvent.PointerUp);
         return true;
     }
 
     private void OnMainStartBtnClicked()
     {
+
+        Managers.UI.ShowPopupUI<UI_DepthSelection>();
 #if UNITY_EDITOR
         Debug.Log("Main Content Start");
 #endif

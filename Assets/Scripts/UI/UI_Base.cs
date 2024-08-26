@@ -31,6 +31,9 @@ public abstract class UI_Base : MonoBehaviour
 		UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
 		_objects.Add(typeof(T), objects);
 
+#if UNITY_EDITOR
+		Debug.Log($"object counts to bind {names.Length}");
+#endif
 		for (int i = 0; i < names.Length; i++)
 		{
 			if (typeof(T) == typeof(GameObject))
