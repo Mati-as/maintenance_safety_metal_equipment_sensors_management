@@ -31,10 +31,10 @@ public class UI_DepthSelection : UI_Popup
         Debug.Log("Depth 1 기본학습 Start");
 #endif
 
-        Managers.ContentPlayManager.PlayData.Depth1 = 1;
-        Managers.ContentPlayManager.PlayData.Depth2 = 1;
-        Managers.ContentPlayManager.PlayData.Depth3 = 1;
-        Managers.ContentPlayManager.PlayData.Count = 1;
+        Managers.ContentInfo.PlayData.Depth1 = 1;
+        Managers.ContentInfo.PlayData.Depth2 = 1;
+        Managers.ContentInfo.PlayData.Depth3 = 1;
+        Managers.ContentInfo.PlayData.Count = 1;
     }
 
     private void OnDepthBtnBClicked()
@@ -44,10 +44,10 @@ public class UI_DepthSelection : UI_Popup
 #if UNITY_EDITOR
         Debug.Log("Depth 2 안전 관리 Start");
 #endif
-        Managers.ContentPlayManager.PlayData.Depth1 = 2;
-        Managers.ContentPlayManager.PlayData.Depth2 = 1;
-        Managers.ContentPlayManager.PlayData.Depth3 = 1;
-        Managers.ContentPlayManager.PlayData.Count = 1;
+        Managers.ContentInfo.PlayData.Depth1 = 2;
+        Managers.ContentInfo.PlayData.Depth2 = 1;
+        Managers.ContentInfo.PlayData.Depth3 = 1;
+        Managers.ContentInfo.PlayData.Count = 1;
     }
 
     private void OnDepthCtnCClicked()
@@ -58,9 +58,9 @@ public class UI_DepthSelection : UI_Popup
         Debug.Log("Depth 3 계측 센서 정비 Start");
 #endif
 
-        Managers.ContentPlayManager.PlayData.Depth1 = 3;
-        Managers.ContentPlayManager.PlayData.Depth2 = 1;
-        Managers.ContentPlayManager.PlayData.Depth3 = 1;
-        Managers.ContentPlayManager.PlayData.Count = 1;
+        Managers.ContentInfo.PlayData.Depth1 = 3;
+        Managers.ContentInfo.PlayData.Depth2 = 1;
+        Managers.ContentInfo.PlayData.Depth3 = 1;
+        Managers.ContentInfo.PlayData.Count = 1;
     }
 }

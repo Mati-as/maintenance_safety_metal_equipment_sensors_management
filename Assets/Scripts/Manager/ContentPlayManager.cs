@@ -9,13 +9,19 @@ using UnityEngine;
 /// </summary>
 public class ContentPlayData
 {
-
+    public static Dictionary<int, int> DEPTH_TWO_COUNT_DATA = new Dictionary<int, int>
+    {
+        { 1, 2 }, //depth1 +depth2 , Depth3갯수
+        { 2, 3 },
+        { 3, 5 },
+   
+    };
     public static Dictionary<int, int> DEPTH_THREE_COUNT_DATA = new Dictionary<int, int>
     {
-        { 11, 1 }, //depth1 +depth2 , Depth3갯수
+        { 11, 1 }, //depth1 +depth2 , Depth3갯수 // 1-1 뎁스에는 1개의 depth3가 있음
         { 12, 5 },
         { 21, 1 },
-        { 22, 2 },
+        { 22, 1 },
         { 23, 3 },
         { 31, 3 },
         { 32, 3 },
@@ -23,6 +29,7 @@ public class ContentPlayData
         { 34, 3 },
         { 35, 3 }
     };
+
     public enum CurrentDepthData
     {
         Depth1, //UI- approachable

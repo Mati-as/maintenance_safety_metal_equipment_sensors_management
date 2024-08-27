@@ -17,7 +17,7 @@ public class Managers : MonoBehaviour
     public static DataManager Data
     { get { Init(); return _sDataManager; }}
 
-    public static ContentPlayManager ContentPlayManager  { get { Init(); return s_contentPlayManager;}}
+    public static ContentPlayManager ContentInfo  { get { Init(); return s_contentPlayManager;}}
     public static UIManager UI
     { get { Init(); return s_uiManager;}}
      public static ResourceManager Resource { get { Init(); return s_resourceManager; } }
