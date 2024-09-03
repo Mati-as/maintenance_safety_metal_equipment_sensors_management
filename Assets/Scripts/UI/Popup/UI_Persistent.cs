@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Persistent : UI_Popup
+public class UI_Persistent : UI_Scene
 {
     private enum Btns
     {
@@ -24,6 +24,10 @@ public class UI_Persistent : UI_Popup
         if (base.Init() == false)
             return false;
 
+#if UNITY_EDITOR
+        Debug.Log("Main 화면 구성--------------------------");
+#endif
+        
         gameObject.GetComponent<Canvas>().sortingOrder = 20;
         BindButton(typeof(Btns));
         
@@ -88,8 +92,9 @@ public class UI_Persistent : UI_Popup
     private void OnMainBtnClicked()
     {
         Managers.UI.CloseAllPopupUI();
+        
         if (Managers.UI.FindPopup<UI_Main>() == null) Managers.UI.ShowPopupUI<UI_Main>();
-        if (Managers.UI.FindPopup<UI_Persistent>() == null) Managers.UI.ShowPopupUI<UI_Persistent>();
+        //if (Managers.UI.SceneUI<UI_Persistent>() == null) Managers.UI.ShowSceneUI<UI_Persistent>();
     }
 
     private void OnHelpBtnClicked()

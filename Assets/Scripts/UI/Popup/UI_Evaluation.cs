@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Evaluation : MonoBehaviour
+public class UI_Evaluation : UI_Popup
 {
-    // Start is called before the first frame update
-    void Start()
+    private enum Btns
     {
-        
+        Btn_Close
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public override bool Init()
     {
-        
+        if (base.Init() == false)
+            return false;
+
+
+        // BindObject(typeof(GameObj));
+        BindButton(typeof(Btns));
+
+        GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() => { Managers.UI.ClosePopupUI(this); });
+
+        return true;
     }
 }

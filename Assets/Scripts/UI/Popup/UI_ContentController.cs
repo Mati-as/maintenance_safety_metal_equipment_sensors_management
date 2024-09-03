@@ -19,7 +19,7 @@ public class UI_ContentController : UI_Popup
         Btn_TopMenu_Hide,
         Btn_Script_Hide,
         Btn_ThirdDepth_Hide,
-        Btn_GuideBook,
+        Btn_Help,
         Btn_Evaluation,
      //  UI_Depth3_List, // Active Area
         //
@@ -28,7 +28,7 @@ public class UI_ContentController : UI_Popup
         Depth3_C,
         Depth3_D,
         Depth3_E,
-        ActiveArea
+        
     }
 
     public enum Toggles
@@ -45,7 +45,12 @@ public class UI_ContentController : UI_Popup
         UI_Top,
         UI_TextBox,
         UI_Instruction,
-        UI_Depth3_List
+        UI_Depth3_List,
+        ActiveArea,
+        InactiveAreaA,
+        InactiveAreaB,
+        InactiveAreaC,
+        InactiveAreaD,
     }
 
 
@@ -88,7 +93,7 @@ public class UI_ContentController : UI_Popup
     {
         if (base.Init() == false)
             return false;
-
+        if (Managers.UI.FindPopup<UI_Main>() != null) Managers.UI.ClosePopupUI(Managers.UI.FindPopup<UI_Main>());
 
         BindButton(typeof(Btns));
         BindToggle(typeof(Toggles));
@@ -136,6 +141,7 @@ public class UI_ContentController : UI_Popup
 
         Debug.Log($" UI Text Lengths {texts.Length} ");
 
+        GetObject((int)UI.UI_Depth3_List).BindEvent(OnDepth3BtnAreaEnter);
 
      
         
@@ -187,15 +193,15 @@ public class UI_ContentController : UI_Popup
         
         
         GetButton((int)Btns.Depth3_A).gameObject
-            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerExit);
+            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerEnter);
         GetButton((int)Btns.Depth3_B).gameObject
-            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerExit);
+            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerEnter);
         GetButton((int)Btns.Depth3_C).gameObject
-            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerExit);
+            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerEnter);
         GetButton((int)Btns.Depth3_D).gameObject
-            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerExit);
+            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerEnter);
         GetButton((int)Btns.Depth3_E).gameObject
-            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerExit);
+            .BindEvent(() => { OnDepth3BtnEnter(); },Define.UIEvent.PointerEnter);
         
         
         GetButton((int)Btns.Depth3_A).gameObject
@@ -210,17 +216,28 @@ public class UI_ContentController : UI_Popup
             .BindEvent(() => { OnDepth3ABtnExit(); },Define.UIEvent.PointerExit);
    
         
-        GetButton((int)Btns.ActiveArea).gameObject
+        GetObject((int)UI.ActiveArea)
             .BindEvent(() => { OnDpeth3ActiveAreaEnter(); },Define.UIEvent.PointerEnter);
         
-        GetButton((int)Btns.ActiveArea).gameObject
-            .BindEvent(() => { OnDpeth3ActiveAreaExit(); },Define.UIEvent.PointerExit);
         
+        
+        GetObject((int)UI.InactiveAreaA)
+            .BindEvent(() => { InactiveAreaEnter(); },Define.UIEvent.PointerEnter);
+
+        GetObject((int)UI.InactiveAreaB)
+            .BindEvent(() => { InactiveAreaEnter(); },Define.UIEvent.PointerEnter);
+
+        GetObject((int)UI.InactiveAreaC)
+            .BindEvent(() => { InactiveAreaEnter(); },Define.UIEvent.PointerEnter);
+
+        GetObject((int)UI.InactiveAreaD)
+            .BindEvent(() => { InactiveAreaEnter(); },Define.UIEvent.PointerEnter);
 
         
+    
         _heightPerDepth3Btn = GetButton((int)Btns.Depth3_A).GetComponent<RectTransform>().sizeDelta.y;
-        _activeAreaRect = GetButton((int)Btns.ActiveArea).gameObject.GetComponent<RectTransform>();
-      
+        _activeAreaRect = GetObject((int)UI.ActiveArea).GetComponent<RectTransform>();
+       
         
         for (int i = 0; i < texts.Length; i++)
         {
@@ -229,7 +246,9 @@ public class UI_ContentController : UI_Popup
         }
 
        
-        
+        GetButton((int)Btns.Btn_Help).gameObject.BindEvent(() => { Managers.UI.ShowPopupUI<UI_Help>();});
+        GetButton((int)Btns.Btn_Evaluation).gameObject.BindEvent(() => { Managers.UI.ShowPopupUI<UI_Evaluation>();});
+
         GetToggle((int)Toggles.Toggle_Depth2_A).isOn = true;
         Refresh();
         return true;
@@ -330,6 +349,7 @@ public class UI_ContentController : UI_Popup
         Precheck();
         Managers.ContentInfo.PlayData.Depth2 = depth2;
         Managers.ContentInfo.PlayData.Depth3 = 1;
+
         ChangeInstructionTextWithAnim();
 
         
@@ -387,7 +407,7 @@ public class UI_ContentController : UI_Popup
     /// <summary>
     /// Text,UI  total Refresh
     /// </summary>
-    private void Refresh()
+    public void Refresh()
     {
         RefreshUI();
         RefreshText();
@@ -430,27 +450,30 @@ public class UI_ContentController : UI_Popup
 
     }
 
-    private bool isOnActiveArea; // 뎁스3내용 Hover시 표출. 표출이후에도 내용범위에 머물러있으면 Hover상태 유지
-    private void OnDpeth3ActiveAreaExit()
+    private bool isOnActiveArea;// 뎁스3내용 Hover시 표출. 표출이후에도 내용범위에 머물러있으면 Hover상태 유지
+    private bool isOn3depthArea;
+    private void InactiveAreaEnter()
     {
+
         isOnActiveArea = false;
-        Debug.Log("3depth UI off ---------------------");
-        GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(false);
+
+        if (isOnActiveArea) return;
+            GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(false);
+            Debug.Log("3depth UI off ---------------------");
+        
+      
+       
     }
 
     private void OnDpeth3ActiveAreaEnter()
     {
         if (_isTopMenuOn)
         {
+            Debug.Log("3depth UI On ---------------------");
             isOnActiveArea = true;
             GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(true);
         }
        
-    }
-
-    private void OnDepth3ABtnExit()
-    {
-     //Animatiorn
     }
 
 
@@ -459,9 +482,11 @@ public class UI_ContentController : UI_Popup
        
         Precheck();
         Managers.ContentInfo.PlayData.Depth3 = depth3Num;
-        Managers.ContentInfo.PlayData.ResetOrSetDepthCount();
+      //  Managers.ContentInfo.PlayData.ResetOrSetDepthCount(depth3Num);
 
-        
+#if UNITY_EDITOR
+        Debug.Log($"current Status{Managers.ContentInfo.PlayData.CurrentDepthStatus}");
+#endif
         
         for (int i = (int)Btns.Depth3_A; i < (int)Btns.Depth3_E + 1; i++)
         {
@@ -491,11 +516,32 @@ public class UI_ContentController : UI_Popup
     }
     private void OnDepth3BtnEnter()
     {
-   // OnAnimation
+       
+    }
+    
+    private void OnDepth3BtnAreaEnter()
+    {
+       
+        // OnAnimation
+    }
+
+    
+    private void OnDepth3ABtnExit()
+    {
+        isOn3depthArea = false;
+        //Animatiorn
+    }
+
+    
+    
+    private void OnDepth3BtnExit()
+    {
+      
+        // OnAnimation
     }
     private void OnDepthThirdHideBtnExit()
     {
-
+       
     
     }
 

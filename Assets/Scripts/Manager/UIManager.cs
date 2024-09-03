@@ -88,7 +88,7 @@ public class UIManager
 
 	public bool GuideOn { get; set; }
 
-	Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
+	public Stack<UI_Popup> PopupStack = new Stack<UI_Popup>();
 
 	public UI_Scene SceneUI { get; private set; }
 
@@ -163,7 +163,7 @@ public class UIManager
 
 		GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
 		T popup = Utils.GetOrAddComponent<T>(go);
-		_popupStack.Push(popup);
+		PopupStack.Push(popup);
 
 		if (parent != null)
 			go.transform.SetParent(parent);
@@ -180,25 +180,25 @@ public class UIManager
 
 	public T FindPopup<T>() where T : UI_Popup
 	{
-		return _popupStack.Where(x => x.GetType() == typeof(T)).FirstOrDefault() as T;
+		return PopupStack.Where(x => x.GetType() == typeof(T)).FirstOrDefault() as T;
 	}
 
 	public T PeekPopupUI<T>() where T : UI_Popup
 	{
-		if (_popupStack.Count == 0)
+		if (PopupStack.Count == 0)
 			return null;
 
-		return _popupStack.Peek() as T;
+		return PopupStack.Peek() as T;
 	}
 
 	public void ClosePopupUI(UI_Popup popup)
 	{
-		if (_popupStack.Count == 0)
+		if (PopupStack.Count == 0)
 			return;
 
-		if (_popupStack.Peek() != popup)
+		if (PopupStack.Peek() != popup)
 		{
-			Debug.Log("Close Popup Failed!");
+			Debug.Log($"Close Popup Failed! {PopupStack.Peek().gameObject.name}");
 			return;
 		}
 
@@ -207,10 +207,10 @@ public class UIManager
 
 	public void ClosePopupUI()
 	{
-		if (_popupStack.Count == 0)
+		if (PopupStack.Count == 0)
 			return;
 
-		UI_Popup popup = _popupStack.Pop();
+		UI_Popup popup = PopupStack.Pop();
 		Managers.Resource.Destroy(popup.gameObject);
 		popup = null;
 		_order--;
@@ -218,7 +218,7 @@ public class UIManager
 
 	public void CloseAllPopupUI()
 	{
-		while (_popupStack.Count > 0)
+		while (PopupStack.Count > 0)
 			ClosePopupUI();
 	}
 
