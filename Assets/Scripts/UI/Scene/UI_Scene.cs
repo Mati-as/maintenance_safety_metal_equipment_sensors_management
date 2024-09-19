@@ -10,6 +10,7 @@ public class UI_Scene : UI_Base
 			return false;
 
 		Managers.UI.SetCanvas(gameObject, false);
+		
 		return true;
 	}
 }

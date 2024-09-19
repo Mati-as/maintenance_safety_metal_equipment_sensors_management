@@ -1,39 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManagerEx
+
+public enum SceneType
 {
+    Main,
+    Depth1,
+    Depth2,
+    Depth3
+}
+
+/// <summary>
+/// 1. 씬전환시 초기화 로직과 결합가능
+/// 2. 화면 가림처리 (로딩화면 여기에 추가)
+/// </summary>
+public class SceneLoader
+{
+    public void LoadScene(SceneType sceneType)
+    {
+        Logger.Log($"{sceneType}scene loading");
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneType.ToString());
+    }
+
+    public void ReloadScene()
+    {
+        Logger.Log($"{SceneManager.GetActiveScene().name}");
+        
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     
-    private Define.Scene _curSceneType = Define.Scene.Unknown;
-
-    public Define.Scene CurrentSceneType
-    {
-        get
-        {
-            if (_curSceneType != Define.Scene.Unknown)
-                return _curSceneType;
-            return CurrentScene.SceneType;
-        }
-        set {  _curSceneType = value; }
-    }
-
-    public BaseScene CurrentScene { get { return GameObject.Find("Scene").GetComponent<BaseScene>(); } }
-
-    public void Init()
-    {
-
-    }
-
-    public void ChangeScene(Define.Scene type)
-    {
-        CurrentScene.Clear();
-
-        _curSceneType = type;
-        SceneManager.LoadScene(GetSceneName(type));
-    }
-
     string GetSceneName(Define.Scene type)
     {
         string name = System.Enum.GetName(typeof(Define.Scene), type);

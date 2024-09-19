@@ -6,7 +6,7 @@ public class Managers : MonoBehaviour
     public static Managers s_instance;
     public static Managers Instance => s_instance;
 
-    private static SceneManagerEx s_sceneManager = new();
+    private static SceneLoader s_sceneLoader = new();
     private static SoundManager s_soundManager = new();
     private static DataManager _sDataManager = new();
     private static UIManager s_uiManager = new();
@@ -22,8 +22,8 @@ public class Managers : MonoBehaviour
     { get { Init(); return s_uiManager;}}
      public static ResourceManager Resource { get { Init(); return s_resourceManager; } }
     
-    public static SceneManagerEx Scene
-    { get { Init(); return s_sceneManager;}}
+    public static SceneLoader Scene
+    { get { Init(); return s_sceneLoader;}}
 
     public static SoundManager Sound
     { get { Init(); return s_soundManager; }}
@@ -58,7 +58,7 @@ public class Managers : MonoBehaviour
             
             
             s_resourceManager.Init();
-            s_sceneManager.Init();
+            s_sceneLoader.Init();
             s_soundManager.Init();
             s_contentPlayManager.Init();
 

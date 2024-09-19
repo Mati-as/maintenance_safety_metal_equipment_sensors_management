@@ -227,8 +227,8 @@ public class DataManager
             initSetting.SetAttribute(nameof(Define.Preferences.BgmVol), "0.15");
             initSetting.SetAttribute(nameof(Define.Preferences.Fullscreen), "1");
             initSetting.SetAttribute(nameof(Define.Preferences.Resolution), "1920");
-            initSetting.SetAttribute(nameof(Define.Preferences.GraphicQuality), Define.QaulityLevel.Mid.ToString());
-            initSetting.SetAttribute(nameof(Define.Preferences.EngMode), Define.LanguageMode.Kor.ToString());
+            initSetting.SetAttribute(nameof(Define.Preferences.GraphicQuality), ((int)(Define.QaulityLevel.Mid)).ToString());
+            initSetting.SetAttribute(nameof(Define.Preferences.EngMode), ((int)(Define.LanguageMode.Kor)).ToString());
             initSetting.SetAttribute(nameof(Define.Preferences.ControlGuide), "1"); //Yes
             initSetting.SetAttribute(nameof(Define.Preferences.Mute_Main), "0"); //No
             initSetting.SetAttribute(nameof(Define.Preferences.Mute_Narration), "0"); //No
