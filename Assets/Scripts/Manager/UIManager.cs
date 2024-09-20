@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager
+public class UIManager : MonoBehaviour
 {
     
 	int _order = -20;
@@ -102,7 +102,7 @@ public class UIManager
 			if (root == null)
 				root = new GameObject { name = "@UI_Root" };
 			
-
+            DontDestroyOnLoad(root);
 			return root;
 		}
 	}

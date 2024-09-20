@@ -30,8 +30,7 @@ Material:
   m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
-  disabledShaderPasses:
-  - SHADOWCASTER
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -123,7 +122,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.4352941, g: 0.4352941, b: 0.4352941, a: 0.101960786}
-    - _Color: {r: 0.4352941, g: 0.4352941, b: 0.4352941, a: 0.101960786}
+    - _Color: {r: 0.43529406, g: 0.43529406, b: 0.43529406, a: 0.101960786}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
   m_BuildTextureStacks: []

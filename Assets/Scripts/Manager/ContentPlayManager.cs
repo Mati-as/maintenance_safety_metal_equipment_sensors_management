@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
-using Unity.VisualScripting.Dependencies.NCalc;
+
 using UnityEngine;
 
 /// <summary>
 ///     // 1.current info tracking
 ///     2.Control ContentController
 /// </summary>
-public class ContentPlayData
+public class ContentPlayData : MonoBehaviour
 {
     public static Dictionary<int, int> DEPTH_TWO_COUNT_DATA = new Dictionary<int, int>
     {
@@ -101,7 +101,7 @@ public class ContentPlayData
         get { return _depth3; }
         set
         {
-            Debug.Assert(value <= 5 && value >0);
+            Debug.Assert(value <= 5 && value >0,$"currentdepth{value} ");
             _depth3 = value;
 
             // Update the relevant character in CurrentDepthStatus
@@ -157,15 +157,19 @@ public class ContentPlayData
 }
 
 
-public class ContentPlayManager
+public class ContentPlayManager : MonoBehaviour
 {
     public ContentPlayData PlayData { get; set; } = new();
-
-
+    
     public void Init()
     {
         PlayData = new ContentPlayData();
         
-        
+        GameObject root = GameObject.Find("@ContentData_Root");
+        if (root == null)
+            root = new GameObject { name = "@ContentData_Root" };
+			
+        DontDestroyOnLoad(root);
+      
     }
 }

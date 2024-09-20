@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Managers : MonoBehaviour
@@ -8,14 +9,14 @@ public class Managers : MonoBehaviour
 
     private static SceneLoader s_sceneLoader = new();
     private static SoundManager s_soundManager = new();
-    private static DataManager _sDataManager = new();
+    private static DataManager s_DataManager = new();
     private static UIManager s_uiManager = new();
     private static ContentPlayManager s_contentPlayManager = new(); 
     private static ResourceManager s_resourceManager = new ResourceManager();
     
     
     public static DataManager Data
-    { get { Init(); return _sDataManager; }}
+    { get { Init(); return s_DataManager; }}
 
     public static ContentPlayManager ContentInfo  { get { Init(); return s_contentPlayManager;}}
     public static UIManager UI
@@ -54,14 +55,11 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(go);
             
             //DataMAnager는 반드시 제일 먼저 초기화 되어야합니다.
-            _sDataManager.Init();
-            
-            
+            s_DataManager.Init();
+            s_contentPlayManager.Init();
             s_resourceManager.Init();
             s_sceneLoader.Init();
             s_soundManager.Init();
-            s_contentPlayManager.Init();
-
             InitialSet();
 
         }
@@ -84,5 +82,14 @@ public class Managers : MonoBehaviour
         }
             
         Application.targetFrameRate = 60;
+    }
+
+    
+    /// <summary>
+    /// 씬로드시 제일 초기UI설정
+    /// </summary>
+    public static void SetDefaultUIPerScene(string currentDepth =null)
+    {
+       // Managers.UI.ShowSceneUI<UI_Persistent>();
     }
 }
