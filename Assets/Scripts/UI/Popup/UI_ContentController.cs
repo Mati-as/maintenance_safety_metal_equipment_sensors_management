@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Vector3 = System.Numerics.Vector3;
 
 public class UI_ContentController : UI_Popup
 {
@@ -40,6 +42,8 @@ public class UI_ContentController : UI_Popup
     {
         UI_Top,
         UI_TextBox,
+        UI_DepthTitle,
+        UI_TrainingInfo,
         UI_Instruction,
         UI_Depth3_List,
         ActiveArea,
@@ -134,6 +138,7 @@ public class UI_ContentController : UI_Popup
     {
         for (var i = 0; i < 5; i++)
         {
+            Logger.Log($"Depth2 Banner Toggled {i}");
             var toggle = GetToggle((int)Toggles.Toggle_Depth2_A + i);
             toggle.gameObject.BindEvent(() => OnDepth2Clicked(i + 1));
             _depth2Toggles[(int)Toggles.Toggle_Depth2_A + i] = toggle;
@@ -315,6 +320,7 @@ public class UI_ContentController : UI_Popup
     private void OnDepth2Clicked(int depth2)
     {
         Precheck();
+        Logger.Log($"Depth2 Banner Toggled {depth2}");
         Managers.ContentInfo.PlayData.Depth2 = depth2;
         Managers.ContentInfo.PlayData.Depth3 = 1;
 
@@ -524,5 +530,38 @@ public class UI_ContentController : UI_Popup
 #if UNITY_EDITOR
         Debug.Log($" topMenu Status: {_isTopMenuOn}");
 #endif
+    }
+
+
+    private bool isTrainingInfoOpen;
+    public void PlayIntroUIAnimation()
+    {
+        GetObject((int)UI.UI_DepthTitle).transform.localScale = UnityEngine.Vector3.zero;
+        GetObject((int)UI.UI_TrainingInfo).transform.localScale = UnityEngine.Vector3.zero;
+        var seq = DOTween.Sequence();
+        
+        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
+        seq.AppendInterval(1f);
+        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(0, 1f).SetEase(Ease.InCirc));
+        seq.AppendCallback(() =>
+        {
+            GetObject((int)UI.UI_DepthTitle).SetActive(false);
+            isTrainingInfoOpen = true;
+        });
+        seq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
+        
+    }
+
+    public void ShutTrainingInfroAnim()
+    {
+        if (!isTrainingInfoOpen) return;
+        
+        var seq = DOTween.Sequence();
+        
+        seq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(0, 0.8f).SetEase(Ease.InCirc));
+        seq.AppendCallback(() =>
+        {
+            GetObject((int)UI.UI_TrainingInfo).SetActive(false);
+        });
     }
 }

@@ -5,19 +5,21 @@ using UnityEngine;
 public enum CamearAnimation
 {
     Intro,
+    Zoomin_IntroToLimitSensor,
+    
 }
 
 public enum GameObjectAnimation
 {
     Intro,
-    IntroToSensorZoomIn,
-    
+    MachineOn_ConveyorBeltRoll
 }
 public class Depth1A_SceneController : Base_SceneController
 {
 
     public override void OnStepEnter(int currentDepth)
     {
+       
         base.OnStepEnter(currentDepth);
     }
 
