@@ -17,6 +17,11 @@ public static class Extension
 	{
 		UI_Base.BindEvent(go, action, type);
 	}
+	
+	public static void BindPhysicsRayEvent(this GameObject go, Action action, Define.UIEvent type = Define.UIEvent.PointerUp)
+	{
+		UI_Base.BindEvent(go, action, type);
+	}
 
 	static System.Random _rand = new System.Random();
 

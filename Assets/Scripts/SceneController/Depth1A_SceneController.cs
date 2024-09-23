@@ -1,28 +1,46 @@
-using System.Collections;
+using System;using System.Collections;
 using System.Collections.Generic;
+using HighlightPlus;
 using UnityEngine;
 
-public enum CamearAnimation
-{
-    Intro,
-    Zoomin_IntroToLimitSensor,
-    
-}
 
-public enum GameObjectAnimation
+
+public enum GameObj
 {
-    Intro,
-    MachineOn_ConveyorBeltRoll
+    LimitSwitch
 }
 public class Depth1A_SceneController : Base_SceneController
 {
-   
+    private Dictionary<string, HighlightEffect> _highlight;
     public override void Init()
     {
         InitializeStates();
         SetParameters();
+        
+        BindObject(typeof(GameObj));
+        _highlight = new Dictionary<string, HighlightEffect>();
+        _highlight.Add(GetObject((int)GameObj.LimitSwitch).name,
+            GetObject((int)GameObj.LimitSwitch).GetComponent<HighlightEffect>());
+        
+        GetObject((int)GameObj.LimitSwitch).BindEvent(() =>
+        {
+            SetHighlight(GetObject((int)GameObj.LimitSwitch).name);
+            contentController.SetToolTipStatus(true);
+            contentController.SetText("리밋 스위치");
+        },Define.UIEvent.PointerEnter);
+        GetObject((int)GameObj.LimitSwitch).BindEvent(() =>
+        {
+            SetHighlight(GetObject((int)GameObj.LimitSwitch).name,false);
+            contentController.SetToolTipStatus(false);
+        },Define.UIEvent.PointerExit);
+        
         base.Init();
+    }
 
+    private void SetHighlight(string gameObjName,bool isOn =true)
+    {
+        _highlight[gameObjName].highlighted = isOn;
+        Logger.Log($"Hightlight is ON? : {isOn}");
     }
     
     /// <summary>
@@ -36,13 +54,6 @@ public class Depth1A_SceneController : Base_SceneController
         Managers.ContentInfo.PlayData.Depth3 = 1;
         Managers.ContentInfo.PlayData.Count = 1;
     }
-    
-    public override void OnStepChange(int currentDepth)
-    {
-       
-        base.OnStepChange(currentDepth);
-    }
-
 
     private void InitializeStates()
     {
@@ -67,7 +78,7 @@ public class Depth1A_SceneController : Base_SceneController
             { 17, new Depth1A_State_17(this) },
             { 18, new Depth1A_State_18(this) },
             { 19, new Depth1A_State_19(this) },
-            { 20, new Depth1A_State_20(this) } // Depth 20은 예시로 Depth2State로 유지했지만, 새로운 상태로 교체할 수 있어
+            { 20, new Depth1A_State_20(this) } 
         };
     }
 
