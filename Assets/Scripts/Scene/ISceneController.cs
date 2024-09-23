@@ -1,19 +1,19 @@
 
     public interface ISceneController
     {
-        void DefaultSet()
+        void IntroUIAnim()
         {
             
         }
-        void OnStepEnter(int currentCount)
+        void OnStepChange(int currentDepth)
         {
         }
 
-        void OnStep(int currentCount)
+        void OnStep(int currentDepth)
         {
         }
 
-        void OnStepExit(int currentCount)
+        void OnStepExit(int currentDepth)
         {
         }
         

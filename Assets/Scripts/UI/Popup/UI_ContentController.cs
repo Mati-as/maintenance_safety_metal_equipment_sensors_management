@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Vector3 = System.Numerics.Vector3;
 
 public class UI_ContentController : UI_Popup
 {
@@ -76,27 +75,27 @@ public class UI_ContentController : UI_Popup
     private Animator _depthOneTextMoveAnimator;
     private Animator _instructionAnimator;
     private Animator _topMenuAnimator;
-    
+    private Animator _instructionFlipAnimator;
     private readonly int UI_ON = Animator.StringToHash("On");
     private readonly int UI_Flip = Animator.StringToHash("Flip");
 
-    
+
     private readonly Toggle[] _depth2Toggles = new Toggle[Enum.GetValues(typeof(Toggles)).Length];
     private readonly Button[] _depth3Btns = new Button[Enum.GetValues(typeof(Btns)).Length]; // 방어적으로 사이즈 크게 할당
 
-    
+
     private readonly float _btnClickableDelay = 0.85f;
     private WaitForSeconds _waitForClick;
     private bool _clickable = true;
 
-    
+
     private InputAction _mouseClickAction;
 
     public override bool Init()
     {
         if (!base.Init())
             return false;
-        
+
         BindUIElements();
         InitTopMenu();
         InitDepth2Toggles();
@@ -172,13 +171,14 @@ public class UI_ContentController : UI_Popup
     private void InitInstructionSection()
     {
         _instructionAnimator = GetObject((int)UI.UI_Instruction).GetComponent<Animator>();
-        _instructionAnimator.SetBool(UI_ON, true);
+        _instructionFlipAnimator = GetObject((int)UI.UI_Instruction).transform.GetChild(0).GetComponent<Animator>();
+       // _instructionAnimator.SetBool(UI_ON, true);
 
-        GetButton((int)Btns.Btn_Script_Hide).gameObject.BindEvent(OnInstructionClicked);
+        GetButton((int)Btns.Btn_Script_Hide).gameObject.BindEvent(OnInstructionHideClicked);
         GetObject((int)UI.UI_Instruction).GetComponent<Text>();
     }
 
-    public void SetActiveInstruction(bool active =true)
+    public void SetActiveInstruction(bool active = true)
     {
         _instructionAnimator.SetBool(UI_ON, active);
     }
@@ -262,21 +262,25 @@ public class UI_ContentController : UI_Popup
     }
 
 
-
     public static event Action<int> OnStepBtnClicked_CurrentCount;
+
     private void OnPrevBtnClicked()
     {
         Precheck();
 
-        if (Managers.ContentInfo.PlayData.Count < 1)
+        Debug.Assert(Managers.ContentInfo.PlayData.Count > 0);
+
+        if (Managers.ContentInfo.PlayData.Count <= 1)
         {
 #if UNITY_EDITOR
-            Logger.Log($"currentCount is 0");
-            return;
+            Logger.Log("currentCount is 1, Start Point");
 #endif
+            return;
         }
 
         Managers.ContentInfo.PlayData.Count--;
+
+
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count);
         ChangeInstructionTextWithAnim();
@@ -308,7 +312,7 @@ public class UI_ContentController : UI_Popup
 
     private IEnumerator ChangeTextWithAnimCo()
     {
-        _instructionAnimator.SetTrigger(UI_Flip);
+        _instructionFlipAnimator.SetTrigger(UI_Flip);
         if (animDelay == null) animDelay = new WaitForSeconds(0.15f);
         yield return animDelay;
 
@@ -337,8 +341,8 @@ public class UI_ContentController : UI_Popup
     private void RefreshUI()
     {
         Debug.Log($"Refreshing UI : CurrentStatus: {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
-        
-        
+
+
         //1.모든 UI 먼저 비활성화  합니다. 
         for (var i = (int)Btns.Depth3_A; i < (int)Btns.Depth3_E + 1; i++) _depth3Btns[i].gameObject.SetActive(false);
         for (var i = (int)Toggles.Toggle_Depth2_A; i < (int)Toggles.Toggle_Depth2_E + 1; i++)
@@ -354,7 +358,7 @@ public class UI_ContentController : UI_Popup
 
         var currentDepth12 = Managers.ContentInfo.PlayData.CurrentDepthStatus[0] +
                              Managers.ContentInfo.PlayData.CurrentDepthStatus[1].ToString();
-        
+
         for (var i = (int)Btns.Depth3_A;
              i < (int)Btns.Depth3_A + ContentPlayData.DEPTH_THREE_COUNT_DATA[int.Parse(currentDepth12)];
              i++) _depth3Btns[i].gameObject.SetActive(true);
@@ -432,8 +436,8 @@ public class UI_ContentController : UI_Popup
     {
         if (_isTopMenuOn)
         {
-           // Debug.Log("3depth UI On ---------------------");
-           // Debug.Log("3depth UI On ---------------------");
+            // Debug.Log("3depth UI On ---------------------");
+            // Debug.Log("3depth UI On ---------------------");
             isOnActiveArea = true;
             GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(true);
         }
@@ -496,30 +500,34 @@ public class UI_ContentController : UI_Popup
     {
     }
 
+
     private void Precheck()
     {
         if (!_clickable)
         {
-#if UNITY_EDITOR
-            Debug.Log("Clicking Too Fast");
-#endif
+            Logger.Log("Clicking Too Fast");
             return;
         }
 
         SetClickable();
     }
 
-    private bool _isInstructAnimOn = true;
+    public bool isInstructAnimOn { get; private set; }
     private bool _isTopMenuOn = true;
 
-    private void OnInstructionClicked()
+    private void OnInstructionHideClicked()
     {
         Precheck();
-        _isInstructAnimOn = !_isInstructAnimOn;
-        _instructionAnimator.SetBool(UI_ON, _isInstructAnimOn);
-#if UNITY_EDITOR
-        Debug.Log($" Current Script UI Status{_isInstructAnimOn}");
-#endif
+        isInstructAnimOn = !isInstructAnimOn;
+        _instructionAnimator.SetBool(UI_ON, isInstructAnimOn);
+
+        Logger.Log($" Current Script UI Status{isInstructAnimOn}");
+    }
+
+    public void ShowScriptUI()
+    {
+        isInstructAnimOn = true;
+        _instructionAnimator.SetBool(UI_ON, isInstructAnimOn);
     }
 
     private void OnTopMenuAnimBtnClicked()
@@ -527,19 +535,21 @@ public class UI_ContentController : UI_Popup
         Precheck();
         _isTopMenuOn = !_isTopMenuOn;
         _topMenuAnimator.SetBool(UI_ON, _isTopMenuOn);
-#if UNITY_EDITOR
-        Debug.Log($" topMenu Status: {_isTopMenuOn}");
-#endif
+
+        Logger.Log($" topMenu Status: {_isTopMenuOn}");
     }
 
 
     private bool isTrainingInfoOpen;
+
     public void PlayIntroUIAnimation()
     {
-        GetObject((int)UI.UI_DepthTitle).transform.localScale = UnityEngine.Vector3.zero;
-        GetObject((int)UI.UI_TrainingInfo).transform.localScale = UnityEngine.Vector3.zero;
+        GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
+        GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
+        GetObject((int)UI.UI_TrainingInfo).SetActive(true);
+        GetObject((int)UI.UI_DepthTitle).SetActive(true);
+
         var seq = DOTween.Sequence();
-        
         seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
         seq.AppendInterval(1f);
         seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(0, 1f).SetEase(Ease.InCirc));
@@ -549,19 +559,15 @@ public class UI_ContentController : UI_Popup
             isTrainingInfoOpen = true;
         });
         seq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
-        
     }
 
     public void ShutTrainingInfroAnim()
     {
         if (!isTrainingInfoOpen) return;
-        
+
         var seq = DOTween.Sequence();
-        
+
         seq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(0, 0.8f).SetEase(Ease.InCirc));
-        seq.AppendCallback(() =>
-        {
-            GetObject((int)UI.UI_TrainingInfo).SetActive(false);
-        });
+        seq.AppendCallback(() => { GetObject((int)UI.UI_TrainingInfo).SetActive(false); });
     }
 }
