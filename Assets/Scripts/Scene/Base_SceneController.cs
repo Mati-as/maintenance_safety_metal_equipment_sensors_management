@@ -38,6 +38,10 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         StartCoroutine(OnSceneStartCo());
    
         Managers.Sound.Play(SoundManager.Sound.Effect, "Depth1Start");
+
+
+        int introAnimation = 1;
+        PlayObjAnimation(introAnimation);
     }
 
     private void BindEvent()
@@ -55,12 +59,12 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     private IEnumerator OnSceneStartCo()
     {
-        PlayInitialUIIntro();
+        PlayInitialIntro();
 
-        _cameraAnimation = Camera.main.gameObject.GetComponent<Animation>();
+        
         _objAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
 
-        Debug.Assert(_cameraAnimation != null && _objAnimation != null);
+        Debug.Assert(_objAnimation != null);
 
         _wait = new WaitForSeconds(_startDelay);
         yield return _wait;
@@ -68,25 +72,33 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         contentController.SetActiveInstruction();
 
-        OnStepChange(1);
+        
     }
 
     
     /// <summary>
     /// 씬로드시 처음만 재생됩니다. 
     /// </summary>
-    public virtual void PlayInitialUIIntro()
+    public virtual void PlayInitialIntro()
     {
 	    Logger.Log("Initial UI Intro");
         contentController.Init();
-        contentController.ShowMainIntro();
+        contentController.ShowInitialIntro();
         contentController.SetActiveInstruction(false);
     }
     public void ShutUIAndSetDefault()
     {
-       
         contentController.ShutTrainingInfroAnim();
         Managers.Sound.Stop(SoundManager.Sound.Narration);
+    }
+
+    
+    /// <summary>
+    /// 사용자가 버튼을 빨리누르는 경우
+    /// </summary>
+    public void ShutUIWithoutAnimation()
+    {
+	    
     }
 
     public virtual void OnStepChange(int currentCount)
@@ -94,7 +106,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         ChangeState(currentCount);
 
         PlayObjAnimation(currentCount);
-        PlayCamAnimation(currentCount);
     }
 
     private void ChangeState(int stateNum)
@@ -149,10 +160,10 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         PlayAnimation(_objAnimation, number, delay, animSpeed);
     }
 
-    private void PlayCamAnimation(int number, float delay = 0f, float animSpeed = 1f)
-    {
-        PlayAnimation(_cameraAnimation, number, delay, animSpeed);
-    }
+    // private void PlayCamAnimation(int number, float delay = 0f, float animSpeed = 1f)
+    // {
+    //     PlayAnimation(_cameraAnimation, number, delay, animSpeed);
+    // }
     
     
     
@@ -211,7 +222,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 		return objects[idx] as T;
 	}
 
-	protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
+	public GameObject GetObject(int idx) { return Get<GameObject>(idx); }
 	protected Text GetText(int idx) { return Get<Text>(idx); }
 	protected TextMeshProUGUI GetTMP(int idx) { return Get<TextMeshProUGUI>(idx); }
 	protected Button GetButton(int idx) { return Get<Button>(idx); }

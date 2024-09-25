@@ -87,7 +87,7 @@ public class UI_ContentController : UI_Popup
 
     private readonly float _btnClickableDelay = 0.85f;
     private WaitForSeconds _waitForClick;
-    private bool _clickable = true;
+    public bool clickable = true;
 
 
     private InputAction _mouseClickAction;
@@ -122,43 +122,47 @@ public class UI_ContentController : UI_Popup
         BindObject(typeof(UI));
         BindTMP(typeof(Content_TMP));
     }
-    
+
     public Text Text_tooltip { get; set; }
     public Image Text_image { get; set; }
     public RectTransform toolTipRectPos { get; set; }
-    private Vector3 _toolTipPosOffset = new Vector3(20, 20, 0);
-    void Update()
+    private readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
+
+    private void Update()
     {
         Update_MousePosition();
     }
+
     private void Update_MousePosition()
     {
         Vector2 mousePos = Input.mousePosition + _toolTipPosOffset;
         if (toolTipRectPos == null)
         {
-            toolTipRectPos =GetObject((int)UI.UI_ToolTip).GetComponent<RectTransform>();
+            toolTipRectPos = GetObject((int)UI.UI_ToolTip).GetComponent<RectTransform>();
             Logger.Log("get tooltip rectpos");
         }
+
         toolTipRectPos.position = mousePos;
     }
-    public void SetText(string text=null)
+
+    public void SetText(string text = null)
     {
-        SetToolTipStatus(true);
+        SetToolTipStatus();
         if (Text_tooltip == null)
         {
             Text_tooltip = GetObject((int)UI.UI_ToolTip).GetComponentInChildren<Text>();
-            Text_image =GetObject((int)UI.UI_ToolTip).GetComponentInChildren<Image>();
+            Text_image = GetObject((int)UI.UI_ToolTip).GetComponentInChildren<Image>();
             Logger.Log("get tooltip text");
         }
 
         Text_tooltip.text = text;
-        RectTransform rect_1 = (RectTransform)Text_image.transform;
+        var rect_1 = (RectTransform)Text_image.transform;
         rect_1.sizeDelta = new Vector2(text.Length * 30, 50);
-        RectTransform rect_2 = (RectTransform)Text_tooltip.transform;
+        var rect_2 = (RectTransform)Text_tooltip.transform;
         rect_2.sizeDelta = new Vector2(text.Length * 30, 50);
     }
 
-    public void SetToolTipStatus(bool isOn=true)
+    public void SetToolTipStatus(bool isOn = true)
     {
         GetObject((int)UI.UI_ToolTip).SetActive(isOn);
     }
@@ -213,7 +217,7 @@ public class UI_ContentController : UI_Popup
     {
         _instructionAnimator = GetObject((int)UI.UI_Instruction).GetComponent<Animator>();
         _instructionFlipAnimator = GetObject((int)UI.UI_Instruction).transform.GetChild(0).GetComponent<Animator>();
-       // _instructionAnimator.SetBool(UI_ON, true);
+        // _instructionAnimator.SetBool(UI_ON, true);
 
         GetButton((int)Btns.Btn_Script_Hide).gameObject.BindEvent(OnInstructionHideClicked);
         GetObject((int)UI.UI_Instruction).GetComponent<Text>();
@@ -248,10 +252,11 @@ public class UI_ContentController : UI_Popup
     {
         _heightPerDepth3Btn = GetButton((int)Btns.Depth3_A).GetComponent<RectTransform>().sizeDelta.y;
         _activeAreaRect = GetObject((int)UI.ActiveArea).GetComponent<RectTransform>();
-
         for (var i = 0; i < texts.Length; i++) texts[i] = GetTMP(i);
 
         GetToggle((int)Toggles.Toggle_Depth2_A).isOn = true;
+        GetObject((int)UI.UI_ToolTip).SetActive(false);
+        ShowOrHideNextPrevBtns(false);
     }
 
 
@@ -303,6 +308,18 @@ public class UI_ContentController : UI_Popup
     }
 
 
+    private void ShowOrHideNextPrevBtns(bool isOn = true)
+    {
+        GetButton((int)Btns.Btn_Prev).enabled = isOn;
+        GetButton((int)Btns.Btn_Next).enabled = isOn;
+        var fade = isOn ? 1 : 0;
+        var speed = isOn ? 1 : 0;
+        var scale = isOn ? 1 : 0;
+        GetButton((int)Btns.Btn_Prev).gameObject.transform.localScale = Vector3.one * scale;
+        GetButton((int)Btns.Btn_Next).gameObject.transform.localScale = Vector3.one * scale;
+        GetButton((int)Btns.Btn_Prev).GetComponent<Image>().DOFade(fade, speed);
+        GetButton((int)Btns.Btn_Next).GetComponent<Image>().DOFade(fade, speed);
+    }
     public static event Action<int> OnStepBtnClicked_CurrentCount;
 
     private void OnPrevBtnClicked()
@@ -449,11 +466,10 @@ public class UI_ContentController : UI_Popup
 
     private IEnumerator SetClickableCo()
     {
-        _clickable = false;
+        clickable = false;
         if (_waitForClick == null) _waitForClick = new WaitForSeconds(_btnClickableDelay);
-
         yield return _waitForClick;
-        _clickable = true;
+        clickable = true;
     }
 
 
@@ -544,7 +560,7 @@ public class UI_ContentController : UI_Popup
 
     private void Precheck()
     {
-        if (!_clickable)
+        if (!clickable)
         {
             Logger.Log("Clicking Too Fast");
             return;
@@ -582,66 +598,54 @@ public class UI_ContentController : UI_Popup
 
 
     private bool isTrainingInfoOpen;
-    private Sequence _introUIOnSeq;
+    private Sequence _UIOnSeq;
+  
 
-    public void ShowMainIntro()
+    public void ShowInitialIntro()
     {
+    
         GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
-        
+        GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
+
         var seq = DOTween.Sequence();
         seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
-        _introUIOnSeq.AppendInterval(1f);
-        _introUIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(0, 1f).SetEase(Ease.InCirc));
-        _introUIOnSeq.AppendCallback(() =>
+        seq.AppendInterval(1f);
+        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(0, 1f).SetEase(Ease.InCirc));
+        seq.AppendCallback(() =>
         {
             GetObject((int)UI.UI_DepthTitle).SetActive(false);
-            PlayObjectiveIntroAnim();
         });
-
+        seq.AppendInterval(1.9f);
+        seq.AppendCallback(PlayObjectiveIntroAnim);
+        seq.OnKill(() =>
+        {
+            GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
+            GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
+        });
     }
 
     public void PlayObjectiveIntroAnim()
     {
+        if (_UICloseSeq.IsActive()) _UICloseSeq.Kill();
+
         GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
         GetObject((int)UI.UI_TrainingInfo).SetActive(true);
-        GetObject((int)UI.UI_DepthTitle).SetActive(true);
-        
-        if(_introUIOnSeq.IsActive()) _introUIOnSeq.Kill();
-        if(_introUICloseSeq.IsActive()) _introUICloseSeq.Kill();
 
-        
-        _introUIOnSeq = DOTween.Sequence();
-        _introUIOnSeq.AppendCallback(() =>
-        {
-            GetObject((int)UI.UI_DepthTitle).SetActive(false);
-        });
-        _introUIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
-        _introUIOnSeq.OnKill(() =>
-        {
-            GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
-            GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
-            GetObject((int)UI.UI_TrainingInfo).SetActive(true);
-            GetObject((int)UI.UI_DepthTitle).SetActive(true);
-        });
+        _UIOnSeq = DOTween.Sequence();
+        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
+        _UIOnSeq.AppendCallback(() => { ShowOrHideNextPrevBtns(true); });
     }
-    private Sequence _introUICloseSeq;
+
+    private Sequence _UICloseSeq;
+
     public void ShutTrainingInfroAnim()
     {
-    
-        if(_introUIOnSeq.IsActive()) _introUIOnSeq.Kill();
-        if(_introUICloseSeq.IsActive()) _introUICloseSeq.Kill();
+        if (_UIOnSeq.IsActive()) _UIOnSeq.Kill();
+        if (_UICloseSeq.IsActive()) _UICloseSeq.Kill();
 
-        _introUICloseSeq = DOTween.Sequence();
+        _UICloseSeq = DOTween.Sequence();
 
-        _introUICloseSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(0, 0.8f).SetEase(Ease.InCirc));
-        _introUICloseSeq.AppendCallback(() =>
-        {    
-            GetObject((int)UI.UI_TrainingInfo).SetActive(false);
-        });
-        _introUICloseSeq.OnKill(() =>
-        {
-        
-        });
-    
+        _UICloseSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(0, 0.8f).SetEase(Ease.InCirc));
+        _UICloseSeq.AppendCallback(() => { GetObject((int)UI.UI_TrainingInfo).SetActive(false); });
     }
 }

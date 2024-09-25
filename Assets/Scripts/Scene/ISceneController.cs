@@ -1,7 +1,7 @@
 
     public interface ISceneController
     {
-        void PlayInitialUIIntro()
+        void PlayInitialIntro()
         {
             
         }

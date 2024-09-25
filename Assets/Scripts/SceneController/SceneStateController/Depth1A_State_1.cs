@@ -8,7 +8,8 @@ public class Depth1A_State_1 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-         CurrentScene.PlayInitialUIIntro();
+        CurrentScene.contentController.ShutTrainingInfroAnim();
+        
     }
 
     public override void OnStep()
@@ -17,7 +18,7 @@ public class Depth1A_State_1 : Base_SceneState
 
     public override void OnExit()
     {
-        CurrentScene.ShutUIAndSetDefault();
+        
     }
 }
 
@@ -30,6 +31,7 @@ public class Depth1A_State_2 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        CurrentScene.ShutUIAndSetDefault();
         CurrentScene.contentController.ShowScriptUI();
     }
 
@@ -86,10 +88,13 @@ public class Depth1A_State_5 : Base_SceneState
 {
     public Depth1A_State_5(Depth1A_SceneController currentScene) : base(currentScene)
     {
+     
     }
 
     public override void OnEnter()
     {
+        CurrentScene.cameraController.
+            SetLookAtAndFollow(CurrentScene.GetObject((int)GameObj.LooAt_plumbingSystemOrPipework).transform);
     }
 
     public override void OnStep()
@@ -99,6 +104,8 @@ public class Depth1A_State_5 : Base_SceneState
 
     public override void OnExit()
     {
+        CurrentScene.cameraController.
+            SetLookAtAndFollow(null);
     }
 }
 
