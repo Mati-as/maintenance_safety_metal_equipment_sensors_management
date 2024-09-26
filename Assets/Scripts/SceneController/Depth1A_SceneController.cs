@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using HighlightPlus;
 using UnityEngine;
 
@@ -6,16 +7,21 @@ public enum GameObj
 {
     LimitSwitch,
     ProximitySwitch,
-    LooAt_plumbingSystemOrPipework
+    LooAt_plumbingSystemOrPipework,
+    TemperatureSensor,
+    LevelSensor,
+    FlowMeter,
+    PressureSensor
 }
+
 
 
 
 public class Depth1A_SceneController : Base_SceneController
 {
     private Dictionary<string, HighlightEffect> _highlight;
+    private Dictionary<int, Sequence> _seqMap;
     public InPlay_CinemachineController cameraController;
-
     
     
     public override void Init()
@@ -24,11 +30,17 @@ public class Depth1A_SceneController : Base_SceneController
         SetParameters();
         BindObject(typeof(GameObj));
         cameraController = Camera.main.GetComponent<InPlay_CinemachineController>();
+        
         _highlight = new Dictionary<string, HighlightEffect>();
+        _seqMap = new Dictionary<int, Sequence>();
 
         // 딕셔너리에 추가 및 이벤트 바인딩
         BindAndAddToDictionary(GameObj.LimitSwitch, "리밋 스위치");
         BindAndAddToDictionary(GameObj.ProximitySwitch, "근접 스위치");
+        BindAndAddToDictionary(GameObj.TemperatureSensor, "온도 센서");
+        BindAndAddToDictionary(GameObj.LevelSensor, "레벨 센서");
+        BindAndAddToDictionary(GameObj.FlowMeter, "유량 센서");
+        BindAndAddToDictionary(GameObj.PressureSensor, "압력 센서");
         base.Init();
     }
 
@@ -69,6 +81,36 @@ public class Depth1A_SceneController : Base_SceneController
     {
         _highlight[gameObjName].highlighted = isOn;
         Logger.Log($"Hightlight is ON? : {isOn}");
+    }
+
+
+    public void HighlightBlink(GameObj gameObj)
+    {
+        var seq = DOTween.Sequence();
+        _seqMap.TryAdd((int)gameObj, seq);
+
+        var maxInnerGlow = 0.15f;
+        if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
+        seq.AppendCallback(() => { _highlight[GetObject((int)gameObj).name].highlighted = true; });
+
+        var loopCount = 3;
+        for (var i = 0; i < loopCount; i++)
+        {
+            seq.Append(DOVirtual.Float(0, maxInnerGlow, 1f,
+                val => { _highlight[GetObject((int)gameObj).name].innerGlow = val; }));
+
+            seq.Append(DOVirtual.Float(maxInnerGlow, 0, 1f,
+                val => { _highlight[GetObject((int)gameObj).name].innerGlow = val; }));
+        }
+
+        seq.AppendCallback(() => { _highlight[GetObject((int)gameObj).name].highlighted = false; });
+
+        seq.OnKill(() =>
+        {
+            _highlight[GetObject((int)gameObj).name].highlighted = false;
+            _highlight[GetObject((int)gameObj).name].innerGlow = 0;
+        });
+        _seqMap[(int)gameObj] = seq;
     }
 
     /// <summary>

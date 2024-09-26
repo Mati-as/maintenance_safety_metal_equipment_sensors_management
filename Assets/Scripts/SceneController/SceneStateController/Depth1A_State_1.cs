@@ -117,6 +117,8 @@ public class Depth1A_State_6 : Base_SceneState
 
     public override void OnEnter()
     {
+        CurrentScene.cameraController.
+            SetLookAtAndFollow(CurrentScene.GetObject((int)GameObj.LooAt_plumbingSystemOrPipework).transform);
     }
 
     public override void OnStep()
@@ -126,6 +128,8 @@ public class Depth1A_State_6 : Base_SceneState
 
     public override void OnExit()
     {
+        CurrentScene.cameraController.
+            SetLookAtAndFollow(null);
     }
 }
 
@@ -137,6 +141,7 @@ public class Depth1A_State_7 : Base_SceneState
 
     public override void OnEnter()
     {
+        CurrentScene.HighlightBlink(GameObj.TemperatureSensor);
     }
 
     public override void OnStep()

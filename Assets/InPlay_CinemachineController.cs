@@ -8,9 +8,9 @@ public class InPlay_CinemachineController : MonoBehaviour
 
     public bool isFreeLookAvailable { get; set; }
     
-    public float zoomSpeed = 0.1f; // 줌 속도 조정
-    private float minRadius = 2f; // 최소 줌
-    private float maxRadius = 3f; // 최대 줌
+    public float zoomSpeed = 0.08f; // 줌 속도 조정
+    private float minRadius = 1.5f; // 최소 줌
+    private float maxRadius = 3.5f; // 최대 줌
 
     private bool isDragging = false;
 
