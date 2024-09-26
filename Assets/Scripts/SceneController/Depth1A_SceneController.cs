@@ -7,11 +7,12 @@ public enum GameObj
 {
     LimitSwitch,
     ProximitySwitch,
-    LooAt_plumbingSystemOrPipework,
     TemperatureSensor,
     LevelSensor,
     FlowMeter,
-    PressureSensor
+    PressureSensor,
+    //------------------------ 포지션
+    LooAt_plumbingSystemOrPipework,
 }
 
 
@@ -84,13 +85,15 @@ public class Depth1A_SceneController : Base_SceneController
     }
 
 
-    public void HighlightBlink(GameObj gameObj)
+    public void HighlightBlink(GameObj gameObj,float startDelay =1f)
     {
         var seq = DOTween.Sequence();
         _seqMap.TryAdd((int)gameObj, seq);
 
         var maxInnerGlow = 0.15f;
         if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
+
+        seq.AppendInterval(startDelay);
         seq.AppendCallback(() => { _highlight[GetObject((int)gameObj).name].highlighted = true; });
 
         var loopCount = 3;
@@ -123,6 +126,13 @@ public class Depth1A_SceneController : Base_SceneController
         Managers.ContentInfo.PlayData.Depth2 = 1;
         Managers.ContentInfo.PlayData.Depth3 = 1;
         Managers.ContentInfo.PlayData.Count = 1;
+    }
+
+
+    
+    private void OnDepth2Finished()
+    {
+        
     }
 
     private void InitializeStates()

@@ -8,19 +8,22 @@ using UnityEngine.UI;
 
 public class Base_SceneController : MonoBehaviour, ISceneController
 {
-    public UI_ContentController contentController;
-
+	protected readonly int ANIMATION_MAX_COUNT;
+  
+	public UI_ContentController contentController;
     private readonly float _startDelay = 2f; // 맨처음 스크립트 시작 딜레이
     private WaitForSeconds _wait;
 
+  
     //Animation Part
 
-    protected Animation _objAnimation; // GameOjbect의 최상 부모위치에 있어야함.
+    protected Animation _animation; // GameOjbect의 최상 부모위치에 있어야함.
     protected Animation _cameraAnimation; // GameOjbect의 최상 부모위치에 있어야함.
 
     // SceneState Control
     protected Dictionary<int, ISceneState> _sceneStates;
     protected ISceneState _currentState;
+    public int currentCount { get; private set; }
 
     public virtual void Start()
     {
@@ -41,7 +44,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
 
         int introAnimation = 1;
-        PlayObjAnimation(introAnimation);
+        PlayAnimationAndNarration(introAnimation);
     }
 
     private void BindEvent()
@@ -62,9 +65,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         PlayInitialIntro();
 
         
-        _objAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
+        _animation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
 
-        Debug.Assert(_objAnimation != null);
+        Debug.Assert(_animation != null);
 
         _wait = new WaitForSeconds(_startDelay);
         yield return _wait;
@@ -93,19 +96,12 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     }
 
     
-    /// <summary>
-    /// 사용자가 버튼을 빨리누르는 경우
-    /// </summary>
-    public void ShutUIWithoutAnimation()
+    public virtual void OnStepChange(int count)
     {
-	    
-    }
-
-    public virtual void OnStepChange(int currentCount)
-    {
+        currentCount = count;
+        
         ChangeState(currentCount);
-
-        PlayObjAnimation(currentCount);
+        
     }
 
     private void ChangeState(int stateNum)
@@ -124,57 +120,61 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         }
     }
 
-    private void PlayAnimation(Animation animationComponent, int number, float delay = 0f, float animSpeed = 1f)
+    #region State 호출함수
+    
+    public void PlayAnimationAndNarration( int number, float delay = 0f, float animSpeed = 1f)
     {
-        var clip = animationComponent.GetClip(number.ToString());
+        var clip = _animation.GetClip(number.ToString());
 
         if (clip != null)
         {
-            animationComponent[clip.name].speed = animSpeed;
+	        _animation[clip.name].speed = animSpeed;
 
             if (delay > 0.5f)
             {
-                StartCoroutine(PlayAnimationWithDelay(animationComponent, clip.name, delay));
+                StartCoroutine(PlayAnimationWithDelay( clip.name, delay));
             }
             else
             {
-                animationComponent.Play(clip.name);
+	            _animation.Play(clip.name);
+	            StartCoroutine(CheckAnimationEnd(clip, OnAnimationComplete));
                 Logger.Log($"Animation clip with index {number} is playing.");
             }
         }
         else
         {
-            Logger.LogWarning($"카메라 : {number} 애니메이션 없는상태. 카메라 애니메이션 정지 ");
+	        OnAnimationComplete();
+            Logger.LogWarning($"카메라 : {number} 애니메이션 없는상태.스크립트는 재생 카메라 애니메이션 정지 ");
         }
     }
 
-    private IEnumerator PlayAnimationWithDelay(Animation animationComponent, string clipName, float delay)
+    private IEnumerator PlayAnimationWithDelay( string clipName, float delay)
     {
         yield return new WaitForSeconds(delay);
-        animationComponent.Play(clipName);
+        _animation.Play(clipName);
     }
-
-
-    private void PlayObjAnimation(int number, float delay = 0f, float animSpeed = 1f)
+    private IEnumerator CheckAnimationEnd(AnimationClip clip, Action onAnimationComplete)
     {
-        PlayAnimation(_objAnimation, number, delay, animSpeed);
+	    yield return new WaitForSeconds(clip.length/2);
+	    OnAnimationComplete();
     }
 
-    // private void PlayCamAnimation(int number, float delay = 0f, float animSpeed = 1f)
-    // {
-    //     PlayAnimation(_cameraAnimation, number, delay, animSpeed);
-    // }
+    private void  OnAnimationComplete()
+    {
+	    Managers.Sound.Play(SoundManager.Sound.Narration, Managers.ContentInfo.PlayData.CurrentDepthStatus);
+	    contentController.ChangeInstructionTextWithAnim();
+    }
     
+    #endregion
+
+
+
     
-    
-    
-    
-    
-    
-    
-    
-    
-    //바인딩 로직------------------------------------------------------
+
+
+    #region 바인딩 로직
+
+
     
     protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
 
@@ -265,4 +265,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
 		
 	}
+	    
+	#endregion------------------------------------------------------
 }

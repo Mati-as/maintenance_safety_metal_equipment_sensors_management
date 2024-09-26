@@ -9,7 +9,6 @@ public class Depth1A_State_1 : Base_SceneState
     {
         base.OnEnter();
         CurrentScene.contentController.ShutTrainingInfroAnim();
-        
     }
 
     public override void OnStep()
@@ -18,6 +17,7 @@ public class Depth1A_State_1 : Base_SceneState
 
     public override void OnExit()
     {
+          base.OnExit();
         
     }
 }
@@ -41,6 +41,7 @@ public class Depth1A_State_2 : Base_SceneState
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -52,16 +53,20 @@ public class Depth1A_State_3 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
+        
     }
 
     public override void OnExit()
     {
+          base.OnExit();
+  
     }
+   
 }
 
 public class Depth1A_State_4 : Base_SceneState
@@ -72,15 +77,16 @@ public class Depth1A_State_4 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -93,17 +99,18 @@ public class Depth1A_State_5 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
         CurrentScene.cameraController.
             SetLookAtAndFollow(CurrentScene.GetObject((int)GameObj.LooAt_plumbingSystemOrPipework).transform);
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
         CurrentScene.cameraController.
             SetLookAtAndFollow(null);
     }
@@ -119,15 +126,16 @@ public class Depth1A_State_6 : Base_SceneState
     {
         CurrentScene.cameraController.
             SetLookAtAndFollow(CurrentScene.GetObject((int)GameObj.LooAt_plumbingSystemOrPipework).transform);
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
         CurrentScene.cameraController.
             SetLookAtAndFollow(null);
     }
@@ -142,15 +150,16 @@ public class Depth1A_State_7 : Base_SceneState
     public override void OnEnter()
     {
         CurrentScene.HighlightBlink(GameObj.TemperatureSensor);
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -162,15 +171,17 @@ public class Depth1A_State_8 : Base_SceneState
 
     public override void OnEnter()
     {
+        CurrentScene.HighlightBlink(GameObj.PressureSensor);
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -178,19 +189,22 @@ public class Depth1A_State_9 : Base_SceneState
 {
     public Depth1A_State_9(Depth1A_SceneController currentScene) : base(currentScene)
     {
+       
     }
 
     public override void OnEnter()
     {
+        CurrentScene.HighlightBlink(GameObj.FlowMeter);
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -198,19 +212,22 @@ public class Depth1A_State_10 : Base_SceneState
 {
     public Depth1A_State_10(Depth1A_SceneController currentScene) : base(currentScene)
     {
+        
     }
 
     public override void OnEnter()
     {
+        CurrentScene.HighlightBlink(GameObj.LevelSensor);
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -222,15 +239,16 @@ public class Depth1A_State_11 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -242,15 +260,16 @@ public class Depth1A_State_12 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -262,15 +281,16 @@ public class Depth1A_State_13 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -282,15 +302,16 @@ public class Depth1A_State_14 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -303,15 +324,16 @@ public class Depth1A_State_15 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -324,15 +346,16 @@ public class Depth1A_State_16 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -345,15 +368,16 @@ public class Depth1A_State_17 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -366,15 +390,16 @@ public class Depth1A_State_18 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -387,15 +412,16 @@ public class Depth1A_State_19 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
     }
 }
 
@@ -407,14 +433,125 @@ public class Depth1A_State_20 : Base_SceneState
 
     public override void OnEnter()
     {
+        base.OnEnter();
     }
 
     public override void OnStep()
     {
-        base.OnEnter();
     }
 
     public override void OnExit()
     {
+          base.OnExit();
+    }
+}
+
+
+public class Depth1A_State_21 : Base_SceneState
+{
+    public Depth1A_State_21(Depth1A_SceneController currentScene) : base(currentScene)
+    {
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+    }
+
+    public override void OnStep()
+    {
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+    }
+}
+
+
+public class Depth1A_State_22 : Base_SceneState
+{
+    public Depth1A_State_22(Depth1A_SceneController currentScene) : base(currentScene)
+    {
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+    }
+
+    public override void OnStep()
+    {
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+    }
+}
+
+
+public class Depth1A_State_23 : Base_SceneState
+{
+    public Depth1A_State_23(Depth1A_SceneController currentScene) : base(currentScene)
+    {
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+    }
+
+    public override void OnStep()
+    {
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+    }
+}
+
+
+public class Depth1A_State_24 : Base_SceneState
+{
+    public Depth1A_State_24(Depth1A_SceneController currentScene) : base(currentScene)
+    {
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+    }
+
+    public override void OnStep()
+    {
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+    }
+}
+
+
+public class Depth1A_State_25 : Base_SceneState
+{
+    public Depth1A_State_25(Depth1A_SceneController currentScene) : base(currentScene)
+    {
+    }
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+    }
+
+    public override void OnStep()
+    {
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
     }
 }

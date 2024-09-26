@@ -69,7 +69,7 @@ public class InPlay_CinemachineController : MonoBehaviour
                 _freeLookCamera.m_Orbits[i].m_Radius = Mathf.Clamp(newRadius, minRadius, maxRadius);
 
                 // 디버그 로그 출력
-                Logger.Log($"Orbit {i} : Radius Val = {_freeLookCamera.m_Orbits[i].m_Radius}");
+//                Logger.Log($"Orbit {i} : Radius Val = {_freeLookCamera.m_Orbits[i].m_Radius}");
             }
         }
     }

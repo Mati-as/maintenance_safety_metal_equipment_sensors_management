@@ -320,7 +320,9 @@ public class UI_ContentController : UI_Popup
         GetButton((int)Btns.Btn_Prev).GetComponent<Image>().DOFade(fade, speed);
         GetButton((int)Btns.Btn_Next).GetComponent<Image>().DOFade(fade, speed);
     }
+
     public static event Action<int> OnStepBtnClicked_CurrentCount;
+    public static event Action<int> OnNextDepthInvoked; //sceneChange 
 
     private void OnPrevBtnClicked()
     {
@@ -341,13 +343,12 @@ public class UI_ContentController : UI_Popup
 
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count);
-        ChangeInstructionTextWithAnim();
     }
 
     private void OnNextBtnClicked()
     {
         Precheck();
-        if (Managers.ContentInfo.PlayData.Count >= ContentPlayData.COUNT_MAX)
+        if (Managers.ContentInfo.PlayData.Count >= ContentPlayData.CurrentCountMax)
         {
 #if UNITY_EDITOR
             Debug.Log("current count is Max ---------");
@@ -355,13 +356,18 @@ public class UI_ContentController : UI_Popup
 #endif
         }
 
+        if (Managers.ContentInfo.PlayData.Count >= ContentPlayData.CurrentCountMax)
+        {
+            //depth2 invoke로직 or 버튼에 직접할당하기
+        }
+
         Managers.ContentInfo.PlayData.Count++;
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count);
-        ChangeInstructionTextWithAnim();
     }
 
-    private void ChangeInstructionTextWithAnim()
+
+    public void ChangeInstructionTextWithAnim()
     {
         StartCoroutine(ChangeTextWithAnimCo());
     }
@@ -387,7 +393,6 @@ public class UI_ContentController : UI_Popup
         Managers.ContentInfo.PlayData.Depth3 = 1;
 
         ChangeInstructionTextWithAnim();
-
 
         RefreshUI();
         RefreshText();
@@ -599,11 +604,10 @@ public class UI_ContentController : UI_Popup
 
     private bool isTrainingInfoOpen;
     private Sequence _UIOnSeq;
-  
+
 
     public void ShowInitialIntro()
     {
-    
         GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
         GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
 
@@ -611,10 +615,7 @@ public class UI_ContentController : UI_Popup
         seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
         seq.AppendInterval(1f);
         seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(0, 1f).SetEase(Ease.InCirc));
-        seq.AppendCallback(() =>
-        {
-            GetObject((int)UI.UI_DepthTitle).SetActive(false);
-        });
+        seq.AppendCallback(() => { GetObject((int)UI.UI_DepthTitle).SetActive(false); });
         seq.AppendInterval(1.9f);
         seq.AppendCallback(PlayObjectiveIntroAnim);
         seq.OnKill(() =>
@@ -633,7 +634,7 @@ public class UI_ContentController : UI_Popup
 
         _UIOnSeq = DOTween.Sequence();
         _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
-        _UIOnSeq.AppendCallback(() => { ShowOrHideNextPrevBtns(true); });
+        _UIOnSeq.AppendCallback(() => { ShowOrHideNextPrevBtns(); });
     }
 
     private Sequence _UICloseSeq;

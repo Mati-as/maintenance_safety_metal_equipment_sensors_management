@@ -51,26 +51,44 @@ public class ContentPlayData : MonoBehaviour
     private int _depth3;
     private int _count;
 
-    public static readonly int COUNT_MAX = 10;
-    
+    public static readonly int DEPTH1_COUNT_MAX = 25;
+    public static readonly int DEPTH2_COUNT_MAX = 10;
+    public static readonly int DEPTH3_COUNT_MAX = 10;
+    public static int CurrentCountMax;
     public int Depth1
     {
         get { return _depth1; }
         set
         {
             Debug.Assert(value <= 3);
-
+            
+            
             _depth1 = value;
-
-
+            
             // Update the relevant character in CurrentDepthStatus
             UpdateCurrentDepthStatus((int)CurrentDepthData.Depth1, (char)(value + '0'));
             
-#if UNITY_EDITOR
-            Debug.Log($"Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
-                      $"{CurrentDepthStatus[2]} : {CurrentDepthStatus[3]}{CurrentDepthStatus[4]}" +
-                      $"\n textNarrNum: {CurrentDepthStatus}");
-#endif
+            if (_depth1 == 1)
+            {
+                CurrentCountMax = DEPTH1_COUNT_MAX;
+            }
+            else if (_depth1== 2)
+            {
+                CurrentCountMax = DEPTH2_COUNT_MAX;
+            }
+            else if (_depth1== 3)
+            {
+                CurrentCountMax = DEPTH3_COUNT_MAX;
+            }
+            else
+            {
+                Logger.LogError("Invalid Depth1 Number");
+            }
+            
+            
+            Logger.Log($"Current Count Max:{CurrentCountMax}Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
+                       $"{CurrentDepthStatus[2]} : {CurrentDepthStatus[3]}{CurrentDepthStatus[4]}" +
+                       $"\n textNarrNum: {CurrentDepthStatus}" );
         }
     }
 
@@ -122,7 +140,7 @@ public class ContentPlayData : MonoBehaviour
         get { return _count; }
         set
         {
-            _count = math.clamp(value, 0, COUNT_MAX);//max
+            _count = math.clamp(value, 0, CurrentCountMax);//max
             
             // Format the count value
             var formattedValue = value < 10 ? $"0{value}" : value.ToString();
