@@ -165,12 +165,14 @@ Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentD
 	    OnAnimationComplete();
     }
 
+
+    public static event Action<int> OnAnimationCompelete;
     private void  OnAnimationComplete()
     {
 	    
 	    Managers.Sound.Play(SoundManager.Sound.Narration, Managers.ContentInfo.PlayData.CurrentDepthStatus);
-	    _cameraController.SetCurrentMainAngle();
-	 
+	    OnAnimationCompelete?.Invoke(currentCount);
+        
     }
 
     public void ChangeInstructionTextWithAnim(int delay =0)

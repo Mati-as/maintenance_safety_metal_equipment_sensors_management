@@ -389,20 +389,37 @@ public class Depth1A_State_18 : Base_SceneState
         public override void OnEnter()
         {
             base.OnEnter();
-
+            Base_SceneController.OnAnimationCompelete -= OnAnimationComplete;
+            Base_SceneController.OnAnimationCompelete += OnAnimationComplete;
+            
             CurrentScene.GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(false);
             CurrentScene.GetObject((int)GameObj.TemperatureSensor).SetActive(true);
-            CurrentScene.cameraController.isControllable = true;
+            
         }
 
         public override void OnStep()
         {
+           
         }
 
         public override void OnExit()
         {
             base.OnExit();
             CurrentScene.cameraController.isControllable = false;
+            Base_SceneController.OnAnimationCompelete -= OnAnimationComplete;
+            
+        }
+
+        public void OnAnimationComplete(int currentAnimationNumber)
+        {
+            if (currentAnimationNumber == 18)
+            {   
+                Logger.Log("Camera Control Available ------------------------------");
+                CurrentScene.cameraController.isControllable = true;
+                CurrentScene.cameraController.SetCurrentMainAngleAndPos
+                    (CurrentScene.GetObject((int)GameObj.TS_Stabilizer).transform);
+                
+            }
         }
     }
 
