@@ -13,7 +13,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 	public UI_ContentController contentController;
     private readonly float _startDelay = 2f; // 맨처음 스크립트 시작 딜레이
     private WaitForSeconds _wait;
-
+    private Inplay_CameraController _cameraController;
   
     //Animation Part
 
@@ -35,7 +35,11 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 	    
 	    BindEvent();
 
-        Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
+	    Debug.Assert(Camera.main != null);
+		    _cameraController = Camera.main.GetComponent<Inplay_CameraController>();
+	    
+
+	    Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
         
         contentController = Managers.UI.ShowPopupUI<UI_ContentController>();
         StartCoroutine(OnSceneStartCo());
@@ -99,7 +103,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public virtual void OnStepChange(int count)
     {
         currentCount = count;
-        
         ChangeState(currentCount);
         
     }
@@ -155,13 +158,20 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     }
     private IEnumerator CheckAnimationEnd(AnimationClip clip, Action onAnimationComplete)
     {
-	    yield return new WaitForSeconds(clip.length/2);
+	    yield return new WaitForSeconds(clip.length);
 	    OnAnimationComplete();
     }
 
     private void  OnAnimationComplete()
     {
+	    
 	    Managers.Sound.Play(SoundManager.Sound.Narration, Managers.ContentInfo.PlayData.CurrentDepthStatus);
+	    _cameraController.SetCurrentMainAngle();
+	 
+    }
+
+    public void ChangeInstructionTextWithAnim(int delay =0)
+    {
 	    contentController.ChangeInstructionTextWithAnim();
     }
     

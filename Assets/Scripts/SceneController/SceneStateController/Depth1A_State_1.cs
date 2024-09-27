@@ -100,8 +100,8 @@ public class Depth1A_State_5 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.cameraController.
-            SetLookAtAndFollow(CurrentScene.GetObject((int)GameObj.LooAt_plumbingSystemOrPipework).transform);
+        // CurrentScene.cameraController.
+        //     SetLookAtAndFollow(CurrentScene.GetObject((int)GameObj.LooAt_plumbingSystemOrPipework).transform);
     }
 
     public override void OnStep()
@@ -111,8 +111,7 @@ public class Depth1A_State_5 : Base_SceneState
     public override void OnExit()
     {
           base.OnExit();
-        CurrentScene.cameraController.
-            SetLookAtAndFollow(null);
+        //CurrentScene.cameraController.SetLookAtAndFollow(null);
     }
 }
 
@@ -124,8 +123,8 @@ public class Depth1A_State_6 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.cameraController.
-            SetLookAtAndFollow(CurrentScene.GetObject((int)GameObj.LooAt_plumbingSystemOrPipework).transform);
+        // CurrentScene.cameraController.
+        //     SetLookAtAndFollow(CurrentScene.GetObject((int)GameObj.LooAt_plumbingSystemOrPipework).transform);
         base.OnEnter();
     }
 
@@ -136,8 +135,8 @@ public class Depth1A_State_6 : Base_SceneState
     public override void OnExit()
     {
           base.OnExit();
-        CurrentScene.cameraController.
-            SetLookAtAndFollow(null);
+        // CurrentScene.cameraController.
+        //     SetLookAtAndFollow(null);
     }
 }
 

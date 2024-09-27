@@ -22,7 +22,7 @@ public class Depth1A_SceneController : Base_SceneController
 {
     private Dictionary<string, HighlightEffect> _highlight;
     private Dictionary<int, Sequence> _seqMap;
-    public InPlay_CinemachineController cameraController;
+    public Inplay_CameraController cameraController;
     
     
     public override void Init()
@@ -30,7 +30,7 @@ public class Depth1A_SceneController : Base_SceneController
         InitializeStates();
         SetParameters();
         BindObject(typeof(GameObj));
-        cameraController = Camera.main.GetComponent<InPlay_CinemachineController>();
+        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
         
         _highlight = new Dictionary<string, HighlightEffect>();
         _seqMap = new Dictionary<int, Sequence>();
