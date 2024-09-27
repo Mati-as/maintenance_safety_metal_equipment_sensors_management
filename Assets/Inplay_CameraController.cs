@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Inplay_CameraController : MonoBehaviour
 {
-    private readonly float _zoomSpeed = 0.8f; // 줌 속도 조정
+    private readonly float _zoomSpeed = 2f; // 줌 속도 조정
     private readonly float _rotationSpeed = 5.0f; // 회전 속도 조정
     private readonly float _minZoom = 15f; // 최소 줌 거리
     private readonly float _maxZoom = 60f; // 최대 줌 거리
@@ -21,6 +21,7 @@ public class Inplay_CameraController : MonoBehaviour
     private float _verticalPivotCenter; // 현재 상하 회전 각도
     private float _horizontalPivotCenter; // 현재 좌우 회전 각도
 
+    public bool isControllable { get; set; }
     private void Awake()
     {
         // 현재 메인 카메라 가져오기
@@ -29,6 +30,7 @@ public class Inplay_CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (!isControllable) return; 
         HandleRotation();
         HandleZoom();
     }

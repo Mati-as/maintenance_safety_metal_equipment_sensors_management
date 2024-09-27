@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using HighlightPlus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -25,30 +27,30 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     protected ISceneState _currentState;
     public int currentCount { get; private set; }
 
+    
+    //Animation
+    private Dictionary<string, HighlightEffect> _highlight;
+    private Dictionary<int, Sequence> _seqMap;
     public virtual void Start()
     {
         Init();
     }
     
+    /// <summary>
+    /// 기본적인 자원로드 위주로 구성하며, override 한 객체가 UI,플레이등을 실행하도록 합니다. 
+    /// </summary>
     public virtual void Init()
     {
-	    
 	    BindEvent();
-
-	    Debug.Assert(Camera.main != null);
-		    _cameraController = Camera.main.GetComponent<Inplay_CameraController>();
-	    
-
-	    Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
+	    _highlight = new Dictionary<string, HighlightEffect>();
+	    _seqMap = new Dictionary<int, Sequence>();
         
+Debug.Assert(Camera.main != null);
+		_cameraController = Camera.main.GetComponent<Inplay_CameraController>();
+        
+Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
         contentController = Managers.UI.ShowPopupUI<UI_ContentController>();
-        StartCoroutine(OnSceneStartCo());
-   
-        Managers.Sound.Play(SoundManager.Sound.Effect, "Depth1Start");
-
-
-        int introAnimation = 1;
-        PlayAnimationAndNarration(introAnimation);
+        
     }
 
     private void BindEvent()
@@ -64,10 +66,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
 
 
-    private IEnumerator OnSceneStartCo()
+    protected IEnumerator OnSceneStartCo()
     {
         PlayInitialIntro();
-
         
         _animation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
 
@@ -78,7 +79,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
 
         contentController.SetActiveInstruction();
-
+        int introAnimation = 1;
+        PlayAnimationAndNarration(introAnimation);
+        Managers.Sound.Play(SoundManager.Sound.Effect, "Depth1Start");
         
     }
 
@@ -123,7 +126,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         }
     }
 
-    #region State 호출함수
+    #region Call By States
     
     public void PlayAnimationAndNarration( int number, float delay = 0f, float animSpeed = 1f)
     {
@@ -177,10 +180,87 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     
     #endregion
 
+ 
+    #region Animation
 
+    protected void SetHighlight(string gameObjName, bool isOn = true)
+    {
+	    Logger.Log($"[{gameObjName}]Highight is ON? : {isOn}");
+	    _highlight[gameObjName].highlighted = isOn;
+	
+    }
+
+
+    public void HighlightBlink(GameObj gameObj,float startDelay =1f)
+    {
+	    var seq = DOTween.Sequence();
+	    _seqMap.TryAdd((int)gameObj, seq);
+
+	    var maxInnerGlow = 0.15f;
+	    if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
+
+	    seq.AppendInterval(startDelay);
+	    seq.AppendCallback(() => { _highlight[GetObject((int)gameObj).name].highlighted = true; });
+
+	    var loopCount = 3;
+	    for (var i = 0; i < loopCount; i++)
+	    {
+		    seq.Append(DOVirtual.Float(0, maxInnerGlow, 1f,
+			    val => { _highlight[GetObject((int)gameObj).name].innerGlow = val; }));
+
+		    seq.Append(DOVirtual.Float(maxInnerGlow, 0, 1f,
+			    val => { _highlight[GetObject((int)gameObj).name].innerGlow = val; }));
+	    }
+
+	    seq.AppendCallback(() => { _highlight[GetObject((int)gameObj).name].highlighted = false; });
+
+	    seq.OnKill(() =>
+	    {
+		    _highlight[GetObject((int)gameObj).name].highlighted = false;
+		    _highlight[GetObject((int)gameObj).name].innerGlow = 0;
+	    });
+	    _seqMap[(int)gameObj] = seq;
+    }
+    public void AddToHighlightDictionary(GameObj gameObj)
+    {
+	    var objName = GetObject((int)gameObj).name;
+	    var highlightEffect = GetObject((int)gameObj).GetComponent<HighlightEffect>();
+
+	    if (!_highlight.ContainsKey(objName)) _highlight.Add(objName, highlightEffect);
+    }
+
+    public void BindHighlightAndTooltip(GameObj gameObj, string tooltipText)
+    {
+	    // PointerEnter 이벤트 바인딩
+	    GetObject((int)gameObj).BindEvent(() =>
+	    {
+		    SetHighlight(GetObject((int)gameObj).name);
+		    contentController.SetToolTipStatus();
+		    contentController.SetText(tooltipText);
+	    }, Define.UIEvent.PointerEnter);
+
+	    // PointerExit 이벤트 바인딩
+	    GetObject((int)gameObj).BindEvent(() =>
+	    {
+		    SetHighlight(GetObject((int)gameObj).name, false);
+		    contentController.SetToolTipStatus(false);
+	    }, Define.UIEvent.PointerExit);
+    }
+
+    public void SetHighlightStatus(GameObj gameObj,bool isOn)
+    {
+	    _highlight[GetObject((int)gameObj).name].highlighted = isOn;
+    }
+    protected void BindAndAddToDictionary(GameObj gameObj, string tooltipText)
+    {
+	    AddToHighlightDictionary(gameObj);
+	    BindHighlightAndTooltip(gameObj, tooltipText);
+    }
 
     
-
+    
+    #endregion
+    
 
     #region 바인딩 로직
 

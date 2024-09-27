@@ -8,11 +8,15 @@ public enum GameObj
     LimitSwitch,
     ProximitySwitch,
     TemperatureSensor,
+    TemperatureSensor_Whole,//분해 로직이랑 구분
     LevelSensor,
     FlowMeter,
     PressureSensor,
-    //------------------------ 포지션
-    LooAt_plumbingSystemOrPipework,
+    //Parts
+    TS_CompensatingWire,
+    TS_Stabilizer,
+    TS_SensingElement,
+    TS_Cover,
 }
 
 
@@ -20,115 +24,53 @@ public enum GameObj
 
 public class Depth1A_SceneController : Base_SceneController
 {
-    private Dictionary<string, HighlightEffect> _highlight;
-    private Dictionary<int, Sequence> _seqMap;
+ 
     public Inplay_CameraController cameraController;
     
     
     public override void Init()
-    {
-        InitializeStates();
-        SetParameters();
-        BindObject(typeof(GameObj));
-        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
+    {   
+        base.Init();
         
-        _highlight = new Dictionary<string, HighlightEffect>();
-        _seqMap = new Dictionary<int, Sequence>();
-
+        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
+        InitializeStates();
+        SetDepthNum();
+        
+        BindObject(typeof(GameObj));
+       
+        
         // 딕셔너리에 추가 및 이벤트 바인딩
         BindAndAddToDictionary(GameObj.LimitSwitch, "리밋 스위치");
         BindAndAddToDictionary(GameObj.ProximitySwitch, "근접 스위치");
-        BindAndAddToDictionary(GameObj.TemperatureSensor, "온도 센서");
+        //BindAndAddToDictionary(GameObj.TemperatureSensor, "온도 센서");
+        BindAndAddToDictionary(GameObj.TemperatureSensor_Whole, "온도 센서");
         BindAndAddToDictionary(GameObj.LevelSensor, "레벨 센서");
         BindAndAddToDictionary(GameObj.FlowMeter, "유량 센서");
         BindAndAddToDictionary(GameObj.PressureSensor, "압력 센서");
-        base.Init();
-    }
-
-    private void BindAndAddToDictionary(GameObj gameObj, string tooltipText)
-    {
-        AddToHighlightDictionary(gameObj);
-        BindHighlightAndTooltip(gameObj, tooltipText);
-    }
-
-    private void AddToHighlightDictionary(GameObj gameObj)
-    {
-        var objName = GetObject((int)gameObj).name;
-        var highlightEffect = GetObject((int)gameObj).GetComponent<HighlightEffect>();
-
-        if (!_highlight.ContainsKey(objName)) _highlight.Add(objName, highlightEffect);
-    }
-
-    private void BindHighlightAndTooltip(GameObj gameObj, string tooltipText)
-    {
-        // PointerEnter 이벤트 바인딩
-        GetObject((int)gameObj).BindEvent(() =>
-        {
-            SetHighlight(GetObject((int)gameObj).name);
-            contentController.SetToolTipStatus();
-            contentController.SetText(tooltipText);
-        }, Define.UIEvent.PointerEnter);
-
-        // PointerExit 이벤트 바인딩
-        GetObject((int)gameObj).BindEvent(() =>
-        {
-            SetHighlight(GetObject((int)gameObj).name, false);
-            contentController.SetToolTipStatus(false);
-        }, Define.UIEvent.PointerExit);
+        BindAndAddToDictionary(GameObj.TS_CompensatingWire, "보상전선");
+        BindAndAddToDictionary(GameObj.TS_Stabilizer, "고정자");
+        BindAndAddToDictionary(GameObj.TS_SensingElement, "감온부");
+        BindAndAddToDictionary(GameObj.TS_Cover, "커버");
+        
+        GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(true);
+        GetObject((int)GameObj.TemperatureSensor).SetActive(false);
+        
+        StartCoroutine(OnSceneStartCo());
     }
 
 
-    private void SetHighlight(string gameObjName, bool isOn = true)
-    {
-        _highlight[gameObjName].highlighted = isOn;
-        Logger.Log($"Hightlight is ON? : {isOn}");
-    }
-
-
-    public void HighlightBlink(GameObj gameObj,float startDelay =1f)
-    {
-        var seq = DOTween.Sequence();
-        _seqMap.TryAdd((int)gameObj, seq);
-
-        var maxInnerGlow = 0.15f;
-        if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
-
-        seq.AppendInterval(startDelay);
-        seq.AppendCallback(() => { _highlight[GetObject((int)gameObj).name].highlighted = true; });
-
-        var loopCount = 3;
-        for (var i = 0; i < loopCount; i++)
-        {
-            seq.Append(DOVirtual.Float(0, maxInnerGlow, 1f,
-                val => { _highlight[GetObject((int)gameObj).name].innerGlow = val; }));
-
-            seq.Append(DOVirtual.Float(maxInnerGlow, 0, 1f,
-                val => { _highlight[GetObject((int)gameObj).name].innerGlow = val; }));
-        }
-
-        seq.AppendCallback(() => { _highlight[GetObject((int)gameObj).name].highlighted = false; });
-
-        seq.OnKill(() =>
-        {
-            _highlight[GetObject((int)gameObj).name].highlighted = false;
-            _highlight[GetObject((int)gameObj).name].innerGlow = 0;
-        });
-        _seqMap[(int)gameObj] = seq;
-    }
-
+   
     /// <summary>
     ///     1.씬로드 전,후 두번  파라미터를 로드해줍니다.
     ///     2. 각 씬별로도 테스트를 할 수 있도록 하기 위함입니다.
     /// </summary>
-    private void SetParameters()
+    private void SetDepthNum()
     {
         Managers.ContentInfo.PlayData.Depth1 = 1;
         Managers.ContentInfo.PlayData.Depth2 = 1;
         Managers.ContentInfo.PlayData.Depth3 = 1;
         Managers.ContentInfo.PlayData.Count = 1;
     }
-
-
     
     private void OnDepth2Finished()
     {
@@ -158,7 +100,12 @@ public class Depth1A_SceneController : Base_SceneController
             { 17, new Depth1A_State_17(this) },
             { 18, new Depth1A_State_18(this) },
             { 19, new Depth1A_State_19(this) },
-            { 20, new Depth1A_State_20(this) }
+            { 20, new Depth1A_State_20(this) },
+            { 21, new Depth1A_State_16(this) },
+            { 22, new Depth1A_State_17(this) },
+            { 23, new Depth1A_State_18(this) },
+            { 24, new Depth1A_State_19(this) },
+            { 25, new Depth1A_State_20(this) },
         };
     }
 }
