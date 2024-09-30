@@ -46,14 +46,15 @@ public class ContentPlayData : MonoBehaviour
     private char[] _currentDepthStatusChar = new char[(int)CurrentDepthData.Max];
 
 
-    private int _depth1;
-    private int _depth2;
-    private int _depth3;
-    private int _count;
+    private int _depth1 =0;
+    private int _depth2 =0;
+    private int _depth3 =0;
+    private int _count = 0;
 
     public static readonly int DEPTH1_COUNT_MAX = 25;
     public static readonly int DEPTH2_COUNT_MAX = 10;
     public static readonly int DEPTH3_COUNT_MAX = 10;
+    
     public static int CurrentCountMax;
     public int Depth1
     {

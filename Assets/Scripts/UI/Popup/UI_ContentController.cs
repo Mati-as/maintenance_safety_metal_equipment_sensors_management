@@ -185,7 +185,14 @@ public class UI_ContentController : UI_Popup
         {
             Logger.Log($"Depth2 Banner Toggled {i}");
             var toggle = GetToggle((int)Toggles.Toggle_Depth2_A + i);
-            toggle.gameObject.BindEvent(() => OnDepth2Clicked(i + 1));
+            
+            int toggleIndex = i;
+        
+            toggle.gameObject.BindEvent(() =>
+            {
+                Logger.Log($"{toggle.gameObject.name} is clicked");
+                OnDepth2Clicked(toggleIndex + 1); // use the local copy
+            });
             _depth2Toggles[(int)Toggles.Toggle_Depth2_A + i] = toggle;
         }
     }
@@ -404,10 +411,12 @@ public class UI_ContentController : UI_Popup
     private void OnDepth2Clicked(int depth2)
     {
         Precheck();
-        Logger.Log($"Depth2 Banner Toggled {depth2}");
+       
         Managers.ContentInfo.PlayData.Depth2 = depth2;
         Managers.ContentInfo.PlayData.Depth3 = 1;
 
+        Logger.Log($"Depth2 Banner Toggled {depth2}");
+        
         ChangeInstructionTextWithAnim();
 
         RefreshUI();
@@ -629,11 +638,12 @@ public class UI_ContentController : UI_Popup
         GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
 
         var seq = DOTween.Sequence();
+        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1,0.001f));
         seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
         seq.AppendInterval(1f);
-        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(0, 1f).SetEase(Ease.InCirc));
+        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(0, 1f).SetEase(Ease.InCirc));
         seq.AppendCallback(() => { GetObject((int)UI.UI_DepthTitle).SetActive(false); });
-        seq.AppendInterval(1.9f);
+        seq.AppendInterval(0.5f);
         seq.AppendCallback(PlayObjectiveIntroAnim);
         seq.OnKill(() =>
         {
@@ -650,7 +660,7 @@ public class UI_ContentController : UI_Popup
         GetObject((int)UI.UI_TrainingInfo).SetActive(true);
 
         _UIOnSeq = DOTween.Sequence();
-        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
+        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(1, 0.45f).SetEase(Ease.InCirc));
         _UIOnSeq.AppendCallback(() => { ShowOrHideNextPrevBtns(); });
     }
 
