@@ -4,15 +4,45 @@ using UnityEngine;
 
 public class UI_ToolBox : UI_Popup
 {
-    // Start is called before the first frame update
-    void Start()
+  
+    public enum Btns
     {
-        
+        Btn_Close,
+        Btn_ElectricScrewdriver
     }
 
-    // Update is called once per frame
-    void Update()
+    public enum Obj
     {
-        
+        ElectricScrewdriver
     }
+
+    
+    
+    private Depth1C_SceneController _sceneController;
+    public override bool Init()
+    {
+        if (!base.Init())
+            return false;
+
+        _sceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Depth1C_SceneController>();
+ 
+        BindButton(typeof(Btns));
+        BindObject(typeof(Obj));
+        
+        GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
+        {
+            Managers.UI.ClosePopupUI(this);
+        });
+        
+        
+        GetButton((int)Btns.Btn_ElectricScrewdriver).gameObject.BindEvent(() =>
+        {
+            _sceneController.OnScrewDriverBtnClicked();
+        });
+        return true;
+    }
+    
+ 
+
+
 }

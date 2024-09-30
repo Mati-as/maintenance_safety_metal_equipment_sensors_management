@@ -24,8 +24,6 @@ public enum GameObj
 
 public class Depth1A_SceneController : Base_SceneController
 {
- 
-    public Inplay_CameraController cameraController;
     
     
     public override void Init()

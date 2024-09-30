@@ -18,6 +18,7 @@ public class UI_ContentController : UI_Popup
         Btn_ThirdDepth_Hide,
         Btn_Help,
         Btn_Evaluation,
+        Btn_ToolBox,
 
         //  UI_Depth3_List, // Active Area
         //
@@ -25,7 +26,7 @@ public class UI_ContentController : UI_Popup
         Depth3_B,
         Depth3_C,
         Depth3_D,
-        Depth3_E
+        Depth3_E,
     }
 
     public enum Toggles
@@ -305,6 +306,10 @@ public class UI_ContentController : UI_Popup
     {
         GetButton((int)Btns.Btn_Prev).gameObject.BindEvent(OnPrevBtnClicked);
         GetButton((int)Btns.Btn_Next).gameObject.BindEvent(OnNextBtnClicked);
+        GetButton((int)Btns.Btn_ToolBox).gameObject.BindEvent(() =>
+        {
+            Managers.UI.ShowPopupUI<UI_ToolBox>();
+        });
     }
 
 
@@ -321,7 +326,9 @@ public class UI_ContentController : UI_Popup
         GetButton((int)Btns.Btn_Next).GetComponent<Image>().DOFade(fade, speed);
     }
 
-    public static event Action<int> OnStepBtnClicked_CurrentCount;
+    
+    //Action<애니메이션 순서(int), Reverse 여부(bool)>
+    public static event Action<int,bool> OnStepBtnClicked_CurrentCount;
     public static event Action<int> OnNextDepthInvoked; //sceneChange 
 
     private void OnPrevBtnClicked()
@@ -342,7 +349,16 @@ public class UI_ContentController : UI_Popup
 
 
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
-        OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count);
+        OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,true);
+    }
+    
+    
+    /// <summary>
+    /// 버튼 클릭외에 스크립트를 넘어가는 경우 (예. 미션수행완료 등) 사용
+    /// </summary>
+    public void NextScript()
+    {
+        OnNextBtnClicked();
     }
 
     private void OnNextBtnClicked()
@@ -363,7 +379,7 @@ public class UI_ContentController : UI_Popup
 
         Managers.ContentInfo.PlayData.Count++;
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
-        OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count);
+        OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,false);
     }
 
 
@@ -553,6 +569,7 @@ public class UI_ContentController : UI_Popup
     }
 
 
+    
     private void OnDepth3BtnExit()
     {
         // OnAnimation
@@ -649,4 +666,6 @@ public class UI_ContentController : UI_Popup
         _UICloseSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(0, 0.8f).SetEase(Ease.InCirc));
         _UICloseSeq.AppendCallback(() => { GetObject((int)UI.UI_TrainingInfo).SetActive(false); });
     }
+    
+    
 }

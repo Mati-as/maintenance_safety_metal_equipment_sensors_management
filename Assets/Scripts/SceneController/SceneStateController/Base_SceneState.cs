@@ -1,13 +1,13 @@
 public class Base_SceneState : ISceneState
 {
-    protected Depth1A_SceneController CurrentScene;
+    protected Base_SceneController CurrentScene;
 
     
     protected float _animationDelay=0;
     protected float _instructionDelay = 0;
   
     // BaseScene 참조를 생성자에서 주입합니다. 
-    protected Base_SceneState(Depth1A_SceneController currentScene)
+    protected Base_SceneState(Base_SceneController currentScene)
     {
         CurrentScene = currentScene;
         Logger.Log($"state logic Uploaded : current scene controller: {currentScene.name}");
@@ -20,13 +20,13 @@ public class Base_SceneState : ISceneState
         if (_animationDelay == 0)
         {
             Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
-            CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount);
+            CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
             
         }
         else
         {
             Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
-            CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,_animationDelay);
+            CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,delay:_animationDelay,isReverse:CurrentScene.isReverseAnim);
         }
      
     }
@@ -38,5 +38,17 @@ public class Base_SceneState : ISceneState
     public virtual void OnExit()
     {
         _animationDelay = 0;
+    }
+    
+    public void OnAnimationComplete(int currentAnimationNumber)
+    {
+        if (currentAnimationNumber == 18)
+        {   
+            Logger.Log("Camera Control Available ------------------------------");
+            CurrentScene.cameraController.isControllable = true;
+            CurrentScene.cameraController.SetCurrentMainAngleAndPos
+                (CurrentScene.GetObject((int)GameObj.TS_Stabilizer).transform);
+                
+        }
     }
 }
