@@ -141,11 +141,19 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
              clip = _animation.GetClip((number+1).ToString());
 
-             if (clip.length < 0.3f) // 0.3f 미만인 경우 시점만 변환하는 단순애니메이션, 그 이상은 일반애니메이션으로 분류합니다.
+
+             if (clip != null)
              {
-                 clip  = _animation.GetClip((number).ToString());
+                 if (clip.length < 0.3f) // 0.3f 미만인 경우 시점만 변환하는 단순애니메이션, 그 이상은 일반애니메이션으로 분류합니다.
+                 {
+                     clip  = _animation.GetClip((number).ToString());
+                 }
+                 else
+                 {
+                    _animation[clip.name].time = _animation[clip.name].length;
+                 }
              }
-             if(clip!=null) _animation[clip.name].time = _animation[clip.name].length;
+
         }
         else
         {  

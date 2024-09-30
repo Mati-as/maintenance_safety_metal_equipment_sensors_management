@@ -634,11 +634,15 @@ public class UI_ContentController : UI_Popup
 
     public void ShowInitialIntro()
     {
-        GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
+        
         GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
 
         var seq = DOTween.Sequence();
+        //초기화
         seq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1,0.001f));
+        
+        //애니메이션
+        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1, 1f).SetEase(Ease.InCirc));
         seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
         seq.AppendInterval(1f);
         seq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(0, 1f).SetEase(Ease.InCirc));
