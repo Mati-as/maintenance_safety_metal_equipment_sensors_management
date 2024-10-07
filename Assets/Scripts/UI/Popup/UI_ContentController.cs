@@ -190,7 +190,7 @@ public class UI_ContentController : UI_Popup
         
             toggle.gameObject.BindEvent(() =>
             {
-                Logger.Log($"{toggle.gameObject.name} is clicked");
+                
                 OnDepth2Clicked(toggleIndex + 1); // use the local copy
             });
             _depth2Toggles[(int)Toggles.Toggle_Depth2_A + i] = toggle;
@@ -202,7 +202,12 @@ public class UI_ContentController : UI_Popup
         for (var i = 0; i < 5; i++)
         {
             var btn = GetButton((int)Btns.Depth3_A + i);
-            btn.gameObject.BindEvent(() => OnDepth3BtnClicked(i + 1));
+            var i2 = i;
+            btn.gameObject.BindEvent(() =>
+            {
+                Logger.Log($"{btn.gameObject.name} clicked depth value = {i2+1}");
+                OnDepth3BtnClicked(i2 + 1);
+            });
             btn.gameObject.BindEvent(OnDepth3BtnEnter, Define.UIEvent.PointerEnter);
             btn.gameObject.BindEvent(OnDepth3ABtnExit, Define.UIEvent.PointerExit);
             _depth3Btns[(int)Btns.Depth3_A + i] = btn;
@@ -411,17 +416,45 @@ public class UI_ContentController : UI_Popup
     private void OnDepth2Clicked(int depth2)
     {
         Precheck();
-       
-        Managers.ContentInfo.PlayData.Depth2 = depth2;
-        Managers.ContentInfo.PlayData.Depth3 = 1;
 
+        if (Managers.ContentInfo.PlayData.Depth1 == 1 && depth2== 2)
+        {
+            Managers.ContentInfo.PlayData.Depth2 = 1;
+            Managers.ContentInfo.PlayData.Depth3 = 1; //depth3 2로 수정되지 않도록 주의합니다.
+            Managers.ContentInfo.PlayData.Count = 11;
+            
+            OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
+        }
+        else if (Managers.ContentInfo.PlayData.Depth1 == 1 && depth2 == 1)
+        {
+            Managers.ContentInfo.PlayData.Depth2 = 1;
+            Managers.ContentInfo.PlayData.Depth3 = 1;
+            Managers.ContentInfo.PlayData.Count = 1;
+            
+            OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
+        }
+        else
+        {
+            Managers.ContentInfo.PlayData.Depth2 = depth2;
+            Managers.ContentInfo.PlayData.Depth3 = 1;
+        }
+        
+       
         Logger.Log($"Depth2 Banner Toggled {depth2}");
         
         ChangeInstructionTextWithAnim();
-
         RefreshUI();
         RefreshText();
     }
+
+    private void OnDepth2BClickedOnDepth1A()
+    {
+        
+    }
+    
+    
+    
+    
 
     private RectTransform _activeAreaRect;
     private float _heightPerDepth3Btn;
@@ -457,7 +490,7 @@ public class UI_ContentController : UI_Popup
             ContentPlayData.DEPTH_THREE_COUNT_DATA[
                 int.Parse(currentDepth12)] + 1);
         _activeAreaRect.sizeDelta = resizedHeight;
-        Debug.Log($"_activeAreaRect Height: {_activeAreaRect.sizeDelta.y}");
+//        Debug.Log($"_activeAreaRect Height: {_activeAreaRect.sizeDelta.y}");
     }
 
     private void ResizeActiveArea()
@@ -535,21 +568,31 @@ public class UI_ContentController : UI_Popup
     {
         Precheck();
         Managers.ContentInfo.PlayData.Depth3 = depth3Num;
-        //  Managers.ContentInfo.PlayData.ResetOrSetDepthCount(depth3Num);
 
-#if UNITY_EDITOR
-        Debug.Log($"current Status{Managers.ContentInfo.PlayData.CurrentDepthStatus}");
-#endif
 
-        for (var i = (int)Btns.Depth3_A; i < (int)Btns.Depth3_E + 1; i++) _depth3Btns[i].gameObject.SetActive(false);
+
+        Logger.Log($"current Status{Managers.ContentInfo.PlayData.CurrentDepthStatus}");
+
+
+        for (var i = (int)Btns.Depth3_A; i < (int)Btns.Depth3_E + 1; i++)
+        {
+            _depth3Btns[i].gameObject.SetActive(false);
+        }
+
+
         var currentDepth12 = Managers.ContentInfo.PlayData.CurrentDepthStatus[0] +
                              Managers.ContentInfo.PlayData.CurrentDepthStatus[1].ToString();
-        Debug.Log($"depthCount {currentDepth12}");
+                             
+        Logger.Log($"depthCount {currentDepth12}");
 
         for (var i = (int)Btns.Depth3_A;
              i < (int)Btns.Depth3_A + ContentPlayData.DEPTH_THREE_COUNT_DATA[int.Parse(currentDepth12)];
-             i++) _depth3Btns[i].gameObject.SetActive(true);
-        Debug.Log(
+             i++)
+        {
+            _depth3Btns[i].gameObject.SetActive(true);
+        }
+        
+        Logger.Log(
             $"depth 3 current: {texts[(int)Content_TMP.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
 
 
@@ -664,7 +707,8 @@ public class UI_ContentController : UI_Popup
         GetObject((int)UI.UI_TrainingInfo).SetActive(true);
 
         _UIOnSeq = DOTween.Sequence();
-        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(1, 0.45f).SetEase(Ease.InCirc));
+        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.0001f).SetEase(Ease.InCirc));
+        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.35f).SetEase(Ease.InCirc));
         _UIOnSeq.AppendCallback(() => { ShowOrHideNextPrevBtns(); });
     }
 
@@ -677,7 +721,7 @@ public class UI_ContentController : UI_Popup
 
         _UICloseSeq = DOTween.Sequence();
 
-        _UICloseSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.DOScale(0, 0.8f).SetEase(Ease.InCirc));
+        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.2f).SetEase(Ease.InCirc));
         _UICloseSeq.AppendCallback(() => { GetObject((int)UI.UI_TrainingInfo).SetActive(false); });
     }
     

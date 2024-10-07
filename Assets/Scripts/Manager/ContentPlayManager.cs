@@ -120,7 +120,7 @@ public class ContentPlayData : MonoBehaviour
         get { return _depth3; }
         set
         {
-            Debug.Assert(value <= 5 && value >0,$"currentdepth{value} ");
+            Debug.Assert(value <= 5 && value >0,$"currentdepth 3 {value} ");
             _depth3 = value;
 
             // Update the relevant character in CurrentDepthStatus

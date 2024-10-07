@@ -6,11 +6,6 @@ using UnityEngine;
 public class Depth1C_SceneController : Base_SceneController
 {
     
-    public enum Obj
-    {
-       
-    }
-    
     public enum DepthC_GameObj
     {
         ElectricScrewdriver,

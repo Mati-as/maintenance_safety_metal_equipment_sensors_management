@@ -367,6 +367,8 @@ public class Depth1A_State_17 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        CurrentScene.cameraController.isControllable = false;
+        Base_SceneController.OnAnimationCompelete -= OnAnimationComplete;
     }
 
     public override void OnStep()
@@ -444,6 +446,8 @@ public class Depth1A_State_18 : Base_SceneState
         public override void OnEnter()
         {
             base.OnEnter();
+            CurrentScene.cameraController.isControllable = false;
+            Base_SceneController.OnAnimationCompelete -= OnAnimationComplete;
         }
 
         public override void OnStep()
