@@ -39,7 +39,7 @@ public class UI_FullMenu : UI_Popup
 
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() => { Managers.UI.ClosePopupUI(this); });
 
-        GetTMP((int)TMPs.TMP_Overall_Training_Goal).text = Managers.Data.Texts[Define.OverallTraningGoal].kor;
+       GetTMP((int)TMPs.TMP_Overall_Training_Goal).text = Managers.Data.Texts[Define.OverallTraningGoal].kor;
         GetTMP((int)TMPs.TMP_TrainingObjectInfo).text = Managers.Data.Texts[Define.TrainingObjectInfo].kor;
       
         

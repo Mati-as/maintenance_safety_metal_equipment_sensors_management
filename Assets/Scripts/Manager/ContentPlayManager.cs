@@ -54,41 +54,41 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int COUNT_MAX_DEPTH111 = 25;
     public static readonly int COUNT_MAX_DEPTH112 = COUNT_MAX_DEPTH111;
     
-    public static readonly int COUNT_MAX_DEPTH211 = 1;
-    public static readonly int COUNT_MAX_DEPTH212 = 1;
-    public static readonly int COUNT_MAX_DEPTH213 = 1;
-    public static readonly int COUNT_MAX_DEPTH221 = 1;
-    public static readonly int COUNT_MAX_DEPTH222 = 1;
-    public static readonly int COUNT_MAX_DEPTH223 = 1;
-    public static readonly int COUNT_MAX_DEPTH231 = 1;
-    public static readonly int COUNT_MAX_DEPTH232 = 1;
-    public static readonly int COUNT_MAX_DEPTH233 = 1;
+    public static readonly int COUNT_MAX_DEPTH211 = 3;
+    public static readonly int COUNT_MAX_DEPTH212 = 3;
+    public static readonly int COUNT_MAX_DEPTH213 = 3;
+    public static readonly int COUNT_MAX_DEPTH221 = 3;
+    public static readonly int COUNT_MAX_DEPTH222 = 3;
+    public static readonly int COUNT_MAX_DEPTH223 = 3;
+    public static readonly int COUNT_MAX_DEPTH231 = 3;
+    public static readonly int COUNT_MAX_DEPTH232 = 3;
+    public static readonly int COUNT_MAX_DEPTH233 = 3;
 
-    public static readonly int COUNT_MAX_DEPTH311 = 1;
-    public static readonly int COUNT_MAX_DEPTH312 = 1;
-    public static readonly int COUNT_MAX_DEPTH313 = 1;
+    public static readonly int COUNT_MAX_DEPTH311 = 3;
+    public static readonly int COUNT_MAX_DEPTH312 = 3;
+    public static readonly int COUNT_MAX_DEPTH313 = 3;
 
     public static readonly int COUNT_MAX_DEPTH321 = 14;
     public static readonly int COUNT_MAX_DEPTH322 = 10;
     public static readonly int COUNT_MAX_DEPTH323 = 13;
        
-    public static readonly int COUNT_MAX_DEPTH331 = 1;
-    public static readonly int COUNT_MAX_DEPTH332 = 1;
-    public static readonly int COUNT_MAX_DEPTH333 = 1;
+    public static readonly int COUNT_MAX_DEPTH331 = 3;
+    public static readonly int COUNT_MAX_DEPTH332 = 3;
+    public static readonly int COUNT_MAX_DEPTH333 = 3;
 
-    public static readonly int COUNT_MAX_DEPTH341 = 1;
-    public static readonly int COUNT_MAX_DEPTH342 = 1;
-    public static readonly int COUNT_MAX_DEPTH343 = 1;
+    public static readonly int COUNT_MAX_DEPTH341 = 3;
+    public static readonly int COUNT_MAX_DEPTH342 = 3;
+    public static readonly int COUNT_MAX_DEPTH343 = 3;
 
-    public static readonly int COUNT_MAX_DEPTH351 = 1;
-    public static readonly int COUNT_MAX_DEPTH352 = 1;
-    public static readonly int COUNT_MAX_DEPTH353 = 1;
+    public static readonly int COUNT_MAX_DEPTH351 = 3;
+    public static readonly int COUNT_MAX_DEPTH352 = 3;
+    public static readonly int COUNT_MAX_DEPTH353 = 3;
    
-    public static readonly int COUNT_MAX_DEPTH401 = 1;
-    public static readonly int COUNT_MAX_DEPTH402 = 1;
-    public static readonly int COUNT_MAX_DEPTH403 = 1;
-    public static readonly int COUNT_MAX_DEPTH404 = 1;
-    public static readonly int COUNT_MAX_DEPTH405 = 1;
+    public static readonly int COUNT_MAX_DEPTH401 = 3;
+    public static readonly int COUNT_MAX_DEPTH402 = 3;
+    public static readonly int COUNT_MAX_DEPTH403 = 3;
+    public static readonly int COUNT_MAX_DEPTH404 = 3;
+    public static readonly int COUNT_MAX_DEPTH405 = 3;
     
     private static readonly Dictionary<string, int> DepthCountMaxDictionary = new Dictionary<string, int>
     {

@@ -28,7 +28,8 @@ public class Depth1C_SceneController : Base_SceneController
         base.Init();
         cameraController = Camera.main.GetComponent<Inplay_CameraController>();
         InitializeStates();
-        SetDepthNum();
+        
+        if(Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") SetDepthNum();
         
         BindObject(typeof(DepthC_GameObj));
         

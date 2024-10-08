@@ -5,8 +5,64 @@
   <!-- Depth 1-1 -->
   <!-- Depth 1-1-1 -->
 
-  <TextData ID="3300" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
-  <TextData ID="3301" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+
+
+  <TextData ID="3300" kor="전체 훈련 정보" eng="Training Object Info Test" />
+  <TextData ID="3301" kor="전체 훈련 목표 " eng="Training Object Info Test" />
+  
+  
+  
+  <TextData ID="110" kor="기본 학습" eng="Training Object Info Test" />
+  <TextData ID="111" kor="1.1 금속제조설비 구성확인" eng="Training Object Info Test" />
+  <TextData ID="112" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="113" kor="뎁스별 훈련 내용 (테스트)" eng="Training Object Info Test" />
+
+  <TextData ID="120" kor="기본 학습" eng="Training Object Info Test" />
+  <TextData ID="121" kor="1.2 계측센서 구조이해" eng="Training Object Info Test" />
+  <TextData ID="122" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="123" kor="뎁스별 훈련 내용 (테스트)" eng="Training Object Info Test" />
+
+  <TextData ID="210" kor="안전 관리" eng="Training Object Info Test" />
+  <TextData ID="211" kor="2.1 안전 장구  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="212" kor="" eng="Training Object Info Test" />
+  <TextData ID="213" kor="뎁스별 훈련 내용 (테스트)" eng="Training Object Info Test" />
+
+  <TextData ID="220" kor="안전 관리" eng="Training Object Info Test" />
+  <TextData ID="221" kor="2.2 점검 도구 (테스트)" eng="Training Object Info Test" />
+  <TextData ID="222" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="223" kor="뎁스별 훈련 내용 (테스트)" eng="Training Object Info Test" />
+
+  <TextData ID="230" kor="안전 관리" eng="Training Object Info Test" />
+  <TextData ID="231" kor="2.3 안전 사고 사례 (테스트)" eng="Training Object Info Test" />
+  <TextData ID="232" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="233" kor="뎁스별 훈련 내용 (테스트)" eng="Training Object Info Test" />
+  
+  <TextData ID="310" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
+  <TextData ID="311" kor="3.1 검출 스위치" eng="Training Object Info Test" />
+  <TextData ID="312" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="313" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+
+  <TextData ID="320" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
+  <TextData ID="321" kor="3.2 온도 센서" eng="Training Object Info Test" />
+  <TextData ID="322" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="323" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+
+  <TextData ID="330" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
+  <TextData ID="331" kor="3.3 압력 센서 (테스트)" eng="Training Object Info Test" />
+  <TextData ID="332" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="333" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+
+  <TextData ID="340" kor="3.4 유량 센서  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="341" kor="뎁스별 훈련 내용 (테스트)" eng="Training Object Info Test" />
+  <TextData ID="342" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="343" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+  
+  <TextData ID="350" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
+  <TextData ID="351" kor="3.5 레벨 센서  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="352" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
+  <TextData ID="353" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+  
+
   
   <TextData ID="11101" kor="이번 학습 과정에서는 계측센서 점검, 정비 실습을 돕기 위해 금속 제조설비에 설치된 계측 센서를 간략히 확인하고, 각 센서가 어떤 역할을 하는지 알아보겠습니다." eng="eng Test" />
   <TextData ID="11102" kor="금속 제조 설비는 금속을 가공하는 설비로, 공정에 필요한 설비에 따라, 다양한 계측센서가 설치되어있습니다." eng="eng Test" />

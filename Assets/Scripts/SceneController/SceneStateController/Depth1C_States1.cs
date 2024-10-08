@@ -8,7 +8,7 @@ public class Depth1C_State_1 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.contentController.ShutTrainingInfroAnim();
+        
     }
 
     public override void OnStep()
@@ -17,6 +17,7 @@ public class Depth1C_State_1 : Base_SceneState
 
     public override void OnExit()
     {
+        CurrentScene.contentController.ShutTrainingInfroAnim();
         base.OnExit();
     }
 }

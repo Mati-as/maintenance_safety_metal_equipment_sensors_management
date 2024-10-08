@@ -85,7 +85,7 @@ public class UI_ContentController : UI_Popup
     private readonly Button[] _depth3Btns = new Button[Enum.GetValues(typeof(Btns)).Length]; // 방어적으로 사이즈 크게 할당
 
 
-    private readonly float _btnClickableDelay = 0.85f;
+    private readonly float _btnClickableDelay = 1.05f;
     private WaitForSeconds _waitForClick;
     public bool clickable = true;
 
@@ -377,10 +377,8 @@ public class UI_ContentController : UI_Popup
         Precheck();
         if (Managers.ContentInfo.PlayData.Count >= ContentPlayData.CurrentCountMax)
         {
-#if UNITY_EDITOR
-            Debug.Log("current count is Max ---------");
+            Logger.Log("current count is Max ---------");
             return;
-#endif
         }
 
         if (Managers.ContentInfo.PlayData.Count >= ContentPlayData.CurrentCountMax)
@@ -444,10 +442,13 @@ public class UI_ContentController : UI_Popup
         
        
         Logger.Log($"Depth2 Banner Toggled {depth2}");
-        
+        PlayObjectiveIntroAnim();
         ChangeInstructionTextWithAnim();
         RefreshUI();
         RefreshText();
+        
+        //첫번쨰 애니메이션을 재생하도록 하기위한 로직
+        OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
     }
 
     private void OnDepth2BClickedOnDepth1A()
@@ -684,11 +685,18 @@ public class UI_ContentController : UI_Popup
     public void ShowInitialIntro()
     {
         Logger.Log("Training Info Play -------------------------------------------");
-        GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
 
+        if (_uiTrainingInfo == null) GetObject((int)UI.UI_TrainingInfo).TryGetComponent(out _uiTrainingInfo);
+
+        _uiTrainingInfo.Init();
+        
         var _UIOnSeq = DOTween.Sequence();
         //초기화
-        _UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1,0.001f));
+        _UIOnSeq.AppendCallback(() =>
+        {
+
+            GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0f;
+        });
         
         //애니메이션
         _UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1, 1f).SetEase(Ease.InCirc));
@@ -701,25 +709,40 @@ public class UI_ContentController : UI_Popup
         _UIOnSeq.OnKill(() =>
         {
             GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
-           _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.0001f).SetEase(Ease.InCirc));
+            _UIOnSeq.AppendCallback(() =>
+            {
+
+                GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0f;
+            });
         });
     }
 
+    private UI_TrainingInfo _uiTrainingInfo;
     public void PlayObjectiveIntroAnim()
     {
         if (_UICloseSeq.IsActive()) _UICloseSeq.Kill();
 
+        
         Logger.Log("Object Info Play -------------------------------------------");
-        GetObject((int)UI.UI_TrainingInfo).SetActive(true);
-        GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.one;
+     
+
+    
 
         _UIOnSeq = DOTween.Sequence();
-        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.0001f).SetEase(Ease.InCirc));
-        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 1f).SetEase(Ease.InCirc));
+        _UIOnSeq.AppendCallback(() =>
+        {
+            GetObject((int)UI.UI_TrainingInfo).SetActive(true);
+            GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0;
+        });
+        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.6f).SetEase(Ease.InCirc));
         _UIOnSeq.AppendCallback(() =>
         {
             ShowScriptUI();
             ShowOrHideNextPrevBtns();
+        });
+        _UIOnSeq.OnKill(() =>
+        {
+            //GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 1;
         });
     }
 
@@ -728,11 +751,19 @@ public class UI_ContentController : UI_Popup
     public void ShutTrainingInfroAnim()
     {
         if (_UIOnSeq.IsActive()) _UIOnSeq.Kill();
-        if (_UICloseSeq.IsActive()) _UICloseSeq.Kill();
 
         _UICloseSeq = DOTween.Sequence();
-        _UICloseSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 1f).SetEase(Ease.InCirc));
+        _UIOnSeq.AppendCallback(() =>
+        {
+            GetObject((int)UI.UI_TrainingInfo).SetActive(true);
+            GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 1;
+        });
+        _UICloseSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.6f).SetEase(Ease.InCirc));
         _UICloseSeq.AppendCallback(() => { GetObject((int)UI.UI_TrainingInfo).SetActive(false); });
+        _UICloseSeq.OnKill(() =>
+        {
+            //GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0;
+        });
     }
     
     

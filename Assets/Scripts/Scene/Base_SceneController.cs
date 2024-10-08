@@ -138,65 +138,66 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false)
     {
-        if (isReverse) Logger.Log("Reverse Anim Play -----------------------------------------");
+        
+        Debug.Assert(_animation != null, "Animation component can't be null");
 
         var path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
                    $"{Managers.ContentInfo.PlayData.Depth2}" +
                    $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count}";
-        
+
         Logger.Log($"Animation Path {path}");
         var clip = Resources.Load<AnimationClip>(path);
+
+        if (clip == null)
+        {
+            Logger.LogWarning($"Animation clip at path {path} not found.");
+            OnAnimationComplete();
+            return;
+        }
+
+
+        if (!_animation.GetClip(clip.name))
+        {
+            _animation.AddClip(clip, clip.name);
+            Logger.Log($"Added animation clip {clip.name} to _animation.");
+        }
 
         if (isReverse)
         {
             path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
                    $"{Managers.ContentInfo.PlayData.Depth2}" +
-                   $"{Managers.ContentInfo.PlayData.Depth3}" + $"{count + 1}";
-            clip = Resources.Load<AnimationClip>(path);
+                   $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count + 1}";
+            Logger.Log($"Reverse Animation Path {path}");
+            var reverseClip = Resources.Load<AnimationClip>(path);
 
-            if (clip != null)
+            if (reverseClip != null && reverseClip.length >= 0.3f)
             {
-                if (clip.length < 0.3f)
-                {
-                    path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
-                           $"{Managers.ContentInfo.PlayData.Depth2}" +
-                           $"{Managers.ContentInfo.PlayData.Depth3}" + $"{count}";
-                    clip = Resources.Load<AnimationClip>(path);
-                }
-                else
-                {
-                    _animation[clip.name].time = _animation[clip.name].length;
-                }
-            }
-        }
-        else
-        {
-            if (clip != null) _animation[clip.name].time = 0;
-        }
-
-        if (clip != null)
-        {
-            var animSpeed = isReverse ? -1 : 1;
-            _animation[clip.name].speed = animSpeed;
-
-            if (delay > 0.5f)
-            {
-                StartCoroutine(PlayAnimationWithDelay(clip.name, delay));
+                clip = reverseClip;
+                _animation[clip.name].time = _animation[clip.name].length;
             }
             else
             {
-                _animation.Play(clip.name);
-                StartCoroutine(CheckAnimationEnd(clip, OnAnimationComplete));
+                Logger.Log($"Reverse clip too short, using original clip.");
             }
+        }
 
-            Logger.Log($"Animation clip with index {count} is playing.====================");
+        _animation[clip.name].speed = isReverse ? -1 : 1;
+        if(!isReverse) _animation[clip.name].time = 0;
+
+        if (delay > 0.5f)
+        {
+            StartCoroutine(PlayAnimationWithDelay(clip.name, delay));
         }
         else
         {
-            OnAnimationComplete();
-            Logger.LogWarning($"카메라 : {count} 애니메이션 없는 상태. 스크립트는 재생 카메라 애니메이션 정지 ");
+            _animation.Play(clip.name);
+            StartCoroutine(CheckAnimationEnd(clip, OnAnimationComplete));
         }
+
+        Logger.Log($"Animation clip with index {count} is playing.");
+
     }
+
 
     private IEnumerator PlayAnimationWithDelay(string clipName, float delay)
     {
