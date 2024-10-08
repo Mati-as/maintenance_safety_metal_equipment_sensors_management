@@ -21,7 +21,6 @@ public class UI_ContentController : UI_Popup
         Btn_ToolBox,
 
         //  UI_Depth3_List, // Active Area
-        //
         Depth3_A,
         Depth3_B,
         Depth3_C,
@@ -153,7 +152,7 @@ public class UI_ContentController : UI_Popup
         {
             Text_tooltip = GetObject((int)UI.UI_ToolTip).GetComponentInChildren<Text>();
             Text_image = GetObject((int)UI.UI_ToolTip).GetComponentInChildren<Image>();
-            Logger.Log("get tooltip text");
+//            Logger.Log("get tooltip text");
         }
 
         Text_tooltip.text = text;
@@ -433,10 +432,14 @@ public class UI_ContentController : UI_Popup
             
             OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
         }
+        
+        
+        
         else
         {
             Managers.ContentInfo.PlayData.Depth2 = depth2;
             Managers.ContentInfo.PlayData.Depth3 = 1;
+            Managers.ContentInfo.PlayData.Count = 1;
         }
         
        
@@ -600,6 +603,9 @@ public class UI_ContentController : UI_Popup
         texts[(int)Content_TMP.Text_Current3Depth].text =
             Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
                 + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + depth3Num)].kor;
+
+        Managers.ContentInfo.PlayData.Count = 1;
+        
         Refresh();
         ChangeInstructionTextWithAnim();
     }
@@ -677,25 +683,25 @@ public class UI_ContentController : UI_Popup
 
     public void ShowInitialIntro()
     {
-        
+        Logger.Log("Training Info Play -------------------------------------------");
         GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
 
-        var seq = DOTween.Sequence();
+        var _UIOnSeq = DOTween.Sequence();
         //초기화
-        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1,0.001f));
+        _UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1,0.001f));
         
         //애니메이션
-        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1, 1f).SetEase(Ease.InCirc));
-        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
-        seq.AppendInterval(1f);
-        seq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(0, 1f).SetEase(Ease.InCirc));
-        seq.AppendCallback(() => { GetObject((int)UI.UI_DepthTitle).SetActive(false); });
-        seq.AppendInterval(0.5f);
-        seq.AppendCallback(PlayObjectiveIntroAnim);
-        seq.OnKill(() =>
+        _UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1, 1f).SetEase(Ease.InCirc));
+        _UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
+        _UIOnSeq.AppendInterval(1f);
+        _UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(0, 1f).SetEase(Ease.InCirc));
+        _UIOnSeq.AppendCallback(() => { GetObject((int)UI.UI_DepthTitle).SetActive(false); });
+        _UIOnSeq.AppendInterval(0.5f);
+        _UIOnSeq.AppendCallback(PlayObjectiveIntroAnim);
+        _UIOnSeq.OnKill(() =>
         {
             GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
-            GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
+           _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.0001f).SetEase(Ease.InCirc));
         });
     }
 
@@ -703,13 +709,18 @@ public class UI_ContentController : UI_Popup
     {
         if (_UICloseSeq.IsActive()) _UICloseSeq.Kill();
 
-        GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.zero;
+        Logger.Log("Object Info Play -------------------------------------------");
         GetObject((int)UI.UI_TrainingInfo).SetActive(true);
+        GetObject((int)UI.UI_TrainingInfo).transform.localScale = Vector3.one;
 
         _UIOnSeq = DOTween.Sequence();
         _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.0001f).SetEase(Ease.InCirc));
-        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.35f).SetEase(Ease.InCirc));
-        _UIOnSeq.AppendCallback(() => { ShowOrHideNextPrevBtns(); });
+        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 1f).SetEase(Ease.InCirc));
+        _UIOnSeq.AppendCallback(() =>
+        {
+            ShowScriptUI();
+            ShowOrHideNextPrevBtns();
+        });
     }
 
     private Sequence _UICloseSeq;
@@ -720,8 +731,7 @@ public class UI_ContentController : UI_Popup
         if (_UICloseSeq.IsActive()) _UICloseSeq.Kill();
 
         _UICloseSeq = DOTween.Sequence();
-
-        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.2f).SetEase(Ease.InCirc));
+        _UICloseSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 1f).SetEase(Ease.InCirc));
         _UICloseSeq.AppendCallback(() => { GetObject((int)UI.UI_TrainingInfo).SetActive(false); });
     }
     

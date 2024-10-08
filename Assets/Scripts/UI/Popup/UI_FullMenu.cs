@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UI_FullMenu : UI_Popup
 {
@@ -42,20 +43,22 @@ public class UI_FullMenu : UI_Popup
         GetTMP((int)TMPs.TMP_TrainingObjectInfo).text = Managers.Data.Texts[Define.TrainingObjectInfo].kor;
       
         
-        GetButton((int)Btns.B11101).gameObject.BindEvent(() => {LoadUI((11101).ToString()); });
-        GetButton((int)Btns.B12101).gameObject.BindEvent(() => {LoadUI((12101).ToString()); });
-        GetButton((int)Btns.B21101).gameObject.BindEvent(() => {LoadUI((21101).ToString()); });
-        GetButton((int)Btns.B22101).gameObject.BindEvent(() => {LoadUI((22101).ToString()); });
-        GetButton((int)Btns.B23101).gameObject.BindEvent(() => {LoadUI((23101).ToString()); });
-        GetButton((int)Btns.B31101).gameObject.BindEvent(() => {LoadUI((31101).ToString()); });
-        GetButton((int)Btns.B32101).gameObject.BindEvent(() => {LoadUI((32101).ToString()); });
-        GetButton((int)Btns.B33101).gameObject.BindEvent(() => {LoadUI((33101).ToString()); });
-        GetButton((int)Btns.B34101).gameObject.BindEvent(() => {LoadUI((34101).ToString()); });
-        GetButton((int)Btns.B35101).gameObject.BindEvent(() => {LoadUI((35101).ToString()); });
+        GetButton((int)Btns.B11101).gameObject.BindEvent(() => {LoadStep((11101).ToString()); });
+        GetButton((int)Btns.B12101).gameObject.BindEvent(() => {LoadStep((12101).ToString()); });
+        
+        GetButton((int)Btns.B21101).gameObject.BindEvent(() => {LoadStep((21101).ToString()); });
+        GetButton((int)Btns.B22101).gameObject.BindEvent(() => {LoadStep((22101).ToString()); });
+        GetButton((int)Btns.B23101).gameObject.BindEvent(() => {LoadStep((23101).ToString()); });
+        
+        GetButton((int)Btns.B31101).gameObject.BindEvent(() => {LoadStep((31101).ToString()); });
+        GetButton((int)Btns.B32101).gameObject.BindEvent(() => {LoadStep((32101).ToString()); });
+        GetButton((int)Btns.B33101).gameObject.BindEvent(() => {LoadStep((33101).ToString()); });
+        GetButton((int)Btns.B34101).gameObject.BindEvent(() => {LoadStep((34101).ToString()); });
+        GetButton((int)Btns.B35101).gameObject.BindEvent(() => {LoadStep((35101).ToString()); });
         return true;
     }
 
-    private void LoadUI(string CurrentStatus)
+    private void LoadStep(string CurrentStatus)
     {
         Managers.ContentInfo.PlayData.Depth1 = int.Parse(CurrentStatus[0].ToString());
         Managers.ContentInfo.PlayData.Depth2 =  int.Parse(CurrentStatus[1].ToString());
@@ -68,6 +71,26 @@ public class UI_FullMenu : UI_Popup
         {
             Managers.UI.ClosePopupUI(Managers.UI.FindPopup<UI_ContentController>());
             Managers.UI.ShowPopupUI<UI_ContentController>();
+        }
+
+        LoadScene(int.Parse(CurrentStatus[0].ToString()));
+    }
+
+    private void LoadScene(int scene)
+    {
+        Managers.UI.CloseAllPopupUI();
+        switch (scene)
+        {
+            case 1 :
+                SceneManager.LoadSceneAsync("Depth1A");
+                break;
+            case 2 :
+                SceneManager.LoadSceneAsync("Depth1B");
+                break;
+            case 3 :
+                SceneManager.LoadSceneAsync("Depth1C");
+                break; 
+            
         }
     }
 }

@@ -45,6 +45,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public virtual void Init()
     {
         BindEvent();
+        
+        if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
+        
         _highlight = new Dictionary<string, HighlightEffect>();
         _seqMap = new Dictionary<int, Sequence>();
 
@@ -69,8 +72,10 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     protected IEnumerator OnSceneStartCo()
     {
+        Logger.Log("Initial UI Intro");
+        
+        
         PlayInitialIntro();
-
         _animation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
 
         Debug.Assert(_animation != null);
@@ -131,39 +136,47 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     #region Call By States
 
-    public void PlayAnimationAndNarration(int number, float delay = 0f, bool isReverse = false)
+    public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false)
     {
         if (isReverse) Logger.Log("Reverse Anim Play -----------------------------------------");
-    
-        var clip = _animation.GetClip(number.ToString());
-      
+
+        var path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
+                   $"{Managers.ContentInfo.PlayData.Depth2}" +
+                   $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count}";
+        
+        Logger.Log($"Animation Path {path}");
+        var clip = Resources.Load<AnimationClip>(path);
+
         if (isReverse)
         {
-             clip = _animation.GetClip((number+1).ToString());
+            path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
+                   $"{Managers.ContentInfo.PlayData.Depth2}" +
+                   $"{Managers.ContentInfo.PlayData.Depth3}" + $"{count + 1}";
+            clip = Resources.Load<AnimationClip>(path);
 
-
-             if (clip != null)
-             {
-                 if (clip.length < 0.3f) // 0.3f 미만인 경우 시점만 변환하는 단순애니메이션, 그 이상은 일반애니메이션으로 분류합니다.
-                 {
-                     clip  = _animation.GetClip((number).ToString());
-                 }
-                 else
-                 {
+            if (clip != null)
+            {
+                if (clip.length < 0.3f)
+                {
+                    path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
+                           $"{Managers.ContentInfo.PlayData.Depth2}" +
+                           $"{Managers.ContentInfo.PlayData.Depth3}" + $"{count}";
+                    clip = Resources.Load<AnimationClip>(path);
+                }
+                else
+                {
                     _animation[clip.name].time = _animation[clip.name].length;
-                 }
-             }
-
+                }
+            }
         }
         else
-        {  
-            if(clip!=null)_animation[clip.name].time = 0;
+        {
+            if (clip != null) _animation[clip.name].time = 0;
         }
-        
+
         if (clip != null)
         {
             var animSpeed = isReverse ? -1 : 1;
-          
             _animation[clip.name].speed = animSpeed;
 
             if (delay > 0.5f)
@@ -176,12 +189,12 @@ public class Base_SceneController : MonoBehaviour, ISceneController
                 StartCoroutine(CheckAnimationEnd(clip, OnAnimationComplete));
             }
 
-            Logger.Log($"Animation clip with index {number} is playing.====================");
+            Logger.Log($"Animation clip with index {count} is playing.====================");
         }
         else
         {
             OnAnimationComplete();
-            Logger.LogWarning($"카메라 : {number} 애니메이션 없는상태.스크립트는 재생 카메라 애니메이션 정지 ");
+            Logger.LogWarning($"카메라 : {count} 애니메이션 없는 상태. 스크립트는 재생 카메라 애니메이션 정지 ");
         }
     }
 

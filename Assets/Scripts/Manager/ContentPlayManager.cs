@@ -51,10 +51,96 @@ public class ContentPlayData : MonoBehaviour
     private int _depth3 =0;
     private int _count = 0;
 
-    public static readonly int DEPTH1_COUNT_MAX = 25;
-    public static readonly int DEPTH2_COUNT_MAX = 10;
-    public static readonly int DEPTH3_COUNT_MAX = 10;
+    public static readonly int COUNT_MAX_DEPTH111 = 25;
+    public static readonly int COUNT_MAX_DEPTH112 = COUNT_MAX_DEPTH111;
     
+    public static readonly int COUNT_MAX_DEPTH211 = 1;
+    public static readonly int COUNT_MAX_DEPTH212 = 1;
+    public static readonly int COUNT_MAX_DEPTH213 = 1;
+    public static readonly int COUNT_MAX_DEPTH221 = 1;
+    public static readonly int COUNT_MAX_DEPTH222 = 1;
+    public static readonly int COUNT_MAX_DEPTH223 = 1;
+    public static readonly int COUNT_MAX_DEPTH231 = 1;
+    public static readonly int COUNT_MAX_DEPTH232 = 1;
+    public static readonly int COUNT_MAX_DEPTH233 = 1;
+
+    public static readonly int COUNT_MAX_DEPTH311 = 1;
+    public static readonly int COUNT_MAX_DEPTH312 = 1;
+    public static readonly int COUNT_MAX_DEPTH313 = 1;
+
+    public static readonly int COUNT_MAX_DEPTH321 = 14;
+    public static readonly int COUNT_MAX_DEPTH322 = 10;
+    public static readonly int COUNT_MAX_DEPTH323 = 13;
+       
+    public static readonly int COUNT_MAX_DEPTH331 = 1;
+    public static readonly int COUNT_MAX_DEPTH332 = 1;
+    public static readonly int COUNT_MAX_DEPTH333 = 1;
+
+    public static readonly int COUNT_MAX_DEPTH341 = 1;
+    public static readonly int COUNT_MAX_DEPTH342 = 1;
+    public static readonly int COUNT_MAX_DEPTH343 = 1;
+
+    public static readonly int COUNT_MAX_DEPTH351 = 1;
+    public static readonly int COUNT_MAX_DEPTH352 = 1;
+    public static readonly int COUNT_MAX_DEPTH353 = 1;
+   
+    public static readonly int COUNT_MAX_DEPTH401 = 1;
+    public static readonly int COUNT_MAX_DEPTH402 = 1;
+    public static readonly int COUNT_MAX_DEPTH403 = 1;
+    public static readonly int COUNT_MAX_DEPTH404 = 1;
+    public static readonly int COUNT_MAX_DEPTH405 = 1;
+    
+    private static readonly Dictionary<string, int> DepthCountMaxDictionary = new Dictionary<string, int>
+    {
+        { "111", COUNT_MAX_DEPTH111},
+        { "112", COUNT_MAX_DEPTH112},
+        
+        /////////////////////////////////////
+        { "211", COUNT_MAX_DEPTH211 },
+        { "212", COUNT_MAX_DEPTH212 },
+        { "213", COUNT_MAX_DEPTH213 },
+        
+        { "221", COUNT_MAX_DEPTH221 },
+        { "222", COUNT_MAX_DEPTH222 },
+        { "223", COUNT_MAX_DEPTH223 },
+        
+        { "231", COUNT_MAX_DEPTH231 },
+        { "232", COUNT_MAX_DEPTH232 },
+        { "233", COUNT_MAX_DEPTH233 },
+        
+        /////////////////////////////////////
+        { "311", COUNT_MAX_DEPTH311 },
+        { "312", COUNT_MAX_DEPTH312 },
+        { "313", COUNT_MAX_DEPTH313 },
+        
+        { "321", COUNT_MAX_DEPTH321 },
+        { "322", COUNT_MAX_DEPTH322 },
+        { "323", COUNT_MAX_DEPTH323 },
+        
+        { "331", COUNT_MAX_DEPTH331 },
+        { "332", COUNT_MAX_DEPTH332 },
+        { "333", COUNT_MAX_DEPTH333 },
+        
+        { "341", COUNT_MAX_DEPTH341 },
+        { "342", COUNT_MAX_DEPTH342 },
+        { "343", COUNT_MAX_DEPTH343 },
+        
+        { "351", COUNT_MAX_DEPTH351 },
+        { "352", COUNT_MAX_DEPTH352 },
+        { "353", COUNT_MAX_DEPTH353 },
+    
+        /////////////////////////////////////
+        { "401", COUNT_MAX_DEPTH401 },
+        { "402", COUNT_MAX_DEPTH402 },
+        { "403", COUNT_MAX_DEPTH403 },
+        { "404", COUNT_MAX_DEPTH404 },
+        { "405", COUNT_MAX_DEPTH405 },
+
+        
+        // ... 추가 DEPTH 값들
+    };
+
+
     public static int CurrentCountMax;
     public int Depth1
     {
@@ -68,24 +154,6 @@ public class ContentPlayData : MonoBehaviour
             
             // Update the relevant character in CurrentDepthStatus
             UpdateCurrentDepthStatus((int)CurrentDepthData.Depth1, (char)(value + '0'));
-            
-            if (_depth1 == 1)
-            {
-                CurrentCountMax = DEPTH1_COUNT_MAX;
-            }
-            else if (_depth1== 2)
-            {
-                CurrentCountMax = DEPTH2_COUNT_MAX;
-            }
-            else if (_depth1== 3)
-            {
-                CurrentCountMax = DEPTH3_COUNT_MAX;
-            }
-            else
-            {
-                Logger.LogError("Invalid Depth1 Number");
-            }
-            
             
             Logger.Log($"Current Count Max:{CurrentCountMax}Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
                        $"{CurrentDepthStatus[2]} : {CurrentDepthStatus[3]}{CurrentDepthStatus[4]}" +
@@ -105,11 +173,11 @@ public class ContentPlayData : MonoBehaviour
             // Update the relevant character in CurrentDepthStatus
             UpdateCurrentDepthStatus((int)CurrentDepthData.Depth2, (char)(value + '0'));
             
-#if UNITY_EDITOR
-            Debug.Log($"Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
+
+            Logger.Log($"Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
                       $"{CurrentDepthStatus[2]} : {CurrentDepthStatus[3]}{CurrentDepthStatus[4]}" +
                       $"\n textNarrNum: {CurrentDepthStatus}");
-#endif
+
          
         }
     }
@@ -126,12 +194,25 @@ public class ContentPlayData : MonoBehaviour
             // Update the relevant character in CurrentDepthStatus
             UpdateCurrentDepthStatus((int)CurrentDepthData.Depth3, (char)(value + '0'));
 
-#if UNITY_EDITOR
-            Debug.Log($"Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
-                      $"{CurrentDepthStatus[2]} : {CurrentDepthStatus[3]}{CurrentDepthStatus[4]}" +
-                      $"\n textNarrNum: {CurrentDepthStatus}");
-#endif
+
+            Logger.Log($"Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
+                       $"{CurrentDepthStatus[2]} : {CurrentDepthStatus[3]}{CurrentDepthStatus[4]}" +
+                       $"\n textNarrNum: {CurrentDepthStatus}");
+
           
+      
+            
+            string depthKey = $"{Depth1}{Depth2}{Depth3}";
+            
+            if (DepthCountMaxDictionary.TryGetValue(depthKey, out int countMax))
+            {
+      
+                    CurrentCountMax = countMax;
+            }
+            else
+            {
+                Logger.LogError($"Invalid depth combination: {depthKey}");
+            }
         }
     }
 
