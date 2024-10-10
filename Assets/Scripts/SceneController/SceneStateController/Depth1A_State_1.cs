@@ -31,7 +31,7 @@ public class Depth1A_State_2 : Base_SceneState
     {
         base.OnEnter();
         CurrentScene.ShutUIAndSetDefault();
-        CurrentScene.contentController.ShowScriptUI();
+        CurrentScene.contentController.SetScriptUI();
     }
 
     public override void OnStep()
@@ -147,7 +147,7 @@ public class Depth1A_State_7 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink(GameObj.TemperatureSensor);
+        CurrentScene.HighlightBlink((int)GameObj.TemperatureSensor);
         base.OnEnter();
     }
 
@@ -169,7 +169,7 @@ public class Depth1A_State_8 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink(GameObj.PressureSensor);
+        CurrentScene.HighlightBlink((int)GameObj.PressureSensor);
         base.OnEnter();
     }
 
@@ -191,7 +191,7 @@ public class Depth1A_State_9 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink(GameObj.FlowMeter);
+        CurrentScene.HighlightBlink((int)GameObj.FlowMeter);
         base.OnEnter();
     }
 
@@ -213,7 +213,7 @@ public class Depth1A_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink(GameObj.LevelSensor);
+        CurrentScene.HighlightBlink((int)GameObj.LevelSensor);
         base.OnEnter();
     }
 

@@ -22,8 +22,15 @@ public class UI_TrainingInfo : UI_Popup
     {
         if (!base.Init()) return false;
         BindText(typeof(Texts));
+        RefreshUI();
+        
+        return true;
+    }
 
-
+    public void RefreshUI()
+    {
+        Logger.Log("RefreshUI Objective -----------");
+        
         GetText((int)Texts.Head_Depth1).text =
             Managers.Data.Texts[int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
                                           $"{Managers.ContentInfo.PlayData.Depth2}" + DEPTH1)].kor;
@@ -39,6 +46,5 @@ public class UI_TrainingInfo : UI_Popup
         GetText((int)Texts.Text_TrainingInfo).text =
             Managers.Data.Texts[int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
                                           $"{Managers.ContentInfo.PlayData.Depth2}" + INFO)].kor;
-        return true;
     }
 }

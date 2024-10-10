@@ -31,7 +31,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
 
     //Animation
-    private Dictionary<string, HighlightEffect> _highlight;
+    private Dictionary<int, HighlightEffect> _highlight;
     private Dictionary<int, Sequence> _seqMap;
 
     public virtual void Start()
@@ -48,7 +48,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
         
-        _highlight = new Dictionary<string, HighlightEffect>();
+        _highlight = new Dictionary<int, HighlightEffect>();
         _seqMap = new Dictionary<int, Sequence>();
 
         Debug.Assert(Camera.main != null);
@@ -122,7 +122,15 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     private void ChangeState(int stateNum)
     {
-        if (_sceneStates.TryGetValue(stateNum, out var newState))
+        var processedState = int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
+                             $"{Managers.ContentInfo.PlayData.Depth2}"+
+                             $"{Managers.ContentInfo.PlayData.Depth3}"+
+                             $"{stateNum.ToString()}");
+        
+
+        Logger.Log($"Current StateNum : {processedState}");
+        
+        if (_sceneStates.TryGetValue(processedState, out var newState))
         {
             _currentState?.OnExit();
             _currentState = newState;
@@ -230,58 +238,88 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     #region Animation
 
-    protected void SetHighlight(string gameObjName, bool isOn = true)
+    protected void SetHighlight(int gameObjName, bool isOn = true)
     {
-        //Logger.Log($"[{gameObjName}]Highight is ON? : {isOn}");
+        Logger.Log($"[{(DepthC_GameObj)gameObjName}]Highight is ON? : {isOn}");
         _highlight[gameObjName].highlighted = isOn;
     }
 
+    public void SetHighlightIgnore(int gameObjName, bool isOn = true)
+    {
+       
+        _highlight[gameObjName].ignore = isOn;
+    }
 
-    public void HighlightBlink(GameObj gameObj, float startDelay = 1f)
+
+    public void HighlightBlink(int gameObj, float startDelay = 1f)
     {
         var seq = DOTween.Sequence();
         _seqMap.TryAdd((int)gameObj, seq);
 
-        var maxInnerGlow = 0.15f;
-        if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
+        var maxInnerGlow = 0.8f;
+        var maxOuterGlow = 1f;
+        var duration = 0.6f;
+        
+//        if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
 
         seq.AppendInterval(startDelay);
-        seq.AppendCallback(() => { _highlight[GetObject((int)gameObj).name].highlighted = true; });
+        seq.AppendCallback(() => { _highlight[(int)gameObj].highlighted = true; });
 
-        var loopCount = 3;
+        var loopCount = 4;
         for (var i = 0; i < loopCount; i++)
         {
-            seq.Append(DOVirtual.Float(0, maxInnerGlow, 1f,
-                val => { _highlight[GetObject((int)gameObj).name].innerGlow = val; }));
+            seq.Append(DOVirtual.Float(0, maxInnerGlow, duration,
+                val =>
+                {
+                    _highlight[(int)gameObj].innerGlow = val;
+                    _highlight[(int)gameObj].outlineWidth = val;
+                }));
 
-            seq.Append(DOVirtual.Float(maxInnerGlow, 0, 1f,
-                val => { _highlight[GetObject((int)gameObj).name].innerGlow = val; }));
+            seq.Append(DOVirtual.Float(maxInnerGlow, 0, duration,
+                val =>
+                {
+                    _highlight[(int)gameObj].innerGlow = val; 
+                    _highlight[(int)gameObj].outlineWidth = val;
+                }));
+
         }
 
-        seq.AppendCallback(() => { _highlight[GetObject((int)gameObj).name].highlighted = false; });
+        seq.AppendCallback(() => { _highlight[(int)gameObj].highlighted = false; });
 
         seq.OnKill(() =>
         {
-            _highlight[GetObject((int)gameObj).name].highlighted = false;
-            _highlight[GetObject((int)gameObj).name].innerGlow = 0;
+            _highlight[(int)gameObj].highlighted = false;
+            _highlight[(int)gameObj].innerGlow = 0;
         });
         _seqMap[(int)gameObj] = seq;
     }
 
-    public void AddToHighlightDictionary(GameObj gameObj)
+    public void AddToHighlightDictionary(int gameObj)
     {
         var objName = GetObject((int)gameObj).name;
         var highlightEffect = GetObject((int)gameObj).GetComponent<HighlightEffect>();
 
-        if (!_highlight.ContainsKey(objName)) _highlight.Add(objName, highlightEffect);
+        //초기하이라이트 설정
+        SetDefaultHighlight(ref highlightEffect);
+        if (!_highlight.ContainsKey((int)gameObj)) _highlight.Add((int)gameObj, highlightEffect);
     }
 
-    public void BindHighlightAndTooltip(GameObj gameObj, string tooltipText)
+    private void SetDefaultHighlight(ref HighlightEffect effect)
+    {
+        effect.highlighted = false;
+        effect.ignore = true;
+        effect.outlineColor =Color.cyan;
+        
+    }
+    public void BindHighlightAndTooltip(int gameObj, string tooltipText)
     {
         // PointerEnter 이벤트 바인딩
         GetObject((int)gameObj).BindEvent(() =>
         {
-            SetHighlight(GetObject((int)gameObj).name);
+            if (_highlight[(int)gameObj].ignore) return; 
+            
+            Logger.Log("sensor hover highlight and tooltip appear ----------------------");
+            SetHighlight(gameObj);
             contentController.SetToolTipStatus();
             contentController.SetText(tooltipText);
         }, Define.UIEvent.PointerEnter);
@@ -289,17 +327,17 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         // PointerExit 이벤트 바인딩
         GetObject((int)gameObj).BindEvent(() =>
         {
-            SetHighlight(GetObject((int)gameObj).name, false);
+            SetHighlight(gameObj,false);
             contentController.SetToolTipStatus(false);
         }, Define.UIEvent.PointerExit);
     }
 
-    public void SetHighlightStatus(GameObj gameObj, bool isOn)
+    public void SetHighlightStatus(int gameObj, bool isOn)
     {
-        _highlight[GetObject((int)gameObj).name].highlighted = isOn;
+        _highlight[(int)gameObj].highlighted = isOn;
     }
 
-    protected void BindAndAddToDictionary(GameObj gameObj, string tooltipText)
+    protected void BindAndAddToDictionary(int gameObj, string tooltipText)
     {
         AddToHighlightDictionary(gameObj);
         BindHighlightAndTooltip(gameObj, tooltipText);

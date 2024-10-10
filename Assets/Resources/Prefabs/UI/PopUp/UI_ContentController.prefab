@@ -111,9 +111,9 @@ RectTransform:
   m_Father: {fileID: 253502810604618232}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 773.0002, y: -37}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 680.2, y: -2}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &253502810469457968
@@ -822,7 +822,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 215.26468, y: -70.887215}
-  m_SizeDelta: {x: 1200, y: 170}
+  m_SizeDelta: {x: 1597.1, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &253502810869393882
 CanvasRenderer:
@@ -1021,7 +1021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &253502811060573035
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1219,7 +1219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 215.26468, y: -73.88715}
+  m_AnchoredPosition: {x: 215.26468, y: -38}
   m_SizeDelta: {x: 950, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &253502811416176089
@@ -1419,9 +1419,9 @@ RectTransform:
   m_Father: {fileID: 253502810604618232}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -740, y: -37}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -671.3, y: -2}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &253502812334155658
@@ -3637,8 +3637,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 947.29, y: 132}
+  m_AnchoredPosition: {x: 0, y: -34}
+  m_SizeDelta: {x: 1280, y: 132}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7065407995019925666
 CanvasRenderer:
@@ -3668,11 +3668,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uCCAB \uBC88\uC9F8 \uACE0\uC7A5 \uC720\uD615\uC740 \uAC70\uB9AC \uC774\uD0C8\uC785\uB2C8\uB2E4.\r
-    \uC7A5\uAE30\uAC04 \uC0AC\uC6A9 \uB4F1\uC758 \uC6D0\uC778\uC73C\uB85C \uB808\uBC84
-    \uACE0\uC815\uC704\uCE58\uAC00 \uBCC0\uD574, \uAC80\uCD9C\uBB3C\uC774 \uC815\uC0C1\uC801\uC73C\uB85C
-    \uC774\uB3D9\uD558\uC5EC\uB3C4 \uC815\uC0C1\uC801\uC73C\uB85C\uAC80\uCD9C\uC774
-    \uB418\uC9C0 \uC54A\uB294 \uC720\uD615\uC785\uB2C8\uB2E4. "
+  m_text: "\uCE21\uC628\uC800\uD56D\uCCB4\uB294 \uC8FC\uB85C \uAE08\uC18D \uC81C\uC870
+    \uC124\uBE44\uC5D0 \uD65C\uC6A9\uB418\uB294 \uD654\uD559\uBB3C\uC9C8, \uB0C9\uAC01\uC218,
+    \uC720\uCCB4\uAC00 \uC9C0\uB098\uAC00\uB294 \uD0F1\uD06C\uB85C\uB9AC, \uBC30\uAD00\uC5D0
+    \uC0BD\uC785\uB418\uBA70 \uACE0\uC815\uB098\uC0AC\uB85C \uACE0\uC815\uB418\uB294
+    \uD615\uD0DC\uB85C \uC124\uCE58\uB429\uB2C8\uB2E4\uC678\uBD80 \uC810\uAC80\uC744
+    \uD1B5\uD574 \uC124\uCE58\uB41C \uC5F0\uACB0 \uBC30\uAD00\uACFC \uC5F0\uACB0\uC0C1\uD0DC\uAC00
+    \uC62C\uBC14\uB974\uAC8C \uACE0\uC815 \uB418\uC5C8\uB294\uC9C0 \uB2E4\uC678\uBD80
+    \uC810\uAC80\uC744 \uD1B5\uD574 \uC124\uCE58\uB41C \uC5F0\uACB0 \uBC30\uAD00\uACFC
+    \uC5F0\uACB0\uC0C1\uD0DC\uAC00 \uC62C\uBC14\uB974\uAC8C \uACE0\uC815 \uB418\uC5C8\uB294\uC9C0 "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67c9dca820be2e2469ff1e19c34b0a19, type: 2}
   m_sharedMaterial: {fileID: 6843874002728806242, guid: 67c9dca820be2e2469ff1e19c34b0a19,
@@ -3708,11 +3712,11 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 58.47
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -5063,7 +5067,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4200120107737170107}
-  - component: {fileID: 8326711142899049189}
   m_Layer: 0
   m_Name: UI_Instruction_Flip
   m_TagString: Untagged
@@ -5093,27 +5096,6 @@ Transform:
   m_Father: {fileID: 8111499067558052992}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8326711142899049189
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3299210406657563265}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4f8c88b2438340a4caf717bc04a7352b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3354327817356040260
 GameObject:
   m_ObjectHideFlags: 0
@@ -5588,7 +5570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1848432406726189763
 RectTransform:
   m_ObjectHideFlags: 0

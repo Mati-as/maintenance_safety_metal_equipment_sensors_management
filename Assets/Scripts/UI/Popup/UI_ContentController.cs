@@ -4,6 +4,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.UI;
 
 public class UI_ContentController : UI_Popup
@@ -92,6 +93,44 @@ public class UI_ContentController : UI_Popup
 
     private InputAction _mouseClickAction;
 
+    public Text Text_tooltip { get; set; }
+    public Image Text_image { get; set; }
+    public RectTransform toolTipRectPos { get; set; }
+    private readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
+    
+    
+    // 미션수행 관련 프로퍼티 ------------------------------------------------------------
+    private bool _isActionPerformable;
+    public bool isActionPerformable {
+        get
+        {
+            return _isActionPerformable;
+        } 
+        set
+        {
+            _isActionPerformable = value;
+            if (value)
+            {
+                
+                Logger.Log("해당스텝 미션 수행가능, 드라이버 돌리기 등 미션수행을 통해 다음 스텝으로 넘어갈 수 있습니다. ");
+            }
+        }
+    } 
+    
+    private bool _isStepMissionComplete;
+
+    public bool isStepMissionComplete {
+        get
+        {
+            return _isStepMissionComplete;
+        } 
+        set
+        {
+          
+            _isStepMissionComplete = value;
+        }
+    } // 각 스텝에서 미션수행(도구함클릭, 나사풀기 등) 완료시 true.
+    
     public override bool Init()
     {
         if (!base.Init())
@@ -123,10 +162,7 @@ public class UI_ContentController : UI_Popup
         BindTMP(typeof(Content_TMP));
     }
 
-    public Text Text_tooltip { get; set; }
-    public Image Text_image { get; set; }
-    public RectTransform toolTipRectPos { get; set; }
-    private readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
+
 
     private void Update()
     {
@@ -272,6 +308,7 @@ public class UI_ContentController : UI_Popup
     }
 
 
+    
     private void RefreshText()
     {
         var depth1 = Managers.ContentInfo.PlayData.Depth1.ToString();
@@ -350,9 +387,9 @@ public class UI_ContentController : UI_Popup
 
         if (Managers.ContentInfo.PlayData.Count <= 1)
         {
-#if UNITY_EDITOR
+
             Logger.Log("currentCount is 1, Start Point");
-#endif
+
             return;
         }
 
@@ -362,19 +399,28 @@ public class UI_ContentController : UI_Popup
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,true);
     }
-    
-    
+
+
+    public void InvokeNextStep()
+    {
+        if(!isStepMissionComplete)
+        {
+            Logger.Log("스텝별 수행 미션 완료, 다음 스크립트 및 애니메이션 재생");
+            return;
+        }
+        Logger.Log("스텝별 수행 미션 완료, 다음 스크립트 및 애니메이션 재생");
+        OnNextBtnClicked();
+    }
     /// <summary>
     /// 버튼 클릭외에 스크립트를 넘어가는 경우 (예. 미션수행완료 등) 사용
     /// </summary>
-    public void NextScript()
-    {
-        OnNextBtnClicked();
-    }
 
     private void OnNextBtnClicked()
     {
         Precheck();
+
+        SetScriptUI();
+        
         if (Managers.ContentInfo.PlayData.Count >= ContentPlayData.CurrentCountMax)
         {
             Logger.Log("current count is Max ---------");
@@ -401,10 +447,15 @@ public class UI_ContentController : UI_Popup
 
     private IEnumerator ChangeTextWithAnimCo()
     {
-        _instructionFlipAnimator.SetTrigger(UI_Flip);
+       // _instructionFlipAnimator.SetTrigger(UI_Flip);
         if (animDelay == null) animDelay = new WaitForSeconds(0.15f);
         yield return animDelay;
 
+        if (Managers.ContentInfo.PlayData.Count ==0)
+        {
+            Logger.Log("Count is zero.. intro animation playing........");
+            yield break;
+        }
         texts[(int)Content_TMP.Text_Instruction].text =
             Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus)].kor;
     }
@@ -414,6 +465,7 @@ public class UI_ContentController : UI_Popup
     {
         Precheck();
 
+        //depth1_A 스크립트 통합으로 인한 예외처리 부분
         if (Managers.ContentInfo.PlayData.Depth1 == 1 && depth2== 2)
         {
             Managers.ContentInfo.PlayData.Depth2 = 1;
@@ -422,11 +474,14 @@ public class UI_ContentController : UI_Popup
             
             OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
         }
+        
+        
+        
         else if (Managers.ContentInfo.PlayData.Depth1 == 1 && depth2 == 1)
         {
             Managers.ContentInfo.PlayData.Depth2 = 1;
             Managers.ContentInfo.PlayData.Depth3 = 1;
-            Managers.ContentInfo.PlayData.Count = 1;
+            Managers.ContentInfo.PlayData.Count = 0;
             
             OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
         }
@@ -437,7 +492,7 @@ public class UI_ContentController : UI_Popup
         {
             Managers.ContentInfo.PlayData.Depth2 = depth2;
             Managers.ContentInfo.PlayData.Depth3 = 1;
-            Managers.ContentInfo.PlayData.Count = 1;
+            Managers.ContentInfo.PlayData.Count = 0;
         }
         
        
@@ -447,19 +502,12 @@ public class UI_ContentController : UI_Popup
         RefreshUI();
         RefreshText();
         
-        //첫번쨰 애니메이션을 재생하도록 하기위한 로직
+        //각 뎁스의 첫번쨰 애니메이션을 재생하도록 하기위한 로직
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
+   
     }
 
-    private void OnDepth2BClickedOnDepth1A()
-    {
-        
-    }
-    
-    
-    
-    
-
+   
     private RectTransform _activeAreaRect;
     private float _heightPerDepth3Btn;
 
@@ -497,9 +545,6 @@ public class UI_ContentController : UI_Popup
 //        Debug.Log($"_activeAreaRect Height: {_activeAreaRect.sizeDelta.y}");
     }
 
-    private void ResizeActiveArea()
-    {
-    }
 
     /// <summary>
     ///     Text,UI  total Refresh
@@ -662,11 +707,20 @@ public class UI_ContentController : UI_Popup
         Logger.Log($" Current Script UI Status{isInstructAnimOn}");
     }
 
-    public void ShowScriptUI()
+    public void SetScriptUI(bool isOn =true)
     {
-        isInstructAnimOn = true;
+        CheckInstructionUIMode(); // 스크립트 UI 고정 및 자동재생상태인지 검사 
+        
+        isInstructAnimOn = isOn;
         _instructionAnimator.SetBool(UI_ON, isInstructAnimOn);
     }
+
+    private bool CheckInstructionUIMode()
+    {
+        return true;
+    }
+    
+    
 
     private void OnTopMenuAnimBtnClicked()
     {
@@ -686,10 +740,8 @@ public class UI_ContentController : UI_Popup
     {
         Logger.Log("Training Info Play -------------------------------------------");
 
-        if (_uiTrainingInfo == null) GetObject((int)UI.UI_TrainingInfo).TryGetComponent(out _uiTrainingInfo);
+        SetScriptUI(false);
 
-        _uiTrainingInfo.Init();
-        
         var _UIOnSeq = DOTween.Sequence();
         //초기화
         _UIOnSeq.AppendCallback(() =>
@@ -723,21 +775,31 @@ public class UI_ContentController : UI_Popup
         if (_UICloseSeq.IsActive()) _UICloseSeq.Kill();
 
         
+        SetScriptUI(false);
+        
+        
+        if (_uiTrainingInfo == null)
+        {
+            GetObject((int)UI.UI_TrainingInfo).TryGetComponent(out _uiTrainingInfo);
+        }
+        
+        _uiTrainingInfo.RefreshUI();
+        
         Logger.Log("Object Info Play -------------------------------------------");
      
-
+        GetObject((int)UI.UI_TrainingInfo).SetActive(true);
     
 
         _UIOnSeq = DOTween.Sequence();
         _UIOnSeq.AppendCallback(() =>
         {
-            GetObject((int)UI.UI_TrainingInfo).SetActive(true);
+           
             GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0;
         });
         _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.6f).SetEase(Ease.InCirc));
         _UIOnSeq.AppendCallback(() =>
         {
-            ShowScriptUI();
+           
             ShowOrHideNextPrevBtns();
         });
         _UIOnSeq.OnKill(() =>

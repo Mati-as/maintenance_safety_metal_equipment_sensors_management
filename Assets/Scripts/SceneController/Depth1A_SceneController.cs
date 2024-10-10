@@ -38,17 +38,17 @@ public class Depth1A_SceneController : Base_SceneController
        
         
         // 딕셔너리에 추가 및 이벤트 바인딩
-        BindAndAddToDictionary(GameObj.LimitSwitch, "리밋 스위치");
-        BindAndAddToDictionary(GameObj.ProximitySwitch, "근접 스위치");
-        //BindAndAddToDictionary(GameObj.TemperatureSensor, "온도 센서");
-        BindAndAddToDictionary(GameObj.TemperatureSensor_Whole, "온도 센서");
-        BindAndAddToDictionary(GameObj.LevelSensor, "레벨 센서");
-        BindAndAddToDictionary(GameObj.FlowMeter, "유량 센서");
-        BindAndAddToDictionary(GameObj.PressureSensor, "압력 센서");
-        BindAndAddToDictionary(GameObj.TS_CompensatingWire, "보상전선");
-        BindAndAddToDictionary(GameObj.TS_Stabilizer, "고정자");
-        BindAndAddToDictionary(GameObj.TS_SensingElement, "감온부");
-        BindAndAddToDictionary(GameObj.TS_Cover, "커버");
+        BindAndAddToDictionary((int)GameObj.LimitSwitch, "리밋 스위치");
+        BindAndAddToDictionary((int)GameObj.ProximitySwitch, "근접 스위치");
+        //BindAndAddToDictionar(y(GameObj.TemperatureSensor, "온도 센서");
+        BindAndAddToDictionary((int)GameObj.TemperatureSensor_Whole, "온도 센서");
+        BindAndAddToDictionary((int)GameObj.LevelSensor, "레벨 센서");
+        BindAndAddToDictionary((int)GameObj.FlowMeter, "유량 센서");
+        BindAndAddToDictionary((int)GameObj.PressureSensor, "압력 센서");
+        BindAndAddToDictionary((int)GameObj.TS_CompensatingWire, "보상전선");
+        BindAndAddToDictionary((int)GameObj.TS_Stabilizer, "고정자");
+        BindAndAddToDictionary((int)GameObj.TS_SensingElement, "감온부");
+        BindAndAddToDictionary((int)GameObj.TS_Cover, "커버");
         
         GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(true);
         GetObject((int)GameObj.TemperatureSensor).SetActive(false);
@@ -79,31 +79,31 @@ public class Depth1A_SceneController : Base_SceneController
     {
         _sceneStates = new Dictionary<int, ISceneState>
         {
-            { 1, new Depth1A_State_1(this) },
-            { 2, new Depth1A_State_2(this) },
-            { 3, new Depth1A_State_3(this) },
-            { 4, new Depth1A_State_4(this) },
-            { 5, new Depth1A_State_5(this) },
-            { 6, new Depth1A_State_6(this) },
-            { 7, new Depth1A_State_7(this) },
-            { 8, new Depth1A_State_8(this) },
-            { 9, new Depth1A_State_9(this) },
-            { 10, new Depth1A_State_10(this) },
-            { 11, new Depth1A_State_11(this) },
-            { 12, new Depth1A_State_12(this) },
-            { 13, new Depth1A_State_13(this) },
-            { 14, new Depth1A_State_14(this) },
-            { 15, new Depth1A_State_15(this) },
-            { 16, new Depth1A_State_16(this) },
-            { 17, new Depth1A_State_17(this) },
-            { 18, new Depth1A_State_18(this) },
-            { 19, new Depth1A_State_19(this) },
-            { 20, new Depth1A_State_20(this) },
-            { 21, new Depth1A_State_16(this) },
-            { 22, new Depth1A_State_17(this) },
-            { 23, new Depth1A_State_18(this) },
-            { 24, new Depth1A_State_19(this) },
-            { 25, new Depth1A_State_20(this) },
+            { 1111, new Depth1A_State_1(this) },
+            { 1112, new Depth1A_State_2(this) },
+            { 1113, new Depth1A_State_3(this) },
+            { 1114, new Depth1A_State_4(this) },
+            { 1115, new Depth1A_State_5(this) },
+            { 1116, new Depth1A_State_6(this) },
+            { 1117, new Depth1A_State_7(this) },
+            { 1118, new Depth1A_State_8(this) },
+            { 1119, new Depth1A_State_9(this) },
+            { 11110, new Depth1A_State_10(this) },
+            { 11111, new Depth1A_State_11(this) },
+            { 11112, new Depth1A_State_12(this) },
+            { 11113, new Depth1A_State_13(this) },
+            { 11114, new Depth1A_State_14(this) },
+            { 11115, new Depth1A_State_15(this) },
+            { 11116, new Depth1A_State_16(this) },
+            { 11117, new Depth1A_State_17(this) },
+            { 11118, new Depth1A_State_18(this) },
+            { 11119, new Depth1A_State_19(this) },
+            { 11120, new Depth1A_State_20(this) },
+            { 11121, new Depth1A_State_16(this) },
+            { 11122, new Depth1A_State_17(this) },
+            { 11123, new Depth1A_State_18(this) },
+            { 11124, new Depth1A_State_19(this) },
+            { 11125, new Depth1A_State_20(this) },
         };
     }
 }
