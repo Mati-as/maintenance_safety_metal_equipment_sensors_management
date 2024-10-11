@@ -203,8 +203,8 @@ public class Depth1C21_State_9 : Base_SceneState
         base.OnEnter();
       
         CurrentScene.contentController.isActionPerformable = true;
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrew, false);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrew);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
     }
 
     public override void OnStep()
@@ -214,7 +214,8 @@ public class Depth1C21_State_9 : Base_SceneState
     public override void OnExit()
     {
         base.OnExit();
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrew);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewA, "나사");
         CurrentScene.contentController.isActionPerformable = false;
     }
 }
@@ -227,7 +228,13 @@ public class Depth1C21_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
-        
+        CurrentScene.contentController.isActionPerformable = true;
+
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewD, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewE, false);
         base.OnEnter();
     }
 
@@ -238,6 +245,11 @@ public class Depth1C21_State_10 : Base_SceneState
     public override void OnExit()
     {
         base.OnExit();
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewD);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewE);
     }
 }
 

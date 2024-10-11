@@ -2,6 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
+
+
+/// <summary>
+/// 주의사항
+/// 1.초기화 및 이벤트성 함수만 담도록 구성합니다.
+/// 2.상태에 따른 애니메이션 수행은 최대한 DepthCState에 구성합니다.
+/// </summary>
 public enum DepthC_GameObj
 {
     ElectricScrewdriver,
@@ -19,13 +27,16 @@ public enum DepthC_GameObj
     TS_Cover,
     TS_LockingScrew,
     TS_ConnectionPiping,
-    TS_InnerScrew
+    TS_InnerScrewA,
+    TS_InnerScrewB,
+    TS_InnerScrewC,
+    TS_InnerScrewD,
+    TS_InnerScrewE,
+    
 }
 public class Depth1C_SceneController : Base_SceneController
 {
     
-
-
    public override void Init()
     {   
         base.Init();
@@ -46,7 +57,12 @@ public class Depth1C_SceneController : Base_SceneController
         BindAndAddToDictionary((int)DepthC_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
         BindAndAddToDictionary((int)DepthC_GameObj.TS_LockingScrew, "고정나사 체결확인");
         BindAndAddToDictionary((int)DepthC_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
-        BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrew, "보상도선 부분 확인");
+        BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewA, "보상도선 확인");
+        BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewB, "나사");
+        BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewC, "나사");
+        BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewD, "나사");
+        BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewE, "나사");
+        
         
         
         
@@ -65,25 +81,41 @@ public class Depth1C_SceneController : Base_SceneController
             StartCoroutine(OnStepMissionCompleteCo(8));
         });
         
-        GetObject((int)DepthC_GameObj.TS_InnerScrew).BindEvent(() =>
+        GetObject((int)DepthC_GameObj.TS_InnerScrewA).BindEvent(() =>
         {
             StartCoroutine(OnStepMissionCompleteCo(9));
         });
+
+        UI_ToolBox.ToolBoxOnEvent += ()=>OnStepMissionComplete(10);
+        
+        UI_ToolBox.ScrewDriverClickedEvent += ()=>
+        {
+            
+            //OnStepMissionComplete(11);
+        };
         
         
-        
-        
-        
-        
-        
-        
-        _screwDriver = GameObject.Find("ElectrcScrewdriver");
+        _screwDriver = GameObject.Find("ElectricScrewdriver");
     }
+
+   private void OnStepMissionComplete(int num)
+   {
+       StartCoroutine(OnStepMissionCompleteCo(num));
+   }
+   
+
+
 
    private WaitForSeconds _waitBeforeNextStep= null;
    private float _waitBeforeNextStepSeconds = 2;
    IEnumerator OnStepMissionCompleteCo(int currentStepNum)
    {
+
+       if (Managers.ContentInfo.PlayData.Count != currentStepNum)
+       {
+           Debug.LogWarning("현재 애니메이션 재생과 카운트 불일치.. 다른 애니메이션이거나 여러 곳 사용되는 애니메이션일 수 있습니다.");
+       }
+       
        if (contentController.isStepMissionComplete)
        {
            Logger.Log("이미 수행함. 중복실행 X XXXXXXX");
@@ -121,7 +153,7 @@ public class Depth1C_SceneController : Base_SceneController
    {
        if (isDriverOn)
        {
-           float distanceFromCamera = 0.23f; 
+           float distanceFromCamera = 0.08f; 
            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 
                distanceFromCamera));
            _screwDriver.transform.position = mousePosition;

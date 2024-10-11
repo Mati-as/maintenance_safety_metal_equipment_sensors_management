@@ -47,6 +47,7 @@ public class UI_ContentController : UI_Popup
         UI_Instruction,
         UI_Depth3_List,
         UI_ToolTip,
+        UI_ToolBox,
         ActiveArea,
         InactiveAreaA,
         InactiveAreaB,
@@ -181,7 +182,7 @@ public class UI_ContentController : UI_Popup
         toolTipRectPos.position = mousePos;
     }
 
-    public void SetText(string text = null)
+    public void SetToolTipText(string text = null)
     {
         SetToolTipStatus();
         if (Text_tooltip == null)
@@ -350,13 +351,18 @@ public class UI_ContentController : UI_Popup
     }
 
 
+    private UI_ToolBox _uiToolBox;
     private void SetBtns()
     {
         GetButton((int)Btns.Btn_Prev).gameObject.BindEvent(OnPrevBtnClicked);
         GetButton((int)Btns.Btn_Next).gameObject.BindEvent(OnNextBtnClicked);
         GetButton((int)Btns.Btn_ToolBox).gameObject.BindEvent(() =>
-        {
-            Managers.UI.ShowPopupUI<UI_ToolBox>();
+        { 
+            if (_uiToolBox == null) _uiToolBox = GetObject((int)UI.UI_ToolBox).GetComponent<UI_ToolBox>();
+            GetObject((int)UI.UI_ToolBox).SetActive(true);
+           
+            _uiToolBox.SetToolBox();
+            //Managers.UI.ShowPopupUI<UI_ToolBox>();
         });
     }
 

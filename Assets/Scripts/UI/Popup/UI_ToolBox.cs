@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
@@ -17,37 +19,61 @@ public class UI_ToolBox : UI_Popup
         ElectricScrewdriver
     }
 
-
+    private bool _isToolBoxOn=false;
     private Animator _animator; 
     private Depth1C_SceneController _sceneController;
+    
+    public static event Action ToolBoxOnEvent; // 도구함을 클릭해주세요 완수 시  
+    public static event Action ScrewDriverClickedEvent; // 도구함을 클릭해주세요 완수 시  
     public override bool Init()
     {
         if (!base.Init())
             return false;
 
         _sceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Depth1C_SceneController>();
- 
+        _animator = GetComponent<Animator>();
         BindButton(typeof(Btns));
-        BindObject(typeof(Obj));
+       // BindObject(typeof(Obj));
         
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
         {
-            Managers.UI.ClosePopupUI(this);
+            SetToolBox();
+            
         });
         
+             
+        GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
+        {
+            SetToolBox();
+            ToolBoxOnEvent?.Invoke();
+            //Managers.UI.ClosePopupUI(this);
+        });
+
         
         GetButton((int)Btns.Btn_ElectricScrewdriver).gameObject.BindEvent(() =>
         {
             _sceneController.OnScrewDriverBtnClicked();
+            ScrewDriverClickedEvent?.Invoke();
         });
+
+        SetToolBox(false);
         return true;
     }
 
-    public void SetToolBox(bool show)
+
+
+
+    public void SetToolBox()
     {
-        _animator.SetBool(UI_ON,show);
+        _isToolBoxOn = !_isToolBoxOn;
+        if(_isToolBoxOn) ToolBoxOnEvent?.Invoke();
+        _animator.SetBool(UI_ON,_isToolBoxOn);
     }
-    
+    public void SetToolBox(bool isOn)
+    {
+     
+        _animator.SetBool(UI_ON,isOn);
+    }
  
 
 
