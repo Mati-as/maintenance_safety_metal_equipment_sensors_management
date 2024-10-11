@@ -48,11 +48,17 @@ public class Depth1C_SceneController : Base_SceneController
         {
             contentController.isStepMissionComplete = true;
             contentController.InvokeNextStep();
+            OnMissionFinish();
+            contentController.isStepMissionComplete = false;
         });
         _screwDriver = GameObject.Find("ElectrcScrewdriver");
     }
    private GameObject _screwDriver;
 
+   private void OnMissionFinish()
+   {
+       SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew,true);
+   }
    public bool isDriverOn { get; set; }
 
 

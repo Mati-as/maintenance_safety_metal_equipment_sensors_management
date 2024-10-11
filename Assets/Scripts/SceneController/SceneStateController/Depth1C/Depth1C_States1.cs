@@ -124,7 +124,7 @@ public class Depth1C21_State_6 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        
+        CurrentScene.contentController.isActionPerformable = false;
     }
 
     public override void OnStep()

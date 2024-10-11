@@ -403,13 +403,16 @@ public class UI_ContentController : UI_Popup
 
     public void InvokeNextStep()
     {
-        if(!isStepMissionComplete)
+        if (!isStepMissionComplete || !isActionPerformable)
         {
-            Logger.Log("스텝별 수행 미션 완료, 다음 스크립트 및 애니메이션 재생");
+            Logger.Log("스텝별 미션 수행 불가상태, 로그확인");
             return;
         }
+
         Logger.Log("스텝별 수행 미션 완료, 다음 스크립트 및 애니메이션 재생");
-        OnNextBtnClicked();
+            OnNextBtnClicked();
+        
+
     }
     /// <summary>
     /// 버튼 클릭외에 스크립트를 넘어가는 경우 (예. 미션수행완료 등) 사용
