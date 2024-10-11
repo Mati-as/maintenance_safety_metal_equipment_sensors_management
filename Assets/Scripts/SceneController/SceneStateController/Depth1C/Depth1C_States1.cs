@@ -77,7 +77,7 @@ public class Depth1C21_State_4 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew, false);
+      
     }
 
     public override void OnStep()
@@ -100,6 +100,7 @@ public class Depth1C21_State_5 : Base_SceneState
     {
         base.OnEnter();
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_LockingScrew);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew, false);
         CurrentScene.contentController.isActionPerformable = true;
 
     }
@@ -124,7 +125,9 @@ public class Depth1C21_State_6 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.contentController.isActionPerformable = false;
+        CurrentScene.contentController.isActionPerformable = true;
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_ConnectionPiping, false);
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_ConnectionPiping);
     }
 
     public override void OnStep()
@@ -133,7 +136,7 @@ public class Depth1C21_State_6 : Base_SceneState
 
     public override void OnExit()
     {
-        
+        CurrentScene.contentController.isActionPerformable = false;
     }
 }
 
@@ -165,8 +168,11 @@ public class Depth1C21_State_8 : Base_SceneState
 
     public override void OnEnter()
     {
-        
         base.OnEnter();
+        CurrentScene.contentController.isActionPerformable = true;
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover, false);
+        
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_Cover);
     }
 
     public override void OnStep()
@@ -176,19 +182,25 @@ public class Depth1C21_State_8 : Base_SceneState
     public override void OnExit()
     {
         base.OnExit();
-    }
-}
+        CurrentScene.contentController.isActionPerformable = false;
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover);
+    }}
+
 
 public class Depth1C21_State_9 : Base_SceneState
 {
     public Depth1C21_State_9(Depth1C_SceneController currentScene) : base(currentScene)
     {
+       
     }
 
     public override void OnEnter()
     {
-    
         base.OnEnter();
+      
+        CurrentScene.contentController.isActionPerformable = true;
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrew, false);
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrew);
     }
 
     public override void OnStep()
@@ -198,6 +210,8 @@ public class Depth1C21_State_9 : Base_SceneState
     public override void OnExit()
     {
         base.OnExit();
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrew);
+        CurrentScene.contentController.isActionPerformable = false;
     }
 }
 

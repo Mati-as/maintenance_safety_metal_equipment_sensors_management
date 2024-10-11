@@ -18,7 +18,8 @@ public enum DepthC_GameObj
     TS_SensingElement,
     TS_Cover,
     TS_LockingScrew,
-    TS_ConnectionPiping
+    TS_ConnectionPiping,
+    TS_InnerScrew
 }
 public class Depth1C_SceneController : Base_SceneController
 {
@@ -45,11 +46,37 @@ public class Depth1C_SceneController : Base_SceneController
         BindAndAddToDictionary((int)DepthC_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
         BindAndAddToDictionary((int)DepthC_GameObj.TS_LockingScrew, "고정나사 체결확인");
         BindAndAddToDictionary((int)DepthC_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
+        BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrew, "보상도선 부분 확인");
+        
+        
         
         GetObject((int)DepthC_GameObj.TS_LockingScrew).BindEvent(() =>
         {
             StartCoroutine(OnStepMissionCompleteCo(5));
         });
+        
+        GetObject((int)DepthC_GameObj.TS_ConnectionPiping).BindEvent(() =>
+        {
+            StartCoroutine(OnStepMissionCompleteCo(6));
+        });
+        
+        GetObject((int)DepthC_GameObj.TS_Cover).BindEvent(() =>
+        {
+            StartCoroutine(OnStepMissionCompleteCo(8));
+        });
+        
+        GetObject((int)DepthC_GameObj.TS_InnerScrew).BindEvent(() =>
+        {
+            StartCoroutine(OnStepMissionCompleteCo(9));
+        });
+        
+        
+        
+        
+        
+        
+        
+        
         _screwDriver = GameObject.Find("ElectrcScrewdriver");
     }
 
