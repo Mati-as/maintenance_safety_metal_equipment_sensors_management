@@ -144,15 +144,30 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     #region Call By States
 
-    public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false)
+    
+    /// <summary>
+    /// 애니메이션을 재생합니다.
+    /// isServeAnimation인 경우 서브애니메이션을 재생합니다. 파일형식은 예를들어 5A,5B 가됩니다.
+    /// 해당스크립트의 메인 에니메이션은 알파벳없이 숫자로만 구성됩니다.
+    /// </summary>
+    /// <param name="count"></param>
+    /// <param name="delay"></param>
+    /// <param name="isReverse"></param>
+    /// <param name="isServeAnim"></param>
+    public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false,bool isServeAnim =false)
     {
-        
+      
         Debug.Assert(_animation != null, "Animation component can't be null");
 
         var path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
                    $"{Managers.ContentInfo.PlayData.Depth2}" +
                    $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count}";
 
+        if (isServeAnim)
+        {
+            path += 'A';
+        }
+        
         Logger.Log($"Animation Path {path}");
         var clip = Resources.Load<AnimationClip>(path);
 

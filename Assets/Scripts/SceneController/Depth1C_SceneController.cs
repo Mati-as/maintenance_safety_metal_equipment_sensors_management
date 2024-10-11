@@ -17,7 +17,8 @@ public enum DepthC_GameObj
     TS_Stabilizer,
     TS_SensingElement,
     TS_Cover,
-    TS_LockingScrew
+    TS_LockingScrew,
+    TS_ConnectionPiping
 }
 public class Depth1C_SceneController : Base_SceneController
 {
@@ -43,16 +44,29 @@ public class Depth1C_SceneController : Base_SceneController
         BindAndAddToDictionary((int)DepthC_GameObj.TS_Cover, "커버");
         BindAndAddToDictionary((int)DepthC_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
         BindAndAddToDictionary((int)DepthC_GameObj.TS_LockingScrew, "고정나사 체결확인");
+        BindAndAddToDictionary((int)DepthC_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
         
         GetObject((int)DepthC_GameObj.TS_LockingScrew).BindEvent(() =>
         {
-            contentController.isStepMissionComplete = true;
-            contentController.InvokeNextStep();
-            OnMissionFinish();
-            contentController.isStepMissionComplete = false;
+            StartCoroutine(OnStepMissionCompleteCo(5));
         });
         _screwDriver = GameObject.Find("ElectrcScrewdriver");
     }
+
+   private WaitForSeconds _waitBeforeNextStep= null;
+   private float _waitBeforeNextStepSeconds = 2;
+   IEnumerator OnStepMissionCompleteCo(int currentStepNum)
+   {
+       contentController.isStepMissionComplete = true;
+       PlayAnimationAndNarration(currentStepNum,isServeAnim:true);
+            
+       OnMissionFinish();//사운드 재생 등 성공처리
+
+       if (_waitBeforeNextStep == null) _waitBeforeNextStep = new WaitForSeconds(_waitBeforeNextStepSeconds);
+       yield return _waitBeforeNextStep;
+       contentController.InvokeNextStep();// 다음 스텝으로 넘어가기
+       contentController.isStepMissionComplete = false;
+   }
    private GameObject _screwDriver;
 
    private void OnMissionFinish()
