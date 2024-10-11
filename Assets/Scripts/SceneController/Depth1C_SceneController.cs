@@ -84,14 +84,23 @@ public class Depth1C_SceneController : Base_SceneController
    private float _waitBeforeNextStepSeconds = 2;
    IEnumerator OnStepMissionCompleteCo(int currentStepNum)
    {
+       if (contentController.isStepMissionComplete)
+       {
+           Logger.Log("이미 수행함. 중복실행 X XXXXXXX");
+           yield break;
+       }
        contentController.isStepMissionComplete = true;
-       PlayAnimationAndNarration(currentStepNum,isServeAnim:true);
-            
-       OnMissionFinish();//사운드 재생 등 성공처리
-
        if (_waitBeforeNextStep == null) _waitBeforeNextStep = new WaitForSeconds(_waitBeforeNextStepSeconds);
+       
+ 
+       PlayAnimationAndNarration(currentStepNum,isServeAnim:true);
+       
+       OnMissionFinish();//사운드 재생 등 성공처리
+       
        yield return _waitBeforeNextStep;
+       Logger.Log($"작업 수행을 통한 다음 이벤트 재생 :--------------- {Managers.ContentInfo.PlayData.Count}-");
        contentController.InvokeNextStep();// 다음 스텝으로 넘어가기
+       yield return _waitBeforeNextStep;
        contentController.isStepMissionComplete = false;
    }
    private GameObject _screwDriver;

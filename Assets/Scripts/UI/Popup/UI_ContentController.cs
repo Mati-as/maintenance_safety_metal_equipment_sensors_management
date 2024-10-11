@@ -809,6 +809,7 @@ public class UI_ContentController : UI_Popup
         {
             //GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 1;
         });
+        _UIOnSeq.Play();
     }
 
     private Sequence _UICloseSeq;
@@ -829,6 +830,7 @@ public class UI_ContentController : UI_Popup
         {
             //GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0;
         });
+        _UICloseSeq.Play();
     }
     
     

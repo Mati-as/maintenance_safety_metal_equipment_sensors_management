@@ -255,7 +255,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     protected void SetHighlight(int gameObjName, bool isOn = true)
     {
-        Logger.Log($"[{(DepthC_GameObj)gameObjName}]Highight is ON? : {isOn}");
+       // Logger.Log($"[{(DepthC_GameObj)gameObjName}]Highight is ON? : {isOn}");
         _highlight[gameObjName].highlighted = isOn;
     }
 
