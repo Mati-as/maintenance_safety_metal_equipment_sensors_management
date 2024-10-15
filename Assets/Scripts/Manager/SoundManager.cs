@@ -138,7 +138,7 @@ public class SoundManager : MonoBehaviour
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Bgm])
             {
 #if UNITY_EDITOR
-                Debug.Log("Currently Bgm is on Mute");
+            //    Debug.Log("Currently Bgm is on Mute");
 #endif
                 return false;
             }
@@ -162,7 +162,7 @@ public class SoundManager : MonoBehaviour
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Effect])
             {
 #if UNITY_EDITOR
-                Debug.Log("Currently Bgm is on Mute");
+              //  Debug.Log("Currently Bgm is on Mute");
 #endif
                 return false;
             }
@@ -181,7 +181,7 @@ public class SoundManager : MonoBehaviour
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Narration])
             {
 #if UNITY_EDITOR
-                Debug.Log("Currently Bgm is on Mute");
+              //  Debug.Log("Currently Bgm is on Mute");
 #endif
                 return false;
             }
@@ -189,7 +189,7 @@ public class SoundManager : MonoBehaviour
             if (audioClip == null)
             {
 #if UNITY_EDITOR
-                Debug.Log($"narration clip is null{path}");
+                //Debug.Log($"narration clip is null{path}");
 #endif
                 return false;
                 

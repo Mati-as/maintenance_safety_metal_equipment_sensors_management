@@ -1,3 +1,7 @@
+
+/// <summary>
+/// 3.2.1 온도센서 상태 클래스입니다 ------------------------------------------------------------
+/// </summary>
 public class Depth1C21_State_1 : Base_SceneState
 {
     // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
@@ -8,7 +12,7 @@ public class Depth1C21_State_1 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.contentController.ShutTrainingInfroAnim();
+    
         
     }
 
@@ -101,6 +105,7 @@ public class Depth1C21_State_5 : Base_SceneState
         base.OnEnter();
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_LockingScrew);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew, false);
+      
         CurrentScene.contentController.isActionPerformable = true;
 
     }
@@ -233,8 +238,8 @@ public class Depth1C21_State_10 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewD, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewE, false);
+      //  CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewD, false);
+       // CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewE, false);
         base.OnEnter();
     }
 
@@ -245,11 +250,7 @@ public class Depth1C21_State_10 : Base_SceneState
     public override void OnExit()
     {
         base.OnExit();
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewD);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewE);
+       
     }
 }
 
@@ -270,6 +271,11 @@ public class Depth1C21_State_11 : Base_SceneState
 
     public override void OnExit()
     {
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
+        //CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewD);
+        //CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewE);
         base.OnExit();
     }
 }

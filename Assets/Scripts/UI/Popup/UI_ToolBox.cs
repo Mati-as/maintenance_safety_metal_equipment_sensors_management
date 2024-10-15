@@ -11,7 +11,8 @@ public class UI_ToolBox : UI_Popup
     public enum Btns
     {
         Btn_Close,
-        Btn_ElectricScrewdriver
+        Btn_ElectricScrewdriver,
+        Btn_Multimeter
     }
 
     public enum Obj
@@ -21,40 +22,53 @@ public class UI_ToolBox : UI_Popup
 
     private bool _isToolBoxOn=false;
     private Animator _animator; 
-    private Depth1C_SceneController _sceneController;
+    private Depth1C_SceneController _depthCsceneController;
     
     public static event Action ToolBoxOnEvent; // 도구함을 클릭해주세요 완수 시  
     public static event Action ScrewDriverClickedEvent; // 도구함을 클릭해주세요 완수 시  
+    public static event Action MultimeterClickedEvent; // 도구함을 클릭해주세요 완수 시  
     public override bool Init()
     {
         if (!base.Init())
             return false;
 
-        _sceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Depth1C_SceneController>();
+        _depthCsceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Depth1C_SceneController>();
         _animator = GetComponent<Animator>();
         BindButton(typeof(Btns));
        // BindObject(typeof(Obj));
         
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
         {
-            SetToolBox();
+            SetToolBox(false);
             
         });
         
              
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
         {
-            SetToolBox();
+            
             ToolBoxOnEvent?.Invoke();
+            SetToolBox(false);
             //Managers.UI.ClosePopupUI(this);
         });
 
         
+        
         GetButton((int)Btns.Btn_ElectricScrewdriver).gameObject.BindEvent(() =>
         {
-            _sceneController.OnScrewDriverBtnClicked();
+            _depthCsceneController.OnScrewDriverBtnClicked();
             ScrewDriverClickedEvent?.Invoke();
+            SetToolBox(false);
         });
+        
+        GetButton((int)Btns.Btn_Multimeter).gameObject.BindEvent(() =>
+        {
+            _depthCsceneController.OnMultimeterBtnClicked();
+            MultimeterClickedEvent?.Invoke();
+            SetToolBox(false);
+          
+        });
+        
 
         SetToolBox(false);
         return true;

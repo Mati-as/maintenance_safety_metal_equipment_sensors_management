@@ -5,13 +5,14 @@ using DG.Tweening;
 using HighlightPlus;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 public class Base_SceneController : MonoBehaviour, ISceneController
 {
-    
-   
+    protected int CurrentActiveTool;
+    protected readonly int NO_TOOL_SELECTED = -1;
     protected readonly int ANIMATION_MAX_COUNT;
     public Inplay_CameraController cameraController { get; protected set; }
 
@@ -31,7 +32,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
 
     //Animation
-    private Dictionary<int, HighlightEffect> _highlight;
+    public Dictionary<int, HighlightEffect> objectHighlightMap;
     private Dictionary<int, Sequence> _seqMap;
 
     public virtual void Start()
@@ -48,7 +49,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
         
-        _highlight = new Dictionary<int, HighlightEffect>();
+        objectHighlightMap = new Dictionary<int, HighlightEffect>();
         _seqMap = new Dictionary<int, Sequence>();
 
         Debug.Assert(Camera.main != null);
@@ -256,13 +257,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     protected void SetHighlight(int gameObjName, bool isOn = true)
     {
        // Logger.Log($"[{(DepthC_GameObj)gameObjName}]Highight is ON? : {isOn}");
-        _highlight[gameObjName].highlighted = isOn;
+        objectHighlightMap[gameObjName].highlighted = isOn;
     }
 
     public void SetHighlightIgnore(int gameObjName, bool isOn = true)
     {
        
-        _highlight[gameObjName].ignore = isOn;
+        objectHighlightMap[gameObjName].ignore = isOn;
     }
 
 
@@ -278,7 +279,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 //        if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
 
         seq.AppendInterval(startDelay);
-        seq.AppendCallback(() => { _highlight[(int)gameObj].highlighted = true; });
+        seq.AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
 
         var loopCount = 4;
         for (var i = 0; i < loopCount; i++)
@@ -286,25 +287,25 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             seq.Append(DOVirtual.Float(0, maxInnerGlow, duration,
                 val =>
                 {
-                    _highlight[(int)gameObj].innerGlow = val;
-                    _highlight[(int)gameObj].outlineWidth = val;
+                    objectHighlightMap[(int)gameObj].innerGlow = val;
+                    objectHighlightMap[(int)gameObj].outlineWidth = val;
                 }));
 
             seq.Append(DOVirtual.Float(maxInnerGlow, 0, duration,
                 val =>
                 {
-                    _highlight[(int)gameObj].innerGlow = val; 
-                    _highlight[(int)gameObj].outlineWidth = val;
+                    objectHighlightMap[(int)gameObj].innerGlow = val; 
+                    objectHighlightMap[(int)gameObj].outlineWidth = val;
                 }));
 
         }
 
-        seq.AppendCallback(() => { _highlight[(int)gameObj].highlighted = false; });
+        seq.AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = false; });
 
         seq.OnKill(() =>
         {
-            _highlight[(int)gameObj].highlighted = false;
-            _highlight[(int)gameObj].innerGlow = 0;
+            objectHighlightMap[(int)gameObj].highlighted = false;
+            objectHighlightMap[(int)gameObj].innerGlow = 0;
         });
         _seqMap[(int)gameObj] = seq;
     }
@@ -316,7 +317,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         //초기하이라이트 설정
         SetDefaultHighlight(ref highlightEffect);
-        if (!_highlight.ContainsKey((int)gameObj)) _highlight.Add((int)gameObj, highlightEffect);
+        if (!objectHighlightMap.ContainsKey((int)gameObj)) objectHighlightMap.Add((int)gameObj, highlightEffect);
     }
 
     private void SetDefaultHighlight(ref HighlightEffect effect)
@@ -331,7 +332,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         // PointerEnter 이벤트 바인딩
         GetObject((int)gameObj).BindEvent(() =>
         {
-            if (_highlight[(int)gameObj].ignore) return; 
+            if (objectHighlightMap[(int)gameObj].ignore) return; 
             
             Logger.Log("sensor hover highlight and tooltip appear ----------------------");
             SetHighlight(gameObj);
@@ -345,13 +346,19 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             SetHighlight(gameObj,false);
             contentController.SetToolTipStatus(false);
         }, Define.UIEvent.PointerExit);
+        
+        GetObject((int)gameObj).BindEvent(() =>
+        {
+            SetHighlight(gameObj,false);
+            contentController.SetToolTipStatus(false);
+        }, Define.UIEvent.PointerDown);
     }
     
     
 
     public void SetHighlightStatus(int gameObj, bool isOn)
     {
-        _highlight[(int)gameObj].highlighted = isOn;
+        objectHighlightMap[(int)gameObj].highlighted = isOn;
     }
 
     public void BindAndAddToDictionary(int gameObj, string tooltipText)

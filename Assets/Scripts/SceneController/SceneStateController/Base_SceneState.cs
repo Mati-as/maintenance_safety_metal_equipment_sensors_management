@@ -39,6 +39,7 @@ public class Base_SceneState : ISceneState
     public virtual void OnExit()
     {
         //CurrentScene.contentController.ShutTrainingInfroAnim();
+        CurrentScene.contentController.ShutTrainingInfroAnim();
         _animationDelay = 0;
     }
     

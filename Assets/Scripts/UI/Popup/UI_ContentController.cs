@@ -48,6 +48,7 @@ public class UI_ContentController : UI_Popup
         UI_Depth3_List,
         UI_ToolTip,
         UI_ToolBox,
+        UI_DrverOnly_GaugeSlider,
         ActiveArea,
         InactiveAreaA,
         InactiveAreaB,
@@ -96,6 +97,10 @@ public class UI_ContentController : UI_Popup
 
     public Text Text_tooltip { get; set; }
     public Image Text_image { get; set; }
+
+    public Slider UI_DrverOnly_GaugeSlider { get; set; }
+    public RectTransform gaugeRectPos { get; set; }
+    
     public RectTransform toolTipRectPos { get; set; }
     private readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
     
@@ -161,6 +166,10 @@ public class UI_ContentController : UI_Popup
         BindToggle(typeof(Toggles));
         BindObject(typeof(UI));
         BindTMP(typeof(Content_TMP));
+        
+        UI_DrverOnly_GaugeSlider = GetObject((int)UI.UI_DrverOnly_GaugeSlider).GetComponent<Slider>();
+        UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
+
     }
 
 
@@ -169,6 +178,7 @@ public class UI_ContentController : UI_Popup
     {
         Update_MousePosition();
     }
+
 
     private void Update_MousePosition()
     {
@@ -179,6 +189,14 @@ public class UI_ContentController : UI_Popup
             Logger.Log("get tooltip rectpos");
         }
 
+        if (gaugeRectPos == null)
+        {
+            gaugeRectPos = GetObject((int)UI.UI_DrverOnly_GaugeSlider).GetComponent<RectTransform>();
+            Logger.Log("get tooltip rectpos");
+        }
+
+
+        gaugeRectPos.position = mousePos;
         toolTipRectPos.position = mousePos;
     }
 
