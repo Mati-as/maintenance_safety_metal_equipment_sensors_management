@@ -106,7 +106,14 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     private Sequence _resistanceCheckSeq;
     public void OnAllProbeSet()
     {
-        _resistanceCheckSeq = DOTween.Sequence();
+      
+        
+        if (_resistanceCheckSeq ==null || _resistanceCheckSeq.IsActive())
+        {
+            _resistanceCheckSeq.Kill();
+            _resistanceCheckSeq = DOTween.Sequence();
+        }
+        
         Logger.Log("프로브 접촉 완료, 저항값 변경중 -----------------------------------------------------");
         float lastUpdateTime = 0f;
 
@@ -138,5 +145,34 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         });
 
         _resistanceCheckSeq.Play();
+    }
+    
+    public void OnGroundNothing()
+    {
+
+        if (_resistanceCheckSeq ==null || _resistanceCheckSeq.IsActive())
+        {
+            _resistanceCheckSeq.Kill();
+            _resistanceCheckSeq = DOTween.Sequence();
+        }
+
+        
+        
+        _resistanceCheckSeq.AppendCallback(() =>
+        {
+            DOVirtual.Float(resistantTarget, resistantTarget, 3f, _ =>
+            {
+                _TMPDisplay.text =(0 + UnityEngine.Random.Range(0, 0.005f)).ToString("F3");
+            }).SetEase(Ease.InOutBounce);
+        });
+
+        _resistanceCheckSeq.SetLoops(-1);
+        _resistanceCheckSeq.Play();
+       
+    }
+
+    public void OnAllProbeSetToGroundingTerminal()
+    {
+        _TMPDisplay.text = "O.L";
     }
 }

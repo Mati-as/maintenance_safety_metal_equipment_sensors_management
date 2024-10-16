@@ -1,4 +1,6 @@
 
+using System.Linq;
+
 /// <summary>
 /// 3.2.1 온도센서 상태 클래스입니다 ------------------------------------------------------------
 /// </summary>
@@ -158,6 +160,7 @@ public class Depth1C21_State_7 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.OnTempSensor_Pipe);
     }
 
     public override void OnStep()
@@ -273,9 +276,39 @@ public class Depth1C21_State_11 : Base_SceneState
 
     public override void OnEnter()
     {
+
+        foreach (var key in  Depth1C_sceneController.currentScrewGaugeStatus.Keys.ToList())
+        {
+            Depth1C_sceneController.currentScrewGaugeStatus[key] = 0f;
+        }
+        
+        //나사 위치 초기화
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
+        
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(Depth1C_SceneController.UNWIND,false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(Depth1C_SceneController.UNWIND,false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(Depth1C_SceneController.UNWIND,false);
+        
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 0);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 0);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 0);
+        
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Update(0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Update(0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Update(0);
+        
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].StopPlayback();
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].StopPlayback();
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].StopPlayback();
+        
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = false;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
+        
+      
+        //
         
         CurrentScene.BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewB, "나사");
         CurrentScene.contentController.isActionPerformable = true;
@@ -287,9 +320,9 @@ public class Depth1C21_State_11 : Base_SceneState
         
         
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(Depth1C_SceneController.ON, false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(Depth1C_SceneController.PROBE_TO_SCREWB, false);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(Depth1C_SceneController.ON, false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(Depth1C_SceneController.PROBE_TO_SCREWB, false);
         base.OnEnter();
     }
 
@@ -319,18 +352,42 @@ public class Depth1C21_State_12 : Base_SceneState
 
     public override void OnEnter()
     {
+        //나사 위치 초기화
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
+        
+        foreach (var key in  Depth1C_sceneController.currentScrewGaugeStatus.Keys.ToList())
+        {
+            Depth1C_sceneController.currentScrewGaugeStatus[key] = 1f;
+        }
+        
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 1);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 1);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 1);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Update(1);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Update(1);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Update(1);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(Depth1C_SceneController.UNWIND,true);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(Depth1C_SceneController.UNWIND,true);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(Depth1C_SceneController.UNWIND,true);
         
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = false;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
         
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(Depth1C_SceneController.PROBE_TO_SCREWB, false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(Depth1C_SceneController.PROBE_TO_SCREWB, false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Play("ON", 0, 0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play("ON", 0, 0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Update(0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Update(0);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(Depth1C_SceneController.ON, false);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(Depth1C_SceneController.ON, false);
         
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play($"ON", 0, 0);
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play($"ON", 0, 0);
+        
         
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
         CurrentScene.BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewB, "+ 프로브 접지");
@@ -359,7 +416,19 @@ public class Depth1C21_State_13 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-
+        //나사 위치 초기화
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
+        
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(Depth1C_SceneController.PROBE_TO_SCREWB, false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(Depth1C_SceneController.PROBE_TO_SCREWB, false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play($"ON", 0, 0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play($"ON", 0, 0);
+        
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
+        
+        
         Depth1C_sceneController.isAnodePut = false;
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Play("ON", 0, 0);
@@ -392,17 +461,26 @@ public class Depth1C21_State_14 : Base_SceneState
     public override void OnEnter()
     {
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalA);
+        
+        Depth1C_sceneController.isAnodePut = false;
+        
+        Depth1C_sceneController.multimeterController.OnGroundNothing();
         
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(Depth1C_SceneController.ON, true);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(Depth1C_SceneController.ON, true);
-        
-        
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Play("ON", 0, 1);
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play("ON", 0, 1);
-        
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(Depth1C_SceneController.PROBE_TO_SCREWB, false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(Depth1C_SceneController.PROBE_TO_SCREWB, false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Play("ON", 0, 0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play("ON", 0, 0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Update(0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Update(0);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
      
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalA);
+        
+        
         base.OnEnter();
     }
 
@@ -427,7 +505,7 @@ public class Depth1C21_State_15 : Base_SceneState
 
     public override void OnEnter()
     {
-       
+      
         base.OnEnter();
     }
 
@@ -536,135 +614,5 @@ public class Depth1C21_State_18 : Base_SceneState
             base.OnExit();
         
         }
-    }
-
-    public class Depth1C21_State_20 : Base_SceneState
-    {
-        public Depth1C21_State_20(Depth1C_SceneController currentScene) : base(currentScene)
-        {
-        }
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void OnStep()
-        {
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
-    }
-
-
-    public class Depth1C21_State_21 : Base_SceneState
-    {
-        public Depth1C21_State_21(Depth1C_SceneController currentScene) : base(currentScene)
-        {
-        }
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void OnStep()
-        {
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
-    }
-
-
-    public class Depth1C21_State_22 : Base_SceneState
-    {
-        public Depth1C21_State_22(Depth1C_SceneController currentScene) : base(currentScene)
-        {
-        }
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void OnStep()
-        {
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
-    }
-
-
-    public class Depth1C21_State_23 : Base_SceneState
-    {
-        public Depth1C21_State_23(Depth1C_SceneController currentScene) : base(currentScene)
-        {
-        }
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void OnStep()
-        {
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
-    }
-
-
-    public class Depth1C21_State_24 : Base_SceneState
-    {
-        public Depth1C21_State_24(Depth1C_SceneController currentScene) : base(currentScene)
-        {
-        }
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void OnStep()
-        {
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
-    }
-
-
-    public class Depth1C21_State_25 : Base_SceneState
-    {
-        public Depth1C21_State_25(Depth1C_SceneController currentScene) : base(currentScene)
-        {
-        }
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void OnStep()
-        {
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
+    
     }
