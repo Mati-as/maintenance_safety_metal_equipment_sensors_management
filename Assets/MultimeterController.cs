@@ -2,14 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = System.Random;
 
 public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
+    private TextMeshPro _TMPDisplay; 
        private enum Multimeter
     {
         Handle,
+        Display
     }
 
     private bool isDragging = false;
@@ -18,9 +22,15 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     private const float minAngle = 0f;   // 최소 각도
     private const float maxAngle = 150f; // 최대 각도
 
+    public static event Action OnResistanceMeasureReadyAction;
+    
+    
     private void Awake()
     {
         BindObject(typeof(Multimeter));
+
+        _TMPDisplay = GetObject((int)Multimeter.Display).GetComponent<TextMeshPro>();
+        _TMPDisplay.text = "O.L";
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -47,7 +57,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
             Vector3 currentDirection = currentMousePos - handlePos;
 
             // 벡터들 사이의 각도 계산 (Z축 기준)
-            float angle = -Vector3.SignedAngle(initialDirection, currentDirection, Vector3.forward);
+            float angle = Vector3.SignedAngle(initialDirection, currentDirection, Vector3.forward);
 
             // 현재 회전 각도에 새로운 각도 추가
             float newAngle = currentAngle + angle;
@@ -72,10 +82,11 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
             Logger.Log("Resistance Sensor Mode On ------------");
             isResistanceMode = true;
             SetHandleToResistanceMode();
+            
+            OnResistanceMeasureReadyAction?.Invoke();
         }
         else
         {
-            
             isResistanceMode = false;
         }
     }
@@ -85,9 +96,47 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     public void SetHandleToResistanceMode()
     {
         var cacheCurrentAngle = currentAngle;
-        DOVirtual.Float(cacheCurrentAngle, 96, 0.25f, val =>
+        DOVirtual.Float(cacheCurrentAngle, 103, 0.25f, val =>
         {
             GetObject((int)Multimeter.Handle).transform.localRotation = Quaternion.Euler(0f, val,0f );
         });
+    }
+
+    private float resistantTarget = 108;
+    private Sequence _resistanceCheckSeq;
+    public void OnAllProbeSet()
+    {
+        _resistanceCheckSeq = DOTween.Sequence();
+        Logger.Log("프로브 접촉 완료, 저항값 변경중 -----------------------------------------------------");
+        float lastUpdateTime = 0f;
+
+        _resistanceCheckSeq.AppendInterval(1.5f);
+        _resistanceCheckSeq.AppendCallback(()=>DOVirtual.Float(0, resistantTarget, 0.9f, val =>
+        {
+            float currentTime = Time.time;
+
+            if (currentTime - lastUpdateTime >= 0.5f)
+            {
+               
+                _TMPDisplay.text = (val + UnityEngine.Random.Range(0, 2.5f)).ToString("F1");
+                lastUpdateTime = currentTime;
+            }
+        }).SetEase(Ease.InOutBounce));
+
+        _resistanceCheckSeq.AppendCallback(() =>
+        {
+            DOVirtual.Float(resistantTarget, resistantTarget, 3f, _ =>
+            {
+                float currentTime = Time.time;
+
+                if (currentTime - lastUpdateTime >= 0.78f)
+                {
+                    _TMPDisplay.text = (resistantTarget + UnityEngine.Random.Range(0, 2.5f)).ToString("F1");
+                    lastUpdateTime = currentTime;
+                }
+            }).SetEase(Ease.InOutBounce);
+        });
+
+        _resistanceCheckSeq.Play();
     }
 }

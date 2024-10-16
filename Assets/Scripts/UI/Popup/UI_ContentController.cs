@@ -1,33 +1,36 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.UI;
+public enum Btns
+{
+    Btn_Prev,
+    Btn_Next,
+    Btn_Depth1_Title,
+    Btn_TopMenu_Hide,
+    Btn_Script_Hide,
+    Btn_ThirdDepth_Hide,
+    Btn_Help,
+    Btn_Evaluation,
+    Btn_ToolBox,
+    Btn_Guidebook,
 
+    //  UI_Depth3_List, // Active Area
+    Depth3_A,
+    Depth3_B,
+    Depth3_C,
+    Depth3_D,
+    Depth3_E,
+}
 public class UI_ContentController : UI_Popup
 {
-    public enum Btns
-    {
-        Btn_Prev,
-        Btn_Next,
-        Btn_Depth1_Title,
-        Btn_TopMenu_Hide,
-        Btn_Script_Hide,
-        Btn_ThirdDepth_Hide,
-        Btn_Help,
-        Btn_Evaluation,
-        Btn_ToolBox,
 
-        //  UI_Depth3_List, // Active Area
-        Depth3_A,
-        Depth3_B,
-        Depth3_C,
-        Depth3_D,
-        Depth3_E,
-    }
 
     public enum Toggles
     {
@@ -103,6 +106,10 @@ public class UI_ContentController : UI_Popup
     
     public RectTransform toolTipRectPos { get; set; }
     private readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
+    private readonly Vector3 _sliderPosOffset = new(-20, 30, 0);
+
+
+    private Dictionary<int, Image> _highlightImageMap;
     
     
     // 미션수행 관련 프로퍼티 ------------------------------------------------------------
@@ -150,9 +157,49 @@ public class UI_ContentController : UI_Popup
         SetInitialStates();
         Refresh();
         SetBtns();
+        SetHeighlightUIImages();
         return true;
     }
 
+    
+    /// <summary>
+    /// 하이라이트 기능이 있는 객체는 highlight 이미지를 할당해놓고, 아래 메소드에서 직접 초기화합니다.
+    /// </summary>
+    private void SetHeighlightUIImages()
+    {
+        if (_highlightImageMap == null) _highlightImageMap = new Dictionary<int, Image>();
+
+        Image highlightImage = GetButton((int)(Btns.Btn_Evaluation))
+            .GetComponentsInChildren<Image>(true) // Gets all Image components
+            .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); // Looks for the one with the specific name
+        _highlightImageMap.TryAdd((int)Btns.Btn_Evaluation, highlightImage);
+        
+        
+        Image GuidebookHlImage = GetButton((int)(Btns.Btn_Guidebook))
+            .GetComponentsInChildren<Image>(true) // Gets all Image components
+            .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); 
+        _highlightImageMap.TryAdd((int)Btns.Btn_Guidebook, GuidebookHlImage);
+        
+        Image ToolboxImage = GetButton((int)(Btns.Btn_ToolBox))
+            .GetComponentsInChildren<Image>(true) // Gets all Image components
+            .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); 
+        _highlightImageMap.TryAdd((int)Btns.Btn_ToolBox, ToolboxImage);
+    }
+
+
+    public void BlinkBtnUI(int btnEnum)
+    {
+        var seq = DOTween.Sequence();
+        for (int i = 0; i < 5; i++)
+        {
+            seq.Append(_highlightImageMap[btnEnum].DOFade(1, 0.2f));
+            seq.AppendInterval(0.32f);
+            seq.Append(_highlightImageMap[btnEnum].DOFade(0, 0.2f));
+            seq.AppendInterval(0.2f);
+        }
+
+        seq.Play();
+    }
     private void CloseUIPopup<T>() where T : UI_Popup
     {
         var popup = Managers.UI.FindPopup<T>();
@@ -183,6 +230,8 @@ public class UI_ContentController : UI_Popup
     private void Update_MousePosition()
     {
         Vector2 mousePos = Input.mousePosition + _toolTipPosOffset;
+        Vector2 sliderPos = Input.mousePosition + _sliderPosOffset;
+        
         if (toolTipRectPos == null)
         {
             toolTipRectPos = GetObject((int)UI.UI_ToolTip).GetComponent<RectTransform>();
@@ -191,12 +240,14 @@ public class UI_ContentController : UI_Popup
 
         if (gaugeRectPos == null)
         {
+            
             gaugeRectPos = GetObject((int)UI.UI_DrverOnly_GaugeSlider).GetComponent<RectTransform>();
             Logger.Log("get tooltip rectpos");
         }
 
 
-        gaugeRectPos.position = mousePos;
+        gaugeRectPos.position = sliderPos;
+        
         toolTipRectPos.position = mousePos;
     }
 
