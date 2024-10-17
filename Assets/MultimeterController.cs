@@ -36,7 +36,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(eventData.pointerCurrentRaycast.gameObject.name =="HandleClickablePoint") isDragging = true;
+        if(eventData.pointerCurrentRaycast.gameObject.name =="HandleCollider") isDragging = true;
 
         // 월드 좌표에서 핸들의 위치 가져오기
         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.nearClipPlane));
@@ -67,7 +67,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
             newAngle = Mathf.Clamp(newAngle, minAngle, maxAngle);
 
             // 핸들에 회전 적용 (Z축 기준)
-            GetObject((int)Multimeter.Handle).transform.localRotation = Quaternion.Euler(0f, newAngle,0f );
+            GetObject((int)Multimeter.Handle).transform.localRotation = Quaternion.Euler(270f, newAngle,0f );
         }
     }
 
@@ -97,9 +97,9 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     public void SetHandleToResistanceMode()
     {
         var cacheCurrentAngle = currentAngle;
-        DOVirtual.Float(cacheCurrentAngle, 103, 0.25f, val =>
+        DOVirtual.Float(cacheCurrentAngle, 100, 0.25f, val =>
         {
-            GetObject((int)Multimeter.Handle).transform.localRotation = Quaternion.Euler(0f, val,0f );
+            GetObject((int)Multimeter.Handle).transform.localRotation = Quaternion.Euler(270f, val,0f );
         });
     }
 

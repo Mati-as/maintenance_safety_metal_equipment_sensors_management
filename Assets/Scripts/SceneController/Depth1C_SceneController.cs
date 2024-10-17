@@ -90,10 +90,11 @@ public class Depth1C_SceneController : Base_SceneController
     // ReSharper disable Unity.PerformanceAnalysis
     public override void Init()
     {
-        UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
-        UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
+#region 3.2.1 온도센서 점검
 
         
+ UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
+        UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
         
         base.Init();
         if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") SetDepthNum();
@@ -127,7 +128,10 @@ public class Depth1C_SceneController : Base_SceneController
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalA, "A 접지");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "B 접지");
-        
+
+        GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(false);
+        GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(false);
+        GetObject((int)DepthC_GameObj.ElectricScrewdriver).SetActive(false);
         // BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewD, "나사");
         // BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewE, "나사");
 
@@ -221,8 +225,19 @@ public class Depth1C_SceneController : Base_SceneController
             Action action = multimeterController.OnAllProbeSetToGroundingTerminal;
             OnStepMissionComplete( 14, delayAmount:new WaitForSeconds(5f),delayedAction:action);
         });
+#endregion
 
-        
+#region 3.2.2 온도센서 고장 유형
+
+
+
+#endregion
+
+#region 3.2.2 온도 센서 정비
+
+
+
+#endregion
     }
 
     public bool isAnodePut; // 음극단자 설정을 위한 bool값입니다.
@@ -553,11 +568,16 @@ public class Depth1C_SceneController : Base_SceneController
 
         if (isDriverOn && CurrentActiveTool == (int)DepthC_GameObj.ElectricScrewdriver)
         {
+            
+            GetObject((int)DepthC_GameObj.ElectricScrewdriver).SetActive(isDriverOn);
             GetObject((int)DepthC_GameObj.ElectricScrewdriver).transform.position = mousePosition;
            //Logger.Log($"On_CurrentPos: {mousePosition}");
         }
         else if (_isMultimeterOn && CurrentActiveTool == (int)DepthC_GameObj.Multimeter)
         {
+            GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(_isMultimeterOn);
+            GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(_isMultimeterOn);
+            
             if (!GetObject((int)DepthC_GameObj.Multimeter).GetComponent<MultimeterController>().isResistanceMode)
             {
                 
@@ -575,6 +595,10 @@ public class Depth1C_SceneController : Base_SceneController
             }
         
         }
+
+        
+    
+        
             
     }
 
@@ -659,8 +683,6 @@ public class Depth1C_SceneController : Base_SceneController
             { 32117, new Depth1C21_State_17(this) },
             { 32118, new Depth1C21_State_18(this) },
             { 32119, new Depth1C21_State_19(this) },
-        
-         
         };
     }
 }

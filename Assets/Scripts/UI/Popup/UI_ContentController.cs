@@ -811,7 +811,7 @@ public class UI_ContentController : UI_Popup
 
 
     private bool isTrainingInfoOpen;
-    private Sequence _UIOnSeq;
+    private Sequence UI_AnimSeq;
 
 
     public void ShowInitialIntro()
@@ -850,11 +850,15 @@ public class UI_ContentController : UI_Popup
     private UI_TrainingInfo _uiTrainingInfo;
     public void PlayObjectiveIntroAnim()
     {
-        if (_UICloseSeq.IsActive()) _UICloseSeq.Kill();
+        
+        if (UI_AnimSeq.IsActive())
+        {
+            UI_AnimSeq.Kill();
+            UI_AnimSeq = DOTween.Sequence();
+        }
 
         
         SetScriptUI(false);
-        
         
         if (_uiTrainingInfo == null)
         {
@@ -868,44 +872,48 @@ public class UI_ContentController : UI_Popup
         GetObject((int)UI.UI_TrainingInfo).SetActive(true);
     
 
-        _UIOnSeq = DOTween.Sequence();
-        _UIOnSeq.AppendCallback(() =>
+        UI_AnimSeq = DOTween.Sequence();
+        UI_AnimSeq.AppendCallback(() =>
         {
            
             GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0;
         });
-        _UIOnSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.6f).SetEase(Ease.InCirc));
-        _UIOnSeq.AppendCallback(() =>
+        UI_AnimSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.6f).SetEase(Ease.InCirc));
+        UI_AnimSeq.AppendCallback(() =>
         {
            
             ShowOrHideNextPrevBtns();
         });
-        _UIOnSeq.OnKill(() =>
+        UI_AnimSeq.OnKill(() =>
         {
             //GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 1;
         });
-        _UIOnSeq.Play();
+        UI_AnimSeq.Play();
     }
 
-    private Sequence _UICloseSeq;
+
 
     public void ShutTrainingInfroAnim()
     {
-        if (_UIOnSeq.IsActive()) _UIOnSeq.Kill();
+        if (UI_AnimSeq.IsActive())
+        {
+            UI_AnimSeq.Kill();
+            UI_AnimSeq = DOTween.Sequence();
+        }
 
-        _UICloseSeq = DOTween.Sequence();
-        _UIOnSeq.AppendCallback(() =>
+        UI_AnimSeq = DOTween.Sequence();
+        UI_AnimSeq.AppendCallback(() =>
         {
             GetObject((int)UI.UI_TrainingInfo).SetActive(true);
             GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 1;
         });
-        _UICloseSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.6f).SetEase(Ease.InCirc));
-        _UICloseSeq.AppendCallback(() => { GetObject((int)UI.UI_TrainingInfo).SetActive(false); });
-        _UICloseSeq.OnKill(() =>
+        UI_AnimSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.6f).SetEase(Ease.InCirc));
+        UI_AnimSeq.AppendCallback(() => { GetObject((int)UI.UI_TrainingInfo).SetActive(false); });
+        UI_AnimSeq.OnKill(() =>
         {
             //GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0;
         });
-        _UICloseSeq.Play();
+        UI_AnimSeq.Play();
     }
     
     
