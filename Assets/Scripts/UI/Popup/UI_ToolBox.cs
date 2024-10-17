@@ -37,12 +37,7 @@ public class UI_ToolBox : UI_Popup
         BindButton(typeof(Btns));
        // BindObject(typeof(Obj));
         
-        GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
-        {
-            SetToolBox(false);
-            
-        });
-        
+   
              
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
         {
@@ -81,8 +76,13 @@ public class UI_ToolBox : UI_Popup
     public void SetToolBox()
     {
         _isToolBoxOn = !_isToolBoxOn;
-        if(_isToolBoxOn) ToolBoxOnEvent?.Invoke();
         _animator.SetBool(UI_ON,_isToolBoxOn);
+
+        if (_isToolBoxOn)
+        {
+            //Logger.Log("툴박스 클릭 이벤트 ON---------------------------");
+            ToolBoxOnEvent?.Invoke();
+        }
     }
     public void SetToolBox(bool isOn)
     {

@@ -38,17 +38,17 @@ public class Depth1A_SceneController : Base_SceneController
        
         
         // 딕셔너리에 추가 및 이벤트 바인딩
-        BindAndAddToDictionary((int)GameObj.LimitSwitch, "리밋 스위치");
-        BindAndAddToDictionary((int)GameObj.ProximitySwitch, "근접 스위치");
+        BindAndAddToDictionaryAndInit((int)GameObj.LimitSwitch, "리밋 스위치");
+        BindAndAddToDictionaryAndInit((int)GameObj.ProximitySwitch, "근접 스위치");
         //BindAndAddToDictionar(y(GameObj.TemperatureSensor, "온도 센서");
-        BindAndAddToDictionary((int)GameObj.TemperatureSensor_Whole, "온도 센서");
-        BindAndAddToDictionary((int)GameObj.LevelSensor, "레벨 센서");
-        BindAndAddToDictionary((int)GameObj.FlowMeter, "유량 센서");
-        BindAndAddToDictionary((int)GameObj.PressureSensor, "압력 센서");
-        BindAndAddToDictionary((int)GameObj.TS_CompensatingWire, "보상전선");
-        BindAndAddToDictionary((int)GameObj.TS_Stabilizer, "고정자");
-        BindAndAddToDictionary((int)GameObj.TS_SensingElement, "감온부");
-        BindAndAddToDictionary((int)GameObj.TS_Cover, "커버");
+        BindAndAddToDictionaryAndInit((int)GameObj.TemperatureSensor_Whole, "온도 센서");
+        BindAndAddToDictionaryAndInit((int)GameObj.LevelSensor, "레벨 센서");
+        BindAndAddToDictionaryAndInit((int)GameObj.FlowMeter, "유량 센서");
+        BindAndAddToDictionaryAndInit((int)GameObj.PressureSensor, "압력 센서");
+        BindAndAddToDictionaryAndInit((int)GameObj.TS_CompensatingWire, "보상전선");
+        BindAndAddToDictionaryAndInit((int)GameObj.TS_Stabilizer, "고정자");
+        BindAndAddToDictionaryAndInit((int)GameObj.TS_SensingElement, "감온부");
+        BindAndAddToDictionaryAndInit((int)GameObj.TS_Cover, "커버");
         
         GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(true);
         GetObject((int)GameObj.TemperatureSensor).SetActive(false);

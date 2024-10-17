@@ -16,6 +16,7 @@ public class Base_SceneState : ISceneState
 
     public virtual void OnEnter()
     {
+        CurrentScene.contentController.isStepMissionPerformable = false;
         
         CurrentScene.ChangeInstructionTextWithAnim();
         if (_animationDelay == 0)

@@ -5,11 +5,12 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using Random = System.Random;
 
 public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-    private TextMeshPro _TMPDisplay; 
+     public TextMeshPro TMPDisplay; 
        private enum Multimeter
     {
         Handle,
@@ -29,8 +30,8 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     {
         BindObject(typeof(Multimeter));
 
-        _TMPDisplay = GetObject((int)Multimeter.Display).GetComponent<TextMeshPro>();
-        _TMPDisplay.text = "O.L";
+        TMPDisplay = GetObject((int)Multimeter.Display).GetComponent<TextMeshPro>();
+        TMPDisplay.text = "O.L";
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -125,7 +126,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
             if (currentTime - lastUpdateTime >= 0.5f)
             {
                
-                _TMPDisplay.text = (val + UnityEngine.Random.Range(0, 2.5f)).ToString("F1");
+                TMPDisplay.text = (val + UnityEngine.Random.Range(0, 2.5f)).ToString("F1");
                 lastUpdateTime = currentTime;
             }
         }).SetEase(Ease.InOutBounce));
@@ -138,7 +139,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
 
                 if (currentTime - lastUpdateTime >= 0.78f)
                 {
-                    _TMPDisplay.text = (resistantTarget + UnityEngine.Random.Range(0, 2.5f)).ToString("F1");
+                    TMPDisplay.text = (resistantTarget + UnityEngine.Random.Range(0, 2.5f)).ToString("F1");
                     lastUpdateTime = currentTime;
                 }
             }).SetEase(Ease.InOutBounce);
@@ -157,12 +158,20 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         }
 
         
+        float lastUpdateTime = 0f;
         
         _resistanceCheckSeq.AppendCallback(() =>
         {
             DOVirtual.Float(resistantTarget, resistantTarget, 3f, _ =>
             {
-                _TMPDisplay.text =(0 + UnityEngine.Random.Range(0, 0.005f)).ToString("F3");
+                float currentTime = Time.time;
+                
+                if (currentTime - lastUpdateTime >= 0.78f)
+                {
+                    TMPDisplay.text =(0 + UnityEngine.Random.Range(0, 0.005f)).ToString("F3");
+                    lastUpdateTime = currentTime;
+                }
+               
             }).SetEase(Ease.InOutBounce);
         });
 
@@ -173,6 +182,22 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
 
     public void OnAllProbeSetToGroundingTerminal()
     {
-        _TMPDisplay.text = "O.L";
+       
+        if (_resistanceCheckSeq ==null || _resistanceCheckSeq.IsActive())
+        {
+            _resistanceCheckSeq.Kill();
+            _resistanceCheckSeq = DOTween.Sequence();
+        }
+
+        Logger.Log("OL 표시 완료 -------------------------grounding mission");
+        
+        _resistanceCheckSeq.AppendCallback(() =>
+        {
+            TMPDisplay.text = "O.L";
+        });
+
+        _resistanceCheckSeq.SetLoops(-1);
+        _resistanceCheckSeq.Play();
+       
     }
 }

@@ -269,12 +269,18 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     public void HighlightBlink(int gameObj, float startDelay = 1f)
     {
+        
+        
         var seq = DOTween.Sequence();
+        objectHighlightMap[(int)gameObj].enabled = true;
         _seqMap.TryAdd((int)gameObj, seq);
+
+        _seqMap[gameObj] = seq;
 
         var maxInnerGlow = 0.8f;
         var maxOuterGlow = 1f;
         var duration = 0.6f;
+
         
 //        if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
 
@@ -308,6 +314,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             objectHighlightMap[(int)gameObj].innerGlow = 0;
         });
         _seqMap[(int)gameObj] = seq;
+
+        _seqMap[gameObj].Play();
     }
 
     public void AddToHighlightDictionary(int gameObj)
@@ -361,7 +369,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         objectHighlightMap[(int)gameObj].highlighted = isOn;
     }
 
-    public void BindAndAddToDictionary(int gameObj, string tooltipText)
+    public void BindAndAddToDictionaryAndInit(int gameObj, string tooltipText)
     {
         AddToHighlightDictionary(gameObj);
         BindHighlightAndTooltip(gameObj, tooltipText);

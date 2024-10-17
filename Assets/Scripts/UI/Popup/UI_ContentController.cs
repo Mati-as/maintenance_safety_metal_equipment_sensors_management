@@ -113,15 +113,15 @@ public class UI_ContentController : UI_Popup
     
     
     // 미션수행 관련 프로퍼티 ------------------------------------------------------------
-    private bool _isActionPerformable;
-    public bool isActionPerformable {
+    private bool _isStepMissionPerformable;
+    public bool isStepMissionPerformable {
         get
         {
-            return _isActionPerformable;
+            return _isStepMissionPerformable;
         } 
         set
         {
-            _isActionPerformable = value;
+            _isStepMissionPerformable = value;
             if (value)
             {
                 
@@ -478,7 +478,7 @@ public class UI_ContentController : UI_Popup
 
     public void InvokeNextStep()
     {
-        if (!isStepMissionComplete || !isActionPerformable)
+        if (!isStepMissionComplete)
         {
             Logger.Log("스텝별 미션 수행 불가상태, 로그확인");
             return;
