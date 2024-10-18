@@ -101,7 +101,7 @@ public class DepthC22_State_4 : Base_SceneState
 
     public override void OnExit()
     {
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew);
         base.OnExit();
     }
 }

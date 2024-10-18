@@ -380,7 +380,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             
             Logger.Log("sensor hover highlight and tooltip appear ----------------------");
             SetHighlight(gameObj);
-            contentController.SetToolTipStatus();
+            contentController.SetToolTipActiveStatus();
             contentController.SetToolTipText(tooltipText);
         }, Define.UIEvent.PointerEnter);
 
@@ -388,13 +388,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         GetObject((int)gameObj).BindEvent(() =>
         {
             SetHighlight(gameObj,false);
-            contentController.SetToolTipStatus(false);
+            contentController.SetToolTipActiveStatus(false);
         }, Define.UIEvent.PointerExit);
         
         GetObject((int)gameObj).BindEvent(() =>
         {
             SetHighlight(gameObj,false);
-            contentController.SetToolTipStatus(false);
+            contentController.SetToolTipActiveStatus(false);
         }, Define.UIEvent.PointerDown);
     }
     

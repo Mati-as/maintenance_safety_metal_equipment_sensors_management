@@ -233,9 +233,9 @@ public class Depth1C_SceneController : Base_SceneController
 
             animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
             animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(TO_GROUNDING_TERMINAL, true);
-
-            Action action = multimeterController.OnAllProbeSetToGroundingTerminal;
-            OnStepMissionComplete(14, delayAmount: new WaitForSeconds(5f), delayedAction: action);
+            multimeterController.OnAllProbeSetToGroundingTerminal();
+         
+            OnStepMissionComplete(14, delayAmount: new WaitForSeconds(6f));
         });
 
         #endregion
@@ -246,7 +246,7 @@ public class Depth1C_SceneController : Base_SceneController
         #region 3.2.2 온도센서 고장 유형
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_LockingScrew, "온도센서 탈거");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "온도센서 수거");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "온도센서 수거");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "덮개 열기");
 
         #endregion
     }

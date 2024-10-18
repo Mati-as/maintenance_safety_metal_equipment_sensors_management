@@ -253,7 +253,7 @@ public class UI_ContentController : UI_Popup
 
     public void SetToolTipText(string text = null)
     {
-        SetToolTipStatus();
+        SetToolTipActiveStatus();
         if (Text_tooltip == null)
         {
             Text_tooltip = GetObject((int)UI.UI_ToolTip).GetComponentInChildren<Text>();
@@ -268,7 +268,7 @@ public class UI_ContentController : UI_Popup
         rect_2.sizeDelta = new Vector2(text.Length * 30, 50);
     }
 
-    public void SetToolTipStatus(bool isOn = true)
+    public void SetToolTipActiveStatus(bool isOn = true)
     {
         GetObject((int)UI.UI_ToolTip).SetActive(isOn);
     }

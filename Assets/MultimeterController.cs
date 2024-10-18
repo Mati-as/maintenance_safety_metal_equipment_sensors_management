@@ -109,11 +109,10 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     {
       
         
-        if (_resistanceCheckSeq ==null || _resistanceCheckSeq.IsActive())
-        {
-            _resistanceCheckSeq.Kill();
+       
+            _resistanceCheckSeq?.Kill();
             _resistanceCheckSeq = DOTween.Sequence();
-        }
+        
         
         Logger.Log("프로브 접촉 완료, 저항값 변경중 -----------------------------------------------------");
         float lastUpdateTime = 0f;
@@ -150,16 +149,15 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     
     public void OnGroundNothing()
     {
-
-        if (_resistanceCheckSeq ==null || _resistanceCheckSeq.IsActive())
-        {
-            _resistanceCheckSeq.Kill();
-            _resistanceCheckSeq = DOTween.Sequence();
-        }
+        
+        _resistanceCheckSeq?.Kill();
+        _resistanceCheckSeq = DOTween.Sequence();
+    
 
         
         float lastUpdateTime = 0f;
         
+        _resistanceCheckSeq.AppendInterval(0.5f);
         _resistanceCheckSeq.AppendCallback(() =>
         {
             DOVirtual.Float(resistantTarget, resistantTarget, 3f, _ =>
@@ -183,20 +181,22 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     public void OnAllProbeSetToGroundingTerminal()
     {
        
-        if (_resistanceCheckSeq ==null || _resistanceCheckSeq.IsActive())
-        {
-            _resistanceCheckSeq.Kill();
-            _resistanceCheckSeq = DOTween.Sequence();
-        }
+        _resistanceCheckSeq?.Kill();
+        _resistanceCheckSeq = DOTween.Sequence();
 
         Logger.Log("OL 표시 완료 -------------------------grounding mission");
-        
+
+        _resistanceCheckSeq.AppendInterval(1.5f);
         _resistanceCheckSeq.AppendCallback(() =>
         {
-            TMPDisplay.text = "O.L";
+         
+            DOVirtual.Float(resistantTarget, resistantTarget, 3f, _ =>
+            {
+                TMPDisplay.text = "O.L";
+            }).SetEase(Ease.InOutBounce);
         });
 
-        _resistanceCheckSeq.SetLoops(-1);
+        _resistanceCheckSeq.SetLoops(3);
         _resistanceCheckSeq.Play();
        
     }

@@ -482,7 +482,10 @@ public class DepthC21_State_14 : Base_SceneState
     {
         CurrentScene.contentController.isStepMissionPerformable = true;
         
+        Depth1C_sceneController.isAnodePut = false;
         
+        Depth1C_sceneController.multimeterController.OnGroundNothing();
+
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalA,false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB,false);
@@ -490,9 +493,7 @@ public class DepthC21_State_14 : Base_SceneState
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalA);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
         
-        Depth1C_sceneController.isAnodePut = false;
-        
-        Depth1C_sceneController.multimeterController.OnGroundNothing();
+
         
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
