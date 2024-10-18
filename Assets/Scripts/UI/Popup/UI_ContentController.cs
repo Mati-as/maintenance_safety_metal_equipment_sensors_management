@@ -452,6 +452,7 @@ public class UI_ContentController : UI_Popup
     
     //Action<애니메이션 순서(int), Reverse 여부(bool)>
     public static event Action<int,bool> OnStepBtnClicked_CurrentCount;
+    public static event Action OnDepth3Clicked;
     public static event Action<int> OnNextDepthInvoked; //sceneChange 
 
     private void OnPrevBtnClicked()
@@ -732,6 +733,8 @@ public class UI_ContentController : UI_Popup
         
         Refresh();
         ChangeInstructionTextWithAnim();
+        OnDepth3Clicked?.Invoke();
+        
     }
 
     private void OnDepth3BtnEnter()

@@ -17,13 +17,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public Inplay_CameraController cameraController { get; protected set; }
 
     public UI_ContentController contentController;
-    private readonly float _startDelay = 2f; // 맨처음 스크립트 시작 딜레이
+    private readonly float _startDelay = 1f; // 맨처음 스크립트 시작 딜레이
     private WaitForSeconds _wait;
 
     //Animation Part
 
-    protected Animation _animation; // GameOjbect의 최상 부모위치에 있어야함.
-    protected Animation _cameraAnimation; // GameOjbect의 최상 부모위치에 있어야함.
+    private Animation _mainAnimation; // GameOjbect의 최상 부모위치에 있어야함.
+  
 
     // SceneState Control
     protected Dictionary<int, ISceneState> _sceneStates;
@@ -34,6 +34,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     //Animation
     public Dictionary<int, HighlightEffect> objectHighlightMap;
     private Dictionary<int, Sequence> _seqMap;
+
 
     public virtual void Start()
     {
@@ -47,6 +48,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         BindEvent();
         
+        _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
+        
         if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
         
         objectHighlightMap = new Dictionary<int, HighlightEffect>();
@@ -57,19 +60,29 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
         contentController = Managers.UI.ShowPopupUI<UI_ContentController>();
+        
+    
     }
 
     private void BindEvent()
     {
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChange;
         UI_ContentController.OnStepBtnClicked_CurrentCount += OnStepChange;
+
+        UI_ContentController.OnDepth3Clicked -= OnDepth3IntroOrClicked;
+        UI_ContentController.OnDepth3Clicked += OnDepth3IntroOrClicked;
     }
 
     private void OnDestroy()
     {
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChange;
+        UI_ContentController.OnDepth3Clicked -= OnDepth3IntroOrClicked;
     }
-
+    private void OnDepth3IntroOrClicked()
+    {
+        PlayAnimationAndNarration(1);
+        ChangeState(1);
+    }
 
     protected IEnumerator OnSceneStartCo()
     {
@@ -77,16 +90,15 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         
         PlayInitialIntro();
-        _animation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
-
-        Debug.Assert(_animation != null);
-
+      
+        
+        
         _wait = new WaitForSeconds(_startDelay);
         yield return _wait;
 
 
         contentController.SetActiveInstruction();
-        var introAnimation = 1;
+        var introAnimation = 0;
         PlayAnimationAndNarration(introAnimation);
         Managers.Sound.Play(SoundManager.Sound.Effect, "Depth1Start");
     }
@@ -99,7 +111,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         Logger.Log("Initial UI Intro");
         contentController.Init();
-        contentController.ShowInitialIntro();
+       // contentController.ShowInitialIntro();
         contentController.SetActiveInstruction(false);
     }
 
@@ -158,8 +170,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false,bool isServeAnim =false)
     {
       
-        Debug.Assert(_animation != null, "Animation component can't be null");
+       
 
+
+      // 중복애니메이션 클립할당을 위해 추가합니다. 추후 성능이슈가 발생하는경우 로직 수정 필요합니다. 10/17/24
+         Debug.Assert(_mainAnimation != null, "Animation component can't be null");
+
+       
+        
         var path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
                    $"{Managers.ContentInfo.PlayData.Depth2}" +
                    $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count}";
@@ -168,22 +186,36 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             path += 'A';
         }
-        
+       
         Logger.Log($"Animation Path {path}");
         var clip = Resources.Load<AnimationClip>(path);
-
+        
+        
+      
+        Debug.Assert(_mainAnimation != null, "Animation component can't be null");
+        
         if (clip == null)
         {
             Logger.LogWarning($"Animation clip at path {path} not found.");
             OnAnimationComplete();
             return;
         }
+      
+        var existedClip = _mainAnimation.GetClip(clip.name);
 
-
-        if (!_animation.GetClip(clip.name))
+        // Check if the clip with the same name exists
+        if (existedClip == null)
         {
-            _animation.AddClip(clip, clip.name);
-            Logger.Log($"Added animation clip {clip.name} to _animation.");
+            // Add the clip if it doesn't exist
+            _mainAnimation.AddClip(clip, clip.name);
+            Logger.Log($"Added animation clip {clip.name} to _mainAnimation.");
+        }
+        else 
+        {
+            // If it exists, remove it and add the new clip
+            _mainAnimation.RemoveClip(clip.name);
+            _mainAnimation.AddClip(clip, clip.name);
+            Logger.Log($"Replaced existing animation clip {clip.name}.");
         }
 
         if (isReverse)
@@ -197,7 +229,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             if (reverseClip != null && reverseClip.length >= 0.3f)
             {
                 clip = reverseClip;
-                _animation[clip.name].time = _animation[clip.name].length;
+                _mainAnimation[clip.name].time = _mainAnimation[clip.name].length;
             }
             else
             {
@@ -205,8 +237,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             }
         }
 
-        _animation[clip.name].speed = isReverse ? -1 : 1;
-        if(!isReverse) _animation[clip.name].time = 0;
+        _mainAnimation[clip.name].speed = isReverse ? -1 : 1;
+        if(!isReverse) _mainAnimation[clip.name].time = 0;
 
         if (delay > 0.5f)
         {
@@ -214,19 +246,19 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         }
         else
         {
-            _animation.Play(clip.name);
+            _mainAnimation.Play(clip.name);
             StartCoroutine(CheckAnimationEnd(clip, OnAnimationComplete));
         }
 
         Logger.Log($"Animation clip with index {count} is playing.");
-
+      
     }
 
 
     private IEnumerator PlayAnimationWithDelay(string clipName, float delay)
     {
         yield return new WaitForSeconds(delay);
-        _animation.Play(clipName);
+        _mainAnimation.Play(clipName);
     }
 
     private IEnumerator CheckAnimationEnd(AnimationClip clip, Action onAnimationComplete)
@@ -279,7 +311,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         var maxInnerGlow = 0.8f;
         var maxOuterGlow = 1f;
-        var duration = 0.6f;
+        var duration = 0.55f;
 
         
 //        if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
@@ -287,7 +319,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         seq.AppendInterval(startDelay);
         seq.AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
 
-        var loopCount = 4;
+        var loopCount = 3;
         for (var i = 0; i < loopCount; i++)
         {
             seq.Append(DOVirtual.Float(0, maxInnerGlow, duration,
@@ -325,7 +357,11 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         //초기하이라이트 설정
         SetDefaultHighlight(ref highlightEffect);
-        if (!objectHighlightMap.ContainsKey((int)gameObj)) objectHighlightMap.Add((int)gameObj, highlightEffect);
+        if (!objectHighlightMap.ContainsKey((int)gameObj))
+        {
+            Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC_GameObj)gameObj}");
+            objectHighlightMap.Add((int)gameObj, highlightEffect);
+        }
     }
 
     private void SetDefaultHighlight(ref HighlightEffect effect)
