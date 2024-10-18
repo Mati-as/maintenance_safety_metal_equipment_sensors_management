@@ -83,27 +83,27 @@ public abstract class UI_Base : MonoBehaviour
 		switch (type)
 		{
 			case Define.UIEvent.Click:
-				evt.OnClickHandler = null;  // Unbind all existing events
+				evt.OnClickHandler -= action;  // Unbind all existing events
 				evt.OnClickHandler += action;  // Bind the new action
 				break;
 			case Define.UIEvent.Pressed:
-				evt.OnPressedHandler = null;  // Unbind all existing events
+				evt.OnPressedHandler -= action;  // Unbind all existing events
 				evt.OnPressedHandler += action;  // Bind the new action
 				break;
 			case Define.UIEvent.PointerDown:
-				evt.OnPointerDownHandler = null;  
+				evt.OnPointerDownHandler -= action;  
 				evt.OnPointerDownHandler += action;  
 				break;
 			case Define.UIEvent.PointerUp:
-				evt.OnPointerUpHandler = null;  
+				evt.OnPointerUpHandler -= action;  
 				evt.OnPointerUpHandler += action;  
 				break;
 			case Define.UIEvent.PointerEnter:
-				evt.OnPointerEnterHander = null;  
+				evt.OnPointerEnterHander -= action;  
 				evt.OnPointerEnterHander += action;  
 				break;
 			case Define.UIEvent.PointerExit:
-				evt.OnPointerExitHandler = null;  
+				evt.OnPointerExitHandler -= action;  
 				evt.OnPointerExitHandler += action;  
 				break;
 		}
@@ -111,32 +111,20 @@ public abstract class UI_Base : MonoBehaviour
 		
 	}
 
-	public static void UnBindEvent(GameObject go, Action action, Define.UIEvent type = Define.UIEvent.Click)
+	public static void UnBindEvent(GameObject go)
 	{
 		UI_EventHandler evt = Utils.GetOrAddComponent<UI_EventHandler>(go);
-        
-		switch (type)
-		{
-			case Define.UIEvent.Click:
-				evt.OnClickHandler -= action;
-				break;
-			case Define.UIEvent.Pressed:
-				evt.OnPressedHandler -= action;
-				break;
-			case Define.UIEvent.PointerDown:
-				evt.OnPointerDownHandler -= action;
-				break;
-			case Define.UIEvent.PointerUp:
-				evt.OnPointerUpHandler -= action;
-				break;
-			case Define.UIEvent.PointerEnter:
-				evt.OnPointerEnterHander -= action;
-				break;
-			case Define.UIEvent.PointerExit:
-				evt.OnPointerExitHandler -= action;
-				break;
-            
-		}
+
+	
+		evt.OnClickHandler = null;
+		evt.OnPressedHandler = null;
+		evt.OnPointerDownHandler = null;
+		evt.OnPointerUpHandler = null;
+		evt.OnPointerEnterHander = null;
+		evt.OnPointerExitHandler = null;
+
 
 	}
+
+
 }

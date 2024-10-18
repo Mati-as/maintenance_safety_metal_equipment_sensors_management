@@ -12,7 +12,8 @@ public class UI_ToolBox : UI_Popup
     {
         Btn_Close,
         Btn_ElectricScrewdriver,
-        Btn_Multimeter
+        Btn_Multimeter,
+        Btn_TemperatureSensor
     }
 
     public enum Obj
@@ -26,7 +27,9 @@ public class UI_ToolBox : UI_Popup
     
     public static event Action ToolBoxOnEvent; // 도구함을 클릭해주세요 완수 시  
     public static event Action ScrewDriverClickedEvent; // 도구함을 클릭해주세요 완수 시  
-    public static event Action MultimeterClickedEvent; // 도구함을 클릭해주세요 완수 시  
+    public static event Action MultimeterClickedEvent; // 도구함을 클릭해주세요 완수 시  \
+    
+    public static event Action TemperatureSensorClickedEvent; // 센서 교체 클릭해주세요 완수 시  
     public override bool Init()
     {
         if (!base.Init())
@@ -51,17 +54,25 @@ public class UI_ToolBox : UI_Popup
         
         GetButton((int)Btns.Btn_ElectricScrewdriver).gameObject.BindEvent(() =>
         {
-            _depthCsceneController.OnScrewDriverBtnClicked();
+            //_depthCsceneController.OnScrewDriverBtnClicked();
             ScrewDriverClickedEvent?.Invoke();
             SetToolBox(false);
         });
         
         GetButton((int)Btns.Btn_Multimeter).gameObject.BindEvent(() =>
         {
-            _depthCsceneController.OnMultimeterBtnClicked();
+            //_depthCsceneController.OnMultimeterBtnClicked();
             MultimeterClickedEvent?.Invoke();
             SetToolBox(false);
           
+        });
+
+        GetButton((int)Btns.Btn_TemperatureSensor).gameObject.BindEvent(() =>
+        {
+            
+            TemperatureSensorClickedEvent?.Invoke();
+            SetToolBox(false);
+
         });
         
 
@@ -70,7 +81,7 @@ public class UI_ToolBox : UI_Popup
         
     }
 
-
+  
 
 
     public void SetToolBox()

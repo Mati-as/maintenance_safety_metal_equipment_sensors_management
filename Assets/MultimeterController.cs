@@ -78,7 +78,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         // 현재 각도 저장 (Z축 기준)
         currentAngle = GetObject((int)Multimeter.Handle).transform.localEulerAngles.y;
 
-        if (currentAngle > 90 && currentAngle < 120)
+        if (currentAngle > 60 && currentAngle < 130)
         {
             Logger.Log("Resistance Sensor Mode On ------------");
             isResistanceMode = true;

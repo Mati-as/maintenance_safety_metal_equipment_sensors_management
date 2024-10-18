@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Base_SceneState : ISceneState
@@ -5,6 +6,7 @@ public class Base_SceneState : ISceneState
     protected Base_SceneController CurrentScene;
 
     
+  
     protected float _animationDelay=0;
     protected float _instructionDelay = 0;
   
@@ -12,14 +14,16 @@ public class Base_SceneState : ISceneState
     protected Base_SceneState(Base_SceneController currentScene)
     {
         CurrentScene = currentScene;
-        Logger.Log($"state logic Uploaded : current scene controller: {currentScene.name}");
+        //Logger.Log($"state logic Uploaded : current scene controller: {currentScene.name}");
     }
 
 
     public virtual void OnEnter()
     {
-        CurrentScene.contentController.isStepMissionPerformable = false;
-      
+        CurrentScene.contentController.isStepMissionComplete = false;
+        CurrentScene.contentController.isStepMissionPerformable = true;
+       // CurrentScene.isSceneAnimationPlayingToProtectDoublePlaying = false;
+         
         CurrentScene.ChangeInstructionTextWithAnim();
         if (_animationDelay == 0)
         {

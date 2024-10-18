@@ -11,7 +11,14 @@ using Object = UnityEngine.Object;
 
 public class Base_SceneController : MonoBehaviour, ISceneController
 {
-    protected int CurrentActiveTool;
+    protected Dictionary<int, bool> IsInit= new Dictionary<int, bool>
+    {
+        {321,false}, 
+        {322,false},
+        {323,false}
+    };
+    public bool isSceneAnimationPlayingToProtectDoublePlaying;
+    public int CurrentActiveTool;
     protected readonly int NO_TOOL_SELECTED = -1;
     protected readonly int ANIMATION_MAX_COUNT;
     public Inplay_CameraController cameraController { get; protected set; }
@@ -47,7 +54,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public virtual void Init()
     {
         BindEvent();
-        
+
+        IsInit = new Dictionary<int, bool>();
         _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
         
         if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
@@ -60,8 +68,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
         contentController = Managers.UI.ShowPopupUI<UI_ContentController>();
-        
     
+        
     }
 
     private void BindEvent()
@@ -88,10 +96,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         Logger.Log("Initial UI Intro");
         
-        
         PlayInitialIntro();
-      
-        
         
         _wait = new WaitForSeconds(_startDelay);
         yield return _wait;
@@ -273,6 +278,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     private void OnAnimationComplete()
     {
         Managers.Sound.Play(SoundManager.Sound.Narration, Managers.ContentInfo.PlayData.CurrentDepthStatus);
+        contentController.isStepMissionComplete = false;
         OnAnimationCompelete?.Invoke(currentCount);
     }
 
@@ -424,7 +430,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         var names = Enum.GetNames(type);
         var objects = new Object[names.Length];
-        _objects.Add(typeof(T), objects);
+        _objects.TryAdd(typeof(T), objects);
 
 #if UNITY_EDITOR
 //s		Debug.Log($"object counts to bind {names.Length}");

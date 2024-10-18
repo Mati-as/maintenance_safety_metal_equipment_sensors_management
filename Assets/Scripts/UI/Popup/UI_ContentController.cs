@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.VirtualTexturing;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 public enum Btns
 {
@@ -107,7 +108,7 @@ public class UI_ContentController : UI_Popup
     public RectTransform toolTipRectPos { get; set; }
     private readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
     private readonly Vector3 _sliderPosOffset = new(-20, 30, 0);
-
+    public bool isGuageUsable;
 
     private Dictionary<int, Image> _highlightImageMap;
     
@@ -229,6 +230,8 @@ public class UI_ContentController : UI_Popup
 
     private void Update_MousePosition()
     {
+     
+        
         Vector2 mousePos = Input.mousePosition + _toolTipPosOffset;
         Vector2 sliderPos = Input.mousePosition + _sliderPosOffset;
         
@@ -240,15 +243,15 @@ public class UI_ContentController : UI_Popup
 
         if (gaugeRectPos == null)
         {
-            
+           
             gaugeRectPos = GetObject((int)UI.UI_DrverOnly_GaugeSlider).GetComponent<RectTransform>();
             Logger.Log("get tooltip rectpos");
         }
 
 
-        gaugeRectPos.position = sliderPos;
         
         toolTipRectPos.position = mousePos;
+        gaugeRectPos.position = sliderPos;
     }
 
     public void SetToolTipText(string text = null)
@@ -420,17 +423,17 @@ public class UI_ContentController : UI_Popup
     }
 
 
-    private UI_ToolBox _uiToolBox;
+    [FormerlySerializedAs("_uiToolBox")] public UI_ToolBox uiToolBox;
     private void SetBtns()
     {
         GetButton((int)Btns.Btn_Prev).gameObject.BindEvent(OnPrevBtnClicked);
         GetButton((int)Btns.Btn_Next).gameObject.BindEvent(OnNextBtnClicked);
         GetButton((int)Btns.Btn_ToolBox).gameObject.BindEvent(() =>
         { 
-            if (_uiToolBox == null) _uiToolBox = GetObject((int)UI.UI_ToolBox).GetComponent<UI_ToolBox>();
+            if (uiToolBox == null) uiToolBox = GetObject((int)UI.UI_ToolBox).GetComponent<UI_ToolBox>();
             GetObject((int)UI.UI_ToolBox).SetActive(true);
            
-            _uiToolBox.SetToolBox();
+            uiToolBox.SetToolBox();
             //Managers.UI.ShowPopupUI<UI_ToolBox>();
         });
     }
@@ -479,12 +482,7 @@ public class UI_ContentController : UI_Popup
 
     public void InvokeNextStep()
     {
-        if (!isStepMissionComplete)
-        {
-            Logger.Log("스텝별 미션 수행 불가상태, 로그확인");
-            return;
-        }
-
+    
         Logger.Log("스텝별 수행 미션 완료, 다음 스크립트 및 애니메이션 재생");
             OnNextBtnClicked();
         
