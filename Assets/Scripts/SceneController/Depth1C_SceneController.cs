@@ -100,12 +100,10 @@ public class Depth1C_SceneController : Base_SceneController
     // ReSharper disable Unity.PerformanceAnalysis
     public override void Init()
     {
-        InitializeC2States();
         if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") SetDepthNum(); //개발용
-
-
         base.Init();
         
+        InitializeC2States();
        
     }
 
@@ -158,22 +156,28 @@ public class Depth1C_SceneController : Base_SceneController
 
         GetObject((int)DepthC_GameObj.TS_LockingScrew).BindEvent(() =>
         {
+            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
+            
             OnStepMissionComplete((int)DepthC_GameObj.TS_LockingScrew, 5);
         });
 
         GetObject((int)DepthC_GameObj.TS_ConnectionPiping).BindEvent(() =>
         {
+            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
+            
             OnStepMissionComplete((int)DepthC_GameObj.TS_ConnectionPiping, 6);
         });
 
         GetObject((int)DepthC_GameObj.TS_Cover).BindEvent(() =>
         {
+            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
             OnStepMissionComplete((int)DepthC_GameObj.TS_Cover, 8);
         });
 
 
         GetObject((int)DepthC_GameObj.TS_InnerScrewB).BindEvent(() =>
         {
+            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
             if (Managers.ContentInfo.PlayData.Count > 10) return; // ScrewA의 경우 중복애니메이션이 있음에 주의
             OnStepMissionComplete((int)DepthC_GameObj.TS_InnerScrewA, 9);
         });
@@ -188,6 +192,9 @@ public class Depth1C_SceneController : Base_SceneController
 
         GetObject((int)DepthC_GameObj.TS_InnerScrewB).BindEvent(() =>
         {
+            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
+            
+            
             if (Managers.ContentInfo.PlayData.Count == 13)
             {
                 animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
@@ -214,6 +221,8 @@ public class Depth1C_SceneController : Base_SceneController
 
         GetObject((int)DepthC_GameObj.TS_GroundingTerminalA).BindEvent(() =>
         {
+            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
+            
             animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
             animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(TO_GROUNDING_TERMINAL, true);
 
@@ -223,6 +232,8 @@ public class Depth1C_SceneController : Base_SceneController
 
         GetObject((int)DepthC_GameObj.TS_GroundingTerminalB).BindEvent(() =>
         {
+            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
+            
             if (!isAnodePut) return;
             if (contentController.isStepMissionPerformable) return;
             if (Managers.ContentInfo.PlayData.Count != 14) return;
@@ -247,7 +258,29 @@ public class Depth1C_SceneController : Base_SceneController
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_LockingScrew, "온도센서 탈거");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "온도센서 수거");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "덮개 열기");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_SensingElement, "변형된 감온부");
 
+        GetObject((int)DepthC_GameObj.TS_LockingScrew).BindEvent(() =>
+        {
+            Debug.Assert(Managers.ContentInfo.PlayData.Depth3 == 2,
+                $"Depth3 is {Managers.ContentInfo.PlayData.Depth3} but must be 2)");
+            if (Managers.ContentInfo.PlayData.Count != 4) return;
+
+            OnStepMissionComplete( animationNumber:4,delayAmount:new WaitForSeconds(5f));
+            SetHighlightIgnore((int)DepthC_GameObj.TS_SensingElement, false);
+            
+        });
+        
+        GetObject((int)DepthC_GameObj.TemperatureSensor).BindEvent(() =>
+        {
+            Debug.Assert(Managers.ContentInfo.PlayData.Depth3 == 2);
+            if (Managers.ContentInfo.PlayData.Count != 5) return;
+            
+            OnStepMissionComplete( animationNumber:5,delayAmount:new WaitForSeconds(5f));
+            SetHighlightIgnore((int)DepthC_GameObj.TS_SensingElement);
+            
+        });
+        
         #endregion
     }
     
@@ -421,7 +454,7 @@ public class Depth1C_SceneController : Base_SceneController
         OnStepMissionComplete(animationNumber: 10);
     }
 
-    private void OnStepMissionComplete(int objectEnumToInt = -1, int animationNumber = -1,
+    private void OnStepMissionComplete(int objectEnumToInt = -1, int animationNumber = -123456789,
         WaitForSeconds delayAmount = null, Action delayedAction = null)
     {
         if (objectEnumToInt != -1 && objectHighlightMap.ContainsKey(objectEnumToInt) &&
@@ -502,8 +535,14 @@ public class Depth1C_SceneController : Base_SceneController
     private IEnumerator OnStepMissionCompleteCo(int currentStepNum, WaitForSeconds waitForSeconds = null,
         Action ActionBeforeNextStep = null)
     {
+        
+        PlayAnimationAndNarration(currentStepNum, isServeAnim: true);
+        ActionBeforeNextStep?.Invoke();
+        
+        
         if (Managers.ContentInfo.PlayData.Count != currentStepNum)
             Debug.LogWarning("현재 애니메이션 재생과 카운트 불일치.. 다른 애니메이션이거나 여러 곳 사용되는 애니메이션일 수 있습니다.");
+       
         if (contentController.isStepMissionComplete)
         {
             Logger.Log("이미 수행함. 중복실행 X XXXXXXX");
@@ -523,9 +562,9 @@ public class Depth1C_SceneController : Base_SceneController
         }
 
 
-        ActionBeforeNextStep?.Invoke();
+     
 
-        PlayAnimationAndNarration(currentStepNum, isServeAnim: true);
+        
 
         OnMissionFinish(); //사운드 재생 등 성공처리
 

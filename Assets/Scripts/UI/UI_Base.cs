@@ -79,39 +79,39 @@ public abstract class UI_Base : MonoBehaviour
 	{  
 		UI_EventHandler evt = Utils.GetOrAddComponent<UI_EventHandler>(go);
         
+		
 		switch (type)
 		{
 			case Define.UIEvent.Click:
-				evt.OnClickHandler -= action;
-				evt.OnClickHandler += action;
+				evt.OnClickHandler = null;  // Unbind all existing events
+				evt.OnClickHandler += action;  // Bind the new action
 				break;
 			case Define.UIEvent.Pressed:
-				evt.OnPressedHandler -= action;
-				evt.OnPressedHandler += action;
+				evt.OnPressedHandler = null;  // Unbind all existing events
+				evt.OnPressedHandler += action;  // Bind the new action
 				break;
 			case Define.UIEvent.PointerDown:
-				evt.OnPointerDownHandler -= action;
-				evt.OnPointerDownHandler += action;
+				evt.OnPointerDownHandler = null;  
+				evt.OnPointerDownHandler += action;  
 				break;
 			case Define.UIEvent.PointerUp:
-				evt.OnPointerUpHandler -= action;
-				evt.OnPointerUpHandler += action;
+				evt.OnPointerUpHandler = null;  
+				evt.OnPointerUpHandler += action;  
 				break;
 			case Define.UIEvent.PointerEnter:
-				evt.OnPointerEnterHander -= action;
-				evt.OnPointerEnterHander += action;
+				evt.OnPointerEnterHander = null;  
+				evt.OnPointerEnterHander += action;  
 				break;
 			case Define.UIEvent.PointerExit:
-				evt.OnPointerExitHandler -= action;
-				evt.OnPointerExitHandler += action;
+				evt.OnPointerExitHandler = null;  
+				evt.OnPointerExitHandler += action;  
 				break;
-            
 		}
 
 		
 	}
 
-	public static void UnBindEvet(GameObject go, Action action, Define.UIEvent type = Define.UIEvent.Click)
+	public static void UnBindEvent(GameObject go, Action action, Define.UIEvent type = Define.UIEvent.Click)
 	{
 		UI_EventHandler evt = Utils.GetOrAddComponent<UI_EventHandler>(go);
         

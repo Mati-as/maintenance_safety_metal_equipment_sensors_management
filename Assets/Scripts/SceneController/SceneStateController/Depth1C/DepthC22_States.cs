@@ -89,8 +89,14 @@ public class DepthC22_State_4 : Base_SceneState
 
     public override void OnEnter()
     {
+        //초기화의 BindEvent에서 다룹니다.
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_SensingElement);
+        
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew, false);
+        
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_LockingScrew);
+        
+        CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         base.OnEnter();
       
     }
@@ -101,6 +107,7 @@ public class DepthC22_State_4 : Base_SceneState
 
     public override void OnExit()
     {
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_SensingElement);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew);
         base.OnExit();
     }

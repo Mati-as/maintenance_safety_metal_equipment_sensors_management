@@ -133,7 +133,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         ChangeState(currentCount);
     }
 
-    private void ChangeState(int stateNum)
+    protected void ChangeState(int stateNum)
     {
         var processedState = int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
                              $"{Managers.ContentInfo.PlayData.Depth2}"+
@@ -378,7 +378,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             if (objectHighlightMap[(int)gameObj].ignore) return; 
             
-            Logger.Log("sensor hover highlight and tooltip appear ----------------------");
+//            Logger.Log("sensor hover highlight and tooltip appear ----------------------");
             SetHighlight(gameObj);
             contentController.SetToolTipActiveStatus();
             contentController.SetToolTipText(tooltipText);
