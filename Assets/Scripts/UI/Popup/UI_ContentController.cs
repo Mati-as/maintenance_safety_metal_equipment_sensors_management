@@ -477,6 +477,9 @@ public class UI_ContentController : UI_Popup
 
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,true);
+
+
+       
     }
 
 
@@ -512,7 +515,12 @@ public class UI_ContentController : UI_Popup
         Managers.ContentInfo.PlayData.Count++;
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,false);
+        
+       
+        
     }
+
+
 
 
     public void ChangeInstructionTextWithAnim()
@@ -732,6 +740,7 @@ public class UI_ContentController : UI_Popup
         Refresh();
         ChangeInstructionTextWithAnim();
         OnDepth3Clicked?.Invoke();
+        
         
     }
 

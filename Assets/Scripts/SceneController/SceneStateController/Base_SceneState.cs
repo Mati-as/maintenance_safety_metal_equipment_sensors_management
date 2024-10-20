@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
 
 public class Base_SceneState : ISceneState
 {
@@ -8,7 +6,7 @@ public class Base_SceneState : ISceneState
     
   
     protected float _animationDelay=0;
-    protected float _instructionDelay = 0;
+    protected float _narrationStartDelay = 1.55f;
   
     // BaseScene 참조를 생성자에서 주입합니다. 
     protected Base_SceneState(Base_SceneController currentScene)
@@ -36,7 +34,9 @@ public class Base_SceneState : ISceneState
             Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
             CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,delay:_animationDelay,isReverse:CurrentScene.isReverseAnim);
         }
-     
+
+        Managers.Sound.PlayNarration(_narrationStartDelay);
+
     }
 
 

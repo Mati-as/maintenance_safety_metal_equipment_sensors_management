@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using DG.Tweening;
+using Sequence = DG.Tweening.Sequence;
 
 
 /// <summary>
@@ -225,7 +229,11 @@ public class SoundManager : MonoBehaviour
         {
             var audioClip = Resources.Load<AudioClip>(path);
             if (audioClip == null)
+            {
+                Logger.Log($"narration clip is null{path}");
                 return false;
+            }
+
 
             if (audioSource.isPlaying)
                 audioSource.Stop();
@@ -241,7 +249,10 @@ public class SoundManager : MonoBehaviour
         {
             var audioClip = GetAudioClip(path);
             if (audioClip == null)
+            {
+                Logger.Log($"narration clip is null{path}");
                 return false;
+            }
 
             audioSource.volume = volume * volumes[(int)Sound.Effect];
             audioSource.pitch = pitch;
@@ -255,11 +266,8 @@ public class SoundManager : MonoBehaviour
             var audioClip = GetAudioClip(path);
             if (audioClip == null)
             {
-#if UNITY_EDITOR
-                Debug.Log($"narration clip is null{path}");
-#endif
+                Logger.Log($"narration clip is null{path}");
                 return false;
-                
             }
             
 
@@ -303,6 +311,29 @@ public class SoundManager : MonoBehaviour
         _audioClips.Add(path, audioClip);
         return audioClip;
     }
+
+    private Sequence natrrationSoundSeq;
+
+    public void PlayNarration(float delay)
+    {
+        Managers.Sound.Stop(Sound.Narration);
+        
+        
+        natrrationSoundSeq?.Kill();
+        natrrationSoundSeq = DOTween.Sequence();
+        natrrationSoundSeq.AppendInterval(delay);
+        natrrationSoundSeq.AppendCallback(() =>
+        {
+            Managers.Sound.Play(SoundManager.Sound.Narration,
+                $"Audio/Narration/{Managers.ContentInfo.PlayData.Depth1}" +
+                $"{Managers.ContentInfo.PlayData.Depth2}" +
+                $"{Managers.ContentInfo.PlayData.Depth3}" +
+                $"/{Managers.ContentInfo.PlayData.Count}");
+        });
+        natrrationSoundSeq.Play();
+    }
+
+  
 
 
     public void SetMute(Sound sound, bool isMute = true)

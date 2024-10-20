@@ -21,10 +21,10 @@ public class UI_FullMenu : UI_Popup
         B35101
     }
 
-    private enum TMPs
+    private enum Texts
     {
-        TMP_Overall_Training_Goal,
-        TMP_TrainingObjectInfo
+        text_Overall_Training_Goal,
+        text_TrainingObjectInfo
     }
 
     public override bool Init()
@@ -35,12 +35,12 @@ public class UI_FullMenu : UI_Popup
 
         // BindObject(typeof(GameObj));
         BindButton(typeof(Btns));
-        BindTMP(typeof(TMPs));
+        BindTMP(typeof(Texts));
 
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() => { Managers.UI.ClosePopupUI(this); });
 
-       GetTMP((int)TMPs.TMP_Overall_Training_Goal).text = Managers.Data.Texts[Define.OverallTraningGoal].kor;
-        GetTMP((int)TMPs.TMP_TrainingObjectInfo).text = Managers.Data.Texts[Define.TrainingObjectInfo].kor;
+       GetText((int)Texts.text_Overall_Training_Goal).text = Managers.Data.Texts[Define.OverallTraningGoal].kor;
+       GetText((int)Texts.text_TrainingObjectInfo).text = Managers.Data.Texts[Define.TrainingObjectInfo].kor;
       
         
         GetButton((int)Btns.B11101).gameObject.BindEvent(() => {LoadStep((11101).ToString()); });

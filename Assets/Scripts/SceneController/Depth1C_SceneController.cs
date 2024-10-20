@@ -151,11 +151,15 @@ public class Depth1C_SceneController : Base_SceneController
 
     public void DepthC21Init()
     {
+        
         BindObject(typeof(DepthC_GameObj));
+        UnBindEventAttatchedObj();
+        
+        
+        
+      
         
         #region 3.2.1 온도센서 점검
-
-        
         
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
@@ -175,8 +179,7 @@ public class Depth1C_SceneController : Base_SceneController
         #region 초기화 및 하이라이트 및 텍스트 바인딩 부분
 
 
-        UnBindEventAttatchedObj();
-
+       
 
 
         GetObject((int)DepthC_GameObj.TemperatureSensor).SetActive(true);
@@ -306,6 +309,7 @@ public class Depth1C_SceneController : Base_SceneController
     }
     public void DepthC22Init()
     {
+        BindObject(typeof(DepthC_GameObj));
         UnBindEventAttatchedObj();
         
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
@@ -360,6 +364,7 @@ public class Depth1C_SceneController : Base_SceneController
     
     public void DepthC23Init()
     {
+        BindObject(typeof(DepthC_GameObj));
         UnBindEventAttatchedObj();
         
 #region 3.2.3 온도 센서 정비 (추가부분)
@@ -421,8 +426,7 @@ public class Depth1C_SceneController : Base_SceneController
 
  #region 321과 중복부분 (다른이벤트 설정필요)
 
-        BindObject(typeof(DepthC_GameObj));
-
+       
         GetObject((int)DepthC_GameObj.TemperatureSensor).SetActive(true);
         StartCoroutine(OnSceneStartCo());
 
@@ -777,7 +781,7 @@ public class Depth1C_SceneController : Base_SceneController
     private void OnToolBoxClicked()
     {
         Logger.Log("Toolbox Click event : 툴박스 클릭 이벤트 10 ------------------");
-        if (Managers.ContentInfo.PlayData.Count == 10 && Managers.ContentInfo.PlayData.Depth3 == 1)
+        if (Managers.ContentInfo.PlayData.Depth3 == 1&&Managers.ContentInfo.PlayData.Count == 10 )
         {
             OnStepMissionComplete(animationNumber: 10);
         }
@@ -1162,6 +1166,13 @@ public class Depth1C_SceneController : Base_SceneController
         ToggleActiveState(GetObject((int)DepthC_GameObj.ElectricScrewdriver), false);
 
         animatorMap[(int)DepthC_GameObj.Multimeter].SetBool(PROBE_TO_SCREWB, false); // 멀티미터는 active상태로 유지합니다.
+    }
+
+    public void ClearTool()
+    {
+        CurrentActiveTool =  -1;
+        _isDriverOn= false;
+        isMultimeterOn = false;
     }
 
 

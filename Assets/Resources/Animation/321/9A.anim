@@ -1236,7 +1236,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves:
@@ -1312,7 +1312,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
   m_ScaleCurves:
   - curve:
       serializedVersion: 2
@@ -2618,7 +2618,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2646,7 +2646,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2674,7 +2674,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3287,7 +3287,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.x
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -3900,7 +3900,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.y
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -4513,7 +4513,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.z
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -5126,7 +5126,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.w
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -5326,7 +5326,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesBaked.x
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -5354,7 +5354,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesBaked.y
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -5382,7 +5382,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesBaked.z
-    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewA
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/TS_InnerScrewB
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

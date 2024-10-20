@@ -226,7 +226,7 @@ public class DepthC23_State_7 : Base_SceneState
     public override void OnEnter()
     {
 
-       
+        Depth1C_sceneController.ClearTool();
         
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TemperatureSensor);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TemperatureSensor, false);
@@ -285,7 +285,7 @@ public class DepthC23_State_7 : Base_SceneState
 
     public override void OnExit()
     {
-        
+        Depth1C_sceneController.ClearTool();
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TemperatureSensor);
         base.OnExit();
        
@@ -298,11 +298,12 @@ public class DepthC23_State_8 : Base_SceneState
     public DepthC23_State_8(Depth1C_SceneController currentScene) : base(currentScene)
     {
         Depth1C_sceneController = currentScene;
+     
     }
 
     public override void OnEnter()
     {
-       
+        Depth1C_sceneController.ClearTool();
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         
         Depth1C_sceneController.SetScrewDriverSection(isWind:false);
@@ -572,9 +573,7 @@ public class DepthC23_State_12 : Base_SceneState
     public override void OnExit()
     {
         
-        Depth1C_sceneController.CurrentActiveTool =  -1;
-        Depth1C_sceneController._isDriverOn= false;
-        Depth1C_sceneController.isMultimeterOn = false;
+        Depth1C_sceneController.ClearTool();
         
         Depth1C_sceneController.ToggleActiveState(Depth1C_sceneController.
             GetObject((int)DepthC_GameObj.ElectricScrewdriver), Depth1C_sceneController.isDriverOn);
@@ -660,8 +659,7 @@ public class DepthC23_State_14 : Base_SceneState
 
     public override void OnExit()
     {
-        Depth1C_sceneController.CurrentActiveTool = -1;
-        Depth1C_sceneController._isDriverOn= false;
+        Depth1C_sceneController.ClearTool();
         
         Depth1C_sceneController.ToggleActiveState(Depth1C_sceneController.
             GetObject((int)DepthC_GameObj.ElectricScrewdriver), Depth1C_sceneController.isDriverOn);

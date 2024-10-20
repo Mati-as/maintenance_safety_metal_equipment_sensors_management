@@ -30,8 +30,7 @@ public class Depth1A_State_2 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.ShutUIAndSetDefault();
-        CurrentScene.contentController.SetScriptUI();
+      
     }
 
     public override void OnStep()

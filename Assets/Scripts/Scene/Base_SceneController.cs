@@ -120,12 +120,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         contentController.SetActiveInstruction(false);
     }
 
-    public void ShutUIAndSetDefault()
-    {
-        contentController.ShutTrainingInfroAnim();
-        Managers.Sound.Stop(SoundManager.Sound.Narration);
-    }
-
     public bool isReverseAnim { get; private set; }
 
     public virtual void OnStepChange(int count, bool isReverse = false)
