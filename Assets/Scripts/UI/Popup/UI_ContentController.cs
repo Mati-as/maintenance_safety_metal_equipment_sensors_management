@@ -126,7 +126,7 @@ public class UI_ContentController : UI_Popup
             if (value)
             {
                 
-                Logger.Log("해당스텝 미션 수행가능, 드라이버 돌리기 등 미션수행을 통해 다음 스텝으로 넘어갈 수 있습니다. ");
+               // Logger.Log("해당스텝 미션 수행가능, 드라이버 돌리기 등 미션수행을 통해 다음 스텝으로 넘어갈 수 있습니다. ");
             }
         }
     } 

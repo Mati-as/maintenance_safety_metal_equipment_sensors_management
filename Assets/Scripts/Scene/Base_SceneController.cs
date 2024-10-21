@@ -146,9 +146,16 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         currentCount = count;
 
 
+        
+        Logger.Log($"State 변경. 현재State----------> {count}");
         ChangeState(currentCount);
     }
 
+    /// <summary>
+    /// 각 State마지막에서의 초기화 및 버튼에서 사용됩니다.
+    /// 결합도 이슈로 최대한 다른 참조로 사용하지 않는 것을 권장합니다. 
+    /// </summary>
+    /// <param name="stateNum"></param>
     protected void ChangeState(int stateNum)
     {
         var processedState = int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
@@ -244,7 +251,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
            
             var reverseClip = Resources.Load<AnimationClip>(path);
 
-            if (reverseClip != null && reverseClip.length >= 1.15f) // 1frame 이상인 경우
+            if (reverseClip != null && reverseClip.length >= 1.5f) // 1frame 이상인 경우
             {
                 clip = reverseClip;
                 _mainAnimation[clip.name].time = _mainAnimation[clip.name].length;
@@ -266,15 +273,11 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         _mainAnimation[clip.name].speed = isReverse ? -1 : 1;
         if(!isReverse) _mainAnimation[clip.name].time = 0;
 
-        if (delay > 0.5f)
-        {
-            StartCoroutine(PlayAnimationWithDelay(clip.name, delay));
-        }
-        else
-        {
-            _mainAnimation.Play(clip.name);
-            StartCoroutine(CheckAnimationEnd(clip, OnAnimationComplete));
-        }
+  
+    
+        _mainAnimation.Play(clip.name);
+        StartCoroutine(CheckAnimationEnd(clip, OnAnimationComplete));
+    
 
         Logger.Log($"Animation clip with index {count} is playing.");
       
@@ -460,9 +463,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
       
     }
 
-    protected void UnBindEventAttatchedObj()
+    protected virtual void UnBindEventAttatchedObj()
     {
-        UnbindStaticEvents();
         
         if (_objects != null)
 

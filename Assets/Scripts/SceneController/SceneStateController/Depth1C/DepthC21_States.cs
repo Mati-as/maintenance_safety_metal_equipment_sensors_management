@@ -283,7 +283,7 @@ public class DepthC21_State_11 : Base_SceneState
     public override void OnEnter()
     {
        
-       
+        Depth1C_sceneController.isWindSession = false;
         CurrentScene.contentController.isStepMissionPerformable = true;
         
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
@@ -318,14 +318,26 @@ public class DepthC21_State_12 : Base_SceneState
             Depth1C_sceneController.currentScrewGaugeStatus[key] = 0f;
         }
         
+             
+        foreach (var key in  Depth1C_sceneController.isScrewUnwindMap.Keys.ToList())
+        {
+            Depth1C_sceneController.isScrewUnwindMap[key] = false;
+        }
+
+        
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
+        
+        
         //나사 위치 초기화
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
         
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(Depth1C_SceneController.UNWIND,false);
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(Depth1C_SceneController.UNWIND,false);
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(Depth1C_SceneController.UNWIND,false);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(Depth1C_SceneController.UNWIND,true);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(Depth1C_SceneController.UNWIND,true);
+        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(Depth1C_SceneController.UNWIND,true);
         
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 0);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 0);
@@ -343,9 +355,7 @@ public class DepthC21_State_12 : Base_SceneState
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
         
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
+
       
         //
         
@@ -389,6 +399,7 @@ public class DepthC21_State_13 : Base_SceneState
     public override void OnEnter()
     {
         
+        
         Depth1C_sceneController.ClearTool();
         //나사 위치 초기화
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
@@ -403,9 +414,9 @@ public class DepthC21_State_13 : Base_SceneState
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 1);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 1);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 1);
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Update(1);
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Update(1);
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Update(1);
+        // Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Update(1);
+        // Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Update(1);
+        // Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Update(1);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(Depth1C_SceneController.UNWIND,true);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(Depth1C_SceneController.UNWIND,true);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(Depth1C_SceneController.UNWIND,true);
@@ -461,7 +472,9 @@ public class DepthC21_State_14 : Base_SceneState
 
         Depth1C_sceneController.isMultimeterOn = true;
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
-        Depth1C_sceneController.multimeterController.isResistanceMode = false;
+        
+        Depth1C_sceneController.multimeterController.TurnOffResistantModeAndHandle();
+        
         Depth1C_sceneController.HighlightBlink((int)DepthC_GameObj.MultimeterHandleHighlight);
      
         base.OnEnter();
@@ -487,7 +500,8 @@ public class DepthC21_State_15 : Base_SceneState
       
         Depth1C_sceneController.isMultimeterOn = true;
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
-        Depth1C_sceneController.multimeterController.isResistanceMode = true;
+        
+        Depth1C_sceneController.multimeterController.SetToResistanceModeAndRotation();
         
         //나사 위치 초기화
         //초기화로직이 포함되어있음으로 순서변경 X
@@ -547,7 +561,8 @@ public class DepthC21_State_16 : Base_SceneState
         
         Depth1C_sceneController.isMultimeterOn = true;
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
-        Depth1C_sceneController.multimeterController.isResistanceMode = true;
+        
+        Depth1C_sceneController.multimeterController.SetToResistanceModeAndRotation();
         
         CurrentScene.contentController.isStepMissionPerformable = true;
         
@@ -608,9 +623,11 @@ public class DepthC21_State_17 : Base_SceneState
         Managers.ContentInfo.PlayData.Depth3 = 2;
         Managers.ContentInfo.PlayData.Count = 1;
 
-        Depth1C_sceneController.PlayAnimationAndNarration(0);
+        
         Depth1C_sceneController.contentController.Refresh();
         Depth1C_sceneController.DepthC22Init();
+        Depth1C_sceneController.PlayAnimationAndNarration(1);
+        
         base.OnEnter();
     }
 

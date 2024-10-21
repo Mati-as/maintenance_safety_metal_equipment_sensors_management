@@ -29,9 +29,9 @@ public class Base_SceneState : ISceneState
        // CurrentScene.isSceneAnimationPlayingToProtectDoublePlaying = false;
          
         CurrentScene.ChangeInstructionTextWithAnim();
+        CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
      
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
-        CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
         
 
         Managers.Sound.PlayNarration(_narrationStartDelay);
@@ -46,8 +46,7 @@ public class Base_SceneState : ISceneState
     public virtual void OnExit()
     {
         //CurrentScene.contentController.ShutTrainingInfroAnim();
-     
-        _animationDelay = 0;
+       // _animationDelay = 0;
         CurrentScene.TurnOffAllRegisteredHighlights();
     }
     

@@ -21,6 +21,8 @@ public class DepthC22_State_1 : Base_SceneState
         Logger.Log("C22 초기화 진행 -----------------------");
         Depth1C_sceneController.DepthC22Init();
         Depth1C_sceneController.GetObject((int)DepthC_GameObj.Indicator).GetComponent<IndicatorController>().ShowErrorMessage();
+        Depth1C_sceneController.isWindSession = false;
+        
         base.OnEnter();
      
 
@@ -91,14 +93,13 @@ public class DepthC22_State_4 : Base_SceneState
     {
         //초기화의 BindEvent에서 다룹니다.
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_SensingElement);
-        
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew, false);
-        
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_LockingScrew);
         
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         base.OnEnter();
       
+        
     }
 
     public override void OnStep()
@@ -321,9 +322,9 @@ public class DepthC22_State_10 : Base_SceneState
             Depth1C_sceneController.currentScrewGaugeStatus[key] = 0f;
         }
         
-        foreach (var key in  Depth1C_sceneController._isScrewWindMap.Keys.ToList())
+        foreach (var key in  Depth1C_sceneController.isScrewWindMap.Keys.ToList())
         {
-            Depth1C_sceneController._isScrewWindMap[key] = false;
+            Depth1C_sceneController.isScrewWindMap[key] = false;
         }
         
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
@@ -360,9 +361,9 @@ public class DepthC22_State_11 : Base_SceneState
         Managers.ContentInfo.PlayData.Depth3 = 3;
         Managers.ContentInfo.PlayData.Count = 1;
         
-        Depth1C_sceneController.PlayAnimationAndNarration(0);
         Depth1C_sceneController.contentController.Refresh();
         Depth1C_sceneController.DepthC23Init();
+        Depth1C_sceneController.PlayAnimationAndNarration(1);
         
         base.OnEnter();
     }
