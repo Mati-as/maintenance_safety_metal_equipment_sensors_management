@@ -21,7 +21,8 @@ public class DepthC21_State_1 : Base_SceneState
     {
         Depth1C_sceneController.DepthC21Init();
         CurrentScene.contentController.ShutTrainingInfroAnim();
-        
+        Depth1C_sceneController.GetObject((int)DepthC_GameObj.Indicator)
+            .GetComponent<IndicatorController>().ShowNothing();
         base.OnEnter();
       
     }
@@ -458,11 +459,11 @@ public class DepthC21_State_14 : Base_SceneState
     public override void OnEnter()
     {
 
-        Depth1C_sceneController.ClearTool();
-
-
-        Depth1C_sceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
-
+        Depth1C_sceneController.isMultimeterOn = true;
+        Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        Depth1C_sceneController.multimeterController.isResistanceMode = false;
+        Depth1C_sceneController.HighlightBlink((int)DepthC_GameObj.MultimeterHandleHighlight);
+     
         base.OnEnter();
 
 
@@ -482,8 +483,11 @@ public class DepthC21_State_15 : Base_SceneState
     public override void OnEnter()
     {
        
-        Depth1C_sceneController.ClearTool();
       
+      
+        Depth1C_sceneController.isMultimeterOn = true;
+        Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        Depth1C_sceneController.multimeterController.isResistanceMode = true;
         
         //나사 위치 초기화
         //초기화로직이 포함되어있음으로 순서변경 X
@@ -540,6 +544,11 @@ public class DepthC21_State_16 : Base_SceneState
 
     public override void OnEnter()
     {
+        
+        Depth1C_sceneController.isMultimeterOn = true;
+        Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        Depth1C_sceneController.multimeterController.isResistanceMode = true;
+        
         CurrentScene.contentController.isStepMissionPerformable = true;
         
         Depth1C_sceneController.isAnodePut = false;

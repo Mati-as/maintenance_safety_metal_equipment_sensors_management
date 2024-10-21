@@ -18,6 +18,12 @@ public class Base_SceneState : ISceneState
 
     public virtual void OnEnter()
     {
+        //항상 클릭 가능해야하는 것들 ----
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
+        
+        
+        
+        
         CurrentScene.contentController.isStepMissionComplete = false;
         CurrentScene.contentController.isStepMissionPerformable = true;
        // CurrentScene.isSceneAnimationPlayingToProtectDoublePlaying = false;

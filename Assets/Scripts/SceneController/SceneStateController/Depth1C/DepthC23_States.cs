@@ -19,6 +19,8 @@ public class DepthC23_State_1 : Base_SceneState
     public override void OnEnter()
     {
         Depth1C_sceneController.DepthC23Init();
+        Depth1C_sceneController.GetObject((int)DepthC_GameObj.Indicator)
+            .GetComponent<IndicatorController>().ShowNothing();
         base.OnEnter();
     
         

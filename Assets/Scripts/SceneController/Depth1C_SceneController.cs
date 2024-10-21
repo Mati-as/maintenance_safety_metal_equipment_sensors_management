@@ -16,6 +16,7 @@ public enum DepthC_GameObj
     // Common------------------
     ElectricScrewdriver,
     Multimeter,
+    MultimeterHandleHighlight,
     Indicator,
     Probe_Anode, // negative
     Probe_Cathode, // positive
@@ -36,8 +37,10 @@ public enum DepthC_GameObj
     OnTempSensor_Pipe,
     NewTemperatureSensor,
     
+  
     PowerHandle,
     TankValve,
+    
         
     
     LimitSwitch,
@@ -181,6 +184,7 @@ public class Depth1C_SceneController : Base_SceneController
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalA, "A 접지");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "B 접지");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
 
         GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(false);
         GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(false);
@@ -367,6 +371,7 @@ public class Depth1C_SceneController : Base_SceneController
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.NewTemperatureSensor, "새 온도센서");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TankValve, "밸브");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "교체 할 센서");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
 #region 3.2.3 온도 센서 정비 (추가부분)
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
@@ -573,7 +578,9 @@ public class Depth1C_SceneController : Base_SceneController
     /// </summary>
     public void SetScrewDriverSection(bool isWind = false)
     {
-
+        multimeterController = GetObject((int)DepthC_GameObj.Multimeter).GetComponent<MultimeterController>();
+        
+        
         if (currentScrewGaugeStatus != null)
         {
             currentScrewGaugeStatus = new Dictionary<int, float>();
@@ -622,7 +629,7 @@ public class Depth1C_SceneController : Base_SceneController
         animatorMap.TryAdd((int)DepthC_GameObj.Multimeter,
             GetObject((int)DepthC_GameObj.Multimeter).GetComponent<Animator>());
 
-        multimeterController = GetObject((int)DepthC_GameObj.Multimeter).GetComponent<MultimeterController>();
+     
 
 
         animatorMap.TryAdd((int)DepthC_GameObj.Probe_Anode,
@@ -1059,18 +1066,12 @@ public class Depth1C_SceneController : Base_SceneController
             GetObject((int)DepthC_GameObj.ElectricScrewdriver).transform.position = mousePosition;
             //Logger.Log($"On_CurrentPos: {mousePosition}");
         }
-        else if (isMultimeterOn && CurrentActiveTool == (int)DepthC_GameObj.Multimeter)
+        else if (isMultimeterOn && CurrentActiveTool == (int)DepthC_GameObj.Multimeter && multimeterController.isResistanceMode)
         {
             GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
             GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(isMultimeterOn);
 
-            if (!GetObject((int)DepthC_GameObj.Multimeter).GetComponent<MultimeterController>().isResistanceMode)
-            {
-
-                //초기화작업 진행필요
-                return;
-            }
-
+        
             if ((Managers.ContentInfo.PlayData.Count >= 13 && !isAnodePut) 
                 ||(Managers.ContentInfo.PlayData.Depth3 ==3 && Managers.ContentInfo.PlayData.Count>=9 &&!isAnodePut))
             {
@@ -1125,7 +1126,7 @@ public class Depth1C_SceneController : Base_SceneController
 
     public void OnUI_MultimeterBtnClicked()
     {
-    
+        if (Managers.ContentInfo.PlayData.Depth2 != 2) return;
         
         
         InitializeTool();
@@ -1144,6 +1145,12 @@ public class Depth1C_SceneController : Base_SceneController
         if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 8)
         {
             OnStepMissionComplete(animationNumber:8);
+        }
+        
+        
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 13)
+        {
+            OnStepMissionComplete(animationNumber:13);
         }
     }
 

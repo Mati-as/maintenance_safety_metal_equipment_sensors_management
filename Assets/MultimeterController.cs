@@ -13,7 +13,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
      public TextMeshPro TMPDisplay; 
        private enum Multimeter
     {
-        Handle,
+        MultimeterHandle,
         Display
     }
 
@@ -36,7 +36,8 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(eventData.pointerCurrentRaycast.gameObject.name =="HandleCollider") isDragging = true;
+        Logger.Log("Multimeter Clicked");
+        if(eventData.pointerCurrentRaycast.gameObject.name =="MultimeterHandle") isDragging = true;
 
         // 월드 좌표에서 핸들의 위치 가져오기
         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.nearClipPlane));
@@ -51,7 +52,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
             Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.nearClipPlane));
 
             // 핸들의 중심 위치
-            Vector3 handlePos = GetObject((int)Multimeter.Handle).transform.position;
+            Vector3 handlePos = GetObject((int)Multimeter.MultimeterHandle).transform.position;
 
             // 초기 마우스 위치와 현재 마우스 위치에서 핸들 중심으로의 벡터 계산
             Vector3 initialDirection = initialMousePos - handlePos;
@@ -67,7 +68,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
             newAngle = Mathf.Clamp(newAngle, minAngle, maxAngle);
 
             // 핸들에 회전 적용 (Z축 기준)
-            GetObject((int)Multimeter.Handle).transform.localRotation = Quaternion.Euler(270f, newAngle,0f );
+            GetObject((int)Multimeter.MultimeterHandle).transform.localRotation = Quaternion.Euler(270f, newAngle,0f );
         }
     }
 
@@ -76,7 +77,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         isDragging = false;
 
         // 현재 각도 저장 (Z축 기준)
-        currentAngle = GetObject((int)Multimeter.Handle).transform.localEulerAngles.y;
+        currentAngle = GetObject((int)Multimeter.MultimeterHandle).transform.localEulerAngles.y;
 
         if (currentAngle > 60 && currentAngle < 130)
         {
@@ -99,7 +100,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         var cacheCurrentAngle = currentAngle;
         DOVirtual.Float(cacheCurrentAngle, 100, 0.25f, val =>
         {
-            GetObject((int)Multimeter.Handle).transform.localRotation = Quaternion.Euler(270f, val,0f );
+            GetObject((int)Multimeter.MultimeterHandle).transform.localRotation = Quaternion.Euler(270f, val,0f );
         });
     }
 

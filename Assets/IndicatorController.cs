@@ -60,5 +60,19 @@ public class IndicatorController : UI_Base
         _indicatorDisplaySequence.SetLoops(5);
     }
     
+    public void ShowNothing(float delay =0)
+    {
+        _indicatorDisplaySequence.Kill();
+        
+        _indicatorDisplaySequence = DOTween.Sequence();
+
+        _indicatorDisplaySequence.AppendInterval(delay);
+        _indicatorDisplaySequence.AppendCallback(()=>
+        {
+            TMPDisplay.text = string.Empty;
+        });
+        _indicatorDisplaySequence.SetLoops(5);
+    }
+    
     
 }
