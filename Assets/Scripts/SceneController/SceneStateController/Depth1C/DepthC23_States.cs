@@ -18,8 +18,8 @@ public class DepthC23_State_1 : Base_SceneState
     }
     public override void OnEnter()
     {
-        base.OnEnter();
         Depth1C_sceneController.DepthC23Init();
+        base.OnEnter();
     
         
     }
@@ -43,8 +43,8 @@ public class DepthC23_State_2 : Base_SceneState
 
     public override void OnEnter()
     {
-        base.OnEnter();
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        base.OnEnter();
     }
 
     public override void OnStep()
@@ -406,7 +406,7 @@ public class DepthC23_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
-        base.OnEnter();
+      
 
         Depth1C_sceneController.multimeterController.OnGroundNothing();
         
@@ -435,6 +435,7 @@ public class DepthC23_State_10 : Base_SceneState
 
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Play("ON", 0, 0);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play("ON", 0, 0);
+        base.OnEnter();
     }
 
     public override void OnStep()
@@ -594,7 +595,7 @@ public class DepthC23_State_13 : Base_SceneState
     public override void OnEnter()
     {
         
-        base.OnEnter();
+       
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
@@ -619,7 +620,7 @@ public class DepthC23_State_13 : Base_SceneState
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
         
 
-        
+        base.OnEnter();
     }
 
     public override void OnStep()

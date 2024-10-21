@@ -23,17 +23,10 @@ public class Base_SceneState : ISceneState
        // CurrentScene.isSceneAnimationPlayingToProtectDoublePlaying = false;
          
         CurrentScene.ChangeInstructionTextWithAnim();
-        if (_animationDelay == 0)
-        {
-            Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
-            CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
-            
-        }
-        else
-        {
-            Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
-            CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,delay:_animationDelay,isReverse:CurrentScene.isReverseAnim);
-        }
+     
+        Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
+        CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
+        
 
         Managers.Sound.PlayNarration(_narrationStartDelay);
 
@@ -49,6 +42,7 @@ public class Base_SceneState : ISceneState
         //CurrentScene.contentController.ShutTrainingInfroAnim();
      
         _animationDelay = 0;
+        CurrentScene.TurnOffAllRegisteredHighlights();
     }
     
     public void OnAnimationComplete(int currentAnimationNumber)

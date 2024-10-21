@@ -12,6 +12,8 @@ public class UI_TrainingInfo : UI_Popup
         Text_TrainingInfo,
     }
 
+    public bool isInit;
+
     private static readonly string DEPTH1 ="0";  
     private static readonly string DEPTH2 ="1";  
     private static readonly string GOAL ="2";  
@@ -21,14 +23,18 @@ public class UI_TrainingInfo : UI_Popup
     public override bool Init()
     {
         if (!base.Init()) return false;
-        BindText(typeof(Texts));
+        if(!isInit)BindText(typeof(Texts));
         RefreshUI();
-        
-        return true;
+
+
+        isInit = true;
+        return isInit;
     }
 
     public void RefreshUI()
     {
+        
+        
         Logger.Log("RefreshUI Objective -----------");
         
         GetText((int)Texts.Head_Depth1).text =

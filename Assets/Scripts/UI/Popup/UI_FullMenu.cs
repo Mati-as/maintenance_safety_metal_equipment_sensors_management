@@ -35,7 +35,7 @@ public class UI_FullMenu : UI_Popup
 
         // BindObject(typeof(GameObj));
         BindButton(typeof(Btns));
-        BindTMP(typeof(Texts));
+        BindText(typeof(Texts));
 
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() => { Managers.UI.ClosePopupUI(this); });
 

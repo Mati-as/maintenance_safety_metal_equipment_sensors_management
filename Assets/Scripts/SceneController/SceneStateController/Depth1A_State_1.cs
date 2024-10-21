@@ -23,14 +23,27 @@ public class Depth1A_State_1 : Base_SceneState
 
 public class Depth1A_State_2 : Base_SceneState
 {
+    private Depth1A_SceneController CurrentScene;
     public Depth1A_State_2(Depth1A_SceneController currentScene) : base(currentScene)
     {
+        CurrentScene = currentScene;
     }
 
     public override void OnEnter()
     {
         base.OnEnter();
-      
+        CurrentScene.SetHighlightIgnore((int)GameObj.LimitSwitch,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.ProximitySwitch,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.TemperatureSensor,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.TemperatureSensor_Whole,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.LevelSensor,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.FlowMeter,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.PressureSensor,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.TS_CompensatingWire,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.TS_Stabilizer,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.TS_SensingElement,false);
+        CurrentScene.SetHighlightIgnore((int)GameObj.TS_Cover,false);
+
     }
 
     public override void OnStep()

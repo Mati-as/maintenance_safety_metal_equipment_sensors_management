@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using HighlightPlus;
 using TMPro;
@@ -68,41 +69,57 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
         contentController = Managers.UI.ShowPopupUI<UI_ContentController>();
-    
-        
+        contentController.Init(); // sceneController에서 제어하는 부분이 있으므로 먼저 초기화 수행 
+
     }
 
     private void BindEvent()
     {
+
+
+        UI_ContentController.OnDepth3ClickedAction -= OnDepth3IntroOrClickedAction;
+        UI_ContentController.OnDepth3ClickedAction += OnDepth3IntroOrClickedAction;
+        
+        UI_ContentController.OnDepth2ClickedAction -= OnDepth2IntroOrClickedAction;
+        UI_ContentController.OnDepth2ClickedAction += OnDepth2IntroOrClickedAction;
+        
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChange;
         UI_ContentController.OnStepBtnClicked_CurrentCount += OnStepChange;
-
-        UI_ContentController.OnDepth3Clicked -= OnDepth3IntroOrClicked;
-        UI_ContentController.OnDepth3Clicked += OnDepth3IntroOrClicked;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
+        UI_ContentController.OnDepth2ClickedAction -= OnDepth2IntroOrClickedAction;
+        UI_ContentController.OnDepth3ClickedAction -= OnDepth3IntroOrClickedAction;
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChange;
-        UI_ContentController.OnDepth3Clicked -= OnDepth3IntroOrClicked;
+        UnbindStaticEvents();
     }
-    private void OnDepth3IntroOrClicked()
+    private void OnDepth3IntroOrClickedAction()
     {
+        isReverseAnim = false;
+        
         PlayAnimationAndNarration(1);
         ChangeState(1);
     }
 
+    private void OnDepth2IntroOrClickedAction()
+    {
+        isReverseAnim = false;
+    }
     protected IEnumerator OnSceneStartCo()
     {
         Logger.Log("Initial UI Intro");
         
-        PlayInitialIntro();
+        //PlayInitialIntro();
+        
+      //  contentController.SetInstructionShowOrHideStatus(false);
         
         _wait = new WaitForSeconds(_startDelay);
         yield return _wait;
 
+        //contentController.SetShowOrHideInstruction();
 
-        contentController.SetActiveInstruction();
+        
         var introAnimation = 0;
         PlayAnimationAndNarration(introAnimation);
         Managers.Sound.Play(SoundManager.Sound.Effect, "Depth1Start");
@@ -117,7 +134,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         Logger.Log("Initial UI Intro");
         contentController.Init();
        // contentController.ShowInitialIntro();
-        contentController.SetActiveInstruction(false);
+        contentController.SetInstructionShowOrHideStatus(false);
     }
 
     public bool isReverseAnim { get; private set; }
@@ -146,11 +163,11 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             _currentState?.OnExit();
             _currentState = newState;
-            _currentState.OnEnter();
+            _currentState?.OnEnter();
         }
         else
         {
-            Logger.LogWarning($"No state found for depth {stateNum}");
+            Logger.LogWarning($"No state found for depth {stateNum}----------------------------------");
         }
     }
 
@@ -222,16 +239,26 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
                    $"{Managers.ContentInfo.PlayData.Depth2}" +
                    $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count + 1}";
+            
             Logger.Log($"Reverse Animation Path {path}");
+           
             var reverseClip = Resources.Load<AnimationClip>(path);
 
-            if (reverseClip != null && reverseClip.length >= 0.3f)
+            if (reverseClip != null && reverseClip.length >= 1.15f) // 1frame 이상인 경우
             {
                 clip = reverseClip;
                 _mainAnimation[clip.name].time = _mainAnimation[clip.name].length;
+                Logger.Log($"Current Anim was long enough: {reverseClip.length} ->  Rewinding Animation.");
             }
             else
             {
+                path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
+                       $"{Managers.ContentInfo.PlayData.Depth2}" +
+                       $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count}";
+                
+                reverseClip = Resources.Load<AnimationClip>(path);
+                
+                clip = reverseClip;
                 Logger.Log($"Reverse clip too short, using original clip.");
             }
         }
@@ -278,7 +305,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     public void ChangeInstructionTextWithAnim(int delay = 0)
     {
-        contentController.ChangeInstructionTextWithAnim();
+        contentController.ChangeInstructionText();
     }
 
     #endregion
@@ -298,10 +325,22 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         objectHighlightMap[gameObjName].ignore = isOn;
     }
 
+    public void TurnOffAllRegisteredHighlights()
+    {
+        if (objectHighlightMap == null)
+        {
+            Logger.LogWarning("there's no registered highlight.. return");
+            return;
+        }
+        foreach (var key in objectHighlightMap.Keys.ToArray())
+        {
+            objectHighlightMap[key].enabled = false;
+        }
+    }
+   
 
     public void HighlightBlink(int gameObj, float startDelay = 1f)
     {
-        
         
         var seq = DOTween.Sequence();
         objectHighlightMap[(int)gameObj].enabled = true;
@@ -319,9 +358,11 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         seq.AppendInterval(startDelay);
         seq.AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
 
-        var loopCount = 3;
+        var loopCount = 10;
         for (var i = 0; i < loopCount; i++)
         {
+            seq.AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
+
             seq.Append(DOVirtual.Float(0, maxInnerGlow, duration,
                 val =>
                 {
@@ -413,6 +454,29 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     #endregion
 
+    
+    protected virtual void UnbindStaticEvents()
+    {
+      
+    }
+
+    protected void UnBindEventAttatchedObj()
+    {
+        UnbindStaticEvents();
+        
+        if (_objects != null)
+
+            foreach (var obj in _objects[typeof(GameObject)])
+            {
+                var gameObj = obj as GameObject;
+                if (gameObj != null)
+                {
+                    gameObj.UnBindEvent();
+                    Logger.Log($"Event Unbind ------------------name {gameObj.name}");
+                }
+            }
+    }
+    
 
     #region 바인딩 로직
 

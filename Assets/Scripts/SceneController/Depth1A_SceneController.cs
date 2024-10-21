@@ -40,7 +40,7 @@ public class Depth1A_SceneController : Base_SceneController
         // 딕셔너리에 추가 및 이벤트 바인딩
         BindAndAddToDictionaryAndInit((int)GameObj.LimitSwitch, "리밋 스위치");
         BindAndAddToDictionaryAndInit((int)GameObj.ProximitySwitch, "근접 스위치");
-        //BindAndAddToDictionar(y(GameObj.TemperatureSensor, "온도 센서");
+        BindAndAddToDictionaryAndInit((int)GameObj.TemperatureSensor, "온도 센서");
         BindAndAddToDictionaryAndInit((int)GameObj.TemperatureSensor_Whole, "온도 센서");
         BindAndAddToDictionaryAndInit((int)GameObj.LevelSensor, "레벨 센서");
         BindAndAddToDictionaryAndInit((int)GameObj.FlowMeter, "유량 센서");
@@ -53,7 +53,9 @@ public class Depth1A_SceneController : Base_SceneController
         GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(true);
         GetObject((int)GameObj.TemperatureSensor).SetActive(false);
         
-        StartCoroutine(OnSceneStartCo());
+    //    StartCoroutine(OnSceneStartCo());
+        
+        contentController.OnDepth2Clicked(1); 
     }
 
 
@@ -74,6 +76,7 @@ public class Depth1A_SceneController : Base_SceneController
     {
         
     }
+  
 
     private void InitializeStates()
     {

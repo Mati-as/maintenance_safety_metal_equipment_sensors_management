@@ -127,32 +127,16 @@ public class Depth1C_SceneController : Base_SceneController
     {
         if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") SetDepthNum(); //개발용
         base.Init();
-        
         InitializeC2States();
-       
+        BindObject(typeof(DepthC_GameObj));
+        contentController.OnDepth2Clicked(1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
     }
 
-    private void UnBindEventAttatchedObj()
-    {
-        UnbindStaticEvents();
-        
-        if (_objects != null)
 
-            foreach (var obj in _objects[typeof(GameObject)])
-            {
-                var gameObj = obj as GameObject;
-                if (gameObj != null)
-                {
-                    gameObj.UnBindEvent();
-                    Logger.Log($"Event Unbind ------------------name {gameObj.name}");
-                }
-            }
-    }
 
     public void DepthC21Init()
     {
         
-        BindObject(typeof(DepthC_GameObj));
         UnBindEventAttatchedObj();
         
         
@@ -183,7 +167,7 @@ public class Depth1C_SceneController : Base_SceneController
 
 
         GetObject((int)DepthC_GameObj.TemperatureSensor).SetActive(true);
-        StartCoroutine(OnSceneStartCo());
+       // StartCoroutine(OnSceneStartCo());
 
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "보상전선");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "고정자");
@@ -309,7 +293,7 @@ public class Depth1C_SceneController : Base_SceneController
     }
     public void DepthC22Init()
     {
-        BindObject(typeof(DepthC_GameObj));
+      
         UnBindEventAttatchedObj();
         
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
@@ -364,9 +348,25 @@ public class Depth1C_SceneController : Base_SceneController
     
     public void DepthC23Init()
     {
-        BindObject(typeof(DepthC_GameObj));
+      
         UnBindEventAttatchedObj();
         
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "보상전선");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "고정자");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_SensingElement, "센서 연결부분 확인");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "커버");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_LockingScrew, "고정나사 체결확인");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "나사");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "보상도선 확인");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalA, "A 접지");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "B 접지");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.PowerHandle, "전원 끄기");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.NewTemperatureSensor, "새 온도센서");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TankValve, "밸브");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "교체 할 센서");
 #region 3.2.3 온도 센서 정비 (추가부분)
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
@@ -430,22 +430,7 @@ public class Depth1C_SceneController : Base_SceneController
         GetObject((int)DepthC_GameObj.TemperatureSensor).SetActive(true);
         StartCoroutine(OnSceneStartCo());
 
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "보상전선");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "고정자");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_SensingElement, "센서 연결부분 확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "커버");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_LockingScrew, "고정나사 체결확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "나사");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "보상도선 확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalA, "A 접지");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "B 접지");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.PowerHandle, "전원 끄기");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.NewTemperatureSensor, "새 온도센서");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TankValve, "밸브");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "교체 할 센서");
+        
 
         GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(false);
         GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(false);
@@ -561,12 +546,10 @@ public class Depth1C_SceneController : Base_SceneController
         if (Managers.ContentInfo.PlayData.Count != 3) return;
         OnStepMissionComplete(animationNumber:3);
     }
-    protected void OnDestroy()
-    {
-        UnbindStaticEvents();
-    }
 
-    private void UnbindStaticEvents()
+
+
+    protected override void UnbindStaticEvents()
     {
         ControlPanelController.OnPowerOffAction -= OnPowerOff;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
@@ -575,6 +558,12 @@ public class Depth1C_SceneController : Base_SceneController
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.ScrewDriverClickedEvent -= OnScrewDriverBtnClicked;
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReadyOnDepth3;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        UnbindStaticEvents();
     }
 
     /// <summary>
@@ -781,7 +770,7 @@ public class Depth1C_SceneController : Base_SceneController
     private void OnToolBoxClicked()
     {
         Logger.Log("Toolbox Click event : 툴박스 클릭 이벤트 10 ------------------");
-        if (Managers.ContentInfo.PlayData.Depth3 == 1&&Managers.ContentInfo.PlayData.Count == 10 )
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 11 )
         {
             OnStepMissionComplete(animationNumber: 10);
         }
@@ -806,12 +795,7 @@ public class Depth1C_SceneController : Base_SceneController
 
     private void OnScrewClickDown()
     {
-        if (!((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 11) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12)||
-              (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)
-            )
-           )
+        if (!CheckDriverUsability())
         {
             contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
             return;
@@ -831,18 +815,11 @@ public class Depth1C_SceneController : Base_SceneController
     {
         
     
-        // Depth3가 1이고 Count가 11인 경우, 또는 Depth3가 3이고 Count가 6 또는 12인 경우에는 계속 진행
-        if (!((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 11) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12)||
-              (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)
-              )
-            )
+        if (!CheckDriverUsability())
         {
             contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
             return;
         }
-
 
         contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(true);
 
@@ -888,17 +865,24 @@ public class Depth1C_SceneController : Base_SceneController
             }
         }
     }
-    
+
+    private bool CheckDriverUsability()
+    {
+        if (((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 12) ||
+              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6) ||
+              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12) ||
+              (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)
+            )) return true;
+        else
+        {
+            return false;
+        }
+    }
     
     private void UpdateDriverSliderWind(int screwID)
     {
         // Depth3가 1이고 Count가 11인 경우, 또는 Depth3가 3이고 Count가 6 또는 12인 경우에는 계속 진행
-        if (!((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 11) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)
-            )
-           )
+        if (!CheckDriverUsability())
         {
             contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
             return;
@@ -1043,7 +1027,10 @@ public class Depth1C_SceneController : Base_SceneController
             if (_isDriverOn)
                 CurrentActiveTool = (int)DepthC_GameObj.ElectricScrewdriver;
             else
+            {
                 CurrentActiveTool = NO_TOOL_SELECTED;
+                GetObject((int)DepthC_GameObj.ElectricScrewdriver).SetActive(false);
+            }
         }
     }
 
@@ -1171,7 +1158,7 @@ public class Depth1C_SceneController : Base_SceneController
     public void ClearTool()
     {
         CurrentActiveTool =  -1;
-        _isDriverOn= false;
+        isDriverOn= false;
         isMultimeterOn = false;
     }
 
@@ -1215,8 +1202,8 @@ public class Depth1C_SceneController : Base_SceneController
             { 32115, new DepthC21_State_15(this) },
             { 32116, new DepthC21_State_16(this) },
             { 32117, new DepthC21_State_17(this) },
-            { 32118, new DepthC21_State_18(this) },
-            { 32119, new DepthC21_State_19(this) },
+            // { 32118, new DepthC21_State_18(this) },
+            // { 32119, new DepthC21_State_19(this) },
 
 
             { 3221, new DepthC22_State_1(this) },

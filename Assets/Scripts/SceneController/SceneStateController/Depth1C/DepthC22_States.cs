@@ -18,10 +18,10 @@ public class DepthC22_State_1 : Base_SceneState
     }
     public override void OnEnter()
     {
-        base.OnEnter();
         Logger.Log("C22 초기화 진행 -----------------------");
         Depth1C_sceneController.DepthC22Init();
         Depth1C_sceneController.GetObject((int)DepthC_GameObj.Indicator).GetComponent<IndicatorController>().ShowErrorMessage();
+        base.OnEnter();
      
 
     }
@@ -265,7 +265,7 @@ public class DepthC22_State_9 : Base_SceneState
     public override void OnEnter()
     {
         
-        base.OnEnter();
+       
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
@@ -289,7 +289,7 @@ public class DepthC22_State_9 : Base_SceneState
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
         
-
+        base.OnEnter();
         
     }
     public override void OnStep()
@@ -314,7 +314,7 @@ public class DepthC22_State_10 : Base_SceneState
     public override void OnEnter()
     {
         
-        base.OnEnter();
+     
 
         foreach (var key in  Depth1C_sceneController.currentScrewGaugeStatus.Keys.ToList())
         {
@@ -329,7 +329,7 @@ public class DepthC22_State_10 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB,false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC,false);
-        
+        base.OnEnter();
 
         
     }
