@@ -185,7 +185,7 @@ public class Depth1C_SceneController : Base_SceneController
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "보상전선");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "고정자");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_SensingElement, "센서 연결부분 확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "커버");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "덮개");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_LockingScrew, "고정나사 체결확인");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
@@ -375,7 +375,7 @@ public class Depth1C_SceneController : Base_SceneController
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "보상전선");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "고정자");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_SensingElement, "센서 연결부분 확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "커버");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "덮개");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_LockingScrew, "고정나사 체결확인");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_ConnectionPiping, "연결부 누수 확인");

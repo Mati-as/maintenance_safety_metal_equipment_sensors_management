@@ -17,12 +17,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   effectNameFilter: 
-  combineMeshes: 1
+  combineMeshes: 0
   alphaCutOff: 0
   cullBackFaces: 1
   normalsOption: 0
-  fadeInDuration: 1
-  fadeOutDuration: 1
+  fadeInDuration: 0
+  fadeOutDuration: 0
   cameraDistanceFade: 0
   cameraDistanceFadeNear: 0
   cameraDistanceFadeFar: 1000
@@ -35,15 +35,15 @@ MonoBehaviour:
   overlayTexture: {fileID: 0}
   overlayTextureScale: 1
   outline: 1
-  outlineColor: {r: 1, g: 0.95496154, b: 0, a: 1}
+  outlineColor: {r: 0.993973, g: 1, b: 0, a: 1}
   outlineWidth: 0.45
   outlineQuality: 3
   outlineDownsampling: 2
   outlineVisibility: 0
   outlineIndependent: 0
-  glow: 1.15
+  glow: 0
   glowWidth: 0.4
-  glowQuality: 1
+  glowQuality: 3
   glowDownsampling: 2
   glowHQColor: {r: 0.64, g: 1, b: 0, a: 1}
   glowDithering: 1
@@ -72,7 +72,7 @@ MonoBehaviour:
   innerGlowColor: {r: 1, g: 1, b: 1, a: 1}
   innerGlowVisibility: 0
   targetFX: 0
-  targetFXTexture: {fileID: 2800000, guid: 1de3c566a6c8c405b9f6f453137273ec, type: 3}
+  targetFXTexture: {fileID: 0}
   targetFXColor: {r: 1, g: 1, b: 1, a: 1}
   targetFXRotationSpeed: 50
   targetFXInitialScale: 4

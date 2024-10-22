@@ -48,7 +48,7 @@ public class Depth1A_SceneController : Base_SceneController
         BindAndAddToDictionaryAndInit((int)GameObj.TS_CompensatingWire, "보상전선");
         BindAndAddToDictionaryAndInit((int)GameObj.TS_Stabilizer, "고정자");
         BindAndAddToDictionaryAndInit((int)GameObj.TS_SensingElement, "감온부");
-        BindAndAddToDictionaryAndInit((int)GameObj.TS_Cover, "커버");
+        BindAndAddToDictionaryAndInit((int)GameObj.TS_Cover, "덮개");
         
         GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(true);
         GetObject((int)GameObj.TemperatureSensor).SetActive(false);
