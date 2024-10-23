@@ -172,7 +172,7 @@ public class Depth1C_SceneController : Base_SceneController
         InitializeC2States();
         BindObject(typeof(DepthC_GameObj));
         GetScrewColliders();
-        contentController.OnDepth2Clicked(1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
+        contentController.OnDepth2Clicked(2); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
         
     }
 
@@ -337,6 +337,9 @@ public class Depth1C_SceneController : Base_SceneController
             OnStepMissionComplete(animationNumber:14, delayAmount: new WaitForSeconds(6f));
         });
 
+
+        GetObject((int)DepthC_GameObj.Indicator)
+            .GetComponent<IndicatorController>().ShowNothing();
 
       
 
@@ -579,7 +582,8 @@ public class Depth1C_SceneController : Base_SceneController
 #endregion
  
 
-      
+        GetObject((int)DepthC_GameObj.Indicator)
+        .GetComponent<IndicatorController>().ShowNothing();
 
     
 

@@ -322,9 +322,8 @@ public class UI_ContentController : UI_Popup
             int toggleIndex = i;
         
             toggle.gameObject.BindEvent(() =>
-            {
-                
-                OnDepth2Clicked(toggleIndex + 1); // use the local copy
+            { 
+                if(GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable) OnDepth2Clicked(toggleIndex + 1); // use the local copy
             });
             _depth2Toggles[(int)Toggles.Toggle_Depth2_A + i] = toggle;
         }
@@ -400,7 +399,7 @@ public class UI_ContentController : UI_Popup
         _activeAreaRect = GetObject((int)UI.ActiveArea).GetComponent<RectTransform>();
         for (var i = 0; i < texts.Length; i++) texts[i] = GetTMP(i);
 
-        GetToggle((int)Toggles.Toggle_Depth2_A).isOn = true;
+        GetToggle((int)Toggles.Toggle_Depth2_B).isOn = true;
         GetObject((int)UI.UI_ToolTip).SetActive(false);
         ShowOrHideNextPrevBtns(false);
     }
