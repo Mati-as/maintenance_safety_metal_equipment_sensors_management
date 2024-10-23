@@ -115,7 +115,8 @@ public class UI_Persistent : UI_Scene
 
     private void OnCloseBtnClicked()
     {
-        DeactivatePersistentUI();
+        Application.Quit();
+      //  DeactivatePersistentUI();
     }
 
     #endregion

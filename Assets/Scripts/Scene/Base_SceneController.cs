@@ -22,6 +22,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public int CurrentActiveTool;
     protected readonly int NO_TOOL_SELECTED = -1;
     protected readonly int ANIMATION_MAX_COUNT;
+    
+    [Tooltip("Camera and Effect Setting-----------------------")]
     public Inplay_CameraController cameraController { get; protected set; }
 
     public UI_ContentController contentController;
@@ -32,7 +34,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     private Animation _mainAnimation; // GameOjbect의 최상 부모위치에 있어야함.
   
-
+    [Tooltip("StateMachine  Setting ----------------------")]
     // SceneState Control
     protected Dictionary<int, ISceneState> _sceneStates;
     protected ISceneState _currentState;
@@ -43,7 +45,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public Dictionary<int, HighlightEffect> objectHighlightMap;
     private Dictionary<int, Sequence> _seqMap;
 
+    [Tooltip("Highlight Effect Setting ----------------------")]
 
+    private readonly float OUTLINE_WIDTH_ON_HOVER =1;
     public virtual void Start()
     {
         Init();
@@ -318,8 +322,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     protected void SetHighlight(int gameObjName, bool isOn = true)
     {
-       // Logger.Log($"[{(DepthC_GameObj)gameObjName}]Highight is ON? : {isOn}");
+      
         objectHighlightMap[gameObjName].highlighted = isOn;
+       objectHighlightMap[gameObjName].outlineWidth = OUTLINE_WIDTH_ON_HOVER;
     }
 
     public void SetHighlightIgnore(int gameObjName, bool isOn = true)
@@ -341,16 +346,17 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         }
     }
    
+    
 
     public void HighlightBlink(int gameObj, float startDelay = 1f)
     {
         
-        var seq = DOTween.Sequence();
+        _seqMap.TryAdd(gameObj, null);
+        _seqMap[gameObj]?.Kill();
+        _seqMap[gameObj]= DOTween.Sequence();
+        
         objectHighlightMap[(int)gameObj].enabled = true;
-        _seqMap.TryAdd((int)gameObj, seq);
-
-        _seqMap[gameObj] = seq;
-
+        
         var maxInnerGlow = 0.8f;
         var maxOuterGlow = 1f;
         var duration = 0.55f;
@@ -358,22 +364,22 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
 //        if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
 
-        seq.AppendInterval(startDelay);
-        seq.AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
+        _seqMap[gameObj].AppendInterval(startDelay);
+        _seqMap[gameObj].AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
 
-        var loopCount = 10;
+        var loopCount = 5;
         for (var i = 0; i < loopCount; i++)
         {
-            seq.AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
+            _seqMap[gameObj].AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
 
-            seq.Append(DOVirtual.Float(0, maxInnerGlow, duration,
+            _seqMap[gameObj].Append(DOVirtual.Float(0, maxInnerGlow, duration,
                 val =>
                 {
                     objectHighlightMap[(int)gameObj].innerGlow = val;
                     objectHighlightMap[(int)gameObj].outlineWidth = val;
                 }));
 
-            seq.Append(DOVirtual.Float(maxInnerGlow, 0, duration,
+            _seqMap[gameObj].Append(DOVirtual.Float(maxInnerGlow, 0, duration,
                 val =>
                 {
                     objectHighlightMap[(int)gameObj].innerGlow = val; 
@@ -382,14 +388,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         }
 
-        seq.AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = false; });
+        _seqMap[gameObj].AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = false; });
 
-        seq.OnKill(() =>
+        _seqMap[gameObj].OnKill(() =>
         {
             objectHighlightMap[(int)gameObj].highlighted = false;
             objectHighlightMap[(int)gameObj].innerGlow = 0;
         });
-        _seqMap[(int)gameObj] = seq;
+        
 
         _seqMap[gameObj].Play();
     }
@@ -413,7 +419,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         effect.highlighted = false;
         effect.ignore = true;
         effect.outlineColor =Color.cyan;
-        
+        effect.outlineWidth = 4;
+
     }
     public void BindHighlightAndTooltip(int gameObj, string tooltipText)
     {

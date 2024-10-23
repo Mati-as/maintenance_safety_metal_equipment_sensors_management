@@ -4,11 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using TMPro;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
+using Slider = UnityEngine.UI.Slider;
+using Toggle = UnityEngine.UI.Toggle;
+
 public enum Btns
 {
     Btn_Prev,
@@ -204,7 +211,7 @@ public class UI_ContentController : UI_Popup
     public void BlinkBtnUI(int btnEnum)
     {
         var seq = DOTween.Sequence();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 8; i++)
         {
             seq.Append(_highlightImageMap[btnEnum].DOFade(1, 0.2f));
             seq.AppendInterval(0.32f);
@@ -306,7 +313,12 @@ public class UI_ContentController : UI_Popup
         {
             Logger.Log($"Depth2 Banner Toggled {i}");
             var toggle = GetToggle((int)Toggles.Toggle_Depth2_A + i);
-            
+
+            if (toggle == null)
+            {
+                Logger.LogWarning($"Depth 2 Btn {i} is null");
+                continue;
+            }
             int toggleIndex = i;
         
             toggle.gameObject.BindEvent(() =>
@@ -432,7 +444,7 @@ public class UI_ContentController : UI_Popup
 
         texts[(int)Content_TMP.Text_Current3Depth].text =
             Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
-                + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor;
+                + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + Managers.ContentInfo.PlayData.CurrentDepthStatus[2])].kor;
     }
 
 

@@ -82,13 +82,13 @@ public class UI_FullMenu : UI_Popup
         switch (scene)
         {
             case 1 :
-                SceneManager.LoadSceneAsync("Depth1A");
+                SceneManager.LoadScene("Depth1A");
                 break;
             case 2 :
-                SceneManager.LoadSceneAsync("Depth1B");
+                SceneManager.LoadScene("Depth1B");
                 break;
             case 3 :
-                SceneManager.LoadSceneAsync("Depth1C");
+                SceneManager.LoadScene("Depth1C");
                 break; 
             
         }

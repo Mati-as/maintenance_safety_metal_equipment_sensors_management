@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -129,6 +130,40 @@ public class Depth1C_SceneController : Base_SceneController
 
     public ControlPanelController controlPanel;
 
+    private Collider[] _screwColliders;
+
+    
+    /// <summary>
+    /// 나사의 클릭기능을 원활하게 하기 위한 콜라이더 설정 로직입니다.
+    /// </summary>
+    public void GetScrewColliders()
+    {
+        var screwCount = 20;
+        _screwColliders = new Collider[screwCount];
+        _screwColliders[(int)DepthC_GameObj.TS_InnerScrewA] = GetObject((int)DepthC_GameObj.TS_InnerScrewA).GetComponent<Collider>();
+        _screwColliders[(int)DepthC_GameObj.TS_InnerScrewB] = GetObject((int)DepthC_GameObj.TS_InnerScrewB).GetComponent<Collider>();
+        _screwColliders[(int)DepthC_GameObj.TS_InnerScrewC] = GetObject((int)DepthC_GameObj.TS_InnerScrewC).GetComponent<Collider>();
+    }
+    
+    
+    /// <summary>
+    /// 나사의 클릭기능을 원활하게 하기 위한 콜라이더 설정 로직입니다.
+    /// </summary>
+    public void TurnOffCollider(int objEnumToInt)
+    {
+        _screwColliders[(int)objEnumToInt].enabled = false;
+    }
+
+    /// <summary>
+    /// 나사의 클릭기능을 원활하게 하기 위한 콜라이더 설정 로직입니다.
+    /// </summary>
+    public void TurnOnCollidersAndInit()
+    {
+        foreach (var collider in _screwColliders)
+        {
+            if(collider !=null) collider.enabled = true;
+        }
+    }
     // ReSharper disable Unity.PerformanceAnalysis
     public override void Init()
     {
@@ -136,7 +171,9 @@ public class Depth1C_SceneController : Base_SceneController
         base.Init();
         InitializeC2States();
         BindObject(typeof(DepthC_GameObj));
+        GetScrewColliders();
         contentController.OnDepth2Clicked(1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
+        
     }
 
 
@@ -328,13 +365,15 @@ public class Depth1C_SceneController : Base_SceneController
        
         
         #region 3.2.2 온도센서 고장 유형
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_LockingScrew, "온도센서 탈거");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_LockingScrew, "고정나사 탈거");
        // BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "온도센서 수거");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "덮개 열기");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_SensingElement, "변형된 감온부");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "나사 체결");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사 체결");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사 체결");
+
+        SetScrewDriverSection();
 
         GetObject((int)DepthC_GameObj.TS_LockingScrew).BindEvent(() =>
         {
@@ -836,7 +875,7 @@ public class Depth1C_SceneController : Base_SceneController
             return;
         }
         
-        contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(true);
+       // contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(true);
     }
 
     private void OnScrewClickUp()
@@ -858,7 +897,7 @@ public class Depth1C_SceneController : Base_SceneController
         }
         if (isWindSession) return;
 
-        contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(true);
+        
 
         _pressedTime += Time.fixedDeltaTime;
 
@@ -890,7 +929,7 @@ public class Depth1C_SceneController : Base_SceneController
 
         if (!isScrewUnwindMap[screwID])
         {
-
+            contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(true);
             var playbackAmount = contentController.UI_DrverOnly_GaugeSlider.value;
             animatorMap[screwID].SetBool(UNWIND,true);
             animatorMap[screwID].Play("UnScrew", 0, playbackAmount);
@@ -905,7 +944,12 @@ public class Depth1C_SceneController : Base_SceneController
                 isScrewUnwindMap[screwID] = true;
                 animatorMap[screwID].enabled = false;
                 unwoundCount++;
+                TurnOffCollider(screwID);
             }
+        }
+        else
+        {
+            contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
         }
     }
 
@@ -918,6 +962,7 @@ public class Depth1C_SceneController : Base_SceneController
             )) return true;
         else
         {
+            Logger.Log("Driver is not usable fn ------------------");
             return false;
         }
     }
@@ -931,10 +976,12 @@ public class Depth1C_SceneController : Base_SceneController
             contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
             return;
         }
+
+  
         
-            Logger.Log($"Wind logic : 현재 조이기 이벤트 Value -->{ contentController.UI_DrverOnly_GaugeSlider.value}");
+        Logger.Log($"Wind logic : 현재 조이기 이벤트 Value -->{ contentController.UI_DrverOnly_GaugeSlider.value}");
         
-        contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(true);
+       
 
         _pressedTime += Time.fixedDeltaTime;
 
@@ -966,6 +1013,7 @@ public class Depth1C_SceneController : Base_SceneController
         if (!isScrewWindMap[screwID])
         {
 
+            contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(true);
             var playbackAmount = contentController.UI_DrverOnly_GaugeSlider.value;
         
             animatorMap[screwID].SetBool(UNWIND,false);
@@ -980,7 +1028,12 @@ public class Depth1C_SceneController : Base_SceneController
                 isScrewWindMap[screwID] = true;
                 animatorMap[screwID].enabled = false;
                 unwoundCount++;
+                TurnOffCollider(screwID);
             }
+        }
+        else
+        {
+            contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
         }
     }
 
@@ -1210,6 +1263,62 @@ public class Depth1C_SceneController : Base_SceneController
         CurrentActiveTool =  -1;
         isDriverOn= false;
         isMultimeterOn = false;
+    }
+
+    public void SetUnscrewStatus(bool isUnscrewed)
+    {
+
+        int unscrewd = 0;
+        int screwd = 1;
+        
+        
+        contentController.isStepMissionPerformable = true;
+        foreach (var key in  currentScrewGaugeStatus.Keys.ToList())
+        {
+            currentScrewGaugeStatus[key] = 0f;
+        }
+        
+             
+        foreach (var key in  isScrewUnwindMap.Keys.ToList())
+        {
+            isScrewUnwindMap[key] = isUnscrewed;
+        }
+
+        if (isUnscrewed)
+        {
+            HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
+            HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
+            HighlightBlink((int)DepthC_GameObj.TS_InnerScrewC);
+        }
+        
+        SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, isUnscrewed);
+        SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, isUnscrewed);
+        SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, isUnscrewed);
+        
+        
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
+       
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(Depth1C_SceneController.UNWIND,true);
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(Depth1C_SceneController.UNWIND,true);
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(Depth1C_SceneController.UNWIND,true);
+       
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, isUnscrewed ? screwd : unscrewd);
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, isUnscrewed ? screwd : unscrewd);
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, isUnscrewed ? screwd : unscrewd);
+       
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Update(0);
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Update(0);
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Update(0);
+       
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].StopPlayback();
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].StopPlayback();
+       animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].StopPlayback();
+       
+      animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = false;
+      animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
+      animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
     }
 
 

@@ -212,13 +212,16 @@ public class DepthC21_State_8 : Base_SceneState
 
 public class DepthC21_State_9 : Base_SceneState
 {
+    Depth1C_SceneController Depth1C_sceneController;
     public DepthC21_State_9(Depth1C_SceneController currentScene) : base(currentScene)
     {
-       
+        Depth1C_sceneController = currentScene;
     }
 
     public override void OnEnter()
     {
+        
+        
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
@@ -239,7 +242,7 @@ public class DepthC21_State_9 : Base_SceneState
     {
         base.OnExit();
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
-    
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사");
         CurrentScene.contentController.isStepMissionPerformable = false;
     }
 }
@@ -255,7 +258,8 @@ public class DepthC21_State_10 : Base_SceneState
     public override void OnEnter()
     {
        
-       
+        Depth1C_sceneController.GetObject((int)DepthC_GameObj.Indicator)
+            .GetComponent<IndicatorController>().ShowErrorMessage();
   
         base.OnEnter();
     }
@@ -266,6 +270,8 @@ public class DepthC21_State_10 : Base_SceneState
 
     public override void OnExit()
     {
+        Depth1C_sceneController.GetObject((int)DepthC_GameObj.Indicator)
+            .GetComponent<IndicatorController>().ShowNothing();
         base.OnExit();
      
     }
@@ -284,8 +290,7 @@ public class DepthC21_State_11 : Base_SceneState
     {
        
         Depth1C_sceneController.isWindSession = false;
-        CurrentScene.contentController.isStepMissionPerformable = true;
-        
+
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         base.OnEnter();
     }
@@ -297,7 +302,7 @@ public class DepthC21_State_11 : Base_SceneState
     public override void OnExit()
     {
         base.OnExit();
-        CurrentScene.contentController.isStepMissionPerformable = false;
+      
     }
 }
 
@@ -311,8 +316,9 @@ public class DepthC21_State_12 : Base_SceneState
 
     public override void OnEnter()
     {
-
+        Depth1C_sceneController.TurnOnCollidersAndInit();
         CurrentScene.contentController.isStepMissionPerformable = true;
+       
         foreach (var key in  Depth1C_sceneController.currentScrewGaugeStatus.Keys.ToList())
         {
             Depth1C_sceneController.currentScrewGaugeStatus[key] = 0f;
@@ -323,11 +329,18 @@ public class DepthC21_State_12 : Base_SceneState
         {
             Depth1C_sceneController.isScrewUnwindMap[key] = false;
         }
-
+        
         
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
+
+        
+
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewC);
+     
         
         
         //나사 위치 초기화
@@ -357,9 +370,8 @@ public class DepthC21_State_12 : Base_SceneState
         
 
       
-        //
         
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사");
+     
         CurrentScene.contentController.isStepMissionPerformable = true;
         
         
@@ -378,6 +390,7 @@ public class DepthC21_State_12 : Base_SceneState
 
     public override void OnExit()
     {
+        Depth1C_sceneController.TurnOnCollidersAndInit();
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
@@ -399,7 +412,7 @@ public class DepthC21_State_13 : Base_SceneState
     public override void OnEnter()
     {
         
-        
+        Depth1C_sceneController.TurnOnCollidersAndInit();
         Depth1C_sceneController.ClearTool();
         //나사 위치 초기화
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
