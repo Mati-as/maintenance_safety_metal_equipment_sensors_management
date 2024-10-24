@@ -13,7 +13,7 @@ public class ContentPlayData : MonoBehaviour
     {
         { 1, 2 }, //depth1 +depth2 , Depth3갯수
         { 2, 3 },
-        { 3, 5 },
+        { 3, 1 }, //현재 온도센서만 개발된 관계로 1로 수정. 추로 5로 수정해야합니다. 10/24/24 민석
    
     };
     public static Dictionary<int, int> DEPTH_THREE_COUNT_DATA = new Dictionary<int, int>
@@ -95,7 +95,8 @@ public class ContentPlayData : MonoBehaviour
     private static readonly Dictionary<string, int> DepthCountMaxDictionary = new Dictionary<string, int>
     {
         { "111", COUNT_MAX_DEPTH111},
-        { "112", COUNT_MAX_DEPTH112},
+        { "121", COUNT_MAX_DEPTH112},
+        
         
         /////////////////////////////////////
         { "211", COUNT_MAX_DEPTH211 },

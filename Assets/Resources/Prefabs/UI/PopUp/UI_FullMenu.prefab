@@ -1903,7 +1903,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 503066061084975043}
   m_OnClick:
     m_PersistentCalls:
@@ -2253,7 +2253,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 503066061326772675}
   m_OnClick:
     m_PersistentCalls:
@@ -2525,7 +2525,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 503066061416298228}
   m_OnClick:
     m_PersistentCalls:
@@ -3586,7 +3586,7 @@ GameObject:
   - component: {fileID: 1938345904868039687}
   - component: {fileID: 8105946296538191787}
   m_Layer: 5
-  m_Name: TMP_Overall_Training_Goal
+  m_Name: Text_Overall_Training_Goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3773,7 +3773,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1938345905246604008}
   m_OnClick:
     m_PersistentCalls:
@@ -3909,7 +3909,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1938345905348450752}
   m_OnClick:
     m_PersistentCalls:
@@ -4122,7 +4122,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1938345905521314641}
   m_OnClick:
     m_PersistentCalls:
@@ -4477,7 +4477,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1938345906020976346}
   m_OnClick:
     m_PersistentCalls:
@@ -4947,7 +4947,7 @@ GameObject:
   - component: {fileID: 2452759627051379410}
   - component: {fileID: 7420330426898344485}
   m_Layer: 5
-  m_Name: TMP_TrainingObjectInfo
+  m_Name: Text_TrainingObjectInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5549,7 +5549,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2039092710344148258}
   m_OnClick:
     m_PersistentCalls:

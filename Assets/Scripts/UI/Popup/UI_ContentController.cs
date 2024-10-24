@@ -320,11 +320,15 @@ public class UI_ContentController : UI_Popup
                 continue;
             }
             int toggleIndex = i;
-        
-            toggle.gameObject.BindEvent(() =>
-            { 
-                if(GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable) OnDepth2Clicked(toggleIndex + 1); // use the local copy
-            });
+
+            if (GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable)
+            {
+                toggle.gameObject.BindEvent(() =>
+                { 
+                    OnDepth2Clicked(toggleIndex + 1); // use the local copy
+                });
+            }
+          
             _depth2Toggles[(int)Toggles.Toggle_Depth2_A + i] = toggle;
         }
     }
@@ -399,6 +403,7 @@ public class UI_ContentController : UI_Popup
         _activeAreaRect = GetObject((int)UI.ActiveArea).GetComponent<RectTransform>();
         for (var i = 0; i < texts.Length; i++) texts[i] = GetTMP(i);
 
+        
         GetToggle((int)Toggles.Toggle_Depth2_B).isOn = true;
         GetObject((int)UI.UI_ToolTip).SetActive(false);
         ShowOrHideNextPrevBtns(false);
@@ -587,48 +592,26 @@ public class UI_ContentController : UI_Popup
     {
         Precheck();
 
-        //depth1_A 스크립트 통합으로 인한 예외처리 부분
-        if (Managers.ContentInfo.PlayData.Depth1 == 1 && depth2== 2)
-        {
-            Managers.ContentInfo.PlayData.Depth2 = 1;
-            Managers.ContentInfo.PlayData.Depth3 = 1; //depth3 2로 수정되지 않도록 주의합니다.
-            Managers.ContentInfo.PlayData.Count = 11;
-            
-            OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
-        }
-        
-        
-        
-        else if (Managers.ContentInfo.PlayData.Depth1 == 1 && depth2 == 1)
-        {
-            Managers.ContentInfo.PlayData.Depth2 = 1;
-            Managers.ContentInfo.PlayData.Depth3 = 1;
-            Managers.ContentInfo.PlayData.Count = 0;
-            
-            OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
-        }
-        
-        
-        
-        else
-        {
-            Managers.ContentInfo.PlayData.Depth2 = depth2;
-            Managers.ContentInfo.PlayData.Depth3 = 1;
-            Managers.ContentInfo.PlayData.Count = 0;
-        }
-        
-       
+
+        Managers.ContentInfo.PlayData.Depth2 = depth2;
+        Managers.ContentInfo.PlayData.Depth3 = 1;
+        Managers.ContentInfo.PlayData.Count = 0;
+
+
+        //각 뎁스의 첫번쨰 애니메이션을 재생하도록 하기위한 로직
+        OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count, false);
+
+
         Logger.Log($"Depth2 Banner Toggled {depth2}");
-       if ( Managers.ContentInfo.PlayData.Depth3 == 1) PlayObjectiveIntroAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생
+        if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayObjectiveIntroAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생
+
+
         ChangeInstructionText();
         RefreshUI();
         RefreshText();
-        
-        //각 뎁스의 첫번쨰 애니메이션을 재생하도록 하기위한 로직
-        OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count , false);
-        
+
+
         OnDepth2ClickedAction?.Invoke();
-   
     }
 
    
@@ -646,9 +629,7 @@ public class UI_ContentController : UI_Popup
             _depth2Toggles[i].gameObject.SetActive(false);
 
         //2. 활성화될 UI만 다시 활성화 합니다.
-        for (var i = (int)Toggles.Toggle_Depth2_A;
-             i < (int)Toggles.Toggle_Depth2_A
-             + ContentPlayData.DEPTH_TWO_COUNT_DATA[
+        for (var i = (int)Toggles.Toggle_Depth2_A; i < (int)Toggles.Toggle_Depth2_A + ContentPlayData.DEPTH_TWO_COUNT_DATA[
                  int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0].ToString())];
              i++)
             _depth2Toggles[i].gameObject.SetActive(true);

@@ -23,8 +23,8 @@ public class UI_FullMenu : UI_Popup
 
     private enum Texts
     {
-        text_Overall_Training_Goal,
-        text_TrainingObjectInfo
+        Text_Overall_Training_Goal,
+        Text_TrainingObjectInfo
     }
 
     public override bool Init()
@@ -39,12 +39,12 @@ public class UI_FullMenu : UI_Popup
 
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() => { Managers.UI.ClosePopupUI(this); });
 
-       GetText((int)Texts.text_Overall_Training_Goal).text = Managers.Data.Texts[Define.OverallTraningGoal].kor;
-       GetText((int)Texts.text_TrainingObjectInfo).text = Managers.Data.Texts[Define.TrainingObjectInfo].kor;
+       GetText((int)Texts.Text_Overall_Training_Goal).text = Managers.Data.Texts[Define.OverallTraningGoal].kor;
+       GetText((int)Texts.Text_TrainingObjectInfo).text = Managers.Data.Texts[Define.TrainingObjectInfo].kor;
       
         
         GetButton((int)Btns.B11101).gameObject.BindEvent(() => {LoadStep((11101).ToString()); });
-        GetButton((int)Btns.B12101).gameObject.BindEvent(() => {LoadStep((12101).ToString()); });
+        GetButton((int)Btns.B12101).gameObject.BindEvent(() => {LoadStep((11201).ToString()); });
         
         GetButton((int)Btns.B21101).gameObject.BindEvent(() => {LoadStep((21101).ToString()); });
         GetButton((int)Btns.B22101).gameObject.BindEvent(() => {LoadStep((22101).ToString()); });
@@ -58,12 +58,12 @@ public class UI_FullMenu : UI_Popup
         return true;
     }
 
-    private void LoadStep(string CurrentStatus)
+    private void LoadStep(string statusToLoad)
     {
-        Managers.ContentInfo.PlayData.Depth1 = int.Parse(CurrentStatus[0].ToString());
-        Managers.ContentInfo.PlayData.Depth2 =  int.Parse(CurrentStatus[1].ToString());
-        Managers.ContentInfo.PlayData.Depth3 =  int.Parse(CurrentStatus[2].ToString());
-        Managers.ContentInfo.PlayData.Count  =  int.Parse(CurrentStatus[4].ToString());
+        Managers.ContentInfo.PlayData.Depth1 = int.Parse(statusToLoad[0].ToString());
+        Managers.ContentInfo.PlayData.Depth2 =  int.Parse(statusToLoad[1].ToString());
+        Managers.ContentInfo.PlayData.Depth3 =  int.Parse(statusToLoad[2].ToString());
+        Managers.ContentInfo.PlayData.Count  =  10*int.Parse(statusToLoad[3].ToString()) + int.Parse(statusToLoad[4].ToString());
      
         Managers.UI.ClosePopupUI(Managers.UI.FindPopup<UI_FullMenu>());
         if(Managers.UI.FindPopup<UI_ContentController>() == null)Managers.UI.ShowPopupUI<UI_ContentController>();
@@ -73,7 +73,7 @@ public class UI_FullMenu : UI_Popup
             Managers.UI.ShowPopupUI<UI_ContentController>();
         }
 
-        LoadScene(int.Parse(CurrentStatus[0].ToString()));
+        LoadScene(Managers.ContentInfo.PlayData.Depth1);
     }
 
     private void LoadScene(int scene)
@@ -81,16 +81,18 @@ public class UI_FullMenu : UI_Popup
         Managers.UI.CloseAllPopupUI();
         switch (scene)
         {
-            case 1 :
-                SceneManager.LoadScene("Depth1A");
+            case 1:
+     
+                    SceneManager.LoadScene("Depth1A");
                 break;
-            case 2 :
-                SceneManager.LoadScene("Depth1B");
+            case 2:
+             
+                    SceneManager.LoadScene("Depth1B");
                 break;
-            case 3 :
-                SceneManager.LoadScene("Depth1C");
-                break; 
-            
+            case 3:
+              
+                    SceneManager.LoadScene("Depth1C");
+                break;
         }
     }
 }

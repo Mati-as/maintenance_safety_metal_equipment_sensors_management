@@ -28,11 +28,12 @@ public class Depth1A_SceneController : Base_SceneController
     
     public override void Init()
     {   
+      
         base.Init();
-        
+        SetDepthNum();
         cameraController = Camera.main.GetComponent<Inplay_CameraController>();
         InitializeStates();
-        SetDepthNum();
+
         
         BindObject(typeof(GameObj));
        
@@ -52,10 +53,8 @@ public class Depth1A_SceneController : Base_SceneController
         
         GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(true);
         GetObject((int)GameObj.TemperatureSensor).SetActive(false);
+        contentController.OnDepth2Clicked( Managers.ContentInfo.PlayData.Depth3); 
         
-    //    StartCoroutine(OnSceneStartCo());
-        
-        contentController.OnDepth2Clicked(1); 
     }
 
 
@@ -66,10 +65,15 @@ public class Depth1A_SceneController : Base_SceneController
     /// </summary>
     private void SetDepthNum()
     {
-        Managers.ContentInfo.PlayData.Depth1 = 1;
-        Managers.ContentInfo.PlayData.Depth2 = 1;
-        Managers.ContentInfo.PlayData.Depth3 = 1;
-        Managers.ContentInfo.PlayData.Count = 1;
+        if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000")
+        {
+            Managers.ContentInfo.PlayData.Depth1 = 1;
+            Managers.ContentInfo.PlayData.Depth2 = 1;
+            Managers.ContentInfo.PlayData.Depth3 = 1;
+            Managers.ContentInfo.PlayData.Count = 1;
+            contentController.OnDepth2Clicked(1); 
+        }
+ 
     }
     
     private void OnDepth2Finished()
@@ -93,20 +97,23 @@ public class Depth1A_SceneController : Base_SceneController
             { 1119, new Depth1A_State_9(this) },
             { 11110, new Depth1A_State_10(this) },
             { 11111, new Depth1A_State_11(this) },
-            { 11112, new Depth1A_State_12(this) },
-            { 11113, new Depth1A_State_13(this) },
-            { 11114, new Depth1A_State_14(this) },
-            { 11115, new Depth1A_State_15(this) },
-            { 11116, new Depth1A_State_16(this) },
-            { 11117, new Depth1A_State_17(this) },
-            { 11118, new Depth1A_State_18(this) },
-            { 11119, new Depth1A_State_19(this) },
-            { 11120, new Depth1A_State_20(this) },
-            { 11121, new Depth1A_State_16(this) },
-            { 11122, new Depth1A_State_17(this) },
-            { 11123, new Depth1A_State_18(this) },
-            { 11124, new Depth1A_State_19(this) },
-            { 11125, new Depth1A_State_20(this) },
+                
+            { 12101, new DepthA2_State_1(this) },
+            { 12102, new DepthA2_State_2(this) },
+            { 12103, new DepthA2_State_3(this) },
+            { 12104, new DepthA2_State_4(this) },
+            { 12105, new DepthA2_State_5(this) },
+            { 12106, new DepthA2_State_6(this) },
+            { 12107, new DepthA2_State_7(this) },
+            { 12108, new DepthA2_State_8(this) },
+            { 12109, new DepthA2_State_9(this) },
+            { 12110, new DepthA2_State_10(this) },
+            { 12111, new DepthA2_State_11(this) },
+            { 12112, new DepthA2_State_12(this) },
+            { 12113, new DepthA2_State_13(this) },
+            { 12114, new DepthA2_State_14(this) },
+            { 12115, new DepthA2_State_15(this) },
+            { 12116, new DepthA2_State_16(this) }
         };
     }
 }
