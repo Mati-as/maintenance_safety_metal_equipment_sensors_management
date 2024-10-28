@@ -53,7 +53,7 @@ public class Depth1A_SceneController : Base_SceneController
         
         GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(true);
         GetObject((int)GameObj.TemperatureSensor).SetActive(false);
-        contentController.OnDepth2Clicked( Managers.ContentInfo.PlayData.Depth3); 
+        contentController.OnDepth2Clicked( Managers.ContentInfo.PlayData.Depth2); 
         
     }
 
@@ -95,18 +95,19 @@ public class Depth1A_SceneController : Base_SceneController
             { 1117, new Depth1A_State_7(this) },
             { 1118, new Depth1A_State_8(this) },
             { 1119, new Depth1A_State_9(this) },
-            { 11110, new Depth1A_State_10(this) },
-            { 11111, new Depth1A_State_11(this) },
-                
-            { 12101, new DepthA2_State_1(this) },
-            { 12102, new DepthA2_State_2(this) },
-            { 12103, new DepthA2_State_3(this) },
-            { 12104, new DepthA2_State_4(this) },
-            { 12105, new DepthA2_State_5(this) },
-            { 12106, new DepthA2_State_6(this) },
-            { 12107, new DepthA2_State_7(this) },
-            { 12108, new DepthA2_State_8(this) },
-            { 12109, new DepthA2_State_9(this) },
+            { 1120, new Depth1A_State_10(this) },
+            { 1121, new Depth1A_State_11(this) },
+
+            
+            { 1211, new DepthA2_State_1(this) },
+            { 1212, new DepthA2_State_2(this) },
+            { 1213, new DepthA2_State_3(this) },
+            { 1214, new DepthA2_State_4(this) },
+            { 1215, new DepthA2_State_5(this) },
+            { 1216, new DepthA2_State_6(this) },
+            { 1217, new DepthA2_State_7(this) },
+            { 1218, new DepthA2_State_8(this) },
+            { 1219, new DepthA2_State_9(this) },
             { 12110, new DepthA2_State_10(this) },
             { 12111, new DepthA2_State_11(this) },
             { 12112, new DepthA2_State_12(this) },

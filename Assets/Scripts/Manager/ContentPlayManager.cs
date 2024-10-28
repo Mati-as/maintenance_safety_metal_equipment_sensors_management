@@ -13,7 +13,7 @@ public class ContentPlayData : MonoBehaviour
     {
         { 1, 2 }, //depth1 +depth2 , Depth3갯수
         { 2, 3 },
-        { 3, 1 }, //현재 온도센서만 개발된 관계로 1로 수정. 추로 5로 수정해야합니다. 10/24/24 민석
+        { 3, 5 }, //현재 온도센서만 개발된 관계로 1로 수정. 추로 5로 수정해야합니다. 10/24/24 민석
    
     };
     public static Dictionary<int, int> DEPTH_THREE_COUNT_DATA = new Dictionary<int, int>
@@ -52,7 +52,7 @@ public class ContentPlayData : MonoBehaviour
     private int _count = 0;
 
     public static readonly int COUNT_MAX_DEPTH111 = 25;
-    public static readonly int COUNT_MAX_DEPTH112 = COUNT_MAX_DEPTH111;
+    public static readonly int COUNT_MAX_DEPTH112 = 25;
     
     // 최대 State 갯수 + 1 (마지막 상태에서 새로운 뎁스 로드 및 초기화) 
      
@@ -96,7 +96,6 @@ public class ContentPlayData : MonoBehaviour
     {
         { "111", COUNT_MAX_DEPTH111},
         { "121", COUNT_MAX_DEPTH112},
-        
         
         /////////////////////////////////////
         { "211", COUNT_MAX_DEPTH211 },

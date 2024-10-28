@@ -21,9 +21,6 @@ public class Base_SceneState : ISceneState
         //항상 클릭 가능해야하는 것들 ----
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
         
-        
-        
-        
         CurrentScene.contentController.isStepMissionComplete = false;
         CurrentScene.contentController.isStepMissionPerformable = true;
        // CurrentScene.isSceneAnimationPlayingToProtectDoublePlaying = false;
@@ -52,13 +49,12 @@ public class Base_SceneState : ISceneState
     
     public void OnAnimationComplete(int currentAnimationNumber)
     {
-        if (currentAnimationNumber == 18)
-        {   
+        
             Logger.Log("Camera Control Available ------------------------------");
             CurrentScene.cameraController.isControllable = true;
             CurrentScene.cameraController.SetCurrentMainAngleAndPos
                 (CurrentScene.GetObject((int)GameObj.TS_Stabilizer).transform);
                 
-        }
+        
     }
 }

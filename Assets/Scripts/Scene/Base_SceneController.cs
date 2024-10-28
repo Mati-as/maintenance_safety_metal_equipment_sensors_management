@@ -72,6 +72,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         cameraController = Camera.main.GetComponent<Inplay_CameraController>();
 
         Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
+       
+        Managers.UI.CloseAllPopupUI();
+        
         contentController = Managers.UI.ShowPopupUI<UI_ContentController>();
         contentController.Init(); // sceneController에서 제어하는 부분이 있으므로 먼저 초기화 수행 
 
@@ -172,6 +175,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         if (_sceneStates.TryGetValue(processedState, out var newState))
         {
+            if(_currentState==null) Logger.Log($"현재 State 없음, 에러가능성 있습니다 --------------- : {processedState}");
             _currentState?.OnExit();
             _currentState = newState;
             _currentState?.OnEnter();
@@ -218,8 +222,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         var clip = Resources.Load<AnimationClip>(path);
         
         
-      
         Debug.Assert(_mainAnimation != null, "Animation component can't be null");
+        
+        
         
         if (clip == null)
         {
@@ -229,21 +234,21 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         }
       
         var existedClip = _mainAnimation.GetClip(clip.name);
-
-        // Check if the clip with the same name exists
         if (existedClip == null)
         {
-            // Add the clip if it doesn't exist
             _mainAnimation.AddClip(clip, clip.name);
             Logger.Log($"Added animation clip {clip.name} to _mainAnimation.");
         }
         else 
         {
-            // If it exists, remove it and add the new clip
             _mainAnimation.RemoveClip(clip.name);
             _mainAnimation.AddClip(clip, clip.name);
             Logger.Log($"Replaced existing animation clip {clip.name}.");
         }
+        
+        
+        
+        
 
         if (isReverse)
         {

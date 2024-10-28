@@ -480,13 +480,14 @@
   <TextData ID="10010" kor="제조 설비 개요" eng="eng Test" />
   <TextData ID="10020" kor="계측 센서 개요" eng="eng Test" />
   <!-- Depth 3 타이틀 -->
-  <TextData ID="10011" kor="1.제조 설비 및 계측센서 구성" eng="eng Test" />
-  <TextData ID="10012" kor="2.제조 설비 및 계측센서 개요" eng="eng Test" />
-  <TextData ID="10021" kor="1.검출 스위치" eng="eng Test" />
-  <TextData ID="10022" kor="2.온도 센서" eng="eng Test" />
-  <TextData ID="10023" kor="3.압력 센서" eng="eng Test" />
-  <TextData ID="10024" kor="4.유량 센서" eng="eng Test" />
-  <TextData ID="10025" kor="5.레벨 센서" eng="eng Test" />
+  <TextData ID="10011" kor="제조 설비 및 계측센서 구성" eng="eng Test" />
+  <TextData ID="10012" kor="제조 설비 및 계측센서 개요" eng="eng Test" />
+  
+  <TextData ID="10021" kor="검출 스위치" eng="eng Test" />
+  <TextData ID="10022" kor="온도 센서" eng="eng Test" />
+  <TextData ID="10023" kor="압력 센서" eng="eng Test" />
+  <TextData ID="10024" kor="유량 센서" eng="eng Test" />
+  <TextData ID="10025" kor="레벨 센서" eng="eng Test" />
   <!-- Depth 2 1 -->
   <TextData ID="20000" kor="안전 관리" eng="eng Test" />
   <!-- Depth 2 2 -->
@@ -494,11 +495,11 @@
   <TextData ID="20020" kor="점검 도구" eng="eng Test" />
   <TextData ID="20030" kor="안전 사고 사례" eng="eng Test" />
   <!-- Depth 2 -3 -->
-  <TextData ID="20011" kor="1.안전 장구 착용" eng="eng Test" />
-  <TextData ID="20021" kor="1.점검 도구 확인" eng="eng Test" />
-  <TextData ID="20031" kor="1.안전 작업 방법 및 절차" eng="eng Test" />
-  <TextData ID="20032" kor="2.안전 조치 사항" eng="eng Test" />
-  <TextData ID="20033" kor="3.안전사고 사례" eng="eng Test" />
+  <TextData ID="20011" kor="안전 장구 착용" eng="eng Test" />
+  <TextData ID="20021" kor="점검 도구 확인" eng="eng Test" />
+  <TextData ID="20031" kor="안전 작업 방법 및 절차" eng="eng Test" />
+  <TextData ID="20032" kor="안전 조치 사항" eng="eng Test" />
+  <TextData ID="20033" kor="안전사고 사례" eng="eng Test" />
 
   <!-- Depth 1 타이틀 -->
   <TextData ID="30000" kor="계측 센서 정비" eng="eng Test" />
@@ -511,28 +512,28 @@
 
   
   <!-- Depth 3 타이틀 -->
-  <TextData ID="30011" kor="3.1.1.검출스위치  점검" eng="eng Test" />
-  <TextData ID="30012" kor="3.1.2.검출스위치 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30013" kor="3.1.3.검출스위치 센서 정비" eng="eng Test" />
+  <TextData ID="30011" kor="검출스위치  점검" eng="eng Test" />
+  <TextData ID="30012" kor="검출스위치 고장 유형 이해" eng="eng Test" />
+  <TextData ID="30013" kor="검출스위치 센서 정비" eng="eng Test" />
 
   
-  <TextData ID="30021" kor="3.2.1. 온도센서 점검" eng="eng Test" />
-  <TextData ID="30022" kor="3.2.2. 온도센서 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30023" kor="3.2.3. 온도센서 정비" eng="eng Test" />
+  <TextData ID="30021" kor="온도센서 점검" eng="eng Test" />
+  <TextData ID="30022" kor="온도센서 고장 유형 이해" eng="eng Test" />
+  <TextData ID="30023" kor="온도센서 정비" eng="eng Test" />
 
   
-  <TextData ID="30031" kor="3.3.1. 압력센서 점검" eng="eng Test" />
-  <TextData ID="30032" kor="3.3.2. 압력센서 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30033" kor="3.3.3. 압력센서 장비" eng="eng Test" />
+  <TextData ID="30031" kor="압력센서 점검" eng="eng Test" />
+  <TextData ID="30032" kor="압력센서 고장 유형 이해" eng="eng Test" />
+  <TextData ID="30033" kor="압력센서 장비" eng="eng Test" />
 
-  <TextData ID="30041" kor="3.4.1. 유량센서 점검" eng="eng Test" />
-  <TextData ID="30042" kor="3.4.2. 유량센서 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30043" kor="3.4.3. 유량센서 정비" eng="eng Test" />
+  <TextData ID="30041" kor="유량센서 점검" eng="eng Test" />
+  <TextData ID="30042" kor="유량센서 고장 유형 이해" eng="eng Test" />
+  <TextData ID="30043" kor="유량센서 정비" eng="eng Test" />
 
   
-  <TextData ID="30051" kor="3.5.1. 레벨센서 점검" eng="eng Test" />
-  <TextData ID="30052" kor="3.5.2. 레벨센서 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30053" kor="3.5.3. 레벨센서 정비" eng="eng Test" />
+  <TextData ID="30051" kor="레벨센서 점검" eng="eng Test" />
+  <TextData ID="30052" kor="레벨센서 고장 유형 이해" eng="eng Test" />
+  <TextData ID="30053" kor="레벨센서 정비" eng="eng Test" />
 
 
 

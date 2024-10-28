@@ -4,17 +4,43 @@ using UnityEngine;
 
 public class InitialScene : BaseScene
 {
+    
+    
+#if UNITY_EDITOR
+    public static float _logoShowTime = 2f;
+#else
+    public static float _logoShowTime = 2;
+#endif
+    
+    
     protected override bool Init()
     {
         if (base.Init() == false)
             return false;
 
         SceneType = Define.Scene.Dev;
-        Managers.UI.ShowSceneUI<UI_Persistent>();
-        Managers.UI.ShowPopupUI<UI_Main>();
-//        Debug.Log($"ui stack count: {Managers.UI.PopupStack.Count}");
-        Managers.Sound.Play(SoundManager.Sound.Bgm, "Bgm");
+        
+        
+        Debug.Log($"ui stack count: {Managers.UI.PopupStack.Count}");
         Debug.Log("Scene Init------------------------------------------");
+     
+        
+        StartCoroutine(InitialUIAnimationCo());
         return true;
+    }
+    
+    private IEnumerator InitialUIAnimationCo()
+    {
+       
+        Managers.UI.ShowPopupUI<UI_Loading>();
+        Managers.UI.ShowPopupUI<UI_Logo>();
+        
+
+        yield return new WaitForSeconds(_logoShowTime);
+        
+        Managers.UI.ClosePopupUI();
+        Managers.UI.ShowPopupUI<UI_Loading>().GetComponent<UI_Loading>().PlayLoadingAnimAndLoadMain();
+    
+        
     }
 }

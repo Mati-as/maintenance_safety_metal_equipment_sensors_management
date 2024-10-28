@@ -4,13 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using TMPro;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
 using Slider = UnityEngine.UI.Slider;
@@ -23,7 +20,7 @@ public enum Btns
     Btn_Depth1_Title,
     Btn_TopMenu_Hide,
     Btn_Script_Hide,
-    Btn_ThirdDepth_Hide,
+    Btn_ThirdDepthList_Hide,
     Btn_Help,
     Btn_Evaluation,
     Btn_ToolBox,
@@ -60,11 +57,11 @@ public class UI_ContentController : UI_Popup
         UI_ToolTip,
         UI_ToolBox,
         UI_DrverOnly_GaugeSlider,
-        ActiveArea,
-        InactiveAreaA,
-        InactiveAreaB,
-        InactiveAreaC,
-        InactiveAreaD
+        // ActiveArea,
+        // InactiveAreaA,
+       // InactiveAreaB,
+        //InactiveAreaC,
+        //InactiveAreaD
     }
 
 
@@ -87,6 +84,7 @@ public class UI_ContentController : UI_Popup
 
     private readonly TextMeshProUGUI[] texts = new TextMeshProUGUI[Enum.GetValues(typeof(Content_TMP)).Length];
 
+    private Animator _depth3HideBtnAnimator;
     private Animator _depthOneTextMoveAnimator;
     private Animator _instructionAnimator;
     private Animator _topMenuAnimator;
@@ -156,6 +154,7 @@ public class UI_ContentController : UI_Popup
     {
         if (!base.Init())
             return false;
+
 
         BindUIElements();
         InitTopMenu();
@@ -301,12 +300,16 @@ public class UI_ContentController : UI_Popup
         _depthOneTextMoveAnimator = GetButton((int)Btns.Btn_Depth1_Title).gameObject.GetComponent<Animator>();
         _depthOneTextMoveAnimator.enabled = false;
 
+
+        _depth3HideBtnAnimator = GetButton((int)Btns.Btn_ThirdDepthList_Hide).gameObject.GetComponent<Animator>();
         BindHoverEventToButton(Btns.Btn_Depth1_Title, OnDepthOneTitleHover, OnDepthOneTitleHoverExit);
         _topMenuAnimator = GetObject((int)UI.UI_Top).gameObject.GetComponent<Animator>();
+        _btn_TopMenu_Hide_animator =GetButton((int)Btns.Btn_TopMenu_Hide).gameObject.GetComponent<Animator>(); 
         _topMenuAnimator.SetBool(UI_ON, true);
         GetButton((int)Btns.Btn_TopMenu_Hide).gameObject.BindEvent(OnTopMenuAnimBtnClicked);
     }
 
+ 
     private void InitDepth2Toggles()
     {
         for (var i = 0; i < 5; i++)
@@ -323,14 +326,31 @@ public class UI_ContentController : UI_Popup
 
             if (GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable)
             {
-                toggle.gameObject.BindEvent(() =>
-                { 
-                    OnDepth2Clicked(toggleIndex + 1); // use the local copy
-                });
+                if (Managers.ContentInfo.PlayData.Depth3 == 3 && i == (int)Toggles.Toggle_Depth2_A ||
+                    Managers.ContentInfo.PlayData.Depth3 == 1 && i == (int)Toggles.Toggle_Depth2_A ||
+                    Managers.ContentInfo.PlayData.Depth3 == 1 && i == (int)Toggles.Toggle_Depth2_B )
+                {
+                    GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable = true;
+                    
+                    toggle.gameObject.BindEvent(() =>
+                    { 
+                        OnDepth2Clicked(toggleIndex + 1); // use the local copy
+                    });
+                    Logger.Log($"Depth{ Managers.ContentInfo.PlayData.Depth3} 부분 구현 상태..{(Toggles)i} 활성화");
+                    
+                }
+                else
+                {
+             
+                    GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable = false;
+                }
+         
             }
           
             _depth2Toggles[(int)Toggles.Toggle_Depth2_A + i] = toggle;
         }
+
+        _depth2Toggles[Managers.ContentInfo.PlayData.Depth2].isOn = true;
     }
 
     private void InitDepth3Buttons()
@@ -352,11 +372,16 @@ public class UI_ContentController : UI_Popup
 
     private void InitCommonUI()
     {
-        GetObject((int)UI.UI_Depth3_List).BindEvent(OnDepth3BtnAreaEnter);
-        GetButton((int)Btns.Btn_ThirdDepth_Hide).gameObject
-            .BindEvent(OnDepthThirdHideBtnHover, Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.Btn_ThirdDepth_Hide).gameObject
-            .BindEvent(OnDepthThirdHideBtnExit, Define.UIEvent.PointerExit);
+    //    GetObject((int)UI.UI_Depth3_List).BindEvent(OnDepth3BtnAreaEnter);
+        
+        
+        GetButton((int)Btns.Btn_ThirdDepthList_Hide).gameObject
+            .BindEvent(OnDepthThirdHideBtnClicked, Define.UIEvent.PointerDown);
+        
+        GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(false);
+        
+        // GetButton((int)Btns.Btn_ThirdDepthList_Hide).gameObject
+        //     .BindEvent(OnDepthThirdHideBtnExit, Define.UIEvent.PointerExit);
 
         InitInstructionSection();
         InitActiveAndInactiveAreas();
@@ -379,11 +404,11 @@ public class UI_ContentController : UI_Popup
 
     private void InitActiveAndInactiveAreas()
     {
-        BindPointerEventToObject(UI.ActiveArea, OnDpeth3ActiveAreaEnter);
-        BindPointerEventToObject(UI.InactiveAreaA, InactiveAreaEnter);
-        BindPointerEventToObject(UI.InactiveAreaB, InactiveAreaEnter);
-        BindPointerEventToObject(UI.InactiveAreaC, InactiveAreaEnter);
-        BindPointerEventToObject(UI.InactiveAreaD, InactiveAreaEnter);
+        // BindPointerEventToObject(UI.ActiveArea, OnDpeth3ActiveAreaEnter);
+        // BindPointerEventToObject(UI.InactiveAreaA, InactiveAreaEnter);
+        // BindPointerEventToObject(UI.InactiveAreaB, InactiveAreaEnter);
+        // BindPointerEventToObject(UI.InactiveAreaC, InactiveAreaEnter);
+        // BindPointerEventToObject(UI.InactiveAreaD, InactiveAreaEnter);
     }
 
     private void BindPointerEventToObject(UI uiElement, Action eventAction)
@@ -400,7 +425,7 @@ public class UI_ContentController : UI_Popup
     private void SetInitialStates()
     {
         _heightPerDepth3Btn = GetButton((int)Btns.Depth3_A).GetComponent<RectTransform>().sizeDelta.y;
-        _activeAreaRect = GetObject((int)UI.ActiveArea).GetComponent<RectTransform>();
+     //   _activeAreaRect = GetObject((int)UI.ActiveArea).GetComponent<RectTransform>();
         for (var i = 0; i < texts.Length; i++) texts[i] = GetTMP(i);
 
         
@@ -603,7 +628,7 @@ public class UI_ContentController : UI_Popup
 
 
         Logger.Log($"Depth2 Banner Toggled {depth2}");
-        if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayObjectiveIntroAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생
+        if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayObjectiveIntroAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
 
 
         ChangeInstructionText();
@@ -615,7 +640,7 @@ public class UI_ContentController : UI_Popup
     }
 
    
-    private RectTransform _activeAreaRect;
+   // private RectTransform _activeAreaRect;
     private float _heightPerDepth3Btn;
 
     private void RefreshUI()
@@ -643,10 +668,8 @@ public class UI_ContentController : UI_Popup
 
 
         // ActiveArea의 사이즈를 재조정합니다. 
-        var resizedHeight = new Vector2(_activeAreaRect.sizeDelta.x, _heightPerDepth3Btn * 1.45f *
-            ContentPlayData.DEPTH_THREE_COUNT_DATA[
-                int.Parse(currentDepth12)] + 1);
-        _activeAreaRect.sizeDelta = resizedHeight;
+      //  var resizedHeight = new Vector2(_activeAreaRect.sizeDelta.x, _heightPerDepth3Btn * 1.45f *ContentPlayData.DEPTH_THREE_COUNT_DATA[int.Parse(currentDepth12)] + 1);
+      //  _activeAreaRect.sizeDelta = resizedHeight;
 //        Debug.Log($"_activeAreaRect Height: {_activeAreaRect.sizeDelta.y}");
     }
 
@@ -696,8 +719,14 @@ public class UI_ContentController : UI_Popup
     }
 
 
-    private void OnDepthThirdHideBtnHover()
+    private bool _isdepth3ListOn = false;
+
+    private void OnDepthThirdHideBtnClicked()
     {
+        _isdepth3ListOn = !_isdepth3ListOn;
+        
+        _depth3HideBtnAnimator.SetBool(UI_ON,_isdepth3ListOn);
+        GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(_isdepth3ListOn);
     }
 
     private bool isOnActiveArea; // 뎁스3내용 Hover시 표출. 표출이후에도 내용범위에 머물러있으면 Hover상태 유지
@@ -705,10 +734,10 @@ public class UI_ContentController : UI_Popup
 
     private void InactiveAreaEnter()
     {
-        isOnActiveArea = false;
-
-        if (isOnActiveArea) return;
-        GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(false);
+        // isOnActiveArea = false;
+        //
+        // if (isOnActiveArea) return;
+    
         //Debug.Log("3depth UI off ---------------------");
     }
 
@@ -844,14 +873,15 @@ public class UI_ContentController : UI_Popup
     {
         return true;
     }
-    
-    
 
+
+    private Animator _btn_TopMenu_Hide_animator;
     private void OnTopMenuAnimBtnClicked()
     {
         Precheck();
         _isTopMenuOn = !_isTopMenuOn;
         _topMenuAnimator.SetBool(UI_ON, _isTopMenuOn);
+        _btn_TopMenu_Hide_animator.SetBool(UI_ON, _isTopMenuOn);
 
         Logger.Log($" topMenu Status: {_isTopMenuOn}");
     }

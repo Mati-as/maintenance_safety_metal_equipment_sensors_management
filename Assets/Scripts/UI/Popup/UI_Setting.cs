@@ -314,7 +314,10 @@ public class UI_Setting : UI_Popup
 
 
                 if (audioIndex == (int)Sliders.Slider_Narration && !Managers.Sound.audioSources[audioIndex].isPlaying)
+                {
+                    Managers.Sound.Stop(SoundManager.Sound.Narration);
                     Managers.Sound.Play(SoundManager.Sound.Narration, "Audio/Test_Narration");
+                }
 
                 Managers.Sound.audioSources[audioIndex].volume =
                     Mathf.Lerp(0, Managers.Sound.VOLUME_MAX[audioIndex],

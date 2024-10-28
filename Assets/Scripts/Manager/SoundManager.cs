@@ -287,6 +287,15 @@ public class SoundManager : MonoBehaviour
         audioSource.Stop();
     }
     
+    public void StopAllAudio()
+    {
+        foreach (var audioSource in audioSources)
+        {
+            audioSource.Stop();
+        }
+     
+    }
+    
     public void Pause(Sound type)
     {
         var audioSource = audioSources[(int)type];
@@ -351,7 +360,7 @@ public class SoundManager : MonoBehaviour
 
             if (sound == Sound.Bgm) audioSources[(int)sound].Play();
             if (sound == Sound.Effect) Play(Sound.Effect, "Audio/Test_Effect");
-            if (sound == Sound.Narration) Play(Sound.Narration, "Audio/Test_Narration");
+         //   if (sound == Sound.Narration) Play(Sound.Narration, "Audio/Test_Narration");
         }
 
         if (sound == Sound.Main) kindOfSoundMute = Define.Preferences.Mute_Main;

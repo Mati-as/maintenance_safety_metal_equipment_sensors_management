@@ -14,7 +14,15 @@ public class Managers : MonoBehaviour
     private static ContentPlayManager s_contentPlayManager = new(); 
     private static ResourceManager s_resourceManager = new ResourceManager();
     
-    
+    private static CursorImageManager s_cursorImageManager= new CursorImageManager();
+    public static CursorImageManager cursorImageManager
+    {  
+        get 
+        { 
+            Init(); 
+            return s_cursorImageManager; 
+        } 
+    }
     public static DataManager Data
     { get { Init(); return s_DataManager; }}
 
@@ -60,6 +68,7 @@ public class Managers : MonoBehaviour
             s_resourceManager.Init();
             s_sceneLoader.Init();
             s_soundManager.Init();
+            s_cursorImageManager.Init();
             InitialSet();
 
         }

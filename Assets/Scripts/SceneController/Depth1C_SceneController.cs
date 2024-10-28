@@ -172,7 +172,7 @@ public class Depth1C_SceneController : Base_SceneController
         InitializeC2States();
         BindObject(typeof(DepthC_GameObj));
         GetScrewColliders();
-        contentController.OnDepth2Clicked(Managers.ContentInfo.PlayData.Depth3); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
+        contentController.OnDepth2Clicked(2); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
         
     }
 
