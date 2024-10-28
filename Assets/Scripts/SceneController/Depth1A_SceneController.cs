@@ -3,7 +3,7 @@ using DG.Tweening;
 using HighlightPlus;
 using UnityEngine;
 
-public enum GameObj
+public enum DepthAGameObj
 {
     LimitSwitch,
     ProximitySwitch,
@@ -29,30 +29,30 @@ public class Depth1A_SceneController : Base_SceneController
     public override void Init()
     {   
       
+        Dev_SetDepthNum();
         base.Init();
-        SetDepthNum();
         cameraController = Camera.main.GetComponent<Inplay_CameraController>();
         InitializeStates();
+        BindObject(typeof(DepthAGameObj));
 
         
-        BindObject(typeof(GameObj));
        
         
         // 딕셔너리에 추가 및 이벤트 바인딩
-        BindAndAddToDictionaryAndInit((int)GameObj.LimitSwitch, "리밋 스위치");
-        BindAndAddToDictionaryAndInit((int)GameObj.ProximitySwitch, "근접 스위치");
-        BindAndAddToDictionaryAndInit((int)GameObj.TemperatureSensor, "온도 센서");
-        BindAndAddToDictionaryAndInit((int)GameObj.TemperatureSensor_Whole, "온도 센서");
-        BindAndAddToDictionaryAndInit((int)GameObj.LevelSensor, "레벨 센서");
-        BindAndAddToDictionaryAndInit((int)GameObj.FlowMeter, "유량 센서");
-        BindAndAddToDictionaryAndInit((int)GameObj.PressureSensor, "압력 센서");
-        BindAndAddToDictionaryAndInit((int)GameObj.TS_CompensatingWire, "보상전선");
-        BindAndAddToDictionaryAndInit((int)GameObj.TS_Stabilizer, "고정자");
-        BindAndAddToDictionaryAndInit((int)GameObj.TS_SensingElement, "감온부");
-        BindAndAddToDictionaryAndInit((int)GameObj.TS_Cover, "덮개");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.LimitSwitch, "리밋 스위치");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.ProximitySwitch, "근접 스위치");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TemperatureSensor, "온도 센서");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TemperatureSensor_Whole, "온도 센서");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.LevelSensor, "레벨 센서");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.FlowMeter, "유량 센서");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.PressureSensor, "압력 센서");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TS_Stabilizer, "고정자");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TS_SensingElement, "감온부");
+        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TS_Cover, "덮개");
         
-        GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(true);
-        GetObject((int)GameObj.TemperatureSensor).SetActive(false);
+        GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
+        GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
         contentController.OnDepth2Clicked( Managers.ContentInfo.PlayData.Depth2); 
         
     }
@@ -63,7 +63,7 @@ public class Depth1A_SceneController : Base_SceneController
     ///     1.씬로드 전,후 두번  파라미터를 로드해줍니다.
     ///     2. 각 씬별로도 테스트를 할 수 있도록 하기 위함입니다.
     /// </summary>
-    private void SetDepthNum()
+    private void Dev_SetDepthNum()
     {
         if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000")
         {
@@ -71,7 +71,6 @@ public class Depth1A_SceneController : Base_SceneController
             Managers.ContentInfo.PlayData.Depth2 = 1;
             Managers.ContentInfo.PlayData.Depth3 = 1;
             Managers.ContentInfo.PlayData.Count = 1;
-            contentController.OnDepth2Clicked(1); 
         }
  
     }

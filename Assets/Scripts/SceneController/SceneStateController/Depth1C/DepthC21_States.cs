@@ -127,9 +127,9 @@ public class DepthC21_State_5 : Base_SceneState
 
     public override void OnExit()
     {
-        base.OnExit();
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew);
         CurrentScene.contentController.isStepMissionPerformable = false;
+        base.OnExit();
     }
 }
 
@@ -153,8 +153,10 @@ public class DepthC21_State_6 : Base_SceneState
 
     public override void OnExit()
     {
+        
         CurrentScene.contentController.isStepMissionPerformable = false;
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_ConnectionPiping);
+        base.OnExit();
     }
 }
 
@@ -432,9 +434,9 @@ public class DepthC21_State_13 : Base_SceneState
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(Depth1C_SceneController.UNWIND,true);
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(Depth1C_SceneController.UNWIND,true);
         
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = false;
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
-        Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
+        // Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = false;
+        // Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
+        // Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
         
         
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB,false);
@@ -509,6 +511,7 @@ public class DepthC21_State_15 : Base_SceneState
        
       
       
+        Depth1C_sceneController.InitProbePos();
         Depth1C_sceneController.isMultimeterOn = true;
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
         
@@ -516,12 +519,14 @@ public class DepthC21_State_15 : Base_SceneState
         
         //나사 위치 초기화
         //초기화로직이 포함되어있음으로 순서변경 X
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "저항 측정");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "저항 측정");
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
+        
         Depth1C_sceneController.multimeterController.OnGroundNothing();
         
-        
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB,false);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
+      
+       
 
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
         Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
@@ -552,6 +557,7 @@ public class DepthC21_State_15 : Base_SceneState
 
     public override void OnExit()
     {
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
         Depth1C_sceneController.ClearTool();
         base.OnExit();
     }
@@ -569,6 +575,13 @@ public class DepthC21_State_16 : Base_SceneState
 
     public override void OnEnter()
     {
+
+        Depth1C_sceneController.InitProbePos();
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "저항 측정");
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
+
+        
         
         Depth1C_sceneController.isMultimeterOn = true;
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
@@ -581,11 +594,9 @@ public class DepthC21_State_16 : Base_SceneState
         
         Depth1C_sceneController.multimeterController.OnGroundNothing();
 
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalA,false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB,false);
+
         
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalA);
+        //CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalA);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
         
 
@@ -614,6 +625,7 @@ public class DepthC21_State_16 : Base_SceneState
     public override void OnExit()
     {
         Depth1C_sceneController.ClearTool();
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
         base.OnExit();
     }
 }

@@ -75,6 +75,8 @@ public class Depth1C_SceneController : Base_SceneController
     private WaitForSeconds _waitBeforeNextStep;
     private readonly float _waitBeforeNextStepSeconds = 2;
 
+    private Vector3 _probeDefaultPos;
+
     private int unwoundCount
     {
         get => _unwoundCount;
@@ -244,14 +246,14 @@ public class Depth1C_SceneController : Base_SceneController
 
         GetObject((int)DepthC_GameObj.TS_LockingScrew).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
+            if (Managers.ContentInfo.PlayData.Depth3 != 1 && Managers.ContentInfo.PlayData.Count != 5) return;
             
             OnStepMissionComplete((int)DepthC_GameObj.TS_LockingScrew, 5);
         });
 
-        GetObject((int)DepthC_GameObj.TS_ConnectionPiping).BindEvent(() =>
+        GetObject((int)DepthC_GameObj.TS_ConnectionPiping ).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
+            if (Managers.ContentInfo.PlayData.Depth3 != 1&& Managers.ContentInfo.PlayData.Count != 6) return;
             
             OnStepMissionComplete((int)DepthC_GameObj.TS_ConnectionPiping, 6);
         });
@@ -275,10 +277,7 @@ public class Depth1C_SceneController : Base_SceneController
         SetScrewDriverSection();
 
 
-
-
-
-        GetObject((int)DepthC_GameObj.TS_InnerScrewB).BindEvent(() =>
+        GetObject((int)DepthC_GameObj.TS_InnerScrewA).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
             
@@ -286,10 +285,35 @@ public class Depth1C_SceneController : Base_SceneController
             {
                 animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
                 animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
+                
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "저항 측정");
+                SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
+                HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
 
                 DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
             }
+            
+            if (Managers.ContentInfo.PlayData.Count == 16)
+            {
+                
+                animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
+                animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
+                
+                
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
+                SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
+                HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
 
+                DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
+            }
+          
+
+        });
+
+        GetObject((int)DepthC_GameObj.TS_InnerScrewB).BindEvent(() =>
+        {
+            
+                    
             if (Managers.ContentInfo.PlayData.Count == 15)
             {
                 if (!isAnodePut) return;
@@ -298,23 +322,31 @@ public class Depth1C_SceneController : Base_SceneController
                 animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
                 Action action = multimeterController.OnAllProbeSet;
-                OnStepMissionComplete(animationNumber:15, delayAmount: new WaitForSeconds(6f),
+                OnStepMissionComplete(animationNumber: 15, delayAmount: new WaitForSeconds(6f),
                     delayedAction: action);
             }
 
+            
+            if (Managers.ContentInfo.PlayData.Count != 16) return;
 
+            SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
+            //CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalA,false);
+            HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
+            SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
+            DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
+            animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
+            animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(TO_GROUNDING_TERMINAL, true);
+            
         }, Define.UIEvent.PointerDown);
 
+       
+          
+
+     
 
         GetObject((int)DepthC_GameObj.TS_GroundingTerminalA).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
             
-            if (Managers.ContentInfo.PlayData.Count != 16) return;
-            animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
-            animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(TO_GROUNDING_TERMINAL, true);
-
-            DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
         });
 
 
@@ -347,6 +379,13 @@ public class Depth1C_SceneController : Base_SceneController
 
     }
 
+    public void InitProbePos()
+    {
+        GetObject((int)DepthC_GameObj.Probe_Anode).transform.position = _probeDefaultPos;
+        GetObject((int)DepthC_GameObj.Probe_Cathode).transform.position = _probeDefaultPos;
+        GetObject((int)DepthC_GameObj.Probe_Anode).gameObject.SetActive(false);
+        GetObject((int)DepthC_GameObj.Probe_Cathode).gameObject.SetActive(false);
+    }
     protected override void UnBindEventAttatchedObj()
     {
         base.UnBindEventAttatchedObj();
@@ -521,24 +560,52 @@ public class Depth1C_SceneController : Base_SceneController
       
         
        
-        
+     
+    
         //C23-----------------------------------
-        GetObject((int)DepthC_GameObj.TS_InnerScrewB).BindEvent(() =>
+        GetObject((int)DepthC_GameObj.TS_InnerScrewA).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 != 3) return;
             
             if (Managers.ContentInfo.PlayData.Count == 10)
             {
+                
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "저항 측정");
+                SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
+                HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
+                
                 animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
                 animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
 
                 DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
             }
+            
 
+            if (Managers.ContentInfo.PlayData.Depth3 != 3) return;
+            if (Managers.ContentInfo.PlayData.Count != 11) return;
+            
+            BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
+            SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
+            HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
+            
+            animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
+            animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(TO_GROUNDING_TERMINAL, true);
+
+            DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
+            
+            
+
+        }, Define.UIEvent.PointerDown);
+       
+        GetObject((int)DepthC_GameObj.TS_InnerScrewB).BindEvent(() =>
+        {
             if (Managers.ContentInfo.PlayData.Count == 10)
             {
                 if (!isAnodePut) return;
-
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
+                HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
+                SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
+                
                 animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
                 animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
@@ -546,20 +613,11 @@ public class Depth1C_SceneController : Base_SceneController
                 OnStepMissionComplete(animationNumber:10, delayAmount: new WaitForSeconds(6f),
                     delayedAction: action);
             }
-
-
-        }, Define.UIEvent.PointerDown);
-
+        });
 
         GetObject((int)DepthC_GameObj.TS_GroundingTerminalA).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Depth3 != 3) return;
-            if (Managers.ContentInfo.PlayData.Count != 11) return;
-            
-            animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
-            animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(TO_GROUNDING_TERMINAL, true);
-
-            DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
+          
         });
 
 

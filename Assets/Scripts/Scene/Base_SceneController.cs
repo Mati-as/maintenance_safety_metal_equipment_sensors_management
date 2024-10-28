@@ -279,7 +279,12 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             }
         }
 
-        _mainAnimation[clip.name].speed = isReverse ? -1 : 1;
+        if (clip == null)
+        {
+            Logger.Log("Clip is null.");
+        }
+        if(_mainAnimation != null)_mainAnimation[clip.name].speed = isReverse ? -1 : 1;
+        else { Logger.Log("animation is null."); }
         if(!isReverse) _mainAnimation[clip.name].time = 0;
 
   

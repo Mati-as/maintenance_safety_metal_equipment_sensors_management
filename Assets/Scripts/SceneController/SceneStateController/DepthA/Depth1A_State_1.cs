@@ -31,18 +31,19 @@ public class Depth1A_State_2 : Base_SceneState
 
     public override void OnEnter()
     {
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.LimitSwitch,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.ProximitySwitch,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor_Whole,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.LevelSensor,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.FlowMeter,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.PressureSensor,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_CompensatingWire,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_Stabilizer,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_SensingElement,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_Cover,false);
         base.OnEnter();
-        CurrentScene.SetHighlightIgnore((int)GameObj.LimitSwitch,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.ProximitySwitch,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.TemperatureSensor,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.TemperatureSensor_Whole,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.LevelSensor,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.FlowMeter,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.PressureSensor,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.TS_CompensatingWire,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.TS_Stabilizer,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.TS_SensingElement,false);
-        CurrentScene.SetHighlightIgnore((int)GameObj.TS_Cover,false);
+       
 
     }
 
@@ -159,7 +160,7 @@ public class Depth1A_State_7 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink((int)GameObj.TemperatureSensor);
+        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
         base.OnEnter();
     }
 
@@ -181,7 +182,7 @@ public class Depth1A_State_8 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink((int)GameObj.PressureSensor);
+        CurrentScene.HighlightBlink((int)DepthAGameObj.PressureSensor);
         base.OnEnter();
     }
 
@@ -203,7 +204,7 @@ public class Depth1A_State_9 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink((int)GameObj.FlowMeter);
+        CurrentScene.HighlightBlink((int)DepthAGameObj.FlowMeter);
         base.OnEnter();
     }
 
@@ -225,7 +226,7 @@ public class Depth1A_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink((int)GameObj.LevelSensor);
+        CurrentScene.HighlightBlink((int)DepthAGameObj.LevelSensor);
         base.OnEnter();
     }
 

@@ -53,7 +53,7 @@ public class Base_SceneState : ISceneState
             Logger.Log("Camera Control Available ------------------------------");
             CurrentScene.cameraController.isControllable = true;
             CurrentScene.cameraController.SetCurrentMainAngleAndPos
-                (CurrentScene.GetObject((int)GameObj.TS_Stabilizer).transform);
+                (CurrentScene.GetObject((int)DepthAGameObj.TS_Stabilizer).transform);
                 
         
     }

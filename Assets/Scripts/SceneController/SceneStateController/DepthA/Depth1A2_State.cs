@@ -6,8 +6,22 @@ public class DepthA2_State_1 : Base_SceneState
 
     public override void OnEnter()
     {
-        base.OnEnter();
+
         CurrentScene.contentController.ShutTrainingInfroAnim();
+        
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.LimitSwitch,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.ProximitySwitch,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor_Whole,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.LevelSensor,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.FlowMeter,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.PressureSensor,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_CompensatingWire,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_Stabilizer,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_SensingElement,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_Cover,false);
+        
+        base.OnEnter();
     }
 
     public override void OnStep()
@@ -22,12 +36,15 @@ public class DepthA2_State_1 : Base_SceneState
 
 public class DepthA2_State_2 : Base_SceneState
 {
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+
     public DepthA2_State_2(Depth1A_SceneController currentScene) : base(currentScene)
     {
     }
 
     public override void OnEnter()
     {
+      
         base.OnEnter();
     }
 
@@ -49,6 +66,7 @@ public class DepthA2_State_3 : Base_SceneState
 
     public override void OnEnter()
     {
+        CurrentScene.HighlightBlink((int)DepthAGameObj.LimitSwitch);
         base.OnEnter();
     }
 
@@ -70,7 +88,9 @@ public class DepthA2_State_4 : Base_SceneState
 
     public override void OnEnter()
     {
+        
         base.OnEnter();
+      
     }
 
     public override void OnStep()
@@ -91,7 +111,7 @@ public class DepthA2_State_5 : Base_SceneState
     }
 
     public override void OnEnter()
-    {
+    {  CurrentScene.HighlightBlink((int)DepthAGameObj.ProximitySwitch);
         base.OnEnter();
     }
 
@@ -115,8 +135,10 @@ public class DepthA2_State_6 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.GetObject((int)GameObj.TemperatureSensor).SetActive(false);
-        CurrentScene.GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(true);
+        CurrentScene.GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
+        CurrentScene.GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
+        
+        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
     }
 
     public override void OnStep()
@@ -138,9 +160,11 @@ public class DepthA2_State_7 : Base_SceneState
 
     public override void OnEnter()
     {
-        base.OnEnter();
+        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
         CurrentScene.cameraController.isControllable = false;
         Base_SceneController.OnAnimationCompelete -= OnAnimationComplete;
+        base.OnEnter();
+    
     }
 
     public override void OnStep()
@@ -162,9 +186,10 @@ public class DepthA2_State_8 : Base_SceneState
 
     public override void OnEnter()
     {
+        CurrentScene.GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(false);
+        CurrentScene.GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(true);
         base.OnEnter();
-        CurrentScene.GetObject((int)GameObj.TemperatureSensor_Whole).SetActive(false);
-        CurrentScene.GetObject((int)GameObj.TemperatureSensor).SetActive(true);
+     
     }
 
     public override void OnStep()
@@ -214,9 +239,20 @@ public class DepthA2_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
-        base.OnEnter();
+       
         CurrentScene.cameraController.isControllable = false;
         Base_SceneController.OnAnimationCompelete -= OnAnimationComplete;
+        
+        Managers.ContentInfo.PlayData.Depth1 = 3;
+        Managers.ContentInfo.PlayData.Depth2 = 2;
+        Managers.ContentInfo.PlayData.Depth3 = 1;
+        Managers.ContentInfo.PlayData.Count = 1;
+        CurrentScene.contentController.OnDepth2Clicked(2);
+        
+        Managers.Scene.LoadScene(SceneType.Depth1C);
+        base.OnEnter();
+        
+        
     }
 
     public override void OnStep()
@@ -239,16 +275,7 @@ public class DepthA2_State_11 : Base_SceneState
     public override void OnEnter()
 
     {
-        Managers.ContentInfo.PlayData.Depth1 = 3;
-        Managers.ContentInfo.PlayData.Depth2 = 2;
-        Managers.ContentInfo.PlayData.Depth3 = 3;
-        Managers.ContentInfo.PlayData.Count = 1;
-        
-        CurrentScene.contentController.OnDepth2Clicked(2);
-   
-        
-        base.OnEnter();
-        base.OnEnter();
+
     }
 
     public override void OnStep()

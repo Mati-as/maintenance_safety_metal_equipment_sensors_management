@@ -135,7 +135,7 @@ public class UI_FullMenu : UI_Popup
             
             case 1:
                 GetText((int)Texts.Text_TrainingObjectInfo_Detail).text =
-                    "1. 현장 계측 센서 점검, 정비 실습 전 계측 센서가 활용되는 설비에 대한 전반적인 구성을 확인하고 각 센서의 대략적인 동작원리 및 구조에 대해 학습합니다.";
+                    "현장 계측 센서 점검, 정비 실습 전 계측 센서가 활용되는 설비에 대한 전반적인 구성을 확인하고 각 센서의 대략적인 동작원리 및 구조에 대해 학습합니다.";
                 break;
             case 2 :
                 GetText((int)Texts.Text_TrainingObjectInfo_Detail).text =
@@ -143,7 +143,7 @@ public class UI_FullMenu : UI_Popup
                 break;
             case 3 :
                 GetText((int)Texts.Text_TrainingObjectInfo_Detail).text =
-                    "현장 계측 센서 정비작업의 안전한 수행을 위해 위험 요소, 안전 관리 작업에 대해 학습합니다";
+                    "현장 계측 센서(검출 스위치, 온도 센서, 압력 센서, 유량 센서, 레벨 센서)의 점검, 고장 유형, 정비 과정에 대해 실습을 진행합니다.";
                 break;
             case 4 :
                 GetText((int)Texts.Text_TrainingObjectInfo_Detail).text =
