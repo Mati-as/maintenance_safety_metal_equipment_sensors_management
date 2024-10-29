@@ -210,11 +210,12 @@ public class Depth1C_SceneController : Base_SceneController
 
         defaultRotationMap = new Dictionary<int, Quaternion>();
         defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Cathode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
-        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Anode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
+        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Anode,GetObject((int)DepthC_GameObj.Probe_Anode).transform.rotation);
 
         #region 초기화 및 하이라이트 및 텍스트 바인딩 부분
 
-
+        isAnodePut = false;
+        InitProbePos();
        
 
 
@@ -381,6 +382,8 @@ public class Depth1C_SceneController : Base_SceneController
 
     public void InitProbePos()
     {
+        GetObject((int)DepthC_GameObj.Probe_Anode).gameObject.SetActive(true);
+        GetObject((int)DepthC_GameObj.Probe_Cathode).gameObject.SetActive(true);
         GetObject((int)DepthC_GameObj.Probe_Anode).transform.position = _probeDefaultPos;
         GetObject((int)DepthC_GameObj.Probe_Cathode).transform.position = _probeDefaultPos;
         GetObject((int)DepthC_GameObj.Probe_Anode).gameObject.SetActive(false);
@@ -395,6 +398,7 @@ public class Depth1C_SceneController : Base_SceneController
     {
       
         UnBindEventAttatchedObj();
+        InitProbePos();
         
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
@@ -452,6 +456,7 @@ public class Depth1C_SceneController : Base_SceneController
     {
       
         UnBindEventAttatchedObj();
+        InitProbePos();
         
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "보상전선");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "고정자");
@@ -1218,19 +1223,18 @@ public class Depth1C_SceneController : Base_SceneController
 
             GetObject((int)DepthC_GameObj.ElectricScrewdriver).SetActive(isDriverOn);
             GetObject((int)DepthC_GameObj.ElectricScrewdriver).transform.position = mousePosition;
-            //Logger.Log($"On_CurrentPos: {mousePosition}");
         }
         else if (isMultimeterOn && CurrentActiveTool == (int)DepthC_GameObj.Multimeter && multimeterController.isResistanceMode)
         {
             GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
             GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(isMultimeterOn);
-
         
             if ((Managers.ContentInfo.PlayData.Count >= 13 && !isAnodePut) 
                 ||(Managers.ContentInfo.PlayData.Depth3 ==3 && Managers.ContentInfo.PlayData.Count>=9 &&!isAnodePut))
             {
                 GetObject((int)DepthC_GameObj.Probe_Anode).transform.rotation =
                     defaultRotationMap[(int)DepthC_GameObj.Probe_Anode];
+                
                 GetObject((int)DepthC_GameObj.Probe_Anode).transform.position = mousePosition;
             }
 
@@ -1239,6 +1243,7 @@ public class Depth1C_SceneController : Base_SceneController
             {
                 GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation =
                     defaultRotationMap[(int)DepthC_GameObj.Probe_Cathode];
+                
                 GetObject((int)DepthC_GameObj.Probe_Cathode).transform.position = mousePosition;
             }
 

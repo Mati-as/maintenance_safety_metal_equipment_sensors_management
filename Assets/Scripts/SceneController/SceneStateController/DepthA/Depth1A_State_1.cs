@@ -161,6 +161,7 @@ public class Depth1A_State_7 : Base_SceneState
     public override void OnEnter()
     {
         CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
+        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor_Whole);
         base.OnEnter();
     }
 
