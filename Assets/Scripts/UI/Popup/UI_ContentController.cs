@@ -794,6 +794,15 @@ public class UI_ContentController : UI_Popup
         
         Refresh();
         ChangeInstructionText();
+
+        if (Managers.ContentInfo.PlayData.Depth3 != 1)
+        {
+            ShutTrainingIntroAnim();
+            if(_hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
+        }
+        
+        
+        
         OnDepth3ClickedAction?.Invoke();
         
         
@@ -956,7 +965,7 @@ public class UI_ContentController : UI_Popup
         UI_AnimSeq = DOTween.Sequence();
         UI_AnimSeq.AppendCallback(() =>
         {
-           
+            isTrainingInfoOn = true;
             GetObject((int)UI.UI_TrainingInfo).GetComponent<CanvasGroup>().alpha = 0;
         });
         UI_AnimSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.6f).SetEase(Ease.InCirc));
@@ -973,9 +982,17 @@ public class UI_ContentController : UI_Popup
     }
 
 
+    private bool isTrainingInfoOn;
 
-    public void ShutTrainingInfroAnim()
+
+    public void ShutTrainingIntroAnim()
     {
+        if (!isTrainingInfoOn)
+        {
+            ShowOrHideNextPrevBtns();
+            return;
+        } 
+        
         if(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha < 0.5f) {
             return; // 이미한번 실행됬다고 판단해서 리턴합니다.
 }
@@ -993,7 +1010,11 @@ public class UI_ContentController : UI_Popup
             GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 1;
         });
         UI_AnimSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.6f).SetEase(Ease.InCirc));
-        UI_AnimSeq.AppendCallback(() => { GetObject((int)UI.UI_TrainingInfo).SetActive(false); });
+        UI_AnimSeq.AppendCallback(() =>
+        {
+            isTrainingInfoOn = false;
+            GetObject((int)UI.UI_TrainingInfo).SetActive(false);
+        });
         UI_AnimSeq.OnKill(() =>
         {
             //GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0;

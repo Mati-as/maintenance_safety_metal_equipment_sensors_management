@@ -515,7 +515,9 @@ public class Depth1C_SceneController : Base_SceneController
         GetObject((int)DepthC_GameObj.TankValve).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Count != 4) return;
-            OnStepMissionComplete(animationNumber: 4,delayAmount: new WaitForSeconds(2.5f));
+
+            Logger.Log("벨브 잠금 및 유체 차단 애니메이션 재생 -----------------");
+            OnStepMissionComplete(animationNumber: 4,delayAmount: new WaitForSeconds(4.5f));
         });
 
         GetObject((int)DepthC_GameObj.TS_Cover).BindEvent(() =>

@@ -7,7 +7,7 @@ public class DepthA2_State_1 : Base_SceneState
     public override void OnEnter()
     {
 
-        CurrentScene.contentController.ShutTrainingInfroAnim();
+        CurrentScene.contentController.ShutTrainingIntroAnim();
         
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.LimitSwitch,false);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.ProximitySwitch,false);
