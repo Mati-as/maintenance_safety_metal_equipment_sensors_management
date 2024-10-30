@@ -466,6 +466,8 @@ public class DepthC21_State_13 : Base_SceneState
 
     public override void OnExit()
     {
+        Depth1C_sceneController.isMultimeterOn = false;
+        Depth1C_sceneController.multimeterController.SetMeasureGuideStatus(false);
         base.OnExit();
     }
 }
@@ -484,6 +486,7 @@ public class DepthC21_State_14 : Base_SceneState
     {
 
         Depth1C_sceneController.isMultimeterOn = true;
+        Depth1C_sceneController.multimeterController.SetMeasureGuideStatus();
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
         
         Depth1C_sceneController.multimeterController.TurnOffResistantModeAndHandle();
@@ -494,6 +497,13 @@ public class DepthC21_State_14 : Base_SceneState
 
 
 
+    }
+
+    public override void OnExit()
+    {
+        
+        Depth1C_sceneController.isMultimeterOn = false;
+        Depth1C_sceneController.multimeterController.SetMeasureGuideStatus(false);
     }
 }
 
@@ -513,6 +523,7 @@ public class DepthC21_State_15 : Base_SceneState
       
         Depth1C_sceneController.InitProbePos();
         Depth1C_sceneController.isMultimeterOn = true;
+        Depth1C_sceneController.multimeterController.SetMeasureGuideStatus();
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
         
         Depth1C_sceneController.multimeterController.SetToResistanceModeAndRotation();
@@ -584,6 +595,7 @@ public class DepthC21_State_16 : Base_SceneState
         
         
         Depth1C_sceneController.isMultimeterOn = true;
+        Depth1C_sceneController.multimeterController.SetMeasureGuideStatus();
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
         
         Depth1C_sceneController.multimeterController.SetToResistanceModeAndRotation();

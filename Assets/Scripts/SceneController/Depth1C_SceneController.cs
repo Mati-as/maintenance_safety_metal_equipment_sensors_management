@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
+
 
 /// <summary>
 ///     주의사항
@@ -60,6 +61,7 @@ public class Depth1C_SceneController : Base_SceneController
     public Dictionary<int, float> currentScrewGaugeStatus; // 나사 게이지 캐싱
 
     public Dictionary<int, Animator> animatorMap;
+    public Dictionary<int, Sequence> _seqMap;
     
     [FormerlySerializedAs("_isScrewUnwindMap")] public Dictionary<int, bool> isScrewUnwindMap; //3.2.1 , 3,2,3
     
@@ -247,16 +249,22 @@ public class Depth1C_SceneController : Base_SceneController
 
         GetObject((int)DepthC_GameObj.TS_LockingScrew).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Depth3 != 1 && Managers.ContentInfo.PlayData.Count != 5) return;
+            if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 5)
+            {
+              OnStepMissionComplete((int)DepthC_GameObj.TS_LockingScrew, 5);
+                
+            }
             
-            OnStepMissionComplete((int)DepthC_GameObj.TS_LockingScrew, 5);
+            Logger.Log($"잠금 장치 풀림 현재 카운트 {Managers.ContentInfo.PlayData.Depth3}, count: {Managers.ContentInfo.PlayData.Count} --------------------------------------------------------");
         });
 
         GetObject((int)DepthC_GameObj.TS_ConnectionPiping ).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Depth3 != 1&& Managers.ContentInfo.PlayData.Count != 6) return;
+            if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 6)
+            {
+                OnStepMissionComplete((int)DepthC_GameObj.TS_ConnectionPiping, 6);
+            }
             
-            OnStepMissionComplete((int)DepthC_GameObj.TS_ConnectionPiping, 6);
         });
 
         GetObject((int)DepthC_GameObj.TS_Cover).BindEvent(() =>
@@ -423,8 +431,7 @@ public class Depth1C_SceneController : Base_SceneController
 
         GetObject((int)DepthC_GameObj.TS_LockingScrew).BindEvent(() =>
         {
-            Debug.Assert(Managers.ContentInfo.PlayData.Depth3 == 2,
-                $"Depth3 is {Managers.ContentInfo.PlayData.Depth3} but must be 2)");
+            Debug.Assert(Managers.ContentInfo.PlayData.Depth3 == 2,$"Depth3 is {Managers.ContentInfo.PlayData.Depth3} but must be 2)");
             if (Managers.ContentInfo.PlayData.Count != 4) return;
 
             OnStepMissionComplete( animationNumber:4,delayAmount:new WaitForSeconds(8f));
@@ -935,20 +942,37 @@ public class Depth1C_SceneController : Base_SceneController
 
     private float _gaugeDelay = 1.05f;
     private float _pressedTime;
+    private Sequence _driveroundSequence;// 사운드 중복실행을 방지하기위한 선언 
 
     private void OnScrewClickDown()
     {
+        _driveroundSequence?.Kill();
+        _driveroundSequence = DOTween.Sequence();
+        
+        
+        _driveroundSequence.AppendCallback(() =>
+        {
+            DOVirtual.DelayedCall(0.5f, () =>
+            {
+                if (CurrentActiveTool == (int)DepthC_GameObj.ElectricScrewdriver)
+                    Managers.Sound.Play(SoundManager.Sound.Effect, "Object/ElectronicDriver", 0.4f);
+            });
+        });
+
+        _driveroundSequence.OnKill(() => { Managers.Sound.Stop(SoundManager.Sound.Effect); });
+
         if (!CheckDriverUsability())
         {
             contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
-            return;
         }
-        
-       // contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(true);
     }
 
     private void OnScrewClickUp()
     {
+     
+        
+        _driveroundSequence?.Kill();
+        Managers.Sound.Stop(SoundManager.Sound.Effect);
         
         contentController.UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
         _pressedTime = 0;
@@ -989,8 +1013,8 @@ public class Depth1C_SceneController : Base_SceneController
 
 
         
-        contentController.UI_DrverOnly_GaugeSlider.value += 0.01f;
-        
+        contentController.UI_DrverOnly_GaugeSlider.value += 0.007f;
+
 
         Logger.Log($"Wind logic : 현재 풀기 Value -->{ contentController.UI_DrverOnly_GaugeSlider.value}");
         
@@ -1072,7 +1096,7 @@ public class Depth1C_SceneController : Base_SceneController
         contentController.UI_DrverOnly_GaugeSlider.value = currentScrewGaugeStatus[screwID];
 
 
-        contentController.UI_DrverOnly_GaugeSlider.value += 0.01f;
+        contentController.UI_DrverOnly_GaugeSlider.value += 0.007f;
             
      
         
@@ -1096,8 +1120,12 @@ public class Depth1C_SceneController : Base_SceneController
                 animatorMap[screwID].Play("Screw", 0, 1);
                 isScrewWindMap[screwID] = true;
                 animatorMap[screwID].enabled = false;
+                
                 unwoundCount++;
                 TurnOffCollider(screwID);
+                
+                _driveroundSequence?.Kill();
+                Managers.Sound.Stop(SoundManager.Sound.Effect);
             }
         }
         else
@@ -1110,6 +1138,9 @@ public class Depth1C_SceneController : Base_SceneController
     private IEnumerator OnStepMissionCompleteCo(int currentStepNum, WaitForSeconds waitForSeconds = null,
         Action ActionBeforeNextStep = null)
     {
+
+        var currentStepNumCache = currentStepNum; 
+        
         if(contentController.isStepMissionComplete)
         {
             Logger.Log("애니메이션 재생중. 중복실행 X XXXXXXX");
@@ -1146,10 +1177,18 @@ public class Depth1C_SceneController : Base_SceneController
 
         yield return _waitBeforeNextStep;
 
-
+        
 
         Logger.Log($"작업 수행을 통한 다음 이벤트 재생 :--------------- {Managers.ContentInfo.PlayData.Count}-");
-        contentController.InvokeNextStep(); // 다음 스텝으로 넘어가기
+       
+        
+        if(currentStepNumCache == Managers.ContentInfo.PlayData.Count)
+        {contentController.InvokeNextStep(); // 다음 스텝으로 넘어가기
+        }
+        else
+        {
+            Debug.Log("실행하고자하는 다음스텝과 현재 스텝이 달라 미션수행을 통한 다음 스텝 재생을 실행하지 않습니다------");
+        }
         yield return _waitBeforeNextStep;
       
       //  isSceneAnimationPlayingToProtectDoublePlaying = false;
@@ -1179,7 +1218,10 @@ public class Depth1C_SceneController : Base_SceneController
             {
                 GetObject((int)DepthC_GameObj.Probe_Cathode)?.SetActive(false);
                 GetObject((int)DepthC_GameObj.Probe_Anode)?.SetActive(false);
+                multimeterController.SetMeasureGuideStatus(false);
             }
+
+        
         }
     }
 

@@ -367,6 +367,7 @@ public class DepthC23_State_9 : Base_SceneState
 
     public override void OnEnter()
     {
+        Depth1C_sceneController.multimeterController.SetMeasureGuideStatus(true);
         Depth1C_sceneController.isMultimeterOn = true;
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
         Depth1C_sceneController.multimeterController.TurnOffResistantModeAndHandle();
@@ -400,6 +401,7 @@ public class DepthC23_State_10 : Base_SceneState
     {
         Depth1C_sceneController.TurnOnCollidersAndInit();
         Depth1C_sceneController.isMultimeterOn = true;
+        Depth1C_sceneController.multimeterController.SetMeasureGuideStatus(true);
         Depth1C_sceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
         Depth1C_sceneController.multimeterController.SetToResistanceModeAndRotation();
 
@@ -517,6 +519,7 @@ public class DepthC23_State_12 : Base_SceneState
 
         Depth1C_sceneController.isWindSession = true;
         Depth1C_sceneController.isMultimeterOn = false;
+        Depth1C_sceneController.multimeterController.SetMeasureGuideStatus(false);
 
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover, false);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_Cover);
@@ -634,6 +637,7 @@ public class DepthC23_State_13 : Base_SceneState
     public override void OnExit()
     {
         Depth1C_sceneController.isMultimeterOn = false;
+        Depth1C_sceneController.multimeterController.SetMeasureGuideStatus(false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);

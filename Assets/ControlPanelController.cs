@@ -115,9 +115,14 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
         //var cacheCurrentAngle = currentAngle;
         _powerOnOffSeq.AppendCallback(() =>
         {
+          
+          
             isPowerOn = true;
             PowerOnOffActionWithBool?.Invoke(isPowerOn);
             Logger.Log("컨트롤 페널 스위치 켜기");
+            
+            Managers.Sound.Play(SoundManager.Sound.Effect,"Object/PowerOn");
+            
             DOVirtual.Float(OFF_ANGLE, ON_ANGLE, 1.35f,
                 val =>
                 {
@@ -140,7 +145,7 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
             PowerOnOffActionWithBool?.Invoke(isPowerOn);
             
             Logger.Log("컨트롤 페널 스위치 끄기");
-
+            Managers.Sound.Play(SoundManager.Sound.Effect,"Object/PowerOff");
             DOVirtual.Float(ON_ANGLE, OFF_ANGLE, 1.35f,
                 val =>
                 {
