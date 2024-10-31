@@ -20,7 +20,7 @@ public class UI_ToolBox : UI_Popup
 
     private bool _isToolBoxOn=false;
     private Animator _animator; 
-    private Depth1C_SceneController _depthCsceneController;
+    private DepthC2_SceneController _depthCsceneController;
     
     public static event Action ToolBoxOnEvent; // 도구함을 클릭해주세요 완수 시  
     public static event Action ScrewDriverClickedEvent; // 도구함을 클릭해주세요 완수 시  
@@ -32,7 +32,7 @@ public class UI_ToolBox : UI_Popup
         if (!base.Init())
             return false;
 
-        _depthCsceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Depth1C_SceneController>();
+        _depthCsceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<DepthC2_SceneController>();
         _animator = GetComponent<Animator>();
         BindButton(typeof(Btns));
        // BindObject(typeof(Obj));

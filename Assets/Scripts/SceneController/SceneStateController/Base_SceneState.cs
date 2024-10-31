@@ -45,6 +45,7 @@ public class Base_SceneState : ISceneState
         //CurrentScene.contentController.ShutTrainingInfroAnim();
        // _animationDelay = 0;
         CurrentScene.TurnOffAllRegisteredHighlights();
+        CurrentScene.contentController.StopBtnUIBlink();
     }
     
     public void OnAnimationComplete(int currentAnimationNumber)

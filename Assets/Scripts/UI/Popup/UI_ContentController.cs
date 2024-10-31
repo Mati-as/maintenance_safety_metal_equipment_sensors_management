@@ -116,7 +116,8 @@ public class UI_ContentController : UI_Popup
     public bool isGuageUsable;
 
     private Dictionary<int, Image> _highlightImageMap;
-    
+    private Sequence _blinkBtnSeq;
+   
     
     // 미션수행 관련 프로퍼티 ------------------------------------------------------------
     private bool _isStepMissionPerformable;
@@ -155,6 +156,9 @@ public class UI_ContentController : UI_Popup
         if (!base.Init())
             return false;
 
+        SoundManager.OnNarrationComplete -= BlinkNextBtnUI;
+        SoundManager.OnNarrationComplete += BlinkNextBtnUI;
+      
 
         BindUIElements();
         InitTopMenu();
@@ -181,7 +185,16 @@ public class UI_ContentController : UI_Popup
         return true;
     }
 
-    
+    private void OnDestroy()
+    {
+         SoundManager.OnNarrationComplete -= BlinkNextBtnUI;
+    }
+
+    private void BlinkNextBtnUI()
+    {
+        Logger.Log("next btn click blink -------------------------------");
+        BlinkBtnUI((int)Btns.Btn_Next);
+    }
     /// <summary>
     /// 하이라이트 기능이 있는 객체는 highlight 이미지를 할당해놓고, 아래 메소드에서 직접 초기화합니다.
     /// </summary>
@@ -204,28 +217,46 @@ public class UI_ContentController : UI_Popup
             .GetComponentsInChildren<Image>(true) // Gets all Image components
             .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); 
         _highlightImageMap.TryAdd((int)Btns.Btn_ToolBox, ToolboxImage);
+        
+        Image NextBtnImage = GetButton((int)(Btns.Btn_Next))
+            .GetComponentsInChildren<Image>(true) // Gets all Image components
+            .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); 
+        _highlightImageMap.TryAdd((int)Btns.Btn_Next, NextBtnImage);
+        
+        
+        Image PrevBtnImage = GetButton((int)(Btns.Btn_Prev))
+            .GetComponentsInChildren<Image>(true) // Gets all Image components
+            .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); 
+        _highlightImageMap.TryAdd((int)Btns.Btn_Prev, PrevBtnImage);
     }
+
 
 
     public void BlinkBtnUI(int btnEnum)
     {
-        var seq = DOTween.Sequence();
-        for (int i = 0; i < 8; i++)
+        _blinkBtnSeq?.Kill();
+        _blinkBtnSeq = DOTween.Sequence();
+        for (int i = 0; i < 5; i++)
         {
-            seq.Append(_highlightImageMap[btnEnum].DOFade(1, 0.2f));
-            seq.AppendInterval(0.32f);
-            seq.Append(_highlightImageMap[btnEnum].DOFade(0, 0.2f));
-            seq.AppendInterval(0.2f);
+            _blinkBtnSeq.Append(_highlightImageMap[btnEnum].DOFade(1, 0.25f));
+            _blinkBtnSeq.AppendInterval(0.3f);
+            _blinkBtnSeq.Append(_highlightImageMap[btnEnum].DOFade(0, 0.25f));
+            _blinkBtnSeq.AppendInterval(0.3f);
         }
 
-        seq.Play();
+        _blinkBtnSeq.OnKill(() =>
+        {
+            _highlightImageMap[btnEnum].DOFade(0, 0);
+        });
+        _blinkBtnSeq.Play();
     }
-    private void CloseUIPopup<T>() where T : UI_Popup
+
+    public void StopBtnUIBlink()
     {
-        var popup = Managers.UI.FindPopup<T>();
-        if (popup != null)
-            Managers.UI.ClosePopupUI(popup);
+        _blinkBtnSeq?.Kill();
+        _blinkBtnSeq = DOTween.Sequence();
     }
+
 
     private void BindUIElements()
     {

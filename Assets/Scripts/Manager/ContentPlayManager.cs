@@ -13,12 +13,13 @@ public class ContentPlayData : MonoBehaviour
     {
         { 1, 2 }, //depth1 +depth2 , Depth3갯수
         { 2, 3 },
-        { 3, 5 }, //현재 온도센서만 개발된 관계로 1로 수정. 추로 5로 수정해야합니다. 10/24/24 민석
+        { 3, 5 }, 
+        { 4, 5 }, 
    
     };
     public static Dictionary<int, int> DEPTH_THREE_COUNT_DATA = new Dictionary<int, int>
     {
-        { 11, 1 }, //depth1 +depth2 , Depth3갯수 // 1-1 뎁스에는 1개의 depth3가 있음
+        { 11, 1 }, 
         { 12, 5 },
         { 21, 1 },
         { 22, 1 },
@@ -27,7 +28,12 @@ public class ContentPlayData : MonoBehaviour
         { 32, 3 },
         { 33, 3 },
         { 34, 3 },
-        { 35, 3 }
+        { 35, 3 },
+        { 41, 1 },
+        { 42, 1 },
+        { 43, 1 },
+        { 44, 1 },
+        { 45, 1 }
     };
 
     public enum CurrentDepthData
@@ -50,7 +56,9 @@ public class ContentPlayData : MonoBehaviour
     private int _depth2 =0;
     private int _depth3 =0;
     private int _count = 0;
-
+    
+    public static readonly int DEPTH1_MAX_COUNT = 4;
+    
     public static readonly int COUNT_MAX_DEPTH111 = 25;
     public static readonly int COUNT_MAX_DEPTH112 = 25;
     
@@ -132,11 +140,11 @@ public class ContentPlayData : MonoBehaviour
         { "353", COUNT_MAX_DEPTH353 },
     
         /////////////////////////////////////
-        { "401", COUNT_MAX_DEPTH401 },
-        { "402", COUNT_MAX_DEPTH402 },
-        { "403", COUNT_MAX_DEPTH403 },
-        { "404", COUNT_MAX_DEPTH404 },
-        { "405", COUNT_MAX_DEPTH405 },
+        { "411", COUNT_MAX_DEPTH401 },
+        { "421", COUNT_MAX_DEPTH402 },
+        { "431", COUNT_MAX_DEPTH403 },
+        { "441", COUNT_MAX_DEPTH404 },
+        { "451", COUNT_MAX_DEPTH405 },
 
         
         // ... 추가 DEPTH 값들
@@ -144,12 +152,13 @@ public class ContentPlayData : MonoBehaviour
 
 
     public static int CurrentCountMax;
+    
     public int Depth1
     {
         get { return _depth1; }
         set
         {
-            Debug.Assert(value <= 3);
+            Debug.Assert(value <= DEPTH1_MAX_COUNT);
             
             
             _depth1 = value;
@@ -170,6 +179,7 @@ public class ContentPlayData : MonoBehaviour
         set
         {
             Debug.Assert(value <= 5);
+            
             _depth2 = value;
 
             // Update the relevant character in CurrentDepthStatus

@@ -1,7 +1,7 @@
 public class Depth1A_State_1 : Base_SceneState
 {
     // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
-    public Depth1A_State_1(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_1(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -23,8 +23,8 @@ public class Depth1A_State_1 : Base_SceneState
 
 public class Depth1A_State_2 : Base_SceneState
 {
-    private Depth1A_SceneController CurrentScene;
-    public Depth1A_State_2(Depth1A_SceneController currentScene) : base(currentScene)
+    private DepthA_SceneController CurrentScene;
+    public Depth1A_State_2(DepthA_SceneController currentScene) : base(currentScene)
     {
         CurrentScene = currentScene;
     }
@@ -59,7 +59,7 @@ public class Depth1A_State_2 : Base_SceneState
 
 public class Depth1A_State_3 : Base_SceneState
 {
-    public Depth1A_State_3(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_3(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -80,7 +80,7 @@ public class Depth1A_State_3 : Base_SceneState
 
 public class Depth1A_State_4 : Base_SceneState
 {
-    public Depth1A_State_4(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_4(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -101,7 +101,7 @@ public class Depth1A_State_4 : Base_SceneState
 
 public class Depth1A_State_5 : Base_SceneState
 {
-    public Depth1A_State_5(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_5(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -127,7 +127,7 @@ public class Depth1A_State_5 : Base_SceneState
 
 public class Depth1A_State_6 : Base_SceneState
 {
-    public Depth1A_State_6(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_6(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -154,7 +154,7 @@ public class Depth1A_State_6 : Base_SceneState
 
 public class Depth1A_State_7 : Base_SceneState
 {
-    public Depth1A_State_7(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_7(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -177,7 +177,7 @@ public class Depth1A_State_7 : Base_SceneState
 
 public class Depth1A_State_8 : Base_SceneState
 {
-    public Depth1A_State_8(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_8(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -199,7 +199,7 @@ public class Depth1A_State_8 : Base_SceneState
 
 public class Depth1A_State_9 : Base_SceneState
 {
-    public Depth1A_State_9(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_9(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -221,7 +221,7 @@ public class Depth1A_State_9 : Base_SceneState
 
 public class Depth1A_State_10 : Base_SceneState
 {
-    public Depth1A_State_10(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_10(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -243,7 +243,7 @@ public class Depth1A_State_10 : Base_SceneState
 
 public class Depth1A_State_11 : Base_SceneState
 {
-    public Depth1A_State_11(Depth1A_SceneController currentScene) : base(currentScene)
+    public Depth1A_State_11(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 

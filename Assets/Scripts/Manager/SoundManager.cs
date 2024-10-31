@@ -141,9 +141,9 @@ public class SoundManager : MonoBehaviour
         {
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Bgm])
             {
-#if UNITY_EDITOR
-            //    Debug.Log("Currently Bgm is on Mute");
-#endif
+
+//    Debug.Log("Currently Bgm is on Mute");
+
                 return false;
             }
             
@@ -165,9 +165,9 @@ public class SoundManager : MonoBehaviour
         {
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Effect])
             {
-#if UNITY_EDITOR
+
               //  Debug.Log("Currently Bgm is on Mute");
-#endif
+
                 return false;
             }
             var audioClip = GetAudioClip(path);
@@ -180,35 +180,51 @@ public class SoundManager : MonoBehaviour
             return true;
         }
 
+        
         if (type == Sound.Narration)
         {
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Narration])
             {
-#if UNITY_EDITOR
+
               //  Debug.Log("Currently Bgm is on Mute");
-#endif
+
                 return false;
             }
             var audioClip = GetAudioClip(path);
             if (audioClip == null)
             {
-#if UNITY_EDITOR
+
                 //Debug.Log($"narration clip is null{path}");
-#endif
+
                 return false;
                 
             }
             
 
+            
             audioSource.volume = volumes[(int)Sound.Narration];
             audioSource.clip = audioClip;
           
             audioSource.PlayOneShot(audioClip);
+            
+            InvokeNarrationEndEvent(audioClip.length);
+          
+            Logger.Log($"나레이션 길이 : ------{audioClip.length}");
             return true;
         }
 
+       
         return false;
     }
+
+    private int _currentNumCache;
+    private Sequence _narrationEndEventInvokeSeq;
+
+
+    public static event Action OnNarrationComplete;
+
+
+
     
     
     public bool Play(Sound type, string path, float volume = 1.0f, float pitch = 1.0f)
@@ -274,13 +290,31 @@ public class SoundManager : MonoBehaviour
         
             audioSource.clip = audioClip;
             audioSource.pitch = pitch;
+     
             audioSource.PlayOneShot(audioClip);
+            InvokeNarrationEndEvent(audioClip.length);
             return true;
         }
 
         return false;
     }
 
+    private void InvokeNarrationEndEvent(float length)
+    {
+               
+        _narrationEndEventInvokeSeq?.Kill();
+        _narrationEndEventInvokeSeq = DOTween.Sequence();
+
+        _narrationEndEventInvokeSeq.AppendInterval(length);
+        Logger.Log($"나레이션 길이 : ------{length}");
+            
+        _narrationEndEventInvokeSeq.AppendCallback(() =>
+        {
+            OnNarrationComplete?.Invoke();
+            Logger.Log("next btn Click Event Invoke ------------------------");
+        });
+        _narrationEndEventInvokeSeq.Play();
+    }
     public void Stop(Sound type)
     {
         var audioSource = audioSources[(int)type];
@@ -321,25 +355,26 @@ public class SoundManager : MonoBehaviour
         return audioClip;
     }
 
-    private Sequence natrrationSoundSeq;
+    private Sequence _narrationSeq;
 
-    public void PlayNarration(float delay)
+    public void PlayNarration(float delay =0)
     {
         Managers.Sound.Stop(Sound.Narration);
         
         
-        natrrationSoundSeq?.Kill();
-        natrrationSoundSeq = DOTween.Sequence();
-        natrrationSoundSeq.AppendInterval(delay);
-        natrrationSoundSeq.AppendCallback(() =>
+        _narrationSeq?.Kill();
+        _narrationSeq = DOTween.Sequence();
+        
+        _narrationSeq.AppendInterval(delay);
+        _narrationSeq.AppendCallback(() =>
         {
-            Managers.Sound.Play(SoundManager.Sound.Narration,
+            Managers.Sound.Play(Sound.Narration,
                 $"Audio/Narration/{Managers.ContentInfo.PlayData.Depth1}" +
                 $"{Managers.ContentInfo.PlayData.Depth2}" +
                 $"{Managers.ContentInfo.PlayData.Depth3}" +
                 $"/{Managers.ContentInfo.PlayData.Count}");
         });
-        natrrationSoundSeq.Play();
+        _narrationSeq.Play();
     }
 
   

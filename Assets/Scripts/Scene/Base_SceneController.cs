@@ -12,17 +12,11 @@ using Object = UnityEngine.Object;
 
 public class Base_SceneController : MonoBehaviour, ISceneController
 {
-    protected Dictionary<int, bool> IsInit= new Dictionary<int, bool>
-    {
-        {321,false}, 
-        {322,false},
-        {323,false}
-    };
-    public bool isSceneAnimationPlayingToProtectDoublePlaying;
+   
+
     public int CurrentActiveTool;
     protected readonly int NO_TOOL_SELECTED = -1;
-    protected readonly int ANIMATION_MAX_COUNT;
-    
+ 
     [Tooltip("Camera and Effect Setting-----------------------")]
     public Inplay_CameraController cameraController { get; protected set; }
 
@@ -60,7 +54,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         BindEvent();
 
-        IsInit = new Dictionary<int, bool>();
+      
         _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
         
         if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
@@ -82,8 +76,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     private void BindEvent()
     {
-
-
         UI_ContentController.OnDepth3ClickedAction -= OnDepth3IntroOrClickedAction;
         UI_ContentController.OnDepth3ClickedAction += OnDepth3IntroOrClickedAction;
         

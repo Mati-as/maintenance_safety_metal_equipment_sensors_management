@@ -123,7 +123,7 @@ public class UI_FullMenu : UI_Popup
                 break;
             case 3:
 
-                Managers.Scene.LoadScene(SceneType.Depth1C);
+                Managers.Scene.LoadScene(SceneType.DepthC2);
                 break;
         }
     }
