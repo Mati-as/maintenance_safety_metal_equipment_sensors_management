@@ -74,12 +74,11 @@ public class DepthC2_SceneController : Base_SceneController
 
 
     public bool isAnodePut; // 음극단자 설정을 위한 bool값입니다.
-    private WaitForSeconds _waitBeforeNextStep;
-    private readonly float _waitBeforeNextStepSeconds = 2;
+
 
     private Vector3 _probeDefaultPos;
 
-    private int unwoundCount
+    protected int unwoundCount
     {
         get => _unwoundCount;
 
@@ -88,30 +87,63 @@ public class DepthC2_SceneController : Base_SceneController
             _unwoundCount = value;
             if (_unwoundCount >= UNWOUND_COUNT_GOAL)
             {
-                Logger.Log($"모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
-                OnStepMissionComplete(animationNumber:10);
-                _unwoundCount = 0;//초기화 
+                if (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 6)
+                {
+                    Logger.Log($"평가하기: 커버열고 모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
+                    OnStepMissionComplete(animationNumber:6);
+                    CurrentActiveTool = -1;
+                    isDriverOn = false;
+                    _unwoundCount = 0;
+                }
+
+                if (Managers.ContentInfo.PlayData.Depth1 == 3 )
+                {
+                    Logger.Log($"모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
+                    OnStepMissionComplete(animationNumber:10);
+                    _unwoundCount = 0;//초기화 
+                }
             }
+   
 
 
         }
     }
     private int _woundCount;
 
-    private int woundCount
+    protected int woundCount
     {
         get => _woundCount;
 
         set
         {
-            _woundCount = value;
-            Logger.Log($"나사 조임: {_woundCount}개");
-            if (_woundCount >= UNWOUND_COUNT_GOAL)
+            
+           
+            
+            if (Managers.ContentInfo.PlayData.Depth1 == 3 )
             {
-                Logger.Log($"모든 나사 조임 (10) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
-                OnStepMissionComplete(animationNumber:10,delayAmount:new WaitForSeconds(6f));
-                _woundCount = 0;//초기화 
+                _woundCount = value;
+                Logger.Log($"나사 조임: {_woundCount}개");
+                if (_woundCount >= UNWOUND_COUNT_GOAL)
+                {
+                    
+                    if (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 10)
+                    {
+                        Logger.Log($"평가하기: 모든 나사 조임 (10) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
+                        OnStepMissionComplete(animationNumber:10);
+                        _woundCount = 0;
+                    }
+                    
+                    if (Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Count == 12)
+                    {
+                          Logger.Log($"훈련모드모든 나사 조임 (12) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
+                          OnStepMissionComplete(animationNumber: 12);
+                    _woundCount = 0;//초기화 
+                    }
+                    
+                 
+                }
             }
+          
 
 
         }
@@ -172,6 +204,7 @@ public class DepthC2_SceneController : Base_SceneController
     public override void Init()
     {
         if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") SetDepthNum(); //개발용
+
         base.Init();
         InitializeC2States();
         BindObject(typeof(DepthC_GameObj));
@@ -202,8 +235,8 @@ public class DepthC2_SceneController : Base_SceneController
         UI_ToolBox.ScrewDriverClickedEvent -= OnScrewDriverBtnClicked;
         UI_ToolBox.ScrewDriverClickedEvent += OnScrewDriverBtnClicked;
      
-        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReadyOnDepth3;
-        MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReadyOnDepth3;
+        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
+        MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReady;
 
         cameraController = Camera.main.GetComponent<Inplay_CameraController>();
         currentScrewGaugeStatus = new Dictionary<int, float>();
@@ -511,8 +544,8 @@ public class DepthC2_SceneController : Base_SceneController
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
         
-        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReadyOnDepth3;
-        MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReadyOnDepth3;
+        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
+        MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReady;
         
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
         ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
@@ -663,6 +696,7 @@ public class DepthC2_SceneController : Base_SceneController
          
             OnStepMissionComplete(animationNumber:11, delayAmount: new WaitForSeconds(6f));
         });
+        
 #endregion
  
 
@@ -674,7 +708,7 @@ public class DepthC2_SceneController : Base_SceneController
 
     }
     
-    private void OnResistanceReadyOnDepth3()
+    protected virtual void OnResistanceReady()
     {
       
         
@@ -684,7 +718,8 @@ public class DepthC2_SceneController : Base_SceneController
         if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 14)
             OnStepMissionComplete(animationNumber:14, delayAmount: new WaitForSeconds(1f));
     }
-    private void OnUI_Btn_TemperatureSensorClicked()
+    
+    protected virtual void OnUI_Btn_TemperatureSensorClicked()
     {
         if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5 )
         {
@@ -702,7 +737,7 @@ public class DepthC2_SceneController : Base_SceneController
         
     }
 
-    private void PowerOnOff(bool isOn)
+    protected virtual void PowerOnOff(bool isOn)
     {
         if (Managers.ContentInfo.PlayData.Count == 3)
         {
@@ -719,7 +754,7 @@ public class DepthC2_SceneController : Base_SceneController
 
 
 
-    protected override void UnbindStaticEvents()
+    protected  void UnbindStaticEvents()
     {
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
@@ -727,7 +762,7 @@ public class DepthC2_SceneController : Base_SceneController
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.ScrewDriverClickedEvent -= OnScrewDriverBtnClicked;
-        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReadyOnDepth3;
+        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
         
     }
 
@@ -746,8 +781,6 @@ public class DepthC2_SceneController : Base_SceneController
     {
         multimeterController = GetObject((int)DepthC_GameObj.Multimeter).GetComponent<MultimeterController>();
         
-        
-     
         currentScrewGaugeStatus = new Dictionary<int, float>();
         
         
@@ -933,7 +966,7 @@ public class DepthC2_SceneController : Base_SceneController
 
     }
 
-    private void OnToolBoxClicked()
+    protected virtual void OnToolBoxClicked()
     {
         Logger.Log("Toolbox Click event : 툴박스 클릭 이벤트 10 ------------------");
         if (Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 11 )
@@ -942,18 +975,7 @@ public class DepthC2_SceneController : Base_SceneController
         }
     }
 
-    private void OnStepMissionComplete(int objectEnumToInt = -1, int animationNumber = -123456789,
-        WaitForSeconds delayAmount = null, Action delayedAction = null)
-    {
-        if (objectEnumToInt != -1 && objectHighlightMap.ContainsKey(objectEnumToInt) &&
-            objectHighlightMap[objectEnumToInt].ignore)
-        {
-            Logger.Log("클릭불가 상태 ,오브젝트가 없거나 하이라이트 ignore 상태입니다.");
 
-        }
-
-        StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayAmount, delayedAction));
-    }
 
 
     private float _gaugeDelay = 1.05f;
@@ -994,7 +1016,7 @@ public class DepthC2_SceneController : Base_SceneController
     }
 
     public bool isWindSession = false;
-    private void UpdateDriverSliderUnwind(int screwID)
+    protected void UpdateDriverSliderUnwind(int screwID)
     {
 
         
@@ -1031,7 +1053,7 @@ public class DepthC2_SceneController : Base_SceneController
         contentController.UI_DrverOnly_GaugeSlider.value += 0.007f;
 
 
-        Logger.Log($"Wind logic : 현재 풀기 Value -->{ contentController.UI_DrverOnly_GaugeSlider.value}");
+        //Logger.Log($"Wind logic : 현재 풀기 Value -->{ contentController.UI_DrverOnly_GaugeSlider.value}");
         
         currentScrewGaugeStatus[screwID] = contentController.UI_DrverOnly_GaugeSlider.value;
 
@@ -1045,7 +1067,7 @@ public class DepthC2_SceneController : Base_SceneController
             
             //animatorMap[screwID].Update(playbackAmount);
 
-            if (contentController.UI_DrverOnly_GaugeSlider.value > 0.95f)
+            if (contentController.UI_DrverOnly_GaugeSlider.value > 0.8f)
             {
                 
                 animatorMap[screwID].Play("UnScrew", 0, 1);
@@ -1064,9 +1086,11 @@ public class DepthC2_SceneController : Base_SceneController
     private bool CheckDriverUsability()
     {
         if (((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 12) ||
+              (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)||
               (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6) ||
               (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)
+              (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 6)||
+              (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 10)
             )) return true;
         else
         {
@@ -1075,7 +1099,7 @@ public class DepthC2_SceneController : Base_SceneController
         }
     }
     
-    private void UpdateDriverSliderWind(int screwID)
+    protected void UpdateDriverSliderWind(int screwID)
     {
         if (!isWindSession) return;
         // Depth3가 1이고 Count가 11인 경우, 또는 Depth3가 3이고 Count가 6 또는 12인 경우에는 계속 진행
@@ -1136,7 +1160,7 @@ public class DepthC2_SceneController : Base_SceneController
                 isScrewWindMap[screwID] = true;
                 animatorMap[screwID].enabled = false;
                 
-                unwoundCount++;
+                woundCount++;
                 TurnOffCollider(screwID);
                 
                 _driveroundSequence?.Kill();
@@ -1150,65 +1174,7 @@ public class DepthC2_SceneController : Base_SceneController
     }
 
     
-    private IEnumerator OnStepMissionCompleteCo(int currentStepNum, WaitForSeconds waitForSeconds = null,
-        Action ActionBeforeNextStep = null)
-    {
-
-        var currentStepNumCache = currentStepNum; 
-        
-        if(contentController.isStepMissionComplete)
-        {
-            Logger.Log("애니메이션 재생중. 중복실행 X XXXXXXX");
-            yield break;
-        }
-
-        contentController.isStepMissionComplete = true;
-       
-        if (Managers.ContentInfo.PlayData.Count != currentStepNum)
-            Debug.LogWarning("현재 애니메이션 재생과 카운트 불일치.. 다른 애니메이션이거나 여러 곳 사용되는 애니메이션일 수 있습니다.");
-
-        
-        
-        PlayAnimationAndNarration(currentStepNum, isServeAnim: true);
-        Logger.Log($"서브 애니이션 재생: {currentStepNum}");
-        
-        ActionBeforeNextStep?.Invoke();
-        
-    
-        if (waitForSeconds != null)
-        {
-            _waitBeforeNextStep = waitForSeconds;
-        }
-
-        if (_waitBeforeNextStep == null)
-        {
-            _waitBeforeNextStep = new WaitForSeconds(_waitBeforeNextStepSeconds);
-        }
-
-
-     
-        
-        OnMissionFinish(); //사운드 재생 등 성공처리
-
-        yield return _waitBeforeNextStep;
-
-        
-
-        Logger.Log($"작업 수행을 통한 다음 이벤트 재생 :--------------- {Managers.ContentInfo.PlayData.Count}-");
-       
-        
-        if(currentStepNumCache == Managers.ContentInfo.PlayData.Count)
-        {contentController.InvokeNextStep(); // 다음 스텝으로 넘어가기
-        }
-        else
-        {
-            Debug.Log("실행하고자하는 다음스텝과 현재 스텝이 달라 미션수행을 통한 다음 스텝 재생을 실행하지 않습니다-----" +
-                      $"\n현재스텝: {Managers.ContentInfo.PlayData.Count}, 실행하고자 하는 스텝 {currentStepNumCache}");
-        }
-        yield return _waitBeforeNextStep;
-      
-      //  isSceneAnimationPlayingToProtectDoublePlaying = false;
-    }
+  
 
     private void OnMissionFinish()
     {
@@ -1261,7 +1227,7 @@ public class DepthC2_SceneController : Base_SceneController
     }
 
 
-    private void Update()
+    protected virtual void Update()
     {
         SetToolPos();
     }
@@ -1270,7 +1236,7 @@ public class DepthC2_SceneController : Base_SceneController
     [FormerlySerializedAs("_multimeterController")]
     public MultimeterController multimeterController;
 
-    private void SetToolPos()
+    protected virtual void SetToolPos()
     {
         var distanceFromCamera = 0.09f;
         var mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x + _toolPosXOffset,
@@ -1347,7 +1313,7 @@ public class DepthC2_SceneController : Base_SceneController
     
     
 
-    public void OnUI_MultimeterBtnClicked()
+    protected virtual void OnUI_MultimeterBtnClicked()
     {
         if (Managers.ContentInfo.PlayData.Depth2 != 2) return;
         
@@ -1377,11 +1343,11 @@ public class DepthC2_SceneController : Base_SceneController
         }
     }
 
-    private void InitializeTool()
+    protected void InitializeTool()
     {
 
+        CurrentActiveTool = -1;
         ToggleActiveState(GetObject((int)DepthC_GameObj.ElectricScrewdriver), false);
-
         animatorMap[(int)DepthC_GameObj.Multimeter].SetBool(PROBE_TO_SCREWB, false); // 멀티미터는 active상태로 유지합니다.
     }
 
@@ -1505,12 +1471,12 @@ public class DepthC2_SceneController : Base_SceneController
             { 32211, new DepthC22_State_11(this) },
             { 32212, new DepthC22_State_12(this) },
             { 32213, new DepthC22_State_13(this) },
-            { 32214, new DepthC22_State_14(this) },
-            { 32215, new DepthC22_State_15(this) },
-            { 32216, new DepthC22_State_16(this) },
-            { 32217, new DepthC22_State_17(this) },
-            { 32218, new DepthC22_State_18(this) },
-            { 32219, new DepthC22_State_19(this) },
+            // { 32214, new DepthC22_State_14(this) },
+            // { 32215, new DepthC22_State_15(this) },
+            // { 32216, new DepthC22_State_16(this) },
+            // { 32217, new DepthC22_State_17(this) },
+            // { 32218, new DepthC22_State_18(this) },
+            // { 32219, new DepthC22_State_19(this) },
             
             
             { 3231, new DepthC23_State_1(this) },

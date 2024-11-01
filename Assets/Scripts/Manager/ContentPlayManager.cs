@@ -21,14 +21,17 @@ public class ContentPlayData : MonoBehaviour
     {
         { 11, 1 }, 
         { 12, 5 },
+        
         { 21, 1 },
         { 22, 1 },
-        { 23, 3 },
+        { 23, 2 },
+        
         { 31, 3 },
         { 32, 3 },
         { 33, 3 },
         { 34, 3 },
         { 35, 3 },
+        
         { 41, 1 },
         { 42, 1 },
         { 43, 1 },
@@ -62,43 +65,43 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int COUNT_MAX_DEPTH111 = 25;
     public static readonly int COUNT_MAX_DEPTH112 = 25;
     
-    // 최대 State 갯수 + 1 (마지막 상태에서 새로운 뎁스 로드 및 초기화) 
-     
-    public static readonly int COUNT_MAX_DEPTH211 = 3;
-    public static readonly int COUNT_MAX_DEPTH212 = 3;
-    public static readonly int COUNT_MAX_DEPTH213 = 3;
-    public static readonly int COUNT_MAX_DEPTH221 = 3;
-    public static readonly int COUNT_MAX_DEPTH222 = 3;
-    public static readonly int COUNT_MAX_DEPTH223 = 3;
-    public static readonly int COUNT_MAX_DEPTH231 = 3;
-    public static readonly int COUNT_MAX_DEPTH232 = 3;
-    public static readonly int COUNT_MAX_DEPTH233 = 3;
+    // 최대 State 및 스크립트 갯수 + 1 (마지막 상태에서 새로운 뎁스 로드 및 초기화) 
+    
+    public static readonly int COUNT_MAX_DEPTH211 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH212 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH213 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH221 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH222 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH223 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH231 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH232 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH233 = 3 + 1;
 
-    public static readonly int COUNT_MAX_DEPTH311 = 3;
-    public static readonly int COUNT_MAX_DEPTH312 = 3;
-    public static readonly int COUNT_MAX_DEPTH313 = 3;
+    public static readonly int COUNT_MAX_DEPTH311 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH312 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH313 = 3 + 1;
 
-    public static readonly int COUNT_MAX_DEPTH321 = 17;
-    public static readonly int COUNT_MAX_DEPTH322 = 11;
-    public static readonly int COUNT_MAX_DEPTH323 = 14;
+    public static readonly int COUNT_MAX_DEPTH321 = 17 + 1;
+    public static readonly int COUNT_MAX_DEPTH322 = 11 + 1;
+    public static readonly int COUNT_MAX_DEPTH323 = 14 + 1;
        
-    public static readonly int COUNT_MAX_DEPTH331 = 3;
-    public static readonly int COUNT_MAX_DEPTH332 = 3;
-    public static readonly int COUNT_MAX_DEPTH333 = 3;
+    public static readonly int COUNT_MAX_DEPTH331 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH332 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH333 = 3 + 1;
 
-    public static readonly int COUNT_MAX_DEPTH341 = 3;
-    public static readonly int COUNT_MAX_DEPTH342 = 3;
-    public static readonly int COUNT_MAX_DEPTH343 = 3;
+    public static readonly int COUNT_MAX_DEPTH341 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH342 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH343 = 3 + 1;
 
-    public static readonly int COUNT_MAX_DEPTH351 = 3;
-    public static readonly int COUNT_MAX_DEPTH352 = 3;
-    public static readonly int COUNT_MAX_DEPTH353 = 3;
+    public static readonly int COUNT_MAX_DEPTH351 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH352 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH353 = 3 + 1;
    
-    public static readonly int COUNT_MAX_DEPTH401 = 3;
-    public static readonly int COUNT_MAX_DEPTH402 = 3;
-    public static readonly int COUNT_MAX_DEPTH403 = 3;
-    public static readonly int COUNT_MAX_DEPTH404 = 3;
-    public static readonly int COUNT_MAX_DEPTH405 = 3;
+    public static readonly int COUNT_MAX_DEPTH401 = 11 + 1;
+    public static readonly int COUNT_MAX_DEPTH402 = 10 + 1;
+    public static readonly int COUNT_MAX_DEPTH403 = 10 + 1;
+    public static readonly int COUNT_MAX_DEPTH404 = 10 + 1;
+    public static readonly int COUNT_MAX_DEPTH405 = 10 + 1;
     
     private static readonly Dictionary<string, int> DepthCountMaxDictionary = new Dictionary<string, int>
     {

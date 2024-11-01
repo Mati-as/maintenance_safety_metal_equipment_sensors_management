@@ -42,23 +42,10 @@ public class DepthC22_State_1 : Base_SceneState
 public class DepthC22_State_2 : Base_SceneState
 {
     public DepthC22_State_2(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-    }
-
-    public override void OnEnter()
-    {
-        base.OnEnter();
-     
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+    {}
+    public override void OnEnter() {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC22_State_3 : Base_SceneState
@@ -67,20 +54,9 @@ public class DepthC22_State_3 : Base_SceneState
     {
     }
 
-    public override void OnEnter()
-    {
-
-        base.OnEnter();
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+    public override void OnEnter() {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC22_State_4 : Base_SceneState
@@ -98,12 +74,6 @@ public class DepthC22_State_4 : Base_SceneState
         
        // CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         base.OnEnter();
-      
-        
-    }
-
-    public override void OnStep()
-    {
     }
 
     public override void OnExit()
@@ -127,17 +97,8 @@ public class DepthC22_State_5 : Base_SceneState
         base.OnEnter();
 
     }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-     
-        base.OnExit();
-       
-    }
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC22_State_6 : Base_SceneState
@@ -154,38 +115,16 @@ public class DepthC22_State_6 : Base_SceneState
         base.OnEnter();
        
     }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-       
-    }
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC22_State_7 : Base_SceneState
 {
-    public DepthC22_State_7(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-    }
-
-    public override void OnEnter()
-    {
-        base.OnEnter();
-       
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-       
-    }
+    public DepthC22_State_7(DepthC2_SceneController currentScene) : base(currentScene){}
+    public override void OnEnter() {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC22_State_8 : Base_SceneState
@@ -237,10 +176,7 @@ public class DepthC22_State_8 : Base_SceneState
       
     }
 
-    public override void OnStep()
-    {
-    }
-
+ 
     public override void OnExit()
     {
         base.OnExit();
@@ -293,15 +229,8 @@ public class DepthC22_State_9 : Base_SceneState
         base.OnEnter();
         
     }
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-       
-    }
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC22_State_10 : Base_SceneState
@@ -440,22 +369,9 @@ public class DepthC22_State_12 : Base_SceneState
         _depthC2SceneController = currentScene;
     }
 
-    public override void OnEnter()
-    {
-        
-        
-     
-        base.OnEnter();
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+    public override void OnEnter() {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC22_State_13 : Base_SceneState
@@ -466,167 +382,8 @@ public class DepthC22_State_13 : Base_SceneState
      
     }
 
-    public override void OnEnter()
-    {
-        base.OnEnter();
-        
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-       
-        base.OnExit();
-    }
+    public override void OnEnter() {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
-public class DepthC22_State_14 : Base_SceneState
-{
-    
-    public DepthC22_State_14(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-       
-    }
-
-    
-
-    public override void OnEnter()
-    {
-        base.OnEnter();
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
-}
-
-
-public class DepthC22_State_15 : Base_SceneState
-{
-    DepthC2_SceneController _depthC2SceneController;
-    public DepthC22_State_15(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-        _depthC2SceneController = currentScene;
-    }
-
-    public override void OnEnter()
-    {
-      
-        base.OnEnter();
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
-}
-
-
-public class DepthC22_State_16 : Base_SceneState
-{
-    public DepthC22_State_16(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-    }
-
-    public override void OnEnter()
-    {
-        base.OnEnter();
-     
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
-}
-
-
-public class DepthC22_State_17 : Base_SceneState
-{
-    public DepthC22_State_17(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-    }
-
-    public override void OnEnter()
-    {
-        base.OnEnter();
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
-}
-
-
-public class DepthC22_State_18 : Base_SceneState
-    {
-        public DepthC22_State_18(DepthC2_SceneController currentScene) : base(currentScene)
-        {
-        }
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-         
-            
-            
-        }
-
-        public override void OnStep()
-        {
-           
-        }
-
-        public override void OnExit()
-        {
-         
-            
-        }
-
-
-    }
-
-
-    public class DepthC22_State_19 : Base_SceneState
-    {
-        public DepthC22_State_19(DepthC2_SceneController currentScene) : base(currentScene)
-        {
-        }
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void OnStep()
-        {
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        
-        }
-    
-    }

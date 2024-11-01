@@ -13,7 +13,10 @@ public class Managers : MonoBehaviour
     private static UIManager s_uiManager = new();
     private static ContentPlayManager s_contentPlayManager = new(); 
     private static ResourceManager s_resourceManager = new ResourceManager();
+    private static EvaluationManager s_evaluationManager = new();
     
+    
+    //controller로  이름 변경우 UIManager로 통합예정 11/1 민석
     private static CursorImageManager s_cursorImageManager= new CursorImageManager();
     public static CursorImageManager cursorImageManager
     {  

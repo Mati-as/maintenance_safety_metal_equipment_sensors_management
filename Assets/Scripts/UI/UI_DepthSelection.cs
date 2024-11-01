@@ -67,6 +67,21 @@ public class UI_DepthSelection : UI_Popup
         Managers.ContentInfo.PlayData.Count = 1;
         OnDepth1Enter();
     }
+    private void OnDepthDtnCClicked()
+    {
+        // Managers.UI.ClosePopupUI(this);
+#if UNITY_EDITOR
+        Debug.Log("Depth 3 계측 센서 정비 Start");
+#endif
+
+        Managers.Scene.LoadScene(SceneType.DepthD2);
+        Managers.ContentInfo.PlayData.Depth1 = 4;
+        Managers.ContentInfo.PlayData.Depth2 = 2;  //구현 부분뎁스만큼 수정해야합니다.
+        Managers.ContentInfo.PlayData.Depth3 = 1;
+        Managers.ContentInfo.PlayData.Count = 1;
+        OnDepth1Enter();
+    }
+
 
     private void OnDepth1Enter()
     {

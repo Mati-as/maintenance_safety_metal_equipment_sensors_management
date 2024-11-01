@@ -43,7 +43,8 @@ public class UI_ContentController : UI_Popup
         Toggle_Depth2_B,
         Toggle_Depth2_C,
         Toggle_Depth2_D,
-        Toggle_Depth2_E
+        Toggle_Depth2_E,
+        Toggle_Depth2_Count
     }
 
     public enum UI
@@ -340,10 +341,10 @@ public class UI_ContentController : UI_Popup
         GetButton((int)Btns.Btn_TopMenu_Hide).gameObject.BindEvent(OnTopMenuAnimBtnClicked);
     }
 
- 
+
     private void InitDepth2Toggles()
     {
-        for (var i = 0; i < 5; i++)
+        for (var i = (int)Toggles.Toggle_Depth2_A; i < (int)Toggles.Toggle_Depth2_Count; i++)
         {
             Logger.Log($"Depth2 Banner Toggled {i}");
             var toggle = GetToggle((int)Toggles.Toggle_Depth2_A + i);
@@ -353,35 +354,46 @@ public class UI_ContentController : UI_Popup
                 Logger.LogWarning($"Depth 2 Btn {i} is null");
                 continue;
             }
-            int toggleIndex = i;
+
+            var toggleIndex = i;
 
             if (GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable)
             {
-                if (Managers.ContentInfo.PlayData.Depth3 == 3 && i == (int)Toggles.Toggle_Depth2_A ||
-                    Managers.ContentInfo.PlayData.Depth3 == 1 && i == (int)Toggles.Toggle_Depth2_A ||
-                    Managers.ContentInfo.PlayData.Depth3 == 1 && i == (int)Toggles.Toggle_Depth2_B )
-                {
-                    GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable = true;
+                // 구현된 부분만 활성화 및 클릭상태가 될 수 있도록될 수 있도록 구성 ----------------------------------------------
+                if ((Managers.ContentInfo.PlayData.Depth1 == 3 && i == (int)Toggles.Toggle_Depth2_B) ||
                     
+                    (Managers.ContentInfo.PlayData.Depth1 == 1 && i == (int)Toggles.Toggle_Depth2_A) ||
+                    (Managers.ContentInfo.PlayData.Depth1 == 1 && i == (int)Toggles.Toggle_Depth2_B) ||
+                    
+                    (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_A) ||
+                    (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_B) ||
+                    (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_C) ||
+                    (Managers.ContentInfo.PlayData.Depth1 == 4 && i == (int)Toggles.Toggle_Depth2_B)
+                   )
+                {
+                    if (Managers.ContentInfo.PlayData.Depth1 == 1) GetToggle((int)Toggles.Toggle_Depth2_A).isOn = true;
+                    if (Managers.ContentInfo.PlayData.Depth1 == 2) GetToggle((int)Toggles.Toggle_Depth2_A).isOn = true;
+                    if (Managers.ContentInfo.PlayData.Depth1 == 3) GetToggle((int)Toggles.Toggle_Depth2_B).isOn = true;
+                    if (Managers.ContentInfo.PlayData.Depth1 == 4) GetToggle((int)Toggles.Toggle_Depth2_B).isOn = true;
+              
+                    GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable = true;
+
                     toggle.gameObject.BindEvent(() =>
-                    { 
+                    {
                         OnDepth2Clicked(toggleIndex + 1); // use the local copy
                     });
-                    Logger.Log($"Depth{ Managers.ContentInfo.PlayData.Depth3} 부분 구현 상태..{(Toggles)i} 활성화");
-                    
+                    Logger.Log($"Depth{Managers.ContentInfo.PlayData.Depth3} 부분 구현 상태..{(Toggles)i} 활성화");
                 }
                 else
                 {
-             
                     GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable = false;
                 }
-         
             }
-          
+
             _depth2Toggles[(int)Toggles.Toggle_Depth2_A + i] = toggle;
         }
 
-        _depth2Toggles[Managers.ContentInfo.PlayData.Depth2].isOn = true;
+
     }
 
     private void InitDepth3Buttons()
@@ -460,9 +472,9 @@ public class UI_ContentController : UI_Popup
         for (var i = 0; i < texts.Length; i++) texts[i] = GetTMP(i);
 
         
-        GetToggle((int)Toggles.Toggle_Depth2_B).isOn = true;
+        //GetToggle((int)Toggles.Toggle_Depth2_B).isOn = true;
         GetObject((int)UI.UI_ToolTip).SetActive(false);
-        ShowOrHideNextPrevBtns(false);
+        SetNextPrevBtnsActiveStatus(false);
     }
 
 
@@ -524,17 +536,44 @@ public class UI_ContentController : UI_Popup
     }
 
 
-    private void ShowOrHideNextPrevBtns(bool isOn = true)
+    private void SetNextPrevBtnsActiveStatus(bool isOn = true)
     {
-        GetButton((int)Btns.Btn_Prev).enabled = isOn;
-        GetButton((int)Btns.Btn_Next).enabled = isOn;
-        var fade = isOn ? 1 : 0;
-        var speed = isOn ? 1 : 0;
-        var scale = isOn ? 1 : 0;
-        GetButton((int)Btns.Btn_Prev).gameObject.transform.localScale = Vector3.one * scale;
-        GetButton((int)Btns.Btn_Next).gameObject.transform.localScale = Vector3.one * scale;
-        GetButton((int)Btns.Btn_Prev).GetComponent<Image>().DOFade(fade, speed);
-        GetButton((int)Btns.Btn_Next).GetComponent<Image>().DOFade(fade, speed);
+        // depth4의 평가하기에서, 인트로 이외에는 버튼 표시가 진행되지 않음
+
+
+        // 아래 부분은 씬로드 및 초기화 부분에만 사용됨에 주의
+        if (Depth4PrevNextBtnShowConditionCheck())
+        {
+  
+            SetButtonState((int)Btns.Btn_Next, true);
+            SetButtonState((int)Btns.Btn_Prev, false);
+        
+            return;
+        }
+        
+
+        SetButtonState((int)Btns.Btn_Prev, isOn);
+        SetButtonState((int)Btns.Btn_Next, isOn);
+    }
+
+    private bool Depth4PrevNextBtnShowConditionCheck()
+    {
+        // Depth1이 4이고, Count가 0 또는 1일 때만 켜짐
+        return Managers.ContentInfo.PlayData.Depth1 == 4 &&
+               (Managers.ContentInfo.PlayData.Count == 0 );
+    }
+
+    private void SetButtonState(int buttonIndex, bool isOn)
+    {
+        var button = GetButton(buttonIndex);
+        button.enabled = isOn;
+
+        float fade = isOn ? 1 : 0;
+        float speed = isOn ? 1 : 0;
+        float scale = isOn ? 1 : 0;
+
+        button.gameObject.transform.localScale = Vector3.one * scale;
+        button.GetComponent<Image>().DOFade(fade, speed);
     }
 
     
@@ -869,6 +908,15 @@ public class UI_ContentController : UI_Popup
 
     private void Precheck()
     {
+        
+        if (!Depth4PrevNextBtnShowConditionCheck())
+        {
+            SetNextPrevBtnsActiveStatus(false);
+        
+            return;
+        }
+        
+        
         if (!clickable)
         {
             Logger.Log("Clicking Too Fast");
@@ -1003,7 +1051,7 @@ public class UI_ContentController : UI_Popup
         UI_AnimSeq.AppendCallback(() =>
         {
            
-            ShowOrHideNextPrevBtns();
+            SetNextPrevBtnsActiveStatus();
         });
         UI_AnimSeq.OnKill(() =>
         {
@@ -1020,7 +1068,7 @@ public class UI_ContentController : UI_Popup
     {
         if (!isTrainingInfoOn)
         {
-            ShowOrHideNextPrevBtns();
+            SetNextPrevBtnsActiveStatus();
             return;
         } 
         

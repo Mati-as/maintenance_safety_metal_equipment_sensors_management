@@ -11,7 +11,8 @@ public enum SceneType
     Main,
     Depth1A,
     Depth1B,
-    DepthC2
+    DepthC2,
+    DepthD2,
 }
 
 /// <summary>

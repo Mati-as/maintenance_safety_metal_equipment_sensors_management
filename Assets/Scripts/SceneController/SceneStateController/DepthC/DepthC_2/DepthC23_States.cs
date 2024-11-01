@@ -21,14 +21,9 @@ public class DepthC23_State_1 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+  
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC23_State_2 : Base_SceneState
@@ -47,26 +42,15 @@ public class DepthC23_State_2 : Base_SceneState
 
         base.OnEnter();
     }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC23_State_3 : Base_SceneState
 {
     private readonly DepthC2_SceneController _depthC2SceneController;
 
-    public DepthC23_State_3(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-        _depthC2SceneController = currentScene;
-    }
-
+    public DepthC23_State_3(DepthC2_SceneController currentScene) : base(currentScene) {_depthC2SceneController = currentScene;}
     public override void OnEnter()
     {
         _depthC2SceneController.controlPanel.SetPowerHandleOn();
@@ -76,9 +60,8 @@ public class DepthC23_State_3 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
+  
+    public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -104,9 +87,7 @@ public class DepthC23_State_4 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -132,9 +113,7 @@ public class DepthC23_State_5 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -172,9 +151,7 @@ public class DepthC23_State_6 : Base_SceneState
     }
 
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -258,9 +235,7 @@ public class DepthC23_State_7 : Base_SceneState
     }
 
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -345,14 +320,9 @@ public class DepthC23_State_8 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+   
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 
@@ -370,7 +340,7 @@ public class DepthC23_State_9 : Base_SceneState
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus(true);
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
-        _depthC2SceneController.multimeterController.TurnOffResistantModeAndHandle();
+        _depthC2SceneController.multimeterController.TurnOffResistantMode();
         _depthC2SceneController.GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(false);
         _depthC2SceneController.GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(false);
 
@@ -378,14 +348,9 @@ public class DepthC23_State_9 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
 
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC23_State_10 : Base_SceneState
@@ -436,9 +401,7 @@ public class DepthC23_State_10 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -463,15 +426,12 @@ public class DepthC23_State_11 : Base_SceneState
         CurrentScene.contentController.isStepMissionPerformable = true;
 
         _depthC2SceneController.isAnodePut = false;
-
         _depthC2SceneController.multimeterController.OnGroundNothing();
 
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
-  
-
-
+        
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode]
@@ -491,9 +451,7 @@ public class DepthC23_State_11 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -573,9 +531,7 @@ public class DepthC23_State_12 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -660,9 +616,7 @@ public class DepthC23_State_14 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -691,9 +645,7 @@ public class DepthC23_State_15 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -713,9 +665,7 @@ public class DepthC23_State_16 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
+     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
@@ -724,66 +674,3 @@ public class DepthC23_State_16 : Base_SceneState
 }
 
 
-public class DepthC23_State_17 : Base_SceneState
-{
-    public DepthC23_State_17(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-    }
-
-    public override void OnEnter()
-    {
-        base.OnEnter();
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
-}
-
-
-public class DepthC23_State_18 : Base_SceneState
-{
-    public DepthC23_State_18(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-    }
-
-    public override void OnEnter()
-    {
-        base.OnEnter();
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-    }
-}
-
-
-public class DepthC23_State_19 : Base_SceneState
-{
-    public DepthC23_State_19(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-    }
-
-    public override void OnEnter()
-    {
-        base.OnEnter();
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
-}

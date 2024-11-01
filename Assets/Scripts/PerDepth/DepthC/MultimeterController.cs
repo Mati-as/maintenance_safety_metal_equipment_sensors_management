@@ -126,7 +126,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         isResistanceMode = true;
     }
 
-    public void TurnOffResistantModeAndHandle()
+    public void TurnOffResistantMode()
     {
         _currentClickCount = 0;
         var cacheCurrentAngle = currentAngle;
@@ -234,10 +234,11 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         _guideImageSeq.AppendInterval(isOn ? 1.0f : 0);
         _guideImageSeq.AppendCallback(()=>
         {
-            _guideImage.DOFade(isOn ? 1 : 0, 1f);
+            _guideImage.DOFade(isOn ? 1 : 0, 0.75f);
         });
 
     }
+
 
     public void OnDrag(PointerEventData eventData)
     {

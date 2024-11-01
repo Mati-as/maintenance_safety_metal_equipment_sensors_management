@@ -28,11 +28,11 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
     
 
     private float resistantTarget = 10;
-    private bool _isPowerOn;
+    private bool _isPowerOn=true;
     private const bool INITIAL_STATUS =  true;
 
     private bool _isClickable =true;
-    private float _clikableDelay=1.5f;
+    private float _clikableDelay=3.5f;
 
     public bool isPowerOn
     {
@@ -52,7 +52,8 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
     {
         BindObject(typeof(ControlPanel));
 
-        //TurnOnPowerHandle();
+        GetObject((int)ControlPanel.PowerHandle).transform
+            .localRotation = Quaternion.Euler(0, ON_ANGLE, 0f);
     }
 
     public void OnPointerDown(PointerEventData eventData)

@@ -27,16 +27,9 @@ public class DepthC21_State_1 : Base_SceneState
       
     }
 
-    public override void OnStep()
-    {
-    }
+    public override void OnStep(){base.OnStep();}
 
-    public override void OnExit()
-    {
-        
-        
-        base.OnExit();
-    }
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC21_State_2 : Base_SceneState
@@ -50,59 +43,27 @@ public class DepthC21_State_2 : Base_SceneState
         CurrentScene.contentController.SetScriptUI();
         base.OnEnter();
     }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+    
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC21_State_3 : Base_SceneState
 {
-    public DepthC21_State_3(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-    }
+    public DepthC21_State_3(DepthC2_SceneController currentScene) : base(currentScene){}
 
-    public override void OnEnter()
-    {
-
-        base.OnEnter();
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+    public override void OnEnter(){base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC21_State_4 : Base_SceneState
 {
-    public DepthC21_State_4(DepthC2_SceneController currentScene) : base(currentScene)
-    {
-    }
+    public DepthC21_State_4(DepthC2_SceneController currentScene) : base(currentScene){}
 
-    public override void OnEnter()
-    {
-        base.OnEnter();
-      
-    }
-
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
+    public override void OnEnter(){base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC21_State_5 : Base_SceneState
@@ -172,15 +133,8 @@ public class DepthC21_State_7 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-       
-    }
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC21_State_8 : Base_SceneState
@@ -321,15 +275,10 @@ public class DepthC21_State_11 : Base_SceneState
         base.OnEnter();
     }
 
-    public override void OnStep()
-    {
-    }
 
-    public override void OnExit()
-    {
-        base.OnExit();
-      
-    }
+    
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
 }
 
 public class DepthC21_State_12 : Base_SceneState
@@ -513,7 +462,7 @@ public class DepthC21_State_14 : Base_SceneState
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
         _depthC2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
         
-        _depthC2SceneController.multimeterController.TurnOffResistantModeAndHandle();
+        _depthC2SceneController.multimeterController.TurnOffResistantMode();
         
         _depthC2SceneController.HighlightBlink((int)DepthC_GameObj.MultimeterHandleHighlight);
      
@@ -701,55 +650,3 @@ public class DepthC21_State_17 : Base_SceneState
 }
 
 
-//
-// public class DepthC21_State_18 : Base_SceneState
-//     {
-//         public DepthC21_State_18(Depth1C_SceneController currentScene) : base(currentScene)
-//         {
-//         }
-//
-//         public override void OnEnter()
-//         {
-//             base.OnEnter();
-//          
-//             
-//             
-//         }
-//
-//         public override void OnStep()
-//         {
-//            
-//         }
-//
-//         public override void OnExit()
-//         {
-//          
-//             
-//         }
-//
-//
-//     }
-//
-//
-//     public class DepthC21_State_19 : Base_SceneState
-//     {
-//         public DepthC21_State_19(Depth1C_SceneController currentScene) : base(currentScene)
-//         {
-//         }
-//
-//         public override void OnEnter()
-//         {
-//             base.OnEnter();
-//         }
-//
-//         public override void OnStep()
-//         {
-//         }
-//
-//         public override void OnExit()
-//         {
-//             base.OnExit();
-//         
-//         }
-//     
-//    }

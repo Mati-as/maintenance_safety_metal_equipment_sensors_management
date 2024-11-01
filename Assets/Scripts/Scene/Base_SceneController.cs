@@ -13,7 +13,8 @@ using Object = UnityEngine.Object;
 public class Base_SceneController : MonoBehaviour, ISceneController
 {
    
-
+    private WaitForSeconds _waitBeforeNextStep;
+    private readonly float _waitBeforeNextStepSeconds = 2;
     public int CurrentActiveTool;
     protected readonly int NO_TOOL_SELECTED = -1;
  
@@ -91,7 +92,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         UI_ContentController.OnDepth2ClickedAction -= OnDepth2IntroOrClickedAction;
         UI_ContentController.OnDepth3ClickedAction -= OnDepth3IntroOrClickedAction;
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChange;
-        UnbindStaticEvents();
     }
     private void OnDepth3IntroOrClickedAction()
     {
@@ -192,6 +192,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     /// <param name="delay"></param>
     /// <param name="isReverse"></param>
     /// <param name="isServeAnim"></param>
+    ///
+    
+    public float currentCilpLength { get; private set; }
     public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false,bool isServeAnim =false)
     {
       
@@ -285,7 +288,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     
         _mainAnimation.Play(clip.name);
         StartCoroutine(CheckAnimationEnd(clip, OnAnimationComplete));
-    
+        currentCilpLength = clip.length;    
 
         Logger.Log($"Animation clip with index {count} is playing.");
       
@@ -326,15 +329,25 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     protected void SetHighlight(int gameObjName, bool isOn = true)
     {
-      
+
+        objectHighlightMap[gameObjName].enabled = true;
         objectHighlightMap[gameObjName].highlighted = isOn;
        objectHighlightMap[gameObjName].outlineWidth = OUTLINE_WIDTH_ON_HOVER;
     }
 
     public void SetHighlightIgnore(int gameObjName, bool isOn = true)
     {
-       
-        objectHighlightMap[gameObjName].ignore = isOn;
+
+        if (objectHighlightMap.ContainsKey(gameObjName))
+        {
+            objectHighlightMap[gameObjName].ignore = isOn;
+            objectHighlightMap[gameObjName].enabled = isOn;
+
+        }
+        else
+        {
+            Debug.LogWarning($"There's no key in highlightmap to ignore : {gameObjName}");
+        }
     }
 
     public void TurnOffAllRegisteredHighlights()
@@ -360,10 +373,15 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         _seqMap[gameObj]= DOTween.Sequence();
         
         objectHighlightMap[(int)gameObj].enabled = true;
+        objectHighlightMap[(int)gameObj].highlighted= true;
         
+        objectHighlightMap[(int)gameObj].innerGlow = 0;
+        objectHighlightMap[(int)gameObj].outlineWidth = 0;
+
         var maxInnerGlow = 0.8f;
         var maxOuterGlow = 1f;
         var duration = 0.55f;
+
 
         
 //        if (_seqMap[(int)gameObj].IsActive()) _seqMap[(int)gameObj].Kill();
@@ -468,12 +486,82 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     #endregion
 
-    
-    protected virtual void UnbindStaticEvents()
+    protected void OnStepMissionComplete(int objectEnumToInt = -1, int animationNumber = -123456789,
+        WaitForSeconds delayAmount = null, Action delayedAction = null)
     {
-      
-    }
+        if (objectEnumToInt != -1 && objectHighlightMap.ContainsKey(objectEnumToInt) &&
+            objectHighlightMap[objectEnumToInt].ignore)
+        {
+            Logger.Log("클릭불가 상태 ,오브젝트가 없거나 하이라이트 ignore 상태입니다.");
 
+        }
+
+        StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayAmount, delayedAction));
+    }
+    
+    protected IEnumerator OnStepMissionCompleteCo(int currentStepNum, WaitForSeconds waitForSeconds = null,
+        Action ActionBeforeNextStep = null)
+    {
+
+        var currentStepNumCache = currentStepNum; 
+        
+        if(contentController.isStepMissionComplete)
+        {
+            Logger.Log("애니메이션 재생중. 중복실행 X XXXXXXX");
+            yield break;
+        }
+
+        contentController.isStepMissionComplete = true;
+       
+        if (Managers.ContentInfo.PlayData.Count != currentStepNum)
+            Debug.LogWarning("현재 애니메이션 재생과 카운트 불일치.. 다른 애니메이션이거나 여러 곳 사용되는 애니메이션일 수 있습니다.");
+
+        
+        
+        PlayAnimationAndNarration(currentStepNum, isServeAnim: true);
+        Logger.Log($"서브 애니이션 재생: {currentStepNum}");
+        
+        ActionBeforeNextStep?.Invoke();
+        
+        if (waitForSeconds == null)
+        {
+            Logger.Log($"waitforsecond is null, wait for currentClipLength..======>{currentCilpLength + 1f}");
+            _waitBeforeNextStep = new WaitForSeconds(currentCilpLength + 1f);
+        }
+    
+        if (waitForSeconds != null)
+        {Logger.Log($"waitforsecond is not null");
+            _waitBeforeNextStep = waitForSeconds;
+        }
+
+  
+
+
+     
+        
+    //    OnMissionFinish(); //사운드 재생 등 성공처리
+
+        yield return _waitBeforeNextStep;
+
+        
+
+        Logger.Log($"작업 수행을 통한 다음 이벤트 재생 :--------------- {Managers.ContentInfo.PlayData.Count}-");
+       
+        
+        if(currentStepNumCache == Managers.ContentInfo.PlayData.Count)
+        {contentController.InvokeNextStep(); // 다음 스텝으로 넘어가기
+        }
+        else
+        {
+            Debug.Log("실행하고자하는 다음스텝과 현재 스텝이 달라 미션수행을 통한 다음 스텝 재생을 실행하지 않습니다-----" +
+                      $"\n현재스텝: {Managers.ContentInfo.PlayData.Count}, 실행하고자 하는 스텝 {currentStepNumCache}");
+        }
+
+      
+        yield return _waitBeforeNextStep;
+      
+        //  isSceneAnimationPlayingToProtectDoublePlaying = false;
+    }
     protected virtual void UnBindEventAttatchedObj()
     {
         
