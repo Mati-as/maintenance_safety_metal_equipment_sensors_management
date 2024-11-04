@@ -55,16 +55,16 @@ public class DepthD2_SceneController : DepthC2_SceneController
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_LockingScrew, "고정나사 체결확인");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "나사");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "보상도선 확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "나사A");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사B");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사C");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalA, "A 접지");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "B 접지");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.PowerHandle, "전원 끄기");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.PowerHandle, "전원");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.NewTemperatureSensor, "새 온도센서");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TankValve, "밸브");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "교체 할 센서");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.MultimeterHandleHighlight, "측정모드 설정");
         
         SetScrewDriverSection();
         
@@ -253,7 +253,10 @@ public class DepthD2_SceneController : DepthC2_SceneController
             if(!isOn) OnStepMissionComplete(animationNumber:3);
         }
        
-        
+        if (Managers.ContentInfo.PlayData.Count == 11)
+        {
+            if(isOn) OnStepMissionComplete(animationNumber:11);
+        }
     }
 
 

@@ -5,9 +5,10 @@ public class UI_DepthSelection : UI_Popup
 {
     private enum DepthBtns
     {
-        Btn_Depth1A,
-        Btn_Depth1B,
-        Btn_Depth1C
+        Btn_DepthA,
+        Btn_DepthB,
+        Btn_DepthC2,
+        Btn_DepthD2
     }
 
 
@@ -17,9 +18,10 @@ public class UI_DepthSelection : UI_Popup
             return false;
         BindButton(typeof(DepthBtns));
 
-        GetButton((int)DepthBtns.Btn_Depth1A).gameObject.BindEvent(OnDepthBtnAClicked);
-        GetButton((int)DepthBtns.Btn_Depth1B).gameObject.BindEvent(OnDepthBtnBClicked);
-        GetButton((int)DepthBtns.Btn_Depth1C).gameObject.BindEvent(OnDepthCtnCClicked);
+        GetButton((int)DepthBtns.Btn_DepthA).gameObject.BindEvent(OnDepthBtnAClicked);
+        GetButton((int)DepthBtns.Btn_DepthB).gameObject.BindEvent(OnDepthBtnBClicked);
+        GetButton((int)DepthBtns.Btn_DepthC2).gameObject.BindEvent(OnDepthCBtnClicked);
+        GetButton((int)DepthBtns.Btn_DepthD2).gameObject.BindEvent(OnDepthDBtnCClicked);
         return true;
     }
 
@@ -53,7 +55,7 @@ public class UI_DepthSelection : UI_Popup
         //OnDepth1Enter();
     }
 
-    private void OnDepthCtnCClicked()
+    private void OnDepthCBtnClicked()
     {
        // Managers.UI.ClosePopupUI(this);
 #if UNITY_EDITOR
@@ -67,7 +69,7 @@ public class UI_DepthSelection : UI_Popup
         Managers.ContentInfo.PlayData.Count = 1;
         OnDepth1Enter();
     }
-    private void OnDepthDtnCClicked()
+    private void OnDepthDBtnCClicked()
     {
         // Managers.UI.ClosePopupUI(this);
 #if UNITY_EDITOR

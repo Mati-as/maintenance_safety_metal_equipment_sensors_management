@@ -152,7 +152,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
 
             if (currentTime - lastUpdateTime >= 0.5f)
             {
-                TMPDisplay.text = (val + Random.Range(0, 2.5f)).ToString("F1");
+                TMPDisplay.text = (val + Random.Range(0, 1.5f)).ToString("F1");
                 lastUpdateTime = currentTime;
             }
         }).SetEase(Ease.InOutBounce));
@@ -165,7 +165,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
 
                 if (currentTime - lastUpdateTime >= 0.78f)
                 {
-                    TMPDisplay.text = (resistantTarget + Random.Range(0, 2.5f)).ToString("F1");
+                    TMPDisplay.text = (resistantTarget + Random.Range(0, 1.5f)).ToString("F1");
                     lastUpdateTime = currentTime;
                 }
             }).SetEase(Ease.InOutBounce);

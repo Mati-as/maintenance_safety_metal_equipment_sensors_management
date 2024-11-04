@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2546489052813580746}
   - component: {fileID: 849035398377230488}
   m_Layer: 5
-  m_Name: Btn_Depth1C
+  m_Name: Btn_DepthC2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uACC4\uCE21\uC13C\uC11C \uC815\uBE44"
+  m_text: "\uD3C9\uAC00\uD558\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d9050d96e2e6d42b845ae65050168b, type: 2}
   m_sharedMaterial: {fileID: 6843874002728806242, guid: c8d9050d96e2e6d42b845ae65050168b,
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 5077784216841392652}
   - component: {fileID: 8959949414262071531}
   m_Layer: 5
-  m_Name: Btn_Depth1A
+  m_Name: Btn_DepthA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -998,7 +998,7 @@ GameObject:
   - component: {fileID: 1939840227027566087}
   - component: {fileID: 7739630813088670201}
   m_Layer: 5
-  m_Name: Btn_Depth1D (1)
+  m_Name: Btn_DepthD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1133,7 +1133,7 @@ GameObject:
   - component: {fileID: 7074301495755561271}
   - component: {fileID: 3863752180967743850}
   m_Layer: 5
-  m_Name: Btn_Depth1B
+  m_Name: Btn_DepthB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

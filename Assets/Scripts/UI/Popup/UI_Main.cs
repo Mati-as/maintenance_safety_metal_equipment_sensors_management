@@ -11,7 +11,17 @@ public class UI_Main : UI_Popup
         Btn_Start
     }
 
+    private enum TMPs
+    {
+        Korean,
+        Eng
+    }
 
+
+    private enum Slider
+    {
+        LanguageSetting
+    }
 
     private UI_Popup main;
 

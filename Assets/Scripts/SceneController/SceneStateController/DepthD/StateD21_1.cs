@@ -15,6 +15,8 @@ public class StateD21_1 : Base_SceneState
     public override void OnEnter()
     {
         depthD2SceneController.contentController.ShutTrainingIntroAnim();
+        
+        depthD2SceneController.indicator.ShowErrorMessage();
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}

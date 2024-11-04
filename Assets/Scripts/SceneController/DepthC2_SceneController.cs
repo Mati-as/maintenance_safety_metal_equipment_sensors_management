@@ -63,15 +63,32 @@ public class DepthC2_SceneController : Base_SceneController
     public Dictionary<int, Animator> animatorMap;
     public Dictionary<int, Sequence> _seqMap;
     
-    [FormerlySerializedAs("_isScrewUnwindMap")] public Dictionary<int, bool> isScrewUnwindMap; //3.2.1 , 3,2,3
-    
-    [FormerlySerializedAs("_isScrewWindMap")] public Dictionary<int, bool> isScrewWindMap; // 3.2.2
+   public Dictionary<int, bool> isScrewUnwindMap; //3.2.1 , 3,2,3
+   
+   public Dictionary<int, bool> isScrewWindMap; // 3.2.2
 
-    [FormerlySerializedAs("defaultAngleMap")] public Dictionary<int, Quaternion> defaultRotationMap;
+   public Dictionary<int, Quaternion> defaultRotationMap;
 
     private readonly int UNWOUND_COUNT_GOAL = 3;
     private int _unwoundCount;
 
+
+    private IndicatorController _indicator;
+    public IndicatorController indicator
+    {
+        get
+        {
+            if(_indicator == null)
+                _indicator = GetObject((int)DepthC_GameObj.Indicator).GetComponent<IndicatorController>();
+            return _indicator;
+        }
+        private set
+        {
+            if(_indicator == null)
+            _indicator = GetObject((int)DepthC_GameObj.Indicator).GetComponent<IndicatorController>();
+        }
+        
+    }
 
     public bool isAnodePut; // 음극단자 설정을 위한 bool값입니다.
 
@@ -116,36 +133,25 @@ public class DepthC2_SceneController : Base_SceneController
 
         set
         {
-            
-           
-            
-            if (Managers.ContentInfo.PlayData.Depth1 == 3 )
+            _woundCount = value;
+            Logger.Log($"나사 조임: {_woundCount}개");
+            if (_woundCount >= UNWOUND_COUNT_GOAL)
             {
-                _woundCount = value;
-                Logger.Log($"나사 조임: {_woundCount}개");
-                if (_woundCount >= UNWOUND_COUNT_GOAL)
+                if (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 10)
                 {
-                    
-                    if (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 10)
-                    {
-                        Logger.Log($"평가하기: 모든 나사 조임 (10) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
-                        OnStepMissionComplete(animationNumber:10);
-                        _woundCount = 0;
-                    }
-                    
-                    if (Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Count == 12)
-                    {
-                          Logger.Log($"훈련모드모든 나사 조임 (12) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
-                          OnStepMissionComplete(animationNumber: 12);
-                    _woundCount = 0;//초기화 
-                    }
-                    
-                 
+                    Logger.Log(
+                        $"평가하기: 모든 나사 조임 (10) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
+                    OnStepMissionComplete(animationNumber: 10);
+                    _woundCount = 0;
+                }
+
+                if (Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Count == 12)
+                {
+                    Logger.Log($"훈련모드모든 나사 조임 (12) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
+                    OnStepMissionComplete(animationNumber: 12);
+                    _woundCount = 0; //초기화 
                 }
             }
-          
-
-
         }
     }
 
@@ -412,12 +418,10 @@ public class DepthC2_SceneController : Base_SceneController
         });
 
 
-        GetObject((int)DepthC_GameObj.Indicator)
-            .GetComponent<IndicatorController>().ShowNothing();
-
       
+           indicator.ShowNothing();
 
-        #endregion
+       #endregion
 
     }
 
@@ -700,8 +704,7 @@ public class DepthC2_SceneController : Base_SceneController
 #endregion
  
 
-        GetObject((int)DepthC_GameObj.Indicator)
-        .GetComponent<IndicatorController>().ShowNothing();
+        indicator.ShowNothing();
 
     
 
@@ -724,7 +727,7 @@ public class DepthC2_SceneController : Base_SceneController
         if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5 )
         {
             OnStepMissionComplete( animationNumber:5,delayAmount:new WaitForSeconds(12.9f));
-            GetObject((int)DepthC_GameObj.Indicator).GetComponent<IndicatorController>().ShowTemperature(7.5f);
+            indicator.ShowTemperature(7.5f);
             return;
         }
 
@@ -732,7 +735,6 @@ public class DepthC2_SceneController : Base_SceneController
         if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 2)
         {
             OnStepMissionComplete( animationNumber:2,delayAmount:new WaitForSeconds(3.8f));
-        //    GetObject((int)DepthC_GameObj.Indicator).GetComponent<IndicatorController>().ShowTemperature(7.5f);
         }
         
     }
