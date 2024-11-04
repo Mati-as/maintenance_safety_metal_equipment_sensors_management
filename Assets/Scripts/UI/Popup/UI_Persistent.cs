@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ public class UI_Persistent : UI_Scene
 
     private Animator _activationAnimator;
     private readonly int UI_ON = Animator.StringToHash("UI_On");
-    private readonly Text[] hoverTexts = new Text[Enum.GetValues(typeof(Btns)).Length];
+    private readonly Image[] hoverTexts = new Image[Enum.GetValues(typeof(Btns)).Length];
 
     private Canvas _canvas;
     public override bool Init()
@@ -61,8 +62,14 @@ public class UI_Persistent : UI_Scene
         // 클릭 Up 이벤트 설정
         GetButton(btnIndex).gameObject.BindEvent(onClickAction, Define.UIEvent.PointerUp);
 
-        // 텍스트 설정
-        hoverTexts[btnIndex] = GetButton(btnIndex).GetComponentInChildren<Text>();
+
+        var buttonTransform = GetButton(btnIndex).transform;
+        
+        // 텍스트 설정 (자기자신 제외) 
+        hoverTexts[btnIndex] = GetButton(btnIndex).GetComponentsInChildren<Image>()
+            .FirstOrDefault(image => image.transform != buttonTransform);
+        
+        
         hoverTexts[btnIndex].gameObject.SetActive(false);
 
         // 마우스 포인터 이벤트 설정

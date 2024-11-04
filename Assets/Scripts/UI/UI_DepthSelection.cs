@@ -29,7 +29,7 @@ public class UI_DepthSelection : UI_Popup
     {
 //Managers.UI.ClosePopupUI(this);
       
-        Managers.Scene.LoadScene(SceneType.Depth1A);
+        Managers.Scene.LoadScene(SceneType.DepthA);
 #if UNITY_EDITOR
         Debug.Log("Depth 1 기본학습 Start");
 #endif
@@ -47,7 +47,7 @@ public class UI_DepthSelection : UI_Popup
 #if UNITY_EDITOR
         Debug.Log("Depth 2 안전 관리 Start");
 #endif
-        Managers.Scene.LoadScene(SceneType.Depth1B);
+        Managers.Scene.LoadScene(SceneType.DepthB);
         Managers.ContentInfo.PlayData.Depth1 = 2;
         Managers.ContentInfo.PlayData.Depth2 = 1;
         Managers.ContentInfo.PlayData.Depth3 = 1;

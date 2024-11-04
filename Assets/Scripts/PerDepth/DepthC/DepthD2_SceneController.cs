@@ -38,8 +38,6 @@ public class DepthD2_SceneController : DepthC2_SceneController
 
     public void DepthD21Init()
     {
-        
-        
         cameraController = Camera.main.GetComponent<Inplay_CameraController>();
         currentScrewGaugeStatus = new Dictionary<int, float>();
         isScrewUnwindMap = new Dictionary<int, bool>();
@@ -58,8 +56,8 @@ public class DepthD2_SceneController : DepthC2_SceneController
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "나사A");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사B");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사C");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalA, "A 접지");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "B 접지");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalA, "접지");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.PowerHandle, "전원");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.NewTemperatureSensor, "새 온도센서");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TankValve, "밸브");

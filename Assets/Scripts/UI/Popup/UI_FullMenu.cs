@@ -18,7 +18,13 @@ public class UI_FullMenu : UI_Popup
         B32101,
         B33101,
         B34101,
-        B35101
+        B35101,
+        B41101,
+        B42101,
+        B43101,
+        B44101,
+        B45101,
+        
     }
 
     private enum Texts
@@ -40,45 +46,52 @@ public class UI_FullMenu : UI_Popup
 
         GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() => { Managers.UI.ClosePopupUI(this); });
 
-       GetText((int)Texts.Text_Overall_Training_Goal).text = Managers.Data.Texts[Define.OverallTraningGoal].kor;
-       GetText((int)Texts.Text_TrainingObjectInfo).text = Managers.Data.Texts[Define.TrainingObjectInfo].kor;
-      
+        GetText((int)Texts.Text_Overall_Training_Goal).text = Managers.Data.Texts[Define.OverallTraningGoal].kor;
+        GetText((int)Texts.Text_TrainingObjectInfo).text = Managers.Data.Texts[Define.TrainingObjectInfo].kor;
+
+        GetButton((int)Btns.B11101).gameObject.BindEvent(() => { LoadStep(Btns.B11101, 11101.ToString()); });
+        GetButton((int)Btns.B12101).gameObject.BindEvent(() => { LoadStep(Btns.B12101, 12101.ToString()); });
+        GetButton((int)Btns.B21101).gameObject.BindEvent(() => { LoadStep(Btns.B21101, 21101.ToString()); });
+        GetButton((int)Btns.B22101).gameObject.BindEvent(() => { LoadStep(Btns.B22101, 22101.ToString()); });
+        GetButton((int)Btns.B23101).gameObject.BindEvent(() => { LoadStep(Btns.B23101, 23101.ToString()); });
+        GetButton((int)Btns.B31101).gameObject.BindEvent(() => { LoadStep(Btns.B31101, 31101.ToString()); });
+        GetButton((int)Btns.B32101).gameObject.BindEvent(() => { LoadStep(Btns.B32101, 32101.ToString()); });
+        GetButton((int)Btns.B33101).gameObject.BindEvent(() => { LoadStep(Btns.B33101, 33101.ToString()); });
+        GetButton((int)Btns.B34101).gameObject.BindEvent(() => { LoadStep(Btns.B34101, 34101.ToString()); });
+        GetButton((int)Btns.B35101).gameObject.BindEvent(() => { LoadStep(Btns.B35101, 35101.ToString()); });
+        GetButton((int)Btns.B41101).gameObject.BindEvent(() => { LoadStep(Btns.B41101, 41101.ToString()); });
+        GetButton((int)Btns.B42101).gameObject.BindEvent(() => { LoadStep(Btns.B42101, 42101.ToString()); });
+        GetButton((int)Btns.B43101).gameObject.BindEvent(() => { LoadStep(Btns.B43101, 43101.ToString()); });
+        GetButton((int)Btns.B44101).gameObject.BindEvent(() => { LoadStep(Btns.B44101, 44101.ToString()); });
+        GetButton((int)Btns.B45101).gameObject.BindEvent(() => { LoadStep(Btns.B45101, 45101.ToString()); });
+
+        GetButton((int)Btns.B11101).gameObject.BindEvent(() => { SetText(1); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B12101).gameObject.BindEvent(() => { SetText(1); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B21101).gameObject.BindEvent(() => { SetText(2); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B22101).gameObject.BindEvent(() => { SetText(2); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B23101).gameObject.BindEvent(() => { SetText(2); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B31101).gameObject.BindEvent(() => { SetText(3); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B32101).gameObject.BindEvent(() => { SetText(3); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B33101).gameObject.BindEvent(() => { SetText(3); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B34101).gameObject.BindEvent(() => { SetText(3); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B35101).gameObject.BindEvent(() => { SetText(3); }, Define.UIEvent.PointerEnter);
         
-        GetButton((int)Btns.B11101).gameObject.BindEvent(() => {LoadStep(Btns.B11101,(11101).ToString()); });
-        GetButton((int)Btns.B12101).gameObject.BindEvent(() => {LoadStep(Btns.B12101,(12101).ToString()); });
-        GetButton((int)Btns.B21101).gameObject.BindEvent(() => {LoadStep(Btns.B21101,(21101).ToString()); });
-        GetButton((int)Btns.B22101).gameObject.BindEvent(() => {LoadStep(Btns.B22101,(22101).ToString()); });
-        GetButton((int)Btns.B23101).gameObject.BindEvent(() => {LoadStep(Btns.B23101,(23101).ToString()); });
-        GetButton((int)Btns.B31101).gameObject.BindEvent(() => {LoadStep(Btns.B31101,(31101).ToString()); });
-        GetButton((int)Btns.B32101).gameObject.BindEvent(() => {LoadStep(Btns.B32101,(32101).ToString()); });
-        GetButton((int)Btns.B33101).gameObject.BindEvent(() => {LoadStep(Btns.B33101,(33101).ToString()); });
-        GetButton((int)Btns.B34101).gameObject.BindEvent(() => {LoadStep(Btns.B34101,(34101).ToString()); });
-        GetButton((int)Btns.B35101).gameObject.BindEvent(() => {LoadStep(Btns.B35101,(35101).ToString()); });
-        
-        
-        GetButton((int)Btns.B11101).gameObject.BindEvent(() => {SetText(1); },Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.B12101).gameObject.BindEvent(() => {SetText(1); },Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.B21101).gameObject.BindEvent(() => {SetText(2); },Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.B22101).gameObject.BindEvent(() => {SetText(2); },Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.B23101).gameObject.BindEvent(() => {SetText(2); },Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.B31101).gameObject.BindEvent(() => {SetText(3); },Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.B32101).gameObject.BindEvent(() => {SetText(3); },Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.B33101).gameObject.BindEvent(() => {SetText(3); },Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.B34101).gameObject.BindEvent(() => {SetText(3); },Define.UIEvent.PointerEnter);
-        GetButton((int)Btns.B35101).gameObject.BindEvent(() => {SetText(3); },Define.UIEvent.PointerEnter);
-        
-        
-        
-        GetButton((int)Btns.B11101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
-        GetButton((int)Btns.B12101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
-        GetButton((int)Btns.B21101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
-        GetButton((int)Btns.B22101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
-        GetButton((int)Btns.B23101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
-        GetButton((int)Btns.B31101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
-        GetButton((int)Btns.B32101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
-        GetButton((int)Btns.B33101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
-        GetButton((int)Btns.B34101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
-        GetButton((int)Btns.B35101).gameObject.BindEvent(ResetText,Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B41101).gameObject.BindEvent(() => { SetText(4); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B42101).gameObject.BindEvent(() => { SetText(4); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B43101).gameObject.BindEvent(() => { SetText(4); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B44101).gameObject.BindEvent(() => { SetText(4); }, Define.UIEvent.PointerEnter);
+        GetButton((int)Btns.B45101).gameObject.BindEvent(() => { SetText(4); }, Define.UIEvent.PointerEnter);
+
+        GetButton((int)Btns.B11101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B12101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B21101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B22101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B23101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B31101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B32101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B33101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B34101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
+        GetButton((int)Btns.B35101).gameObject.BindEvent(ResetText, Define.UIEvent.PointerExit);
 
         ResetText();
         return true;
@@ -115,11 +128,11 @@ public class UI_FullMenu : UI_Popup
         {
             case 1:
 
-                Managers.Scene.LoadScene(SceneType.Depth1A);
+                Managers.Scene.LoadScene(SceneType.DepthA);
                 break;
             case 2:
 
-                Managers.Scene.LoadScene(SceneType.Depth1B);
+                Managers.Scene.LoadScene(SceneType.DepthB);
                 break;
             case 3:
 

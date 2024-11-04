@@ -213,7 +213,28 @@ public class DepthC21_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
+               _depthC2SceneController.TurnOnCollidersAndInit();
+        CurrentScene.contentController.isStepMissionPerformable = true;
        
+        foreach (var key in  _depthC2SceneController.currentScrewGaugeStatus.Keys.ToList())
+        {
+            _depthC2SceneController.currentScrewGaugeStatus[key] = 0f;
+        }
+        
+             
+        foreach (var key in  _depthC2SceneController.isScrewUnwindMap.Keys.ToList())
+        {
+            _depthC2SceneController.isScrewUnwindMap[key] = false;
+        }
+        
+        
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
+
+        
+        
+        //나사 위치 초기화
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
@@ -238,8 +259,16 @@ public class DepthC21_State_10 : Base_SceneState
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
         
+
+      
+        
         _depthC2SceneController.GetObject((int)DepthC_GameObj.Indicator)
             .GetComponent<IndicatorController>().ShowErrorMessage();
+        
+        CurrentScene.contentController.isStepMissionPerformable = true;
+        
+        
+        
   
         base.OnEnter();
     }
@@ -250,6 +279,8 @@ public class DepthC21_State_10 : Base_SceneState
 
     public override void OnExit()
     {
+   
+        
         _depthC2SceneController.GetObject((int)DepthC_GameObj.Indicator)
             .GetComponent<IndicatorController>().ShowNothing();
         base.OnExit();
@@ -268,7 +299,9 @@ public class DepthC21_State_11 : Base_SceneState
 
     public override void OnEnter()
     {
-       
+        _depthC2SceneController.GetObject((int)DepthC_GameObj.Indicator)
+            .GetComponent<IndicatorController>().ShowErrorMessage();
+        
         _depthC2SceneController.isWindSession = false;
 
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
@@ -278,7 +311,13 @@ public class DepthC21_State_11 : Base_SceneState
 
     
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC2SceneController.GetObject((int)DepthC_GameObj.Indicator)
+            .GetComponent<IndicatorController>().ShowNothing();
+        base.OnExit();
+    }
 }
 
 public class DepthC21_State_12 : Base_SceneState
@@ -310,8 +349,6 @@ public class DepthC21_State_12 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
 
-        
-
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewC);
@@ -342,20 +379,14 @@ public class DepthC21_State_12 : Base_SceneState
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = false;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
-        
-
-      
-        
      
         CurrentScene.contentController.isStepMissionPerformable = true;
-        
-        
-        
         
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+       
         base.OnEnter();
     }
 
@@ -369,7 +400,7 @@ public class DepthC21_State_12 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
-   
+        _depthC2SceneController.ClearTool();
         base.OnExit();
     }
 }
@@ -441,6 +472,7 @@ public class DepthC21_State_13 : Base_SceneState
     {
         _depthC2SceneController.isMultimeterOn = false;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus(false);
+        _depthC2SceneController.ClearTool();
         base.OnExit();
     }
 }

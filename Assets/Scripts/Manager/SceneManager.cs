@@ -9,8 +9,8 @@ using UnityEngine.SceneManagement;
 public enum SceneType
 {
     Main,
-    Depth1A,
-    Depth1B,
+    DepthA,
+    DepthB,
     DepthC2,
     DepthD2,
 }

@@ -55,7 +55,15 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         BindEvent();
 
-      
+
+        SetMainProperties();
+
+    }
+    
+    
+
+    public void SetMainProperties()
+    {
         _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
         
         if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
@@ -72,7 +80,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         contentController = Managers.UI.ShowPopupUI<UI_ContentController>();
         contentController.Init(); // sceneController에서 제어하는 부분이 있으므로 먼저 초기화 수행 
-
     }
 
     private void BindEvent()
@@ -594,12 +601,16 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         _objects.TryAdd(typeof(T), objects);
 
 #if UNITY_EDITOR
-//s		Debug.Log($"object counts to bind {names.Length}");
+//Debug.Log($"object counts to bind {names.Length}");
 #endif
         for (var i = 0; i < names.Length; i++)
         {
             if (typeof(T) == typeof(GameObject))
+            {
                 objects[i] = Utils.FindChild(gameObject, names[i], true);
+                GameObject go = (GameObject)objects[i];
+                go?.GetOrAddComponent<CursorImageController>();
+            }
             else
                 objects[i] = Utils.FindChild<T>(gameObject, names[i], true);
 

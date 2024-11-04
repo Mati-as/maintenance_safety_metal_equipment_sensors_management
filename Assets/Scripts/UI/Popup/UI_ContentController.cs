@@ -159,7 +159,7 @@ public class UI_ContentController : UI_Popup
 
         SoundManager.OnNarrationComplete -= BlinkNextBtnUI;
         SoundManager.OnNarrationComplete += BlinkNextBtnUI;
-      
+
 
         BindUIElements();
         InitTopMenu();
@@ -183,6 +183,7 @@ public class UI_ContentController : UI_Popup
                 Debug.LogError("UI_TrainingInfo object not found.");
             }
         }
+        
         return true;
     }
 
@@ -541,26 +542,33 @@ public class UI_ContentController : UI_Popup
         // depth4의 평가하기에서, 인트로 이외에는 버튼 표시가 진행되지 않음
 
 
-        // 아래 부분은 씬로드 및 초기화 부분에만 사용됨에 주의
-        if (Depth4PrevNextBtnShowConditionCheck())
+        if (Managers.ContentInfo.PlayData.Depth1 == 4)
         {
+            // 아래 부분은 씬로드 및 초기화 부분에만 사용됨에 주의
+            if (Depth4PrevNextBtnShowConditionCheck())
+            {
   
-            SetButtonState((int)Btns.Btn_Next, true);
-            SetButtonState((int)Btns.Btn_Prev, false);
-        
-            return;
+                SetButtonState((int)Btns.Btn_Next, true);
+                SetButtonState((int)Btns.Btn_Prev, false);
+                
+            }
         }
-        
+        else
+        {
+            
+            SetButtonState((int)Btns.Btn_Prev, isOn);
+            SetButtonState((int)Btns.Btn_Next, isOn);
+        }
+   
 
-        SetButtonState((int)Btns.Btn_Prev, isOn);
-        SetButtonState((int)Btns.Btn_Next, isOn);
     }
 
     private bool Depth4PrevNextBtnShowConditionCheck()
     {
         // Depth1이 4이고, Count가 0 또는 1일 때만 켜짐
-        return Managers.ContentInfo.PlayData.Depth1 == 4 &&
-               (Managers.ContentInfo.PlayData.Count == 0 );
+      
+        
+        return (Managers.ContentInfo.PlayData.Count == 0 );
     }
 
     private void SetButtonState(int buttonIndex, bool isOn)
@@ -909,10 +917,9 @@ public class UI_ContentController : UI_Popup
     private void Precheck()
     {
         
-        if (!Depth4PrevNextBtnShowConditionCheck())
+        if (Managers.ContentInfo.PlayData.Depth1 ==4)
         {
             SetNextPrevBtnsActiveStatus(false);
-        
             return;
         }
         

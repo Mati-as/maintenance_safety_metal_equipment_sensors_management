@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +13,7 @@ public abstract class UI_Base : MonoBehaviour
 
 	protected bool _init = false;
 
+	protected Dictionary<int, bool> _isScaleEventOn = new Dictionary<int, bool>();
 	public virtual bool Init()
 	{
 		if (_init)
@@ -32,7 +34,7 @@ public abstract class UI_Base : MonoBehaviour
 		_objects.Add(typeof(T), objects);
 
 #if UNITY_EDITOR
-//s		Debug.Log($"object counts to bind {names.Length}");
+//Debug.Log($"object counts to bind {names.Length}");
 #endif
 		for (int i = 0; i < names.Length; i++)
 		{
@@ -51,7 +53,17 @@ public abstract class UI_Base : MonoBehaviour
 	protected void BindImage(Type type) { Bind<Image>(type);  }
 	protected void BindTMP(Type type) { Bind<TextMeshProUGUI>(type);  }
 	protected void BindText(Type type) { Bind<Text>(type);  }
-	protected void BindButton(Type type) { Bind<Button>(type);  }
+
+	protected void BindButton(Type type)
+	{
+		// bind button as usual
+		Bind<Button>(type);
+
+		// retrieve buttons array and check type explicitly
+
+
+	
+	}
 
 	
 	protected void BindToggle(Type type) { Bind<Toggle>(type);  }
@@ -70,7 +82,34 @@ public abstract class UI_Base : MonoBehaviour
 	protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
 	protected Text GetText(int idx) { return Get<Text>(idx); }
 	protected TextMeshProUGUI GetTMP(int idx) { return Get<TextMeshProUGUI>(idx); }
-	protected Button GetButton(int idx) { return Get<Button>(idx); }
+	protected Button GetButton(int idx)
+	{
+		_isScaleEventOn.TryAdd(idx,false);
+
+		if (!_isScaleEventOn[idx])
+		{
+			var btn = Get<Button>(idx);
+			var originalScale = btn.transform.localScale;
+
+			// apply mouse enter scaling
+			BindEvent(btn.gameObject, () =>
+			{
+				btn.transform.DOScale(originalScale * 1.2f, 0.2f);
+				Logger.Log($"Button Scale Animation Applied: {btn.gameObject.name}");
+			}, Define.UIEvent.PointerEnter);
+
+			// apply mouse exit scaling
+			BindEvent(btn.gameObject, () => { btn.transform.DOScale(originalScale, 0.2f); },
+				Define.UIEvent.PointerExit);
+
+			_isScaleEventOn[idx] = true;
+		}
+	
+		
+		return Get<Button>(idx);
+		
+		
+	}
 	protected Slider GetSlider(int idx) { return Get<Slider>(idx); }
 	protected Toggle GetToggle(int idx) { return Get<Toggle>(idx); }
 	protected Image GetImage(int idx) { return Get<Image>(idx); }

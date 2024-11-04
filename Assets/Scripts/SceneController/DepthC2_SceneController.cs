@@ -62,12 +62,12 @@ public class DepthC2_SceneController : Base_SceneController
 
     public Dictionary<int, Animator> animatorMap;
     public Dictionary<int, Sequence> _seqMap;
-    
-   public Dictionary<int, bool> isScrewUnwindMap; //3.2.1 , 3,2,3
-   
-   public Dictionary<int, bool> isScrewWindMap; // 3.2.2
 
-   public Dictionary<int, Quaternion> defaultRotationMap;
+    public Dictionary<int, bool> isScrewUnwindMap; //3.2.1 , 3,2,3
+
+    public Dictionary<int, bool> isScrewWindMap; // 3.2.2
+
+    public Dictionary<int, Quaternion> defaultRotationMap;
 
     private readonly int UNWOUND_COUNT_GOAL = 3;
     private int _unwoundCount;
@@ -116,7 +116,7 @@ public class DepthC2_SceneController : Base_SceneController
                 if (Managers.ContentInfo.PlayData.Depth1 == 3 )
                 {
                     Logger.Log($"모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
-                    OnStepMissionComplete(animationNumber:10);
+                    OnStepMissionComplete(animationNumber:12);
                     _unwoundCount = 0;//초기화 
                 }
             }
@@ -309,6 +309,8 @@ public class DepthC2_SceneController : Base_SceneController
         GetObject((int)DepthC_GameObj.TS_Cover).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
+            if (Managers.ContentInfo.PlayData.Count != 8) return;
+            
             OnStepMissionComplete((int)DepthC_GameObj.TS_Cover, 8);
         });
 
@@ -316,7 +318,8 @@ public class DepthC2_SceneController : Base_SceneController
         GetObject((int)DepthC_GameObj.TS_InnerScrewB).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
-            if (Managers.ContentInfo.PlayData.Count > 10) return; // ScrewA의 경우 중복애니메이션이 있음에 주의
+            
+            if (Managers.ContentInfo.PlayData.Count != 9) return;
             OnStepMissionComplete((int)DepthC_GameObj.TS_InnerScrewA, 9);
         });
 
@@ -370,7 +373,7 @@ public class DepthC2_SceneController : Base_SceneController
                 animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
                 Action action = multimeterController.OnAllProbeSet;
-                OnStepMissionComplete(animationNumber: 15, delayAmount: new WaitForSeconds(6f),
+                OnStepMissionComplete(animationNumber: 15, delayAmount: new WaitForSeconds(4f),
                     delayedAction: action);
             }
 
