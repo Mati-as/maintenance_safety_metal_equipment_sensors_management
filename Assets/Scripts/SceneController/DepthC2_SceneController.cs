@@ -41,8 +41,7 @@ public enum DepthC_GameObj
     TemperatureSensor,
     OnTempSensor_Pipe,
     NewTemperatureSensor,
-    
-    
+        
     Pipe_WaterEffect,
     WaterLeakEffect,
     WaterDecal,
@@ -50,6 +49,10 @@ public enum DepthC_GameObj
   
     PowerHandle,
     TankValve,
+    
+    TS_CompensatingWireA,
+    TS_CompensatingWireB,
+    TS_CompensatingWireC,
     ControlPanel,
         
     
@@ -82,6 +85,7 @@ public class DepthC2_SceneController : Base_SceneController
 
     private ParticleSystem _waterLeakPs;
 
+    
     
     public ParticleSystem waterLeakPs
     {
@@ -176,6 +180,19 @@ public class DepthC2_SceneController : Base_SceneController
         waterDecal.material.SetFloat(Alpha, alpha);
     }
 
+
+    private Dictionary<int, MeshRenderer> _wireMatMap;
+    private void FadeInCompensatingWire()
+    {
+        // _wireMatMap.TryAdd(GetObject((int)DepthC_GameObj.TS_CompensatingWireA),
+        //     GetObject((int)DepthC_GameObj.TS_CompensatingWireA)).GetComponent<MeshRenderer>());
+    }
+
+    private void FadeOutCompensatingWire()
+    {
+        
+    }
+
     public void FadeOutDecal()
     {
         // set initial alpha to 0
@@ -230,10 +247,17 @@ public class DepthC2_SceneController : Base_SceneController
                     _unwoundCount = 0;
                 }
 
-                if (Managers.ContentInfo.PlayData.Depth1 == 3 )
+                if (Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Depth3 == 1 )
                 {
                     Logger.Log($"모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
                     OnStepMissionComplete(animationNumber:12);
+                    _unwoundCount = 0;//초기화 
+                }
+                
+                if (Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Depth3 == 3  && Managers.ContentInfo.PlayData.Count == 6)
+                {
+                    Logger.Log($"모든 나사 풀림 (6) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
+                    OnStepMissionComplete(animationNumber:6);
                     _unwoundCount = 0;//초기화 
                 }
             }
@@ -344,6 +368,9 @@ public class DepthC2_SceneController : Base_SceneController
         ClearTool();
         isAnodePut = false;
         GetObject((int)DepthC_GameObj.NewTemperatureSensor).SetActive(false);
+        GetObject((int)DepthC_GameObj.Pipe_WaterEffect).SetActive(false);
+        GetObject((int)DepthC_GameObj.WaterDecal).SetActive(false);
+        GetObject((int)DepthC_GameObj.WaterLeakEffect).SetActive(false);
         SetWaterDecalStatus(false);
         SetParticleStatus(false);
         indicator.ShowNothing();
@@ -356,7 +383,7 @@ public class DepthC2_SceneController : Base_SceneController
         
        // Debug.Assert(Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Depth1 == 2);
         UnBindEventAttatchedObj();
-        
+        PreCommonInit();
         
       
         
@@ -374,15 +401,13 @@ public class DepthC2_SceneController : Base_SceneController
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
         MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReady;
 
-        PreCommonInit();
-        
-
+   
 
         #region 초기화 및 하이라이트 및 텍스트 바인딩 부분
 
 
         InitProbePos();
-        
+      
         GetObject((int)DepthC_GameObj.TemperatureSensor).SetActive(true);
        // StartCoroutine(OnSceneStartCo());
 
@@ -579,10 +604,10 @@ public class DepthC2_SceneController : Base_SceneController
     }
     public void DepthC22Init()
     {
-      
         UnBindEventAttatchedObj();
+        PreCommonInit();
         InitProbePos();
-          PreCommonInit();
+          
     
         
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
@@ -640,6 +665,7 @@ public class DepthC2_SceneController : Base_SceneController
     public void DepthC23Init()
     {
       
+        PreCommonInit();
         UnBindEventAttatchedObj();
         InitProbePos();
         
@@ -683,11 +709,11 @@ public class DepthC2_SceneController : Base_SceneController
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
         ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
         
-        PreCommonInit();
+     
 
        
         //드라이버 -------------------------------------------------------------------------  
-        SetScrewDriverSection(true);
+        SetScrewDriverSection(false);
      
         GetObject((int)DepthC_GameObj.TankValve).BindEvent(() =>
         {
@@ -790,10 +816,12 @@ public class DepthC2_SceneController : Base_SceneController
             {
                 if (!isAnodePut) return;
                
-                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
-                HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
-                SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
-                SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
+               // BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
+               
+              //  HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
+                
+               // SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
+              //  SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
                 
                 animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
                 animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
@@ -1096,9 +1124,9 @@ public class DepthC2_SceneController : Base_SceneController
 
     protected virtual void OnToolBoxClicked()
     {
-        Logger.Log("Toolbox Click event : 툴박스 클릭 이벤트 10 ------------------");
         if (Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 11 )
         {
+        Logger.Log("Toolbox Click event : 툴박스 클릭 이벤트 10 ------------------");
             OnStepMissionComplete(animationNumber: 11);
         }
     }
@@ -1218,8 +1246,10 @@ public class DepthC2_SceneController : Base_SceneController
               (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6) ||
               (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12) ||
               (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 6)||
-              (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 10)
-            )) return true;
+              (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 10)))
+        {
+            return true;
+        }
         else
         {
             Logger.Log("Driver is not usable fn ------------------");

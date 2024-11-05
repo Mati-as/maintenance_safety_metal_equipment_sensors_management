@@ -138,6 +138,11 @@ public class DepthC23_State_6 : Base_SceneState
 
     public override void OnEnter()
     {
+        Logger.Log("State 6 Enter  ---------------------------------------");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "나사");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사");
+        
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
 
@@ -154,9 +159,7 @@ public class DepthC23_State_6 : Base_SceneState
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewC);
 
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "나사");
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사");
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사");
+      
         CurrentScene.contentController.isStepMissionPerformable = true;
 
 
@@ -392,7 +395,8 @@ public class DepthC23_State_10 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB);
 
 
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "저항 측정");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "측정단자 B");
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
 
@@ -435,9 +439,12 @@ public class DepthC23_State_11 : Base_SceneState
 
     public override void OnEnter()
     {
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
+        
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
-
+        
         CurrentScene.contentController.isStepMissionPerformable = true;
 
         _depthC2SceneController.isAnodePut = false;
@@ -445,6 +452,7 @@ public class DepthC23_State_11 : Base_SceneState
 
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
+    
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
         
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
@@ -460,7 +468,7 @@ public class DepthC23_State_11 : Base_SceneState
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
 
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalA);
+        //CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalA);
 
 
         base.OnEnter();
@@ -471,6 +479,7 @@ public class DepthC23_State_11 : Base_SceneState
     public override void OnExit()
     {
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB);
         base.OnExit();
     }
 }
@@ -487,7 +496,9 @@ public class DepthC23_State_12 : Base_SceneState
 
     public override void OnEnter()
     {
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "나사");
         CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewC, "나사");
 
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh();
@@ -496,8 +507,8 @@ public class DepthC23_State_12 : Base_SceneState
         _depthC2SceneController.isMultimeterOn = false;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus(false);
 
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover, false);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_Cover);
+        // CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover, false);
+        // CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_Cover);
 
 
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
@@ -545,6 +556,8 @@ public class DepthC23_State_12 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
 
+        
+        
         base.OnEnter();
     }
 

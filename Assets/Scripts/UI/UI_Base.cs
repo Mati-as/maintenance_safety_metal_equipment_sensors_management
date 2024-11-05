@@ -94,12 +94,12 @@ public abstract class UI_Base : MonoBehaviour
 			// apply mouse enter scaling
 			BindEvent(btn.gameObject, () =>
 			{
-				btn.transform.DOScale(originalScale * 1.2f, 0.2f);
+				btn.transform.DOScale(originalScale * 1.1f, 0.18f);
 				Logger.Log($"Button Scale Animation Applied: {btn.gameObject.name}");
 			}, Define.UIEvent.PointerEnter);
 
 			// apply mouse exit scaling
-			BindEvent(btn.gameObject, () => { btn.transform.DOScale(originalScale, 0.2f); },
+			BindEvent(btn.gameObject, () => { btn.transform.DOScale(originalScale, 0.15f); },
 				Define.UIEvent.PointerExit);
 
 			_isScaleEventOn[idx] = true;

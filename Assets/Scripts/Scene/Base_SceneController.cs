@@ -314,7 +314,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             Logger.Log("Clip is null.");
         }
      
-        else { Logger.Log("animation is null."); }
+        //else { Logger.Log("animation is null."); }
         if(!isReverse) _mainAnimation[clip.name].time = 0;
 
   

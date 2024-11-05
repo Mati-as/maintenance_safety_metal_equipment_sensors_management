@@ -21,6 +21,8 @@ public class Base_SceneState : ISceneState
         //항상 클릭 가능해야하는 것들 ----
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
         
+       
+        
         CurrentScene.contentController.isStepMissionComplete = false;
         CurrentScene.contentController.isStepMissionPerformable = true;
        // CurrentScene.isSceneAnimationPlayingToProtectDoublePlaying = false;
@@ -31,6 +33,8 @@ public class Base_SceneState : ISceneState
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
         
 
+    
+        
         Managers.Sound.PlayNarration(_narrationStartDelay);
 
     }

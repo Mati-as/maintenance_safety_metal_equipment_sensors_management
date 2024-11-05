@@ -423,7 +423,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 1
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -453,7 +453,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: ObjectsInControl(Highlight,Hover)/pipe 4/Base/Green1/BP_Part0002_4/polySurface1/WaterEffect
+    path: ObjectsInControl(Highlight,Hover)/Pipe_WaterEffect
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -472,7 +472,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: ObjectsInControl(Highlight,Hover)/pipe 4
+    path: ObjectsInControl(Highlight,Hover)/Pipe_WaterEffect/Base/Green1/BP_Part0002_4/polySurface1/WaterEffect
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -1456,7 +1456,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 1
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -1486,7 +1486,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: ObjectsInControl(Highlight,Hover)/pipe 4/Base/Green1/BP_Part0002_4/polySurface1/WaterEffect
+    path: ObjectsInControl(Highlight,Hover)/Pipe_WaterEffect
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -1505,7 +1505,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: ObjectsInControl(Highlight,Hover)/pipe 4
+    path: ObjectsInControl(Highlight,Hover)/Pipe_WaterEffect/Base/Green1/BP_Part0002_4/polySurface1/WaterEffect
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves:

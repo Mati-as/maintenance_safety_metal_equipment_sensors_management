@@ -7,9 +7,9 @@ public class InitialScene : BaseScene
     
     
 #if UNITY_EDITOR
-    public static float _logoShowTime = 2f;
+    public static float _logoShowTimeDuration = 1.5f;
 #else
-    public static float _logoShowTime = 2;
+    public static float _logoShowTimeDuration = 2;
 #endif
     
     
@@ -32,14 +32,14 @@ public class InitialScene : BaseScene
     private IEnumerator InitialUIAnimationCo()
     {
        
-        Managers.UI.ShowPopupUI<UI_Loading>();
+      
         Managers.UI.ShowPopupUI<UI_Logo>();
         
 
-        yield return new WaitForSeconds(_logoShowTime);
-        
+        yield return new WaitForSeconds(_logoShowTimeDuration);
         Managers.UI.ClosePopupUI();
         Managers.UI.ShowPopupUI<UI_Loading>().GetComponent<UI_Loading>().PlayLoadingAnimAndLoadMain();
+        
     
         
     }

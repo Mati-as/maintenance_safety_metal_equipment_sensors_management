@@ -138,6 +138,10 @@ public class UI_FullMenu : UI_Popup
 
                 Managers.Scene.LoadScene(SceneType.DepthC2);
                 break;
+            case 4:
+
+                Managers.Scene.LoadScene(SceneType.DepthD2);
+                break;
         }
     }
 

@@ -102,6 +102,19 @@ public class UI_ToolBox : UI_Popup
     /// 파라미터가 없는경우 비활성화만 진행
     public void Refresh(Btns currentActiveTool = (Btns)987654321)
     {
+
+        //평가하기의 경우 도구를 모두 보여주기
+        if (Managers.ContentInfo.PlayData.Depth1 ==4)
+        {
+            
+            for (int i = (int)Btns.Btn_ElectricScrewdriver; i < Enum.GetValues(typeof(Btns)).Length ; i++)
+            {
+                GetButton(i).gameObject.SetActive(false);
+            }
+
+            return;
+        }
+        
         for (int i = (int)Btns.Btn_ElectricScrewdriver; i < Enum.GetValues(typeof(Btns)).Length ; i++)
         {
             GetButton(i).gameObject.SetActive(false);
@@ -112,5 +125,7 @@ public class UI_ToolBox : UI_Popup
             GetButton((int)currentActiveTool).gameObject.SetActive(true);
         }
     }
+    
+    
 
 }

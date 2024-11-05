@@ -226,7 +226,8 @@ public class DepthC21_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
-               _depthC2SceneController.TurnOnCollidersAndInit();
+        
+        _depthC2SceneController.TurnOnCollidersAndInit();
         CurrentScene.contentController.isStepMissionPerformable = true;
        
         foreach (var key in  _depthC2SceneController.currentScrewGaugeStatus.Keys.ToList())
