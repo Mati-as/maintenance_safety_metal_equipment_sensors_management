@@ -82,6 +82,7 @@ public class DepthC23_State_4 : Base_SceneState
 
     public override void OnEnter()
     {
+        _depthC2SceneController.GetObject((int)DepthC_GameObj.Pipe_WaterEffect).SetActive(true);
         _depthC2SceneController.controlPanel.SetPowerHandleOff();
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TankValve, false);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TankValve);
@@ -93,6 +94,7 @@ public class DepthC23_State_4 : Base_SceneState
     public override void OnExit()
     {
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TankValve);
+        _depthC2SceneController.GetObject((int)DepthC_GameObj.Pipe_WaterEffect).SetActive(false);
         base.OnExit();
     }
 }
@@ -108,6 +110,8 @@ public class DepthC23_State_5 : Base_SceneState
 
     public override void OnEnter()
     {
+        _depthC2SceneController.GetObject((int)DepthC_GameObj.Pipe_WaterEffect).SetActive(false);
+        
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover, false);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_Cover);
         _depthC2SceneController.SetUnscrewStatus(false);

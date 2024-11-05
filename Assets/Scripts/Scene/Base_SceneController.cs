@@ -24,6 +24,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public UI_ContentController contentController;
     private readonly float _startDelay = 1f; // 맨처음 스크립트 시작 딜레이
     private WaitForSeconds _wait;
+    
+    private int _currentStateNum;
 
     //Animation Part
 
@@ -102,15 +104,22 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     }
     private void OnDepth3IntroOrClickedAction()
     {
-        isReverseAnim = false;
+        PreInitBefreDepthChange();
         
         PlayAnimationAndNarration(1);
         ChangeState(1);
     }
 
-    private void OnDepth2IntroOrClickedAction()
+    private void PreInitBefreDepthChange()
     {
         isReverseAnim = false;
+        ExitCurrentState();
+
+    }
+
+    private void OnDepth2IntroOrClickedAction()
+    {
+        PreInitBefreDepthChange();
     }
     protected IEnumerator OnSceneStartCo()
     {
@@ -168,8 +177,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
                              $"{Managers.ContentInfo.PlayData.Depth2}"+
                              $"{Managers.ContentInfo.PlayData.Depth3}"+
                              $"{stateNum.ToString()}");
-        
 
+
+        _currentStateNum = processedState;
         Logger.Log($"Current StateNum : {processedState}");
         
         if (_sceneStates.TryGetValue(processedState, out var newState))
@@ -182,6 +192,20 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         else
         {
             Logger.LogWarning($"No state found for depth {stateNum}----------------------------------");
+        }
+    }
+
+    private void ExitCurrentState()
+    {
+
+        if (_sceneStates.TryGetValue(_currentStateNum, out var newState))
+        {
+            if(_currentState==null) Logger.Log($"현재 State 없음, 에러가능성 있습니다 --------------- : {_currentStateNum}");
+            _currentState?.OnExit();
+        }
+        else
+        {
+            Logger.LogWarning($"No state found for depth {_currentStateNum}----------------------------------");
         }
     }
 
@@ -269,6 +293,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
                 clip = reverseClip;
                 _mainAnimation[clip.name].time = _mainAnimation[clip.name].length;
                 Logger.Log($"Current Anim was long enough: {reverseClip.length} ->  Rewinding Animation.");
+                if(_mainAnimation != null)_mainAnimation[clip.name].speed = isReverse ? -1 : 1;
             }
             else
             {
@@ -279,7 +304,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
                 reverseClip = Resources.Load<AnimationClip>(path);
                 
                 clip = reverseClip;
-                Logger.Log($"Reverse clip too short, using original clip.");
+                Logger.Log($"Reverse clip too short, using original clip. Path:  {path}");
+                if(_mainAnimation != null)_mainAnimation[clip.name].speed = 1;
             }
         }
 
@@ -287,7 +313,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             Logger.Log("Clip is null.");
         }
-        if(_mainAnimation != null)_mainAnimation[clip.name].speed = isReverse ? -1 : 1;
+     
         else { Logger.Log("animation is null."); }
         if(!isReverse) _mainAnimation[clip.name].time = 0;
 

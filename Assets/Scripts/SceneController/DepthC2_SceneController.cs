@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
+using Sequence = DG.Tweening.Sequence;
 
 
 /// <summary>
@@ -39,6 +41,11 @@ public enum DepthC_GameObj
     TemperatureSensor,
     OnTempSensor_Pipe,
     NewTemperatureSensor,
+    
+    
+    Pipe_WaterEffect,
+    WaterLeakEffect,
+    WaterDecal,
     
   
     PowerHandle,
@@ -73,6 +80,28 @@ public class DepthC2_SceneController : Base_SceneController
     private int _unwoundCount;
 
 
+    private ParticleSystem _waterLeakPs;
+
+    
+    public ParticleSystem waterLeakPs
+    {
+        get
+        {
+            if (_waterLeakPs == null)
+                _waterLeakPs = GetObject((int)DepthC_GameObj.WaterLeakEffect).GetComponent<ParticleSystem>();
+            return _waterLeakPs;
+        }
+    }
+
+    public void SetParticleStatus(bool isOn =true)
+    {
+        if (isOn)
+            waterLeakPs.Play();
+        else
+            waterLeakPs.Stop();
+    }
+    
+
     private IndicatorController _indicator;
     public IndicatorController indicator
     {
@@ -82,13 +111,75 @@ public class DepthC2_SceneController : Base_SceneController
                 _indicator = GetObject((int)DepthC_GameObj.Indicator).GetComponent<IndicatorController>();
             return _indicator;
         }
-        private set
-        {
-            if(_indicator == null)
-            _indicator = GetObject((int)DepthC_GameObj.Indicator).GetComponent<IndicatorController>();
-        }
         
     }
+
+    private static readonly int Alpha = Shader.PropertyToID("_alpha");
+    private DecalProjector _waterDecal;
+    public DecalProjector waterDecal
+    {
+        get
+        {
+            if (_waterDecal == null)
+                _waterDecal = GetObject((int)DepthC_GameObj.WaterDecal).GetComponent<DecalProjector>();
+            return _waterDecal;
+        }
+       
+    }
+
+    public void SetWaterDecalStatus(bool isOn =true)
+    {
+        GetObject((int)DepthC_GameObj.WaterDecal).SetActive(isOn);
+    }
+
+    public void FadeInDecal()
+    {
+        
+        waterDecal.material.SetFloat(Alpha, 0);
+
+        _seqMap.TryAdd((int)DepthC_GameObj.WaterDecal, DOTween.Sequence());
+        
+        _seqMap[(int)DepthC_GameObj.WaterDecal]?.Kill();
+        _seqMap[(int)DepthC_GameObj.WaterDecal] = DOTween.Sequence();
+        
+        _seqMap[(int)DepthC_GameObj.WaterDecal].AppendCallback(() =>
+        {
+            GetObject((int)DepthC_GameObj.WaterDecal).SetActive(true);
+            DOVirtual.Float(0, 0.3f, 2.5f, val =>
+                { waterDecal.material.SetFloat(Alpha, val); });
+        });
+        
+  
+    
+    }
+
+    public void FadeOutDecal()
+    {
+        waterDecal.material.SetFloat(Alpha, 1);
+        
+        _seqMap.TryAdd((int)DepthC_GameObj.WaterDecal, DOTween.Sequence());
+        
+        _seqMap[(int)DepthC_GameObj.WaterDecal]?.Kill();
+        _seqMap[(int)DepthC_GameObj.WaterDecal] = DOTween.Sequence();
+
+        _seqMap[(int)DepthC_GameObj.WaterDecal].AppendCallback(() =>
+        {
+            DOVirtual.Float(0.3f, 0, 2.5f, val => { waterDecal.material.SetFloat(Alpha, val); });
+        });
+        
+        _seqMap[(int)DepthC_GameObj.WaterDecal].AppendCallback(() =>
+        {
+            GetObject((int)DepthC_GameObj.WaterDecal).SetActive(false);
+        });
+        _seqMap[(int)DepthC_GameObj.WaterDecal].OnKill(() =>
+        {
+            SetWaterDecalStatus(true);
+        });
+        
+        
+
+    }
+    
 
     public bool isAnodePut; // 음극단자 설정을 위한 bool값입니다.
 
@@ -212,11 +303,24 @@ public class DepthC2_SceneController : Base_SceneController
         if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") SetDepthNum(); //개발용
 
         base.Init();
-        InitializeC2States();
         BindObject(typeof(DepthC_GameObj));
+        InitializeC2States();
+    
         GetScrewColliders();
+       
         contentController.OnDepth2Clicked(2); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
         
+    }
+
+    private void LateCommonInit()
+    {
+        
+        ClearTool();
+        isAnodePut = false;
+        GetObject((int)DepthC_GameObj.NewTemperatureSensor).SetActive(false);
+        SetWaterDecalStatus(false);
+        SetParticleStatus(false);
+        indicator.ShowNothing();
     }
 
 
@@ -244,22 +348,15 @@ public class DepthC2_SceneController : Base_SceneController
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
         MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReady;
 
-        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
-        currentScrewGaugeStatus = new Dictionary<int, float>();
-        isScrewUnwindMap = new Dictionary<int, bool>();
-        animatorMap = new Dictionary<int, Animator>();
+        PreCommonInit();
+        
 
-        defaultRotationMap = new Dictionary<int, Quaternion>();
-        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Cathode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
-        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Anode,GetObject((int)DepthC_GameObj.Probe_Anode).transform.rotation);
 
         #region 초기화 및 하이라이트 및 텍스트 바인딩 부분
 
-        isAnodePut = false;
+
         InitProbePos();
-       
-
-
+        
         GetObject((int)DepthC_GameObj.TemperatureSensor).SetActive(true);
        // StartCoroutine(OnSceneStartCo());
 
@@ -301,6 +398,14 @@ public class DepthC2_SceneController : Base_SceneController
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 6)
             {
+              
+                DOVirtual.DelayedCall(1, () =>
+                {
+                    FadeOutDecal();
+                    SetParticleStatus(false);
+                });
+                
+                
                 OnStepMissionComplete((int)DepthC_GameObj.TS_ConnectionPiping, 6);
             }
             
@@ -425,10 +530,11 @@ public class DepthC2_SceneController : Base_SceneController
 
 
       
-           indicator.ShowNothing();
+           
 
        #endregion
 
+       LateCommonInit();
     }
 
     public void InitProbePos()
@@ -450,18 +556,8 @@ public class DepthC2_SceneController : Base_SceneController
       
         UnBindEventAttatchedObj();
         InitProbePos();
-        
-        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
-        currentScrewGaugeStatus = new Dictionary<int, float>();
-        isScrewUnwindMap = new Dictionary<int, bool>();
-        animatorMap = new Dictionary<int, Animator>();
-      
-        defaultRotationMap = new Dictionary<int, Quaternion>();
-        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Cathode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
-        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Anode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
-        
-        controlPanel = GetObject((int)DepthC_GameObj.PowerHandle).GetComponent<ControlPanelController>();
-
+          PreCommonInit();
+    
         
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
@@ -510,6 +606,7 @@ public class DepthC2_SceneController : Base_SceneController
         
 
         #endregion
+        LateCommonInit();
     }
 
     
@@ -559,21 +656,13 @@ public class DepthC2_SceneController : Base_SceneController
         
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
         ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
-        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
-        currentScrewGaugeStatus = new Dictionary<int, float>();
-        isScrewUnwindMap = new Dictionary<int, bool>();
-        animatorMap = new Dictionary<int, Animator>();
-      
-        defaultRotationMap = new Dictionary<int, Quaternion>();
-        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Cathode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
-        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Anode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
         
-        controlPanel = GetObject((int)DepthC_GameObj.PowerHandle).GetComponent<ControlPanelController>();
-        
+        PreCommonInit();
+
+       
         //드라이버 -------------------------------------------------------------------------  
         SetScrewDriverSection(true);
-        
-        
+     
         GetObject((int)DepthC_GameObj.TankValve).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Count != 4) return;
@@ -715,8 +804,8 @@ public class DepthC2_SceneController : Base_SceneController
 #endregion
  
 
-        indicator.ShowNothing();
-
+       
+        LateCommonInit();
     
 
 
@@ -1249,6 +1338,7 @@ public class DepthC2_SceneController : Base_SceneController
     [FormerlySerializedAs("_multimeterController")]
     public MultimeterController multimeterController;
 
+
     protected virtual void SetToolPos()
     {
         var distanceFromCamera = 0.09f;
@@ -1441,6 +1531,25 @@ public class DepthC2_SceneController : Base_SceneController
         Managers.ContentInfo.PlayData.Count = 1;
     }
 
+    
+    /// <summary>
+    /// 1. 공통적인 오브젝트 초기화로직 등 
+    /// </summary>
+    private void PreCommonInit()
+    {
+         
+        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
+        currentScrewGaugeStatus = new Dictionary<int, float>();
+        isScrewUnwindMap = new Dictionary<int, bool>();
+        animatorMap = new Dictionary<int, Animator>();
+        _seqMap = new Dictionary<int, Sequence>();
+        
+        defaultRotationMap = new Dictionary<int, Quaternion>();
+        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Cathode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
+        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Anode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
+        controlPanel = GetObject((int)DepthC_GameObj.PowerHandle).GetComponent<ControlPanelController>();
+        
+    }
 
     private void InitializeC2States()
     {
