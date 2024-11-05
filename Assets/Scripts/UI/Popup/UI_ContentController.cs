@@ -22,7 +22,7 @@ public enum Btns
     Btn_Script_Hide,
     Btn_ThirdDepthList_Hide,
     Btn_Help,
-    Btn_Evaluation,
+    //Btn_Evaluation,
     Btn_ToolBox,
     Btn_Guidebook,
 
@@ -204,11 +204,11 @@ public class UI_ContentController : UI_Popup
     {
         if (_highlightImageMap == null) _highlightImageMap = new Dictionary<int, Image>();
 
-        Image highlightImage = GetButton((int)(Btns.Btn_Evaluation))
-            .GetComponentsInChildren<Image>(true) // Gets all Image components
-            .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); // Looks for the one with the specific name
-        _highlightImageMap.TryAdd((int)Btns.Btn_Evaluation, highlightImage);
-        
+        // Image highlightImage = GetButton((int)(Btns.Btn_Evaluation))
+        //     .GetComponentsInChildren<Image>(true) // Gets all Image components
+        //     .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); // Looks for the one with the specific name
+        // _highlightImageMap.TryAdd((int)Btns.Btn_Evaluation, highlightImage);
+       
         
         Image GuidebookHlImage = GetButton((int)(Btns.Btn_Guidebook))
             .GetComponentsInChildren<Image>(true) // Gets all Image components
@@ -521,7 +521,18 @@ public class UI_ContentController : UI_Popup
     }
 
 
-    [FormerlySerializedAs("_uiToolBox")] public UI_ToolBox uiToolBox;
+    public UI_ToolBox uiToolBox
+    {
+        get
+        {
+            return GetObject((int)UI.UI_ToolBox).GetComponent<UI_ToolBox>();
+        }
+        private set
+        {
+            uiToolBox = GetObject((int)UI.UI_ToolBox).GetComponent<UI_ToolBox>();
+        }
+    }
+    
     private void SetBtns()
     {
         GetButton((int)Btns.Btn_Prev).gameObject.BindEvent(OnPrevBtnClicked);

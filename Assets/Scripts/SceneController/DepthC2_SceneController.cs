@@ -337,8 +337,11 @@ public class DepthC2_SceneController : Base_SceneController
                 animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
                 animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
                 
-                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "저항 측정");
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "측정단자 B");
+                
+                SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
                 SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
+                
                 HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
 
                 DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
@@ -351,7 +354,7 @@ public class DepthC2_SceneController : Base_SceneController
                 animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
                 
                 
-                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
                 SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
                 HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
 
@@ -636,7 +639,7 @@ public class DepthC2_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Count == 10)
             {
                 
-                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "저항 측정");
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "측정단자 B");
                 SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
                 HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
                 
@@ -650,8 +653,11 @@ public class DepthC2_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 != 3) return;
             if (Managers.ContentInfo.PlayData.Count != 11) return;
             
-            BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
+            BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
+            
+            SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
             SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
+            
             HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
             
             animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
@@ -668,8 +674,10 @@ public class DepthC2_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Count == 10)
             {
                 if (!isAnodePut) return;
+               
                 BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
                 HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
+                SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
                 SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
                 
                 animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
@@ -1361,6 +1369,7 @@ public class DepthC2_SceneController : Base_SceneController
         CurrentActiveTool =  -1;
         isDriverOn= false;
         isMultimeterOn = false;
+        
     }
 
     public void SetUnscrewStatus(bool isUnscrewed)

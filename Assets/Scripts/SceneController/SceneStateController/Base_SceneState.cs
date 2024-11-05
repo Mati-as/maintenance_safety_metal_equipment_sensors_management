@@ -46,6 +46,7 @@ public class Base_SceneState : ISceneState
        // _animationDelay = 0;
         CurrentScene.TurnOffAllRegisteredHighlights();
         CurrentScene.contentController.StopBtnUIBlink();
+        CurrentScene.contentController.uiToolBox.Refresh();
     }
     
     public void OnAnimationComplete(int currentAnimationNumber)

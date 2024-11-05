@@ -7,7 +7,7 @@ public class UI_ToolBox : UI_Popup
     private readonly int UI_ON = Animator.StringToHash("On");
     public enum Btns
     {
-        Btn_Close,
+        //Btn_Close,
         Btn_ElectricScrewdriver,
         Btn_Multimeter,
         Btn_TemperatureSensor
@@ -36,16 +36,14 @@ public class UI_ToolBox : UI_Popup
         _animator = GetComponent<Animator>();
         BindButton(typeof(Btns));
        // BindObject(typeof(Obj));
-        
-   
-             
-        GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
-        {
-            
-            ToolBoxOnEvent?.Invoke();
-            SetToolBox(false);
-            //Managers.UI.ClosePopupUI(this);
-        });
+        //
+        // GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
+        // {
+        //     
+        //     ToolBoxOnEvent?.Invoke();
+        //     SetToolBox(false);
+        //     //Managers.UI.ClosePopupUI(this);
+        // });
 
         
         
@@ -74,6 +72,7 @@ public class UI_ToolBox : UI_Popup
         
 
         SetToolBox(false);
+        Refresh();
         return true;
         
     }
@@ -97,7 +96,21 @@ public class UI_ToolBox : UI_Popup
      
         _animator.SetBool(UI_ON,isOn);
     }
- 
 
+
+    ///현재는 한개의 UI만 Refresh하면서 킬 수 있게 동작,
+    /// 파라미터가 없는경우 비활성화만 진행
+    public void Refresh(Btns currentActiveTool = (Btns)987654321)
+    {
+        for (int i = (int)Btns.Btn_ElectricScrewdriver; i < Enum.GetValues(typeof(Btns)).Length ; i++)
+        {
+            GetButton(i).gameObject.SetActive(false);
+        }
+
+        if ((int)currentActiveTool < Enum.GetValues(typeof(Btns)).Length)
+        {
+            GetButton((int)currentActiveTool).gameObject.SetActive(true);
+        }
+    }
 
 }

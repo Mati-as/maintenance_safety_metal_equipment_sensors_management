@@ -94,6 +94,7 @@ public class DepthC22_State_5 : Base_SceneState
     {
         
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_TemperatureSensor);
         base.OnEnter();
 
     }
@@ -201,7 +202,8 @@ public class DepthC22_State_9 : Base_SceneState
     
     public override void OnEnter()
     {
-        
+        CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
        
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
@@ -263,23 +265,18 @@ public class DepthC22_State_10 : Base_SceneState
         CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사");
         _depthC2SceneController.TurnOnCollidersAndInit();
         
+        
         _depthC2SceneController.isWindSession = true;
         _depthC2SceneController.isMultimeterOn = false;
         
-        //CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover, false);
-       // CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_Cover);
         
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
         
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewC);
-        
-        
-        
-
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
         
         //나사 위치 초기화
         _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;

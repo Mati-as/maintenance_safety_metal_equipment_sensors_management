@@ -305,6 +305,7 @@ public class DepthC21_State_11 : Base_SceneState
         _depthC2SceneController.isWindSession = false;
 
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
         base.OnEnter();
     }
 
@@ -331,6 +332,7 @@ public class DepthC21_State_12 : Base_SceneState
     public override void OnEnter()
     {
         _depthC2SceneController.TurnOnCollidersAndInit();
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
         CurrentScene.contentController.isStepMissionPerformable = true;
        
         foreach (var key in  _depthC2SceneController.currentScrewGaugeStatus.Keys.ToList())
@@ -397,10 +399,14 @@ public class DepthC21_State_12 : Base_SceneState
     public override void OnExit()
     {
         _depthC2SceneController.TurnOnCollidersAndInit();
+     
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
+        
         _depthC2SceneController.ClearTool();
+        
+        
         base.OnExit();
     }
 }
@@ -461,6 +467,7 @@ public class DepthC21_State_13 : Base_SceneState
         
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         base.OnEnter();
     }
 
@@ -493,6 +500,7 @@ public class DepthC21_State_14 : Base_SceneState
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
         _depthC2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         _depthC2SceneController.multimeterController.TurnOffResistantMode();
         
@@ -523,20 +531,20 @@ public class DepthC21_State_15 : Base_SceneState
 
     public override void OnEnter()
     {
-       
-      
-      
         _depthC2SceneController.InitProbePos();
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
         _depthC2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         _depthC2SceneController.multimeterController.SetToResistanceModeAndRotation();
         
         //나사 위치 초기화
         //초기화로직이 포함되어있음으로 순서변경 X
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "저항 측정");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "측정단자 B");
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
+        
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
         
         _depthC2SceneController.multimeterController.OnGroundNothing();
@@ -593,8 +601,10 @@ public class DepthC21_State_16 : Base_SceneState
     {
 
         _depthC2SceneController.InitProbePos();
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "저항 측정");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB);
         CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
 
         
@@ -602,6 +612,7 @@ public class DepthC21_State_16 : Base_SceneState
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
         _depthC2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         _depthC2SceneController.multimeterController.SetToResistanceModeAndRotation();
         
