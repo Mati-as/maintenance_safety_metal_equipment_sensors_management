@@ -124,8 +124,8 @@ public class DepthC21_State_6 : Base_SceneState
 
     public override void OnExit()
     {
-     
-        _depthC2SceneController.FadeOutDecal();
+
+        _depthC2SceneController.SetWaterMatAlpha();
         _depthC2SceneController.SetParticleStatus(false);
         
         CurrentScene.contentController.isStepMissionPerformable = false;

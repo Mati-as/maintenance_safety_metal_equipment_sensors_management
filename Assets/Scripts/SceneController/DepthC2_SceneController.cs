@@ -135,47 +135,73 @@ public class DepthC2_SceneController : Base_SceneController
     public void FadeInDecal()
     {
         
+        // set initial alpha to 0
         waterDecal.material.SetFloat(Alpha, 0);
 
-        _seqMap.TryAdd((int)DepthC_GameObj.WaterDecal, DOTween.Sequence());
-        
-        _seqMap[(int)DepthC_GameObj.WaterDecal]?.Kill();
-        _seqMap[(int)DepthC_GameObj.WaterDecal] = DOTween.Sequence();
-        
-        _seqMap[(int)DepthC_GameObj.WaterDecal].AppendCallback(() =>
+        // attempt to add a new sequence if one doesn’t exist
+        if (!_seqMap.TryAdd((int)DepthC_GameObj.WaterDecal, DOTween.Sequence()))
         {
-            GetObject((int)DepthC_GameObj.WaterDecal).SetActive(true);
-            DOVirtual.Float(0, 0.3f, 2.5f, val =>
-                { waterDecal.material.SetFloat(Alpha, val); });
-        });
+            // if already exists, kill and clear it
+            _seqMap[(int)DepthC_GameObj.WaterDecal].Kill();
+            _seqMap[(int)DepthC_GameObj.WaterDecal] = DOTween.Sequence();
+        }
         
-  
-    
+        
+
+        var newSeq = DOTween.Sequence();
+        _seqMap[(int)DepthC_GameObj.WaterDecal] = newSeq;
+
+        // add fade-in effect to the sequence
+        newSeq.AppendCallback(() =>
+            {
+                GetObject((int)DepthC_GameObj.WaterDecal).SetActive(true);
+            })
+            .Append(DOVirtual.Float(0, 0.3f, 1.8f, val =>
+            {
+                waterDecal.material.SetFloat(Alpha, val);
+            })).SetUpdate(true); // optionally set to update even if game is paused;
+
+
+    }
+
+    public void SetWaterMatAlpha(int alpha=0)
+    {
+        if (!_seqMap.TryAdd((int)DepthC_GameObj.WaterDecal, DOTween.Sequence()))
+        {
+            // if already exists, kill and clear it
+            _seqMap[(int)DepthC_GameObj.WaterDecal].Kill();
+            _seqMap[(int)DepthC_GameObj.WaterDecal] = DOTween.Sequence();
+        }
+        
+        waterDecal.material.SetFloat(Alpha, alpha);
     }
 
     public void FadeOutDecal()
     {
+        // set initial alpha to 0
         waterDecal.material.SetFloat(Alpha, 1);
-        
-        _seqMap.TryAdd((int)DepthC_GameObj.WaterDecal, DOTween.Sequence());
-        
-        _seqMap[(int)DepthC_GameObj.WaterDecal]?.Kill();
-        _seqMap[(int)DepthC_GameObj.WaterDecal] = DOTween.Sequence();
 
-        _seqMap[(int)DepthC_GameObj.WaterDecal].AppendCallback(() =>
+        // attempt to add a new sequence if one doesn’t exist
+        if (!_seqMap.TryAdd((int)DepthC_GameObj.WaterDecal, DOTween.Sequence()))
         {
-            DOVirtual.Float(0.3f, 0, 2.5f, val => { waterDecal.material.SetFloat(Alpha, val); });
-        });
-        
-        _seqMap[(int)DepthC_GameObj.WaterDecal].AppendCallback(() =>
-        {
-            GetObject((int)DepthC_GameObj.WaterDecal).SetActive(false);
-        });
-        _seqMap[(int)DepthC_GameObj.WaterDecal].OnKill(() =>
-        {
-            SetWaterDecalStatus(true);
-        });
-        
+            // if already exists, kill and clear it
+            _seqMap[(int)DepthC_GameObj.WaterDecal].Kill();
+            _seqMap[(int)DepthC_GameObj.WaterDecal] = DOTween.Sequence();
+        }
+
+        var newSeq = DOTween.Sequence();
+        _seqMap[(int)DepthC_GameObj.WaterDecal] = newSeq;
+
+        // add fade-in effect to the sequence
+        newSeq.AppendCallback(() =>
+            {
+                GetObject((int)DepthC_GameObj.WaterDecal).SetActive(true);
+            })
+            .Append(DOVirtual.Float(0.3f, 0f, 1.8f, val =>
+            {
+                waterDecal.material.SetFloat(Alpha, val);
+            })).SetUpdate(true); // optionally set to update even if game is paused;
+
         
 
     }
@@ -399,7 +425,7 @@ public class DepthC2_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 6)
             {
               
-                DOVirtual.DelayedCall(1, () =>
+                DOVirtual.DelayedCall(0.8f, () =>
                 {
                     FadeOutDecal();
                     SetParticleStatus(false);

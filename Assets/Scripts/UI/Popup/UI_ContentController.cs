@@ -58,6 +58,8 @@ public class UI_ContentController : UI_Popup
         UI_ToolTip,
         UI_ToolBox,
         UI_DrverOnly_GaugeSlider,
+        UI_CurrentDepth_Mid
+       
         // ActiveArea,
         // InactiveAreaA,
        // InactiveAreaB,
@@ -66,7 +68,7 @@ public class UI_ContentController : UI_Popup
     }
 
 
-    public enum Content_TMP
+    public enum TMPs
     {
         Text_Depth1_Title,
         Text_Current3Depth,
@@ -83,7 +85,7 @@ public class UI_ContentController : UI_Popup
         Text_Depth3_E
     }
 
-    private readonly TextMeshProUGUI[] texts = new TextMeshProUGUI[Enum.GetValues(typeof(Content_TMP)).Length];
+    private readonly TextMeshProUGUI[] texts = new TextMeshProUGUI[Enum.GetValues(typeof(TMPs)).Length];
 
     private Animator _depth3HideBtnAnimator;
     private Animator _depthOneTextMoveAnimator;
@@ -102,6 +104,36 @@ public class UI_ContentController : UI_Popup
     private WaitForSeconds _waitForClick;
     public bool clickable = true;
 
+
+    private RectTransform _textRectcurrentDepth3;
+    public RectTransform textRectcurrentDepth3
+    {
+        get
+        {
+            if (_textRectcurrentDepth3 == null)
+            {
+                _textRectcurrentDepth3 = GetTMP((int)TMPs.Text_Current3Depth).transform.GetComponent<RectTransform>();
+            }
+            
+            return _textRectcurrentDepth3;
+        }
+       
+    }
+
+    private RectTransform _currentDepth3UIRect;
+    public RectTransform currentDepth3UIRect
+    {
+        get
+        {
+            if (_currentDepth3UIRect == null)
+            {
+                _currentDepth3UIRect = GetObject((int)UI.UI_CurrentDepth_Mid).transform.GetComponent<RectTransform>();
+            }
+            
+            return _currentDepth3UIRect;
+        }
+       
+    }
 
     private InputAction _mouseClickAction;
 
@@ -265,7 +297,7 @@ public class UI_ContentController : UI_Popup
         BindButton(typeof(Btns));
         BindToggle(typeof(Toggles));
         BindObject(typeof(UI));
-        BindTMP(typeof(Content_TMP));
+        BindTMP(typeof(TMPs));
         
         UI_DrverOnly_GaugeSlider = GetObject((int)UI.UI_DrverOnly_GaugeSlider).GetComponent<Slider>();
         UI_DrverOnly_GaugeSlider.gameObject.SetActive(false);
@@ -483,7 +515,7 @@ public class UI_ContentController : UI_Popup
     private void RefreshText()
     {
         var depth1 = Managers.ContentInfo.PlayData.Depth1.ToString();
-        texts[(int)Content_TMP.Text_Depth1_Title].text = Managers.Data.Texts[int.Parse(depth1 + "0000")].kor;
+        texts[(int)TMPs.Text_Depth1_Title].text = Managers.Data.Texts[int.Parse(depth1 + "0000")].kor;
         var depth1Int = Managers.ContentInfo.PlayData.Depth1;
 
         var depth2 = Managers.ContentInfo.PlayData.Depth2.ToString();
@@ -492,8 +524,8 @@ public class UI_ContentController : UI_Popup
         //Debug.Log($"depth 3 count : {ContentPlayData.DEPTH_THREE_COUNT_DATA[int.Parse(depth1+depth2)]}");
 
         var depth2Count = 1;
-        for (var i = (int)Content_TMP.Text_Depth2_A;
-             i < (int)Content_TMP.Text_Depth2_A + ContentPlayData.DEPTH_TWO_COUNT_DATA[depth1Int];
+        for (var i = (int)TMPs.Text_Depth2_A;
+             i < (int)TMPs.Text_Depth2_A + ContentPlayData.DEPTH_TWO_COUNT_DATA[depth1Int];
              i++)
         {
             texts[i].text = Managers.Data.Texts[int.Parse(depth1 + "00" + depth2Count + "0")].kor;
@@ -503,8 +535,8 @@ public class UI_ContentController : UI_Popup
 
 
         var depth3Count = 1;
-        for (var i = (int)Content_TMP.Text_Depth3_A;
-             i < (int)Content_TMP.Text_Depth3_A + ContentPlayData.DEPTH_THREE_COUNT_DATA[int.Parse(depth1 + depth2)];
+        for (var i = (int)TMPs.Text_Depth3_A;
+             i < (int)TMPs.Text_Depth3_A + ContentPlayData.DEPTH_THREE_COUNT_DATA[int.Parse(depth1 + depth2)];
              i++)
         {
             texts[i].text = Managers.Data.Texts[int.Parse(depth1 + "00" + depth2 + depth3Count)].kor;
@@ -512,12 +544,34 @@ public class UI_ContentController : UI_Popup
             // Debug.Log($"Depth3 텍스트 변환 완료 : { texts[i].text}");
         }
 
-        Debug.Log(
-            $"{texts[(int)Content_TMP.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
+        Logger.Log(
+            $"{texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
 
-        texts[(int)Content_TMP.Text_Current3Depth].text =
+        
+        
+        texts[(int)TMPs.Text_Current3Depth].text =
             Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
                 + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + Managers.ContentInfo.PlayData.CurrentDepthStatus[2])].kor;
+       
+           
+        string text = texts[(int)TMPs.Text_Current3Depth].text;
+        int charCountWithoutSpaces = text.Replace(" ", "").Length;
+        
+        
+        textRectcurrentDepth3.sizeDelta = new Vector2(10f + (charCountWithoutSpaces * 32f), // new width
+            textRectcurrentDepth3.sizeDelta.y); 
+        
+     
+       
+
+        // set sizeDelta based on non-space characters
+        currentDepth3UIRect.sizeDelta = new Vector2(
+            65f + (charCountWithoutSpaces * 35f), // width based on non-space characters
+            currentDepth3UIRect.sizeDelta.y);
+        
+        
+      
+        Logger.Log($"Current Depth Size delta = {currentDepth3UIRect.sizeDelta.x}");
     }
 
 
@@ -697,7 +751,7 @@ public class UI_ContentController : UI_Popup
             yield break;;
         }
         
-        texts[(int)Content_TMP.Text_Instruction].text =
+        texts[(int)TMPs.Text_Instruction].text =
             Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus)].kor;
     }
 
@@ -776,7 +830,7 @@ public class UI_ContentController : UI_Popup
             Logger.LogWarning("해당 스크립트 없음. 스크립트 누락가능성 있음.");
             return;
         }
-        texts[(int)Content_TMP.Text_Instruction].text =
+        texts[(int)TMPs.Text_Instruction].text =
            Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus)].kor;
     }
 
@@ -871,11 +925,11 @@ public class UI_ContentController : UI_Popup
         }
         
         Logger.Log(
-            $"depth 3 current: {texts[(int)Content_TMP.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
+            $"depth 3 current: {texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
 
 
         Managers.ContentInfo.PlayData.Depth3 = depth3Num;
-        texts[(int)Content_TMP.Text_Current3Depth].text =
+        texts[(int)TMPs.Text_Current3Depth].text =
             Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
                 + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + depth3Num)].kor;
 

@@ -377,6 +377,25 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/Object053
+    classID: 1
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
     path: ObjectsInControl(Highlight,Hover)/NewTemperatureSensor
     classID: 1
     script: {fileID: 0}
@@ -434,7 +453,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: ObjectsInControl(Highlight,Hover)/Pipe_WaterEffect
+    path: ObjectsInControl(Highlight,Hover)/pipe 4/Base/Green1/BP_Part0002_4/polySurface1/WaterEffect
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -453,7 +472,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: ObjectsInControl(Highlight,Hover)/Pipe_WaterEffect/Base/Green1/BP_Part0002_4/polySurface1/WaterEffect
+    path: ObjectsInControl(Highlight,Hover)/pipe 4
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -785,6 +804,25 @@ AnimationClip:
     attribute: m_LocalPosition.z
     path: ObjectsInControl(Highlight,Hover)/TemperatureSensor
     classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: ObjectsInControl(Highlight,Hover)/TemperatureSensor/Object053
+    classID: 1
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
@@ -1448,7 +1486,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: ObjectsInControl(Highlight,Hover)/Pipe_WaterEffect
+    path: ObjectsInControl(Highlight,Hover)/pipe 4/Base/Green1/BP_Part0002_4/polySurface1/WaterEffect
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -1467,7 +1505,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: ObjectsInControl(Highlight,Hover)/Pipe_WaterEffect/Base/Green1/BP_Part0002_4/polySurface1/WaterEffect
+    path: ObjectsInControl(Highlight,Hover)/pipe 4
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves:
