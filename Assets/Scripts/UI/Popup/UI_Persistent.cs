@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -139,5 +140,36 @@ public class UI_Persistent : UI_Scene
         Debug.Log("Deactivate PersistentUI");
 #endif
         _activationAnimator.SetBool(UI_ON, false);
+    }
+    
+    protected override Button GetButton(int idx)
+    {
+        if (idx == (int)Btns.Btn_Logo_MenuActivation)  return Get<Button>(idx);
+        
+        _isScaleEventOn.TryAdd(idx,false);
+
+        if (!_isScaleEventOn[idx])
+        {
+            var btn = Get<Button>(idx);
+            var originalScale = btn.transform.localScale;
+
+            // apply mouse enter scaling
+            BindEvent(btn.gameObject, () =>
+            {
+                btn.transform.DOScale(originalScale * 1.1f, 0.18f);
+//				Logger.Log($"Button Scale Animation Applied: {btn.gameObject.name}");
+            }, Define.UIEvent.PointerEnter);
+
+            // apply mouse exit scaling
+            BindEvent(btn.gameObject, () => { btn.transform.DOScale(originalScale, 0.15f); },
+                Define.UIEvent.PointerExit);
+
+            _isScaleEventOn[idx] = true;
+        }
+	
+		
+        return Get<Button>(idx);
+		
+		
     }
 }

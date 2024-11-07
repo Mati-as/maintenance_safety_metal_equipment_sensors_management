@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UI_FullMenu : UI_Popup
 {
@@ -174,5 +176,36 @@ public class UI_FullMenu : UI_Popup
      
         GetText((int)Texts.Text_TrainingObjectInfo_Detail).text =
             "(문구필요)마우스 커서를 과정명에 올려 훈련 목표를 확인합니다.";
+    }
+    
+    protected override Button GetButton(int idx)
+    {
+        if (idx != (int)Btns.Btn_Close)  return Get<Button>(idx);
+        
+        _isScaleEventOn.TryAdd(idx,false);
+
+        if (!_isScaleEventOn[idx])
+        {
+            var btn = Get<Button>(idx);
+            var originalScale = btn.transform.localScale;
+
+            // apply mouse enter scaling
+            BindEvent(btn.gameObject, () =>
+            {
+                btn.transform.DOScale(originalScale * 1.1f, 0.18f);
+//				Logger.Log($"Button Scale Animation Applied: {btn.gameObject.name}");
+            }, Define.UIEvent.PointerEnter);
+
+            // apply mouse exit scaling
+            BindEvent(btn.gameObject, () => { btn.transform.DOScale(originalScale, 0.15f); },
+                Define.UIEvent.PointerExit);
+
+            _isScaleEventOn[idx] = true;
+        }
+	
+		
+        return Get<Button>(idx);
+		
+		
     }
 }

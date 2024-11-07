@@ -76,7 +76,7 @@ public class EvaluationManager : MonoBehaviour
         set
         {
             _isAlreadyWrongAnswerChecked = value;
-            if(!value) Logger.Log("duplicate check logic is false --------");
+          //  if(!value) Logger.Log("duplicate check logic is false --------");
         }
     }
 
@@ -207,7 +207,7 @@ public class EvaluationManager : MonoBehaviour
         
         Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/Correct");
             
-        var currentDepth1 = Managers.ContentInfo.PlayData.Depth1;
+        var currentDepth1 = Managers.ContentInfo.PlayData.Depth2;
         SaveEvalScore(currentDepth1,
             (int)(((float)correctAnswersCount / (float)itemCountsToEvaluate[currentDepth1]) * 100f));
             

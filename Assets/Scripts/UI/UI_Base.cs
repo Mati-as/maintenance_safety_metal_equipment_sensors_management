@@ -82,7 +82,7 @@ public abstract class UI_Base : MonoBehaviour
 	protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
 	protected Text GetText(int idx) { return Get<Text>(idx); }
 	protected TextMeshProUGUI GetTMP(int idx) { return Get<TextMeshProUGUI>(idx); }
-	protected Button GetButton(int idx)
+	protected virtual Button GetButton(int idx)
 	{
 		_isScaleEventOn.TryAdd(idx,false);
 

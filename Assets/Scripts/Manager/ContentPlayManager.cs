@@ -98,10 +98,10 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int COUNT_MAX_DEPTH353 = 3 + 1;
    
     public static readonly int COUNT_MAX_DEPTH401 = 11 + 1;
-    public static readonly int COUNT_MAX_DEPTH402 = 10 + 1;
-    public static readonly int COUNT_MAX_DEPTH403 = 10 + 1;
-    public static readonly int COUNT_MAX_DEPTH404 = 10 + 1;
-    public static readonly int COUNT_MAX_DEPTH405 = 10 + 1;
+    public static readonly int COUNT_MAX_DEPTH402 = 11 + 1;
+    public static readonly int COUNT_MAX_DEPTH403 = 11 + 1;
+    public static readonly int COUNT_MAX_DEPTH404 = 11 + 1;
+    public static readonly int COUNT_MAX_DEPTH405 = 11 + 1;
     
     private static readonly Dictionary<string, int> DepthCountMaxDictionary = new Dictionary<string, int>
     {

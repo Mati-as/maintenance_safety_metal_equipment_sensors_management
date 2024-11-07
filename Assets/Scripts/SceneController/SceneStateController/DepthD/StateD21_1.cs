@@ -428,9 +428,18 @@ public class StateD21_12 : Base_SceneState
 {
     // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
     DepthD2_SceneController depthD2SceneController;
+
     public StateD21_12(DepthD2_SceneController currentScene) : base(currentScene)
-    { depthD2SceneController = currentScene;}
-    public override void OnEnter() {base.OnEnter();}
+    {
+        depthD2SceneController = currentScene;
+      
+    }
+
+    public override void OnEnter()
+    {
+        Managers.UI.ShowPopupUI<UI_Evaluation>();
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
