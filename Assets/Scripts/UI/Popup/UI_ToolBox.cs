@@ -7,16 +7,11 @@ public class UI_ToolBox : UI_Popup
     private readonly int UI_ON = Animator.StringToHash("On");
     public enum Btns
     {
-        //Btn_Close,
         Btn_ElectricScrewdriver,
         Btn_Multimeter,
         Btn_TemperatureSensor
     }
-
-    public enum Obj
-    {
-        ElectricScrewdriver
-    }
+    
 
     private bool _isToolBoxOn=false;
     private Animator _animator; 
@@ -109,7 +104,7 @@ public class UI_ToolBox : UI_Popup
             
             for (int i = (int)Btns.Btn_ElectricScrewdriver; i < Enum.GetValues(typeof(Btns)).Length ; i++)
             {
-                GetButton(i).gameObject.SetActive(false);
+                GetButton(i).gameObject.SetActive(true);
             }
 
             return;

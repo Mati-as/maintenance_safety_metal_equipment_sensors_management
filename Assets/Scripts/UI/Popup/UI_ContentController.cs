@@ -51,7 +51,7 @@ public class UI_ContentController : UI_Popup
     {
         UI_Top,
         UI_TextBox,
-        UI_DepthTitle,
+       // UI_DepthTitle,
         UI_TrainingInfo,
         UI_Instruction,
         UI_Depth3_List,
@@ -329,7 +329,7 @@ public class UI_ContentController : UI_Popup
         {
            
             gaugeRectPos = GetObject((int)UI.UI_DrverOnly_GaugeSlider).GetComponent<RectTransform>();
-            Logger.Log("get tooltip rectpos");
+//            Logger.Log("get tooltip rectpos");
         }
 
 
@@ -571,7 +571,7 @@ public class UI_ContentController : UI_Popup
         
         
       
-        Logger.Log($"Current Depth Size delta = {currentDepth3UIRect.sizeDelta.x}");
+    //    Logger.Log($"Current Depth Size delta = {currentDepth3UIRect.sizeDelta.x}");
     }
 
 
@@ -610,12 +610,16 @@ public class UI_ContentController : UI_Popup
         if (Managers.ContentInfo.PlayData.Depth1 == 4)
         {
             // 아래 부분은 씬로드 및 초기화 부분에만 사용됨에 주의
-            if (Depth4PrevNextBtnShowConditionCheck())
+            if (Managers.ContentInfo.PlayData.Count <= 1 )
             {
   
                 SetButtonState((int)Btns.Btn_Next, true);
                 SetButtonState((int)Btns.Btn_Prev, false);
-                
+            }
+            else
+            {
+                SetButtonState((int)Btns.Btn_Next, false);
+                SetButtonState((int)Btns.Btn_Prev, false);
             }
         }
         else
@@ -697,8 +701,9 @@ public class UI_ContentController : UI_Popup
 
     private void OnNextBtnClicked()
     {
-        Precheck();
-
+        Precheck();//
+     
+        
         SetScriptUI();
         
        
@@ -741,7 +746,7 @@ public class UI_ContentController : UI_Popup
 
         if (Managers.ContentInfo.PlayData.Count ==0)
         {
-            Logger.Log("Count is zero.. intro animation playing........");
+//            Logger.Log("Count is zero.. intro animation playing........");
             yield break;
         }
         
@@ -982,18 +987,15 @@ public class UI_ContentController : UI_Popup
     private void Precheck()
     {
         
-        if (Managers.ContentInfo.PlayData.Depth1 ==4)
-        {
-            SetNextPrevBtnsActiveStatus(false);
-            return;
-        }
-        
+        SetNextPrevBtnsActiveStatus();
         
         if (!clickable)
         {
             Logger.Log("Clicking Too Fast");
             return;
         }
+        
+      
 
         SetClickable();
     }
@@ -1066,16 +1068,16 @@ public class UI_ContentController : UI_Popup
         });
         
         //애니메이션
-        _UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1, 1f).SetEase(Ease.InCirc));
-        _UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
-        _UIOnSeq.AppendInterval(1f);
-        _UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(0, 1f).SetEase(Ease.InCirc));
-        _UIOnSeq.AppendCallback(() => { GetObject((int)UI.UI_DepthTitle).SetActive(false); });
-        _UIOnSeq.AppendInterval(0.5f);
+        //_UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1, 1f).SetEase(Ease.InCirc));
+        //_UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
+        //_UIOnSeq.AppendInterval(1f);
+        //_UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(0, 1f).SetEase(Ease.InCirc));
+        //_UIOnSeq.AppendCallback(() => { GetObject((int)UI.UI_DepthTitle).SetActive(false); });
+        //_UIOnSeq.AppendInterval(0.5f);
         _UIOnSeq.AppendCallback(PlayObjectiveIntroAnim);
         _UIOnSeq.OnKill(() =>
         {
-            GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
+            //GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
             _UIOnSeq.AppendCallback(() =>
             {
 

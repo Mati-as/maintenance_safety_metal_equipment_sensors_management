@@ -6,7 +6,7 @@ public class Base_SceneState : ISceneState
     
   
     protected float _animationDelay=0;
-    protected float _narrationStartDelay = 1.55f;
+ 
   
     // BaseScene 참조를 생성자에서 주입합니다. 
     protected Base_SceneState(Base_SceneController currentScene)
@@ -18,24 +18,24 @@ public class Base_SceneState : ISceneState
 
     public virtual void OnEnter()
     {
+        Managers.evaluationManager. InitPerState();
+        
+        
         //항상 클릭 가능해야하는 것들 ----
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
         
-       
-        
-        CurrentScene.contentController.isStepMissionComplete = false;
-        CurrentScene.contentController.isStepMissionPerformable = true;
-       // CurrentScene.isSceneAnimationPlayingToProtectDoublePlaying = false;
-         
         CurrentScene.ChangeInstructionTextWithAnim();
         CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
      
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
         
 
-    
         
-        Managers.Sound.PlayNarration(_narrationStartDelay);
+        // CurrentScene.contentController.isStepMissionComplete = false;
+        // CurrentScene.contentController.isStepMissionPerformable = true;
+        // CurrentScene.isSceneAnimationPlayingToProtectDoublePlaying = false;
+        
+
 
     }
 
@@ -48,6 +48,13 @@ public class Base_SceneState : ISceneState
     {
         //CurrentScene.contentController.ShutTrainingInfroAnim();
        // _animationDelay = 0;
+
+       Managers.evaluationManager.OnStateExit();
+       
+       /* Depth4 훈련하기에서만 진행할 수 있도록 다음과 같이 구성하며, UI클릭 미션인경우 다른 오브젝트도
+        오답쳐리가 될 수 있도록 다음과 같이 센티널 값을 넣어 구성합니다. 
+       */
+
         CurrentScene.TurnOffAllRegisteredHighlights();
         CurrentScene.contentController.StopBtnUIBlink();
         CurrentScene.contentController.uiToolBox.Refresh();

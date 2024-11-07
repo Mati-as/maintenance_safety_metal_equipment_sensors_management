@@ -77,8 +77,8 @@ public class DepthD2_SceneController : DepthC2_SceneController
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
         
-        UI_ToolBox.ScrewDriverClickedEvent -= OnScrewDriverBtnClicked;
-        UI_ToolBox.ScrewDriverClickedEvent += OnScrewDriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
 
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
@@ -91,6 +91,27 @@ public class DepthD2_SceneController : DepthC2_SceneController
         
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
         ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
+
+        foreach (DepthC_GameObj obj in Enum.GetValues(typeof(DepthC_GameObj)))
+        {
+            if (GetObject((int)obj) == null||
+                obj == DepthC_GameObj.OnTempSensor_Pipe||
+                obj == DepthC_GameObj.MultimeterHandleHighlight||
+            obj == DepthC_GameObj.TemperatureSensor
+                )
+            {
+                Logger.Log($"no object is set: {obj}");
+                continue;
+            }
+
+            GetObject((int)obj).BindEvent(() =>
+            {
+                Managers.evaluationManager.CheckIfAnswerIsCorrect(obj);
+                Logger.Log($"Evaluation Event Bound : {obj}");
+            });
+        }
+        
+        
         
         
         GetObject((int)DepthC_GameObj.TankValve).BindEvent(() =>
@@ -125,7 +146,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
             if (Managers.ContentInfo.PlayData.Count == 8)
             {
                 
-                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "저항 측정");
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "측정 단자 B");
                 SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
                 //HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
                 
@@ -139,7 +160,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
             //접지
             if (Managers.ContentInfo.PlayData.Count == 9)
             {
-                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
                 SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
                 //HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
             
@@ -163,7 +184,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
             if (Managers.ContentInfo.PlayData.Count == 8)
             {
                 if (!isAnodePut) return;
-                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
+                BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
                // HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
                 SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
                 
@@ -212,16 +233,22 @@ public class DepthD2_SceneController : DepthC2_SceneController
         
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.ScrewDriverClickedEvent -= OnScrewDriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
     }
-    
-    
+
+    public override void OnElectricScrewdriverBtnClicked()
+    {
+        base.OnElectricScrewdriverBtnClicked();
+        Managers.evaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+    }
+
     protected override void OnUI_MultimeterBtnClicked()
     {
         if (Managers.ContentInfo.PlayData.Depth1 != 4) return;
-    
+
+        Managers.evaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_Multimeter);
         
         InitializeTool();
         CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
@@ -240,7 +267,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
     
     protected override void OnToolBoxClicked()
     {
-        Logger.Log("");
+//        Logger.Log("");
  
     }
     
@@ -261,6 +288,8 @@ public class DepthD2_SceneController : DepthC2_SceneController
      
      protected override void OnUI_Btn_TemperatureSensorClicked()
      {
+         Managers.evaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_TemperatureSensor);
+         
          if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5 )
          {
              OnStepMissionComplete( animationNumber:5,delayAmount:new WaitForSeconds(12.9f));

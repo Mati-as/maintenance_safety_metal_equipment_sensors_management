@@ -78,8 +78,8 @@ public class DepthC21_State_5 : Base_SceneState
     {
         
         
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_LockingScrew);
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew, false);
+        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_LockingScrew);
       
         CurrentScene.contentController.isStepMissionPerformable = true;
         base.OnEnter();

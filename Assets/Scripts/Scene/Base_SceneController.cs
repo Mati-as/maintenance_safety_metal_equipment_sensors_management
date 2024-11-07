@@ -339,13 +339,15 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         yield return new WaitForSeconds(clip.length);
         OnAnimationComplete();
     }
-
+    protected float _narrationStartDelay = 0.2f;
 
     public static event Action<int> OnAnimationCompelete;
 
     private void OnAnimationComplete()
     {
-        Managers.Sound.Play(SoundManager.Sound.Narration, Managers.ContentInfo.PlayData.CurrentDepthStatus);
+      //  Managers.Sound.Play(SoundManager.Sound.Narration, Managers.ContentInfo.PlayData.CurrentDepthStatus);
+      
+        Managers.Sound.PlayNarration(_narrationStartDelay);
         contentController.isStepMissionComplete = false;
         OnAnimationCompelete?.Invoke(currentCount);
     }
@@ -375,7 +377,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             objectHighlightMap[gameObjName].ignore = isOn;
             objectHighlightMap[gameObjName].enabled = isOn;
-
         }
         else
         {
@@ -464,7 +465,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         SetDefaultHighlight(ref highlightEffect);
         if (!objectHighlightMap.ContainsKey((int)gameObj))
         {
-            Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC_GameObj)gameObj}");
+//            Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC_GameObj)gameObj}");
             objectHighlightMap.Add((int)gameObj, highlightEffect);
         }
     }

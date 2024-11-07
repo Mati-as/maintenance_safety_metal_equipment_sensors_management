@@ -16,16 +16,16 @@ public class Managers : MonoBehaviour
     private static EvaluationManager s_evaluationManager = new();
     
     
-    //controller로  이름 변경우 UIManager로 통합예정 11/1 민석
+    
+    public static EvaluationManager evaluationManager
+    {get{Init();
+        return s_evaluationManager;}}
+    
+    
+    //controller로  이름 변경우 UIManager로 통합가능 (11/01/24)
     private static CursorImageManager s_cursorImageManager= new CursorImageManager();
     public static CursorImageManager cursorImageManager
-    {  
-        get 
-        { 
-            Init(); 
-            return s_cursorImageManager; 
-        } 
-    }
+    {get{Init();return s_cursorImageManager;}}
     public static DataManager Data
     { get { Init(); return s_DataManager; }}
 

@@ -25,7 +25,6 @@ public enum DepthC_GameObj
     Indicator,
     Probe_Anode, // negative
     Probe_Cathode, // positive
-    
     //Temperature sesnor ----------
     TS_CompensatingWire,
     TS_Stabilizer,
@@ -45,23 +44,18 @@ public enum DepthC_GameObj
     Pipe_WaterEffect,
     WaterLeakEffect,
     WaterDecal,
-    
   
     PowerHandle,
     TankValve,
-    
-    TS_CompensatingWireA,
-    TS_CompensatingWireB,
-    TS_CompensatingWireC,
-    ControlPanel,
-        
-    
-    LimitSwitch,
-    TemperatureSensor_Whole, //분해 로직이랑 구분
-    LevelSensor,
-    FlowMeter,
-
-    PressureSensor
+    // ControlPanel,
+    // TS_CompensatingWireA,
+    // TS_CompensatingWireB,
+    // TS_CompensatingWireC,
+    // LimitSwitch,
+    // TemperatureSensor_Whole, //분해 로직이랑 구분
+    // LevelSensor,
+    // FlowMeter,
+    // PressureSensor
     //Parts
 }
 
@@ -395,8 +389,8 @@ public class DepthC2_SceneController : Base_SceneController
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
         
-        UI_ToolBox.ScrewDriverClickedEvent -= OnScrewDriverBtnClicked;
-        UI_ToolBox.ScrewDriverClickedEvent += OnScrewDriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
      
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
         MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReady;
@@ -613,8 +607,8 @@ public class DepthC2_SceneController : Base_SceneController
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
 
-        UI_ToolBox.ScrewDriverClickedEvent -= OnScrewDriverBtnClicked;
-        UI_ToolBox.ScrewDriverClickedEvent += OnScrewDriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
         
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
@@ -694,8 +688,8 @@ public class DepthC2_SceneController : Base_SceneController
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
         
-        UI_ToolBox.ScrewDriverClickedEvent -= OnScrewDriverBtnClicked;
-        UI_ToolBox.ScrewDriverClickedEvent += OnScrewDriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
 
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
@@ -917,7 +911,7 @@ public class DepthC2_SceneController : Base_SceneController
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.ScrewDriverClickedEvent -= OnScrewDriverBtnClicked;
+        UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
         
     }
@@ -1446,11 +1440,14 @@ public class DepthC2_SceneController : Base_SceneController
         obj.SetActive(isOn);
     }
 
-    public void OnScrewDriverBtnClicked()
+    public virtual void OnElectricScrewdriverBtnClicked()
     {
         
         InitializeTool();
-
+        
+        
+        
+        
         CurrentActiveTool = (int)DepthC_GameObj.ElectricScrewdriver;
 
         isDriverOn = !isDriverOn;

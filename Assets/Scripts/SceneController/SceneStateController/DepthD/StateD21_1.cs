@@ -14,9 +14,28 @@ public class StateD21_1 : Base_SceneState
 
     public override void OnEnter()
     {
-        depthD2SceneController.contentController.ShutTrainingIntroAnim();
         
+        
+        depthD2SceneController.contentController.ShutTrainingIntroAnim();
         depthD2SceneController.indicator.ShowErrorMessage();
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_CompensatingWire);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_Stabilizer);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_SensingElement);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.OnTempSensor_Pipe);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_ConnectionPiping);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalA,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.PowerHandle,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.NewTemperatureSensor,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TankValve,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TemperatureSensor);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
+        
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -33,9 +52,9 @@ public class StateD21_2 : Base_SceneState
 
     public override void OnEnter()
     {
-       
-        //depthD2SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+            
         base.OnEnter();
+        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_TemperatureSensor);
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -51,11 +70,12 @@ public class StateD21_3 : Base_SceneState
 
     public override void OnEnter()
     {
-        
-        Logger.Log("전원 On Off 하이라이트 동작 중 --------------------");
+       
+//        Logger.Log("전원 On Off 하이라이트 동작 중 --------------------");
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.PowerHandle,false);
         //depthD2SceneController.HighlightBlink((int)DepthC_GameObj.PowerHandle);
         base.OnEnter();
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.PowerHandle);
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -71,6 +91,7 @@ public class StateD21_4 : Base_SceneState
     public override void OnEnter()
     {
         
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TankValve);
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TankValve,false);
         //depthD2SceneController.HighlightBlink((int)DepthC_GameObj.TankValve);
         base.OnEnter();
@@ -90,6 +111,10 @@ public class StateD21_5 : Base_SceneState
     public override void OnEnter()
     {
       
+        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_Cover);
+        Managers.evaluationManager.isScoringState = false;
+        
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover, false);
         
         CurrentScene.contentController.isStepMissionPerformable = true;
@@ -127,7 +152,12 @@ public class StateD21_5 : Base_SceneState
        
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Managers.evaluationManager.isScoringState = false;
+        base.OnExit();
+    }
 }
 
 
@@ -139,8 +169,13 @@ public class StateD21_6 : Base_SceneState
     { depthD2SceneController = currentScene;}
     public override void OnEnter()
     {
+        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+    
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_InnerScrewA);
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_InnerScrewB);
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_InnerScrewC);
         
-       Logger.Log("덮개열림 파트-------------------------");
+       Logger.Log("드라이버 파트-------------------------");
      
         base.OnEnter();
     }
@@ -164,10 +199,15 @@ public class StateD21_7 : Base_SceneState
         depthD2SceneController.GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(true);
         depthD2SceneController.TurnOnCollidersAndInit();
         
+        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_Multimeter);
+        
+     
+       
         
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
+        
         
         foreach (var key in  depthD2SceneController.currentScrewGaugeStatus.Keys.ToList())
         {
@@ -205,17 +245,27 @@ public class StateD21_8 : Base_SceneState
 
     public override void OnEnter()
     {
+        depthD2SceneController.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "측정 단자 A");
+        depthD2SceneController.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "측정 단자 B");
+        
+        
         depthD2SceneController.multimeterController.OnGroundNothing();
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.Multimeter);
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.MultimeterHandleHighlight);
+        
 
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalA);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB);
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_InnerScrewA);
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_InnerScrewB);
+        
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalA);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB);
         depthD2SceneController.TurnOnCollidersAndInit();
         
         
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "저항 측정");
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
-
-
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC,false);
+        
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
 
@@ -242,7 +292,7 @@ public class StateD21_8 : Base_SceneState
 
 public class StateD21_9 : Base_SceneState
 {
-    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    // 부모 클래스 생성자를 호출하여 depthD2SceneController에 접근 가능
     DepthD2_SceneController depthD2SceneController;
 
     public StateD21_9(DepthD2_SceneController currentScene) : base(currentScene)
@@ -252,14 +302,23 @@ public class StateD21_9 : Base_SceneState
 
     public override void OnEnter()
     {
+        depthD2SceneController.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "측정 단자 A");
+        depthD2SceneController.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
+        
         depthD2SceneController.isMultimeterOn = true;
         depthD2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
         depthD2SceneController.isAnodePut = false;
         depthD2SceneController.multimeterController.OnGroundNothing();
         
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
-        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);base.OnEnter();
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB,false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC,false);
         
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
+        
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_InnerScrewA);
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_GroundingTerminalB);
+
         
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
@@ -273,14 +332,14 @@ public class StateD21_9 : Base_SceneState
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Update(0);
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
-        
+        base.OnEnter();
         
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
         base.OnExit();
     }
 }
@@ -296,13 +355,19 @@ public class StateD21_10 : Base_SceneState
     public override void OnEnter()
     {
         CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사");
+      
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_InnerScrewA);
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_InnerScrewB);
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.TS_InnerScrewC);
+        
+        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
         
         depthD2SceneController.isWindSession = true;
         depthD2SceneController.isMultimeterOn = false;
         depthD2SceneController.multimeterController.SetMeasureGuideStatus(false);
         depthD2SceneController.TurnOnCollidersAndInit();
         
-        CurrentScene.contentController.isStepMissionPerformable = true;
+        depthD2SceneController.contentController.isStepMissionPerformable = true;
         foreach (var key in depthD2SceneController.currentScrewGaugeStatus.Keys.ToList())
             depthD2SceneController.currentScrewGaugeStatus[key] = 0f;
 
@@ -331,9 +396,9 @@ public class StateD21_10 : Base_SceneState
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
         depthD2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
 
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
+        depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -350,6 +415,7 @@ public class StateD21_11 : Base_SceneState
 
     public override void OnEnter()
     {
+        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.PowerHandle);
         depthD2SceneController.ClearTool();
         base.OnEnter();
     }

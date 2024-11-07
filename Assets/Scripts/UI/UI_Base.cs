@@ -95,7 +95,7 @@ public abstract class UI_Base : MonoBehaviour
 			BindEvent(btn.gameObject, () =>
 			{
 				btn.transform.DOScale(originalScale * 1.1f, 0.18f);
-				Logger.Log($"Button Scale Animation Applied: {btn.gameObject.name}");
+//				Logger.Log($"Button Scale Animation Applied: {btn.gameObject.name}");
 			}, Define.UIEvent.PointerEnter);
 
 			// apply mouse exit scaling
