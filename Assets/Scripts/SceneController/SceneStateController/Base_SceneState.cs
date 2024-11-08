@@ -18,24 +18,20 @@ public class Base_SceneState : ISceneState
 
     public virtual void OnEnter()
     {
-        Managers.evaluationManager. InitPerState();
-        
+      
+        if (Managers.ContentInfo.PlayData.Depth1 == 4)
+        {
+            Managers.evaluationManager. InitPerState();
+        }
         
         //항상 클릭 가능해야하는 것들 ----
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
-        
         CurrentScene.ChangeInstructionTextWithAnim();
         CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
      
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
         
-
         
-        // CurrentScene.contentController.isStepMissionComplete = false;
-        // CurrentScene.contentController.isStepMissionPerformable = true;
-        // CurrentScene.isSceneAnimationPlayingToProtectDoublePlaying = false;
-        
-
 
     }
 
@@ -49,11 +45,16 @@ public class Base_SceneState : ISceneState
         //CurrentScene.contentController.ShutTrainingInfroAnim();
        // _animationDelay = 0;
 
-       Managers.evaluationManager.OnStateExit();
        
        /* Depth4 훈련하기에서만 진행할 수 있도록 다음과 같이 구성하며, UI클릭 미션인경우 다른 오브젝트도
-        오답쳐리가 될 수 있도록 다음과 같이 센티널 값을 넣어 구성합니다. 
-       */
+      오답쳐리가 될 수 있도록 다음과 같이 센티널 값을 넣어 구성합니다.
+     */
+       if (Managers.ContentInfo.PlayData.Depth1 == 4)
+       {
+           Managers.evaluationManager.OnStateExit();
+       }
+       
+     
 
         CurrentScene.TurnOffAllRegisteredHighlights();
         CurrentScene.contentController.StopBtnUIBlink();

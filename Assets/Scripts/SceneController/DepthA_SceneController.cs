@@ -26,11 +26,11 @@ public class DepthA_SceneController : Base_SceneController
 {
     
     
-    public override void Start()
-    {
-        base.Start();
-        Init();
-    }
+    // public override void Start()
+    // {
+    //     base.Start();
+    //     Init();
+    // }
     /// <summary>
     /// 1.Base Setup구성
     /// 2.virtual로 센서실습 구현
@@ -38,10 +38,9 @@ public class DepthA_SceneController : Base_SceneController
     /// </summary>
     public virtual void Init()
     {   
-      
-        base.Init();
         Dev_SetDepthNum();
-        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
+        
+        base.Init();
         InitializeStates();
         BindObject(typeof(DepthAGameObj));
 
