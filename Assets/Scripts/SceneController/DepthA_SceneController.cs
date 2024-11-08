@@ -36,7 +36,7 @@ public class DepthA_SceneController : Base_SceneController
     /// 2.virtual로 센서실습 구현
     /// 3.override로 센서 평가하기 구현
     /// </summary>
-    public virtual void Init()
+    public override void Init()
     {   
         Dev_SetDepthNum();
         

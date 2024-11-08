@@ -14,7 +14,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 {
    
     private WaitForSeconds _waitBeforeNextStep;
-    private readonly float _waitBeforeNextStepSeconds = 2;
+    private readonly float _waitBeforeNextStepSeconds = 0.5f;
     public int CurrentActiveTool;
     protected readonly int NO_TOOL_SELECTED = -1;
  
@@ -560,7 +560,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         if (waitForSeconds == null)
         {
             Logger.Log($"waitforsecond is null, wait for currentClipLength..======>{currentCilpLength + 1f}");
-            _waitBeforeNextStep = new WaitForSeconds(currentCilpLength + 1f);
+            _waitBeforeNextStep = new WaitForSeconds(currentCilpLength + 0.5f);
         }
     
         if (waitForSeconds != null)

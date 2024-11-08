@@ -28,7 +28,8 @@ public class Base_SceneState : ISceneState
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
         CurrentScene.ChangeInstructionTextWithAnim();
         CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
-     
+        CurrentScene.contentController.SetNextPrevBtnsActiveStatus();
+        
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
         
         

@@ -50,8 +50,8 @@ public class EvaluationManager : MonoBehaviour
     }
 
 
-    [FormerlySerializedAs("answerObjectToClick")] public List<int> objAnswerToClick =  new List<int>();
-    [FormerlySerializedAs("answerUIToClick")] public List<int> UIanswerToClick = new List<int>();
+    public List<int> objAnswerToClick =  new List<int>();
+    public List<int> UIanswerToClick = new List<int>();
     
     
     // 기본적으로 true 상태이고, 올바르지않은 행동을 한 경우에, false로 바꿈
@@ -143,7 +143,6 @@ public class EvaluationManager : MonoBehaviour
 
         
         bool isAnswerObject = false;
-        
         foreach(var clikcableObj in objAnswerToClick)
         {
             Logger.Log($"answer : {(DepthC_GameObj)clikcableObj} : Current Clicked Obj {clickedObj}" );
@@ -153,7 +152,6 @@ public class EvaluationManager : MonoBehaviour
                 break; 
             }
         }
-        
         
         if (isAnswerObject)
         {
@@ -235,7 +233,7 @@ public class EvaluationManager : MonoBehaviour
 
 
         // Evaluation---------------------------------   
-        if (isUserCorrectedAnswer)
+        if (!isAlreadyWrongAnswerChecked && isUserCorrectedAnswer)
             OnCorrectAnswer();
         else
             Logger.Log($"user didn't get score in this state {Managers.ContentInfo.PlayData.CurrentDepthStatus}");

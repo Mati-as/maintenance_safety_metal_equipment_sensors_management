@@ -39,7 +39,7 @@ public class CursorImageController : MonoBehaviour, IPointerEnterHandler, IPoint
         
         if (_toggle != null)
         {
-            if (_toggle.interactable)
+            if (_toggle.IsInteractable())
             {
                 Cursor.SetCursor(Managers.cursorImageManager.Get_hand_image(), Vector2.zero, CursorMode.ForceSoftware);
             }

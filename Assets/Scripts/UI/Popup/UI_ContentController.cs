@@ -602,7 +602,7 @@ public class UI_ContentController : UI_Popup
     }
 
 
-    private void SetNextPrevBtnsActiveStatus(bool isOn = true)
+    public void SetNextPrevBtnsActiveStatus(bool isOn = true)
     {
         // depth4의 평가하기에서, 인트로 이외에는 버튼 표시가 진행되지 않음
 
@@ -624,9 +624,19 @@ public class UI_ContentController : UI_Popup
         }
         else
         {
-            
-            SetButtonState((int)Btns.Btn_Prev, isOn);
-            SetButtonState((int)Btns.Btn_Next, isOn);
+            if (Managers.ContentInfo.PlayData.Count <= 1)
+            {
+                Logger.Log("count is less than 1. show only next btn");
+                SetButtonState((int)Btns.Btn_Prev, false);
+                SetButtonState((int)Btns.Btn_Next, true); 
+            }
+            else
+            {
+                Logger.Log("show all navigate pre,next btn");
+                SetButtonState((int)Btns.Btn_Prev, true);
+                SetButtonState((int)Btns.Btn_Next, true); 
+            }
+      
         }
    
 
@@ -640,17 +650,44 @@ public class UI_ContentController : UI_Popup
         return (Managers.ContentInfo.PlayData.Count == 0 );
     }
 
+    private Dictionary <int,Sequence> _btnSeq = new Dictionary<int, Sequence>();
+    private Dictionary <int,bool> _btnStatusMap = new Dictionary<int, bool>();
     private void SetButtonState(int buttonIndex, bool isOn)
     {
+        _btnStatusMap.TryAdd(buttonIndex, true);
+        if (_btnStatusMap[buttonIndex] == isOn)
+        {
+            Logger.Log("Button is already " + (isOn ? "On" : "Off"));
+            return;
+        }
+        
+        _btnStatusMap[buttonIndex] = isOn;
+     
+        
         var button = GetButton(buttonIndex);
+        button.enabled = isOn;
+        button.interactable= isOn;
+        
+        _btnSeq.TryAdd(buttonIndex, DOTween.Sequence());
+
+        _btnSeq[buttonIndex]?.Kill();
+        _btnSeq[buttonIndex] = DOTween.Sequence();
+        
         button.enabled = isOn;
 
         float fade = isOn ? 1 : 0;
-        float speed = isOn ? 1 : 0;
+        float speed = isOn ? 0.55f : 0.55f;
         float scale = isOn ? 1 : 0;
 
-        button.gameObject.transform.localScale = Vector3.one * scale;
-        button.GetComponent<Image>().DOFade(fade, speed);
+        //초기값구성
+        float initialFade = isOn ? 0 : 1;
+        _btnSeq[buttonIndex].Append(button.GetComponent<Image>().DOFade(initialFade, 0.001f));
+        
+        _btnSeq[buttonIndex].AppendCallback(() => { button.gameObject.SetActive(true); });
+        _btnSeq[buttonIndex].AppendCallback(() => { button.gameObject.transform.localScale = Vector3.one * scale; });
+        _btnSeq[buttonIndex].Append(button.GetComponent<Image>().DOFade(fade, speed));
+        _btnSeq[buttonIndex].AppendCallback(() => { button.gameObject.SetActive(isOn); });
+        _btnSeq[buttonIndex].Play();
     }
 
     
@@ -987,7 +1024,7 @@ public class UI_ContentController : UI_Popup
     private void Precheck()
     {
         
-        SetNextPrevBtnsActiveStatus();
+        //SetNextPrevBtnsActiveStatus();
         
         if (!clickable)
         {
@@ -1124,7 +1161,6 @@ public class UI_ContentController : UI_Popup
         UI_AnimSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.6f).SetEase(Ease.InCirc));
         UI_AnimSeq.AppendCallback(() =>
         {
-           
             SetNextPrevBtnsActiveStatus();
         });
         UI_AnimSeq.OnKill(() =>
@@ -1142,7 +1178,7 @@ public class UI_ContentController : UI_Popup
     {
         if (!isTrainingInfoOn)
         {
-            SetNextPrevBtnsActiveStatus();
+            //SetNextPrevBtnsActiveStatus();
             return;
         } 
         
