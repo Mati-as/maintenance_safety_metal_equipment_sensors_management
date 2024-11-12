@@ -1,4 +1,5 @@
 
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class UI_Evaluation : UI_Popup
     {
         Btn_Close,
         IncorrectCount,
+        Btn_Main,
+        Btn_Restart
         
     }
 
@@ -24,14 +27,16 @@ public class UI_Evaluation : UI_Popup
         EvalItem8,
         EvalItem9,
         EvalItem10,
-        TotalScore
+        TotalScore,
+        Head_CurrentEvalDepth
     }
-
+    
     private enum Image
     {
         EvalTutorialImageA,EvalTutorialImageB,EvalTutorialImageC
     }
-   
+
+    public static event Action OnRestartBtnOnEvalClicked; 
     
     public override bool Init()
     {
@@ -56,7 +61,17 @@ public class UI_Evaluation : UI_Popup
         var currentDepthInfo = $"{Managers.ContentInfo.PlayData.Depth1}" +
                                $"{Managers.ContentInfo.PlayData.Depth2}" +
                                $"{Managers.ContentInfo.PlayData.Depth3}";
+      
+        GetButton((int)Btns.Btn_Main).gameObject.BindEvent((() =>
+        {
+            OnMainBtnClicked();
+        }));
         
+        GetButton((int)Btns.Btn_Restart).gameObject.BindEvent((() =>
+        {
+            Managers.UI.ClosePopupUI(this);
+            OnRestartBtnOnEvalClicked?.Invoke();
+        }));
         return true;
     }
 
@@ -72,5 +87,12 @@ public class UI_Evaluation : UI_Popup
         GetImage((int)Image.EvalTutorialImageA).sprite = 
             Resources.Load<Sprite>("Image/"+currentDepthInfo + "EvalTutorialImageC");
     }
+    
+    private void OnMainBtnClicked()
+    {
+        Managers.UI.CloseAllPopupUI();
+        Managers.Scene.LoadScene(SceneType.Main);
+    }
+
 }
 

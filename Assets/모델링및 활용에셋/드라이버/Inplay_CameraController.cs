@@ -1,7 +1,12 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class Inplay_CameraController : MonoBehaviour
 {
@@ -14,12 +19,13 @@ public class Inplay_CameraController : MonoBehaviour
     private readonly float _maxZoom = 80f; // 최대 줌 거리
     private readonly float _dragSpeed = 1f; // 드래그 속도
     
-    private readonly float _minVerticalAngle = -45f; // 상하 회전 최소 각도
-    private readonly float _maxVerticalAngle = 45f; // 상하 회전 최대 각도
-    private readonly float _minHorizontalAngle = -15f; // 좌우 회전 최소 각도
-    private readonly float _maxHorizontalAngle = 15f; // 좌우 회전 최대 각도
+    private readonly float _minVerticalAngle = 20f; // 상하 회전 최소 각도
+    private readonly float _maxVerticalAngle = 95f; // 상하 회전 최대 각도
+    
+    private readonly float _minHorizontalAngle = -18f; // 좌우 회전 최소 각도
+    private readonly float _maxHorizontalAngle = 18f; // 좌우 회전 최대 각도
 
-    private bool _isDragging;
+    public bool isDragging;
     private float _currentVerticalAngle; // 현재 상하 회전 각도
     private float _currentHorizontalAngle; // 현재 좌우 회전 각도
 
@@ -31,6 +37,8 @@ public class Inplay_CameraController : MonoBehaviour
 
     private Camera _camera;
     private bool _isControllable =false;
+    private Vector3 _currentDefaultRotation;
+    private Vector3 _currentDefaultPosition;
     public bool isControllable
     {
         get
@@ -43,7 +51,18 @@ public class Inplay_CameraController : MonoBehaviour
         }
     }
 
+    public void SaveStateDefaultTransform()
+    {
+       
+        var cam = transform;
+        _currentDefaultPosition =cam.position;
+        _currentDefaultRotation =cam.rotation.eulerAngles;
+        
+        Logger.Log($"saved current state default rotation and position :\n rotation : {_currentDefaultPosition}" +
+                   $"position {_currentDefaultPosition}");
+    }
 
+    private Sequence _cameraInitSeq;
     private void Awake()
     {
         // 현재 메인 카메라 가져오기
@@ -51,18 +70,136 @@ public class Inplay_CameraController : MonoBehaviour
         _sceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Base_SceneController>();
     }
 
-    private void Update()
+    private void Start()
     {
-        if (!isControllable || _target == null) return;
-        HandleRotation();
-        HandleZoom();
+        UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChanged;
+        UI_ContentController.OnStepBtnClicked_CurrentCount += OnStepChanged;
+    }
+
+    private void OnDestroy()
+    {
+        UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChanged;
+    }
+
+    /// <summary>
+    /// 카메라 자유시점 이동중, 다음 스텝등으로 버튼이 넘어갈때 종료하는 로직
+    /// </summary>
+    private void OnStepChanged(int _, bool __)
+    {
+        _isControllable = false;
+        isDragging = false;
+        _updateSeq?.Kill();
+        _cameraInitSeq?.Kill();
+        Logger.Log("Cam Init for Step Change");
+    }
+    public void SetDefaultRotationThisState()
+    {
+        _updateSeq?.Kill();
+        _cameraInitSeq?.Kill();
+        
+        _currentHorizontalAngle = _horizontalPivotCenter;
+        _currentVerticalAngle = _verticalPivotCenter + Yoffset;
+        _initialMousePosition = Input.mousePosition; // 클릭 시작 위치 저장
+        _lastMousePosition = _initialMousePosition; // 초기 위치로 설정
+        
+        _cameraInitSeq = DOTween.Sequence();
+        
+        _cameraInitSeq.Append(transform.DOMove(_currentDefaultPosition, 0.5f))
+            .Join(transform.DORotate(_currentDefaultRotation, 0.5f))
+            .OnUpdate(() =>
+            {
+                isDragging = false;
+                isControllable = false;
+            })
+            .OnComplete(() =>
+            {
+                // 애니메이션 완료 후 현재 각도 초기화
+                _currentHorizontalAngle = _horizontalPivotCenter;
+                _currentVerticalAngle = _verticalPivotCenter + Yoffset;
+                _initialMousePosition = Input.mousePosition; // 클릭 시작 위치 저장
+                _lastMousePosition = _initialMousePosition; // 초기 위치로 설정
+                Logger.Log("Camera reset to default position and rotation.");
+                isControllable = true;
+
+                Logger.Log($"Camera Freelook is {isControllable}");
+            }).OnKill(() => { isControllable = true; });
+        
+        _cameraInitSeq.Play();
     }
 
 
+    private void Update()
+    {
+        if (!isControllable) return;
+        
+        if (Input.GetMouseButtonDown(0)) // 마우스를 처음 클릭했을 때
+        {
+            if (IsPointerOverUI()) 
+            {
+                Logger.Log("UI element clicked - Ignoring rotation");
+                return; // UI 클릭 시 카메라 제어 로직 무시
+            }
+            
+            isDragging = true;
+            //isControllable = true;
+            _initialMousePosition = Input.mousePosition; // 클릭 시작 위치 저장
+            _lastMousePosition = _initialMousePosition; // 초기 위치로 설정
+            Logger.Log($"button Down ----- Drag: {isDragging} Controllable: {isControllable}");
+        }
+        
+        
+        
+        if (Input.GetMouseButtonUp(0)) // 마우스 클릭 해제 시
+        {
+            isDragging = false;
+            //  isControllable = false;
+            _updateSeq?.Kill();
+            Logger.Log("Button Up - Dragging Stopped");
+            return;
+        }
+
+        if (isControllable && isDragging && _target != null)
+        {
+            HandleRotation();
+            HandleZoom();
+            return;
+        }
+
+       
+    }
+    
+    public GraphicRaycaster uiRaycaster =null; // Canvas에 있는 GraphicRaycaster를 연결해야 함
+    public EventSystem eventSystem;
+
+    
+    private bool IsPointerOverUI()
+    {
+        if (uiRaycaster == null)
+        {
+            uiRaycaster =  Managers.UI.FindPopup<UI_ContentController>().gameObject.GetComponent<GraphicRaycaster>();
+            Logger.Log($"get grahicRayCaster : -->{uiRaycaster.gameObject.name}");
+        }
+        // UI 위에 있는지 확인
+        PointerEventData pointerData = new PointerEventData(eventSystem)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        uiRaycaster.Raycast(pointerData, raycastResults);
+
+        return raycastResults.Count > 0; // UI 요소와 충돌한 경우에만 true 반환
+    }
+
+
+    // public void SetCamTarget(Transform target)
+    // {
+    //     _target = target;
+    // }
+    //
     public void SetCurrentMainAngleAndPos(Transform target)
     {
-        if (target == null ||!isControllable) return;
-
+        
         _target = target;
     
         var thisObjectPos = transform.position; // 카메라의 현재 위치
@@ -81,51 +218,65 @@ public class Inplay_CameraController : MonoBehaviour
 
         // 현재 각도를 설정
         _currentHorizontalAngle = _horizontalPivotCenter;
-        _currentVerticalAngle = _verticalPivotCenter;
+        _currentVerticalAngle = _verticalPivotCenter + Yoffset;
 
-        Debug.Log($"Vertical Angle: {_verticalPivotCenter}, Horizontal Angle: {_horizontalPivotCenter}");
+       
+        Logger.Log($"camera Lookat and distance set: obj: {target.gameObject.name}, distance  = {_distanceToTarget}");
+        Logger.Log($"Vertical Angle: {_verticalPivotCenter}, Horizontal Angle: {_horizontalPivotCenter}");
+        isControllable = true;
     }
+
+    [Range(-10,50f)]
+    public float Yoffset;
+
+    private Vector3 _initialMousePosition; // 클릭 시작 위치를 저장할 변수
+    private Vector3 _lastMousePosition;    // 드래그 중 이전 마우스 위치 저장
 
     private void HandleRotation()
     {
-        if (Input.GetMouseButtonDown(0)) // 마우스 클릭 시
-            _isDragging = true;
 
-        if (Input.GetMouseButtonUp(0)) // 마우스 클릭 해제 시
-            _isDragging = false;
+     
+            Logger.Log("handle Rotation");
+            UpdateRotation();
         
-        
-        if (_target == null) return;
-        
-
-        // 마우스 클릭 상태에서만 카메라 회전 가능
-        if (_isDragging)
-        {
-            var mouseX = Input.GetAxis("Mouse X") * _dragSpeed;
-            var mouseY = Input.GetAxis("Mouse Y") * _dragSpeed;
-
-            // 좌우 회전 각도 (y축)
-            _currentHorizontalAngle += mouseX;
-            _currentHorizontalAngle = Mathf.Clamp(_currentHorizontalAngle, _horizontalPivotCenter + _minHorizontalAngle,
-                _horizontalPivotCenter + _maxHorizontalAngle);
-
-            // 상하 회전 각도 (x축)
-            _currentVerticalAngle -= mouseY;
-            _currentVerticalAngle = Mathf.Clamp(_currentVerticalAngle, _verticalPivotCenter + _minVerticalAngle,
-                _verticalPivotCenter + _maxVerticalAngle);
-
-            // 새로운 위치 계산 (타겟 주위를 원형으로 회전)
-            Quaternion rotation = Quaternion.Euler(_currentVerticalAngle, _currentHorizontalAngle, 0);
-            Vector3 newPosition = rotation * new Vector3(0, _distanceToTarget/3, -_distanceToTarget) + _target.position;
-
-//            Logger.Log($"distance to Target from Camera{_distanceToTarget}");
-            // 카메라 위치와 LookAt 적용
-            
-            transform.DOMove(newPosition,1f);
-            transform.DOLookAt(_target.position,0.7f);
-        }
     }
 
+
+
+    private Sequence _updateSeq;
+    private void UpdateRotation()
+    {
+        _updateSeq = DOTween.Sequence();
+        // 클릭 시작 위치와 현재 위치 간의 차이 계산
+        Vector3 mouseDelta = Input.mousePosition - _initialMousePosition;
+
+        // 차이만큼 이동한 값을 적용
+        float mouseX = mouseDelta.x * _dragSpeed * 0.0012f;
+        float mouseY = mouseDelta.y * _dragSpeed * 0.0012f;
+
+        // 로그로 출력해 확인
+//        Logger.Log($"Mouse Delta X (Horizontal Move): {mouseX} \n Mouse Delta Y (Vertical Move): {mouseY}");
+
+        // 좌우 회전 각도 (y축)
+        _currentHorizontalAngle += mouseX;
+        _currentHorizontalAngle = Mathf.Clamp(_currentHorizontalAngle, _horizontalPivotCenter + _minHorizontalAngle,
+            _horizontalPivotCenter + _maxHorizontalAngle);
+
+        // 상하 회전 각도 (x축)
+        _currentVerticalAngle -= mouseY;
+        _currentVerticalAngle = Mathf.Clamp(_currentVerticalAngle, _verticalPivotCenter + _minVerticalAngle,
+            _verticalPivotCenter + _maxVerticalAngle);
+
+        // 새로운 위치 계산 (타겟 주위를 원형으로 회전)
+        Quaternion rotation = Quaternion.Euler(_currentVerticalAngle, _currentHorizontalAngle, 0);
+        Vector3 newPosition = rotation * new Vector3(0, _distanceToTarget / 3, -_distanceToTarget) + _target.position;
+
+        // DOTween Sequence를 사용해 DOMove와 DOLookAt을 동시에 실행
+      
+        _updateSeq
+            .Join(transform.DOMove(newPosition, 0.7f))
+            .Join(transform.DOLookAt(_target.position, 1f)); // 동일한 시간으로 설정해 부드럽게 맞춤
+    }
     // 마우스 휠 드래그로 줌 인/아웃 제어
     private void HandleZoom()
     {

@@ -94,6 +94,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChange;
         UI_ContentController.OnStepBtnClicked_CurrentCount += OnStepChange;
+   
     }
 
     protected virtual void OnDestroy()
@@ -102,6 +103,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         UI_ContentController.OnDepth3ClickedAction -= OnDepth3IntroOrClickedAction;
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChange;
     }
+
     private void OnDepth3IntroOrClickedAction()
     {
         PreInitBefreDepthChange();
@@ -257,7 +259,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         if (clip == null)
         {
             Logger.LogWarning($"Animation clip at path {path} not found.");
-            OnAnimationComplete();
+           // OnAnimationComplete();
             return;
         }
       
@@ -320,7 +322,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
   
     
         _mainAnimation.Play(clip.name);
-        StartCoroutine(CheckAnimationEnd(clip, OnAnimationComplete));
+        StartCoroutine(CheckAnimationEnd(clip));
         currentCilpLength = clip.length;    
 
         Logger.Log($"Animation clip with index {count} is playing.");
@@ -334,7 +336,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         _mainAnimation.Play(clipName);
     }
 
-    private IEnumerator CheckAnimationEnd(AnimationClip clip, Action onAnimationComplete)
+    private IEnumerator CheckAnimationEnd(AnimationClip clip)
     {
         yield return new WaitForSeconds(clip.length);
         OnAnimationComplete();
@@ -579,11 +581,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         
 
-        Logger.Log($"작업 수행을 통한 다음 이벤트 재생 :--------------- {Managers.ContentInfo.PlayData.Count}-");
+        
        
         
         if(currentStepNumCache == Managers.ContentInfo.PlayData.Count)
-        {contentController.InvokeNextStep(); // 다음 스텝으로 넘어가기
+        {
+            Logger.Log($"작업 수행을 통한 다음 이벤트 재생 :--------------- {Managers.ContentInfo.PlayData.Count}-");
+            contentController.InvokeNextStep(); // 다음 스텝으로 넘어가기
         }
         else
         {

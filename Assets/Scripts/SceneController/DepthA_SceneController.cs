@@ -94,17 +94,17 @@ public class DepthA_SceneController : Base_SceneController
     {
         _sceneStates = new Dictionary<int, ISceneState>
         {
-            { 1111, new Depth1A_State_1(this) },
-            { 1112, new Depth1A_State_2(this) },
-            { 1113, new Depth1A_State_3(this) },
-            { 1114, new Depth1A_State_4(this) },
-            { 1115, new Depth1A_State_5(this) },
-            { 1116, new Depth1A_State_6(this) },
-            { 1117, new Depth1A_State_7(this) },
-            { 1118, new Depth1A_State_8(this) },
-            { 1119, new Depth1A_State_9(this) },
-            { 1120, new Depth1A_State_10(this) },
-            { 1121, new Depth1A_State_11(this) },
+            { 1111, new DepthA1_State_1(this) },
+            { 1112, new DepthA1_State_2(this) },
+            { 1113, new DepthA1_State_3(this) },
+            { 1114, new DepthA1_State_4(this) },
+            { 1115, new DepthA1_State_5(this) },
+            { 1116, new DepthA1_State_6(this) },
+            { 1117, new DepthA1_State_7(this) },
+            { 1118, new DepthA1_State_8(this) },
+            { 1119, new DepthA1_State_9(this) },
+            { 11110, new DepthA1_State_10(this) },
+            { 11111, new DepthA1_State_11(this) },
 
             
             { 1211, new DepthA2_State_1(this) },

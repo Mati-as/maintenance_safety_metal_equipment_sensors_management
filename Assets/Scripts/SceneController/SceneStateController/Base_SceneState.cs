@@ -24,14 +24,15 @@ public class Base_SceneState : ISceneState
             Managers.evaluationManager. InitPerState();
         }
         
+        CurrentScene.contentController.HideCamInitBtn();
         //항상 클릭 가능해야하는 것들 ----
         CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
         CurrentScene.ChangeInstructionTextWithAnim();
         CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
         CurrentScene.contentController.SetNextPrevBtnsActiveStatus();
+        CurrentScene.contentController.isStepMissionComplete = false;  
         
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
-        
         
 
     }
@@ -55,8 +56,7 @@ public class Base_SceneState : ISceneState
            Managers.evaluationManager.OnStateExit();
        }
        
-     
-
+        CurrentScene.cameraController.isControllable = false;
         CurrentScene.TurnOffAllRegisteredHighlights();
         CurrentScene.contentController.StopBtnUIBlink();
         CurrentScene.contentController.uiToolBox.Refresh();
@@ -67,9 +67,27 @@ public class Base_SceneState : ISceneState
         
             Logger.Log("Camera Control Available ------------------------------");
             CurrentScene.cameraController.isControllable = true;
-            CurrentScene.cameraController.SetCurrentMainAngleAndPos
-                (CurrentScene.GetObject((int)DepthAGameObj.TS_Stabilizer).transform);
+            // CurrentScene.cameraController.SetCurrentMainAngleAndPos
+            //     (CurrentScene.GetObject((int)DepthAGameObj.TS_Stabilizer).transform);
                 
         
     }
+    public void SetLookAt(int objToActivate)
+    {
+        CurrentScene.cameraController.SetCurrentMainAngleAndPos(
+            CurrentScene.GetObject(objToActivate).transform
+        );
+    }
+    
+    protected virtual void OnAnimationCompleteHandler(int _)
+    {
+        
+        
+        CurrentScene.cameraController.isDragging = false;
+        CurrentScene.cameraController.isControllable = true;
+        CurrentScene.contentController.ShowCamInitBtn();
+        CurrentScene.cameraController.SaveStateDefaultTransform();
+    }
+    
+
 }

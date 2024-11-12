@@ -43,7 +43,9 @@ public class DepthD2_SceneController : DepthC2_SceneController
         isScrewUnwindMap = new Dictionary<int, bool>();
         animatorMap = new Dictionary<int, Animator>();
         defaultRotationMap = new Dictionary<int, Quaternion>();
-       
+
+        UI_Evaluation.OnRestartBtnOnEvalClicked -= DepthD21Init;
+        UI_Evaluation.OnRestartBtnOnEvalClicked += DepthD21Init;
         UnBindEventAttatchedObj();
     
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "보상전선");
@@ -145,7 +147,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
             //108옴 저항측정
             if (Managers.ContentInfo.PlayData.Count == 8)
             {
-                
+                isAnodePut = true; 
                 BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "측정 단자 B");
                 SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
                 //HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
@@ -160,6 +162,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
             //접지
             if (Managers.ContentInfo.PlayData.Count == 9)
             {
+                isAnodePut = true; 
                 BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
                 SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
                 //HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
@@ -184,6 +187,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
             if (Managers.ContentInfo.PlayData.Count == 8)
             {
                 if (!isAnodePut) return;
+                Logger.Log("평가하기 - count 8 - 저항측정(108옴) 완료");
                 BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
                // HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
                 SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
@@ -191,9 +195,8 @@ public class DepthD2_SceneController : DepthC2_SceneController
                 animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
                 animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
-                Action action = multimeterController.OnAllProbeSet;
-                OnStepMissionComplete(animationNumber:8, delayAmount: new WaitForSeconds(6f),
-                    delayedAction: action);
+                multimeterController.OnAllProbeSet();
+                OnStepMissionComplete(animationNumber: 8, delayAmount: new WaitForSeconds(6f));
             }
         });
 
@@ -231,6 +234,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
     {
         base.OnDestroy();
         
+        UI_Evaluation.OnRestartBtnOnEvalClicked -= DepthD21Init;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;

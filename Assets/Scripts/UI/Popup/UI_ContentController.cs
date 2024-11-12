@@ -22,6 +22,7 @@ public enum Btns
     Btn_Script_Hide,
     Btn_ThirdDepthList_Hide,
     Btn_Help,
+    Btn_CameraInit,
     //Btn_Evaluation,
     Btn_ToolBox,
     Btn_Guidebook,
@@ -104,7 +105,7 @@ public class UI_ContentController : UI_Popup
     private WaitForSeconds _waitForClick;
     public bool clickable = true;
 
-
+    private Inplay_CameraController _currentMainCam;
     private RectTransform _textRectcurrentDepth3;
     public RectTransform textRectcurrentDepth3
     {
@@ -192,7 +193,8 @@ public class UI_ContentController : UI_Popup
         SoundManager.OnNarrationComplete -= BlinkNextBtnUI;
         SoundManager.OnNarrationComplete += BlinkNextBtnUI;
 
-
+        _currentMainCam =Camera.main.GetComponent<Inplay_CameraController>();
+        
         BindUIElements();
         InitTopMenu();
         InitDepth2Toggles();
@@ -202,6 +204,9 @@ public class UI_ContentController : UI_Popup
         Refresh();
         SetBtns();
         SetHeighlightUIImages();
+
+        HideCamInitBtn();
+        
         
         if (_uiTrainingInfo == null)
         {
@@ -404,10 +409,7 @@ public class UI_ContentController : UI_Popup
                     (Managers.ContentInfo.PlayData.Depth1 == 4 && i == (int)Toggles.Toggle_Depth2_B)
                    )
                 {
-                    if (Managers.ContentInfo.PlayData.Depth1 == 1) GetToggle((int)Toggles.Toggle_Depth2_A).isOn = true;
-                    if (Managers.ContentInfo.PlayData.Depth1 == 2) GetToggle((int)Toggles.Toggle_Depth2_A).isOn = true;
-                    if (Managers.ContentInfo.PlayData.Depth1 == 3) GetToggle((int)Toggles.Toggle_Depth2_B).isOn = true;
-                    if (Managers.ContentInfo.PlayData.Depth1 == 4) GetToggle((int)Toggles.Toggle_Depth2_B).isOn = true;
+                    SwitchDepthToggle();
               
                     GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable = true;
 
@@ -429,6 +431,14 @@ public class UI_ContentController : UI_Popup
 
     }
 
+    private void SwitchDepthToggle()
+    {
+        if (Managers.ContentInfo.PlayData.Depth2 == 1) GetToggle((int)Toggles.Toggle_Depth2_A).isOn = true;
+        if (Managers.ContentInfo.PlayData.Depth2 == 2) GetToggle((int)Toggles.Toggle_Depth2_B).isOn = true;
+        if (Managers.ContentInfo.PlayData.Depth2 == 3) GetToggle((int)Toggles.Toggle_Depth2_C).isOn = true;
+        if (Managers.ContentInfo.PlayData.Depth2 == 4) GetToggle((int)Toggles.Toggle_Depth2_D).isOn = true;
+
+    }
     private void InitDepth3Buttons()
     {
         for (var i = 0; i < 5; i++)
@@ -446,11 +456,28 @@ public class UI_ContentController : UI_Popup
         }
     }
 
+    public void ShowCamInitBtn()
+    {
+        GetButton((int)Btns.Btn_CameraInit).gameObject.SetActive(true);
+    }
+
+    public void HideCamInitBtn()
+    {
+        GetButton((int)Btns.Btn_CameraInit).gameObject.SetActive(false);
+    }
+
     private void InitCommonUI()
     {
     //    GetObject((int)UI.UI_Depth3_List).BindEvent(OnDepth3BtnAreaEnter);
         
-        
+      GetButton((int)Btns.Btn_CameraInit).gameObject
+        .BindEvent(() =>
+        {
+            _currentMainCam.SetDefaultRotationThisState();
+            OnCameraInitBtnClicked?.Invoke();
+
+        }, Define.UIEvent.PointerUp);
+    
         GetButton((int)Btns.Btn_ThirdDepthList_Hide).gameObject
             .BindEvent(OnDepthThirdHideBtnClicked, Define.UIEvent.PointerDown);
         
@@ -696,6 +723,7 @@ public class UI_ContentController : UI_Popup
     public static event Action OnDepth3ClickedAction;
     public static event Action OnDepth2ClickedAction;
     public static event Action<int> OnNextDepthInvoked; //sceneChange 
+    public static event Action OnCameraInitBtnClicked;
 
     private void OnPrevBtnClicked()
     {
@@ -804,13 +832,13 @@ public class UI_ContentController : UI_Popup
 
 
         Managers.ContentInfo.PlayData.Depth2 = depth2;
+        SwitchDepthToggle();
         Managers.ContentInfo.PlayData.Depth3 = 1;
         Managers.ContentInfo.PlayData.Count = 0;
 
 
         //각 뎁스의 첫번쨰 애니메이션을 재생하도록 하기위한 로직
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count, false);
-
 
         Logger.Log($"Depth2 Banner Toggled {depth2}");
         if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayObjectiveIntroAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
