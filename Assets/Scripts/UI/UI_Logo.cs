@@ -10,8 +10,10 @@ public class UI_Logo : UI_Popup
         if (base.Init() == false)
             return false;
 
-        DOVirtual.DelayedCall(InitialScene._logoShowTimeDuration, ()=>
+        
+        DOVirtual.DelayedCall(Main_Initializer._logoShowTimeDuration, ()=>
         {
+            UI_Persistent.SetStatus(false);
             Managers.UI.ClosePopupUI(this);
         });
         return true;

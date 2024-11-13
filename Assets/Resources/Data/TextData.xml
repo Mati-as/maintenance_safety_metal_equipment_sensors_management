@@ -520,19 +520,47 @@
   <!-- Depth 3-341 -->
   <!-- depth와 애니메이션 겹치는 순서 : 4-4 // 5-5(6):드라이버 포함 //
   6-7 온도센서 회수 // 7-7 //8-9,10// 9 - 11 // 10 - 12 // 11- 13 
+  &lt;color=#00F5FF&gt;금속제조&lt;/color&gt; 설비 계측 센서 정비 실습 중 온도 센서 정비 과정의 평가를 진행하겠습니다. 
+  화면에 표기된 수행 리스트를 확인하고 순서대로 정비를 진행하겠습니다
    -->
-  <TextData ID="42101" kor="&lt;color=#00F5FF&gt;금속제조&lt;/color&gt; 설비 계측 센서 정비 실습 중 온도 센서 정비 과정의 평가를 진행하겠습니다. 
-  화면에 표기된 수행 리스트를 확인하고 순서대로 정비를 진행하겠습니다." eng="eng Test" />
-  <TextData ID="42102" kor="Mission: 도구함으로 가서, 새로 교체할 온도센서를 꺼냅니다." eng="eng Test" />
-  <TextData ID="42103" kor="Mission: 전원을 차단합니다." eng="eng Test" />
-  <TextData ID="42104" kor="Mission: 밸브를 조작해 배관을 잔류물을 제거합니다." eng="eng Test" />
-  <TextData ID="42105" kor="Mission: 온도센서 덮개를 열고, 전동드라이버를 꺼내 해체합니다." eng="eng Test" />
-  <TextData ID="42106" kor="Mission: 온도센서 덮개를 열고, 전동드라이버를 꺼내 해체합니다." eng="eng Test" />
-  <TextData ID="42107" kor="Mission: 도구함에서 디지털 미터를 찾아 꺼냅니다" eng="eng Test" />
-  <TextData ID="42108" kor="Mission: 옴 측정모드로 바꾸고, 108옴이 출력되는지 확인합니다." eng="eng Test" />
-  <TextData ID="42109" kor="Mission: 접지를 통해 OL출력 정상확인합니다." eng="eng Test" />
-  <TextData ID="42110" kor="Mission: 드라이버로 다시 체결합니다." eng="eng Test" />
-  <TextData ID="42111" kor="Mission: 전원을 켜고 정상동작을 확인합니다." eng="eng Test" />
+  <TextData ID="42101" kor="금속제조 설비 계측 센서 정비 실습 중 온도 센서 정비 과정의 평가를 진행하겠습니다. 화면에 표기된 수행 리스트를 확인하고 순서대로 정비를 진행하겠습니다." eng="eng Test" />
+  <TextData ID="42102" kor="도구함으로 가서, 새로 교체할 온도센서를 꺼내주세요." eng="eng Test" />
+  <TextData ID="42103" kor="설비 전원을 차단해주세요." eng="eng Test" />
+  <TextData ID="42104" kor="밸브를 조작해 배관 내 잔류물을 제거해주세요." eng="eng Test" />
+  <TextData ID="42105" kor="온도센서 덮개를 열고, 전동드라이버를 이용해 접속나사를 해체해주세요." eng="eng Test" />
+  <TextData ID="42106" kor="센서 덮개를 열고, 전동드라이버를 꺼내 해체합니다." eng="eng Test" />
+  <TextData ID="42107" kor="도구함 내 디지털 미터를 클릭해 꺼내주세요." eng="eng Test" />
+  <TextData ID="42108" kor="저항(Ω) 측정 모드로 변경하고, 출력신호를 확인해주세요." eng="eng Test" />
+  <TextData ID="42109" kor="접지부분 출력신호를 확인해주세요." eng="eng Test" />
+  <TextData ID="42110" kor="드라이버를 이용해 나사를 다시 체결해주세요." eng="eng Test" />
+  <TextData ID="42111" kor="전원을 켜고 정상동작을 확인해주세요." eng="eng Test" />
+
+  <!-- 평가하기 항목 부분 -->
+  <TextData ID="4201" kor="교체 온도 센서 준비" eng="eng Test" />
+  <TextData ID="4202" kor="작업 전 전원 차단" eng="eng Test" />
+  <TextData ID="4203" kor="배관 잔류물 제거" eng="eng Test" />
+  <TextData ID="4204" kor="온도센서 해체" eng="eng Test" />
+  <TextData ID="4205" kor="디지털 미터 준비" eng="eng Test" />
+  <TextData ID="4206" kor="디지털미터 조작 - 온도 센서 저항 측정" eng="eng Test" />
+  <TextData ID="4207" kor="디지털미터 조작 - 접지" eng="eng Test" />
+  <TextData ID="4208" kor="온도센서 체결" eng="eng Test" />
+  <TextData ID="4209" kor="정상동작확인" eng="eng Test" />
+  <TextData ID="42010" kor="" eng="eng Test" />
+  <TextData ID="42011" kor="" eng="eng Test" />
+  <!-- 평가하기 체크리스트 부분 -->
+  <TextData ID="42001" kor="새 온도 센서 준비" eng="eng Test" />
+  <TextData ID="42002" kor="작업 전 전원 차단" eng="eng Test" />
+  <TextData ID="42003" kor="배관 잔류물 제거" eng="eng Test" />
+  <TextData ID="42004" kor="온도 센서 접속나사 해체" eng="eng Test" />
+  <TextData ID="42005" kor="저항 출력신호 확인" eng="eng Test" />
+  <TextData ID="42006" kor="설비 전원 복구" eng="eng Test" />
+  <TextData ID="42007" kor="" eng="eng Test" />
+  <TextData ID="42008" kor="" eng="eng Test" />
+  <TextData ID="42009" kor="" eng="eng Test" />
+  <TextData ID="420010" kor="" eng="eng Test" />
+  <TextData ID="420011" kor="" eng="eng Test" />
+  <TextData ID="420012" kor="" eng="eng Test" />
+  
   <!-- Depth 3-3-1 -->
   <TextData ID="43101" kor="테스트 Depth 3-3-1-01." eng="eng Test" />
   <TextData ID="43102" kor="테스트 Depth 3-3-1-02." eng="eng Test" />
@@ -591,10 +619,17 @@
   <TextData ID="45302" kor="테스트 Depth 3-5-3-02." eng="eng Test" />
   <TextData ID="45303" kor="테스트 Depth 3-5-3-03." eng="eng Test" />
 
-  
-  
-  
-  
+
+
+
+  <TextData ID="51101" kor="훈련에 필요한 조작법을 알아보겠습니다" eng="eng Test" />
+  <TextData ID="51102" kor="먼저 시점회전입니다. 마우스 왼쪽버튼을 드래그하여 시점을 회전하여 다양한 각도로 물체를 볼 수 있습니다.시점을 회전시켜보세요" eng="eng Test" />
+  <TextData ID="51103" kor="카메라 초기화 버튼을 눌러 처음 시점 위치로 돌아올 수 있습니다." eng="eng Test" />
+  <TextData ID="51104" kor="다음으로 예시 훈련을 진행해보겠습니다." eng="eng Test" />
+  <TextData ID="51105" kor="도구함 UI버튼을 클릭하여 도구함을 열어주세요" eng="eng Test" />
+  <TextData ID="51106" kor="도구함안의 디지털 미터를 클릭하여 디지털미터를 꺼내주세요" eng="eng Test" />
+  <TextData ID="51107" kor="화면상 점멸하는 물체(측정단자)를 클릭하세요." eng="eng Test" />
+  <TextData ID="51108" kor="잘 하셨습니다. 튜토리얼을 마치겠습니다." eng="eng Test" />
   
   
   

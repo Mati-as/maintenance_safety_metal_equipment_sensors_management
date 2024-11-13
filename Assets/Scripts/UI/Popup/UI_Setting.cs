@@ -56,7 +56,7 @@ public class UI_Setting : UI_Popup
     {
         if (base.Init() == false)
             return false;
-
+        gameObject.GetComponent<Canvas>().sortingOrder = 25;
 #if UNITY_EDITOR
         Debug.Log("UI_SETTING INIT------------------------------------------------------");
 #endif

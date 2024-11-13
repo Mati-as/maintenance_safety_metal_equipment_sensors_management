@@ -19,18 +19,26 @@ public class Base_SceneState : ISceneState
     public virtual void OnEnter()
     {
       
+        //평가하기가 아닌경우
         if (Managers.ContentInfo.PlayData.Depth1 == 4)
         {
             Managers.evaluationManager. InitPerState();
         }
         
-        CurrentScene.contentController.HideCamInitBtn();
+        //튜토리얼이 아닌경우
+        if (Managers.ContentInfo.PlayData.Depth1 != 5)
+        {
+            CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
+          
+            CurrentScene.contentController.SetNextPrevBtnsActiveStatus();
+            CurrentScene.contentController.isStepMissionComplete = false; 
+            CurrentScene.contentController.HideCamInitBtn();
+            CurrentScene.ChangeInstructionTextWithAnim();
+        }
         //항상 클릭 가능해야하는 것들 ----
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
-        CurrentScene.ChangeInstructionTextWithAnim();
+       
         CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
-        CurrentScene.contentController.SetNextPrevBtnsActiveStatus();
-        CurrentScene.contentController.isStepMissionComplete = false;  
+    
         
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
         
@@ -56,10 +64,15 @@ public class Base_SceneState : ISceneState
            Managers.evaluationManager.OnStateExit();
        }
        
-        CurrentScene.cameraController.isControllable = false;
-        CurrentScene.TurnOffAllRegisteredHighlights();
-        CurrentScene.contentController.StopBtnUIBlink();
-        CurrentScene.contentController.uiToolBox.Refresh();
+       if (Managers.ContentInfo.PlayData.Depth1 != 5)
+       {
+           CurrentScene.cameraController.isControllable = false;
+           CurrentScene.TurnOffAllRegisteredHighlights();
+           CurrentScene.contentController.StopBtnUIBlink();
+           CurrentScene.contentController.uiToolBox.Refresh();
+       }
+       
+  
     }
     
     public void OnAnimationComplete(int currentAnimationNumber)
@@ -85,8 +98,13 @@ public class Base_SceneState : ISceneState
         
         CurrentScene.cameraController.isDragging = false;
         CurrentScene.cameraController.isControllable = true;
-        CurrentScene.contentController.ShowCamInitBtn();
         CurrentScene.cameraController.SaveStateDefaultTransform();
+
+        if (CurrentScene.contentController != null)
+        {
+            CurrentScene.contentController.ShowCamInitBtn();
+        }
+        else Logger.Log("content Controller is Null.. it must be tutorial state.");
     }
     
 

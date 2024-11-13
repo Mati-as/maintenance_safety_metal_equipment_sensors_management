@@ -76,7 +76,7 @@ public class Define
 	// Menu prefab, 등 순서 고려
 	public const int TrainingObjectInfo = 3300;
 	public const int OverallTraningGoal= 3301;
-	
+	public static int UI_ON = Animator.StringToHash("On");
 	
 	//public const int PleaseTouchScreen = 6501;
 	// public const int BuyBlock = 6502;

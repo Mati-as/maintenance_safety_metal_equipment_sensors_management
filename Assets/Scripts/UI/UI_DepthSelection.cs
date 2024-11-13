@@ -19,7 +19,11 @@ public class UI_DepthSelection : UI_Popup
         BindButton(typeof(DepthBtns));
 
         GetButton((int)DepthBtns.Btn_DepthA).gameObject.BindEvent(OnDepthBtnAClicked);
-        GetButton((int)DepthBtns.Btn_DepthB).gameObject.BindEvent(OnDepthBtnBClicked);
+        GetButton((int)DepthBtns.Btn_DepthB).gameObject.BindEvent(()=>
+        {
+            if(GetButton((int)DepthBtns.Btn_DepthB).IsInteractable()) OnDepthBtnBClicked();
+              
+        });
         GetButton((int)DepthBtns.Btn_DepthC2).gameObject.BindEvent(OnDepthCBtnClicked);
         GetButton((int)DepthBtns.Btn_DepthD2).gameObject.BindEvent(OnDepthDBtnCClicked);
         return true;

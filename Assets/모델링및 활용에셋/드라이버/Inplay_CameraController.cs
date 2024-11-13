@@ -10,8 +10,7 @@ using UnityEngine.UI;
 
 public class Inplay_CameraController : MonoBehaviour
 {
-    private Base_SceneController _sceneController;
-    
+   
     private Transform _target; // 
     private readonly float ZOOM_SPEED = 10f; // 줌 속도 조정
     private readonly float ROTATION_SPEED = 5.0f; // 회전 속도 조정
@@ -67,16 +66,16 @@ public class Inplay_CameraController : MonoBehaviour
     {
         // 현재 메인 카메라 가져오기
         _camera = Camera.main;
-        _sceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Base_SceneController>();
+        //_sceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Base_SceneController>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChanged;
         UI_ContentController.OnStepBtnClicked_CurrentCount += OnStepChanged;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChanged;
     }
@@ -84,7 +83,7 @@ public class Inplay_CameraController : MonoBehaviour
     /// <summary>
     /// 카메라 자유시점 이동중, 다음 스텝등으로 버튼이 넘어갈때 종료하는 로직
     /// </summary>
-    private void OnStepChanged(int _, bool __)
+    protected void OnStepChanged(int _, bool __)
     {
         _isControllable = false;
         isDragging = false;
@@ -161,10 +160,9 @@ public class Inplay_CameraController : MonoBehaviour
         if (isControllable && isDragging && _target != null)
         {
             HandleRotation();
-            HandleZoom();
             return;
         }
-
+        HandleZoom();
        
     }
     
@@ -172,11 +170,15 @@ public class Inplay_CameraController : MonoBehaviour
     public EventSystem eventSystem;
 
     
-    private bool IsPointerOverUI()
+    protected virtual bool IsPointerOverUI()
     {
         if (uiRaycaster == null)
         {
-            uiRaycaster =  Managers.UI.FindPopup<UI_ContentController>().gameObject.GetComponent<GraphicRaycaster>();
+            if (Managers.ContentInfo.PlayData.Depth1 != 5)
+            {
+                uiRaycaster =  Managers.UI.FindPopup<UI_ContentController>().gameObject.GetComponent<GraphicRaycaster>();
+            }
+          
             Logger.Log($"get grahicRayCaster : -->{uiRaycaster.gameObject.name}");
         }
         // UI 위에 있는지 확인

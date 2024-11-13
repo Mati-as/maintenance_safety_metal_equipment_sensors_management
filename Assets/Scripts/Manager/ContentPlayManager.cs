@@ -60,7 +60,7 @@ public class ContentPlayData : MonoBehaviour
     private int _depth3 =0;
     private int _count = 0;
     
-    public static readonly int DEPTH1_MAX_COUNT = 4;
+    public static readonly int DEPTH1_MAX_COUNT = 5; // 개요,안전관리,정비실습,평가하기,튜토리얼 순
     
     public static readonly int COUNT_MAX_DEPTH111 = 25;
     public static readonly int COUNT_MAX_DEPTH112 = 25;
@@ -102,6 +102,8 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int COUNT_MAX_DEPTH403 = 11 + 1;
     public static readonly int COUNT_MAX_DEPTH404 = 11 + 1;
     public static readonly int COUNT_MAX_DEPTH405 = 11 + 1;
+    
+    public static readonly int COUNT_MAX_DEPTH501 = 8 + 1;
     
     private static readonly Dictionary<string, int> DepthCountMaxDictionary = new Dictionary<string, int>
     {
@@ -148,6 +150,8 @@ public class ContentPlayData : MonoBehaviour
         { "431", COUNT_MAX_DEPTH403 },
         { "441", COUNT_MAX_DEPTH404 },
         { "451", COUNT_MAX_DEPTH405 },
+        
+        { "511", COUNT_MAX_DEPTH501 },
 
         
         // ... 추가 DEPTH 값들

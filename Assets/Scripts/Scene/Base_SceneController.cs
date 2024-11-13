@@ -29,7 +29,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     //Animation Part
 
-    private Animation _mainAnimation; // GameOjbect의 최상 부모위치에 있어야함.
+    protected Animation _mainAnimation; // GameOjbect의 최상 부모위치에 있어야함.
   
     [Tooltip("StateMachine  Setting ----------------------")]
     // SceneState Control
@@ -64,7 +64,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     
     
 
-    public void SetMainProperties()
+    public virtual void SetMainProperties()
     {
         _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
         
@@ -84,7 +84,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         contentController.Init(); // sceneController에서 제어하는 부분이 있으므로 먼저 초기화 수행 
     }
 
-    private void BindEvent()
+    protected virtual void BindEvent()
     {
         UI_ContentController.OnDepth3ClickedAction -= OnDepth3IntroOrClickedAction;
         UI_ContentController.OnDepth3ClickedAction += OnDepth3IntroOrClickedAction;
@@ -122,6 +122,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     private void OnDepth2IntroOrClickedAction()
     {
         PreInitBefreDepthChange();
+        
+        PlayAnimationAndNarration(1);
     }
     protected IEnumerator OnSceneStartCo()
     {
@@ -345,12 +347,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     public static event Action<int> OnAnimationCompelete;
 
-    private void OnAnimationComplete()
+    protected virtual void OnAnimationComplete()
     {
       //  Managers.Sound.Play(SoundManager.Sound.Narration, Managers.ContentInfo.PlayData.CurrentDepthStatus);
       
         Managers.Sound.PlayNarration(_narrationStartDelay);
-        contentController.isStepMissionComplete = false;
+        
+        // Tutorial에는 ContentController 없는경우를 대비해 조건문 아래와 같이 구성
+        if(contentController!=null) contentController.isStepMissionComplete = false;
         OnAnimationCompelete?.Invoke(currentCount);
     }
 

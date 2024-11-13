@@ -47,18 +47,19 @@ public class UI_Main : UI_Popup
         Debug.Log("Main UI Init");
         
         
-        
+        UI_Persistent.SetStatus(true);
         
         return true;
     }
 
     private void OnMainStartBtnClicked()
     {
-#if UNITY_EDITOR
-        Debug.Log("Main Content Start");
-#endif
-        Managers.UI.ClosePopupUI(main);
-        Managers.UI.ShowPopupUI<UI_DepthSelection>();
+        
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UI_Tutorial>().GetComponent<UI_Tutorial>();
+
+      
+       // Managers.UI.ShowPopupUI<UI_DepthSelection>();
     }
 
     private void SetText()

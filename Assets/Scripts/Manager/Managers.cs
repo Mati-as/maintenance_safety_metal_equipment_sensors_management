@@ -14,7 +14,14 @@ public class Managers : MonoBehaviour
     private static ContentPlayManager s_contentPlayManager = new(); 
     private static ResourceManager s_resourceManager = new ResourceManager();
     private static EvaluationManager s_evaluationManager = new();
-    
+
+    private static bool _initialIntroAnimPlayed = false;
+
+    public static bool initialIntroAnimPlayed
+    {
+        get { return _initialIntroAnimPlayed;}
+        set { _initialIntroAnimPlayed = value;}
+    }
     
     
     public static EvaluationManager evaluationManager

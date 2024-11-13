@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
@@ -13,13 +15,21 @@ public class UI_Persistent : UI_Scene
         Btn_Help,
         Btn_FullMenu,
         Btn_Setting,
-        Btn_Close
+        Btn_Close,
+        Btn_SkipIntro
+    }
+    
+
+
+    private enum UI
+    {
+        Persistent_Menu
     }
 
     private Animator _activationAnimator;
     private readonly int UI_ON = Animator.StringToHash("UI_On");
     private readonly Image[] hoverTexts = new Image[Enum.GetValues(typeof(Btns)).Length];
-
+    private Coroutine _mainIntroCo;
     private Canvas _canvas;
     public override bool Init()
     {
@@ -32,7 +42,8 @@ public class UI_Persistent : UI_Scene
         
         gameObject.GetComponent<Canvas>().sortingOrder = 20;
         BindButton(typeof(Btns));
-        
+        BindObject(typeof(UI));
+       
 
         _activationAnimator = GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject.GetComponent<Animator>();
         GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject
@@ -47,6 +58,14 @@ public class UI_Persistent : UI_Scene
                 OnMouseExitFromActivationBtn();
             }, Define.UIEvent.PointerExit);
 
+        GetButton((int)Btns.Btn_SkipIntro).gameObject.BindEvent(() =>
+        {
+            
+            StopCoroutine(_mainIntroCo);
+            OnAnimationComplete();
+          
+        
+        });
         
         SetupButton((int)Btns.Btn_Main, OnMainBtnClicked);
         SetupButton((int)Btns.Btn_Help, OnHelpBtnClicked);
@@ -54,9 +73,31 @@ public class UI_Persistent : UI_Scene
         SetupButton((int)Btns.Btn_Setting, OnSettingBtnClicked);
         SetupButton((int)Btns.Btn_Close, OnCloseBtnClicked);
 
+        SetStatus(false);
+        
+        
+        GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
         return true;
     }
 
+    public static bool persistentMenuStatus
+    {
+        get;
+        private set;
+    }
+    private static GameObject persisten_menu;
+
+    /// <summary>
+    /// 전체부모를 deactivate하면 모든 PopUI가 꺼져버리므로 자식객체 하나만 Off합니다.
+    /// </summary>
+    public static void SetStatus(bool isOn)
+    {
+        if (persisten_menu != null)
+        {
+            persistentMenuStatus = isOn;
+            persisten_menu.SetActive(isOn);
+        }
+    }
     // 버튼 설정을 위한 공통 메서드 입니다.
     private void SetupButton(int btnIndex, Action onClickAction)
     {
@@ -101,23 +142,30 @@ public class UI_Persistent : UI_Scene
     {
         Managers.UI.CloseAllPopupUI();
         
-        if (Managers.UI.FindPopup<UI_Main>() == null) Managers.UI.ShowPopupUI<UI_Main>();
+        Managers.Scene.LoadScene(SceneType.Main);
         //if (Managers.UI.SceneUI<UI_Persistent>() == null) Managers.UI.ShowSceneUI<UI_Persistent>();
     }
 
     private void OnHelpBtnClicked()
     {
-        Managers.UI.ShowPopupUI<UI_Help>();
+        if (!GetButton((int)Btns.Btn_Help).IsInteractable()) return;
+        
+        if(Managers.UI.FindPopup<UI_Help>() ==null)
+            Managers.UI.ShowPopupUI<UI_Help>();
     }
 
     private void OnFullMenuBtnClicked()
     {
-        Managers.UI.ShowPopupUI<UI_FullMenu>();
+        if(Managers.UI.FindPopup<UI_FullMenu>() ==null)
+            Managers.UI.ShowPopupUI<UI_FullMenu>();
+     
     }
 
     private void OnSettingBtnClicked()
     {
-        Managers.UI.ShowPopupUI<UI_Setting>();
+        if(Managers.UI.FindPopup<UI_Setting>() ==null) 
+            Managers.UI.ShowPopupUI<UI_Setting>();
+ 
     }
 
 
@@ -156,20 +204,95 @@ public class UI_Persistent : UI_Scene
             // apply mouse enter scaling
             BindEvent(btn.gameObject, () =>
             {
-                btn.transform.DOScale(originalScale * 1.1f, 0.18f);
-//				Logger.Log($"Button Scale Animation Applied: {btn.gameObject.name}");
+                if (btn.interactable) btn.transform.DOScale(originalScale * 1.1f, 0.18f);
+                //				Logger.Log($"Button Scale Animation Applied: {btn.gameObject.name}");
             }, Define.UIEvent.PointerEnter);
 
             // apply mouse exit scaling
-            BindEvent(btn.gameObject, () => { btn.transform.DOScale(originalScale, 0.15f); },
+            BindEvent(btn.gameObject, () =>
+                {
+                    if (btn.interactable) btn.transform.DOScale(originalScale, 0.15f);
+                },
                 Define.UIEvent.PointerExit);
-
-            _isScaleEventOn[idx] = true;
         }
 	
 		
         return Get<Button>(idx);
 		
 		
+    }
+    
+    
+
+  
+    
+    protected Animation _mainAnimation;
+
+    public void StopAnim()
+    {
+        _mainAnimation?.Stop();
+    }
+    public void PlayIntroAndShowMainAnim(string animPath ="Animation/Intro/Main_Intro" )
+    {
+        GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(true);
+        
+        _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
+
+        // 중복애니메이션 클립할당을 위해 추가합니다. 추후 성능이슈가 발생하는경우 로직 수정 필요합니다. 10/17/24
+        Debug.Assert(_mainAnimation != null, "Animation component can't be null");
+
+
+
+      
+
+
+        Logger.Log($"Animation Path {animPath}");
+        var clip = Resources.Load<AnimationClip>(animPath);
+
+
+        Debug.Assert(_mainAnimation != null, "Animation component can't be null");
+
+
+
+        if (clip == null)
+        {
+            Logger.LogWarning($"Animation clip at animPath {animPath} not found.");
+          
+            return;
+        }
+
+        var existedClip = _mainAnimation.GetClip(clip.name);
+        if (existedClip == null)
+        {
+            _mainAnimation.AddClip(clip, clip.name);
+            Logger.Log($"Added animation clip {clip.name} to _mainAnimation.");
+        }
+        else
+        {
+            _mainAnimation.RemoveClip(clip.name);
+            _mainAnimation.AddClip(clip, clip.name);
+            Logger.Log($"Replaced existing animation clip {clip.name}.");
+        }
+
+        _mainAnimation.Play(clip.name);
+        _mainIntroCo = StartCoroutine(CheckAnimationEnd(clip));
+    }
+    
+    private IEnumerator CheckAnimationEnd(AnimationClip clip)
+    {
+        yield return new WaitForSeconds(clip.length);
+        OnAnimationComplete();
+    }
+
+    protected virtual void OnAnimationComplete()
+    {
+        Logger.Log("Main UI -----------------------------------");
+        if (Managers.initialIntroAnimPlayed) return;
+        Managers.initialIntroAnimPlayed = true;
+
+        if (!Managers.UI.FindPopup<UI_Main>()) Managers.UI.ShowPopupUI<UI_Main>();
+
+        PlayIntroAndShowMainAnim("Animation/Intro/OnMain");
+        GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
     }
 }

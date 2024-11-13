@@ -7,12 +7,12 @@ public class DepthA2_State_1 : Base_SceneState
     public override void OnEnter()
     {
 
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+       
         
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.LimitSwitch,false);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.ProximitySwitch,false);
-        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor,false);
-        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor_Whole,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor_Whole);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.LevelSensor,false);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.FlowMeter,false);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.PressureSensor,false);
@@ -30,6 +30,7 @@ public class DepthA2_State_1 : Base_SceneState
 
     public override void OnExit()
     {
+        CurrentScene.contentController.ShutTrainingIntroAnim();
         base.OnExit();
     }
 }
@@ -41,18 +42,11 @@ public class DepthA2_State_2 : Base_SceneState
     {
         _currentAScene = currentScene;
     }
-
-    protected override void OnAnimationCompleteHandler(int _)
-    {
-        base.OnAnimationCompleteHandler(_);
-        SetLookAt((int)DepthAGameObj.LimitSwitch);
-
-    }
+   
 
     public override void OnEnter()
     {
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
+     
         base.OnEnter();
     }
 
@@ -74,10 +68,15 @@ public class DepthA2_State_3 : Base_SceneState
     protected override void OnAnimationCompleteHandler(int _)
     {
         base.OnAnimationCompleteHandler(_);
-        SetLookAt((int)DepthAGameObj.ProximitySwitch);
+        SetLookAt((int)DepthAGameObj.LimitSwitch);
     }
+    
     public override void OnEnter()
     {
+        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+        Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
+        
+        
         CurrentScene.HighlightBlink((int)DepthAGameObj.LimitSwitch);
         base.OnEnter();
     }
@@ -88,6 +87,7 @@ public class DepthA2_State_3 : Base_SceneState
 
     public override void OnExit()
     {
+        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         base.OnExit();
     }
 }
@@ -122,8 +122,19 @@ public class DepthA2_State_5 : Base_SceneState
     {
     }
 
+
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthAGameObj.ProximitySwitch);
+    }
+    
     public override void OnEnter()
-    {  CurrentScene.HighlightBlink((int)DepthAGameObj.ProximitySwitch);
+    {
+        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+        Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
+        
+        CurrentScene.HighlightBlink((int)DepthAGameObj.ProximitySwitch);
         base.OnEnter();
     }
 
@@ -133,6 +144,7 @@ public class DepthA2_State_5 : Base_SceneState
 
     public override void OnExit()
     {
+        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         base.OnExit();
     }
 }
@@ -169,18 +181,10 @@ public class DepthA2_State_7 : Base_SceneState
     public DepthA2_State_7(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
-    protected override void OnAnimationCompleteHandler(int _)
-    {
-        base.OnAnimationCompleteHandler(_);
-        SetLookAt((int)DepthAGameObj.TemperatureSensor);
-    }
-    
+
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
-        CurrentScene.cameraController.isControllable = false;
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        Base_SceneController.OnAnimationCompelete += OnAnimationComplete;
+      
         base.OnEnter();
     
     }
@@ -191,7 +195,7 @@ public class DepthA2_State_7 : Base_SceneState
 
     public override void OnExit()
     {
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+      
         base.OnExit();
     }
 }
@@ -228,20 +232,19 @@ public class DepthA2_State_9 : Base_SceneState
     {
     }
     
-    private void OnAnimationCompleteHandler(int _)
+    protected override void OnAnimationCompleteHandler(int _)
     {
-        SetLookAt((int)DepthAGameObj.TemperatureSensor_Whole);
-        CurrentScene.cameraController.isControllable = true;
+        base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthAGameObj.TemperatureSensor);
     }
-
-
+    
     public override void OnEnter()
     {
-        base.OnEnter();
+        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
-
-        
+        base.OnEnter();
+    
     }
 
     public override void OnStep()
@@ -250,7 +253,6 @@ public class DepthA2_State_9 : Base_SceneState
 
     public override void OnExit()
     {
-        CurrentScene.cameraController.isControllable = false;
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         base.OnExit();
     }
@@ -266,15 +268,15 @@ public class DepthA2_State_10 : Base_SceneState
     {
        
         CurrentScene.cameraController.isControllable = false;
-        Base_SceneController.OnAnimationCompelete -= OnAnimationComplete;
+        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         
-        Managers.ContentInfo.PlayData.Depth1 = 3;
-        Managers.ContentInfo.PlayData.Depth2 = 2;
-        Managers.ContentInfo.PlayData.Depth3 = 1;
-        Managers.ContentInfo.PlayData.Count = 1;
-        CurrentScene.contentController.OnDepth2Clicked(2);
+        // Managers.ContentInfo.PlayData.Depth1 = 3;
+        // Managers.ContentInfo.PlayData.Depth2 = 2;
+        // Managers.ContentInfo.PlayData.Depth3 = 1;
+        // Managers.ContentInfo.PlayData.Count = 1;
+        // CurrentScene.contentController.OnDepth2Clicked(2);
         
-        Managers.Scene.LoadScene(SceneType.DepthC2);
+        // Managers.Scene.LoadScene(SceneType.DepthC2);
         base.OnEnter();
         
         
