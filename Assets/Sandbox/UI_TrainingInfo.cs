@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+
 
 public class UI_TrainingInfo : UI_Popup
 {
@@ -10,6 +10,11 @@ public class UI_TrainingInfo : UI_Popup
         Head_Depth1_2, // Heading one 
         Text_TrainingGoal,
         Text_TrainingInfo,
+    }
+
+    enum Images
+    {
+        Image_TrainingIntro
     }
 
     public bool isInit;
@@ -24,16 +29,31 @@ public class UI_TrainingInfo : UI_Popup
     {
         if (!base.Init()) return false;
         if(!isInit)BindText(typeof(Texts));
+        BindImage(typeof(Images));
         RefreshUI();
-
-
+        
+      
         isInit = true;
         return isInit;
     }
 
+    private void SetIntroImage()
+    {
+        var path = Managers.ContentInfo.PlayData.Depth1 + Managers.ContentInfo.PlayData.Depth2.ToString();
+        var imageSource = Resources.Load<Sprite>("Image/UI_TrainingInfo/" + path);
+        
+        if (imageSource != null)
+        {
+            GetImage((int)Images.Image_TrainingIntro).sprite = imageSource;
+        }
+        
+    }
     public void RefreshUI()
     {
-        
+
+
+        SetIntroImage();
+
         
         Logger.Log("RefreshUI Objective -----------");
         
