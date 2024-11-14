@@ -185,6 +185,17 @@ public class UI_ContentController : UI_Popup
         }
     } // 각 스텝에서 미션수행(도구함클릭, 나사풀기 등) 완료시 true.
     
+    //Action<애니메이션 순서(int), Reverse 여부(bool)>
+    public static event Action<int,bool> OnStepBtnClicked_CurrentCount;
+    public static event Action OnDepth3ClickedAction;
+    public static event Action OnDepth2ClickedAction;
+    public static event Action<int> OnNextDepthInvoked; //sceneChange 
+    public static event Action OnCameraInitBtnClicked;
+
+    
+    
+    
+    
     public override bool Init()
     {
         if (!base.Init())
@@ -192,6 +203,14 @@ public class UI_ContentController : UI_Popup
 
         SoundManager.OnNarrationComplete -= BlinkNextBtnUI;
         SoundManager.OnNarrationComplete += BlinkNextBtnUI;
+        
+#if UNITY_EDITOR
+        Dev_CurrentSceneInformation.OnNextClickedOnDev -= OnNextBtnClicked;
+        Dev_CurrentSceneInformation.OnPrevClickedOnDev -= OnPrevBtnClicked;
+        Dev_CurrentSceneInformation.OnNextClickedOnDev += OnNextBtnClicked;
+        Dev_CurrentSceneInformation.OnPrevClickedOnDev += OnPrevBtnClicked;
+        
+#endif 
 
         _currentMainCam =Camera.main.GetComponent<Inplay_CameraController>();
         
@@ -226,6 +245,11 @@ public class UI_ContentController : UI_Popup
 
     private void OnDestroy()
     {
+        
+#if UNITY_EDITOR
+        Dev_CurrentSceneInformation.OnNextClickedOnDev -= OnNextBtnClicked;
+        Dev_CurrentSceneInformation.OnPrevClickedOnDev -= OnPrevBtnClicked;
+#endif 
          SoundManager.OnNarrationComplete -= BlinkNextBtnUI;
     }
 
@@ -240,12 +264,7 @@ public class UI_ContentController : UI_Popup
     private void SetHeighlightUIImages()
     {
         if (_highlightImageMap == null) _highlightImageMap = new Dictionary<int, Image>();
-
-        // Image highlightImage = GetButton((int)(Btns.Btn_Evaluation))
-        //     .GetComponentsInChildren<Image>(true) // Gets all Image components
-        //     .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); // Looks for the one with the specific name
-        // _highlightImageMap.TryAdd((int)Btns.Btn_Evaluation, highlightImage);
-       
+        
         
         Image GuidebookHlImage = GetButton((int)(Btns.Btn_Guidebook))
             .GetComponentsInChildren<Image>(true) // Gets all Image components
@@ -718,13 +737,9 @@ public class UI_ContentController : UI_Popup
     }
 
     
-    //Action<애니메이션 순서(int), Reverse 여부(bool)>
-    public static event Action<int,bool> OnStepBtnClicked_CurrentCount;
-    public static event Action OnDepth3ClickedAction;
-    public static event Action OnDepth2ClickedAction;
-    public static event Action<int> OnNextDepthInvoked; //sceneChange 
-    public static event Action OnCameraInitBtnClicked;
 
+
+    
     private void OnPrevBtnClicked()
     {
         Precheck();
@@ -767,12 +782,8 @@ public class UI_ContentController : UI_Popup
     private void OnNextBtnClicked()
     {
         Precheck();//
-     
         
         SetScriptUI();
-        
-       
-        
         
         if (Managers.ContentInfo.PlayData.Count >= ContentPlayData.CurrentCountMax)
         {
@@ -788,8 +799,6 @@ public class UI_ContentController : UI_Popup
         Managers.ContentInfo.PlayData.Count++;
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,false);
-        
-       
         
     }
 
@@ -829,8 +838,7 @@ public class UI_ContentController : UI_Popup
     public void OnDepth2Clicked(int depth2)
     {
         Precheck();
-
-
+        
         Managers.ContentInfo.PlayData.Depth2 = depth2;
         SwitchDepthToggle();
         Managers.ContentInfo.PlayData.Depth3 = 1;
@@ -842,8 +850,7 @@ public class UI_ContentController : UI_Popup
 
         Logger.Log($"Depth2 Banner Toggled {depth2}");
         if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayObjectiveIntroAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
-
-
+        
         ChangeInstructionText();
         RefreshUI();
         RefreshText();
@@ -1025,29 +1032,12 @@ public class UI_ContentController : UI_Popup
     {
     }
 
-    private void OnDepth3BtnAreaEnter()
-    {
-        // OnAnimation
-    }
-
 
     private void OnDepth3ABtnExit()
     {
         isOn3depthArea = false;
         //Animatiorn
     }
-
-
-    
-    private void OnDepth3BtnExit()
-    {
-        // OnAnimation
-    }
-
-    private void OnDepthThirdHideBtnExit()
-    {
-    }
-
 
     private void Precheck()
     {

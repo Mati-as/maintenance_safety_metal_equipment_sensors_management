@@ -6,8 +6,9 @@ using UnityEngine.Serialization;
 public class EvaluationManager : MonoBehaviour
 {
 
+#region 컴파일타임 점수 반영 로직 관련
     // 뎁스별 평가하기에서 평가할 갯수를 저장합니다
-    public readonly Dictionary<int, int> itemCountsToEvaluate = new Dictionary<int, int>()
+    public readonly Dictionary<int, int> ITEM_COUNTS_TO_EVAL_MAP = new Dictionary<int, int>()
     {
         { 1, 10 },
         { 2, 10 },
@@ -15,16 +16,71 @@ public class EvaluationManager : MonoBehaviour
         { 4, 10 },
         { 5, 10 },
     };
-
-    //동적으로 저장하며, 서버에 점수를 보낼때 아래 딕셔너리를 활요합니다. 
-    public Dictionary<int, int> scorePerDepthMap = new Dictionary<int, int>()
+    
+    //(참조) UI_Evalutation에서 평가항목 점수 표기 시 사용
+    public readonly Dictionary<int, int> SCORE_PER_ITEM_MAP = new Dictionary<int, int>()
     {
-        { 1, 0 },
-        { 2, 0 },
-        { 3, 0 },
-        { 4, 0 },
-        { 5, 0 },
+        // 인덱스 참조를 위한 - 1
+        { 41-1, 10 },
+        { 42-1, 20 },
+        { 43-1, 20 },
+        { 44-1, 10 },
+        { 45-1, 20 },
+        { 46-1, 10 },
+        { 47-1, 10 },
     };
+#endregion
+
+    #region 런타임 점수 반영 로직 관련
+    
+    //동적으로 저장하며, 서버에 점수를 보낼때 아래 딕셔너리를 활요합니다. 
+    [FormerlySerializedAs("_scorePerDepthMap")] public Dictionary<int, int> scorePerDepthMap = new Dictionary<int, int>()
+    {
+        { 41, 0 },
+        { 42, 0 }, //온도센서
+        { 43, 0 },
+        { 44, 0 },
+        { 45, 0 },
+    };
+    
+    
+    //(참조) UI_Evalutation에서 평가항목 정,오답여부 로직  시 사용
+    public Dictionary<int, bool> isCorrectMap = new Dictionary<int, bool>()
+    {
+        { 420, false },
+        { 421, false },
+        { 422, false },
+        { 423, false },
+        { 424, false },
+        { 425, false },
+        { 426, false },
+        { 427, false },
+        { 428, false },
+        { 429, false },
+        { 4210, false },
+        { 4211, false },
+        { 4212, false },
+    };
+    
+    public void IsCorrectMapInit() =>  isCorrectMap = new Dictionary<int, bool>()
+    {
+        { 420, false },
+        { 421, false },
+        { 422, false },
+        { 423, false },
+        { 424, false },
+        { 425, false },
+        { 426, false },
+        { 427, false },
+        { 428, false },
+        { 429, false },
+        { 4210, false },
+        { 4211, false },
+        { 4212, false },
+    };
+    
+    #endregion
+
 
     public int currentItemsToEvaluate { get; private set; }
     private bool _isScoringState = true;
@@ -115,9 +171,11 @@ public class EvaluationManager : MonoBehaviour
         return scorePerDepthMap[depthNum];
     }
 
-    public int SaveEvalScore(int depthNum, int score, int userID = -123)
+    public int AddEvalScore(int depthNum, int score, int userID = -123)
     {
-        return scorePerDepthMap[depthNum] = score;
+        Logger.Log($"{score} is added in depth : {depthNum}");
+        return scorePerDepthMap[depthNum] += score;
+        
     }
 
     public void ResetScore()
@@ -205,14 +263,25 @@ public class EvaluationManager : MonoBehaviour
         
         Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/Correct");
             
-        var currentDepth1 = Managers.ContentInfo.PlayData.Depth2;
-        SaveEvalScore(currentDepth1,
-            (int)(((float)correctAnswersCount / (float)itemCountsToEvaluate[currentDepth1]) * 100f));
-            
-        Logger.Log($"Current Depth: {currentDepth1} ,Current Score is : {scorePerDepthMap[currentDepth1]}");
+        string currentDepth1 = Managers.ContentInfo.PlayData.Depth1.ToString();
+        string currentDepth2 = Managers.ContentInfo.PlayData.Depth2.ToString();
+        AddEvalScore(int.Parse(currentDepth1+currentDepth2), SCORE_PER_ITEM_MAP[int.Parse(currentDepth1+currentDepth2)]);
+        
+        //(int)(((float)correctAnswersCount / (float)itemCountsToEvaluate[currentDepth1]) * 100f
+        Logger.Log($"Current Depth: {currentDepth1 + currentDepth2} ,Current Score is : {scorePerDepthMap[int.Parse(currentDepth1+currentDepth2)]}");
+     
+        
+     
     }
 
-    public void OnStateExit()
+    public void SaveIsCorrectStatusPerItems(int currentItemIndex, bool isCorrect)
+    {   
+        string currentDepth1 = Managers.ContentInfo.PlayData.Depth1.ToString();
+        string currentDepth2 = Managers.ContentInfo.PlayData.Depth2.ToString();
+        isCorrectMap[int.Parse(currentDepth1 + currentDepth2 +currentItemIndex)] = isCorrect;
+    }
+
+    public void EvalmodeOnStateExit()
     {
         objAnswerToClick = new List<int>();
         UIanswerToClick = new List<int>();

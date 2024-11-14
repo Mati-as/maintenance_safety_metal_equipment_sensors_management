@@ -61,7 +61,8 @@ public class Base_SceneState : ISceneState
      */
        if (Managers.ContentInfo.PlayData.Depth1 == 4)
        {
-           Managers.evaluationManager.OnStateExit();
+           Managers.evaluationManager.EvalmodeOnStateExit();
+          
        }
        
        if (Managers.ContentInfo.PlayData.Depth1 != 5)
