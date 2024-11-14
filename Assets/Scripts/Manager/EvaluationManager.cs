@@ -21,13 +21,16 @@ public class EvaluationManager : MonoBehaviour
     public readonly Dictionary<int, int> SCORE_PER_ITEM_MAP = new Dictionary<int, int>()
     {
         // 인덱스 참조를 위한 - 1
-        { 41-1, 10 },
-        { 42-1, 20 },
-        { 43-1, 20 },
-        { 44-1, 10 },
-        { 45-1, 20 },
-        { 46-1, 10 },
-        { 47-1, 10 },
+        { 421, 10 },
+        { 422, 20 },
+        { 423, 20 },
+        { 424, 10 },
+        { 425, 20 },
+        { 426, 10 },
+        { 427, 10 },
+        { 428, 1 },
+        { 429, 1 },
+        { 4210, 1 },
     };
 #endregion
 
@@ -265,7 +268,7 @@ public class EvaluationManager : MonoBehaviour
             
         string currentDepth1 = Managers.ContentInfo.PlayData.Depth1.ToString();
         string currentDepth2 = Managers.ContentInfo.PlayData.Depth2.ToString();
-        AddEvalScore(int.Parse(currentDepth1+currentDepth2), SCORE_PER_ITEM_MAP[int.Parse(currentDepth1+currentDepth2)]);
+      
         
         //(int)(((float)correctAnswersCount / (float)itemCountsToEvaluate[currentDepth1]) * 100f
         Logger.Log($"Current Depth: {currentDepth1 + currentDepth2} ,Current Score is : {scorePerDepthMap[int.Parse(currentDepth1+currentDepth2)]}");
@@ -274,11 +277,16 @@ public class EvaluationManager : MonoBehaviour
      
     }
 
-    public void SaveIsCorrectStatusPerItems(int currentItemIndex, bool isCorrect)
+    public void SaveIsCorrectStatusPerItems(int currentItemIndex, bool isAlreadyWrongAnser)
     {   
         string currentDepth1 = Managers.ContentInfo.PlayData.Depth1.ToString();
         string currentDepth2 = Managers.ContentInfo.PlayData.Depth2.ToString();
-        isCorrectMap[int.Parse(currentDepth1 + currentDepth2 +currentItemIndex)] = isCorrect;
+        isCorrectMap[int.Parse(currentDepth1 + currentDepth2 +currentItemIndex)] = !isAlreadyWrongAnser;
+
+        if (!isAlreadyWrongAnser)
+        {
+            AddEvalScore(int.Parse(currentDepth1+currentDepth2), SCORE_PER_ITEM_MAP[int.Parse(currentDepth1+currentDepth2+currentItemIndex)]);
+        }
     }
 
     public void EvalmodeOnStateExit()

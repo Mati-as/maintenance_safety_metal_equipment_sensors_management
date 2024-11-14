@@ -376,6 +376,8 @@ public class StateD21_9 : Base_SceneState
     public override void OnExit()
     {
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
+        Managers.evaluationManager.SaveIsCorrectStatusPerItems(7,
+            Managers.evaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
     }
 }
