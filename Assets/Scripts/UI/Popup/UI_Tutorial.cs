@@ -35,7 +35,7 @@ public class UI_Tutorial : UI_Popup
     }
 
     private bool _isTutorialEndedOrSkipped;
-    private Tutorial_CameriaController _currentMainCam;
+    private Tutorial_CameraController _currentMainCam;
     public bool isTutorialEndedOrSkipped
     {
         get { return _isTutorialEndedOrSkipped; }
@@ -48,7 +48,7 @@ public class UI_Tutorial : UI_Popup
         BindTMP(typeof(TMPs));
         BindButton(typeof(Btns));
         BindObject(typeof(UI));
-        _currentMainCam = Camera.main.GetComponent<Tutorial_CameriaController>();
+        _currentMainCam = Camera.main.GetComponent<Tutorial_CameraController>();
         
              
         GetButton((int)Btns.Btn_CameraInit).gameObject.BindEvent(() =>
@@ -60,13 +60,7 @@ public class UI_Tutorial : UI_Popup
         GetButton((int)Btns.Btn_Next).gameObject.BindEvent((OnNextBtnClicked));
         
             
-        GetButton((int)Btns.Btn_ToolBox).gameObject.BindEvent(() =>
-        {
-            if (uiToolBox == null) uiToolBox = GetObject((int)UI.UI_ToolBox).GetComponent<UI_ToolBox>();
-            GetObject((int)UI.UI_ToolBox).SetActive(true);
-
-            uiToolBox.SetToolBox();
-        });
+      
 
         GetButton((int)Btns.Btn_Confirmation_Yes).gameObject.BindEvent(() =>
         {
@@ -166,10 +160,6 @@ public class UI_Tutorial : UI_Popup
         {
             return GetObject((int)UI.UI_ToolBox).GetComponent<UI_ToolBox>();
         }
-        private set
-        {
-            uiToolBox = GetObject((int)UI.UI_ToolBox).GetComponent<UI_ToolBox>();
-        }
     }
     private void SetBtns()
     {
@@ -177,11 +167,11 @@ public class UI_Tutorial : UI_Popup
         GetButton((int)Btns.Btn_Next).gameObject.BindEvent(OnNextBtnClicked);
         GetButton((int)Btns.Btn_ToolBox).gameObject.BindEvent(() =>
         { 
-            if (uiToolBox == null) uiToolBox = GetObject((int)UI.UI_ToolBox).GetComponent<UI_ToolBox>();
+            
             GetObject((int)UI.UI_ToolBox).SetActive(true);
-           
+
+            Logger.Log("ToolBox On in Tutorial ----------------------");
             uiToolBox.SetToolBox();
-            //Managers.UI.ShowPopupUI<UI_ToolBox>();
         });
     }
     public void ChangeInstructionText()
@@ -236,7 +226,7 @@ public class UI_Tutorial : UI_Popup
             .GetComponentsInChildren<Image>(true) // Gets all Image components
             .FirstOrDefault(img => img.gameObject.name != gameObject.name 
                                    && img.gameObject.name == "Highlight_Image");
-        _highlightImageMap.TryAdd((int)Btns.Btn_Prev, camInit);
+        _highlightImageMap.TryAdd((int)Btns.Btn_CameraInit, camInit);
         
         Image PrevBtnImage = GetButton((int)(Btns.Btn_Prev))
             .GetComponentsInChildren<Image>(true) // Gets all Image components
@@ -247,6 +237,8 @@ public class UI_Tutorial : UI_Popup
 
     public void BlinkBtnUI(int btnEnum)
     {
+        
+        Logger.Log("Tutorial Blink UI Operating-------------------");
         _blinkBtnSeq?.Kill();
         _blinkBtnSeq = DOTween.Sequence();
         for (int i = 0; i < 5; i++)

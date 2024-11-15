@@ -286,6 +286,11 @@ public class UI_ContentController : UI_Popup
             .GetComponentsInChildren<Image>(true) // Gets all Image components
             .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); 
         _highlightImageMap.TryAdd((int)Btns.Btn_Prev, PrevBtnImage);
+        
+        Image cameraInitbtn = GetButton((int)(Btns.Btn_CameraInit))
+            .GetComponentsInChildren<Image>(true) // Gets all Image components
+            .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); 
+        _highlightImageMap.TryAdd((int)Btns.Btn_CameraInit, cameraInitbtn);
     }
 
 

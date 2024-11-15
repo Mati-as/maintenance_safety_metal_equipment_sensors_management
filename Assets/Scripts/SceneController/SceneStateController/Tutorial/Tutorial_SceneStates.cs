@@ -1,16 +1,19 @@
 using System;
+using UnityEngine;
 
 public class Tutorial_State_1 : Base_SceneState
 {
     // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+
+
+    Tutorial_SceneController tutorialSceneController;
     public Tutorial_State_1(Tutorial_SceneController currentScene) : base(currentScene)
     {
+        tutorialSceneController = currentScene;
     }
-
-
     public override void OnEnter()
     {
-     //   Logger.Log($"Tutorial State {this} ------------------");
+        tutorialSceneController.Init();
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -68,8 +71,8 @@ public class Tutorial_State_3 : Base_SceneState
     {
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
-        
-        tutorialSceneController.UITutorial.BlinkBtnUI((int)Btns.Btn_CameraInit);
+        tutorialSceneController.UITutorial = GameObject.Find("UI_Tutorial").GetComponent<UI_Tutorial>();
+        tutorialSceneController.UITutorial.BlinkBtnUI((int)UI_Tutorial.Btns.Btn_CameraInit);
         base.OnEnter();
     }
 
@@ -86,10 +89,10 @@ public class Tutorial_State_3 : Base_SceneState
 
 public class Tutorial_State_4 : Base_SceneState
 {
-    private Tutorial_SceneController _currentAScene;
+    private Tutorial_SceneController tutorialSceneController;
     public Tutorial_State_4(Tutorial_SceneController currentScene) : base(currentScene)
     {
-        _currentAScene = currentScene;
+        tutorialSceneController = currentScene;
     }
     
     protected override void OnAnimationCompleteHandler(int _)
@@ -104,10 +107,10 @@ public class Tutorial_State_4 : Base_SceneState
 
 public class Tutorial_State_5 : Base_SceneState
 {
-    private Tutorial_SceneController _currentAScene;
+    private Tutorial_SceneController tutorialSceneController;
     public Tutorial_State_5(Tutorial_SceneController currentScene) : base(currentScene)
     {
-        _currentAScene = currentScene;
+        tutorialSceneController = currentScene;
     }
 
     protected override void OnAnimationCompleteHandler(int _)
@@ -117,7 +120,11 @@ public class Tutorial_State_5 : Base_SceneState
 
 
 
-    public override void OnEnter(){base.OnEnter();}
+    public override void OnEnter()
+    {
+        tutorialSceneController.UITutorial.BlinkBtnUI((int)UI_Tutorial.Btns.Btn_ToolBox);
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit() {base.OnExit();}
 }

@@ -31,14 +31,15 @@ public class Main_Initializer : BaseScene
         return true;
     }
 
+    private UI_Loading _uiLoading;
 
     private IEnumerator InitialUIAnimationCo()
     {
         Managers.UI.ShowPopupUI<UI_Logo>();
         yield return new WaitForSeconds(_logoShowTimeDuration);
-
         Managers.UI.ClosePopupUI();
-        Managers.UI.ShowPopupUI<UI_Loading>().GetComponent<UI_Loading>().PlayLoadingAnimAndLoadMain();
+        _uiLoading = Managers.UI.ShowPopupUI<UI_Loading>();
+        _uiLoading.PlayLoadingAnimAndLoadMain();
     }
 
     

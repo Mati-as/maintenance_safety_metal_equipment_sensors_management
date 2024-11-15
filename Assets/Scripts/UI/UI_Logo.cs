@@ -11,11 +11,6 @@ public class UI_Logo : UI_Popup
             return false;
 
         
-        DOVirtual.DelayedCall(Main_Initializer._logoShowTimeDuration, ()=>
-        {
-            UI_Persistent.SetStatus(false);
-            Managers.UI.ClosePopupUI(this);
-        });
         return true;
     }
 

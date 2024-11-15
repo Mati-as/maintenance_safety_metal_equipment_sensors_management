@@ -110,6 +110,13 @@ public class UI_ToolBox : UI_Popup
             return;
         }
         
+        if (Managers.ContentInfo.PlayData.Depth1 ==5)
+        {
+         
+            GetButton( (int)Btns.Btn_Multimeter).gameObject.SetActive(true);
+            return;
+        }
+        
         for (int i = (int)Btns.Btn_ElectricScrewdriver; i < Enum.GetValues(typeof(Btns)).Length ; i++)
         {
             GetButton(i).gameObject.SetActive(false);

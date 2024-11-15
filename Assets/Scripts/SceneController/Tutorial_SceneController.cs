@@ -61,20 +61,19 @@ public class Tutorial_SceneController : DepthC2_SceneController
         isScrewUnwindMap = new Dictionary<int, bool>();
         animatorMap = new Dictionary<int, Animator>();
         defaultRotationMap = new Dictionary<int, Quaternion>();
-        if (UITutorial == null) UITutorial = Managers.UI.FindPopup<UI_Tutorial>().GetComponent<UI_Tutorial>();
+        UITutorial = GameObject.Find("UI_Tutorial").GetComponent<UI_Tutorial>();
         
         UI_Evaluation.OnRestartBtnOnEvalClicked -= TutorialInit;
         UI_Evaluation.OnRestartBtnOnEvalClicked += TutorialInit;
         UnBindEventAttatchedObj();
     
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "온도센서");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "보상전선");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "고정자");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Cover, "덮개");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "측정 단자 A");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.MultimeterHandleHighlight, "측정모드 설정");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "클릭");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "클릭");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "클릭");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_ConnectionPiping, "클릭");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "클릭");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "클릭");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.MultimeterHandleHighlight, "클릭");
         
         SetScrewDriverSection();
         
@@ -99,20 +98,7 @@ public class Tutorial_SceneController : DepthC2_SceneController
         {
             if (Managers.ContentInfo.PlayData.Depth1 != 5) return;
             
-            
-            //108옴 저항측정
-            if (Managers.ContentInfo.PlayData.Count == 7)
-            {
-                // isAnodePut = true; 
-                // BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "측정 단자 B");
-                // SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
-                // //HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
-                //
-                // animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
-                // animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
-                //
-                // DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
-            }
+         
             
 
         }, Define.UIEvent.PointerDown);

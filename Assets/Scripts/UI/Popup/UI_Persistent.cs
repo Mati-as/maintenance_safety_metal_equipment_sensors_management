@@ -230,7 +230,10 @@ public class UI_Persistent : UI_Scene
 
     public void StopAnim()
     {
-        _mainAnimation?.Stop();
+        if (_mainAnimation != null)
+        {
+            _mainAnimation?.Stop();
+        }
     }
     public void PlayIntroAndShowMainAnim(string animPath ="Animation/Intro/Main_Intro" )
     {
