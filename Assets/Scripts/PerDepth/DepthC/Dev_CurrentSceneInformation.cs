@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 
 
-//#if UNITY_EDITOR
+
 /// <summary>
 /// <개발용> : 테스트시 버튼이동을 자유롭게하거나, 각종 부가정보를 표시하기 위한 객체
 /// 빌드파일 포함안되도록 조건부 구성
@@ -17,7 +17,7 @@ using UnityEngine.UI;
 
 public class Dev_CurrentSceneInformation : UI_Popup
 {
-
+#if UNITY_EDITOR
    private TextMeshProUGUI _text;
    
    
@@ -59,9 +59,14 @@ public class Dev_CurrentSceneInformation : UI_Popup
    {
       _text.text = $"(Dev)SceneInfo: : {Managers.ContentInfo.PlayData.CurrentDepthStatus}";
    }
+#else
 
+   private void Start()
+   {
+      gameObject.SetActive(false);
+   }
 
-
+#endif
  
 }
-//#endif
+

@@ -15,6 +15,7 @@ public class ContentPlayData : MonoBehaviour
         { 2, 3 },
         { 3, 5 }, 
         { 4, 5 }, 
+        { 5, 0 }, // 5는 조작법안내화면, 토글 없음 
    
     };
     public static Dictionary<int, int> DEPTH_THREE_COUNT_DATA = new Dictionary<int, int>
@@ -36,7 +37,9 @@ public class ContentPlayData : MonoBehaviour
         { 42, 1 },
         { 43, 1 },
         { 44, 1 },
-        { 45, 1 }
+        { 45, 1 },
+        
+        { 51, 0 }
     };
 
     public enum CurrentDepthData
@@ -62,8 +65,8 @@ public class ContentPlayData : MonoBehaviour
     
     public static readonly int DEPTH1_MAX_COUNT = 5; // 개요,안전관리,정비실습,평가하기,튜토리얼 순
     
-    public static readonly int COUNT_MAX_DEPTH111 = 25;
-    public static readonly int COUNT_MAX_DEPTH112 = 25;
+    public static readonly int COUNT_MAX_DEPTH111 = 10 + 1;
+    public static readonly int COUNT_MAX_DEPTH112 = 9 ;
     
     // 최대 State 및 스크립트 갯수 + 1 (마지막 상태에서 새로운 뎁스 로드 및 초기화) 
     

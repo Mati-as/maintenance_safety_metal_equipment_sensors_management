@@ -7,26 +7,22 @@ using UnityEngine;
 
 public class Tutorial_SceneController : DepthC2_SceneController
 {
-
-    private UI_Tutorial _UITutorial;
-
-    public UI_Tutorial UITutorial
-    {
-        get { return _UITutorial; }
-
-        set { _UITutorial = value; }
-    }
     
+
     
     public override void Init()
     {
-       SetDepthNum(); //튜토리얼에서는 반드시 Depth를 Set해주고 들어가야합니다. 
-
-        
-        BindObject(typeof(DepthC_GameObj));
+        Logger.Log($"튜토리얼 초기화 완료 --------------------------");
         BindEvent();
+        BindObject(typeof(DepthC_GameObj));
+        GetScrewColliders();
+        SetDepthNum(); //튜토리얼에서는 반드시 Depth를 Set해주고 들어가야합니다
+        SetMainProperties(); 
         InitTutorialStates();
-        SetMainProperties();
+      
+        
+        TutorialInit();
+        contentController.SetInstructionShowOrHideStatus(true);
     }
 
     protected override void SetDepthNum()
@@ -37,46 +33,45 @@ public class Tutorial_SceneController : DepthC2_SceneController
         Managers.ContentInfo.PlayData.Count = 1;
     }
 
-    public override void SetMainProperties()
-    {
-        _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
-        
-        if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
-        
-        objectHighlightMap = new Dictionary<int, HighlightEffect>();
-        _seqMap = new Dictionary<int, Sequence>();
 
-        Debug.Assert(Camera.main != null);
-        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
-
-        Logger.Log($"현재 씬 정보(status) : {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
-       
-
-        
-    }
      public void TutorialInit()
-    {
+     {
+         UnBindEventAttatchedObj();
+         
+        
+        _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
+        if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
         cameraController = Camera.main.GetComponent<Inplay_CameraController>();
         currentScrewGaugeStatus = new Dictionary<int, float>();
         isScrewUnwindMap = new Dictionary<int, bool>();
         animatorMap = new Dictionary<int, Animator>();
         defaultRotationMap = new Dictionary<int, Quaternion>();
-        UITutorial = GameObject.Find("UI_Tutorial").GetComponent<UI_Tutorial>();
+
+        // UI_Evaluation.OnRestartBtnOnEvalClicked -= TutorialInit;
+        // UI_Evaluation.OnRestartBtnOnEvalClicked += TutorialInit;
         
-        UI_Evaluation.OnRestartBtnOnEvalClicked -= TutorialInit;
-        UI_Evaluation.OnRestartBtnOnEvalClicked += TutorialInit;
-        UnBindEventAttatchedObj();
     
+        
+        multimeterController = GetObject((int)DepthC_GameObj.Multimeter).GetComponent<MultimeterController>();
+        animatorMap.TryAdd((int)DepthC_GameObj.Multimeter,
+            GetObject((int)DepthC_GameObj.Multimeter).GetComponent<Animator>());
+        
+        SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "클릭");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_CompensatingWire, "클릭");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "클릭");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_ConnectionPiping, "클릭");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "클릭");
+        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "클릭");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "클릭");
         BindAndAddToDictionaryAndInit((int)DepthC_GameObj.MultimeterHandleHighlight, "클릭");
         
-        SetScrewDriverSection();
+       // SetScrewDriverSection();
         
+       animatorMap.TryAdd((int)DepthC_GameObj.Probe_Anode,
+           GetObject((int)DepthC_GameObj.Probe_Anode).GetComponent<Animator>());
+       animatorMap.TryAdd((int)DepthC_GameObj.Probe_Cathode,
+           GetObject((int)DepthC_GameObj.Probe_Cathode).GetComponent<Animator>());
+
         InitProbePos();
         defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Cathode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
         defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Anode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
@@ -87,40 +82,31 @@ public class Tutorial_SceneController : DepthC2_SceneController
 
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
-
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
-
+        
         
         
 
         GetObject((int)DepthC_GameObj.TS_InnerScrewA).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Depth1 != 5) return;
             
-         
+            Logger.Log("튜토리얼 클릭이벤트 실행 ---------------------------");
+            animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
+            animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
             
-
+            OnStepMissionComplete(animationNumber: 7, delayAmount: new WaitForSeconds(2f));
+            
         }, Define.UIEvent.PointerDown);
 
 
         PlayAnimationAndNarration(1);
     }
      
-     protected override void BindEvent()
-     {
-         UI_Tutorial.OnStepBtnClicked_CurrentCount -= OnStepChange;
-         UI_Tutorial.OnStepBtnClicked_CurrentCount += OnStepChange;
-   
-     }
-     
+
      private new void OnDestroy()
      {
          base.OnDestroy();
          
-         UI_Tutorial.OnStepBtnClicked_CurrentCount -= OnStepChange;
-         
-         UI_Evaluation.OnRestartBtnOnEvalClicked -= TutorialInit;
+        // UI_Evaluation.OnRestartBtnOnEvalClicked -= TutorialInit;
          UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
          UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
          UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
@@ -132,7 +118,7 @@ public class Tutorial_SceneController : DepthC2_SceneController
      {
                  
          InitializeTool();
-     
+         OnStepMissionComplete(animationNumber: 6);
          CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
          isMultimeterOn = !isMultimeterOn;
          multimeterController.SetToResistanceModeAndRotation();

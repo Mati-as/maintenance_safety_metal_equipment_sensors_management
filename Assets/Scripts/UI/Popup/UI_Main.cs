@@ -56,10 +56,8 @@ public class UI_Main : UI_Popup
     {
         
         Managers.UI.ClosePopupUI(this);
-        Managers.UI.ShowPopupUI<UI_Tutorial>().GetComponent<UI_Tutorial>();
-
-      
-       // Managers.UI.ShowPopupUI<UI_DepthSelection>();
+        Managers.UI.ShowPopupUI<UI_Tutorial>();
+        // Managers.UI.ShowPopupUI<UI_DepthSelection>();
     }
 
     private void SetText()

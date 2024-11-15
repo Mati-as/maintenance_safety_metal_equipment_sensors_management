@@ -38,12 +38,12 @@
   <TextData ID="310" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
   <TextData ID="311" kor="3.1 검출 스위치" eng="Training Object Info Test" />
   <TextData ID="312" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
-  <TextData ID="313" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+  <TextData ID="313" kor="" eng="Overall Traning Goal Test" />
 
   <TextData ID="320" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
   <TextData ID="321" kor="3.2 온도 센서" eng="Training Object Info Test" />
-  <TextData ID="322" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
-  <TextData ID="323" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+  <TextData ID="322" kor="온도센서의 상태를 점검하고 고장 유형을 설명할 수 있다&#xA;온도센서의 정비 방법을 설명할 수 있다" eng="Training Object Info Test" />
+  <TextData ID="323" kor="온도센서 외부 및 내부 점검&#xA;온도센서 고장 유형 파악&#xA;온도센서 정비" eng="Overall Traning Goal Test" />
 
   <TextData ID="330" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
   <TextData ID="331" kor="3.3 압력 센서 (테스트)" eng="Training Object Info Test" />
@@ -637,8 +637,8 @@
   <!-- Depth 1 타이틀 -->
   <TextData ID="10000" kor="기본 학습" eng="eng Test" />
   <!-- Depth 2 타이틀 -->
-  <TextData ID="10010" kor="제조 설비 개요" eng="eng Test" />
-  <TextData ID="10020" kor="계측 센서 개요" eng="eng Test" />
+  <TextData ID="10010" kor="금속제조 설비 구성" eng="eng Test" />
+  <TextData ID="10020" kor="계측센서 구조 이해" eng="eng Test" />
   <!-- Depth 3 타이틀 -->
   <TextData ID="10011" kor="제조 설비 및 계측센서 구성" eng="eng Test" />
   <TextData ID="10012" kor="제조 설비 및 계측센서 개요" eng="eng Test" />
@@ -671,7 +671,7 @@
 
   
   <!-- Depth 3 타이틀 -->
-  <TextData ID="30011" kor="검출스위치  점검" eng="eng Test" />
+  <TextData ID="30011" kor="검출스위치 점검" eng="eng Test" />
   <TextData ID="30012" kor="검출스위치 고장 유형 이해" eng="eng Test" />
   <TextData ID="30013" kor="검출스위치 센서 정비" eng="eng Test" />
 
@@ -703,6 +703,12 @@
   <TextData ID="40030" kor="압력센서" eng="eng Test" />
   <TextData ID="40040" kor="유량센서" eng="eng Test" />
   <TextData ID="40050" kor="레벨센서" eng="eng Test" />
+
+  <TextData ID="50000" kor="조작 방법 안내" eng="eng Test" />
+  <!-- Depth 2 타이틀 -->
+  <TextData ID="50011" kor="조작 방법 안내" eng="eng Test" />
+  <TextData ID="510" kor="조작 방법 안내" eng="eng Test" />
+
 
 
   <!-- Depth 3 타이틀 -->

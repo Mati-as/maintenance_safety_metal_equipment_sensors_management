@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -27,10 +28,16 @@ public class UI_TrainingInfo : UI_Popup
 
     public override bool Init()
     {
+        if (Managers.ContentInfo.PlayData.Depth1 == 5)
+        {
+            gameObject.SetActive(false);
+            return false;
+        }
         if (!base.Init()) return false;
         if(!isInit)BindText(typeof(Texts));
         BindImage(typeof(Images));
         RefreshUI();
+        
         
       
         isInit = true;

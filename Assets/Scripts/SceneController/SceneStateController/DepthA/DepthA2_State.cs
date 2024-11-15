@@ -240,7 +240,9 @@ public class DepthA2_State_9 : Base_SceneState
     
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
+       // CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor_Whole);
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         base.OnEnter();
@@ -253,6 +255,8 @@ public class DepthA2_State_9 : Base_SceneState
 
     public override void OnExit()
     {
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor_Whole);
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         base.OnExit();
     }

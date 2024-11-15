@@ -15,7 +15,7 @@ public class Inplay_CameraController : MonoBehaviour
     private readonly float ZOOM_SPEED = 10f; // 줌 속도 조정
     private readonly float ROTATION_SPEED = 5.0f; // 회전 속도 조정
     private readonly float _minZoom = 50f; // 최소 줌 거리
-    private readonly float _maxZoom = 80f; // 최대 줌 거리
+    private readonly float _maxZoom = 100f; // 최대 줌 거리
     private readonly float _dragSpeed = 1f; // 드래그 속도
     
     private readonly float _minVerticalAngle = 20f; // 상하 회전 최소 각도
@@ -120,6 +120,8 @@ public class Inplay_CameraController : MonoBehaviour
                 Logger.Log("Camera reset to default position and rotation.");
                 isControllable = true;
 
+                
+                
                 Logger.Log($"Camera Freelook is {isControllable}");
             }).OnKill(() => { isControllable = true; });
         
@@ -157,7 +159,7 @@ public class Inplay_CameraController : MonoBehaviour
             return;
         }
 
-        if (isControllable && isDragging && _target != null)
+        if ((isControllable && isDragging && _target != null))
         {
             HandleRotation();
             return;
@@ -174,10 +176,9 @@ public class Inplay_CameraController : MonoBehaviour
     {
         if (uiRaycaster == null)
         {
-            if (Managers.ContentInfo.PlayData.Depth1 != 5)
-            {
-                uiRaycaster =  Managers.UI.FindPopup<UI_ContentController>().gameObject.GetComponent<GraphicRaycaster>();
-            }
+         
+            uiRaycaster =  Managers.UI.FindPopup<UI_ContentController>().gameObject.GetComponent<GraphicRaycaster>();
+            
           
             Logger.Log($"get grahicRayCaster : -->{uiRaycaster.gameObject.name}");
         }
@@ -193,12 +194,6 @@ public class Inplay_CameraController : MonoBehaviour
         return raycastResults.Count > 0; // UI 요소와 충돌한 경우에만 true 반환
     }
 
-
-    // public void SetCamTarget(Transform target)
-    // {
-    //     _target = target;
-    // }
-    //
     public void SetCurrentMainAngleAndPos(Transform target)
     {
         
@@ -226,6 +221,9 @@ public class Inplay_CameraController : MonoBehaviour
         Logger.Log($"camera Lookat and distance set: obj: {target.gameObject.name}, distance  = {_distanceToTarget}");
         Logger.Log($"Vertical Angle: {_verticalPivotCenter}, Horizontal Angle: {_horizontalPivotCenter}");
         isControllable = true;
+        
+        currentMaxDistanceToTarget = _distanceToTarget * 1.2f;
+        currentMinDistanceToTaget = _distanceToTarget * 0.4f;
     }
 
     [Range(-10,50f)]
@@ -276,18 +274,24 @@ public class Inplay_CameraController : MonoBehaviour
         // DOTween Sequence를 사용해 DOMove와 DOLookAt을 동시에 실행
       
         _updateSeq
-            .Join(transform.DOMove(newPosition, 0.7f))
-            .Join(transform.DOLookAt(_target.position, 1f)); // 동일한 시간으로 설정해 부드럽게 맞춤
+            .Join(transform.DOMove(newPosition, 0.1f))
+            .Join(transform.DOLookAt(_target.position, 0.15f)); // 동일한 시간으로 설정해 부드럽게 맞춤
     }
+
     // 마우스 휠 드래그로 줌 인/아웃 제어
+
+    private float currentMaxDistanceToTarget;
+    private float currentMinDistanceToTaget;
     private void HandleZoom()
     {
         var scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0)
         {
-                // Zoom 속도에 따라 필드 오브 뷰(Field of View) 값 조정
-                _camera.fieldOfView = Mathf.Clamp(_camera.fieldOfView - scroll * ZOOM_SPEED, _minZoom, _maxZoom);
+            _distanceToTarget = Mathf.Clamp(_distanceToTarget - scroll * 0.5f, currentMinDistanceToTaget,currentMaxDistanceToTarget);
+            
+            // Zoom 속도에 따라 필드 오브 뷰(Field of View) 값 조정
+            _camera.fieldOfView = Mathf.Clamp(_camera.fieldOfView - scroll * ZOOM_SPEED, _minZoom, _maxZoom);
+            UpdateRotation();
         }
     }
-
 }

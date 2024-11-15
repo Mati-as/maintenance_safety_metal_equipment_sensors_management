@@ -30,14 +30,20 @@ public class UI_Loading : UI_Popup
  
     public void PlayLoadingAnimAndLoadMain()
     {
-       
+    
         
         Float(0, 100, 2.5f, val => { tmp_loading.text = $"{(int)val}%"; })
             .OnComplete(() =>
             {
-                Managers.UI.CloseAllPopupUI();
+                Managers.UI.ClosePopupUI();
                 Logger.Log("Main화면 표출");
-                Managers.UI.SceneUI.GetComponent<UI_Persistent>().PlayIntroAndShowMainAnim();
+                if (Managers.UI.SceneUI == null)
+                {
+                       Managers.UI_Persistent = Managers.UI.ShowSceneUI<UI_Persistent>();
+                       Managers.UI_Persistent.Init();
+                }
+                Managers.UI_Persistent.PlayIntroAndShowMainAnim();
+            
                 Managers.Sound.Play(SoundManager.Sound.Bgm, "Bgm");
             });
         

@@ -904,7 +904,7 @@ public class DepthC2_SceneController : Base_SceneController
 
 
 
-    protected  void UnbindStaticEvents()
+    protected  virtual void UnbindStaticEvents()
     {
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
@@ -1588,7 +1588,7 @@ public class DepthC2_SceneController : Base_SceneController
     /// <summary>
     /// 1. 공통적인 오브젝트 초기화로직 등 
     /// </summary>
-    private void PreCommonInit()
+    protected void PreCommonInit()
     {
          
         cameraController = Camera.main.GetComponent<Inplay_CameraController>();

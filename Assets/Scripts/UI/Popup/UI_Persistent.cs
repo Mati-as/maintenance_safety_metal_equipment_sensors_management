@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UI_Persistent : UI_Scene
@@ -31,15 +32,16 @@ public class UI_Persistent : UI_Scene
     private readonly Image[] hoverTexts = new Image[Enum.GetValues(typeof(Btns)).Length];
     private Coroutine _mainIntroCo;
     private Canvas _canvas;
+
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
 
-#if UNITY_EDITOR
-        Debug.Log("Main 화면 구성--------------------------");
-#endif
-        
+
+        Logger.Log("Main 화면 구성--------------------------");
+
+  
         gameObject.GetComponent<Canvas>().sortingOrder = 20;
         BindButton(typeof(Btns));
         BindObject(typeof(UI));
@@ -77,6 +79,7 @@ public class UI_Persistent : UI_Scene
         
         
         GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
+        
         return true;
     }
 
@@ -171,8 +174,8 @@ public class UI_Persistent : UI_Scene
 
     private void OnCloseBtnClicked()
     {
-        Application.Quit();
-      //  DeactivatePersistentUI();
+        Managers.UI.ShowPopupUI<UI_Exit>();
+        //  DeactivatePersistentUI();
     }
 
     #endregion
@@ -237,26 +240,15 @@ public class UI_Persistent : UI_Scene
     }
     public void PlayIntroAndShowMainAnim(string animPath ="Animation/Intro/Main_Intro" )
     {
-        GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(true);
-        
+        Logger.Log("PlayInto 재생");
         _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
-
+        
         // 중복애니메이션 클립할당을 위해 추가합니다. 추후 성능이슈가 발생하는경우 로직 수정 필요합니다. 10/17/24
         Debug.Assert(_mainAnimation != null, "Animation component can't be null");
 
-
-
-      
-
-
         Logger.Log($"Animation Path {animPath}");
         var clip = Resources.Load<AnimationClip>(animPath);
-
-
-        Debug.Assert(_mainAnimation != null, "Animation component can't be null");
-
-
-
+        
         if (clip == null)
         {
             Logger.LogWarning($"Animation clip at animPath {animPath} not found.");
@@ -279,6 +271,10 @@ public class UI_Persistent : UI_Scene
 
         _mainAnimation.Play(clip.name);
         _mainIntroCo = StartCoroutine(CheckAnimationEnd(clip));
+        
+        
+        
+        GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(true);
     }
     
     private IEnumerator CheckAnimationEnd(AnimationClip clip)

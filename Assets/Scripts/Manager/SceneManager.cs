@@ -13,6 +13,7 @@ public enum SceneType
     DepthB,
     DepthC2,
     DepthD2,
+    Tutorial
 }
 
 /// <summary>

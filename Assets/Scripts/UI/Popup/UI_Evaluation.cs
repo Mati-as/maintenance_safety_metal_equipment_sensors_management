@@ -32,11 +32,12 @@ public class UI_Evaluation : UI_Popup
 
     private enum UI
     {
-        UI_Score,
+        UI_ScoreBoard,
         UI_CheckList, // UI전체 객체 부모 
         CheckLists, //실제항목의 부모
         Eval_Items,
-        Score_Stars
+        Score_Stars,
+        UI_OnWrongAnswer,
     }
 
     private void SetNumber()
@@ -134,11 +135,13 @@ public class UI_Evaluation : UI_Popup
                                $"{Managers.ContentInfo.PlayData.Depth2}" +
                                $"{Managers.ContentInfo.PlayData.Depth3}";
 
-        GetButton((int)Btns.Btn_Main).gameObject.BindEvent(() => { OnMainBtnClicked(); });
+        GetButton((int)Btns.Btn_Main).gameObject.BindEvent(() =>
+        {
+            OnMainBtnClicked();
+        });
 
         GetButton((int)Btns.Btn_Restart).gameObject.BindEvent(() =>
         {
-            Managers.UI.ClosePopupUI(this);
             OnRestartBtnOnEvalClicked?.Invoke();
         });
 
@@ -156,7 +159,7 @@ public class UI_Evaluation : UI_Popup
 
         GetObject((int)UI.UI_CheckList).SetActive(true);
         _UIchecklistAnimator.SetBool(Define.UI_ON, false);
-        GetObject((int)UI.UI_Score).SetActive(false);
+        GetObject((int)UI.UI_ScoreBoard).SetActive(false);
         
         
         for (var i = 1; i <= GetObject((int)UI.CheckLists).transform.childCount; i++)
@@ -211,7 +214,7 @@ public class UI_Evaluation : UI_Popup
     {
         GetObject((int)UI.UI_CheckList).SetActive(true);
         _UIchecklistAnimator.SetBool(Define.UI_ON, true);
-        GetObject((int)UI.UI_Score).SetActive(false);
+        GetObject((int)UI.UI_ScoreBoard).SetActive(false);
     }
 
     public void OnEvalFinish()
@@ -225,7 +228,8 @@ public class UI_Evaluation : UI_Popup
         
         
         GetObject((int)UI.UI_CheckList).SetActive(true);
-        GetObject((int)UI.UI_Score).SetActive(true);
+        // 평가용으로 비활성화 ----------------------------------------수정필요 
+        GetObject((int)UI.UI_ScoreBoard).SetActive(false);
         ShowEvalItemScores();
         _UIchecklistAnimator.SetBool(Define.UI_ON, false);
         ShowTotalScore();
@@ -313,6 +317,25 @@ public class UI_Evaluation : UI_Popup
         }
     }
 
+
+    private Sequence _wrongUIAnimseq;
+    
+    private void AnimateUIWrongAnswer()
+    {
+        if (_wrongUIAnimseq != null && _wrongUIAnimseq.IsPlaying())
+        {
+            Logger.Log("중복실행방지");
+            return;
+        }
+        
+        _wrongUIAnimseq?.Kill();
+        _wrongUIAnimseq = DOTween.Sequence();
+        
+        GetObject((int)UI.UI_OnWrongAnswer).transform.localScale = Vector3.zero;
+
+        _wrongUIAnimseq.Append(GetObject((int)UI.UI_OnWrongAnswer).transform.DOScale(1f, 1f));
+        _wrongUIAnimseq.Append(GetObject((int)UI.UI_OnWrongAnswer).transform.DOScale(0f, 1f));
+    }
 
     // private void InitImage(int currentDepthInfo)
     // {

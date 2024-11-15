@@ -6,7 +6,7 @@ public class Managers : MonoBehaviour
 {
     public static Managers s_instance;
     public static Managers Instance => s_instance;
-
+    private static UI_Persistent s_ui_Persistent;
     private static SceneLoader s_sceneLoader = new();
     private static SoundManager s_soundManager = new();
     private static DataManager s_DataManager = new();
@@ -22,7 +22,12 @@ public class Managers : MonoBehaviour
         get { return _initialIntroAnimPlayed;}
         set { _initialIntroAnimPlayed = value;}
     }
-    
+
+    public static UI_Persistent UI_Persistent
+    {
+        get { return s_ui_Persistent;}
+        set { s_ui_Persistent = value;}
+    }
     
     public static EvaluationManager evaluationManager
     {get{Init();

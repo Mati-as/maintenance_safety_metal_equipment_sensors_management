@@ -12708,41 +12708,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_TrainingInfo
       objectReference: {fileID: 0}
-    - target: {fileID: 1361144343018874408, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363122626399833754, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -410.9999
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363122626399833754, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 231.99998
-      objectReference: {fileID: 0}
-    - target: {fileID: 4003301641172539617, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 719.928
-      objectReference: {fileID: 0}
-    - target: {fileID: 4003301641172539617, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4003301641172539617, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4003301641172539617, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.15
-      objectReference: {fileID: 0}
     - target: {fileID: 4778754200079152104, guid: 23d56042f91efdd458c610581cc05d46,
         type: 3}
       propertyPath: m_Pivot.x
@@ -12791,17 +12756,17 @@ PrefabInstance:
     - target: {fileID: 4778754200079152104, guid: 23d56042f91efdd458c610581cc05d46,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.75
+      value: 0.70838
       objectReference: {fileID: 0}
     - target: {fileID: 4778754200079152104, guid: 23d56042f91efdd458c610581cc05d46,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.75
+      value: 0.70838
       objectReference: {fileID: 0}
     - target: {fileID: 4778754200079152104, guid: 23d56042f91efdd458c610581cc05d46,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.75
+      value: 0.70838
       objectReference: {fileID: 0}
     - target: {fileID: 4778754200079152104, guid: 23d56042f91efdd458c610581cc05d46,
         type: 3}
@@ -12863,37 +12828,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6549261165401802216, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727159372668290922, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -611
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727159372668290922, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 192
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863532428415406625, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 497.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863532428415406625, guid: 23d56042f91efdd458c610581cc05d46,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -418
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2120151300901709846, guid: 23d56042f91efdd458c610581cc05d46, type: 3}
-    - {fileID: 2535872233296051120, guid: 23d56042f91efdd458c610581cc05d46, type: 3}
-    - {fileID: 8097731215367227881, guid: 23d56042f91efdd458c610581cc05d46, type: 3}
-    - {fileID: 5207072098104821857, guid: 23d56042f91efdd458c610581cc05d46, type: 3}
-    - {fileID: 5044025132028867975, guid: 23d56042f91efdd458c610581cc05d46, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23d56042f91efdd458c610581cc05d46, type: 3}
 --- !u!224 &5057835720097905414 stripped
 RectTransform:

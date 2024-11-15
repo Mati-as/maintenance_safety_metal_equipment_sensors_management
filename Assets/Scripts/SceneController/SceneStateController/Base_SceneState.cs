@@ -26,15 +26,13 @@ public class Base_SceneState : ISceneState
         }
         
         //튜토리얼이 아닌경우
-        if (Managers.ContentInfo.PlayData.Depth1 != 5)
-        {
-            CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
+        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
           
-            CurrentScene.contentController.SetNextPrevBtnsActiveStatus();
-            CurrentScene.contentController.isStepMissionComplete = false; 
-            CurrentScene.contentController.HideCamInitBtn();
-            CurrentScene.ChangeInstructionTextWithAnim();
-        }
+        CurrentScene.contentController.SetNextPrevBtnsActiveStatus();
+        CurrentScene.contentController.isStepMissionComplete = false; 
+        CurrentScene.contentController.HideCamInitBtn();
+        CurrentScene.ChangeInstructionTextWithAnim();
+        
         //항상 클릭 가능해야하는 것들 ----
        
         CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
@@ -65,14 +63,13 @@ public class Base_SceneState : ISceneState
           
        }
        
-       if (Managers.ContentInfo.PlayData.Depth1 != 5)
-       {
+      
            CurrentScene.cameraController.isControllable = false;
            CurrentScene.TurnOffAllRegisteredHighlights();
            CurrentScene.contentController.StopBtnUIBlink();
            CurrentScene.contentController.uiToolBox.Refresh();
-       }
        
+      
   
     }
     

@@ -14,7 +14,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 {
    
     private WaitForSeconds _waitBeforeNextStep;
-    private readonly float _waitBeforeNextStepSeconds = 0.5f;
+    private readonly float _waitBeforeNextStepSeconds = 0.1f;
     public int CurrentActiveTool;
     protected readonly int NO_TOOL_SELECTED = -1;
  
@@ -40,7 +40,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     //Animation
     public Dictionary<int, HighlightEffect> objectHighlightMap;
-    private Dictionary<int, Sequence> _seqMap;
+    protected Dictionary<int, Sequence> _seqMap;
 
     [Tooltip("Highlight Effect Setting ----------------------")]
 
@@ -407,7 +407,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     public void HighlightBlink(int gameObj, float startDelay = 1f)
     {
-        
+        Logger.Log($"Highlight 로직 재생중 {(DepthC_GameObj)gameObj}");
         _seqMap.TryAdd(gameObj, null);
         _seqMap[gameObj]?.Kill();
         _seqMap[gameObj]= DOTween.Sequence();
@@ -459,6 +459,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         });
         
 
+        
         _seqMap[gameObj].Play();
     }
 
@@ -471,7 +472,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         SetDefaultHighlight(ref highlightEffect);
         if (!objectHighlightMap.ContainsKey((int)gameObj))
         {
-//            Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC_GameObj)gameObj}");
+  Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC_GameObj)gameObj}");
             objectHighlightMap.Add((int)gameObj, highlightEffect);
         }
     }

@@ -145,8 +145,8 @@ public class UI_ContentController : UI_Popup
     public RectTransform gaugeRectPos { get; set; }
     
     public RectTransform toolTipRectPos { get; set; }
-    private readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
-    private readonly Vector3 _sliderPosOffset = new(-20, 30, 0);
+    protected readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
+    protected readonly Vector3 _sliderPosOffset = new(-20, 30, 0);
     public bool isGuageUsable;
 
     private Dictionary<int, Image> _highlightImageMap;
@@ -335,13 +335,13 @@ public class UI_ContentController : UI_Popup
 
 
 
-    private void Update()
+    protected virtual void Update()
     {
         Update_MousePosition();
     }
 
 
-    private void Update_MousePosition()
+    protected virtual void Update_MousePosition()
     {
      
         
@@ -562,6 +562,11 @@ public class UI_ContentController : UI_Popup
     }
 
 
+
+    private void RefreshTrainingGoalText()
+    {
+        
+    }
     
     private void RefreshText()
     {
@@ -864,7 +869,7 @@ public class UI_ContentController : UI_Popup
         OnDepth2ClickedAction?.Invoke();
     }
 
-   
+
    // private RectTransform _activeAreaRect;
     private float _heightPerDepth3Btn;
 

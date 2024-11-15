@@ -87,6 +87,7 @@ public class EvaluationManager : MonoBehaviour
 
     public int currentItemsToEvaluate { get; private set; }
     private bool _isScoringState = true;
+    public bool isCurrentClickAnswer;
 
     public bool isScoringState
     {
@@ -197,10 +198,13 @@ public class EvaluationManager : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="clickedObj"></param>
-    public void CheckIfAnswerIsCorrect(DepthC_GameObj clickedObj)
+    public bool CheckIfAnswerIsCorrect(DepthC_GameObj clickedObj)
     {
-        if (!isScoringState) return;
-        if(isAlreadyWrongAnswerChecked) Logger.Log("The Answer is Already Checked.. User already got wrong answer. continue without getting score ");
+        if (!isScoringState) return false;
+        if (isAlreadyWrongAnswerChecked)
+        {
+            Logger.Log("The Answer is Already Checked.. User already got wrong answer. continue without getting score ");
+        }
 
         
         bool isAnswerObject = false;
@@ -217,18 +221,20 @@ public class EvaluationManager : MonoBehaviour
         if (isAnswerObject)
         {
             Logger.Log("correct object, not scoring now---------------");
+            return true;
         }
         else
         {
             Logger.Log("wrong answer -------");
             isAlreadyWrongAnswerChecked = true;
             Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/WrongAnswer");
+            return false;
         }
     }
 
-    public void CheckIfAnswerIsCorrect(UI_ToolBox.Btns clickedUI)
+    public bool CheckIfAnswerIsCorrect(UI_ToolBox.Btns clickedUI)
     {
-        if (!isScoringState) return;
+        if (!isScoringState) return false;
         if(isAlreadyWrongAnswerChecked) Logger.Log("The Answer is Already Checked.. User already got wrong answer. continue without getting score ");
      
         
@@ -250,12 +256,15 @@ public class EvaluationManager : MonoBehaviour
         if (isAnswerObject)
         {
           Logger.Log("correct object, not scoring now---------------");
+          return true;
         }
         else
         {
             Logger.Log("wrong answer -------");
             isAlreadyWrongAnswerChecked = true;
             Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/WrongAnswer");
+            OnWrongAnswer();
+            return false;
         }
         
     }
@@ -275,6 +284,11 @@ public class EvaluationManager : MonoBehaviour
      
         
      
+    }
+
+    private void OnWrongAnswer()
+    {
+     //UI_Eval의 WrongUI 표출 여기서 하기 --------------------11/15/24   
     }
 
     public void SaveIsCorrectStatusPerItems(int currentItemIndex, bool isAlreadyWrongAnser)

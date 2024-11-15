@@ -90,7 +90,7 @@ public class UIManager : MonoBehaviour
 
 	public Stack<UI_Popup> PopupStack = new Stack<UI_Popup>();
 
-	public UI_Scene SceneUI { get; private set; }
+	public UI_Scene SceneUI { get;  set; }
 
 
 
