@@ -14,7 +14,7 @@ public class Tutorial_State_1 : Base_SceneState
     }
     public override void OnEnter()
     {
-       
+        
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -65,9 +65,10 @@ public class Tutorial_State_3 : Base_SceneState
     
     public override void OnEnter()
     {
-       
+      
         tutorialSceneController.contentController.BlinkBtnUI((int)Btns.Btn_CameraInit);
         base.OnEnter();
+        CurrentScene.contentController.ShowCamInitBtn();
     }
 
     public override void OnStep()
@@ -184,6 +185,10 @@ public class Tutorial_State_7 : Base_SceneState
     public override void OnExit()
     {
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
+        tutorialSceneController.ClearTool();
+        
+        CurrentScene.GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(true);
+        CurrentScene.GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(true);
         base.OnExit();
     }
 }

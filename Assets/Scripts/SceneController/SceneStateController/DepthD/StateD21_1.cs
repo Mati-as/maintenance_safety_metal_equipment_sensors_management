@@ -12,10 +12,13 @@ public class StateD21_1 : Base_SceneState
     public StateD21_1(DepthD2_SceneController currentScene) : base(currentScene)
     { depthD2SceneController = currentScene;}
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public override void OnEnter()
     {
+      
         depthD2SceneController.contentController.ShutTrainingIntroAnim();
         depthD2SceneController.indicator.ShowErrorMessage();
+       
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_CompensatingWire);
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_Stabilizer);
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TS_SensingElement);
@@ -33,8 +36,12 @@ public class StateD21_1 : Base_SceneState
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TankValve,false);
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.TemperatureSensor);
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
-        
-        
+     
+      
+        depthD2SceneController.contentController.SetInstructionShowOrHideStatus(true);
+        depthD2SceneController.UIEvaluation.Init();
+        depthD2SceneController.UIEvaluation.SetChecklistAnimStatus(false);
+
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -53,7 +60,8 @@ public class StateD21_2 : Base_SceneState
     {
             
         base.OnEnter();
-        depthD2SceneController.UIEvaluation.OnEvalStart();
+        depthD2SceneController.UIEvaluation.UI_OnEvalStart();
+  
         Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_TemperatureSensor);
     }
     public override void OnStep(){base.OnStep();}
@@ -81,7 +89,7 @@ public class StateD21_3 : Base_SceneState
         depthD2SceneController.UIEvaluation.RefreshCheckListImage(1);
         
         depthD2SceneController.SetHighlightIgnore((int)DepthC_GameObj.PowerHandle,false);
-        //depthD2SceneController.HighlightBlink((int)DepthC_GameObj.PowerHandle);
+      //  depthD2SceneController.HighlightBlink((int)DepthC_GameObj.PowerHandle);
         base.OnEnter();
         Managers.evaluationManager.objAnswerToClick.Add((int)DepthC_GameObj.PowerHandle);
     }
@@ -402,7 +410,7 @@ public class StateD21_10 : Base_SceneState
         Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
         
         depthD2SceneController.isWindSession = true;
-        depthD2SceneController.isMultimeterOn = false;
+        depthD2SceneController.ClearTool();
         depthD2SceneController.multimeterController.SetMeasureGuideStatus(false);
         depthD2SceneController.TurnOnCollidersAndInit();
         
@@ -491,7 +499,8 @@ public class StateD21_12 : Base_SceneState
     public override void OnEnter()
     {
         depthD2SceneController.UIEvaluation.RefreshCheckListImage(6);
-        depthD2SceneController.UIEvaluation.OnEvalFinish();
+        depthD2SceneController.contentController.SetInstructionShowOrHideStatus(false);
+        depthD2SceneController.UIEvaluation.UI_OnEvalFinish();
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}

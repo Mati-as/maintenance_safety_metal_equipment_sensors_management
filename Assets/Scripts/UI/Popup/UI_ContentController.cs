@@ -59,7 +59,8 @@ public class UI_ContentController : UI_Popup
         UI_ToolTip,
         UI_ToolBox,
         UI_DrverOnly_GaugeSlider,
-        UI_CurrentDepth_Mid
+        UI_CurrentDepth_Mid,
+        ToggleGroup_TopMenuBar
        
         // ActiveArea,
         // InactiveAreaA,
@@ -192,8 +193,19 @@ public class UI_ContentController : UI_Popup
     public static event Action<int> OnNextDepthInvoked; //sceneChange 
     public static event Action OnCameraInitBtnClicked;
 
+
     
     
+    /// <summary>
+    /// 1. in tutorial, some Ui objs must be shut.they'll be executed in this logic
+    /// </summary>
+    public void CheckIfTutorialMode()
+    { 
+        bool isTutorial = Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Tutorial;
+        GetObject((int)UI.ToggleGroup_TopMenuBar).gameObject.SetActive(!isTutorial);
+    }
+
+
     
     
     public override bool Init()
@@ -201,6 +213,8 @@ public class UI_ContentController : UI_Popup
         if (!base.Init())
             return false;
 
+       
+        
         SoundManager.OnNarrationComplete -= BlinkNextBtnUI;
         SoundManager.OnNarrationComplete += BlinkNextBtnUI;
         
@@ -213,6 +227,8 @@ public class UI_ContentController : UI_Popup
 #endif 
 
         _currentMainCam =Camera.main.GetComponent<Inplay_CameraController>();
+
+       
         
         BindUIElements();
         InitTopMenu();
@@ -239,6 +255,10 @@ public class UI_ContentController : UI_Popup
                 Debug.LogError("UI_TrainingInfo object not found.");
             }
         }
+
+
+        
+        CheckIfTutorialMode();
         
         return true;
     }
@@ -297,6 +317,12 @@ public class UI_ContentController : UI_Popup
 
     public void BlinkBtnUI(int btnEnum)
     {
+        
+        if(btnEnum == (int)Btns.Btn_Next)
+        {
+            Logger.Log("현재 다음 버튼 하이라이트 로직 미구현 상태 11/18/24-------------------------");
+            return;
+        }
         _blinkBtnSeq?.Kill();
         _blinkBtnSeq = DOTween.Sequence();
         for (int i = 0; i < 5; i++)
@@ -489,6 +515,17 @@ public class UI_ContentController : UI_Popup
     {
         GetButton((int)Btns.Btn_CameraInit).gameObject.SetActive(false);
     }
+    public void ShowToolBoxBtn()
+    {
+        GetButton((int)Btns.Btn_ToolBox).gameObject.SetActive(true);
+    }
+
+    
+    public void HideToolBoxBtn()
+    {
+        GetButton((int)Btns.Btn_ToolBox).gameObject.SetActive(false);
+    }
+
 
     private void InitCommonUI()
     {
@@ -497,7 +534,7 @@ public class UI_ContentController : UI_Popup
       GetButton((int)Btns.Btn_CameraInit).gameObject
         .BindEvent(() =>
         {
-            _currentMainCam.SetDefaultRotationThisState();
+            _currentMainCam.RefreshRotationAndZoom();
             OnCameraInitBtnClicked?.Invoke();
 
         }, Define.UIEvent.PointerUp);
@@ -1033,6 +1070,7 @@ public class UI_ContentController : UI_Popup
         
         
         
+        SetInstructionShowOrHideStatus(false);
         OnDepth3ClickedAction?.Invoke();
         
         
@@ -1214,11 +1252,9 @@ public class UI_ContentController : UI_Popup
             return; // 이미한번 실행됬다고 판단해서 리턴합니다.
 }
        
-        if (UI_AnimSeq.IsActive())
-        {
-            UI_AnimSeq.Kill();
-            UI_AnimSeq = DOTween.Sequence();
-        }
+        UI_AnimSeq.Kill();
+        UI_AnimSeq = DOTween.Sequence();
+        
 
         UI_AnimSeq = DOTween.Sequence();
         UI_AnimSeq.AppendCallback(() =>

@@ -98,7 +98,10 @@ public class Tutorial_SceneController : DepthC2_SceneController
         }, Define.UIEvent.PointerDown);
 
 
+        SetDepthNum();
+        ChangeState(1);
         PlayAnimationAndNarration(1);
+        
     }
      
 

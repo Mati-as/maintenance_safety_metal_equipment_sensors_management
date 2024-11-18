@@ -85,6 +85,7 @@ public class EvaluationManager : MonoBehaviour
     #endregion
 
 
+    public int currentDepthScore; // 저장하기 단계가아닌, 평가중의 실시간 점수
     public int currentItemsToEvaluate { get; private set; }
     private bool _isScoringState = true;
     public bool isCurrentClickAnswer;
@@ -175,13 +176,24 @@ public class EvaluationManager : MonoBehaviour
         return scorePerDepthMap[depthNum];
     }
 
-    public int AddEvalScore(int depthNum, int score, int userID = -123)
+    public void AddEvalScore(int depthNum, int score, int userID = -123)
     {
         Logger.Log($"{score} is added in depth : {depthNum}");
-        return scorePerDepthMap[depthNum] += score;
+         currentDepthScore += score;
         
     }
 
+    public  void SaveResult(int depthNum, int score, int userID = -123)
+    {
+        Logger.Log($"{score} is saved in depth : {depthNum}");
+         scorePerDepthMap[depthNum] = currentDepthScore;
+    }
+
+
+    public void OnEvalStart()
+    {
+        currentDepthScore = 0;
+    }
     public void ResetScore()
     {
         scorePerDepthMap = new Dictionary<int, int>()

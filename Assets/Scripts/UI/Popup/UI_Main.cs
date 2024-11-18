@@ -47,16 +47,26 @@ public class UI_Main : UI_Popup
         Debug.Log("Main UI Init");
         
         
+       
+        Managers.UI_Persistent.OnMainUIPopUP();
         UI_Persistent.SetStatus(true);
-        
         return true;
     }
 
     private void OnMainStartBtnClicked()
     {
-        
-        Managers.UI.ClosePopupUI(this);
-        Managers.UI.ShowPopupUI<UI_Tutorial>();
+        if (Managers.isTutorialPlayed)
+        {
+            Managers.UI.ClosePopupUI();
+            Managers.UI.ShowPopupUI<UI_DepthSelection>();
+        }
+        else
+        {
+            Managers.UI.ClosePopupUI();
+            Managers.UI.ShowPopupUI<UI_Tutorial>();
+            Managers.isTutorialPlayed = true;
+        }
+      
         // Managers.UI.ShowPopupUI<UI_DepthSelection>();
     }
 

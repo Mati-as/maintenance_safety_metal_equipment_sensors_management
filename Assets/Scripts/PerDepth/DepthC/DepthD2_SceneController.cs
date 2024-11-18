@@ -31,12 +31,12 @@ public class DepthD2_SceneController : DepthC2_SceneController
         base.Init();
         
         BindObject(typeof(DepthC_GameObj));
+        if(UIEvaluation==null) UIEvaluation = Managers.UI.ShowPopupUI<UI_Evaluation>();
         GetScrewColliders();
         InitializeD2States();
         DepthD21Init();
         contentController.OnDepth2Clicked(2); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다.
         
-        UIEvaluation = Managers.UI.ShowPopupUI<UI_Evaluation>();
         
         UI_Evaluation.OnRestartBtnOnEvalClicked -= DepthD21Init;
         UI_Evaluation.OnRestartBtnOnEvalClicked += DepthD21Init;
@@ -232,8 +232,12 @@ public class DepthD2_SceneController : DepthC2_SceneController
 
       
         });
-        
+ 
+               
+        SetDepthNum();
+        ChangeState(1);
         PlayAnimationAndNarration(1);
+        
     }
 
     private new void OnDestroy()

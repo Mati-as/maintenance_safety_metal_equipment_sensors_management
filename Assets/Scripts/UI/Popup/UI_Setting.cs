@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -205,6 +206,8 @@ public class UI_Setting : UI_Popup
 
         return true;
     }
+    
+
 
 
     /// <summary>
@@ -335,6 +338,7 @@ public class UI_Setting : UI_Popup
         UpdateVolume((int)SoundManager.Sound.Bgm);
         UpdateVolume((int)SoundManager.Sound.Effect);
         UpdateVolume((int)SoundManager.Sound.Narration);
+       
     }
 
 
@@ -365,21 +369,27 @@ public class UI_Setting : UI_Popup
 #if UNITY_EDITOR
         Debug.Log($"Resolution Change => {width} x {height} ");
 # endif
+        
 
         Managers.UI.SetResolution(width, height, Managers.UI.isFullScreen);
         Managers.Data.Preference[(int)Define.Preferences.Resolution] = width;
+        
+        Managers.Data.SaveCurrentSetting();
 
     }
 
     private void OnGraphicQualityChanged(Define.QaulityLevel qaulityLevel)
     {
+        
         Debug.Assert((int)qaulityLevel < 6 || (int)qaulityLevel > 0);
 #if UNITY_EDITOR
         Debug.Log($"Graphic Quality {qaulityLevel}");
 # endif
         Managers.UI.SetGraphicQuality(qaulityLevel);
-
         Managers.Data.Preference[(int)Define.Preferences.GraphicQuality] = (int)qaulityLevel;
+        
+        
+        Managers.Data.SaveCurrentSetting();
     }
 
 

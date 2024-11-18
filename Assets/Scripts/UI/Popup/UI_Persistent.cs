@@ -7,6 +7,11 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+/// <summary>
+/// 훈련 보조도구 및 씬에 관계없이 UI전반을 참조하여 사용하고싶을때 사용
+/// 과하게 사용시 의존도가 높아질 수 있으므로 사용주의 필요합니다.
+/// </summary>
+
 public class UI_Persistent : UI_Scene
 {
     private enum Btns
@@ -41,10 +46,10 @@ public class UI_Persistent : UI_Scene
 
         Logger.Log("Main 화면 구성--------------------------");
 
-  
         gameObject.GetComponent<Canvas>().sortingOrder = 20;
         BindButton(typeof(Btns));
         BindObject(typeof(UI));
+        persisten_menu = GetObject((int)UI.Persistent_Menu);
        
 
         _activationAnimator = GetButton((int)Btns.Btn_Logo_MenuActivation).gameObject.GetComponent<Animator>();
@@ -75,11 +80,11 @@ public class UI_Persistent : UI_Scene
         SetupButton((int)Btns.Btn_Setting, OnSettingBtnClicked);
         SetupButton((int)Btns.Btn_Close, OnCloseBtnClicked);
 
-        SetStatus(false);
+      
         
         
         GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
-        
+        SetStatus(false);
         return true;
     }
 
@@ -238,7 +243,7 @@ public class UI_Persistent : UI_Scene
             _mainAnimation?.Stop();
         }
     }
-    public void PlayIntroAndShowMainAnim(string animPath ="Animation/Intro/Main_Intro" )
+    public void PlayIntroAndShowAnimOnMainUI(string animPath ="Animation/Intro/Main_Intro" )
     {
         Logger.Log("PlayInto 재생");
         _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
@@ -273,7 +278,7 @@ public class UI_Persistent : UI_Scene
         _mainIntroCo = StartCoroutine(CheckAnimationEnd(clip));
         
         
-        
+        SetStatus(false);
         GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(true);
     }
     
@@ -290,8 +295,31 @@ public class UI_Persistent : UI_Scene
         Managers.initialIntroAnimPlayed = true;
 
         if (!Managers.UI.FindPopup<UI_Main>()) Managers.UI.ShowPopupUI<UI_Main>();
-
-        PlayIntroAndShowMainAnim("Animation/Intro/OnMain");
+        
         GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
+    }
+
+    public void OnMainUIPopUP()
+    {
+        UI_Persistent.SetStatus(true);
+        
+        PlayIntroAndShowAnimOnMainUI("Animation/Intro/OnMain");
+        GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
+        if(!Managers.Sound.audioSources[(int)SoundManager.Sound.Bgm].isPlaying) Managers.Sound.Play(SoundManager.Sound.Bgm, "Bgm");
+    }
+    
+    private void Update()
+    {
+       
+        HandleAltEnterPressed();
+        
+    }
+    private void HandleAltEnterPressed()
+    {
+        // 원하는 로직 수행
+        //Debug.Log("Alt+Enter detected via Input System!");
+        bool isFullScreenMode = false;
+        isFullScreenMode = Screen.fullScreen;
+        Managers.Data.Preference[(int)Define.Preferences.Fullscreen] = isFullScreenMode? Define.YES : Define.NO ;
     }
 }

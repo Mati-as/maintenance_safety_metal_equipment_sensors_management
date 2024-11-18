@@ -63,13 +63,32 @@ public class UI_Evaluation : UI_Popup
     private Dictionary<int, Image> _checklistImageMap;
     private int _evalId;
     private int _checklistId;
-    private Image[] _starImages = new Image[3];
+    private Image[] _offStarImages = new Image[3];
     
 
     private Animator _UIchecklistAnimator => GetObject((int)UI.UI_CheckList).GetComponent<Animator>();
+    public void SetChecklistAnimStatus(bool isOn)
+    {
+        if (_UIchecklistAnimator != null)
+        {
+            GetObject((int)UI.UI_CheckList).GetComponent<Animator>();
+            _UIchecklistAnimator.SetBool(Define.UI_ON, isOn);
+        }
+    }
 
     public bool isUiChecklistOn { get; private set; }
 
+
+    private void Awake()
+    {
+        OnRestartBtnOnEvalClicked -= UI_OnEvalStart;
+        OnRestartBtnOnEvalClicked += UI_OnEvalStart;
+    }
+
+    private void OnDestroy()
+    {
+        OnRestartBtnOnEvalClicked -= UI_OnEvalStart;
+    }
 
     public static event Action OnRestartBtnOnEvalClicked;
     private readonly int TMP_SCORE_CHILD_ORDER = 0;
@@ -78,8 +97,8 @@ public class UI_Evaluation : UI_Popup
     {
         if (base.Init() == false)
             return false;
-
-
+        
+        
         Debug.Assert(Managers.ContentInfo.PlayData.Depth1 == 4);
 
         BindImage(typeof(Images));
@@ -91,7 +110,7 @@ public class UI_Evaluation : UI_Popup
         
         for (int i = 0; i < 3; i++)
         {
-           _starImages[i]= GetObject((int)UI.Score_Stars).transform.GetChild(i).GetComponent<Image>();
+           _offStarImages[i]= GetObject((int)UI.Score_Stars).transform.GetChild(i).GetChild(0).GetComponent<Image>();
         }
 
 
@@ -146,19 +165,19 @@ public class UI_Evaluation : UI_Popup
         });
 
 
-        OnInit();
+        OnInitUI();
         RefreshText();
-
+      
         return true;
     }
 
-    public void OnInit()
+    
+    public void OnInitUI()
     {
         Managers.evaluationManager.IsCorrectMapInit();
-        _currentTotalScore = 0;
 
         GetObject((int)UI.UI_CheckList).SetActive(true);
-        _UIchecklistAnimator.SetBool(Define.UI_ON, false);
+         if(_UIchecklistAnimator!=null)_UIchecklistAnimator.SetBool(Define.UI_ON, false);
         GetObject((int)UI.UI_ScoreBoard).SetActive(false);
         
         
@@ -173,9 +192,9 @@ public class UI_Evaluation : UI_Popup
 
     private void SetStarImage(int index)
     {
-        for (int i = 0; i < index; i++)
+        for (int i = 2; i > index; i--)
         {
-            _starImages[i].enabled = true;
+            _offStarImages[i].enabled = true;
         }
     }
 
@@ -184,54 +203,57 @@ public class UI_Evaluation : UI_Popup
         
         for (int i = 0; i < 3; i++)
         {
-            _starImages[i].enabled = false;
+            _offStarImages[i].enabled = false;
          
         }
         
-        if (_currentTotalScore < 30)
+        if (Managers.evaluationManager.currentDepthScore < 30)
         {
-            SetStarImage(1);
+            SetStarImage(0);
             GetTMP((int)TMPs.TMP_OverallEvalText).text = "미흡";
             return;
-            return;
         }
-        if (_currentTotalScore < 70)
+        if (Managers.evaluationManager.currentDepthScore  < 70)
         {
-            SetStarImage(2);
+            SetStarImage(1);
             GetTMP((int)TMPs.TMP_OverallEvalText).text = "보통";
             return;
 
         }
-        if (_currentTotalScore > 70)
+        if (Managers.evaluationManager.currentDepthScore  > 70)
         {
             GetTMP((int)TMPs.TMP_OverallEvalText).text = "우수";
-            SetStarImage(3);
+            SetStarImage(2);
 
         }
     }
 
-    public void OnEvalStart()
+    public void UI_OnEvalStart()
     {
+        Managers.evaluationManager.OnEvalStart();
+        
         GetObject((int)UI.UI_CheckList).SetActive(true);
-        _UIchecklistAnimator.SetBool(Define.UI_ON, true);
+        if(_UIchecklistAnimator!=null) _UIchecklistAnimator.SetBool(Define.UI_ON, true);
         GetObject((int)UI.UI_ScoreBoard).SetActive(false);
     }
 
-    public void OnEvalFinish()
+    public void UI_OnEvalFinish()
     {
         var currentDepth1 = Managers.ContentInfo.PlayData.Depth1;
         var currentDepth2 = Managers.ContentInfo.PlayData.Depth2;
-        
-        _currentTotalScore =
-            Managers.evaluationManager.scorePerDepthMap[int.Parse(currentDepth1.ToString() + currentDepth2.ToString())];
-        
-        
-        
+     
+        // _currentTotalScore =
+        //     Managers.evaluationManager.scorePerDepthMap[int.Parse(currentDepth1.ToString() + currentDepth2.ToString())];
+           
+        Managers.evaluationManager.SaveResult(int.Parse(currentDepth1.ToString() + currentDepth2.ToString()),
+            Managers.evaluationManager.currentDepthScore);
+
         GetObject((int)UI.UI_CheckList).SetActive(true);
-        // 평가용으로 비활성화 ----------------------------------------수정필요 
-        GetObject((int)UI.UI_ScoreBoard).SetActive(false);
+        
+        GetObject((int)UI.UI_ScoreBoard).SetActive(true);
+        
         ShowEvalItemScores();
-        _UIchecklistAnimator.SetBool(Define.UI_ON, false);
+        if(_UIchecklistAnimator!=null) _UIchecklistAnimator.SetBool(Define.UI_ON, false);
         ShowTotalScore();
         SetStarImageAndText();
     }
@@ -273,13 +295,13 @@ public class UI_Evaluation : UI_Popup
         }
     }
 
-    private int _currentTotalScore;
+    
     private void ShowTotalScore()
     {
         var currentDepth1 = Managers.ContentInfo.PlayData.Depth1;
         var currentDepth2 = Managers.ContentInfo.PlayData.Depth2;
         
-        DOVirtual.Float(0,_currentTotalScore, 2f,
+        DOVirtual.Float(0,Managers.evaluationManager.scorePerDepthMap[int.Parse(currentDepth1.ToString() + currentDepth2.ToString())], 2f,
             val => { GetTMP((int)TMPs.TotalScore).text = ((int)val).ToString(); });
         
         Logger.Log($"총점: {Managers.evaluationManager.scorePerDepthMap[int.Parse(currentDepth1.ToString() + currentDepth2.ToString())]}");

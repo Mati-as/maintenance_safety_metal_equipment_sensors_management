@@ -20,9 +20,18 @@ public class Base_SceneState : ISceneState
     {
       
         //평가하기가 아닌경우
-        if (Managers.ContentInfo.PlayData.Depth1 == 4)
+        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation)
         {
             Managers.evaluationManager. InitPerState();
+        }
+
+        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.SensorOverview)
+        {
+            CurrentScene.contentController.HideToolBoxBtn();
+        }
+        else
+        {
+            CurrentScene.contentController.ShowToolBoxBtn();
         }
         
         //튜토리얼이 아닌경우
@@ -85,7 +94,7 @@ public class Base_SceneState : ISceneState
     }
     public void SetLookAt(int objToActivate)
     {
-        CurrentScene.cameraController.SetCurrentMainAngleAndPos(
+        CurrentScene.cameraController.SetCurrentMainAngleAndPosOnStateEnter(
             CurrentScene.GetObject(objToActivate).transform
         );
     }

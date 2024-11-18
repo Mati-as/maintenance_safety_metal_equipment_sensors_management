@@ -72,6 +72,14 @@ public class Define
 		ControlGuideOn
 	}
 	
+	public enum Depth
+	{
+		SensorOverview=1,
+		Safety=2,
+		MaintenancePractice=3,
+		Evaluation=4,
+		Tutorial=5
+	}
 	
 	// Menu prefab, 등 순서 고려
 	public const int TrainingObjectInfo = 3300;

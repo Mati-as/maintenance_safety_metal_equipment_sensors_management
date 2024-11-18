@@ -42,7 +42,7 @@ public class UI_Loading : UI_Popup
                        Managers.UI_Persistent = Managers.UI.ShowSceneUI<UI_Persistent>();
                        Managers.UI_Persistent.Init();
                 }
-                Managers.UI_Persistent.PlayIntroAndShowMainAnim();
+                Managers.UI_Persistent.PlayIntroAndShowAnimOnMainUI();
             
                 Managers.Sound.Play(SoundManager.Sound.Bgm, "Bgm");
             });

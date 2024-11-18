@@ -107,7 +107,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     private void OnDepth3IntroOrClickedAction()
     {
         PreInitBefreDepthChange();
-        
+
         PlayAnimationAndNarration(1);
         ChangeState(1);
     }
@@ -115,6 +115,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     private void PreInitBefreDepthChange()
     {
         isReverseAnim = false;
+        Managers.ContentInfo.PlayData.Count = 0;
         ExitCurrentState();
 
     }
@@ -217,7 +218,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     #region Call By States
 
-    
+
     /// <summary>
     /// 애니메이션을 재생합니다.
     /// isServeAnimation인 경우 서브애니메이션을 재생합니다. 파일형식은 예를들어 5A,5B 가됩니다.
@@ -228,11 +229,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     /// <param name="isReverse"></param>
     /// <param name="isServeAnim"></param>
     ///
-    
+
+    private bool _isCurrentAnimServe; // 나레이션재생로직을 위한 bool
     public float currentCilpLength { get; private set; }
     public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false,bool isServeAnim =false)
     {
-      
+
+        _isCurrentAnimServe = isServeAnim;
        
 
 
@@ -351,11 +354,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
       //  Managers.Sound.Play(SoundManager.Sound.Narration, Managers.ContentInfo.PlayData.CurrentDepthStatus);
       
-        Managers.Sound.PlayNarration(_narrationStartDelay);
+      
         
         // Tutorial에는 ContentController 없는경우를 대비해 조건문 아래와 같이 구성
         if(contentController!=null) contentController.isStepMissionComplete = false;
         OnAnimationCompelete?.Invoke(currentCount);
+        
+        if(!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
     }
 
     public void ChangeInstructionTextWithAnim(int delay = 0)
@@ -429,7 +434,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         _seqMap[gameObj].AppendInterval(startDelay);
         _seqMap[gameObj].AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
 
-        var loopCount = 5;
+        var loopCount = 12;
         for (var i = 0; i < loopCount; i++)
         {
             _seqMap[gameObj].AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });

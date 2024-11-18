@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,7 +17,14 @@ public class Managers : MonoBehaviour
     private static EvaluationManager s_evaluationManager = new();
 
     private static bool _initialIntroAnimPlayed = false;
+    private static bool _isTutorialPlayed = false;
 
+    public static bool isTutorialPlayed
+    {
+        get { return _isTutorialPlayed;}
+        set { _isTutorialPlayed = value;}
+    }
+    
     public static bool initialIntroAnimPlayed
     {
         get { return _initialIntroAnimPlayed;}
@@ -85,6 +93,7 @@ public class Managers : MonoBehaviour
             s_soundManager.Init();
             s_cursorImageManager.Init();
             InitialSet();
+            Application.runInBackground = true;
 
         }
     }
@@ -108,12 +117,10 @@ public class Managers : MonoBehaviour
         Application.targetFrameRate = 60;
     }
 
-    
-    /// <summary>
-    /// 씬로드시 제일 초기UI설정
-    /// </summary>
-    public static void SetDefaultUIPerScene(string currentDepth =null)
+  
+
+    private void OnApplicationQuit()
     {
-       // Managers.UI.ShowSceneUI<UI_Persistent>();
+        Managers.Data.SaveCurrentSetting();
     }
 }

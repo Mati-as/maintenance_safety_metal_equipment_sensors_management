@@ -374,6 +374,11 @@ public class SoundManager : MonoBehaviour
                 $"{Managers.ContentInfo.PlayData.Depth3}" +
                 $"/{Managers.ContentInfo.PlayData.Count}");
         });
+        
+        Logger.Log($"나레이션 재생:경로Audio/Narration/{Managers.ContentInfo.PlayData.Depth1}" +
+        $"{Managers.ContentInfo.PlayData.Depth2}" +
+            $"{Managers.ContentInfo.PlayData.Depth3}" +
+            $"/{Managers.ContentInfo.PlayData.Count}");
         _narrationSeq.Play();
     }
 
@@ -416,5 +421,6 @@ public class SoundManager : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log($"{sound} is muted");
 #endif
+        Managers.Data.SaveCurrentSetting();
     }
 }

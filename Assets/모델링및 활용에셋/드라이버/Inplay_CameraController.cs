@@ -53,6 +53,12 @@ public class Inplay_CameraController : MonoBehaviour
     public void SaveStateDefaultTransform()
     {
        
+        if (this == null)
+        {
+            Debug.LogWarning("Attempted to access a destroyed object.");
+            return;
+        }
+        
         var cam = transform;
         _currentDefaultPosition =cam.position;
         _currentDefaultRotation =cam.rotation.eulerAngles;
@@ -77,6 +83,7 @@ public class Inplay_CameraController : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
+        Destroy(this);
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChanged;
     }
 
@@ -91,7 +98,7 @@ public class Inplay_CameraController : MonoBehaviour
         _cameraInitSeq?.Kill();
         Logger.Log("Cam Init for Step Change");
     }
-    public void SetDefaultRotationThisState()
+    public void RefreshRotationAndZoom()
     {
         _updateSeq?.Kill();
         _cameraInitSeq?.Kill();
@@ -100,6 +107,7 @@ public class Inplay_CameraController : MonoBehaviour
         _currentVerticalAngle = _verticalPivotCenter + Yoffset;
         _initialMousePosition = Input.mousePosition; // 클릭 시작 위치 저장
         _lastMousePosition = _initialMousePosition; // 초기 위치로 설정
+        _distanceToTarget = _defaultDistanceInState; // 거리또한 초기화
         
         _cameraInitSeq = DOTween.Sequence();
         
@@ -194,36 +202,45 @@ public class Inplay_CameraController : MonoBehaviour
         return raycastResults.Count > 0; // UI 요소와 충돌한 경우에만 true 반환
     }
 
-    public void SetCurrentMainAngleAndPos(Transform target)
+    private float _defaultDistanceInState;
+    public void SetCurrentMainAngleAndPosOnStateEnter(Transform target)
     {
         
         _target = target;
     
         var thisObjectPos = transform.position; // 카메라의 현재 위치
         var targetObjPos = _target.position; // 대상 물체의 위치
-    
-        _distanceToTarget = Vector3.Distance(thisObjectPos, targetObjPos); // 대상과의 거리 계산
-
-        // 방향 벡터를 계산 (카메라에서 대상까지의 방향)
-        Vector3 direction = (targetObjPos - thisObjectPos).normalized;
         
-        // 수평 각도 (y축 회전)
-        _horizontalPivotCenter = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        transform.DOLookAt(_target.position, 1f).OnComplete(() =>
+        {
+            _currentHorizontalAngle = _horizontalPivotCenter;
+            _currentVerticalAngle = _verticalPivotCenter + Yoffset;
+            
+            _defaultDistanceInState = Vector3.Distance(thisObjectPos, targetObjPos); // 대상과의 거리 계산
+            _distanceToTarget = _defaultDistanceInState;
+
+            // 방향 벡터를 계산 (카메라에서 대상까지의 방향)
+            Vector3 direction = (targetObjPos - thisObjectPos).normalized;
         
-        // 수직 각도 (x축 회전)
-        _verticalPivotCenter = Mathf.Asin(direction.y) * Mathf.Rad2Deg;
+            // 수평 각도 (y축 회전)
+            _horizontalPivotCenter = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        
+            // 수직 각도 (x축 회전)
+            _verticalPivotCenter = Mathf.Asin(direction.y) * Mathf.Rad2Deg;
 
-        // 현재 각도를 설정
-        _currentHorizontalAngle = _horizontalPivotCenter;
-        _currentVerticalAngle = _verticalPivotCenter + Yoffset;
-
+            // 현재 각도를 설정
        
-        Logger.Log($"camera Lookat and distance set: obj: {target.gameObject.name}, distance  = {_distanceToTarget}");
-        Logger.Log($"Vertical Angle: {_verticalPivotCenter}, Horizontal Angle: {_horizontalPivotCenter}");
-        isControllable = true;
+       
+            Logger.Log($"camera Lookat and distance set: obj: {target.gameObject.name}, distance  = {_distanceToTarget}");
+            Logger.Log($"Vertical Angle: {_verticalPivotCenter}, Horizontal Angle: {_horizontalPivotCenter}");
+            isControllable = true;
         
-        currentMaxDistanceToTarget = _distanceToTarget * 1.2f;
-        currentMinDistanceToTaget = _distanceToTarget * 0.4f;
+            currentMaxDistanceToTarget = _distanceToTarget * 1.2f;
+            currentMinDistanceToTaget = _distanceToTarget * 0.4f;
+
+        });
+
+        //UpdateRotation(1.5f);
     }
 
     [Range(-10,50f)]
@@ -244,7 +261,7 @@ public class Inplay_CameraController : MonoBehaviour
 
 
     private Sequence _updateSeq;
-    private void UpdateRotation()
+    private void UpdateRotation(float updateSpeed = 0.15f)
     {
         _updateSeq = DOTween.Sequence();
         // 클릭 시작 위치와 현재 위치 간의 차이 계산
@@ -272,10 +289,12 @@ public class Inplay_CameraController : MonoBehaviour
         Vector3 newPosition = rotation * new Vector3(0, _distanceToTarget / 3, -_distanceToTarget) + _target.position;
 
         // DOTween Sequence를 사용해 DOMove와 DOLookAt을 동시에 실행
-      
+        
+        Quaternion originalRotation = transform.rotation; // 이동 전 회전을 저장
+        
         _updateSeq
-            .Join(transform.DOMove(newPosition, 0.1f))
-            .Join(transform.DOLookAt(_target.position, 0.15f)); // 동일한 시간으로 설정해 부드럽게 맞춤
+            .Join(transform.DOMove(newPosition, updateSpeed) .OnUpdate(() => transform.rotation = originalRotation))
+            .Join(transform.DOLookAt(_target.position, updateSpeed)); // 동일한 시간으로 설정해 부드럽게 맞춤
     }
 
     // 마우스 휠 드래그로 줌 인/아웃 제어

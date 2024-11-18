@@ -232,7 +232,7 @@ public class UIManager : MonoBehaviour
 	public void SetResolution(int width, int height, bool fullscreen)
 	{
 		Screen.SetResolution(width, height, fullscreen);
-		isFullScreen = fullscreen;
+	//	isFullScreen = fullscreen;
 		// UI 레이아웃이나 스케일 조정을 위한 추가 로직을 여기에 추가
 	}
 	
@@ -251,6 +251,8 @@ public class UIManager : MonoBehaviour
 #if UNITY_EDITOR
 		Debug.Log($"Full Screen mode is {isFullScreenMode} :Preference{	Managers.Data.Preference[(int)Define.Preferences.Fullscreen]}");
 #endif
+		Managers.Data.SaveCurrentSetting();
+		
 	}
 	
 	
@@ -274,5 +276,7 @@ public class UIManager : MonoBehaviour
 #endif
 		this.GuideOn = isGuideOn;
 		Managers.Data.Preference[(int)Define.Preferences.ControlGuide] = GuideOn? Define.YES : Define.NO ;
+	
+		Managers.Data.SaveCurrentSetting();
 	}
 }
