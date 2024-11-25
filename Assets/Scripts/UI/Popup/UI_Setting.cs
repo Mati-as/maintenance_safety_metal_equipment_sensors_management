@@ -198,10 +198,10 @@ public class UI_Setting : UI_Popup
         
         GetSlider((int)Sliders.Slider_Language).onValueChanged.AddListener(_ =>
         {
-            if (Managers.UI.FindPopup<UI_LanguageChangeConfirmation_Restart>() == null)
-            {
-                Managers.UI.ShowPopupUI<UI_LanguageChangeConfirmation_Restart>();
-            }
+            // if (Managers.UI.FindPopup<UI_LanguageChangeConfirmation_Restart>() == null)
+            // {
+            //     Managers.UI.ShowPopupUI<UI_LanguageChangeConfirmation_Restart>();
+            // }
         });
 
         return true;

@@ -31,7 +31,7 @@ public class Base_SceneState : ISceneState
         }
         else
         {
-            CurrentScene.contentController.ShowToolBoxBtn();
+            CurrentScene.contentController.ShowToolBoxAndGuideBookBtn();
         }
         
         //튜토리얼이 아닌경우
@@ -94,7 +94,7 @@ public class Base_SceneState : ISceneState
     }
     public void SetLookAt(int objToActivate)
     {
-        CurrentScene.cameraController.SetCurrentMainAngleAndPosOnStateEnter(
+        CurrentScene.cameraController.SetRotationDefault(
             CurrentScene.GetObject(objToActivate).transform
         );
     }
@@ -104,8 +104,6 @@ public class Base_SceneState : ISceneState
         
         
         CurrentScene.cameraController.isDragging = false;
-        CurrentScene.cameraController.isControllable = true;
-        CurrentScene.cameraController.SaveStateDefaultTransform();
 
         if (CurrentScene.contentController != null)
         {

@@ -223,7 +223,7 @@ public class DepthC2_SceneController : Base_SceneController
 
     private Vector3 _probeDefaultPos;
 
-    protected int unwoundCount
+    public int unwoundCount
     {
         get => _unwoundCount;
 
@@ -262,7 +262,7 @@ public class DepthC2_SceneController : Base_SceneController
     }
     private int _woundCount;
 
-    protected int woundCount
+    public int woundCount
     {
         get => _woundCount;
 
@@ -291,9 +291,14 @@ public class DepthC2_SceneController : Base_SceneController
     }
 
 
-    [Range(-150f, 150f)] public float _toolPosXOffset = 0.3f;
-    [Range(-150f, 150f)] public float _toolPosYOffset = -0.3f;
+    [Range(-200f, 250f)] public float _toolPosXOffset = 0.3f;
+    [Range(-200f, 250f)] public float _toolPosYOffset = -0.3f;
 
+    public void ScrewWoundCountInit()
+    {
+        woundCount = 0;
+        unwoundCount = 0;
+    }
     public static readonly int UNWIND = Animator.StringToHash("Unwind");
 
     public static readonly int TO_SCREW_A = Animator.StringToHash("ScrewA");
@@ -340,6 +345,8 @@ public class DepthC2_SceneController : Base_SceneController
         {
             if(collider !=null) collider.enabled = true;
         }
+
+        ScrewWoundCountInit();
     }
     // ReSharper disable Unity.PerformanceAnalysis
     public override void Init()

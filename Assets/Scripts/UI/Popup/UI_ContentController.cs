@@ -203,6 +203,8 @@ public class UI_ContentController : UI_Popup
     { 
         bool isTutorial = Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Tutorial;
         GetObject((int)UI.ToggleGroup_TopMenuBar).gameObject.SetActive(!isTutorial);
+        GetButton((int)Btns.Btn_TopMenu_Hide).gameObject.SetActive(!isTutorial);
+        GetButton((int)Btns.Btn_Guidebook).gameObject.SetActive(!isTutorial);
     }
 
 
@@ -256,8 +258,7 @@ public class UI_ContentController : UI_Popup
             }
         }
 
-
-        
+        OnSensorOverall();
         CheckIfTutorialMode();
         
         return true;
@@ -271,6 +272,19 @@ public class UI_ContentController : UI_Popup
         Dev_CurrentSceneInformation.OnPrevClickedOnDev -= OnPrevBtnClicked;
 #endif 
          SoundManager.OnNarrationComplete -= BlinkNextBtnUI;
+    }
+
+    private void OnSensorOverall()
+    {
+        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.SensorOverview)
+        {
+            HideToolBoxBtn();
+        }
+        else
+        {
+            ShowToolBoxAndGuideBookBtn();
+        }
+
     }
 
     private void BlinkNextBtnUI()
@@ -515,7 +529,7 @@ public class UI_ContentController : UI_Popup
     {
         GetButton((int)Btns.Btn_CameraInit).gameObject.SetActive(false);
     }
-    public void ShowToolBoxBtn()
+    public void ShowToolBoxAndGuideBookBtn()
     {
         GetButton((int)Btns.Btn_ToolBox).gameObject.SetActive(true);
     }
@@ -523,6 +537,7 @@ public class UI_ContentController : UI_Popup
     
     public void HideToolBoxBtn()
     {
+        GetButton((int)Btns.Btn_Guidebook).gameObject.SetActive(false);
         GetButton((int)Btns.Btn_ToolBox).gameObject.SetActive(false);
     }
 

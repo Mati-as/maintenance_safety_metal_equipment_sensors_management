@@ -42,10 +42,12 @@ public class Tutorial_State_2 : Base_SceneState
         
 //        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
         base.OnEnter();
+        tutorialSceneController.contentController.HideCamInitBtn();
     }
 
     public override void OnStep()
     {
+      
     }
 
     public override void OnExit()
@@ -63,16 +65,23 @@ public class Tutorial_State_3 : Base_SceneState
         tutorialSceneController = currentScene;
     }
     
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+     //   SetLookAt((int)DepthC_GameObj.TemperatureSensor);
+    }
+    
     public override void OnEnter()
     {
-      
-        tutorialSceneController.contentController.BlinkBtnUI((int)Btns.Btn_CameraInit);
         base.OnEnter();
         CurrentScene.contentController.ShowCamInitBtn();
+        tutorialSceneController.contentController.BlinkBtnUI((int)Btns.Btn_CameraInit);
+        tutorialSceneController.cameraController.isControllable = true;
+       // SetLookAt((int)DepthC_GameObj.TemperatureSensor);
     }
 
     public override void OnStep()
     {
+        
     }
 
     public override void OnExit()
