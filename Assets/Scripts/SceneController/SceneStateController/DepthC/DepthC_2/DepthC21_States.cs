@@ -693,7 +693,7 @@ public class DepthC21_State_17 : Base_SceneState
         
         _depthC2SceneController.contentController.Refresh();
         _depthC2SceneController.DepthC22Init();
-        _depthC2SceneController.PlayAnimationAndNarration(1);
+        _depthC2SceneController.PlayAnimation(1);
         
         base.OnEnter();
     }

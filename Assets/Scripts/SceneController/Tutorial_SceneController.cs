@@ -100,7 +100,7 @@ public class Tutorial_SceneController : DepthC2_SceneController
 
         SetDepthNum();
         ChangeState(1);
-        PlayAnimationAndNarration(1);
+        PlayAnimation(1);
         
     }
      

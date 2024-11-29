@@ -113,7 +113,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         PreInitBefreDepthChange();
 
-        PlayAnimationAndNarration(1);
+        PlayAnimation(1);
         ChangeState(1);
     }
 
@@ -129,7 +129,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         PreInitBefreDepthChange();
         
-        PlayAnimationAndNarration(1);
+        PlayAnimation(1);
     }
     protected IEnumerator OnSceneStartCo()
     {
@@ -146,7 +146,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         
         var introAnimation = 0;
-        PlayAnimationAndNarration(introAnimation);
+        PlayAnimation(introAnimation);
         Managers.Sound.Play(SoundManager.Sound.Effect, "Depth1Start");
     }
 
@@ -180,7 +180,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             Logger.Log($"Serve animation found at path {serveAnimPath}. Playing serve animation.");
         
-            PlayAnimationAndNarration(count-1,isMissionCompleteAnim:true);
+            PlayAnimation(count-1,isMissionCompleteAnim:true);
             DOVirtual.DelayedCall(serveClip.length, () => { ChangeState(count); });
         }
         else // Serve 애니메이션이 없는 경우 바로 상태 전환
@@ -252,7 +252,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     private bool _isCurrentAnimServe; // 나레이션재생로직을 위한 bool
     public float currentCilpLength { get; private set; }
-    public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false,bool isMissionCompleteAnim =false)
+    public void PlayAnimation(int count, float delay = 0f, bool isReverse = false,bool isMissionCompleteAnim =false)
     {
 
         _isCurrentAnimServe = isMissionCompleteAnim;
@@ -376,6 +376,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         Logger.Log("On Animation Complete ------------------");
         if(contentController!=null) contentController.isStepMissionComplete = false;
+       
         OnAnimationCompelete?.Invoke(currentCount);
         if(!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
     }
@@ -581,7 +582,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         
         
-        PlayAnimationAndNarration(currentStepNum, isMissionCompleteAnim: true);
+        PlayAnimation(currentStepNum, isMissionCompleteAnim: true);
         Logger.Log($"서브 애니이션 재생: {currentStepNum}");
         
         ActionBeforeNextStep?.Invoke();

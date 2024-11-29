@@ -307,7 +307,7 @@ public class DepthC1_SceneController : Base_SceneController
         {
             if (Managers.ContentInfo.PlayData.Count == 6)
             {
-                PlayAnimationAndNarration(count: 6,isMissionCompleteAnim:true);
+                PlayAnimation(count: 6,isMissionCompleteAnim:true);
             }
         });
         

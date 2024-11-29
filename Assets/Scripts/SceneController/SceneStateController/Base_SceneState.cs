@@ -46,7 +46,7 @@ public class Base_SceneState : ISceneState
         
         //항상 클릭 가능해야하는 것들 ----
        
-        CurrentScene.PlayAnimationAndNarration(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim);
+        CurrentScene.PlayAnimation(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim,isMissionCompleteAnim: false);
     
         
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
