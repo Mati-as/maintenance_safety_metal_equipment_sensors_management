@@ -14,7 +14,7 @@ public class Tutorial_SceneController : DepthC2_SceneController
     {
         Logger.Log($"튜토리얼 초기화 완료 --------------------------");
         BindEvent();
-        BindObject(typeof(DepthC_GameObj));
+        BindObject(typeof(DepthC2_GameObj));
         GetScrewColliders();
         SetDepthNum(); //튜토리얼에서는 반드시 Depth를 Set해주고 들어가야합니다
         SetMainProperties(); 
@@ -52,29 +52,29 @@ public class Tutorial_SceneController : DepthC2_SceneController
         
     
         
-        multimeterController = GetObject((int)DepthC_GameObj.Multimeter).GetComponent<MultimeterController>();
-        animatorMap.TryAdd((int)DepthC_GameObj.Multimeter,
-            GetObject((int)DepthC_GameObj.Multimeter).GetComponent<Animator>());
+        multimeterController = GetObject((int)DepthC2_GameObj.Multimeter).GetComponent<MultimeterController>();
+        animatorMap.TryAdd((int)DepthC2_GameObj.Multimeter,
+            GetObject((int)DepthC2_GameObj.Multimeter).GetComponent<Animator>());
         
-        SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "클릭");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_Stabilizer, "클릭");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_ConnectionPiping, "클릭");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "클릭");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "클릭");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "클릭");
-        BindAndAddToDictionaryAndInit((int)DepthC_GameObj.MultimeterHandleHighlight, "클릭");
+        SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
+        HighlightAndTooltipInit((int)DepthC2_GameObj.TemperatureSensor, "클릭");
+        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_Stabilizer, "클릭");
+        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_ConnectionPiping, "클릭");
+        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "클릭");
+        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "클릭");
+        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalB, "클릭");
+        HighlightAndTooltipInit((int)DepthC2_GameObj.MultimeterHandleHighlight, "클릭");
         
        // SetScrewDriverSection();
         
-       animatorMap.TryAdd((int)DepthC_GameObj.Probe_Anode,
-           GetObject((int)DepthC_GameObj.Probe_Anode).GetComponent<Animator>());
-       animatorMap.TryAdd((int)DepthC_GameObj.Probe_Cathode,
-           GetObject((int)DepthC_GameObj.Probe_Cathode).GetComponent<Animator>());
+       animatorMap.TryAdd((int)DepthC2_GameObj.Probe_Anode,
+           GetObject((int)DepthC2_GameObj.Probe_Anode).GetComponent<Animator>());
+       animatorMap.TryAdd((int)DepthC2_GameObj.Probe_Cathode,
+           GetObject((int)DepthC2_GameObj.Probe_Cathode).GetComponent<Animator>());
 
         InitProbePos();
-        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Cathode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
-        defaultRotationMap.TryAdd((int)DepthC_GameObj.Probe_Anode,GetObject((int)DepthC_GameObj.Probe_Cathode).transform.rotation);
+        defaultRotationMap.TryAdd((int)DepthC2_GameObj.Probe_Cathode,GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.rotation);
+        defaultRotationMap.TryAdd((int)DepthC2_GameObj.Probe_Anode,GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.rotation);
        
         
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
@@ -86,12 +86,12 @@ public class Tutorial_SceneController : DepthC2_SceneController
         
         
 
-        GetObject((int)DepthC_GameObj.TS_InnerScrewA).BindEvent(() =>
+        GetObject((int)DepthC2_GameObj.TS_InnerScrewA).BindEvent(() =>
         {
             
             Logger.Log("튜토리얼 클릭이벤트 실행 ---------------------------");
-            animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
-            animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
+            animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
+            animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
             
             OnStepMissionComplete(animationNumber: 7, delayAmount: new WaitForSeconds(2f));
             
@@ -122,7 +122,7 @@ public class Tutorial_SceneController : DepthC2_SceneController
                  
          InitializeTool();
          OnStepMissionComplete(animationNumber: 6);
-         CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+         CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
          isMultimeterOn = !isMultimeterOn;
          multimeterController.SetToResistanceModeAndRotation();
 

@@ -210,7 +210,7 @@ public class EvaluationManager : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="clickedObj"></param>
-    public bool CheckIfAnswerIsCorrect(DepthC_GameObj clickedObj)
+    public bool CheckIfAnswerIsCorrect(DepthC2_GameObj clickedObj)
     {
         if (!isScoringState) return false;
         if (isAlreadyWrongAnswerChecked)
@@ -222,7 +222,7 @@ public class EvaluationManager : MonoBehaviour
         bool isAnswerObject = false;
         foreach(var clikcableObj in objAnswerToClick)
         {
-            Logger.Log($"answer : {(DepthC_GameObj)clikcableObj} : Current Clicked Obj {clickedObj}" );
+            Logger.Log($"answer : {(DepthC2_GameObj)clikcableObj} : Current Clicked Obj {clickedObj}" );
             if (clikcableObj == (int)clickedObj)
             {
                 isAnswerObject = true;

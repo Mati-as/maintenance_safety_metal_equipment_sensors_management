@@ -48,17 +48,17 @@ public class DepthA_SceneController : Base_SceneController
        
         
         // 딕셔너리에 추가 및 이벤트 바인딩
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.LimitSwitch, "리밋 스위치");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.ProximitySwitch, "근접 스위치");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TemperatureSensor, "온도 센서");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TemperatureSensor_Whole, "온도 센서");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.LevelSensor, "레벨 센서");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.FlowMeter, "유량 센서");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.PressureSensor, "압력 센서");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TS_Stabilizer, "고정자");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TS_SensingElement, "감온부");
-        BindAndAddToDictionaryAndInit((int)DepthAGameObj.TS_Cover, "덮개");
+        HighlightAndTooltipInit((int)DepthAGameObj.LimitSwitch, "리밋 스위치");
+        HighlightAndTooltipInit((int)DepthAGameObj.ProximitySwitch, "근접 스위치");
+        HighlightAndTooltipInit((int)DepthAGameObj.TemperatureSensor, "온도 센서");
+        HighlightAndTooltipInit((int)DepthAGameObj.TemperatureSensor_Whole, "온도 센서");
+        HighlightAndTooltipInit((int)DepthAGameObj.LevelSensor, "레벨 센서");
+        HighlightAndTooltipInit((int)DepthAGameObj.FlowMeter, "유량 센서");
+        HighlightAndTooltipInit((int)DepthAGameObj.PressureSensor, "압력 센서");
+        HighlightAndTooltipInit((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
+        HighlightAndTooltipInit((int)DepthAGameObj.TS_Stabilizer, "고정자");
+        HighlightAndTooltipInit((int)DepthAGameObj.TS_SensingElement, "감온부");
+        HighlightAndTooltipInit((int)DepthAGameObj.TS_Cover, "덮개");
         
         GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
         GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);

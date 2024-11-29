@@ -14,7 +14,7 @@ public class DepthB_SceneController : Base_SceneController
         if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") SetDepthNum(); //개발용
 
         InitializeBStates();
-        BindObject(typeof(DepthC_GameObj));
+        BindObject(typeof(DepthC2_GameObj));
      
         contentController.OnDepth2Clicked(1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
         

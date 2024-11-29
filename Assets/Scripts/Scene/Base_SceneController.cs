@@ -44,7 +44,12 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     [Tooltip("Highlight Effect Setting ----------------------")]
 
+
+    protected float _narrationStartDelay = 0.2f;
+    public static event Action<int> OnAnimationCompelete;
     private readonly float OUTLINE_WIDTH_ON_HOVER =1;
+    
+    
     public virtual void Start()
     {
         Init();
@@ -165,10 +170,25 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         isReverseAnim = isReverse;
         currentCount = count;
 
+        var serveAnimPath = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
+                            $"{Managers.ContentInfo.PlayData.Depth2}" +
+                            $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count - 1}A";
+    
+        var serveClip = Resources.Load<AnimationClip>(serveAnimPath);
 
+        if (serveClip != null && !isReverseAnim) // Serve 애니메이션이 존재하고, 역재생이 아닌경우
+        {
+            Logger.Log($"Serve animation found at path {serveAnimPath}. Playing serve animation.");
         
-        Logger.Log($"State 변경. 현재State----------> {count}");
-        ChangeState(currentCount);
+            PlayAnimationAndNarration(count-1,isMissionCompleteAnim:true);
+            DOVirtual.DelayedCall(serveClip.length, () => { ChangeState(count); });
+        }
+        else // Serve 애니메이션이 없는 경우 바로 상태 전환
+        {
+            Logger.Log($"No serve animation found at path {serveAnimPath}. Skipping to next state.");
+            ChangeState(count);
+        }
+        
     }
 
     /// <summary>
@@ -228,14 +248,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     /// <param name="delay"></param>
     /// <param name="isReverse"></param>
     /// <param name="isServeAnim"></param>
-    ///
+    
 
     private bool _isCurrentAnimServe; // 나레이션재생로직을 위한 bool
     public float currentCilpLength { get; private set; }
-    public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false,bool isServeAnim =false)
+    public void PlayAnimationAndNarration(int count, float delay = 0f, bool isReverse = false,bool isMissionCompleteAnim =false)
     {
 
-        _isCurrentAnimServe = isServeAnim;
+        _isCurrentAnimServe = isMissionCompleteAnim;
        
 
 
@@ -248,7 +268,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
                    $"{Managers.ContentInfo.PlayData.Depth2}" +
                    $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count}";
 
-        if (isServeAnim)
+        if (isMissionCompleteAnim)
         {
             path += 'A';
         }
@@ -346,20 +366,17 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         yield return new WaitForSeconds(clip.length);
         OnAnimationComplete();
     }
-    protected float _narrationStartDelay = 0.2f;
-
-    public static event Action<int> OnAnimationCompelete;
+  
 
     protected virtual void OnAnimationComplete()
     {
-      //  Managers.Sound.Play(SoundManager.Sound.Narration, Managers.ContentInfo.PlayData.CurrentDepthStatus);
-      
-      
         
         // Tutorial에는 ContentController 없는경우를 대비해 조건문 아래와 같이 구성
+       
+        
+        Logger.Log("On Animation Complete ------------------");
         if(contentController!=null) contentController.isStepMissionComplete = false;
         OnAnimationCompelete?.Invoke(currentCount);
-        
         if(!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
     }
 
@@ -412,7 +429,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     public void HighlightBlink(int gameObj, float startDelay = 1f)
     {
-        Logger.Log($"Highlight 로직 재생중 {(DepthC_GameObj)gameObj}");
+       // Logger.Log($"Highlight 로직 재생중 {(DepthC2_GameObj)gameObj}");
         _seqMap.TryAdd(gameObj, null);
         _seqMap[gameObj]?.Kill();
         _seqMap[gameObj]= DOTween.Sequence();
@@ -477,7 +494,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         SetDefaultHighlight(ref highlightEffect);
         if (!objectHighlightMap.ContainsKey((int)gameObj))
         {
-  Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC_GameObj)gameObj}");
+ // Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC2_GameObj)gameObj}");
             objectHighlightMap.Add((int)gameObj, highlightEffect);
         }
     }
@@ -524,7 +541,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         objectHighlightMap[(int)gameObj].highlighted = isOn;
     }
 
-    public void BindAndAddToDictionaryAndInit(int gameObj, string tooltipText)
+    public void HighlightAndTooltipInit(int gameObj, string tooltipText)
     {
         AddToHighlightDictionary(gameObj);
         BindHighlightAndTooltip(gameObj, tooltipText);
@@ -564,7 +581,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         
         
-        PlayAnimationAndNarration(currentStepNum, isServeAnim: true);
+        PlayAnimationAndNarration(currentStepNum, isMissionCompleteAnim: true);
         Logger.Log($"서브 애니이션 재생: {currentStepNum}");
         
         ActionBeforeNextStep?.Invoke();

@@ -31,7 +31,7 @@ public class Tutorial_State_2 : Base_SceneState
     protected override void OnAnimationCompleteHandler(int _)
     {
         base.OnAnimationCompleteHandler(_);
-        SetLookAt((int)DepthC_GameObj.TemperatureSensor);
+        SetLookAt((int)DepthC2_GameObj.TemperatureSensor);
     }
     
     public override void OnEnter()
@@ -175,18 +175,18 @@ public class Tutorial_State_7 : Base_SceneState
     {
         tutorialSceneController.multimeterController.SetMeasureGuideStatus(false);
         tutorialSceneController.isMultimeterOn = true;
-        tutorialSceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        tutorialSceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
         tutorialSceneController.multimeterController.currentClickCount = 3;
         
         tutorialSceneController.multimeterController.SetToResistanceModeAndRotation();
-        tutorialSceneController.GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(false);
-        tutorialSceneController.GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(false);
+        tutorialSceneController.GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
+        tutorialSceneController.GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
 
         DOVirtual.DelayedCall(3, () => { CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_Next); });
     
 
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -196,8 +196,8 @@ public class Tutorial_State_7 : Base_SceneState
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         tutorialSceneController.ClearTool();
         
-        CurrentScene.GetObject((int)DepthC_GameObj.Probe_Cathode).SetActive(true);
-        CurrentScene.GetObject((int)DepthC_GameObj.Probe_Anode).SetActive(true);
+        CurrentScene.GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(true);
+        CurrentScene.GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(true);
         base.OnExit();
     }
 }

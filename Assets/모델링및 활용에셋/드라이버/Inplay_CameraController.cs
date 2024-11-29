@@ -12,7 +12,7 @@ public class Inplay_CameraController : MonoBehaviour
 {
    
     private Transform _target; // 
-    private readonly float ZOOM_SPEED = 10f; // 줌 속도 조정
+    private readonly float ZOOM_SPEED = 5f; // 줌 속도 조정
     private readonly float ROTATION_SPEED = 5.0f; // 회전 속도 조정
     private readonly float _minZoom = 30f; // 최소 줌 거리
     private readonly float _maxZoom = 120f; // 최대 줌 거리
@@ -92,7 +92,7 @@ public class Inplay_CameraController : MonoBehaviour
     /// </summary>
     protected void OnStepChanged(int _, bool __)
     {
-        _isControllable = false;
+        
         isDragging = false;
         _updateSeq?.Kill();
         _cameraInitSeq?.Kill();

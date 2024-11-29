@@ -21,7 +21,8 @@ public class DepthC21_State_1 : Base_SceneState
     {
         _depthC2SceneController.DepthC21Init();
         CurrentScene.contentController.ShutTrainingIntroAnim();
-        _depthC2SceneController.GetObject((int)DepthC_GameObj.Indicator)
+        
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Indicator)
             .GetComponent<IndicatorController>().ShowNothing();
         base.OnEnter();
       
@@ -78,8 +79,8 @@ public class DepthC21_State_5 : Base_SceneState
     {
         
         
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew, false);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_LockingScrew);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_LockingScrew, false);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_LockingScrew);
       
         CurrentScene.contentController.isStepMissionPerformable = true;
         base.OnEnter();
@@ -93,7 +94,7 @@ public class DepthC21_State_5 : Base_SceneState
     public override void OnExit()
     {
 
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_LockingScrew);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_LockingScrew);
         CurrentScene.contentController.isStepMissionPerformable = false;
         base.OnExit();
     }
@@ -113,8 +114,8 @@ public class DepthC21_State_6 : Base_SceneState
         _depthC2SceneController.SetParticleStatus(true);
         
         CurrentScene.contentController.isStepMissionPerformable = true;
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_ConnectionPiping, false);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_ConnectionPiping);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_ConnectionPiping, false);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_ConnectionPiping);
         base.OnEnter();
     }
 
@@ -129,7 +130,7 @@ public class DepthC21_State_6 : Base_SceneState
         _depthC2SceneController.SetParticleStatus(false);
         
         CurrentScene.contentController.isStepMissionPerformable = false;
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_ConnectionPiping);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_ConnectionPiping);
         base.OnExit();
     }
 }
@@ -142,7 +143,7 @@ public class DepthC21_State_7 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.OnTempSensor_Pipe);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.OnTempSensor_Pipe);
         base.OnEnter();
     }
 
@@ -159,8 +160,8 @@ public class DepthC21_State_8 : Base_SceneState
     public override void OnEnter()
     {
         CurrentScene.contentController.isStepMissionPerformable = true;
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover, false);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_Cover);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_Cover, false);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_Cover);
         base.OnEnter();
         
       
@@ -173,7 +174,7 @@ public class DepthC21_State_8 : Base_SceneState
     public override void OnExit()
     {
         CurrentScene.contentController.isStepMissionPerformable = false;
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_Cover);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_Cover);
         
         base.OnExit();
     }}
@@ -191,15 +192,15 @@ public class DepthC21_State_9 : Base_SceneState
     {
         
         
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC);
         
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "보상도선 점검");
+        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 점검");
         
         CurrentScene.contentController.isStepMissionPerformable = true;
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewB);
         base.OnEnter();
     }
 
@@ -210,8 +211,8 @@ public class DepthC21_State_9 : Base_SceneState
     public override void OnExit()
     {
         base.OnExit();
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "나사");
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
         CurrentScene.contentController.isStepMissionPerformable = false;
     }
 }
@@ -242,41 +243,41 @@ public class DepthC21_State_10 : Base_SceneState
         }
         
         
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC);
 
         
         
         //나사 위치 초기화
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = true;
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(DepthC2_SceneController.UNWIND,true);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(DepthC2_SceneController.UNWIND,true);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].SetBool(DepthC2_SceneController.UNWIND,true);
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 0);
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].Update(0);
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].StopPlayback();
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].StopPlayback();
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].StopPlayback();
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].StopPlayback();
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].StopPlayback();
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].StopPlayback();
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = false;
         
 
       
         
-        _depthC2SceneController.GetObject((int)DepthC_GameObj.Indicator)
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Indicator)
             .GetComponent<IndicatorController>().ShowErrorMessage();
         
         CurrentScene.contentController.isStepMissionPerformable = true;
@@ -295,7 +296,7 @@ public class DepthC21_State_10 : Base_SceneState
     {
    
         
-        _depthC2SceneController.GetObject((int)DepthC_GameObj.Indicator)
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Indicator)
             .GetComponent<IndicatorController>().ShowNothing();
         base.OnExit();
      
@@ -313,7 +314,7 @@ public class DepthC21_State_11 : Base_SceneState
 
     public override void OnEnter()
     {
-        _depthC2SceneController.GetObject((int)DepthC_GameObj.Indicator)
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Indicator)
             .GetComponent<IndicatorController>().ShowErrorMessage();
         
         _depthC2SceneController.isWindSession = false;
@@ -329,7 +330,7 @@ public class DepthC21_State_11 : Base_SceneState
 
     public override void OnExit()
     {
-        _depthC2SceneController.GetObject((int)DepthC_GameObj.Indicator)
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Indicator)
             .GetComponent<IndicatorController>().ShowNothing();
         base.OnExit();
     }
@@ -361,47 +362,47 @@ public class DepthC21_State_12 : Base_SceneState
         }
         
         
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC, false);
 
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewC);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewC);
      
         
         
         //나사 위치 초기화
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = true;
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(DepthC2_SceneController.UNWIND,true);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(DepthC2_SceneController.UNWIND,true);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].SetBool(DepthC2_SceneController.UNWIND,true);
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 0);
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].Update(0);
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].StopPlayback();
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].StopPlayback();
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].StopPlayback();
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].StopPlayback();
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].StopPlayback();
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].StopPlayback();
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = false;
      
         CurrentScene.contentController.isStepMissionPerformable = true;
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
        
         base.OnEnter();
     }
@@ -414,9 +415,9 @@ public class DepthC21_State_12 : Base_SceneState
     {
         _depthC2SceneController.TurnOnCollidersAndInit();
      
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewC);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC);
         
         _depthC2SceneController.ClearTool();
         
@@ -441,45 +442,45 @@ public class DepthC21_State_13 : Base_SceneState
         _depthC2SceneController.TurnOnCollidersAndInit();
         _depthC2SceneController.ClearTool();
         //나사 위치 초기화
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = true;
         
         foreach (var key in  _depthC2SceneController.currentScrewGaugeStatus.Keys.ToList())
         {
             _depthC2SceneController.currentScrewGaugeStatus[key] = 1f;
         }
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 1);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 1);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 1);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 1);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 1);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 1);
 
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(DepthC2_SceneController.UNWIND,true);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(DepthC2_SceneController.UNWIND,true);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].SetBool(DepthC2_SceneController.UNWIND,true);
         
         // Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].enabled = false;
         // Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].enabled = false;
         // Depth1C_sceneController.animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].enabled = false;
         
         
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB,false);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB,false);
         
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Play("ON", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play("ON", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].Play("ON", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].Play("ON", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = false;
         
         
         
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB, false);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         base.OnEnter();
@@ -513,12 +514,12 @@ public class DepthC21_State_14 : Base_SceneState
 
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         _depthC2SceneController.multimeterController.TurnOffResistantMode();
         
-        _depthC2SceneController.HighlightBlink((int)DepthC_GameObj.MultimeterHandleHighlight);
+        _depthC2SceneController.HighlightBlink((int)DepthC2_GameObj.MultimeterHandleHighlight);
      
         base.OnEnter();
 
@@ -548,40 +549,40 @@ public class DepthC21_State_15 : Base_SceneState
         _depthC2SceneController.InitProbePos();
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         _depthC2SceneController.multimeterController.SetToResistanceModeAndRotation();
         
         //나사 위치 초기화
         //초기화로직이 포함되어있음으로 순서변경 X
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "측정단자 A");
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewB, "측정단자 B");
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
+        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
         
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
         
         _depthC2SceneController.multimeterController.OnGroundNothing();
         
       
        
 
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play($"ON", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play($"ON", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].Play($"ON", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].Play($"ON", 0, 0);
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = false;
         
         
         _depthC2SceneController.isAnodePut = false;
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Play("ON", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play("ON", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].Play("ON", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].Play("ON", 0, 0);
         
         base.OnEnter();
 
@@ -595,7 +596,7 @@ public class DepthC21_State_15 : Base_SceneState
 
     public override void OnExit()
     {
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
         _depthC2SceneController.ClearTool();
         base.OnExit();
     }
@@ -615,17 +616,18 @@ public class DepthC21_State_16 : Base_SceneState
     {
 
         _depthC2SceneController.InitProbePos();
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_InnerScrewA, "측정단자 A");
-        CurrentScene.BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "접지");
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA,false);
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_InnerScrewA);
+        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
 
         
         
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC_GameObj.Multimeter;
+        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         _depthC2SceneController.multimeterController.SetToResistanceModeAndRotation();
@@ -639,22 +641,22 @@ public class DepthC21_State_16 : Base_SceneState
 
         
         //CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalA);
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_GroundingTerminalB);
         
 
         
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Play("ON", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Play("ON", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Anode].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC_GameObj.Probe_Cathode].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].Play("ON", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].Play("ON", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].Update(0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = false;
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = false;
      
-        CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalA);
+        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_GroundingTerminalA);
         
         
         base.OnEnter();
@@ -667,7 +669,7 @@ public class DepthC21_State_16 : Base_SceneState
     public override void OnExit()
     {
         _depthC2SceneController.ClearTool();
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
         base.OnExit();
     }
 }

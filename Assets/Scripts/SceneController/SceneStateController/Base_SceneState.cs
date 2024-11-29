@@ -18,7 +18,10 @@ public class Base_SceneState : ISceneState
 
     public virtual void OnEnter()
     {
-      
+     
+        // Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+        // Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
+        
         //평가하기가 아닌경우
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation)
         {
@@ -35,11 +38,10 @@ public class Base_SceneState : ISceneState
         }
         
         //튜토리얼이 아닌경우
-        CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.MultimeterHandleHighlight,false);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.MultimeterHandleHighlight,false);
           
         CurrentScene.contentController.SetNextPrevBtnsActiveStatus();
-        CurrentScene.contentController.isStepMissionComplete = false; 
-        CurrentScene.contentController.HideCamInitBtn();
+        CurrentScene.contentController.isStepMissionComplete = false;
         CurrentScene.ChangeInstructionTextWithAnim();
         
         //항상 클릭 가능해야하는 것들 ----
@@ -72,26 +74,19 @@ public class Base_SceneState : ISceneState
           
        }
        
-      
-           CurrentScene.cameraController.isControllable = false;
+          
+           CurrentScene.contentController.ShutTrainingIntroAnim();
            CurrentScene.TurnOffAllRegisteredHighlights();
            CurrentScene.contentController.StopBtnUIBlink();
            CurrentScene.contentController.uiToolBox.Refresh();
-       
-      
-  
+
+           Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+        
+           CurrentScene.cameraController.isControllable = false;
+
     }
     
-    public void OnAnimationComplete(int currentAnimationNumber)
-    {
-        
-            Logger.Log("Camera Control Available ------------------------------");
-            CurrentScene.cameraController.isControllable = true;
-            // CurrentScene.cameraController.SetCurrentMainAngleAndPos
-            //     (CurrentScene.GetObject((int)DepthAGameObj.TS_Stabilizer).transform);
-                
-        
-    }
+
     public void SetLookAt(int objToActivate)
     {
         CurrentScene.cameraController.SetRotationDefault(
@@ -99,12 +94,17 @@ public class Base_SceneState : ISceneState
         );
     }
     
+    
+    /// <summary>
+    /// OnAnimatrionCompele 사용시
+    /// 자동으로 1.카메사용 가능, 2. 초기화 버튼 하이라이트 동작
+    /// </summary>
+    /// <param name="_"></param>
     protected virtual void OnAnimationCompleteHandler(int _)
     {
         
-        
+        CurrentScene.cameraController.isControllable = true;
         CurrentScene.cameraController.isDragging = false;
-
         if (CurrentScene.contentController != null)
         {
             CurrentScene.contentController.ShowCamInitBtn();

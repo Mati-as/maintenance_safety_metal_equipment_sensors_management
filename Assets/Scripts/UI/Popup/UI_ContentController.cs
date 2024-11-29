@@ -230,7 +230,7 @@ public class UI_ContentController : UI_Popup
 
         _currentMainCam =Camera.main.GetComponent<Inplay_CameraController>();
 
-       
+
         
         BindUIElements();
         InitTopMenu();
@@ -462,14 +462,15 @@ public class UI_ContentController : UI_Popup
             if (GetToggle((int)Toggles.Toggle_Depth2_A + i).interactable)
             {
                 // 구현된 부분만 활성화 및 클릭상태가 될 수 있도록될 수 있도록 구성 ----------------------------------------------
-                if ((Managers.ContentInfo.PlayData.Depth1 == 3 && i == (int)Toggles.Toggle_Depth2_B) ||
-                    
+                if ((Managers.ContentInfo.PlayData.Depth1 == 3 && i == (int)Toggles.Toggle_Depth2_A) ||
+                    (Managers.ContentInfo.PlayData.Depth1 == 3 && i == (int)Toggles.Toggle_Depth2_B) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 1 && i == (int)Toggles.Toggle_Depth2_A) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 1 && i == (int)Toggles.Toggle_Depth2_B) ||
                     
                     (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_A) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_B) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_C) ||
+                    
                     (Managers.ContentInfo.PlayData.Depth1 == 4 && i == (int)Toggles.Toggle_Depth2_B)
                    )
                 {
@@ -765,7 +766,7 @@ public class UI_ContentController : UI_Popup
         _btnStatusMap.TryAdd(buttonIndex, true);
         if (_btnStatusMap[buttonIndex] == isOn)
         {
-            Logger.Log("Button is already " + (isOn ? "On" : "Off"));
+//            Logger.Log("Button is already " + (isOn ? "On" : "Off"));
             return;
         }
         
@@ -820,11 +821,12 @@ public class UI_ContentController : UI_Popup
 
         
         if(hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
+        if(!_currentMainCam.isControllable) HideCamInitBtn();
         
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,true);
 
-
+     
        
     }
 
@@ -861,6 +863,7 @@ public class UI_ContentController : UI_Popup
         Managers.ContentInfo.PlayData.Count++;
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,false);
+        if(!_currentMainCam.isControllable) HideCamInitBtn();
         
     }
 
@@ -909,7 +912,8 @@ public class UI_ContentController : UI_Popup
 
         //각 뎁스의 첫번쨰 애니메이션을 재생하도록 하기위한 로직
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count, false);
-
+        if(!_currentMainCam.isControllable) HideCamInitBtn();
+        
         Logger.Log($"Depth2 Banner Toggled {depth2}");
         if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayObjectiveIntroAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
         
@@ -1214,6 +1218,7 @@ public class UI_ContentController : UI_Popup
             UI_AnimSeq = DOTween.Sequence();
         }
 
+        isTrainingInfoOn = true;
         
         if(Managers.ContentInfo.PlayData.Depth3==1) SetInstructionShowOrHideStatus(false);
         else
@@ -1236,7 +1241,7 @@ public class UI_ContentController : UI_Popup
         UI_AnimSeq = DOTween.Sequence();
         UI_AnimSeq.AppendCallback(() =>
         {
-            isTrainingInfoOn = true;
+           
             GetObject((int)UI.UI_TrainingInfo).GetComponent<CanvasGroup>().alpha = 0;
         });
         UI_AnimSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.6f).SetEase(Ease.InCirc));
@@ -1257,16 +1262,23 @@ public class UI_ContentController : UI_Popup
 
     public void ShutTrainingIntroAnim()
     {
+        // 이미 Taining UI가 꺼져있다면 중복으로 실행하지 않도록 합니다. 
         if (!isTrainingInfoOn)
         {
             //SetNextPrevBtnsActiveStatus();
             return;
-        } 
+        }
         
-        if(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha < 0.5f) {
-            return; // 이미한번 실행됬다고 판단해서 리턴합니다.
-}
-       
+        isTrainingInfoOn = false;
+
+        if (GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha < 0.5f)
+        {
+            return;
+            
+        } // 이미한번 실행됬다고 판단해서 리턴합니다.
+
+
+        
         UI_AnimSeq.Kill();
         UI_AnimSeq = DOTween.Sequence();
         
@@ -1280,12 +1292,7 @@ public class UI_ContentController : UI_Popup
         UI_AnimSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(0, 0.6f).SetEase(Ease.InCirc));
         UI_AnimSeq.AppendCallback(() =>
         {
-            isTrainingInfoOn = false;
             GetObject((int)UI.UI_TrainingInfo).SetActive(false);
-        });
-        UI_AnimSeq.OnKill(() =>
-        {
-            //GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0;
         });
         UI_AnimSeq.Play();
     }
