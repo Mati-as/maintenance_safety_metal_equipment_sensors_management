@@ -80,7 +80,7 @@ public class DepthC21_State_5 : Base_SceneState
         
         
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_LockingScrew, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_LockingScrew);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_LockingScrew);
       
         CurrentScene.contentController.isStepMissionPerformable = true;
         base.OnEnter();
@@ -115,7 +115,7 @@ public class DepthC21_State_6 : Base_SceneState
         
         CurrentScene.contentController.isStepMissionPerformable = true;
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_ConnectionPiping, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_ConnectionPiping);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_ConnectionPiping);
         base.OnEnter();
     }
 
@@ -161,7 +161,7 @@ public class DepthC21_State_8 : Base_SceneState
     {
         CurrentScene.contentController.isStepMissionPerformable = true;
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_Cover, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_Cover);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_Cover);
         base.OnEnter();
         
       
@@ -196,11 +196,11 @@ public class DepthC21_State_9 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC);
         
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 점검");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 점검");
         
         CurrentScene.contentController.isStepMissionPerformable = true;
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
         base.OnEnter();
     }
 
@@ -212,7 +212,7 @@ public class DepthC21_State_9 : Base_SceneState
     {
         base.OnExit();
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
         CurrentScene.contentController.isStepMissionPerformable = false;
     }
 }
@@ -366,9 +366,9 @@ public class DepthC21_State_12 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC, false);
 
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewB);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewC);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewC);
      
         
         
@@ -519,7 +519,7 @@ public class DepthC21_State_14 : Base_SceneState
         
         _depthC2SceneController.multimeterController.TurnOffResistantMode();
         
-        _depthC2SceneController.HighlightBlink((int)DepthC2_GameObj.MultimeterHandleHighlight);
+        _depthC2SceneController.BlinkHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight);
      
         base.OnEnter();
 
@@ -556,11 +556,11 @@ public class DepthC21_State_15 : Base_SceneState
         
         //나사 위치 초기화
         //초기화로직이 포함되어있음으로 순서변경 X
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
         
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
         
         _depthC2SceneController.multimeterController.OnGroundNothing();
         
@@ -616,12 +616,12 @@ public class DepthC21_State_16 : Base_SceneState
     {
 
         _depthC2SceneController.InitProbePos();
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
 
         
         
@@ -641,7 +641,7 @@ public class DepthC21_State_16 : Base_SceneState
 
         
         //CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalA);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_GroundingTerminalB);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB);
         
 
         
@@ -656,7 +656,7 @@ public class DepthC21_State_16 : Base_SceneState
         _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = false;
         _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = false;
      
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_GroundingTerminalA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_GroundingTerminalA);
         
         
         base.OnEnter();

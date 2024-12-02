@@ -143,11 +143,11 @@ public class DepthA1_State_5 : Base_SceneState
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
 
-        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor_Whole);
-        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
-        CurrentScene.HighlightBlink((int)DepthAGameObj.LevelSensor);
-        CurrentScene.HighlightBlink((int)DepthAGameObj.FlowMeter);
-        CurrentScene.HighlightBlink((int)DepthAGameObj.PressureSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.TemperatureSensor_Whole);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.TemperatureSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.LevelSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.FlowMeter);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.PressureSensor);
         base.OnEnter();
     }
 
@@ -173,11 +173,11 @@ public class DepthA1_State_6 : Base_SceneState
     {
        // CurrentScene.cameraController.SetCurrentMainAngleAndPos(CurrentScene.GetObject((int)DepthAGameObj.TemperatureSensor).transform);
       
-        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor_Whole);
-        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
-        CurrentScene.HighlightBlink((int)DepthAGameObj.LevelSensor);
-        CurrentScene.HighlightBlink((int)DepthAGameObj.FlowMeter);
-        CurrentScene.HighlightBlink((int)DepthAGameObj.PressureSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.TemperatureSensor_Whole);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.TemperatureSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.LevelSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.FlowMeter);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.PressureSensor);
         // CurrentScene.cameraController.
         //     SetLookAtAndFollow(CurrentScene.GetObject((int)GameObj.LooAt_plumbingSystemOrPipework).transform);
         base.OnEnter();
@@ -204,8 +204,8 @@ public class DepthA1_State_7 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
-        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor_Whole);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.TemperatureSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.TemperatureSensor_Whole);
         base.OnEnter();
     }
 
@@ -227,7 +227,7 @@ public class DepthA1_State_8 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink((int)DepthAGameObj.PressureSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.PressureSensor);
         base.OnEnter();
     }
 
@@ -249,7 +249,7 @@ public class DepthA1_State_9 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightBlink((int)DepthAGameObj.FlowMeter);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.FlowMeter);
         base.OnEnter();
     }
 
@@ -280,7 +280,7 @@ public class DepthA1_State_10 : Base_SceneState
     {
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
-        CurrentScene.HighlightBlink((int)DepthAGameObj.LevelSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.LevelSensor);
         base.OnEnter();
     }
 

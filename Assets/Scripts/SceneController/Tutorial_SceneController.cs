@@ -57,13 +57,13 @@ public class Tutorial_SceneController : DepthC2_SceneController
             GetObject((int)DepthC2_GameObj.Multimeter).GetComponent<Animator>());
         
         SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TemperatureSensor, "클릭");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_Stabilizer, "클릭");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_ConnectionPiping, "클릭");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "클릭");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "클릭");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalB, "클릭");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.MultimeterHandleHighlight, "클릭");
+        BindHighlight((int)DepthC2_GameObj.TemperatureSensor, "클릭");
+        BindHighlight((int)DepthC2_GameObj.TS_Stabilizer, "클릭");
+        BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "클릭");
+        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "클릭");
+        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "클릭");
+        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "클릭");
+        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "클릭");
         
        // SetScrewDriverSection();
         

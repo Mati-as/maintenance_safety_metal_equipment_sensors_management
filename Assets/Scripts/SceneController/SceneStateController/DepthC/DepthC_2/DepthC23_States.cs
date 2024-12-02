@@ -57,7 +57,7 @@ public class DepthC23_State_3 : Base_SceneState
         _depthC2SceneController.controlPanel.SetPowerHandleOn();
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.NewTemperatureSensor).SetActive(true);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.PowerHandle, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.PowerHandle);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.PowerHandle);
         base.OnEnter();
     }
 
@@ -85,7 +85,7 @@ public class DepthC23_State_4 : Base_SceneState
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Pipe_WaterEffect).SetActive(true);
         _depthC2SceneController.controlPanel.SetPowerHandleOff();
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TankValve, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TankValve);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TankValve);
         base.OnEnter();
     }
 
@@ -113,7 +113,7 @@ public class DepthC23_State_5 : Base_SceneState
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Pipe_WaterEffect).SetActive(false);
         
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_Cover, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_Cover);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_Cover);
         _depthC2SceneController.SetUnscrewStatus(false);
         base.OnEnter();
     }
@@ -139,9 +139,9 @@ public class DepthC23_State_6 : Base_SceneState
     public override void OnEnter()
     {
         Logger.Log("State 6 Enter  ---------------------------------------");
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
         
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
@@ -155,9 +155,9 @@ public class DepthC23_State_6 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB,false);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC,false);
         
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewB);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewC);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewC);
 
       
         CurrentScene.contentController.isStepMissionPerformable = true;
@@ -199,7 +199,7 @@ public class DepthC23_State_7 : Base_SceneState
     {
         _depthC2SceneController.ClearTool();
         _depthC2SceneController.TurnOnCollidersAndInit();
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TemperatureSensor);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TemperatureSensor);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TemperatureSensor, false);
         //나사 위치 초기화
         _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = true;
@@ -362,7 +362,7 @@ public class DepthC23_State_9 : Base_SceneState
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
 
-        _depthC2SceneController.HighlightBlink((int)DepthC2_GameObj.MultimeterHandleHighlight);
+        _depthC2SceneController.BlinkHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight);
         base.OnEnter();
     }
 
@@ -395,10 +395,10 @@ public class DepthC23_State_10 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB);
 
 
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
 
         _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
         _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
@@ -439,8 +439,8 @@ public class DepthC23_State_11 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
         
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
@@ -453,7 +453,7 @@ public class DepthC23_State_11 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB, false);
     
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
         
         _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
         _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
@@ -497,9 +497,9 @@ public class DepthC23_State_12 : Base_SceneState
     public override void OnEnter()
     {
         
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
 
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh();
@@ -512,9 +512,9 @@ public class DepthC23_State_12 : Base_SceneState
         // CurrentScene.HighlightBlink((int)DepthC_GameObj.TS_Cover);
 
 
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewB);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewC);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewC);
 
         _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
         _depthC2SceneController._isDriverOn = true;
@@ -586,11 +586,11 @@ public class DepthC23_State_13 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.PowerHandle, "전원 켜기");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.PowerHandle, "전원 켜기");
         _depthC2SceneController.controlPanel.SetPowerHandleOff();
 
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.PowerHandle, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.PowerHandle);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.PowerHandle);
 
         
         foreach (var key in _depthC2SceneController.currentScrewGaugeStatus.Keys.ToList())

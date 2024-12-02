@@ -70,7 +70,7 @@ public class DepthC22_State_4 : Base_SceneState
         //초기화의 BindEvent에서 다룹니다.
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_SensingElement);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_LockingScrew, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_LockingScrew);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_LockingScrew);
         
        // CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         base.OnEnter();
@@ -139,7 +139,7 @@ public class DepthC22_State_8 : Base_SceneState
     public override void OnEnter()
     {
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_Cover, false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_Cover);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_Cover);
         
         
         CurrentScene.contentController.isStepMissionPerformable = true;
@@ -262,7 +262,7 @@ public class DepthC22_State_10 : Base_SceneState
         _depthC2SceneController.ToggleActiveState(_depthC2SceneController.
             GetObject((int)DepthC2_GameObj.ElectricScrewdriver), _depthC2SceneController.isDriverOn);
         
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
         _depthC2SceneController.TurnOnCollidersAndInit();
         
         
@@ -274,9 +274,9 @@ public class DepthC22_State_10 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC, false);
         
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewB);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewC);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewC);
         
         //나사 위치 초기화
         _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = true;

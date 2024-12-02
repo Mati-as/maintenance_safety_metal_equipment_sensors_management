@@ -53,23 +53,23 @@ public class DepthD2_SceneController : DepthC2_SceneController
         
         UnBindEventAttatchedObj();
     
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_CompensatingWire, "보상전선");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_Stabilizer, "고정자");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_SensingElement, "센서 연결부분 확인");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_Cover, "덮개");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 체결확인");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "나사A");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "나사B");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewC, "나사C");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalA, "접지");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.PowerHandle, "전원");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.NewTemperatureSensor, "새 온도센서");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TankValve, "밸브");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.TemperatureSensor, "교체 할 센서");
-        HighlightAndTooltipInit((int)DepthC2_GameObj.MultimeterHandleHighlight, "측정모드 설정");
+        BindHighlight((int)DepthC2_GameObj.TS_CompensatingWire, "보상전선");
+        BindHighlight((int)DepthC2_GameObj.TS_Stabilizer, "고정자");
+        BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "센서 연결부분 확인");
+        BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개");
+        BindHighlight((int)DepthC2_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
+        BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 체결확인");
+        BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
+        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사A");
+        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사B");
+        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사C");
+        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalA, "접지");
+        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+        BindHighlight((int)DepthC2_GameObj.PowerHandle, "전원");
+        BindHighlight((int)DepthC2_GameObj.NewTemperatureSensor, "새 온도센서");
+        BindHighlight((int)DepthC2_GameObj.TankValve, "밸브");
+        BindHighlight((int)DepthC2_GameObj.TemperatureSensor, "교체 할 센서");
+        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "측정모드 설정");
         
         SetScrewDriverSection();
         
@@ -153,7 +153,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
             if (Managers.ContentInfo.PlayData.Count == 8)
             {
                 isAnodePut = true; 
-                HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "측정 단자 B");
+                BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정 단자 B");
                 SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
                 //HighlightBlink((int)DepthC_GameObj.TS_InnerScrewB);
                 
@@ -168,7 +168,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
             if (Managers.ContentInfo.PlayData.Count == 9)
             {
                 isAnodePut = true; 
-                HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+                BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
                 SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB, false);
                 //HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
             
@@ -193,7 +193,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
             {
                 if (!isAnodePut) return;
                 Logger.Log("평가하기 - count 8 - 저항측정(108옴) 완료");
-                HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+                BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
                // HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
                 SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB, false);
                 

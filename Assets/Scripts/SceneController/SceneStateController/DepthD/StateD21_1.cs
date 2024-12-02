@@ -289,8 +289,8 @@ public class StateD21_8 : Base_SceneState
     {
        
         
-        depthD2SceneController.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "측정 단자 A");
-        depthD2SceneController.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "측정 단자 B");
+        depthD2SceneController.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "측정 단자 A");
+        depthD2SceneController.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정 단자 B");
         
         
         depthD2SceneController.multimeterController.OnGroundNothing();
@@ -346,8 +346,8 @@ public class StateD21_9 : Base_SceneState
 
     public override void OnEnter()
     {
-        depthD2SceneController.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewA, "측정 단자 A");
-        depthD2SceneController.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+        depthD2SceneController.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "측정 단자 A");
+        depthD2SceneController.BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
         
         depthD2SceneController.isMultimeterOn = true;
         depthD2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
@@ -401,7 +401,7 @@ public class StateD21_10 : Base_SceneState
     public override void OnEnter()
     {
         
-        CurrentScene.HighlightAndTooltipInit((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
+        CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
       
         Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewA);
         Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewB);

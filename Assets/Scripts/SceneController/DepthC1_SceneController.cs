@@ -38,18 +38,18 @@ public enum DepthC1_GameObj
     LimitSwitch,
     Lever_Handle,
     Limitswitch_ArmPivot,
-    
+    LS_Cover,
+    ConnectionScrewA,
+    ConnectionScrewB,
+    ConnectionScrewC,
+    ConnectionScrewD
 }
 
 public class DepthC1_SceneController : Base_SceneController
 {
-    public Dictionary<int, float> currentScrewGaugeStatus; // 나사 게이지 캐싱
-    public Dictionary<int, Animator> animatorMap;
-    public Dictionary<int, Sequence> _seqMap;
 
-    public Dictionary<int, bool> isScrewUnwindMap; //3.2.1 , 3,2,3
-    public Dictionary<int, bool> isScrewWindMap; // 3.2.2
-    public Dictionary<int, Quaternion> defaultRotationMap;
+   
+   
 
     private readonly int UNWOUND_COUNT_GOAL = 3;
     private int _unwoundCount;
@@ -58,11 +58,34 @@ public class DepthC1_SceneController : Base_SceneController
     {
         get
         {
-            return GetObject((int)DepthC1_GameObj.Limitswitch_ArmPivot).GetComponent<C1_LimitSwitchPivotController>();
+            return GetObject((int)DepthC1_GameObj.LimitSwitch).GetComponent<C1_LimitSwitchPivotController>();
         }
     }
 
-    
+
+    public void InitTransform(DepthC1_GameObj obj)
+    {
+        GetObject((int)obj).transform.position = defaultPositionMap[(int)obj];
+        GetObject((int)obj).transform.rotation = defaultRotationMap[(int)obj];
+    }
+
+    public void SetAnimator(DepthC1_GameObj obj)
+    {
+        if (animatorMap == null) animatorMap = new Dictionary<int, Animator>();
+
+        animatorMap.TryAdd((int)obj, GetObject((int)obj).GetComponent<Animator>());
+    }
+
+    public void SetDefaultTransform(DepthC1_GameObj obj)
+    {
+        if (defaultPositionMap == null) defaultPositionMap = new Dictionary<int, Vector3>();
+        var defaultPosCache =   GetObject((int)obj).transform;
+        defaultPositionMap.TryAdd((int)obj,defaultPosCache.position);
+        
+        if (defaultRotationMap == null) defaultRotationMap = new Dictionary<int, Quaternion>();
+        var defaultRotationCache =   GetObject((int)obj).transform.rotation;
+        defaultRotationMap.TryAdd((int)obj,defaultRotationCache);
+    }
     
 
     private IndicatorController _indicator;
@@ -215,7 +238,14 @@ public class DepthC1_SceneController : Base_SceneController
 
         base.Init();
         BindObject(typeof(DepthC1_GameObj));
-        InitializeC2States();
+        
+        
+        
+        SetAnimator(DepthC1_GameObj.ConnectionScrewA);
+        SetAnimator(DepthC1_GameObj.ConnectionScrewB);
+        
+        
+        InitializeC1States();
         GetScrewColliders();
         contentController.OnDepth2Clicked(1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
         
@@ -260,6 +290,14 @@ public class DepthC1_SceneController : Base_SceneController
         UnBindEventAttatchedObj();
         PreCommonInit();
         InitProbePos();
+        BindToolBoxUIEvent();
+       
+        
+        LateCommonInit();
+    }
+
+    private void BindToolBoxUIEvent()
+    {
         
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
@@ -269,48 +307,70 @@ public class DepthC1_SceneController : Base_SceneController
         
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
-       
         
-        LateCommonInit();
-    }
+        UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
+        UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
+        
+        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceModeSet;
+        MultimeterController.OnResistanceMeasureReadyAction += OnResistanceModeSet;
 
-    
+    }
     
     public void DepthC11Init()
     {
       
         PreCommonInit();
         UnBindEventAttatchedObj();
-        
-        
-        UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
-        UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
 
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
-        
-        UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
-        UI_ToolBox.ScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
+
      
-        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
-        MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReady;
-        
-        
         SetScrewDriverSection();
-        UnBindEventAttatchedObj();
+
         InitProbePos();
+        BindToolBoxUIEvent();
         
-        HighlightAndTooltipInit((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
+        SetDefaultTransform(DepthC1_GameObj.LS_Cover);
+        
+        
+        
+        BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
         
         
         GetObject((int)DepthC1_GameObj.Lever_Handle).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Count == 6)
             {
-                PlayAnimation(count: 6,isMissionCompleteAnim:true);
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.Lever_Handle, 6);
             }
         });
         
+        
+        BindHighlight((int)DepthC1_GameObj.LS_Cover,"리밋스위치 커버");
+                
+        GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 9)
+            {
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 9);
+            }
+        });
+
+
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewA,"접속나사 확인");
+        
+        GetObject((int)DepthC1_GameObj.ConnectionScrewA).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 10)
+            {
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.ConnectionScrewA, 10);
+            }
+        });
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속나사");
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewC,"접속나사");
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewD,"접속나사");
         
         
         
@@ -319,11 +379,7 @@ public class DepthC1_SceneController : Base_SceneController
         
     }
     
-    protected virtual void OnResistanceReady()
-    {
-      
-        
-    }
+
     
     protected virtual void OnUI_Btn_TemperatureSensorClicked()
     {
@@ -345,7 +401,7 @@ public class DepthC1_SceneController : Base_SceneController
         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
         UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
-        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
+        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceModeSet;
         
     }
 
@@ -538,6 +594,7 @@ public class DepthC1_SceneController : Base_SceneController
     {
       
     }
+
 
 
 
@@ -882,11 +939,8 @@ public class DepthC1_SceneController : Base_SceneController
 
     protected virtual void OnUI_MultimeterBtnClicked()
     {
-        if (Managers.ContentInfo.PlayData.Depth2 != 2) return;
-        
-        
+      
         InitializeTool();
-     
         CurrentActiveTool = (int)DepthC1_GameObj.Multimeter;
         isMultimeterOn = !isMultimeterOn;
 
@@ -894,15 +948,29 @@ public class DepthC1_SceneController : Base_SceneController
         
         Logger.Log($"is Multimeter on? : {isMultimeterOn}");
 
-        if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 8)
-        {
-       
-        }
-        
-        
         if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 13)
         {
-           
+            OnStepMissionComplete(animationNumber:13);
+        }
+        
+
+    }
+    
+    protected virtual void OnResistanceModeSet()
+    {
+      
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 14)
+        {
+            OnStepMissionComplete(animationNumber:14);
+        }
+    }
+    
+    protected virtual void OnConductiveModeSet()
+    {
+      
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 15)
+        {
+            OnStepMissionComplete(animationNumber:15);
         }
     }
 
@@ -942,9 +1010,9 @@ public class DepthC1_SceneController : Base_SceneController
 
         if (isUnscrewed)
         {
-            HighlightBlink((int)DepthC1_GameObj.PxS_InnerScrewA);
-            HighlightBlink((int)DepthC1_GameObj.PxS_InnerScrewB);
-            HighlightBlink((int)DepthC1_GameObj.PxS_InnerScrewC);
+            BlinkHighlight((int)DepthC1_GameObj.PxS_InnerScrewA);
+            BlinkHighlight((int)DepthC1_GameObj.PxS_InnerScrewB);
+            BlinkHighlight((int)DepthC1_GameObj.PxS_InnerScrewC);
         }
         
         SetHighlightIgnore((int)DepthC1_GameObj.PxS_InnerScrewA, isUnscrewed);
@@ -994,23 +1062,8 @@ public class DepthC1_SceneController : Base_SceneController
     /// <summary>
     /// 1. 공통적인 오브젝트 초기화로직 등 
     /// </summary>
-    protected void PreCommonInit()
-    {
-         
-        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
-        currentScrewGaugeStatus = new Dictionary<int, float>();
-        isScrewUnwindMap = new Dictionary<int, bool>();
-        animatorMap = new Dictionary<int, Animator>();
-        _seqMap = new Dictionary<int, Sequence>();
-        
-        defaultRotationMap = new Dictionary<int, Quaternion>();
-        defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Cathode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
-        defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Anode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
-//        controlPanel = GetObject((int)DepthC1_GameObj.PxS_PowerHandle).GetComponent<ControlPanelController>();
-        
-    }
 
-    private void InitializeC2States()
+    private void InitializeC1States()
     {
         if (_sceneStates == null)
         {

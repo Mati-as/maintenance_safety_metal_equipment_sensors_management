@@ -32,7 +32,7 @@ public class Inplay_CameraController : MonoBehaviour
     private float _horizontalPivotCenter; // 좌우 회전 중심
 
     private float _distanceToTarget; // 카메라와 물체 사이 거리
-
+    
 
     private Camera _camera;
     private bool _isControllable =false;

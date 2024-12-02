@@ -26,6 +26,7 @@ public class DepthC11_State_1 : Base_SceneState
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         _depthC1SceneController.DepthC11Init();
         CurrentScene.contentController.ShutTrainingIntroAnim();
+    
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -106,8 +107,8 @@ public class DepthC11_State_6 : Base_SceneState
     public override void OnEnter()
     {
         Logger.Log($"highlight{DepthC1_GameObj.Lever_Handle}");
-        _depthC1SceneController.HighlightBlink((int)DepthC1_GameObj.Lever_Handle);
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.Lever_Handle,false);
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.Lever_Handle);
      
         base.OnEnter();
     }
@@ -139,8 +140,9 @@ public class DepthC11_State_7 : Base_SceneState
     public override void OnEnter()
     {
        
+        _depthC1SceneController.SetCollider(DepthC1_GameObj.LimitSwitch,true);
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.Lever_Handle,false);
-        _depthC1SceneController.HighlightBlink((int)DepthC1_GameObj.Lever_Handle);
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.Lever_Handle);
         base.OnEnter();
     }
 
@@ -154,7 +156,7 @@ public class DepthC11_State_7 : Base_SceneState
 
     public override void OnExit()
     {
-        
+        _depthC1SceneController.SetCollider(DepthC1_GameObj.LimitSwitch,false);
         _depthC1SceneController.limitSwitchPivotController.InitLeverRotation();
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.Lever_Handle,true);
         base.OnExit();
@@ -170,8 +172,12 @@ public class DepthC11_State_8 : Base_SceneState
         _depthC1SceneController = currentScene;
     }
 
- 
-    public override void OnEnter(){base.OnEnter();}
+
+    public override void OnEnter()
+    {
+        _depthC1SceneController.InitTransform(DepthC1_GameObj.LS_Cover);
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
@@ -186,10 +192,21 @@ public class DepthC11_State_9 : Base_SceneState
         _depthC1SceneController = currentScene;
     }
 
-  
-    public override void OnEnter(){base.OnEnter();}
+
+    public override void OnEnter()
+    {
+        _depthC1SceneController.InitTransform(DepthC1_GameObj.LS_Cover);
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LS_Cover,false);
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LS_Cover);
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        
+        base.OnExit();
+    }
 }
 
 public class DepthC11_State_10 : Base_SceneState
@@ -201,10 +218,24 @@ public class DepthC11_State_10 : Base_SceneState
         _depthC1SceneController = currentScene;
     }
 
-    
-    public override void OnEnter(){base.OnEnter();}
+
+    public override void OnEnter()
+    {
+      //  CurrentScene.cameraController.isControllable = true;
+      _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewA,"접속나사 확인");
+      _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA, false);
+      _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewA);
+     
+      
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+   //     CurrentScene.cameraController.isControllable = false;
+        base.OnExit();
+    }
 }
 
 public class DepthC11_State_11 : Base_SceneState
@@ -217,8 +248,12 @@ public class DepthC11_State_11 : Base_SceneState
     }
 
 
-    
-    public override void OnEnter(){base.OnEnter();}
+
+    public override void OnEnter()
+    {
+       
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
@@ -272,8 +307,7 @@ public class DepthC11_State_14 : Base_SceneState
 
     public override void OnEnter()
     {
-
-        base.OnEnter();
+       
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -290,8 +324,12 @@ public class DepthC11_State_15 : Base_SceneState
         _depthC1SceneController = currentScene;
     }
 
-    
-    public override void OnEnter(){base.OnEnter();}
+
+    public override void OnEnter()
+    {
+       
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
@@ -299,14 +337,63 @@ public class DepthC11_State_15 : Base_SceneState
 
 public class DepthC11_State_16 : Base_SceneState
 {
+    private DepthC1_SceneController _depthC1SceneController;
     public DepthC11_State_16(DepthC1_SceneController currentScene) : base(currentScene)
     {
+        _depthC1SceneController = currentScene;
     }
 
-  
-    public override void OnEnter(){base.OnEnter();}
+
+    public override void OnEnter()
+    {
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewA);
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewB);
+        
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA,false);
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB,false);
+        
+        _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewA,"접속단자 A");
+        _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewB,"접속단자 B");
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA);
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB);
+        base.OnExit();
+    }
+}
+public class DepthC11_State_17 : Base_SceneState
+{
+    private DepthC1_SceneController _depthC1SceneController;
+    public DepthC11_State_17(DepthC1_SceneController currentScene) : base(currentScene)
+    {
+        _depthC1SceneController = currentScene;
+    }
+
+
+    public override void OnEnter()
+    {
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewC);
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewD);
+        
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewC,false);
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD,false);
+        
+        _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewC,"접속단자 C");
+        _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewD,"접속단자 D");
+        base.OnEnter();
+    }
+    public override void OnStep(){base.OnStep();}
+
+    public override void OnExit()
+    {
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA);
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB);
+        base.OnExit();
+    }
 }
 
 

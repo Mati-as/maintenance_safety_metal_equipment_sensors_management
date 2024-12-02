@@ -186,7 +186,7 @@ public class Tutorial_State_7 : Base_SceneState
     
 
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
-        CurrentScene.HighlightBlink((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}

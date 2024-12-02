@@ -77,7 +77,7 @@ public class DepthA2_State_3 : Base_SceneState
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         
         
-        CurrentScene.HighlightBlink((int)DepthAGameObj.LimitSwitch);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.LimitSwitch);
         base.OnEnter();
     }
 
@@ -134,7 +134,7 @@ public class DepthA2_State_5 : Base_SceneState
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         
-        CurrentScene.HighlightBlink((int)DepthAGameObj.ProximitySwitch);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.ProximitySwitch);
         base.OnEnter();
     }
 
@@ -162,7 +162,7 @@ public class DepthA2_State_6 : Base_SceneState
         CurrentScene.GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
         CurrentScene.GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
         
-        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.TemperatureSensor);
     }
 
     public override void OnStep()

@@ -57,6 +57,7 @@ public class Base_SceneState : ISceneState
 
     public virtual void OnStep()
     {
+        CurrentScene.contentController.isStepMissionComplete = false;
     }
 
     public virtual void OnExit()
@@ -75,13 +76,13 @@ public class Base_SceneState : ISceneState
        }
        
           
-           CurrentScene.contentController.ShutTrainingIntroAnim();
            CurrentScene.TurnOffAllRegisteredHighlights();
            CurrentScene.contentController.StopBtnUIBlink();
            CurrentScene.contentController.uiToolBox.Refresh();
 
            Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         
+           CurrentScene.contentController.ShutTrainingIntroAnim();
            CurrentScene.cameraController.isControllable = false;
 
     }

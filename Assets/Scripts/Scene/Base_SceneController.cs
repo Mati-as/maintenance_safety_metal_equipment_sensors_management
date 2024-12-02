@@ -40,6 +40,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     //Animation
     public Dictionary<int, HighlightEffect> objectHighlightMap;
+    private Dictionary<int, string> _toolTipTextMap;
     protected Dictionary<int, Sequence> _seqMap;
 
     [Tooltip("Highlight Effect Setting ----------------------")]
@@ -67,7 +68,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     }
     
+    public Dictionary<int, Animator> animatorMap;
+    public Dictionary<int, Vector3> defaultPositionMap;
     
+    public Dictionary<int, bool> isScrewUnwindMap; //3.2.1 , 3,2,3
+    public Dictionary<int, bool> isScrewWindMap; // 3.2.2
+    public Dictionary<int, Quaternion> defaultRotationMap;
+    
+    public Dictionary<int, float> currentScrewGaugeStatus; // 나사 게이지 캐싱
 
     public virtual void SetMainProperties()
     {
@@ -125,6 +133,33 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     }
 
+    public void SetCollider(DepthC1_GameObj obj,bool isEnabled =true)
+    {
+        GetObject((int)obj).GetComponent<Collider>().enabled = isEnabled;
+    }
+
+    protected void PreCommonInit()
+    {
+        _toolTipTextMap = new Dictionary<int, string>();
+        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
+        currentScrewGaugeStatus = new Dictionary<int, float>();
+        isScrewUnwindMap = new Dictionary<int, bool>();
+        animatorMap = new Dictionary<int, Animator>();
+        _seqMap = new Dictionary<int, Sequence>();
+        
+        defaultRotationMap = new Dictionary<int, Quaternion>();
+        defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Cathode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
+        defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Anode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
+//        controlPanel = GetObject((int)DepthC1_GameObj.PxS_PowerHandle).GetComponent<ControlPanelController>();
+     
+
+
+        SetCollider(DepthC1_GameObj.LimitSwitch,false);
+
+    }
+
+    
+    
     private void OnDepth2IntroOrClickedAction()
     {
         PreInitBefreDepthChange();
@@ -176,12 +211,15 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     
         var serveClip = Resources.Load<AnimationClip>(serveAnimPath);
 
-        if (serveClip != null && !isReverseAnim) // Serve 애니메이션이 존재하고, 역재생이 아닌경우
+        // StepMissionComplete는 오브젝트를 직접클릭하였을때활성화 됩니다. 
+        // 오브젝트를 직접 클릭하여 isStepMissionComplete를 완수하였다면, OnStepChange에서 실행하지않습니다.
+        // 즉 중복실행을 방지합니다.
+        if (serveClip != null && !isReverseAnim && !contentController.isStepMissionComplete) // Serve 애니메이션이 존재하고, 역재생이 아닌경우
         {
             Logger.Log($"Serve animation found at path {serveAnimPath}. Playing serve animation.");
         
-            PlayAnimation(count-1,isMissionCompleteAnim:true);
-            DOVirtual.DelayedCall(serveClip.length, () => { ChangeState(count); });
+            OnStepMissionComplete(animationNumber:count-1);
+       //     DOVirtual.DelayedCall(serveClip.length, () => { ChangeState(count); });
         }
         else // Serve 애니메이션이 없는 경우 바로 상태 전환
         {
@@ -247,7 +285,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     /// <param name="count"></param>
     /// <param name="delay"></param>
     /// <param name="isReverse"></param>
-    /// <param name="isServeAnim"></param>
+    /// <param name="isMissionCompleteAnim"></param>
     
 
     private bool _isCurrentAnimServe; // 나레이션재생로직을 위한 bool
@@ -268,7 +306,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
                    $"{Managers.ContentInfo.PlayData.Depth2}" +
                    $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count}";
 
-        if (isMissionCompleteAnim)
+        if (_isCurrentAnimServe)
         {
             path += 'A';
         }
@@ -375,7 +413,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
        
         
         Logger.Log("On Animation Complete ------------------");
-        if(contentController!=null) contentController.isStepMissionComplete = false;
+        if(contentController!=null) 
        
         OnAnimationCompelete?.Invoke(currentCount);
         if(!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
@@ -428,7 +466,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
    
     
 
-    public void HighlightBlink(int gameObj, float startDelay = 1f)
+    public void BlinkHighlight(int gameObj, float startDelay = 1f)
     {
        // Logger.Log($"Highlight 로직 재생중 {(DepthC2_GameObj)gameObj}");
         _seqMap.TryAdd(gameObj, null);
@@ -510,7 +548,10 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     }
     public void BindHighlightAndTooltip(int gameObj, string tooltipText)
     {
-        // PointerEnter 이벤트 바인딩
+
+        if (_toolTipTextMap == null) _toolTipTextMap = new Dictionary<int, string>();
+        _toolTipTextMap.TryAdd(gameObj,tooltipText);
+        
         GetObject((int)gameObj).BindEvent(() =>
         {
             if (objectHighlightMap[(int)gameObj].ignore) return; 
@@ -518,7 +559,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 //            Logger.Log("sensor hover highlight and tooltip appear ----------------------");
             SetHighlight(gameObj);
             contentController.SetToolTipActiveStatus();
-            contentController.SetToolTipText(tooltipText);
+            contentController.SetToolTipText(_toolTipTextMap[gameObj]);
         }, Define.UIEvent.PointerEnter);
 
         // PointerExit 이벤트 바인딩
@@ -534,19 +575,28 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             contentController.SetToolTipActiveStatus(false);
         }, Define.UIEvent.PointerDown);
     }
-    
-    
 
+
+
+    public void ChangeTooltipText(int gameObj, string tooltipText)
+    {
+        if (_toolTipTextMap.ContainsKey(gameObj))
+        {
+            _toolTipTextMap[gameObj] = tooltipText;
+        }
+    }
+    
     public void SetHighlightStatus(int gameObj, bool isOn)
     {
         objectHighlightMap[(int)gameObj].highlighted = isOn;
     }
 
-    public void HighlightAndTooltipInit(int gameObj, string tooltipText)
+    public void BindHighlight(int gameObj, string tooltipText)
     {
         AddToHighlightDictionary(gameObj);
         BindHighlightAndTooltip(gameObj, tooltipText);
     }
+
 
     #endregion
 
@@ -574,8 +624,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             Logger.Log("애니메이션 재생중. 중복실행 X XXXXXXX");
             yield break;
         }
-
         contentController.isStepMissionComplete = true;
+        Logger.Log($"서브 애니이션 재생: {currentStepNum}");
        
         if (Managers.ContentInfo.PlayData.Count != currentStepNum)
             Debug.LogWarning("현재 애니메이션 재생과 카운트 불일치.. 다른 애니메이션이거나 여러 곳 사용되는 애니메이션일 수 있습니다.");
@@ -583,7 +633,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         
         PlayAnimation(currentStepNum, isMissionCompleteAnim: true);
-        Logger.Log($"서브 애니이션 재생: {currentStepNum}");
+      
         
         ActionBeforeNextStep?.Invoke();
         
@@ -597,24 +647,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {Logger.Log($"waitforsecond is not null");
             _waitBeforeNextStep = waitForSeconds;
         }
-
-  
-
-
-     
         
-    //    OnMissionFinish(); //사운드 재생 등 성공처리
-
         yield return _waitBeforeNextStep;
 
-        
-
-        
-       
-        
         if(currentStepNumCache == Managers.ContentInfo.PlayData.Count)
         {
-            Logger.Log($"작업 수행을 통한 다음 이벤트 재생 :--------------- {Managers.ContentInfo.PlayData.Count}-");
+            Logger.Log($"Invoke Next Step @@@ :--------------- {Managers.ContentInfo.PlayData.Count}-");
+            //ChangeState(Managers.ContentInfo.PlayData.Count);
             contentController.InvokeNextStep(); // 다음 스텝으로 넘어가기
         }
         else

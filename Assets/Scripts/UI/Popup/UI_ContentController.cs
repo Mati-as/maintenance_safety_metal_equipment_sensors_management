@@ -741,7 +741,7 @@ public class UI_ContentController : UI_Popup
             }
             else
             {
-                Logger.Log("show all navigate pre,next btn");
+             //   Logger.Log("show all navigate pre,next btn");
                 SetButtonState((int)Btns.Btn_Prev, true);
                 SetButtonState((int)Btns.Btn_Next, true); 
             }
@@ -903,6 +903,7 @@ public class UI_ContentController : UI_Popup
     public void OnDepth2Clicked(int depth2)
     {
         Precheck();
+        if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayTrainingGoalAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
         
         Managers.ContentInfo.PlayData.Depth2 = depth2;
         SwitchDepthToggle();
@@ -915,7 +916,7 @@ public class UI_ContentController : UI_Popup
         if(!_currentMainCam.isControllable) HideCamInitBtn();
         
         Logger.Log($"Depth2 Banner Toggled {depth2}");
-        if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayObjectiveIntroAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
+        
         
         ChangeInstructionText();
         RefreshUI();
@@ -1018,27 +1019,8 @@ public class UI_ContentController : UI_Popup
     private bool isOnActiveArea; // 뎁스3내용 Hover시 표출. 표출이후에도 내용범위에 머물러있으면 Hover상태 유지
     private bool isOn3depthArea;
 
-    private void InactiveAreaEnter()
-    {
-        // isOnActiveArea = false;
-        //
-        // if (isOnActiveArea) return;
+
     
-        //Debug.Log("3depth UI off ---------------------");
-    }
-
-    private void OnDpeth3ActiveAreaEnter()
-    {
-        if (_isTopMenuOn)
-        {
-            // Debug.Log("3depth UI On ---------------------");
-            // Debug.Log("3depth UI On ---------------------");
-            isOnActiveArea = true;
-            GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(true);
-        }
-    }
-
-
     private void OnDepth3BtnClicked(int depth3Num)
     {
         Precheck();
@@ -1153,12 +1135,7 @@ public class UI_ContentController : UI_Popup
         
     }
 
-    private bool CheckInstructionUIMode()
-    {
-        return true;
-    }
-
-
+    
     private Animator _btn_TopMenu_Hide_animator;
     private void OnTopMenuAnimBtnClicked()
     {
@@ -1175,50 +1152,19 @@ public class UI_ContentController : UI_Popup
     private Sequence UI_AnimSeq;
 
 
-    public void ShowInitialIntro()
-    {
-        Logger.Log("Training Info Play -------------------------------------------");
 
-        
-
-        var _UIOnSeq = DOTween.Sequence();
-        //초기화
-        _UIOnSeq.AppendCallback(() =>
-        {
-
-            GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0f;
-        });
-        
-        //애니메이션
-        //_UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(1, 1f).SetEase(Ease.InCirc));
-        //_UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.DOScale(1, 0.8f).SetEase(Ease.InCirc));
-        //_UIOnSeq.AppendInterval(1f);
-        //_UIOnSeq.Append(GetObject((int)UI.UI_DepthTitle).transform.GetComponent<Image>().DOFade(0, 1f).SetEase(Ease.InCirc));
-        //_UIOnSeq.AppendCallback(() => { GetObject((int)UI.UI_DepthTitle).SetActive(false); });
-        //_UIOnSeq.AppendInterval(0.5f);
-        _UIOnSeq.AppendCallback(PlayObjectiveIntroAnim);
-        _UIOnSeq.OnKill(() =>
-        {
-            //GetObject((int)UI.UI_DepthTitle).transform.localScale = Vector3.zero;
-            _UIOnSeq.AppendCallback(() =>
-            {
-
-                GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha = 0f;
-            });
-        });
-    }
 
     private UI_TrainingInfo _uiTrainingInfo;
-    public void PlayObjectiveIntroAnim()
+    public void PlayTrainingGoalAnim()
     {
-        
+        isTrainingInfoOn = true;
+       
         if (UI_AnimSeq.IsActive())
         {
             UI_AnimSeq.Kill();
             UI_AnimSeq = DOTween.Sequence();
         }
 
-        isTrainingInfoOn = true;
         
         if(Managers.ContentInfo.PlayData.Depth3==1) SetInstructionShowOrHideStatus(false);
         else
@@ -1270,14 +1216,6 @@ public class UI_ContentController : UI_Popup
         }
         
         isTrainingInfoOn = false;
-
-        if (GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().alpha < 0.5f)
-        {
-            return;
-            
-        } // 이미한번 실행됬다고 판단해서 리턴합니다.
-
-
         
         UI_AnimSeq.Kill();
         UI_AnimSeq = DOTween.Sequence();

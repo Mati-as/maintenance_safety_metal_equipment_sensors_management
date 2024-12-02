@@ -7,36 +7,38 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
 {
     private enum LimitSwitch
     {
-        Pivot,
+        Limitswitch_ArmPivot
     }
 
     private bool isDragging = false;
     private Vector3 initialMousePos;
     private float currentAngle = 0f;
-    private float minAngle = -80f;
-    private float maxAngle = 80f;
+    private float minAngle = -70f;
+    private float maxAngle = 70f;
     private GameObject _onLight;
     private GameObject _offLight;
 
     private void Awake()  
     {
+        BindObject(typeof(LimitSwitch));
+        Logger.Log("initialize limit switch pivot controlling");
         // 초기 회전값 설정
-        transform.localRotation = Quaternion.Euler(0, 0, 0f);
+        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).transform.localRotation = Quaternion.Euler(0, 0, 0f);
 
         // PointerDown 이벤트 등록
-        gameObject.BindEvent(() =>
+        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).BindEvent(() =>
         {
             isDragging = true;
-
-            Logger.Log("리밋스위치 핸듣 움직이기 클릭!");
-            // 초기 마우스 위치 저장
-            Vector3 mousePos = Input.mousePosition;
-            initialMousePos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
-
+            
         }, Define.UIEvent.PointerDown);
 
         // PointerUp 이벤트 등록
-        gameObject.BindEvent(() =>
+        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).BindEvent(() =>
+        {
+            isDragging = false;
+        }, Define.UIEvent.PointerExit);
+
+        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).BindEvent(() =>
         {
             isDragging = false;
         }, Define.UIEvent.PointerUp);
@@ -52,6 +54,10 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
     public void OnDrag(PointerEventData eventData)
     {
         if (!isDragging) return;
+        if (Managers.ContentInfo.PlayData.Count != 7)
+        {
+            return;
+        }
 
         Logger.Log("리밋스위치 핸들 조절중 --------------------");
 
@@ -66,16 +72,16 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
         Vector3 currentDirection = currentMousePos - handlePos;
 
         // 벡터들 사이의 각도 계산 (Z축 기준)
-        float angle = -Vector3.SignedAngle(initialDirection, currentDirection, Vector3.forward);
+        float changedAngle = -Vector3.SignedAngle(initialDirection, currentDirection, Vector3.forward);
 
         // 현재 회전 각도에 새로운 각도 추가
-        float newAngle = currentAngle - angle * 28;
+        float newAngle = currentAngle - changedAngle * 300;
 
         // 각도를 제한
         newAngle = Mathf.Clamp(newAngle, minAngle, maxAngle);
 
         // 핸들에 회전 적용 (Y축 기준)
-        transform.localRotation = Quaternion.Euler(0, newAngle, 0f);
+        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).transform.localRotation = Quaternion.Euler(0, newAngle, 0f);
 
         // 현재 각도 업데이트
         currentAngle = newAngle;
@@ -93,9 +99,6 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
             _offLight.gameObject.SetActive(true);
             _onLight.gameObject.SetActive(false);
         }
-
-  
-
     }
 
     public void InitLamp()
@@ -106,7 +109,7 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
 
     public void InitLeverRotation()
     {
-        transform.localRotation = Quaternion.Euler(0, 0, 0f);   
+        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).transform.localRotation = Quaternion.Euler(0, 0, 0f);   
     }
     
     
@@ -117,12 +120,12 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
     
     private bool isSwitchOn(float currentAngle)
     {
-        if (currentAngle > maxAngle - 25)
+        if (currentAngle > maxAngle - 30)
         {
             return true;
         }
 
-        if (currentAngle < minAngle + 25)
+        if (currentAngle < minAngle + 30)
         {
             return true;
         }
@@ -139,6 +142,8 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
     public void OnPointerDown(PointerEventData eventData)
     {
         // 드래그 종료 처리
-        isDragging = false;
+        Vector3 mousePos = Input.mousePosition;
+        initialMousePos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
+        isDragging = true;
     }
 }
