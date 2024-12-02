@@ -200,7 +200,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
-                multimeterController.OnAllProbeSet();
+                multimeterController.OnAllProbeSetOnResistanceMode();
                 OnStepMissionComplete(animationNumber: 8, delayAmount: new WaitForSeconds(6f));
             }
         });

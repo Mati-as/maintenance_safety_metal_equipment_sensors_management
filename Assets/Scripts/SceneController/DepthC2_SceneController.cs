@@ -424,7 +424,7 @@ public class DepthC2_SceneController : Base_SceneController
         BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
         BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalA, "A 접지");
         BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "B 접지");
-        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
+        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정");
 
         GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
         GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
@@ -532,7 +532,7 @@ public class DepthC2_SceneController : Base_SceneController
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
-                Action action = multimeterController.OnAllProbeSet;
+                Action action = multimeterController.OnAllProbeSetOnResistanceMode;
                 OnStepMissionComplete(animationNumber: 15, delayAmount: new WaitForSeconds(4f),
                     delayedAction: action);
             }
@@ -551,14 +551,11 @@ public class DepthC2_SceneController : Base_SceneController
         }, Define.UIEvent.PointerDown);
 
        
-          
-
-     
-
-        GetObject((int)DepthC2_GameObj.TS_GroundingTerminalA).BindEvent(() =>
-        {
-            
-        });
+        
+        // GetObject((int)DepthC2_GameObj.TS_GroundingTerminalA).BindEvent(() =>
+        // {
+        //     
+        // });
 
 
         GetObject((int)DepthC2_GameObj.TS_GroundingTerminalB).BindEvent(() =>
@@ -743,10 +740,10 @@ public class DepthC2_SceneController : Base_SceneController
             OnStepMissionComplete(animationNumber:7,delayAmount:new WaitForSeconds(6f));
         });
         
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
-        {
-            
-        });
+        // GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
+        // {
+        //     
+        // });
 #endregion
 
  #region 321과 중복부분 (다른이벤트 설정필요)
@@ -761,12 +758,12 @@ public class DepthC2_SceneController : Base_SceneController
         GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
         GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(false);
 
-        
-
-        GetObject((int)DepthC2_GameObj.TS_ConnectionPiping).BindEvent(() =>
-        {
-           
-        });
+        //
+        //
+        // GetObject((int)DepthC2_GameObj.TS_ConnectionPiping).BindEvent(() =>
+        // {
+        //    
+        // });
 
       
         
@@ -817,17 +814,12 @@ public class DepthC2_SceneController : Base_SceneController
             {
                 if (!isAnodePut) return;
                
-               // BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TS_GroundingTerminalB, "저항 측정");
-               
-              //  HighlightBlink((int)DepthC_GameObj.TS_GroundingTerminalB);
-                
-               // SetHighlightIgnore((int)DepthC_GameObj.TS_InnerScrewA);
-              //  SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalB, false);
+         
                 
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
-                Action action = multimeterController.OnAllProbeSet;
+                Action action = multimeterController.OnAllProbeSetOnResistanceMode;
                 OnStepMissionComplete(animationNumber:10, delayAmount: new WaitForSeconds(6f),
                     delayedAction: action);
             }

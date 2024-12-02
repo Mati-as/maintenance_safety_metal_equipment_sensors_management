@@ -358,7 +358,7 @@ public class DepthC23_State_9 : Base_SceneState
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus(true);
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
-        _depthC2SceneController.multimeterController.TurnOffResistantMode();
+        _depthC2SceneController.multimeterController.SetToDefaultMode();
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
 

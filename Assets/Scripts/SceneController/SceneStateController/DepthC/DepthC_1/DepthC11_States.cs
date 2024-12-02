@@ -280,12 +280,13 @@ public class DepthC11_State_13 : Base_SceneState
 
     public DepthC11_State_13(DepthC1_SceneController currentScene) : base(currentScene)
     {
-      
+        _depthC1SceneController = currentScene;
     }
 
 
     public override void OnEnter()
     {
+        _depthC1SceneController.ClearTool();
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         base.OnEnter();
@@ -307,11 +308,16 @@ public class DepthC11_State_14 : Base_SceneState
 
     public override void OnEnter()
     {
-       
+        _depthC1SceneController.TakeDefaultMultimeter();
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC1SceneController.ClearTool();
+        base.OnExit();
+    }
 }
 
 
@@ -327,7 +333,8 @@ public class DepthC11_State_15 : Base_SceneState
 
     public override void OnEnter()
     {
-       
+        _depthC1SceneController.SetToResistantMode();
+        _depthC1SceneController.multimeterController.isConductive = false; 
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -346,6 +353,10 @@ public class DepthC11_State_16 : Base_SceneState
 
     public override void OnEnter()
     {
+        _depthC1SceneController.SetToResistantMode();
+        _depthC1SceneController.multimeterController.isConductive = true; 
+
+        
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewA);
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewB);
         
@@ -362,6 +373,8 @@ public class DepthC11_State_16 : Base_SceneState
     {
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA);
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB);
+        _depthC1SceneController.multimeterController.isConductive = false; 
+        _depthC1SceneController.ClearTool();
         base.OnExit();
     }
 }
@@ -376,11 +389,13 @@ public class DepthC11_State_17 : Base_SceneState
 
     public override void OnEnter()
     {
-        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewC);
-        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewD);
+        _depthC1SceneController.InitProbe();
+        _depthC1SceneController.SetToResistantMode();
+        _depthC1SceneController.multimeterController.isConductive = true; 
         
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewC,false);
-        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD,false);
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewC);
+        
         
         _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewC,"접속단자 C");
         _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewD,"접속단자 D");
@@ -390,10 +405,34 @@ public class DepthC11_State_17 : Base_SceneState
 
     public override void OnExit()
     {
-        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA);
-        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB);
+        
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewC);
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD);
+        _depthC1SceneController.ClearTool();
         base.OnExit();
     }
 }
 
 
+public class DepthC11_State_18 : Base_SceneState
+{
+    private DepthC1_SceneController _depthC1SceneController;
+    public DepthC11_State_18(DepthC1_SceneController currentScene) : base(currentScene)
+    {
+        _depthC1SceneController = currentScene;
+    }
+
+
+    public override void OnEnter()
+    {
+        _depthC1SceneController.ClearTool();    
+        base.OnEnter();
+    }
+    public override void OnStep(){base.OnStep();}
+
+    public override void OnExit()
+    {
+
+        base.OnExit();
+    }
+}

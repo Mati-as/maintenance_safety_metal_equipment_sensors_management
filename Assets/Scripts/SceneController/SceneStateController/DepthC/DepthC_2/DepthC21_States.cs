@@ -517,7 +517,7 @@ public class DepthC21_State_14 : Base_SceneState
         _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
-        _depthC2SceneController.multimeterController.TurnOffResistantMode();
+        _depthC2SceneController.multimeterController.SetToDefaultMode();
         
         _depthC2SceneController.BlinkHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight);
      
@@ -618,9 +618,11 @@ public class DepthC21_State_16 : Base_SceneState
         _depthC2SceneController.InitProbePos();
         CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "측정단자 A");
         CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+        
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB);
+        
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
 
         
