@@ -39,9 +39,8 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
                 return;
             }
 
-            if (value)
+            if (value) // 이미 true인 경우에는 중복해서 소리를 울리지 않음. 
             {
-                Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/beep_01");
                 OnConductiveModeReady?.Invoke();
             }
             
@@ -99,7 +98,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         TMPDisplay = GetObject((int)Multimeter.Display).GetComponent<TextMeshPro>();
         TMPDisplay.text = "";
         SetMeasureGuideStatus(false);
-        BindConductiveCheckModeEvent();
+   //     BindConductiveCheckModeEvent();
     }
 
     private void InitMultimeter()
@@ -158,16 +157,17 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         isResistanceMode = true;
     }
 
-    public void BindConductiveCheckModeEvent()
-    {
-
-        GetObject((int)Multimeter.ConductiveCheckModeBtn).BindEvent(() =>
-        {
-            Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/MultermeterConductiveModeClick");
-            isConductive = !isConductive;
-        },Define.UIEvent.PointerDown);
-    }
-    
+    // public void BindConductiveCheckModeEvent()
+    // {
+    //
+    //     GetObject((int)Multimeter.ConductiveCheckModeBtn).BindEvent(() =>
+    //     {
+    //         Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/MultermeterConductiveModeClick");
+    //         Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/beep_01");
+    //         isConductive = !isConductive;
+    //     },Define.UIEvent.PointerDown);
+    // }
+    //
     
 
     public void SetToDefaultMode()
@@ -222,14 +222,20 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     {
         _resistanceCheckSeq?.Kill();
         _resistanceCheckSeq = DOTween.Sequence();
-
+      
 
         Logger.Log("프로브 접촉 완료, 저항값 변경중 -----------------------------------------------------");
         var lastUpdateTime = 0f;
 
-        _resistanceCheckSeq.AppendInterval(1.5f);
+        _resistanceCheckSeq.AppendInterval(1.2f);
+        _resistanceCheckSeq.AppendCallback(() =>
+        {
+            Managers.Sound.Play(SoundManager.Sound.Effect, "Audio/Object/beep_01");
+        });
         _resistanceCheckSeq.AppendCallback(() => DOVirtual.Float(0, resistantTarget, 0.9f, val =>
         {
+            
+           
             var currentTime = Time.time;
 
             if (currentTime - lastUpdateTime >= 0.5f)

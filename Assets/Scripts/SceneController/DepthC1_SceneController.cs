@@ -27,6 +27,7 @@ public enum DepthC1_GameObj
     ElectricScrewdriver,
     Multimeter,
     MultimeterHandleHighlight,
+    ConductiveCheckModeBtn,
     Indicator,
     Probe_Anode, // negative
     Probe_Cathode, // positive
@@ -174,8 +175,8 @@ public class DepthC1_SceneController : Base_SceneController
     }
 
 
-    [Range(-200f, 250f)] public float _toolPosXOffset = 0.3f;
-    [Range(-200f, 250f)] public float _toolPosYOffset = -0.3f;
+    [Range(-500, 500f)] public float _toolPosXOffset = 0.3f;
+    [Range(-500f, 500f)] public float _toolPosYOffset = -0.3f;
 
     public void ScrewWoundCountInit()
     {
@@ -261,13 +262,9 @@ public class DepthC1_SceneController : Base_SceneController
     }
 
 
-
-    public void DepthC21Init()
-    {
-
-    }
     
-    public void DepthC23Init()
+    
+    public void DepthC13Init()
     {
 
     }
@@ -289,7 +286,7 @@ public class DepthC1_SceneController : Base_SceneController
         base.UnBindEventAttatchedObj();
         UnBindInteractionEvent();
     }
-    public void DepthC22Init()
+    public void DepthC12Init()
     {
         UnBindEventAttatchedObj();
         PreCommonInit();
@@ -319,10 +316,10 @@ public class DepthC1_SceneController : Base_SceneController
         SetDefaultTransform(DepthC1_GameObj.LS_Cover);
         
         
-        
+        BindHighlight((int)DepthC1_GameObj.ConductiveCheckModeBtn,"통전모드 전환 버튼");
         BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
         BindHighlight((int)DepthC1_GameObj.MultimeterHandleHighlight,"저항측정 모드로 설정");
-        
+            
         GetObject((int)DepthC1_GameObj.Lever_Handle).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Count == 6)
@@ -352,7 +349,20 @@ public class DepthC1_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Count == 10)
             {
                 Logger.Log("MissionComplete limitswitch");
+      
                 OnStepMissionComplete((int)DepthC1_GameObj.ConnectionScrewA, 10);
+            }
+        });
+        
+        GetObject((int)DepthC1_GameObj.ConductiveCheckModeBtn).BindEvent(() =>
+        {
+            Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/MultermeterConductiveModeClick");
+            Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/beep_01");
+            multimeterController.isConductive = !multimeterController.isConductive;
+            if (Managers.ContentInfo.PlayData.Count == 15)
+            {
+                Logger.Log("통전버튼 전환미션 완료");
+                OnStepMissionComplete((int)DepthC1_GameObj.ConductiveCheckModeBtn, 15);
             }
         });
         BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속나사");
@@ -684,17 +694,19 @@ public class DepthC1_SceneController : Base_SceneController
                 
                 if (!isAnodePut) return;
 
-                animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
-                animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(TO_SCREW_B, true);
+                Logger.Log("Probe Set == 16");
+                animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = true;
+                animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(TO_SCREW_B, true);
 
                 Action action = multimeterController.OnAllProbeSetOnResistanceMode;
-                OnStepMissionComplete(animationNumber: 16, delayAmount: new WaitForSeconds(4f),
-                    delayedAction: action);
+                OnStepMissionComplete(animationNumber: 16, delayAmount: new WaitForSeconds(3.5f));
             }
             
         }, Define.UIEvent.PointerDown);
 
 
+        
+        
         GetObject((int)DepthC1_GameObj.ConnectionScrewC).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Count == 17)
@@ -724,8 +736,12 @@ public class DepthC1_SceneController : Base_SceneController
 
                 animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = true;
                 animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(TO_SCREW_D, true);
-                Action action = multimeterController.OnAllProbeSetOnResistanceMode;
-                OnStepMissionComplete(animationNumber: 17, delayAmount: new WaitForSeconds(4f));
+                Action action = multimeterController.OnAllProbeSetOnConductiveCheckMode;
+               
+                
+                OnStepMissionComplete(animationNumber: 17, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+
+             
                 
                 SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD);
 
@@ -1284,6 +1300,7 @@ public class DepthC1_SceneController : Base_SceneController
 
         _sceneStates = new Dictionary<int, ISceneState>
         {
+            { 3110, new DepthC11_State_0(this) },
             { 3111, new DepthC11_State_1(this) },
             { 3112, new DepthC11_State_2(this) },
             { 3113, new DepthC11_State_3(this) },

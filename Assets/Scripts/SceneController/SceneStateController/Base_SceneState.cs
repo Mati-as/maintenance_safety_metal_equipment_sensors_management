@@ -22,6 +22,11 @@ public class Base_SceneState : ISceneState
         // Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         // Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         
+        //misson수행과 사용자 컨트롤의 구분
+        CurrentScene.contentController.isStepChangeByMouseClick = false;
+        
+        
+        
         //평가하기가 아닌경우
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation)
         {
@@ -43,6 +48,7 @@ public class Base_SceneState : ISceneState
         CurrentScene.contentController.SetNextPrevBtnsActiveStatus();
         CurrentScene.contentController.isStepMissionComplete = false;
         CurrentScene.ChangeInstructionTextWithAnim();
+
         
         //항상 클릭 가능해야하는 것들 ----
        

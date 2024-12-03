@@ -214,14 +214,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         // StepMissionComplete는 오브젝트를 직접클릭하였을때활성화 됩니다. 
         // 오브젝트를 직접 클릭하여 isStepMissionComplete를 완수하였다면, OnStepChange에서 실행하지않습니다.
         // 즉 중복실행을 방지합니다.
-        if (serveClip != null && !isReverseAnim && !contentController.isStepMissionComplete) // Serve 애니메이션이 존재하고, 역재생이 아닌경우
+        if (serveClip != null && !isReverseAnim && contentController.isStepChangeByMouseClick) // Serve 애니메이션이 존재하고, 역재생이 아닌경우
         {
             Logger.Log($"Serve animation found at path {serveAnimPath}. Playing serve animation.");
         
             OnStepMissionComplete(animationNumber:count-1);
-       //     DOVirtual.DelayedCall(serveClip.length, () => { ChangeState(count); });
+            DOVirtual.DelayedCall(serveClip.length, () => { ChangeState(count); });
         }
-        else // Serve 애니메이션이 없는 경우 바로 상태 전환
+        else // Serve 애니메이션이 없는 경우 혹은 이전으로 가는경우 바로 상태 전환
         {
             Logger.Log($"No serve animation found at path {serveAnimPath}. Skipping to next state.");
             ChangeState(count);
@@ -601,7 +601,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     #endregion
 
     protected void OnStepMissionComplete(int objectEnumToInt = -1, int animationNumber = -123456789,
-        WaitForSeconds delayAmount = null, Action delayedAction = null)
+        WaitForSeconds delayAmount = null, Action ActionBeforeDelay = null)
     {
         if (objectEnumToInt != -1 && objectHighlightMap.ContainsKey(objectEnumToInt) &&
             objectHighlightMap[objectEnumToInt].ignore)
@@ -609,8 +609,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             Logger.Log("클릭불가 상태 ,오브젝트가 없거나 하이라이트 ignore 상태입니다.");
 
         }
+        
 
-        StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayAmount, delayedAction));
+        StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayAmount, ActionBeforeDelay));
     }
     
     protected IEnumerator OnStepMissionCompleteCo(int currentStepNum, WaitForSeconds waitForSeconds = null,

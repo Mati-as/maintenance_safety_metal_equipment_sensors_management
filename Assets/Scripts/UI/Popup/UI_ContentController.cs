@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -152,8 +153,22 @@ public class UI_ContentController : UI_Popup
 
     private Dictionary<int, Image> _highlightImageMap;
     private Sequence _blinkBtnSeq;
-   
     
+    private bool _isStepChangeByMouseClick;
+
+    public bool isStepChangeByMouseClick
+    {
+        get
+        {
+            return _isStepChangeByMouseClick;
+        }
+        set
+        {
+            _isStepChangeByMouseClick = value;
+        }
+    }
+
+
     // 미션수행 관련 프로퍼티 ------------------------------------------------------------
     private bool _isStepMissionPerformable;
     public bool isStepMissionPerformable {
@@ -819,7 +834,7 @@ public class UI_ContentController : UI_Popup
 
         Managers.ContentInfo.PlayData.Count--;
 
-        
+        isStepChangeByMouseClick = true;
         if(hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
         if(!_currentMainCam.isControllable) HideCamInitBtn();
         
@@ -861,6 +876,7 @@ public class UI_ContentController : UI_Popup
         }
 
         Managers.ContentInfo.PlayData.Count++;
+        isStepChangeByMouseClick = true;
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,false);
         if(!_currentMainCam.isControllable) HideCamInitBtn();

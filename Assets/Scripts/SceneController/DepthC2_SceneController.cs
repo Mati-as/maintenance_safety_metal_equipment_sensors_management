@@ -534,7 +534,7 @@ public class DepthC2_SceneController : Base_SceneController
 
                 Action action = multimeterController.OnAllProbeSetOnResistanceMode;
                 OnStepMissionComplete(animationNumber: 15, delayAmount: new WaitForSeconds(4f),
-                    delayedAction: action);
+                    ActionBeforeDelay: action);
             }
 
             
@@ -821,7 +821,7 @@ public class DepthC2_SceneController : Base_SceneController
 
                 Action action = multimeterController.OnAllProbeSetOnResistanceMode;
                 OnStepMissionComplete(animationNumber:10, delayAmount: new WaitForSeconds(6f),
-                    delayedAction: action);
+                    ActionBeforeDelay: action);
             }
         });
 

@@ -17,7 +17,7 @@ public class DepthC13_State_1 : Base_SceneState
 
     public override void OnEnter()
     {
-        _depthC2SceneController.DepthC21Init();
+        _depthC2SceneController.DepthC13Init();
         
         base.OnEnter();
     }
