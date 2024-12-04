@@ -409,6 +409,7 @@ public class DepthC11_State_16 : Base_SceneState
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA);
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB);
         _depthC1SceneController.multimeterController.isConductive = false; 
+        _depthC1SceneController.isAnodePut = false;
         _depthC1SceneController.ClearTool();
         base.OnExit();
     }
@@ -426,7 +427,8 @@ public class DepthC11_State_17 : Base_SceneState
     {
         _depthC1SceneController.InitProbe();
         _depthC1SceneController.SetToResistantMode();
-        _depthC1SceneController.multimeterController.isConductive = true; 
+        _depthC1SceneController.multimeterController.isConductive = true;
+        _depthC1SceneController.isAnodePut = false;
         
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewC,false);
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewC);

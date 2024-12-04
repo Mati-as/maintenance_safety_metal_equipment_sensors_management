@@ -47,12 +47,13 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
     {
         if (!isDragging) return;
         
-        if (Managers.ContentInfo.PlayData.Count == 7)
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 7)
         {
             RotateHandle(eventData);
         }
-        else if(Managers.ContentInfo.PlayData.Count == 8)
-
+        else if((Managers.ContentInfo.PlayData.Depth3 == 1  && Managers.ContentInfo.PlayData.Count == 8)||
+                (Managers.ContentInfo.PlayData.Depth3 == 3  && Managers.ContentInfo.PlayData.Count == 7 && 
+                GameObject.FindWithTag("ObjectAnimationController").GetComponent<DepthC1_SceneController>().isLeverScrewUnwound))
         {
             MoveHandleZ(eventData);
         }

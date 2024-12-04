@@ -158,7 +158,7 @@ public class DepthC12_State_7 : Base_SceneState
     public override void OnEnter()
     {
         _depthC1SceneController.limitSwitchPivotController.SetLimitSwitchControllable(false);
-        _depthC1SceneController.InitScrews(false);
+        _depthC1SceneController.SetScrewStatus(false);
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LeverScrew);
         base.OnEnter();
     }

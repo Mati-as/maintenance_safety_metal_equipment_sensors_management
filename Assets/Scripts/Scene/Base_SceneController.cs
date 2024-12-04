@@ -285,14 +285,20 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     
 
     private bool _isCurrentAnimServe; // 나레이션재생로직을 위한 bool
+
+    private int _currentPlayingCount;//중복재생방지
     public float currentCilpLength { get; private set; }
     public void PlayAnimation(int count, float delay = 0f, bool isReverse = false,bool isMissionCompleteAnim =false)
     {
 
         _isCurrentAnimServe = isMissionCompleteAnim;
-       
 
-
+        if (_currentPlayingCount == count)
+        {
+            Logger.Log("이미 같은 애니메이션이 재생중입니다.");
+            return;
+        }
+        
       // 중복애니메이션 클립할당을 위해 추가합니다. 추후 성능이슈가 발생하는경우 로직 수정 필요합니다. 10/17/24
          Debug.Assert(_mainAnimation != null, "Animation component can't be null");
 
@@ -381,7 +387,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
   
     
         _mainAnimation.Play(clip.name);
-        StartCoroutine(CheckAnimationEnd(clip));
+        StartCoroutine(CheckAnimationEnd(count,clip));
         currentCilpLength = clip.length;    
 
         Logger.Log($"Animation clip with index {count} is playing.");
@@ -395,24 +401,30 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         _mainAnimation.Play(clipName);
     }
 
-    private IEnumerator CheckAnimationEnd(AnimationClip clip)
+    private IEnumerator CheckAnimationEnd(int count,AnimationClip clip)
     {
         yield return new WaitForSeconds(clip.length);
-        OnAnimationComplete();
-    }
-  
 
-    protected virtual void OnAnimationComplete()
+        var countCache = count; //건너뛴경우, OnAnimationEnd를 실행하지않기위한로직
+        OnAnimationComplete(count);
+    }
+
+
+    protected virtual void OnAnimationComplete(int count)
     {
         
-        // Tutorial에는 ContentController 없는경우를 대비해 조건문 아래와 같이 구성
-       
-        
-        Logger.Log("On Animation Complete ------------------");
-        if(contentController!=null) 
-       
-        OnAnimationCompelete?.Invoke(currentCount);
-        if(!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
+        if (contentController!=null && count == Managers.ContentInfo.PlayData.Count)
+        {
+            OnAnimationCompelete?.Invoke(currentCount);
+            if(!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
+            Logger.Log("On Animation Complete ------------------");
+        }
+        else
+        {
+            Logger.Log("실행하고자하는 다음스텝과 현재 스텝이 달라, OnAnimationCompelete를 실행하지 않습니다-----" +
+                      $"\n현재스텝: {Managers.ContentInfo.PlayData.Count}, 실행하고자 하는 스텝 {count}");
+        }
+
     }
 
     public void ChangeInstructionTextWithAnim(int delay = 0)
@@ -475,7 +487,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         objectHighlightMap[(int)gameObj].innerGlow = 0;
         objectHighlightMap[(int)gameObj].outlineWidth = 0;
 
-        var maxInnerGlow = 0.8f;
+        var maxOutLine = 0.6f;
         var maxOuterGlow = 1f;
         var duration = 0.55f;
 
@@ -491,14 +503,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             _seqMap[gameObj].AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
 
-            _seqMap[gameObj].Append(DOVirtual.Float(0, maxInnerGlow, duration,
+            _seqMap[gameObj].Append(DOVirtual.Float(0, maxOutLine, duration,
                 val =>
                 {
                     objectHighlightMap[(int)gameObj].innerGlow = val;
                     objectHighlightMap[(int)gameObj].outlineWidth = val;
                 }));
 
-            _seqMap[gameObj].Append(DOVirtual.Float(maxInnerGlow, 0, duration,
+            _seqMap[gameObj].Append(DOVirtual.Float(maxOutLine, 0, duration,
                 val =>
                 {
                     objectHighlightMap[(int)gameObj].innerGlow = val; 
