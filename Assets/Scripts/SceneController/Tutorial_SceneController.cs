@@ -112,7 +112,7 @@ public class Tutorial_SceneController : DepthC2_SceneController
         // UI_Evaluation.OnRestartBtnOnEvalClicked -= TutorialInit;
          UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
          UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-         UI_ToolBox.ScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+         UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
          MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
          UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
      }

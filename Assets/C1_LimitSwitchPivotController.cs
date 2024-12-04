@@ -18,48 +18,51 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
     private GameObject _onLight;
     private GameObject _offLight;
 
+    private Collider _collider;
     private void Awake()  
     {
         BindObject(typeof(LimitSwitch));
-        Logger.Log("initialize limit switch pivot controlling");
-        // 초기 회전값 설정
-        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).transform.localRotation = Quaternion.Euler(0, 0, 0f);
+       // InitLimitSwitch();
+       _onLight = GameObject.Find("OnLight");
+       _offLight = GameObject.Find("OffLight");
+       _collider = GetComponent<Collider>();
 
-        // PointerDown 이벤트 등록
-        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).BindEvent(() =>
-        {
-            isDragging = true;
-            
-        }, Define.UIEvent.PointerDown);
-
-        // PointerUp 이벤트 등록
-        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).BindEvent(() =>
-        {
-            isDragging = false;
-        }, Define.UIEvent.PointerExit);
-
-        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).BindEvent(() =>
-        {
-            isDragging = false;
-        }, Define.UIEvent.PointerUp);
-
-        _onLight = GameObject.Find("OnLight");
-        _offLight = GameObject.Find("OffLight");
-        
-        InitLamp();
-      
     }
 
 
+    public void SetLimitSwitchControllable(bool isActive)
+    {
+        _collider.enabled = isActive;
+    }
+
+    public void InitLimitSwitch()
+    {
+        
+        InitLamp();
+
+        minZ = transform.position.z-0.020f;
+        maxZ= transform.position.z;
+    }
     public void OnDrag(PointerEventData eventData)
     {
         if (!isDragging) return;
-        if (Managers.ContentInfo.PlayData.Count != 7)
+        
+        if (Managers.ContentInfo.PlayData.Count == 7)
         {
-            return;
+            RotateHandle(eventData);
+        }
+        else if(Managers.ContentInfo.PlayData.Count == 8)
+
+        {
+            MoveHandleZ(eventData);
         }
 
-        Logger.Log("리밋스위치 핸들 조절중 --------------------");
+      
+    }
+
+    public void RotateHandle(PointerEventData eventData)
+    {
+        Logger.Log("리밋스위치 핸들 각도 조절중 --------------------");
 
         // 마우스 포인터의 현재 월드 좌표 계산
         Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.nearClipPlane));
@@ -101,6 +104,43 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
         }
     }
 
+    private float minZ;
+    private float maxZ;
+
+    public static event Action OnTargetPosArrive; 
+    [Range(0, 100000)] public float sensitivity; 
+    
+    public void MoveHandleZ(PointerEventData eventData)
+    {
+        Logger.Log("리밋스위치 핸들 Z축 이동 조절중 --------------------");
+
+        // 마우스 포인터의 현재 월드 좌표 계산
+        Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.nearClipPlane));
+
+        // 기존 핸들의 위치
+        Vector3 handlePos = GetObject((int)LimitSwitch.Limitswitch_ArmPivot).transform.position;
+
+        // 초기 마우스 위치와 현재 마우스 위치의 차이를 계산
+        float deltaZ = currentMousePos.y - initialMousePos.y; // y축 차이를 Z축 이동에 매핑
+
+        // 새로운 Z축 위치 계산
+        float newZPos = handlePos.z + deltaZ/sensitivity ;
+
+        // Z축 위치를 제한 (필요하면 범위 설정)
+        newZPos = Mathf.Clamp(newZPos, minZ, maxZ); // minZ와 maxZ를 원하는 값으로 설정
+
+        // 핸들의 위치 업데이트
+        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).transform.position = new Vector3(handlePos.x, handlePos.y, newZPos);
+
+        // 초기 마우스 위치 갱신
+        initialMousePos = currentMousePos;
+
+        if (newZPos - minZ < 0.010f)
+        {
+            OnTargetPosArrive?.Invoke();
+            Logger.Log("target arrvie action invoke");
+        }
+    }
     public void InitLamp()
     {
         _offLight.gameObject.SetActive(true);

@@ -9,7 +9,8 @@ public class UI_ToolBox : UI_Popup
     {
         Btn_ElectricScrewdriver,
         Btn_Multimeter,
-        Btn_TemperatureSensor
+        Btn_TemperatureSensor,
+        Btn_LimitSwitch
     }
     
 
@@ -18,10 +19,10 @@ public class UI_ToolBox : UI_Popup
     private DepthC2_SceneController _depthCsceneController;
     
     public static event Action ToolBoxOnEvent; // 도구함을 클릭해주세요 완수 시  
-    public static event Action ScrewDriverClickedEvent; // 도구함을 클릭해주세요 완수 시  
-    public static event Action MultimeterClickedEvent; // 도구함을 클릭해주세요 완수 시  \
-    
-    public static event Action TemperatureSensorClickedEvent; // 센서 교체 클릭해주세요 완수 시  
+    public static event Action ElectronicScrewDriverClickedEvent; // 도구함을 클릭해주세요 완수 시  
+    public static event Action MultimeterClickedEvent; // 도구함을 클릭해주세요 완수 시  
+    public static event Action TemperatureSensorClickedEvent; // 온도센서 클릭해주세요 완수 시  
+    public static event Action LimitSwitchSensorClickedEvent; // 리밋스위치 클릭해주세요 완수 시  
     public override bool Init()
     {
         if (!base.Init())
@@ -45,7 +46,7 @@ public class UI_ToolBox : UI_Popup
         GetButton((int)Btns.Btn_ElectricScrewdriver).gameObject.BindEvent(() =>
         {
             //_depthCsceneController.OnScrewDriverBtnClicked();
-            ScrewDriverClickedEvent?.Invoke();
+            ElectronicScrewDriverClickedEvent?.Invoke();
             SetToolBox(false);
         });
         
@@ -65,6 +66,15 @@ public class UI_ToolBox : UI_Popup
 
         });
         
+        
+        GetButton((int)Btns.Btn_LimitSwitch).gameObject.BindEvent(() =>
+        {
+            
+            LimitSwitchSensorClickedEvent?.Invoke();
+            SetToolBox(false);
+
+        });
+
 
         SetToolBox(false);
         Refresh();

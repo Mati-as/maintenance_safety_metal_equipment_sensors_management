@@ -99,8 +99,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     protected virtual void BindEvent()
     {
-        UI_ContentController.OnDepth3ClickedAction -= OnDepth3IntroOrClickedAction;
-        UI_ContentController.OnDepth3ClickedAction += OnDepth3IntroOrClickedAction;
+        UI_ContentController.OnDepth3ClickedAction -= OnDepth3Clicked;
+        UI_ContentController.OnDepth3ClickedAction += OnDepth3Clicked;
         
         UI_ContentController.OnDepth2ClickedAction -= OnDepth2IntroOrClickedAction;
         UI_ContentController.OnDepth2ClickedAction += OnDepth2IntroOrClickedAction;
@@ -113,16 +113,17 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     protected virtual void OnDestroy()
     {
         UI_ContentController.OnDepth2ClickedAction -= OnDepth2IntroOrClickedAction;
-        UI_ContentController.OnDepth3ClickedAction -= OnDepth3IntroOrClickedAction;
+        UI_ContentController.OnDepth3ClickedAction -= OnDepth3Clicked;
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChange;
     }
 
-    private void OnDepth3IntroOrClickedAction()
+    public void OnDepth3Clicked()
     {
         PreInitBefreDepthChange();
 
-        PlayAnimation(1);
-        ChangeState(1);
+        
+        PlayAnimation(0);
+        ChangeState(0);
     }
 
     private void PreInitBefreDepthChange()
@@ -138,7 +139,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         GetObject((int)obj).GetComponent<Collider>().enabled = isEnabled;
     }
 
-    protected void PreCommonInit()
+    protected virtual void PreCommonInit()
     {
         _toolTipTextMap = new Dictionary<int, string>();
         cameraController = Camera.main.GetComponent<Inplay_CameraController>();
@@ -151,11 +152,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Cathode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
         defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Anode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
 //        controlPanel = GetObject((int)DepthC1_GameObj.PxS_PowerHandle).GetComponent<ControlPanelController>();
-     
-
-
-        SetCollider(DepthC1_GameObj.LimitSwitch,false);
-
     }
 
     
@@ -533,7 +529,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         SetDefaultHighlight(ref highlightEffect);
         if (!objectHighlightMap.ContainsKey((int)gameObj))
         {
- // Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC2_GameObj)gameObj}");
+  Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC1_GameObj)gameObj}");
             objectHighlightMap.Add((int)gameObj, highlightEffect);
         }
     }

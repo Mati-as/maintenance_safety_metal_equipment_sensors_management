@@ -12,11 +12,15 @@ public class DepthC11_State_0 : Base_SceneState
         
     public override void OnEnter()
     {
-        base.OnEnter();
         _depthC1SceneController.DepthC11Init();
-        CurrentScene.cameraController.isControllable = false;
+        base.OnEnter();
+     
     }
-    public override void OnStep(){base.OnStep();}
+
+    public override void OnStep()
+    {
+        base.OnStep();
+    }
 
     public override void OnExit()
     {
@@ -39,13 +43,15 @@ public class DepthC11_State_1 : Base_SceneState
     {
         base.OnAnimationCompleteHandler(_);
         SetLookAt((int)DepthC1_GameObj.LimitSwitch);
+        
     }
 
     public override void OnEnter()
     {
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
-      
+        
+        CurrentScene.cameraController.isControllable = false;
         CurrentScene.contentController.ShutTrainingIntroAnim();
     
         base.OnEnter();
@@ -458,12 +464,11 @@ public class DepthC11_State_18 : Base_SceneState
         Managers.ContentInfo.PlayData.Depth1 = 3;
         Managers.ContentInfo.PlayData.Depth2 = 1;
         Managers.ContentInfo.PlayData.Depth3 = 2;
-        Managers.ContentInfo.PlayData.Count = 1;
+        Managers.ContentInfo.PlayData.Count = 0;
 
         
         _depthC1SceneController.contentController.Refresh();
-        _depthC1SceneController.DepthC12Init();
-        _depthC1SceneController.PlayAnimation(1);
+        _depthC1SceneController.OnDepth3Clicked();
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
