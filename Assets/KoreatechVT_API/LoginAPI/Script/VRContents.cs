@@ -13,7 +13,9 @@ public enum ContentsType
     NONE = 0,
 
     //YEAR2024,
-    과정명 = 0,
+     
+ 	
+    금속제조설비계측센서정비및안전관리 = 0,//과정 ID 추후 안내 예정
 }
 
 public struct VRCourse
