@@ -62,7 +62,7 @@ public class DepthA_SceneController : Base_SceneController
         
         GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
         GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
-        contentController.OnDepth2Clicked( Managers.ContentInfo.PlayData.Depth2); 
+        contentController.OnDepth2Init( Managers.ContentInfo.PlayData.Depth2); 
         
     }
 

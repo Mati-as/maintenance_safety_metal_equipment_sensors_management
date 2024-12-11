@@ -35,7 +35,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
         GetScrewColliders();
         InitializeD2States();
         DepthD21Init();
-        contentController.OnDepth2Clicked(2); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다.
+        contentController.OnDepth2Init(2); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다.
         
         
         UI_Evaluation.OnRestartBtnOnEvalClicked -= DepthD21Init;

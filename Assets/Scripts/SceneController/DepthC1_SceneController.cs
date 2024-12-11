@@ -286,7 +286,7 @@ public class DepthC1_SceneController : Base_SceneController
         
         InitializeC1States();
         GetScrewColliders();
-        contentController.OnDepth2Clicked(1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
+        contentController.OnDepth2Init(1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
         
     }
     private void LateCommonInit()

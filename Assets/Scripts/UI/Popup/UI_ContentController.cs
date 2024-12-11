@@ -7,6 +7,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
@@ -479,12 +480,15 @@ public class UI_ContentController : UI_Popup
                 // 구현된 부분만 활성화 및 클릭상태가 될 수 있도록될 수 있도록 구성 ----------------------------------------------
                 if ((Managers.ContentInfo.PlayData.Depth1 == 3 && i == (int)Toggles.Toggle_Depth2_A) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 3 && i == (int)Toggles.Toggle_Depth2_B) ||
+                    (Managers.ContentInfo.PlayData.Depth1 == 3 && i == (int)Toggles.Toggle_Depth2_C) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 1 && i == (int)Toggles.Toggle_Depth2_A) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 1 && i == (int)Toggles.Toggle_Depth2_B) ||
                     
                     (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_A) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_B) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_C) ||
+                    
+                    
                     
                     (Managers.ContentInfo.PlayData.Depth1 == 4 && i == (int)Toggles.Toggle_Depth2_B)
                    )
@@ -495,7 +499,7 @@ public class UI_ContentController : UI_Popup
 
                     toggle.gameObject.BindEvent(() =>
                     {
-                        OnDepth2Clicked(toggleIndex + 1); // use the local copy
+                        OnDepth2ClickedIncludingSceneChange(toggleIndex + 1); // use the local copy
                     });
                     Logger.Log($"Depth{Managers.ContentInfo.PlayData.Depth3} 부분 구현 상태..{(Toggles)i} 활성화");
                 }
@@ -916,15 +920,69 @@ public class UI_ContentController : UI_Popup
     }
 
 
-    public void OnDepth2Clicked(int depth2)
+    /// <summary>
+    /// 사용자가 UI_ContentController 와상호작용할때만 동작합니다. 
+    /// </summary>
+    /// <param name="depth2"></param>
+    private void OnDepth2ClickedIncludingSceneChange(int depth2)
     {
         Precheck();
-        if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayTrainingGoalAnim(); // 뎁스가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
+        
+        //Depth1이 실습단계인 경우 (중복방지 로직포함)-----------------------------------------
+        if (Managers.ContentInfo.PlayData.Depth2 != depth2 &&Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.MaintenancePractice)
+        {
+          
+            Managers.ContentInfo.PlayData.Depth2 = depth2;
+            Managers.ContentInfo.PlayData.Depth3 = 1;
+            Managers.ContentInfo.PlayData.Count = 0;
+            
+            
+            Logger.Log($"Scene Changed : {"DepthC" + Managers.ContentInfo.PlayData.Depth2.ToString()}");
+            
+            SceneManager.LoadScene("DepthC" + Managers.ContentInfo.PlayData.Depth2.ToString() );
+            return;
+        }
+
+        
+        //Depth1이 실습단계가 아닌 경우-----------------------------------------
+        
+        if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayTrainingGoalAnim(); // Depth3가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
         
         Managers.ContentInfo.PlayData.Depth2 = depth2;
-        SwitchDepthToggle();
         Managers.ContentInfo.PlayData.Depth3 = 1;
         Managers.ContentInfo.PlayData.Count = 0;
+        SwitchDepthToggle();
+
+
+        //각 뎁스의 첫번쨰 애니메이션을 재생하도록 하기위한 로직
+        OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count, false);
+        if(!_currentMainCam.isControllable) HideCamInitBtn();
+        
+        Logger.Log($"Depth2 Banner Toggled {depth2}");
+        
+        
+        ChangeInstructionText();
+        RefreshUI();
+        RefreshText();
+
+
+        OnDepth2ClickedAction?.Invoke();
+    }
+
+
+    public void OnDepth2Init(int depth2)
+    {
+        Precheck();
+        
+
+        //Depth1이 실습단계가 아닌 경우-----------------------------------------
+        
+        if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayTrainingGoalAnim(); // Depth3가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
+        
+        Managers.ContentInfo.PlayData.Depth2 = depth2;
+        Managers.ContentInfo.PlayData.Depth3 = 1;
+        Managers.ContentInfo.PlayData.Count = 0;
+        SwitchDepthToggle();
 
 
         //각 뎁스의 첫번쨰 애니메이션을 재생하도록 하기위한 로직
@@ -1040,12 +1098,12 @@ public class UI_ContentController : UI_Popup
     private void OnDepth3BtnClicked(int depth3Num)
     {
         Precheck();
+        
         Managers.ContentInfo.PlayData.Depth3 = depth3Num;
-
-
-
         Logger.Log($"current Status{Managers.ContentInfo.PlayData.CurrentDepthStatus}");
 
+
+ 
 
         for (var i = (int)Btns.Depth3_A; i < (int)Btns.Depth3_E + 1; i++)
         {
@@ -1076,8 +1134,7 @@ public class UI_ContentController : UI_Popup
 
         Managers.ContentInfo.PlayData.Count = 1;
         
-        Refresh();
-        ChangeInstructionText();
+ 
 
         if (Managers.ContentInfo.PlayData.Depth3 != 1)
         {
@@ -1085,7 +1142,8 @@ public class UI_ContentController : UI_Popup
             if(_hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
         }
         
-        
+        Refresh();
+        ChangeInstructionText();
         
         SetInstructionShowOrHideStatus(false);
         OnDepth3ClickedAction?.Invoke();
@@ -1093,6 +1151,10 @@ public class UI_ContentController : UI_Popup
         
     }
 
+    private void OnDepthClickedWhenDepthC()
+    {
+        
+    }
     private void OnDepth3BtnEnter()
     {
     }

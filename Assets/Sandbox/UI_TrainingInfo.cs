@@ -46,12 +46,16 @@ public class UI_TrainingInfo : UI_Popup
 
     private void SetIntroImage()
     {
-        var path = Managers.ContentInfo.PlayData.Depth1 + Managers.ContentInfo.PlayData.Depth2.ToString();
+        var path = Managers.ContentInfo.PlayData.Depth1.ToString() + Managers.ContentInfo.PlayData.Depth2.ToString();
         var imageSource = Resources.Load<Sprite>("Image/UI_TrainingInfo/" + path);
         
         if (imageSource != null)
         {
             GetImage((int)Images.Image_TrainingIntro).sprite = imageSource;
+        }
+        else
+        {
+            Logger.LogWarning($"There's no image for training Info Image: ->{path} ");
         }
         
     }

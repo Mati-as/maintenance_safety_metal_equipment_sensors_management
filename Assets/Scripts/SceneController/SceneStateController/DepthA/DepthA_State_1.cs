@@ -308,7 +308,7 @@ public class DepthA1_State_11 : Base_SceneState
         Managers.ContentInfo.PlayData.Depth2 = 2;
         Managers.ContentInfo.PlayData.Depth3 = 1;
         Managers.ContentInfo.PlayData.Count = 1;
-        CurrentScene.contentController.OnDepth2Clicked(2);
+        CurrentScene.contentController.OnDepth2Init(2);
         CurrentScene.PlayAnimation(count:1);
         
         
