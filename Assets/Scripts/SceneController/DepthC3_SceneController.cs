@@ -19,48 +19,81 @@ using Sequence = DG.Tweening.Sequence;
 public enum DepthC3_GameObj
 {
     PressureSensor,
+    PressureSensorScale,
+    PressureSensorToConditionerCable,
+    PressureSensorHose,
+    
+    PowerCable,
+    PressureCalibrator,
+    ConnectingPipe, //연결 배관
+    ConnectingScrew, // 연결 나사 (어댑터)
+    
 }
 
 
 public class DepthC3_SceneController : Base_SceneController
 {
-
-    public Dictionary<int, float> currentScrewGaugeStatus; // 나사 게이지 캐싱
-    public Dictionary<int, Animator> animatorMap;
-    public Dictionary<int, Sequence> _seqMap;
-
-    public Dictionary<int, bool> isScrewUnwindMap; //3.2.1 , 3,2,3
-
-    public Dictionary<int, bool> isScrewWindMap; // 3.2.2
-
-    public Dictionary<int, Quaternion> defaultRotationMap;
-
-    private readonly int UNWOUND_COUNT_GOAL = 3;
+private readonly int UNWOUND_COUNT_GOAL = 4;
     private int _unwoundCount;
-
-
-    private ParticleSystem _waterLeakPs;
-
     
-    
-    public ParticleSystem waterLeakPs
+    public void InitTransform(DepthC1_GameObj obj, bool isAll =false)
     {
-        get
+        
+       
+        if (GetObject((int)obj) == null || !defaultPositionMap.ContainsKey((int)obj))
         {
-            if (_waterLeakPs == null)
-                _waterLeakPs = GetObject((int)DepthC2_GameObj.WaterLeakEffect).GetComponent<ParticleSystem>();
-            return _waterLeakPs;
+            Logger.LogWarning($"{obj}'s Transform is null.. or key is null Initialize Transform Value Setting Failed");
+            return;
         }
+        
+        GetObject((int)obj).transform.position = defaultPositionMap[(int)obj];
+        GetObject((int)obj).transform.rotation = defaultRotationMap[(int)obj];
+
+        if (isAll)
+        {
+            for (int i = 0; i < Enum.GetValues(typeof(DepthC1_GameObj)).Length; i++)
+            {
+                defaultPositionMap.TryAdd(i, GetObject(i).transform.position);
+                defaultRotationMap.TryAdd(i, GetObject(i).transform.rotation);
+            }   
+        }
+   
+
     }
 
-    public void SetParticleStatus(bool isOn =true)
+
+
+    /// <summary>
+    /// 1.Depth1,2,3 통틀어서, 초기위치가 불변인 객체만 사용권장
+    /// (예를들어, LeverHandle의 초기위치는 depth1,2에서 다르므로 사용권장하지않음)
+    /// 2.위치가 새롭게 변경되는 경우 Animation으로 위치,각도를 초기화거나, 별도 로직 추가 사용권장.
+    /// </summary>
+    public void SetDefaultTransform()
     {
-        if (isOn)
-            waterLeakPs.Play();
-        else
-            waterLeakPs.Stop();
+        if (defaultPositionMap == null) defaultPositionMap = new Dictionary<int, Vector3>();
+        if (defaultRotationMap == null) defaultRotationMap = new Dictionary<int, Quaternion>();
+        
+        for (int i = 0; i < Enum.GetValues(typeof(DepthC3_GameObj)).Length; i++)
+        {
+            if (GetObject(i) == null)
+            {
+                Logger.LogWarning($"{(DepthC3_GameObj)i}'s Transform is null.. Default Value Setting Failed");
+                continue;
+            }
+            
+            defaultPositionMap.TryAdd(i, GetObject(i).transform.position);
+            defaultRotationMap.TryAdd(i, GetObject(i).transform.rotation);
+        }    
+        
     }
     
+    
+    public void SetAnimator(DepthC1_GameObj obj)
+    {
+        if (animatorMap == null) animatorMap = new Dictionary<int, Animator>();
+
+        animatorMap.TryAdd((int)obj, GetObject((int)obj).GetComponent<Animator>());
+    }
 
     private IndicatorController _indicator;
     public IndicatorController indicator
@@ -68,117 +101,12 @@ public class DepthC3_SceneController : Base_SceneController
         get
         {
             if(_indicator == null)
-                _indicator = GetObject((int)DepthC2_GameObj.Indicator).GetComponent<IndicatorController>();
+                _indicator = GetObject((int)DepthC1_GameObj.Indicator).GetComponent<IndicatorController>();
             return _indicator;
         }
         
     }
 
-    private static readonly int Alpha = Shader.PropertyToID("_alpha");
-    private DecalProjector _waterDecal;
-    public DecalProjector waterDecal
-    {
-        get
-        {
-            if (_waterDecal == null)
-                _waterDecal = GetObject((int)DepthC2_GameObj.WaterDecal).GetComponent<DecalProjector>();
-            return _waterDecal;
-        }
-       
-    }
-
-    public void SetWaterDecalStatus(bool isOn =true)
-    {
-        GetObject((int)DepthC2_GameObj.WaterDecal).SetActive(isOn);
-    }
-
-    public void FadeInDecal()
-    {
-        
-        // set initial alpha to 0
-        waterDecal.material.SetFloat(Alpha, 0);
-
-        // attempt to add a new sequence if one doesn’t exist
-        if (!_seqMap.TryAdd((int)DepthC2_GameObj.WaterDecal, DOTween.Sequence()))
-        {
-            // if already exists, kill and clear it
-            _seqMap[(int)DepthC2_GameObj.WaterDecal].Kill();
-            _seqMap[(int)DepthC2_GameObj.WaterDecal] = DOTween.Sequence();
-        }
-        
-        
-
-        var newSeq = DOTween.Sequence();
-        _seqMap[(int)DepthC2_GameObj.WaterDecal] = newSeq;
-
-        // add fade-in effect to the sequence
-        newSeq.AppendCallback(() =>
-            {
-                GetObject((int)DepthC2_GameObj.WaterDecal).SetActive(true);
-            })
-            .Append(DOVirtual.Float(0, 0.3f, 1.8f, val =>
-            {
-                waterDecal.material.SetFloat(Alpha, val);
-            })).SetUpdate(true); // optionally set to update even if game is paused;
-
-
-    }
-
-    public void SetWaterMatAlpha(int alpha=0)
-    {
-        if (!_seqMap.TryAdd((int)DepthC2_GameObj.WaterDecal, DOTween.Sequence()))
-        {
-            // if already exists, kill and clear it
-            _seqMap[(int)DepthC2_GameObj.WaterDecal].Kill();
-            _seqMap[(int)DepthC2_GameObj.WaterDecal] = DOTween.Sequence();
-        }
-        
-        waterDecal.material.SetFloat(Alpha, alpha);
-    }
-
-
-    private Dictionary<int, MeshRenderer> _wireMatMap;
-    private void FadeInCompensatingWire()
-    {
-        // _wireMatMap.TryAdd(GetObject((int)DepthC_GameObj.TS_CompensatingWireA),
-        //     GetObject((int)DepthC_GameObj.TS_CompensatingWireA)).GetComponent<MeshRenderer>());
-    }
-
-    private void FadeOutCompensatingWire()
-    {
-        
-    }
-
-    public void FadeOutDecal()
-    {
-        // set initial alpha to 0
-        waterDecal.material.SetFloat(Alpha, 1);
-
-        // attempt to add a new sequence if one doesn’t exist
-        if (!_seqMap.TryAdd((int)DepthC2_GameObj.WaterDecal, DOTween.Sequence()))
-        {
-            // if already exists, kill and clear it
-            _seqMap[(int)DepthC2_GameObj.WaterDecal].Kill();
-            _seqMap[(int)DepthC2_GameObj.WaterDecal] = DOTween.Sequence();
-        }
-
-        var newSeq = DOTween.Sequence();
-        _seqMap[(int)DepthC2_GameObj.WaterDecal] = newSeq;
-
-        // add fade-in effect to the sequence
-        newSeq.AppendCallback(() =>
-            {
-                GetObject((int)DepthC2_GameObj.WaterDecal).SetActive(true);
-            })
-            .Append(DOVirtual.Float(0.3f, 0f, 1.8f, val =>
-            {
-                waterDecal.material.SetFloat(Alpha, val);
-            })).SetUpdate(true); // optionally set to update even if game is paused;
-
-        
-
-    }
-    
 
     public bool isAnodePut; // 음극단자 설정을 위한 bool값입니다.
 
@@ -194,7 +122,7 @@ public class DepthC3_SceneController : Base_SceneController
             _unwoundCount = value;
             if (_unwoundCount >= UNWOUND_COUNT_GOAL)
             {
-                if (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 6)
+                if (Managers.ContentInfo.PlayData.Depth3 == 4 && Managers.ContentInfo.PlayData.Count == 5)
                 {
                     Logger.Log($"평가하기: 커버열고 모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
                     OnStepMissionComplete(animationNumber:6);
@@ -203,14 +131,14 @@ public class DepthC3_SceneController : Base_SceneController
                     _unwoundCount = 0;
                 }
 
-                if (Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Depth3 == 1 )
+                if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 5)
                 {
                     Logger.Log($"모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
-                    OnStepMissionComplete(animationNumber:12);
+                    OnStepMissionComplete(animationNumber:5);
                     _unwoundCount = 0;//초기화 
                 }
                 
-                if (Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Depth3 == 3  && Managers.ContentInfo.PlayData.Count == 6)
+                if (Managers.ContentInfo.PlayData.Depth3 == 3  && Managers.ContentInfo.PlayData.Count == 6)
                 {
                     Logger.Log($"모든 나사 풀림 (6) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
                     OnStepMissionComplete(animationNumber:6);
@@ -242,10 +170,10 @@ public class DepthC3_SceneController : Base_SceneController
                     _woundCount = 0;
                 }
 
-                if (Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Count == 12)
+                if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 8)
                 {
-                    Logger.Log($"훈련모드모든 나사 조임 (12) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
-                    OnStepMissionComplete(animationNumber: 12);
+                    Logger.Log($"훈련모드 나사 조임 (12) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
+                    OnStepMissionComplete(animationNumber: 8);
                     _woundCount = 0; //초기화 
                 }
             }
@@ -253,8 +181,8 @@ public class DepthC3_SceneController : Base_SceneController
     }
 
 
-    [Range(-200f, 250f)] public float _toolPosXOffset = 0.3f;
-    [Range(-200f, 250f)] public float _toolPosYOffset = -0.3f;
+    [Range(-500, 500f)] public float _toolPosXOffset = 0.3f;
+    [Range(-500f, 500f)] public float _toolPosYOffset = -0.3f;
 
     public void ScrewWoundCountInit()
     {
@@ -263,12 +191,14 @@ public class DepthC3_SceneController : Base_SceneController
     }
     public static readonly int UNWIND = Animator.StringToHash("Unwind");
 
-    public static readonly int TO_SCREW_A = Animator.StringToHash("ScrewA");
-    public static readonly int TO_SCREW_B = Animator.StringToHash("ScrewB");
-    public static readonly int TO_SCREW_C = Animator.StringToHash("ScrewC");
+    public static readonly int TO_SCREW_A = Animator.StringToHash("ToScrewA");
+    public static readonly int TO_SCREW_B = Animator.StringToHash("ToScrewB");
+    public static readonly int TO_SCREW_C = Animator.StringToHash("ToScrewC");
+    public static readonly int TO_SCREW_D = Animator.StringToHash("ToScrewD");
+    public static readonly int TO_LEVER_SCREW = Animator.StringToHash("ToLeverScrew");
+    public static readonly int MULTIMETER_ON = Animator.StringToHash("On");
 
-    public static readonly int PROBE_TO_SCREWB = Animator.StringToHash("On");
-    public static readonly int MULTIMITER_ON = Animator.StringToHash("On");
+
 
     public static readonly int TO_GROUNDING_TERMINAL = Animator.StringToHash("GroundingTerminal");
 
@@ -284,9 +214,11 @@ public class DepthC3_SceneController : Base_SceneController
     {
         var screwCount = 20;
         _screwColliders = new Collider[screwCount];
-        _screwColliders[(int)DepthC2_GameObj.TS_InnerScrewA] = GetObject((int)DepthC2_GameObj.TS_InnerScrewA).GetComponent<Collider>();
-        _screwColliders[(int)DepthC2_GameObj.TS_InnerScrewB] = GetObject((int)DepthC2_GameObj.TS_InnerScrewB).GetComponent<Collider>();
-        _screwColliders[(int)DepthC2_GameObj.TS_InnerScrewC] = GetObject((int)DepthC2_GameObj.TS_InnerScrewC).GetComponent<Collider>();
+        _screwColliders[(int)DepthC1_GameObj.ConnectionScrewA] = GetObject((int)DepthC1_GameObj.ConnectionScrewA).GetComponent<Collider>();
+        _screwColliders[(int)DepthC1_GameObj.ConnectionScrewB] = GetObject((int)DepthC1_GameObj.ConnectionScrewB).GetComponent<Collider>();
+        _screwColliders[(int)DepthC1_GameObj.ConnectionScrewC] = GetObject((int)DepthC1_GameObj.ConnectionScrewC).GetComponent<Collider>();
+        _screwColliders[(int)DepthC1_GameObj.ConnectionScrewD] = GetObject((int)DepthC1_GameObj.ConnectionScrewD).GetComponent<Collider>();
+        _screwColliders[(int)DepthC1_GameObj.LeverScrew] = GetObject((int)DepthC1_GameObj.LeverScrew).GetComponent<Collider>();
     }
     
     
@@ -310,576 +242,349 @@ public class DepthC3_SceneController : Base_SceneController
 
         ScrewWoundCountInit();
     }
-    // ReSharper disable Unity.PerformanceAnalysis
     public override void Init()
     {
-        if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") SetDepthNum(); //개발용
+        if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") 
+            SetDepthNum(); //개발용
 
         base.Init();
-        BindObject(typeof(DepthC2_GameObj));
-        InitializeC2States();
+        BindObject(typeof(DepthC1_GameObj));
+        
+        
+        
+        SetAnimator(DepthC1_GameObj.ConnectionScrewA);
+        SetAnimator(DepthC1_GameObj.ConnectionScrewB);
+        
+        
+        SetDefaultTransform();
+        
+        InitializeC3States();
         GetScrewColliders();
-       
-        contentController.OnDepth2Init(3); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
+        contentController.OnDepth2Init(1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
         
     }
-
     private void LateCommonInit()
     {
         
         ClearTool();
         isAnodePut = false;
-        GetObject((int)DepthC2_GameObj.NewTemperatureSensor).SetActive(false);
-        GetObject((int)DepthC2_GameObj.Pipe_WaterEffect).SetActive(false);
-        GetObject((int)DepthC2_GameObj.WaterDecal).SetActive(false);
-        GetObject((int)DepthC2_GameObj.WaterLeakEffect).SetActive(false);
-        SetWaterDecalStatus(false);
-        SetParticleStatus(false);
         indicator.ShowNothing();
     }
 
 
-
-    public void DepthC21Init()
+    
+    
+    public void DepthC31Init()
     {
-        
-       // Debug.Assert(Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Depth1 == 2);
-        UnBindEventAttatchedObj();
         PreCommonInit();
-        
-      
-        
-        #region 3.2.1 온도센서 점검
-        
-        UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
-        UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
 
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
-        
-        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
-        UI_ToolBox.ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
-     
-        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
-        MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReady;
-
-   
-
-        #region 초기화 및 하이라이트 및 텍스트 바인딩 부분
-
-
+        SetDefaultTransform();
+        BindInteractionEvent();
         InitProbePos();
-      
-        GetObject((int)DepthC2_GameObj.TemperatureSensor).SetActive(true);
-       // StartCoroutine(OnSceneStartCo());
-
-        BindHighlight((int)DepthC2_GameObj.TS_CompensatingWire, "보상전선");
-        BindHighlight((int)DepthC2_GameObj.TS_Stabilizer, "고정자");
-        BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "센서 연결부분 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개");
-        BindHighlight((int)DepthC2_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 체결확인");
-        BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
-        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalA, "A 접지");
-        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "B 접지");
-        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정");
-
-        GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
-        GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
-        GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(false);
-        // BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewD, "나사");
-        // BindAndAddToDictionary((int)DepthC_GameObj.TS_InnerScrewE, "나사");
-
-        #endregion
-
-
-        GetObject((int)DepthC2_GameObj.TS_LockingScrew).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 5)
-            {
-              OnStepMissionComplete((int)DepthC2_GameObj.TS_LockingScrew, 5);
-                
-            }
-            
-            Logger.Log($"잠금 장치 풀림 현재 카운트 {Managers.ContentInfo.PlayData.Depth3}, count: {Managers.ContentInfo.PlayData.Count} --------------------------------------------------------");
-        });
-
-        GetObject((int)DepthC2_GameObj.TS_ConnectionPiping ).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 6)
-            {
-              
-                DOVirtual.DelayedCall(0.8f, () =>
-                {
-                    FadeOutDecal();
-                    SetParticleStatus(false);
-                });
-                
-                
-                OnStepMissionComplete((int)DepthC2_GameObj.TS_ConnectionPiping, 6);
-            }
-            
-        });
-
-        GetObject((int)DepthC2_GameObj.TS_Cover).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
-            if (Managers.ContentInfo.PlayData.Count != 8) return;
-            
-            OnStepMissionComplete((int)DepthC2_GameObj.TS_Cover, 8);
-        });
-
-
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
-            
-            if (Managers.ContentInfo.PlayData.Count != 9) return;
-            OnStepMissionComplete((int)DepthC2_GameObj.TS_InnerScrewA, 9);
-        });
-
-
-        //드라이버 -------------------------------------------------------------------------  
-        SetScrewDriverSection();
-
-
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewA).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
-            
-            if (Managers.ContentInfo.PlayData.Count == 15)
-            {
-                animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
-                animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
-                
-                BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
-                
-                SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
-                SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
-                
-                BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
-
-                DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
-            }
-            
-            if (Managers.ContentInfo.PlayData.Count == 16)
-            {
-                
-                animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
-                animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
-                
-                
-                BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
-                SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB, false);
-                BlinkHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB);
-
-                DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
-            }
-          
-
-        });
-
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
-        {
-            
-                    
-            if (Managers.ContentInfo.PlayData.Count == 15)
-            {
-                if (!isAnodePut) return;
-
-                animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
-                animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
-
-                Action action = multimeterController.OnAllProbeSetOnResistanceMode;
-                OnStepMissionComplete(animationNumber: 15, delayAmount: new WaitForSeconds(4f),
-                    ActionBeforeDelay: action);
-            }
-
-            
-            if (Managers.ContentInfo.PlayData.Count != 16) return;
-
-            SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
-            //CurrentScene.SetHighlightIgnore((int)DepthC_GameObj.TS_GroundingTerminalA,false);
-            BlinkHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB);
-            SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB, false);
-            DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
-            animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
-            animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(TO_GROUNDING_TERMINAL, true);
-            
-        }, Define.UIEvent.PointerDown);
-
+        InitScrews();
        
         
-        // GetObject((int)DepthC2_GameObj.TS_GroundingTerminalA).BindEvent(() =>
-        // {
-        //     
-        // });
+        SetMultimeterSection();
+        SetScrewDriverSection();
+        InitScrewForConductiveCheck();
+        InitProbePos();
+        
+        
+        
+        
+        BindHighlight((int)DepthC3_GameObj.PressureSensor,"압력 센서");
+        BindHighlight((int)DepthC3_GameObj.PressureCalibrator,"압력 교정기");
+        BindHighlight((int)DepthC3_GameObj.ConnectingPipe,"연결부 파이프");
+        BindHighlight((int)DepthC3_GameObj.ConnectingScrew,"연결부 고정 나사");
 
-
-        GetObject((int)DepthC2_GameObj.TS_GroundingTerminalB).BindEvent(() =>
+        
+        
+        BindHighlight((int)DepthC1_GameObj.LeverScrew,"조절 레버");
+        
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewA,"나사");
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"나사");
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewC,"나사");
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewD,"나사");
+        
+        GetObject((int)DepthC1_GameObj.PowerHandle).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Depth3 != 1) return;
-            
-            if (!isAnodePut) return;
-            if (!contentController.isStepMissionPerformable) return;
-            if (Managers.ContentInfo.PlayData.Count != 16) return;
-            contentController.isStepMissionPerformable = false;
-
-            Logger.Log("접지미션 수행 완료");
-
-
-            animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
-            animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(TO_GROUNDING_TERMINAL, true);
-            multimeterController.OnAllProbeSetToGroundingTerminal();
-         
-            OnStepMissionComplete(animationNumber:16, delayAmount: new WaitForSeconds(6f));
+            if (Managers.ContentInfo.PlayData.Count == 3)
+            {
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 3);
+            }
         });
+        
+        
+        GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 4)
+            {
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 4);
+            }
+        });
+        
+        GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 6)
+            {
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 6);
+            }
+        });
+        
+        
 
 
-      
-           
-
-       #endregion
-
-       LateCommonInit();
+        
+        InitTransform(DepthC1_GameObj.LS_Cover);
+        
+        LateCommonInit();
     }
+    
 
     public void InitProbePos()
     {
-        GetObject((int)DepthC2_GameObj.Probe_Anode).gameObject.SetActive(true);
-        GetObject((int)DepthC2_GameObj.Probe_Cathode).gameObject.SetActive(true);
-        GetObject((int)DepthC2_GameObj.Probe_Anode).transform.position = _probeDefaultPos;
-        GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.position = _probeDefaultPos;
-        GetObject((int)DepthC2_GameObj.Probe_Anode).gameObject.SetActive(false);
-        GetObject((int)DepthC2_GameObj.Probe_Cathode).gameObject.SetActive(false);
+        GetObject((int)DepthC1_GameObj.Probe_Anode).gameObject.SetActive(true);
+        GetObject((int)DepthC1_GameObj.Probe_Cathode).gameObject.SetActive(true);
+        
+        GetObject((int)DepthC1_GameObj.Probe_Anode).transform.position = _probeDefaultPos;
+        GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.position = _probeDefaultPos;
+        
+        GetObject((int)DepthC1_GameObj.Probe_Anode).gameObject.SetActive(false);
+        GetObject((int)DepthC1_GameObj.Probe_Cathode).gameObject.SetActive(false);
     }
     protected override void UnBindEventAttatchedObj()
     {
         base.UnBindEventAttatchedObj();
-        UnbindStaticEvents();
+        UnBindInteractionEvent();
     }
-    public void DepthC22Init()
+    public void DepthC12Init()
     {
-        UnBindEventAttatchedObj();
+       
         PreCommonInit();
-        InitProbePos();
-          
-    
-        
-        UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
-        UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
 
-        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
-        UI_ToolBox.ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
+        SetDefaultTransform();
         
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
+        BindInteractionEvent();
+        InitProbePos();
+    
        
         
-        #region 3.2.2 온도센서 고장 유형
-        BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 탈거");
-       // BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "온도센서 수거");
-        BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개 열기");
-        BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "변형된 감온부");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사 체결");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사 체결");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사 체결");
-        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
+        SetMultimeterSection();
         SetScrewDriverSection();
-
-        GetObject((int)DepthC2_GameObj.TS_LockingScrew).BindEvent(() =>
+        
+        BindHighlight((int)DepthC1_GameObj.LS_Cover,"리밋스위치 커버");
+        BindHighlight((int)DepthC1_GameObj.LeverScrew,"조절 레버");
+        BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
+        BindHighlight((int)DepthC1_GameObj.Lever_Handle,"레버 길이 조절");
+        
+        
+        GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
         {
-            Debug.Assert(Managers.ContentInfo.PlayData.Depth3 == 2,$"Depth3 is {Managers.ContentInfo.PlayData.Depth3} but must be 2)");
-            if (Managers.ContentInfo.PlayData.Count != 4) return;
-
-            OnStepMissionComplete( animationNumber:4,delayAmount:new WaitForSeconds(8f));
-            SetHighlightIgnore((int)DepthC2_GameObj.TS_SensingElement, false);
-            BlinkHighlight((int)DepthC2_GameObj.TS_SensingElement);
+            if (Managers.ContentInfo.PlayData.Count == 4)
+            {
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 4);
+            }
         });
         
-        GetObject((int)DepthC2_GameObj.TS_Cover).BindEvent(() =>
+        
+        GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
         {
-            Debug.Assert(Managers.ContentInfo.PlayData.Depth3 == 2,
-                $"Depth3 is {Managers.ContentInfo.PlayData.Depth3} but must be 2)");
-            
-            if (Managers.ContentInfo.PlayData.Count != 8) return;
-
-            OnStepMissionComplete( animationNumber:8,delayAmount:new WaitForSeconds(4f));
+            if (Managers.ContentInfo.PlayData.Count == 11)
+            {
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 11);
+            }
         });
 
-       
         
+        InitTransform(DepthC1_GameObj.LS_Cover);
         
-        
-
-        #endregion
         LateCommonInit();
     }
 
-    
-    
-    public void DepthC23Init()
+
+
+    protected override void PreCommonInit()
+    {
+        base.PreCommonInit();
+        C1_PreCommonObjInit();
+        UnBindEventAttatchedObj();
+    }
+    private void C1_PreCommonObjInit()
+    {
+        GetObject((int)DepthC1_GameObj.ConveyorCube).SetActive(false);
+        GetObject((int)DepthC1_GameObj.NewLimitSwitch).SetActive(false);
+        GetObject((int)DepthC1_GameObj.LS_Cover).SetActive(true);
+       
+    }
+
+    public void DepthC11Init()
     {
       
         PreCommonInit();
-        UnBindEventAttatchedObj();
+        
+       
+       
+        SetMultimeterSection();
+        SetScrewDriverSection();
+        InitScrewForConductiveCheck();
         InitProbePos();
         
-        BindHighlight((int)DepthC2_GameObj.TS_CompensatingWire, "보상전선");
-        BindHighlight((int)DepthC2_GameObj.TS_Stabilizer, "고정자");
-        BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "센서 연결부분 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개");
-        BindHighlight((int)DepthC2_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 체결확인");
-        BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
-        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalA, "A 접지");
-        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "B 접지");
-        BindHighlight((int)DepthC2_GameObj.PowerHandle, "전원 끄기");
-        BindHighlight((int)DepthC2_GameObj.NewTemperatureSensor, "새 온도센서");
-        BindHighlight((int)DepthC2_GameObj.TankValve, "밸브");
-        BindHighlight((int)DepthC2_GameObj.TemperatureSensor, "교체 할 센서");
-        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
+        SetDefaultTransform();
+        BindInteractionEvent();
         
-#region 3.2.3 온도 센서 정비 (추가부분)
-        UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
-        UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
 
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
         
-        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
-        UI_ToolBox.ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
-
-        UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
-        UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
         
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
-        
-        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
-        MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReady;
-        
-        ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
-        ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
-        
-     
-
-       
-        //드라이버 -------------------------------------------------------------------------  
-        SetScrewDriverSection(false);
-     
-        GetObject((int)DepthC2_GameObj.TankValve).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Count != 4) return;
-
-            Logger.Log("벨브 잠금 및 유체 차단 애니메이션 재생 -----------------");
-            OnStepMissionComplete(animationNumber: 4,delayAmount: new WaitForSeconds(4.5f));
-        });
-
-        GetObject((int)DepthC2_GameObj.TS_Cover).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Count != 5)
-            {
-                Logger.Log("현재 커버관련 재생불가");
-                return;
-            }
-            OnStepMissionComplete(animationNumber: 5,delayAmount: new WaitForSeconds(2.5f));
-        });
-        
-        GetObject((int)DepthC2_GameObj.TemperatureSensor).BindEvent(() =>
-        {
-            Logger.Log("온도센서 교체 관련 클릭-----------------------");
-
-            if (Managers.ContentInfo.PlayData.Count != 7) return;
+        BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
+        BindHighlight((int)DepthC1_GameObj.ConductiveCheckModeBtn,"통전모드 전환 버튼");
+        BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
+        BindHighlight((int)DepthC1_GameObj.MultimeterHandleHighlight,"저항측정 모드로 설정");
             
-            OnStepMissionComplete(animationNumber:7,delayAmount:new WaitForSeconds(6f));
+        GetObject((int)DepthC1_GameObj.Lever_Handle).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 6)
+            {
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.Lever_Handle, 6);
+            }
         });
         
-        // GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
-        // {
-        //     
-        // });
-#endregion
-
- #region 321과 중복부분 (다른이벤트 설정필요)
-
-       
-        GetObject((int)DepthC2_GameObj.TemperatureSensor).SetActive(true);
-        StartCoroutine(OnSceneStartCo());
-
         
+        BindHighlight((int)DepthC1_GameObj.LS_Cover,"리밋스위치 커버");
+                
+        GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 9)
+            {
+                Logger.Log("MissionComplete limitswitch");
+                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 9);
+            }
+        });
 
-        GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
-        GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
-        GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(false);
 
-        //
-        //
-        // GetObject((int)DepthC2_GameObj.TS_ConnectionPiping).BindEvent(() =>
-        // {
-        //    
-        // });
-
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewA,"접속나사 확인");
+        
+        GetObject((int)DepthC1_GameObj.ConnectionScrewA).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 10)
+            {
+                Logger.Log("MissionComplete limitswitch");
       
-        
-       
-     
-    
-        //C23-----------------------------------
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewA).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Depth3 != 3) return;
-            
-            if (Managers.ContentInfo.PlayData.Count == 10)
-            {
-                
-                BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
-                SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
-                BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
-                
-                animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
-                animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
-
-                DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
-            }
-            
-
-            if (Managers.ContentInfo.PlayData.Depth3 != 3) return;
-            if (Managers.ContentInfo.PlayData.Count != 11) return;
-            
-            BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
-            
-            SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
-            SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB, false);
-            
-            BlinkHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB);
-            
-            animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
-            animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(TO_GROUNDING_TERMINAL, true);
-
-            DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
-            
-            
-
-        }, Define.UIEvent.PointerDown);
-       
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Count == 10)
-            {
-                if (!isAnodePut) return;
-               
-         
-                
-                animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
-                animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
-
-                Action action = multimeterController.OnAllProbeSetOnResistanceMode;
-                OnStepMissionComplete(animationNumber:10, delayAmount: new WaitForSeconds(6f),
-                    ActionBeforeDelay: action);
+                OnStepMissionComplete((int)DepthC1_GameObj.ConnectionScrewA, 10);
             }
         });
-
-        GetObject((int)DepthC2_GameObj.TS_GroundingTerminalA).BindEvent(() =>
-        {
-          
-        });
-
-
-        GetObject((int)DepthC2_GameObj.TS_GroundingTerminalB).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Depth3 != 3) return;
-            if (Managers.ContentInfo.PlayData.Count != 11) return;
-            if (!isAnodePut) return;
-            if (!contentController.isStepMissionPerformable) return;
-          
-            Logger.Log("접지미션 수행 완료");
-            contentController.isStepMissionPerformable = false;
-
-            animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = true;
-            animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(TO_GROUNDING_TERMINAL, true);
-            multimeterController.OnAllProbeSetToGroundingTerminal();
-         
-            OnStepMissionComplete(animationNumber:11, delayAmount: new WaitForSeconds(6f));
-        });
         
-#endregion
- 
-
-       
+        GetObject((int)DepthC1_GameObj.ConductiveCheckModeBtn).BindEvent(() =>
+        {
+            Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/MultermeterConductiveModeClick");
+            Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/beep_01");
+            multimeterController.isConductive = !multimeterController.isConductive;
+            if (Managers.ContentInfo.PlayData.Count == 15)
+            {
+                Logger.Log("통전버튼 전환미션 완료");
+                OnStepMissionComplete((int)DepthC1_GameObj.ConductiveCheckModeBtn, 15);
+            }
+        });
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속나사");
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewC,"접속나사");
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewD,"접속나사");
+        
+        
+        
         LateCommonInit();
-    
-
-
+        
     }
     
-    protected virtual void OnResistanceReady()
-    {
-      
-        
-        if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 9)
-            OnStepMissionComplete(animationNumber:9, delayAmount: new WaitForSeconds(1f));
-        
-        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 14)
-            OnStepMissionComplete(animationNumber:14, delayAmount: new WaitForSeconds(1f));
-    }
+
     
     protected virtual void OnUI_Btn_TemperatureSensorClicked()
     {
-        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5 )
-        {
-            OnStepMissionComplete( animationNumber:5,delayAmount:new WaitForSeconds(12.9f));
-            indicator.ShowTemperature(7.5f);
-            return;
-        }
-
-
-        if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 2)
-        {
-            OnStepMissionComplete( animationNumber:2,delayAmount:new WaitForSeconds(3.8f));
-        }
         
     }
 
     protected virtual void PowerOnOff(bool isOn)
     {
-        if (Managers.ContentInfo.PlayData.Count == 3)
-        {
-            if(!isOn) OnStepMissionComplete(animationNumber:3);
-        }
-       
-      
     
-        if (Managers.ContentInfo.PlayData.Count == 13)
-        {
-            if(isOn) OnStepMissionComplete(animationNumber:13);
-        }
     }
 
+    private void BindInteractionEvent()
+    {
+        
+        ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
+                
+        
+        UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
+        UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
 
+        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
+        
+        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
+        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
+        
+        UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
+        UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
+        
+        
+        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceModeSet;
+        MultimeterController.OnResistanceMeasureReadyAction += OnResistanceModeSet;
 
-    protected  virtual void UnbindStaticEvents()
+        MultimeterController.OnConductiveModeReady -= OnConductiveModeSet;
+        MultimeterController.OnConductiveModeReady += OnConductiveModeSet;
+        
+       UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchClicked;
+       UI_ToolBox.LimitSwitchSensorClickedEvent += OnLimitSwitchClicked;
+
+        C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
+        C1_LimitSwitchPivotController.OnTargetPosArrive += OnTargetPosArrive;
+    }
+
+    private void OnTargetPosArrive()
+    {
+        if (Managers.ContentInfo.PlayData.Depth3 == 2 &&Managers.ContentInfo.PlayData.Count == 8)
+        {
+            OnStepMissionComplete(animationNumber:8);
+        }
+        
+        if (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 7)
+        {
+            OnStepMissionComplete(animationNumber:7);
+        }
+    }
+    protected  virtual void UnBindInteractionEvent()
     {
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
+        
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
-        UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
+     //   UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
+       
+        UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchClicked;
+       
         UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
-        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
+        C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
+        MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceModeSet;
+        MultimeterController.OnConductiveModeReady -= OnConductiveModeSet;
         
     }
 
+    private void OnLimitSwitchClicked()
+    {
+        if (Managers.ContentInfo.PlayData.Count == 2)
+        {
+            OnStepMissionComplete(animationNumber:2);
+        }
+    }
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        UnbindStaticEvents();
+        UnBindInteractionEvent();
     }
 
     /// <summary>
@@ -889,186 +594,235 @@ public class DepthC3_SceneController : Base_SceneController
     /// </summary>
     public void SetScrewDriverSection(bool isWind = false)
     {
-        multimeterController = GetObject((int)DepthC2_GameObj.Multimeter).GetComponent<MultimeterController>();
         
         currentScrewGaugeStatus = new Dictionary<int, float>();
         
         
-        currentScrewGaugeStatus.TryAdd((int)DepthC2_GameObj.TS_InnerScrewA, 0);
-        currentScrewGaugeStatus.TryAdd((int)DepthC2_GameObj.TS_InnerScrewB, 0);
-        currentScrewGaugeStatus.TryAdd((int)DepthC2_GameObj.TS_InnerScrewC, 0);
+        currentScrewGaugeStatus.TryAdd((int)DepthC1_GameObj.ConnectionScrewA, 0);
+        currentScrewGaugeStatus.TryAdd((int)DepthC1_GameObj.ConnectionScrewB, 0);
+        currentScrewGaugeStatus.TryAdd((int)DepthC1_GameObj.ConnectionScrewC, 0);
+        currentScrewGaugeStatus.TryAdd((int)DepthC1_GameObj.ConnectionScrewD, 0);
+        currentScrewGaugeStatus.TryAdd((int)DepthC1_GameObj.LeverScrew, 0);
 
+        animatorMap.TryAdd((int)DepthC1_GameObj.ElectricScrewdriver,
+            GetObject((int)DepthC1_GameObj.ElectricScrewdriver).GetComponent<Animator>());
 
-        // State 중간에 초기화 하는경우를 위해 아래와같이 초기화 로직을 추가해줍니다. 
-        isScrewWindMap = new Dictionary<int, bool>();
+        animatorMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewA,
+            GetObject((int)DepthC1_GameObj.ConnectionScrewA).GetComponent<Animator>());
+        animatorMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewB,
+            GetObject((int)DepthC1_GameObj.ConnectionScrewB).GetComponent<Animator>());
+        animatorMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewC,
+            GetObject((int)DepthC1_GameObj.ConnectionScrewC).GetComponent<Animator>());
+        animatorMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewD,
+            GetObject((int)DepthC1_GameObj.ConnectionScrewD).GetComponent<Animator>());
+        animatorMap.TryAdd((int)DepthC1_GameObj.LeverScrew,
+            GetObject((int)DepthC1_GameObj.LeverScrew).GetComponent<Animator>());
+        
 
-        isScrewWindMap.TryAdd((int)DepthC2_GameObj.TS_InnerScrewA, false);
-        isScrewWindMap.TryAdd((int)DepthC2_GameObj.TS_InnerScrewB, false);
-        isScrewWindMap.TryAdd((int)DepthC2_GameObj.TS_InnerScrewC, false);
-
-
-        isScrewUnwindMap = new Dictionary<int, bool>();
-
-        isScrewUnwindMap.TryAdd((int)DepthC2_GameObj.TS_InnerScrewA, false);
-        isScrewUnwindMap.TryAdd((int)DepthC2_GameObj.TS_InnerScrewB, false);
-        isScrewUnwindMap.TryAdd((int)DepthC2_GameObj.TS_InnerScrewC, false);
-
-
-        animatorMap.TryAdd((int)DepthC2_GameObj.TS_InnerScrewA,
-            GetObject((int)DepthC2_GameObj.TS_InnerScrewA).GetComponent<Animator>());
-        animatorMap.TryAdd((int)DepthC2_GameObj.TS_InnerScrewB,
-            GetObject((int)DepthC2_GameObj.TS_InnerScrewB).GetComponent<Animator>());
-        animatorMap.TryAdd((int)DepthC2_GameObj.TS_InnerScrewC,
-            GetObject((int)DepthC2_GameObj.TS_InnerScrewC).GetComponent<Animator>());
-
-
-        animatorMap.TryAdd((int)DepthC2_GameObj.ElectricScrewdriver,
-            GetObject((int)DepthC2_GameObj.ElectricScrewdriver).GetComponent<Animator>());
-
-        animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = false;
-
-
-        animatorMap.TryAdd((int)DepthC2_GameObj.Multimeter,
-            GetObject((int)DepthC2_GameObj.Multimeter).GetComponent<Animator>());
-
-     
-
-
-        animatorMap.TryAdd((int)DepthC2_GameObj.Probe_Anode,
-            GetObject((int)DepthC2_GameObj.Probe_Anode).GetComponent<Animator>());
-        animatorMap.TryAdd((int)DepthC2_GameObj.Probe_Cathode,
-            GetObject((int)DepthC2_GameObj.Probe_Cathode).GetComponent<Animator>());
-
-        animatorMap[(int)DepthC2_GameObj.Multimeter].enabled = true;
-        animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = false;
-        animatorMap[(int)DepthC2_GameObj.Probe_Cathode].enabled = false;
-
-        animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = false;
 
         #region 나사 풀기 애니메이션관련
 
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewA)
+        GetObject((int)DepthC1_GameObj.ConnectionScrewA)
             .BindEvent(() =>
             {
-               animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = true;
-               animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = false;
+               animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = true;
+               animatorMap[(int)DepthC1_GameObj.ConnectionScrewA].enabled = false;
                 if (isWindSession)
                 {
-                    UpdateDriverSliderWind((int)DepthC2_GameObj.TS_InnerScrewA);
+                    UpdateDriverSliderWind((int)DepthC1_GameObj.ConnectionScrewA);
                 }
                 else
                 {
-                    UpdateDriverSliderUnwind((int)DepthC2_GameObj.TS_InnerScrewA);
+                    UpdateDriverSliderUnwind((int)DepthC1_GameObj.ConnectionScrewA);
                 }
                 
-                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_A, true);
+                animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_A, true);
             }, Define.UIEvent.Pressed);
 
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewB)
+        GetObject((int)DepthC1_GameObj.ConnectionScrewB)
             .BindEvent(() =>
             {
-                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = true;
-                animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = false;
+                animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = true;
+                animatorMap[(int)DepthC1_GameObj.ConnectionScrewB].enabled = false;
                 if (isWindSession)
                 {
-                    UpdateDriverSliderWind((int)DepthC2_GameObj.TS_InnerScrewB);
+                    UpdateDriverSliderWind((int)DepthC1_GameObj.ConnectionScrewB);
                 }
                 else
                 {
-                    UpdateDriverSliderUnwind((int)DepthC2_GameObj.TS_InnerScrewB);
+                    UpdateDriverSliderUnwind((int)DepthC1_GameObj.ConnectionScrewB);
                 }
                 
-                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, true);
+                animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, true);
             }, Define.UIEvent.Pressed);
 
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewC)
+        GetObject((int)DepthC1_GameObj.ConnectionScrewC)
             .BindEvent(() =>
             {
-                animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = false;
-                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = true;
+                animatorMap[(int)DepthC1_GameObj.ConnectionScrewC].enabled = false;
+                animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = true;
                 
                 if (isWindSession)
                 {
-                    UpdateDriverSliderWind((int)DepthC2_GameObj.TS_InnerScrewC);
+                    UpdateDriverSliderWind((int)DepthC1_GameObj.ConnectionScrewC);
                 }
                 else
                 {
-                    UpdateDriverSliderUnwind((int)DepthC2_GameObj.TS_InnerScrewC);
+                    UpdateDriverSliderUnwind((int)DepthC1_GameObj.ConnectionScrewC);
                 }
                 
-                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_C, true);
+                animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_C, true);
+            }, Define.UIEvent.Pressed);
+
+        GetObject((int)DepthC1_GameObj.ConnectionScrewD)
+            .BindEvent(() =>
+            {
+                animatorMap[(int)DepthC1_GameObj.ConnectionScrewD].enabled = false;
+                animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = true;
+                
+                if (isWindSession)
+                {
+                    UpdateDriverSliderWind((int)DepthC1_GameObj.ConnectionScrewD);
+                }
+                else
+                {
+                    UpdateDriverSliderUnwind((int)DepthC1_GameObj.ConnectionScrewD);
+                }
+                
+                animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_D, true);
+            }, Define.UIEvent.Pressed);
+
+        
+        GetObject((int)DepthC1_GameObj.LeverScrew)
+            .BindEvent(() =>
+            {
+                animatorMap[(int)DepthC1_GameObj.LeverScrew].enabled = false;
+                animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = true;
+                
+                if (isWindSession)
+                {
+                    UpdateDriverSliderWind((int)DepthC1_GameObj.LeverScrew);
+                }
+                else
+                {
+                    UpdateDriverSliderUnwind((int)DepthC1_GameObj.LeverScrew);
+                }
+                
+                animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_LEVER_SCREW, true);
             }, Define.UIEvent.Pressed);
 
 
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewA).BindEvent(() =>
+        
+        
+        
+        GetObject((int)DepthC1_GameObj.ConnectionScrewA).BindEvent(() =>
         {
             OnScrewClickDown();
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Play(TO_SCREW_A, 0, 0);
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Update(0);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Play(TO_SCREW_A, 0, 0);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Update(0);
 
            // animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(UNWIND, true);
 
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_A, true);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_A, true);
         }, Define.UIEvent.PointerDown);
 
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
+        GetObject((int)DepthC1_GameObj.ConnectionScrewB).BindEvent(() =>
         {
             OnScrewClickDown();
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Play(TO_SCREW_B, 0, 0);
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Update(0);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Play(TO_SCREW_B, 0, 0);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Update(0);
 
             //animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(UNWIND, true);
 
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, true);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, true);
         }, Define.UIEvent.PointerDown);
 
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewC).BindEvent(() =>
+        GetObject((int)DepthC1_GameObj.ConnectionScrewC).BindEvent(() =>
         {
             OnScrewClickDown();
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Play(TO_SCREW_C, 0, 0);
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Update(0);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Play(TO_SCREW_C, 0, 0);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Update(0);
 
          
          //   animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(UNWIND, true);
 
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_C, true);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_C, true);
         }, Define.UIEvent.PointerDown);
 
+        
+        
+        GetObject((int)DepthC1_GameObj.ConnectionScrewD).BindEvent(() =>
+        {
+            OnScrewClickDown();
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Play(TO_SCREW_D, 0, 0);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Update(0);
+
+         
+            //   animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(UNWIND, true);
+
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_D, true);
+        }, Define.UIEvent.PointerDown);
+        
+                
+        GetObject((int)DepthC1_GameObj.LeverScrew).BindEvent(() =>
+        {
+            OnScrewClickDown();
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Play(TO_LEVER_SCREW, 0, 0);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].Update(0);
+
+         
+            //   animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(UNWIND, true);
+
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_LEVER_SCREW, true);
+        }, Define.UIEvent.PointerDown);
+
+        
         #endregion
 
 
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewA).BindEvent(() =>
+        GetObject((int)DepthC1_GameObj.ConnectionScrewA).BindEvent(() =>
         {
             OnScrewClickUp();
-            animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = false;
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_A, false);
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = false;
+            animatorMap[(int)DepthC1_GameObj.ConnectionScrewA].enabled = false;
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_A, false);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = false;
         });
 
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
+        GetObject((int)DepthC1_GameObj.ConnectionScrewB).BindEvent(() =>
         {
             OnScrewClickUp();
-            animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = false;
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, false);
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = false;
+            animatorMap[(int)DepthC1_GameObj.ConnectionScrewB].enabled = false;
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, false);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = false;
         });
 
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewC).BindEvent(() =>
+        GetObject((int)DepthC1_GameObj.ConnectionScrewC).BindEvent(() =>
         {
             OnScrewClickUp();
-            animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = false;
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_C, false);
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = false;
+            animatorMap[(int)DepthC1_GameObj.ConnectionScrewC].enabled = false;
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_C, false);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = false;
         });
-
-
-
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
+        
+        GetObject((int)DepthC1_GameObj.ConnectionScrewD).BindEvent(() =>
         {
-            // OnScrewClickUp();
-            // _animatorMap[(int)DepthC_GameObj.Probe_Anode].SetBool(ON, true);
-            // _animatorMap[(int)DepthC_GameObj.Probe_Cathode].SetBool(ON, true);
+            OnScrewClickUp();
+            animatorMap[(int)DepthC1_GameObj.ConnectionScrewD].enabled = false;
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_D, false);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = false;
         });
+
+                
+        GetObject((int)DepthC1_GameObj.LeverScrew).BindEvent(() =>
+        {
+            OnScrewClickUp();
+            animatorMap[(int)DepthC1_GameObj.LeverScrew].enabled = false;
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].SetBool(TO_LEVER_SCREW, false);
+            animatorMap[(int)DepthC1_GameObj.ElectricScrewdriver].enabled = false;
+        });
+
+
 
         InitializeTool();
 
@@ -1076,17 +830,139 @@ public class DepthC3_SceneController : Base_SceneController
 
     }
 
+    private void SetMultimeterSection()
+    {
+        multimeterController = GetObject((int)DepthC1_GameObj.Multimeter).GetComponent<MultimeterController>();
+ 
+
+        animatorMap.TryAdd((int)DepthC1_GameObj.Multimeter,
+            GetObject((int)DepthC1_GameObj.Multimeter).GetComponent<Animator>());
+
+        animatorMap.TryAdd((int)DepthC1_GameObj.Probe_Anode,
+            GetObject((int)DepthC1_GameObj.Probe_Anode).GetComponent<Animator>());
+        animatorMap.TryAdd((int)DepthC1_GameObj.Probe_Cathode,
+            GetObject((int)DepthC1_GameObj.Probe_Cathode).GetComponent<Animator>());
+
+        animatorMap[(int)DepthC1_GameObj.Multimeter].enabled = true;
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = false;
+    }
     protected virtual void OnToolBoxClicked()
     {
-        if (Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 11 )
-        {
-        Logger.Log("Toolbox Click event : 툴박스 클릭 이벤트 10 ------------------");
-            OnStepMissionComplete(animationNumber: 11);
-        }
+      
     }
+    
+    private void InitScrewForConductiveCheck()
+    {
+        GetObject((int)DepthC1_GameObj.ConnectionScrewA).BindEvent(() =>
+        {
+          
+            
+            if((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 16)||
+               (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 12))
+            {
+                animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = true;
+                animatorMap[(int)DepthC1_GameObj.Probe_Anode].SetBool(TO_SCREW_A, true);
+                
+                ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewB, "측정단자 B");
+                
+                SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA);
+                SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB, false);
+                
+                BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewB);
+
+                DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
+            }
+            
+           
+
+        });
+     
+        GetObject((int)DepthC1_GameObj.ConnectionScrewB).BindEvent(() =>
+        {
+            
+                    
+            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 16)||
+                (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 12))
+            {
+                
+                if (!isAnodePut) return;
+
+                Logger.Log("Probe Set == 16");
+                animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = true;
+                animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(TO_SCREW_B, true);
+
+                Action action = multimeterController.OnAllProbeSetOnResistanceMode;
+                         if (Managers.ContentInfo.PlayData.Count == 16)
+                {
+                    OnStepMissionComplete(animationNumber: 16, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                }
+                else if (Managers.ContentInfo.PlayData.Count == 11)
+                {
+                    OnStepMissionComplete(animationNumber: 12, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                }
+                
+            }
+            
+        }, Define.UIEvent.PointerDown);
 
 
+        
+        
+        GetObject((int)DepthC1_GameObj.ConnectionScrewC).BindEvent(() =>
+        {
+            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 17)||
+                (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 13))
+            {
 
+                animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = true;
+                animatorMap[(int)DepthC1_GameObj.Probe_Anode].SetBool(TO_SCREW_C, true);
+
+                DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() =>
+                {
+                                    
+                    ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewD, "측정단자 D");
+                    SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD, false);
+                    BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewD);
+
+                    isAnodePut = true;
+                });
+            }
+
+        });
+        
+        
+        GetObject((int)DepthC1_GameObj.ConnectionScrewD).BindEvent(() =>
+        {
+            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 17)||
+                (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 13))
+            {
+
+                animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = true;
+                animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(TO_SCREW_D, true);
+                Action action = multimeterController.OnAllProbeSetOnConductiveCheckMode;
+
+
+                if (Managers.ContentInfo.PlayData.Count == 12)
+                {
+                    OnStepMissionComplete(animationNumber: 12, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                }
+                else if (Managers.ContentInfo.PlayData.Count == 17)
+                {
+                    OnStepMissionComplete(animationNumber: 17, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                }
+                
+               
+
+             
+                
+                SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD);
+
+                DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
+            }
+
+        });
+    }
 
     private float _gaugeDelay = 1.05f;
     private float _pressedTime;
@@ -1102,7 +978,7 @@ public class DepthC3_SceneController : Base_SceneController
         {
             DOVirtual.DelayedCall(0.5f, () =>
             {
-                if (CurrentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver) Managers.Sound.Play(SoundManager.Sound.Effect, "Object/ElectronicDriver", 0.4f);
+                if (CurrentActiveTool == (int)DepthC1_GameObj.ElectricScrewdriver) Managers.Sound.Play(SoundManager.Sound.Effect, "Object/ElectronicDriver", 0.4f);
             });
         });
 
@@ -1126,6 +1002,7 @@ public class DepthC3_SceneController : Base_SceneController
     }
 
     public bool isWindSession = false;
+    public bool isLeverScrewUnwound { get;  set; }
     protected void UpdateDriverSliderUnwind(int screwID)
     {
 
@@ -1148,8 +1025,8 @@ public class DepthC3_SceneController : Base_SceneController
         if (_gaugeDelay > _pressedTime) return;
 
 
-        if (objectHighlightMap[(int)DepthC2_GameObj.TS_InnerScrewC].ignore) return;
-        if (CurrentActiveTool != (int)DepthC2_GameObj.ElectricScrewdriver)
+        if (objectHighlightMap[(int)DepthC1_GameObj.ConnectionScrewC].ignore) return;
+        if (CurrentActiveTool != (int)DepthC1_GameObj.ElectricScrewdriver)
         {
             Logger.Log("inadequate tool selected. XXXXXX");
             return;
@@ -1179,9 +1056,15 @@ public class DepthC3_SceneController : Base_SceneController
 
             if (contentController.UI_DrverOnly_GaugeSlider.value > 0.8f)
             {
+           
                 
                 animatorMap[screwID].Play("UnScrew", 0, 1);
                 isScrewUnwindMap[screwID] = true;
+                
+                if (screwID == (int)DepthC1_GameObj.LeverScrew)
+                {
+                    OnLeverScrewUnWound();
+                }
                 animatorMap[screwID].enabled = false;
                 unwoundCount++;
                 TurnOffCollider(screwID);
@@ -1193,12 +1076,28 @@ public class DepthC3_SceneController : Base_SceneController
         }
     }
 
-    private bool CheckDriverUsability()
+    
+    /// <summary>
+    /// 1. 레버Screw를 풀어야만 동작이 가능합니다. 
+    /// </summary>
+    private void OnLeverScrewUnWound()
     {
-        if (((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 12) ||
+        isLeverScrewUnwound = true;
+        Logger.Log("레버나사 풀림 ->컨트롤가능");
+        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 7  )
+        {
+            OnStepMissionComplete(animationNumber:7);
+        }
+    }
+    private bool  CheckDriverUsability()
+    {
+        if (((Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 7) ||
               (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)||
-              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12) ||
+              
+              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 5) ||
+              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 7) ||
+              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 8) ||
+              
               (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 6)||
               (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 10)))
         {
@@ -1206,7 +1105,7 @@ public class DepthC3_SceneController : Base_SceneController
         }
         else
         {
-            Logger.Log("Driver is not usable fn ------------------");
+            Logger.Log("Driver is not usable in this step ------------------");
             return false;
         }
     }
@@ -1236,8 +1135,8 @@ public class DepthC3_SceneController : Base_SceneController
         if (_gaugeDelay > _pressedTime) return;
 
 
-        if (objectHighlightMap[(int)DepthC2_GameObj.TS_InnerScrewC].ignore) return;
-        if (CurrentActiveTool != (int)DepthC2_GameObj.ElectricScrewdriver)
+        if (objectHighlightMap[(int)DepthC1_GameObj.ConnectionScrewC].ignore) return;
+        if (CurrentActiveTool != (int)DepthC1_GameObj.ElectricScrewdriver)
         {
             Logger.Log("inadequate tool selected. XXXXXX");
             return;
@@ -1288,10 +1187,7 @@ public class DepthC3_SceneController : Base_SceneController
     
   
 
-    private void OnMissionFinish()
-    {
-        SetHighlightIgnore((int)DepthC2_GameObj.TS_LockingScrew);
-    }
+
 
     public bool _isDriverOn;
 
@@ -1307,11 +1203,11 @@ public class DepthC3_SceneController : Base_SceneController
         {
             
             _isMultimeterOn = value;
-            animatorMap[(int)DepthC2_GameObj.Multimeter].SetBool(MULTIMITER_ON, isMultimeterOn);
+            animatorMap[(int)DepthC1_GameObj.Multimeter].SetBool(MULTIMETER_ON, isMultimeterOn);
             if (!_isMultimeterOn)
             {
-                GetObject((int)DepthC2_GameObj.Probe_Cathode)?.SetActive(false);
-                GetObject((int)DepthC2_GameObj.Probe_Anode)?.SetActive(false);
+                GetObject((int)DepthC1_GameObj.Probe_Cathode)?.SetActive(false);
+                GetObject((int)DepthC1_GameObj.Probe_Anode)?.SetActive(false);
                 multimeterController.SetMeasureGuideStatus(false);
             }
 
@@ -1329,11 +1225,11 @@ public class DepthC3_SceneController : Base_SceneController
             _isDriverOn = value;
 
             if (_isDriverOn)
-                CurrentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
+                CurrentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
             else
             {
                 CurrentActiveTool = NO_TOOL_SELECTED;
-                GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(false);
+                GetObject((int)DepthC1_GameObj.ElectricScrewdriver).SetActive(false);
             }
         }
     }
@@ -1357,35 +1253,52 @@ public class DepthC3_SceneController : Base_SceneController
             distanceFromCamera));
 
 
-        if (isDriverOn && CurrentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver)
+        if (isDriverOn && CurrentActiveTool == (int)DepthC1_GameObj.ElectricScrewdriver)
         {
-
-            GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(isDriverOn);
-            GetObject((int)DepthC2_GameObj.ElectricScrewdriver).transform.position = mousePosition;
+            GetObject((int)DepthC1_GameObj.ElectricScrewdriver).SetActive(isDriverOn);
+            GetObject((int)DepthC1_GameObj.ElectricScrewdriver).transform.position = mousePosition;
         }
-        else if (isMultimeterOn && CurrentActiveTool == (int)DepthC2_GameObj.Multimeter && multimeterController.isResistanceMode)
+
+        else if (isMultimeterOn && CurrentActiveTool == (int)DepthC1_GameObj.Multimeter &&
+                 multimeterController.isResistanceMode && multimeterController.isConductive)
         {
-            GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
-            GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(isMultimeterOn);
-        
-            if ((Managers.ContentInfo.PlayData.Count >= 13 && !isAnodePut) 
-                ||(Managers.ContentInfo.PlayData.Depth3 ==3 && Managers.ContentInfo.PlayData.Count>=9 &&!isAnodePut))
+            GetObject((int)DepthC1_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
+            GetObject((int)DepthC1_GameObj.Probe_Anode).SetActive(isMultimeterOn);
+
+            if ((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 16 &&
+                 !isAnodePut)
+                || (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 17 &&
+                    !isAnodePut)
+                || (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12 &&
+                    !isAnodePut)
+                || (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 13 &&
+                    !isAnodePut)
+                )
             {
-                GetObject((int)DepthC2_GameObj.Probe_Anode).transform.rotation =
-                    defaultRotationMap[(int)DepthC2_GameObj.Probe_Anode];
-                
-                GetObject((int)DepthC2_GameObj.Probe_Anode).transform.position = mousePosition;
+                GetObject((int)DepthC1_GameObj.Probe_Anode).transform.rotation =
+                    defaultRotationMap[(int)DepthC1_GameObj.Probe_Anode];
+
+                GetObject((int)DepthC1_GameObj.Probe_Anode).transform.position = mousePosition;
             }
 
-            if ((Managers.ContentInfo.PlayData.Count >= 13 && isAnodePut)
-                ||(Managers.ContentInfo.PlayData.Depth3 ==3 && Managers.ContentInfo.PlayData.Count>=9 &&isAnodePut))
+            if
+                ((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 16 &&
+                  isAnodePut)
+                 || (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 17 &&
+                     isAnodePut)
+                 || (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12 &&
+                     isAnodePut)
+                 || (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 13 &&
+                     isAnodePut)
+                 )
             {
-                GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.rotation =
-                    defaultRotationMap[(int)DepthC2_GameObj.Probe_Cathode];
-                
-                GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.position = mousePosition;
-            }
+                GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation =
+                    defaultRotationMap[(int)DepthC1_GameObj.Probe_Cathode];
 
+                GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.position = mousePosition;
+                
+           
+            }
         }
       
 
@@ -1406,65 +1319,194 @@ public class DepthC3_SceneController : Base_SceneController
         InitializeTool();
         
         
+        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5)
+        {
+            OnStepMissionComplete(animationNumber:5);
+        }
+
         
-        
-        CurrentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
+        CurrentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
 
         isDriverOn = !isDriverOn;
         if (isDriverOn == false) CurrentActiveTool = -1;
 
-        ToggleActiveState(GetObject((int)DepthC2_GameObj.ElectricScrewdriver), isDriverOn);
-
-       
+        ToggleActiveState(GetObject((int)DepthC1_GameObj.ElectricScrewdriver), isDriverOn);
+        Logger.Log($"Electronic Screw Driver btn Clicked -------is driver on? : {isDriverOn}");
         
-        
-        
-        Logger.Log($"is driver on? : {isDriverOn}");
-
-        if (Managers.ContentInfo.PlayData.Count == 9 && Managers.ContentInfo.PlayData.Depth3 == 2)
-        {
-            OnStepMissionComplete(animationNumber:9);
-        }
     }
     
     
 
     protected virtual void OnUI_MultimeterBtnClicked()
     {
-        if (Managers.ContentInfo.PlayData.Depth2 != 2) return;
-        
-        
+      
         InitializeTool();
-     
-        CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        CurrentActiveTool = (int)DepthC1_GameObj.Multimeter;
         isMultimeterOn = !isMultimeterOn;
 
         if (isMultimeterOn == false) CurrentActiveTool = -1;
-
-
         
-        // ToggleActiveState(GetObject((int)DepthC_GameObj.Multimeter), _isMultimeterOn);
-
         Logger.Log($"is Multimeter on? : {isMultimeterOn}");
 
-        if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 8)
-        {
-            OnStepMissionComplete(animationNumber:8);
-        }
-        
-        
         if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 13)
         {
             OnStepMissionComplete(animationNumber:13);
         }
+        
+        if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 9)
+        {
+            OnStepMissionComplete(animationNumber:9);
+        }
+        
+
+    }
+    
+    protected virtual void OnResistanceModeSet()
+    {
+      
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 14)
+        {
+            OnStepMissionComplete(animationNumber:14);
+        }
+        
+            
+        if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 10)
+        {
+            OnStepMissionComplete(animationNumber:10);
+        }
+    }
+    
+    protected virtual void OnConductiveModeSet()
+    {
+      
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 15)
+        {
+            OnStepMissionComplete(animationNumber:15);
+        }
+        
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 11)
+        {
+            OnStepMissionComplete(animationNumber:11);
+        }
     }
 
-    protected void InitializeTool()
+    public void TakeDefaultMultimeter()
+    {
+        isMultimeterOn = true;
+        multimeterController.SetMeasureGuideStatus();
+        CurrentActiveTool = (int)DepthC1_GameObj.Multimeter;
+        contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
+        
+        multimeterController.SetToDefaultMode();
+        
+        BlinkHighlight((int)DepthC1_GameObj.MultimeterHandleHighlight);
+    }
+
+    public void InitProbe()
+    {
+        Logger.Log("Init Probe for state 17");
+      //  InitProbePos();
+        SetProbeToDefaultAnimStatus();
+        isAnodePut = false;
+        //multimeterController.OnGroundNothing();
+    }
+    
+
+
+    public void SetProbeToDefaultAnimStatus()
+    {
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = true;
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = true;
+        
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].SetBool(TO_SCREW_A, false);
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].SetBool(TO_SCREW_C, false);
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(TO_SCREW_B, false);
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(TO_SCREW_D, false);
+
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = false;
+        
+        isAnodePut = false;
+        
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].Play("A_ON", 0, 0);
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].Play("B_ON", 0, 0);
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].Play("C_ON", 0, 0);
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].Play("D_ON", 0, 0);
+    }
+
+    public void SetToResistantMode()
+    {
+        InitProbePos();
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = true;
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = true;
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].Play("ON", 0, 0);
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].Play("ON", 0, 0);
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].Update(0);
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].Update(0);
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = false;
+     
+        isMultimeterOn = true;
+        multimeterController.SetMeasureGuideStatus();
+        CurrentActiveTool = (int)DepthC1_GameObj.Multimeter;
+        
+        contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
+        
+        multimeterController.SetToResistanceModeAndRotation();
+    
+    }
+
+
+    /// <summary>
+    /// Screw관련 스텝이아닌경우 실행
+    /// </summary>
+    public void BlockScrewInteraction()
+    {
+        SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA, true);
+        SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB, true);
+        SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewC, true);
+        SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD, true);
+        SetHighlightIgnore((int)DepthC1_GameObj.LeverScrew, true);
+    }
+    /// <summary>
+    /// screw 초기화 로직입니다. forWindAnim =True일경우 조이는 애니메이션을 위해 나사가 풀려있는상태로 초기화됩니다. .
+    /// 반대로 forWindAnim =false인경우 나사를 푸는 애니메이션을 위해 나사가 조여진상태로 초기화됩니다. 
+    /// </summary>
+    /// <param name="toWind"></param>
+    public void InitScrews()
     {
 
+        isLeverScrewUnwound = false;
+        
+        isScrewWindMap = new Dictionary<int, bool>();
+
+        isScrewWindMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewA, false);
+        isScrewWindMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewB, false);
+        isScrewWindMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewC, false);
+        isScrewWindMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewD, false);
+        isScrewWindMap.TryAdd((int)DepthC1_GameObj.LeverScrew, false);
+
+
+        isScrewUnwindMap = new Dictionary<int, bool>();
+
+        isScrewUnwindMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewA, false);
+        isScrewUnwindMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewB, false);
+        isScrewUnwindMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewC, false);
+        isScrewUnwindMap.TryAdd((int)DepthC1_GameObj.ConnectionScrewD, false);
+        isScrewUnwindMap.TryAdd((int)DepthC1_GameObj.LeverScrew, false);
+        
+        
+
+
+                
+    }
+    protected void InitializeTool()
+    {
         CurrentActiveTool = -1;
-        ToggleActiveState(GetObject((int)DepthC2_GameObj.ElectricScrewdriver), false);
-        animatorMap[(int)DepthC2_GameObj.Multimeter].SetBool(PROBE_TO_SCREWB, false); // 멀티미터는 active상태로 유지합니다.
+        ToggleActiveState(GetObject((int)DepthC1_GameObj.ElectricScrewdriver), false);
+        animatorMap[(int)DepthC1_GameObj.Multimeter].SetBool(MULTIMETER_ON, false); // 멀티미터는 active상태로 유지합니다.
     }
 
     public void ClearTool()
@@ -1472,17 +1514,14 @@ public class DepthC3_SceneController : Base_SceneController
         CurrentActiveTool =  -1;
         isDriverOn= false;
         isMultimeterOn = false;
-        
+        multimeterController.isConductive = false;
     }
 
-    public void SetUnscrewStatus(bool isUnscrewed)
+    public void SetScrewStatus(bool forWindAnim)
     {
 
-        int unscrewd = 0;
-        int screwd = 1;
+        TurnOnCollidersAndInit();
         
-        
-        contentController.isStepMissionPerformable = true;
         foreach (var key in  currentScrewGaugeStatus.Keys.ToList())
         {
             currentScrewGaugeStatus[key] = 0f;
@@ -1491,80 +1530,119 @@ public class DepthC3_SceneController : Base_SceneController
              
         foreach (var key in  isScrewUnwindMap.Keys.ToList())
         {
-            isScrewUnwindMap[key] = isUnscrewed;
+            isScrewUnwindMap[key] = false;
         }
 
-        if (isUnscrewed)
-        {
-            BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
-            BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
-            BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewC);
-        }
-        
-        SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA, isUnscrewed);
-        SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, isUnscrewed);
-        SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC, isUnscrewed);
+        string StateName = forWindAnim ? "Screw" : "UnScrew";
         
         
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = true;
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = true;
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = true;
-       
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].SetBool(DepthC2_SceneController.UNWIND,true);
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].SetBool(DepthC2_SceneController.UNWIND,true);
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].SetBool(DepthC2_SceneController.UNWIND,true);
-       
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, isUnscrewed ? screwd : unscrewd);
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, isUnscrewed ? screwd : unscrewd);
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, isUnscrewed ? screwd : unscrewd);
-       
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].Update(0);
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Update(0);
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].Update(0);
-       
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].StopPlayback();
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].StopPlayback();
-       animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].StopPlayback();
-       
-      animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = false;
-      animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = false;
-      animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = false;
+        SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA, false);
+        SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB, false);
+        SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewC, false);
+        SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD, false);
+        SetHighlightIgnore((int)DepthC1_GameObj.LeverScrew, false);
+
+         BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewA);
+         BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewB);
+         BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewC);
+         BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewD);
+         
+        
+        //나사 위치 초기화
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewA].enabled = true;
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewB].enabled = true;
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewC].enabled = true;
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewD].enabled = true;
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].enabled = true;
+        
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewA].SetBool(DepthC2_SceneController.UNWIND,!forWindAnim);
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewB].SetBool(DepthC2_SceneController.UNWIND,!forWindAnim);
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewC].SetBool(DepthC2_SceneController.UNWIND,!forWindAnim);
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewD].SetBool(DepthC2_SceneController.UNWIND,!forWindAnim);
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].SetBool(DepthC2_SceneController.UNWIND,!forWindAnim);
+        
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewA].Play(StateName, 0, 0);
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewB].Play(StateName, 0, 0);
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewC].Play(StateName, 0, 0);
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewD].Play(StateName, 0, 0);
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].Play(StateName, 0, 0);
+        
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewA].Update(0);
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewB].Update(0);
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewC].Update(0);
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewD].Update(0);
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].Update(0);
+        
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewA].StopPlayback();
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewB].StopPlayback();
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewC].StopPlayback();
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewD].StopPlayback();
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].StopPlayback();
+        
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewA].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewB].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewC].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.ConnectionScrewD].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].enabled = false;
+     
+        contentController.isStepMissionPerformable = true;
+        
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
     }
 
+    private void SetLeverScrewStatus(bool forWindAnim)
+    {
+        
+        TurnOnCollidersAndInit();
+        
+        foreach (var key in  currentScrewGaugeStatus.Keys.ToList())
+        {
+            currentScrewGaugeStatus[key] = 0f;
+        }
+        
+             
+        foreach (var key in  isScrewUnwindMap.Keys.ToList())
+        {
+            isScrewUnwindMap[key] = false;
+        }
 
+        string StateName = forWindAnim ? "Screw" : "UnScrew";
+        
+
+        SetHighlightIgnore((int)DepthC1_GameObj.LeverScrew, false);
+         BlinkHighlight((int)DepthC1_GameObj.LeverScrew);
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].enabled = true;
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].SetBool(DepthC2_SceneController.UNWIND,!forWindAnim);
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].Play(StateName, 0, 0);
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].Update(0);
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].StopPlayback();
+        animatorMap[(int)DepthC1_GameObj.LeverScrew].enabled = false;
+     
+        contentController.isStepMissionPerformable = true;
+        
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = false;
+        animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
+    }
     /// <summary>
-    ///     1.씬로드 전,후 두번  파라미터를 로드해줍니다.
-    ///     2. 각 씬별로도 테스트를 할 수 있도록 하기 위함입니다.
+    ///     1. 개발전용입니다.
+    ///     2. 씬로드 전,후 두번  파라미터를 로드해줍니다.
+    ///     3. 각 씬별로도 테스트를 할 수 있도록 하기 위함입니다.
     /// </summary>
     protected virtual void SetDepthNum()
     {
         Managers.ContentInfo.PlayData.Depth1 = 3;
         Managers.ContentInfo.PlayData.Depth2 = 3;
         Managers.ContentInfo.PlayData.Depth3 = 1;
-        Managers.ContentInfo.PlayData.Count = 1;
+        Managers.ContentInfo.PlayData.Count = 0;
     }
 
-    
-    /// <summary>
-    /// 1. 공통적인 오브젝트 초기화로직 등 
-    /// </summary>
-    protected void PreCommonInit()
-    {
-         
-        cameraController = Camera.main.GetComponent<Inplay_CameraController>();
-        currentScrewGaugeStatus = new Dictionary<int, float>();
-        isScrewUnwindMap = new Dictionary<int, bool>();
-        animatorMap = new Dictionary<int, Animator>();
-        _seqMap = new Dictionary<int, Sequence>();
-        
-        defaultRotationMap = new Dictionary<int, Quaternion>();
-        defaultRotationMap.TryAdd((int)DepthC2_GameObj.Probe_Cathode,GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.rotation);
-        defaultRotationMap.TryAdd((int)DepthC2_GameObj.Probe_Anode,GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.rotation);
-        controlPanel = GetObject((int)DepthC2_GameObj.PowerHandle).GetComponent<ControlPanelController>();
-        
-    }
 
-    private void InitializeC2States()
+    private void InitializeC3States()
     {
         if (_sceneStates == null)
         {

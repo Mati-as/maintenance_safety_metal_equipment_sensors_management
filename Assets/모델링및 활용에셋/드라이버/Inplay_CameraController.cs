@@ -217,19 +217,19 @@ public class Inplay_CameraController : MonoBehaviour
         
         currentMaxDistanceToTarget = _distanceToTarget * 1.2f;
         currentMinDistanceToTaget = _distanceToTarget * 0.4f;
-        transform.DOLookAt(_target.position, 0.7f).OnComplete(() =>
-        {
-            _currentHorizontalAngle = _horizontalPivotCenter;
-            _currentVerticalAngle = _verticalPivotCenter ;
+        // transform.DOLookAt(_target.position, 0.7f).OnComplete(() =>
+        // {
+        //    
+        // });
 
-            Logger.Log($"camera Lookat and distance set: obj: {target.gameObject.name}, distance  = {_distanceToTarget}");
-            Logger.Log($"Vertical Angle: {_verticalPivotCenter}, Horizontal Angle: {_horizontalPivotCenter}");
+        _currentHorizontalAngle = _horizontalPivotCenter;
+        _currentVerticalAngle = _verticalPivotCenter ;
+
+        Logger.Log($"camera Lookat and distance set: obj: {target.gameObject.name}, distance  = {_distanceToTarget}");
+        Logger.Log($"Vertical Angle: {_verticalPivotCenter}, Horizontal Angle: {_horizontalPivotCenter}");
             
-            SaveStateDefaultTransform();
-            isControllable = true;
-        });
-
-    
+        SaveStateDefaultTransform();
+        isControllable = true;
     }
 
   

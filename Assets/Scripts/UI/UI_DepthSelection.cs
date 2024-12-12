@@ -9,7 +9,6 @@ public class UI_DepthSelection : UI_Popup
         Btn_DepthA,
         Btn_DepthB,
         Btn_DepthC,
-
         Btn_DepthD
         //    Btn_DepthC2,
         //    Btn_DepthD2
@@ -36,17 +35,28 @@ public class UI_DepthSelection : UI_Popup
         {
             if (GetButton((int)DepthBtns.Btn_DepthB).IsInteractable()) OnDepthBtnBClicked();
         });
+        GetButton((int)DepthBtns.Btn_DepthC).gameObject.BindEvent(() =>
+        {
+            if (GetButton((int)DepthBtns.Btn_DepthC).IsInteractable()) OnDepthCBtnClicked();
+        });
+        
+        GetButton((int)DepthBtns.Btn_DepthD).gameObject.BindEvent(() =>
+        {
+            if (GetButton((int)DepthBtns.Btn_DepthD).IsInteractable()) OnDepthDBtnCClicked();
+        });
 //        GetButton((int)DepthBtns.Btn_DepthC2).gameObject.BindEvent(OnDepthCBtnClicked);
         //  GetButton((int)DepthBtns.Btn_DepthD2).gameObject.BindEvent(OnDepthDBtnCClicked);
 
 
         GetButton((int)DepthBtns.Btn_DepthA).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHA_OPEN); },Define.UIEvent.PointerEnter);
-
         GetButton((int)DepthBtns.Btn_DepthB).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHB_OPEN); },Define.UIEvent.PointerEnter);
-
         GetButton((int)DepthBtns.Btn_DepthC).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHC_OPEN); },Define.UIEvent.PointerEnter);
-
         GetButton((int)DepthBtns.Btn_DepthD).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHD_OPEN); },Define.UIEvent.PointerEnter);
+        
+        GetButton((int)DepthBtns.Btn_DepthA).gameObject.BindEvent(ShutDepth1Animation ,Define.UIEvent.PointerExit);
+        GetButton((int)DepthBtns.Btn_DepthB).gameObject.BindEvent(ShutDepth1Animation ,Define.UIEvent.PointerExit);
+        GetButton((int)DepthBtns.Btn_DepthC).gameObject.BindEvent(ShutDepth1Animation ,Define.UIEvent.PointerExit);
+        GetButton((int)DepthBtns.Btn_DepthD).gameObject.BindEvent(ShutDepth1Animation ,Define.UIEvent.PointerExit);
 
         return true;
     }
@@ -59,6 +69,15 @@ public class UI_DepthSelection : UI_Popup
         _animator.SetBool(DEPTHD_OPEN, false);
 
         _animator.SetBool(hash, true);
+    }
+    
+    private void ShutDepth1Animation()
+    {
+        _animator.SetBool(DEPTHA_OPEN, false);
+        _animator.SetBool(DEPTHB_OPEN, false);
+        _animator.SetBool(DEPTHC_OPEN, false);
+        _animator.SetBool(DEPTHD_OPEN, false);
+
     }
 
     private void OnDepthBtnAClicked()
@@ -129,8 +148,12 @@ public class UI_DepthSelection : UI_Popup
     
     protected override Button GetButton(int idx)
     {
-    //    _isScaleEventOn.TryAdd(idx,false);
-
+        if (idx <= (int)DepthBtns.Btn_DepthD) return Get<Button>(idx);
+        
+        
+        _isScaleEventOn.TryAdd(idx,false);
+        
+            
         if (!_isScaleEventOn[idx])
         {
             var btn = Get<Button>(idx);

@@ -454,7 +454,7 @@ public class UI_ContentController : UI_Popup
         _depth3HideBtnAnimator = GetButton((int)Btns.Btn_ThirdDepthList_Hide).gameObject.GetComponent<Animator>();
         BindHoverEventToButton(Btns.Btn_Depth1_Title, OnDepthOneTitleHover, OnDepthOneTitleHoverExit);
         _topMenuAnimator = GetObject((int)UI.UI_Top).gameObject.GetComponent<Animator>();
-        _btn_TopMenu_Hide_animator =GetButton((int)Btns.Btn_TopMenu_Hide).gameObject.GetComponent<Animator>(); 
+        _btn_TopMenu_Hide_animator =GetObject((int)UI.UI_Top).GetComponent<Animator>(); 
         _topMenuAnimator.SetBool(UI_ON, true);
         GetButton((int)Btns.Btn_TopMenu_Hide).gameObject.BindEvent(OnTopMenuAnimBtnClicked);
     }
