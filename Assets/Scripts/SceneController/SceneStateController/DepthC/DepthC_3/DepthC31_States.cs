@@ -15,7 +15,7 @@ public class DepthC31_State_0 : Base_SceneState
         
     public override void OnEnter()
     {
-
+      
         base.OnEnter();
      
     }
@@ -44,8 +44,8 @@ public class DepthC31_State_1 : Base_SceneState
 
     protected override void OnAnimationCompleteHandler(int _)
     {
+        
         base.OnAnimationCompleteHandler(_);
-    
         
     }
 
@@ -54,7 +54,10 @@ public class DepthC31_State_1 : Base_SceneState
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         
+        SetLookAt((int)DepthC3_GameObj.PressureSensor);
+        
         CurrentScene.cameraController.isControllable = false;
+        _depthC3SceneController.DepthC31Init();
         CurrentScene.contentController.ShutTrainingIntroAnim();
     
         base.OnEnter();
@@ -120,9 +123,19 @@ public class DepthC31_State_5 : Base_SceneState
         _depthC3SceneController = currentScene;
     }
 
-    public override void OnEnter(){base.OnEnter();}
+    public override void OnEnter()
+    {
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorConnectingScrew,false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensorConnectingScrew);
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}}
+
+    public override void OnExit()
+    {
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorConnectingScrew);
+        base.OnExit();
+    }}
 
 public class DepthC31_State_6 : Base_SceneState
 {
@@ -136,23 +149,21 @@ public class DepthC31_State_6 : Base_SceneState
 
     public override void OnEnter()
     {
-
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorConnectingPipe,false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensorConnectingPipe);
         base.OnEnter();
     }
-
-    public override void OnStep()
-    {
-
-        base.OnStep();
-       
-    }
+    public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorConnectingPipe);
         base.OnExit();
     }
+    
 }
+
+
 
 public class DepthC31_State_7 : Base_SceneState
 {
@@ -194,6 +205,7 @@ public class DepthC31_State_8 : Base_SceneState
 
     public override void OnEnter()
     {
+        _depthC3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -213,6 +225,15 @@ public class DepthC31_State_9 : Base_SceneState
 
     public override void OnEnter()
     {
+       // _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.ConnectionScrewA,false);
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.ConnectionScrewB,false);
+        // _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.ConnectionScrewC,false);
+        // _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.ConnectionScrewD, false);
+            
+        //_depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.ConnectionScrewA);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.ConnectionScrewB);
+        // _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.ConnectionScrewC);
+        // _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.ConnectionScrewD);
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}

@@ -488,8 +488,6 @@ public class UI_ContentController : UI_Popup
                     (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_B) ||
                     (Managers.ContentInfo.PlayData.Depth1 == 2 && i == (int)Toggles.Toggle_Depth2_C) ||
                     
-                    
-                    
                     (Managers.ContentInfo.PlayData.Depth1 == 4 && i == (int)Toggles.Toggle_Depth2_B)
                    )
                 {
@@ -564,7 +562,6 @@ public class UI_ContentController : UI_Popup
 
     private void InitCommonUI()
     {
-    //    GetObject((int)UI.UI_Depth3_List).BindEvent(OnDepth3BtnAreaEnter);
         
       GetButton((int)Btns.Btn_CameraInit).gameObject
         .BindEvent(() =>
@@ -578,19 +575,14 @@ public class UI_ContentController : UI_Popup
             .BindEvent(OnDepthThirdHideBtnClicked, Define.UIEvent.PointerDown);
         
         GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(false);
-        
-        // GetButton((int)Btns.Btn_ThirdDepthList_Hide).gameObject
-        //     .BindEvent(OnDepthThirdHideBtnExit, Define.UIEvent.PointerExit);
-
         InitInstructionSection();
-        InitActiveAndInactiveAreas();
+    
     }
 
     private void InitInstructionSection()
     {
         _instructionAnimator = GetObject((int)UI.UI_Instruction).GetComponent<Animator>();
         _instructionFlipAnimator = GetObject((int)UI.UI_Instruction).transform.GetChild(0).GetComponent<Animator>();
-        // _instructionAnimator.SetBool(UI_ON, true);
 
         GetButton((int)Btns.Btn_Script_Hide).gameObject.BindEvent(OnInstructionHideClicked);
         GetObject((int)UI.UI_Instruction).GetComponent<Text>();
@@ -601,14 +593,6 @@ public class UI_ContentController : UI_Popup
         _instructionAnimator.SetBool(UI_ON, active);
     }
 
-    private void InitActiveAndInactiveAreas()
-    {
-        // BindPointerEventToObject(UI.ActiveArea, OnDpeth3ActiveAreaEnter);
-        // BindPointerEventToObject(UI.InactiveAreaA, InactiveAreaEnter);
-        // BindPointerEventToObject(UI.InactiveAreaB, InactiveAreaEnter);
-        // BindPointerEventToObject(UI.InactiveAreaC, InactiveAreaEnter);
-        // BindPointerEventToObject(UI.InactiveAreaD, InactiveAreaEnter);
-    }
 
     private void BindPointerEventToObject(UI uiElement, Action eventAction)
     {
@@ -970,7 +954,12 @@ public class UI_ContentController : UI_Popup
     }
 
 
-    public void OnDepth2Init(int depth2)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="depth2"></param>
+    /// <param name="depth3"> depth3는 기본 1이나 개발용인 경우에 parameter를 다르게 사용가능 (ex. 3.3.2 개발중인경우, depth3를 2로 설정</param>
+    public void OnDepth2Init(int depth2,int depth3 =1)
     {
         Precheck();
         
@@ -980,7 +969,7 @@ public class UI_ContentController : UI_Popup
         if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayTrainingGoalAnim(); // Depth3가 첫번쨰인경우만 훈련목표 재생(Depth1예외)
         
         Managers.ContentInfo.PlayData.Depth2 = depth2;
-        Managers.ContentInfo.PlayData.Depth3 = 1;
+        Managers.ContentInfo.PlayData.Depth3 = depth3;
         Managers.ContentInfo.PlayData.Count = 0;
         SwitchDepthToggle();
 

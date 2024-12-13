@@ -45,8 +45,7 @@ public class DepthC32_State_1 : Base_SceneState
     protected override void OnAnimationCompleteHandler(int _)
     {
         base.OnAnimationCompleteHandler(_);
-    
-        
+        SetLookAt((int)DepthC3_GameObj.PressureSensor);
     }
 
     public override void OnEnter()
@@ -54,7 +53,10 @@ public class DepthC32_State_1 : Base_SceneState
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         
-        CurrentScene.cameraController.isControllable = false;
+        _depthC3SceneController.DepthC32Init();
+    
+        
+        CurrentScene.cameraController.isControllable = true;
         CurrentScene.contentController.ShutTrainingIntroAnim();
     
         base.OnEnter();
@@ -64,7 +66,7 @@ public class DepthC32_State_1 : Base_SceneState
     public override void OnExit()
     {
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        CurrentScene.cameraController.isControllable = true;
+        CurrentScene.cameraController.isControllable = false;
         base.OnExit();
     }
 }
@@ -120,9 +122,19 @@ public class DepthC32_State_5 : Base_SceneState
         _depthC3SceneController = currentScene;
     }
 
-    public override void OnEnter(){base.OnEnter();}
+    public override void OnEnter()
+    {
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorDamagedPart,false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensorDamagedPart);
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}}
+
+    public override void OnExit()
+    {
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorDamagedPart);
+        base.OnExit();
+    }}
 
 public class DepthC32_State_6 : Base_SceneState
 {

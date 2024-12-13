@@ -15,7 +15,7 @@ public class Inplay_CameraController : MonoBehaviour
     private readonly float ZOOM_SPEED = 5f; // 줌 속도 조정
     private readonly float ROTATION_SPEED = 5.0f; // 회전 속도 조정
     private readonly float _minZoom = 30f; // 최소 줌 거리
-    private readonly float _maxZoom = 120f; // 최대 줌 거리
+    private readonly float _maxZoom = 70f; // 최대 줌 거리
     private readonly float _dragSpeed = 1f; // 드래그 속도
     
     private readonly float _minVerticalAngle = 20f; // 상하 회전 최소 각도

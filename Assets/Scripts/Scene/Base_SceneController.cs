@@ -129,6 +129,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     private void PreInitBefreDepthChange()
     {
         isReverseAnim = false;
+        _currentPlayingCount = -321; // 반드시 초기화 애니메이션을 실행시키기 위해 다음과같이 설정
         Managers.ContentInfo.PlayData.Count = 0;
         ExitCurrentState();
 
@@ -147,10 +148,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         isScrewUnwindMap = new Dictionary<int, bool>();
         animatorMap = new Dictionary<int, Animator>();
         _seqMap = new Dictionary<int, Sequence>();
-        
         defaultRotationMap = new Dictionary<int, Quaternion>();
-        defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Cathode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
-        defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Anode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
+    
 //        controlPanel = GetObject((int)DepthC1_GameObj.PxS_PowerHandle).GetComponent<ControlPanelController>();
     }
 

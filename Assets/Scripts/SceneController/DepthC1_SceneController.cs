@@ -336,7 +336,7 @@ public class DepthC1_SceneController : Base_SceneController
         BindHighlight((int)DepthC1_GameObj.LeverScrew,"조절 레버");
         
         BindHighlight((int)DepthC1_GameObj.ConnectionScrewA,"나사");
-        BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"나사");
+        BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속 단자");
         BindHighlight((int)DepthC1_GameObj.ConnectionScrewC,"나사");
         BindHighlight((int)DepthC1_GameObj.ConnectionScrewD,"나사");
         
@@ -446,6 +446,9 @@ public class DepthC1_SceneController : Base_SceneController
     protected override void PreCommonInit()
     {
         base.PreCommonInit();
+        
+        defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Cathode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
+        defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Anode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
         C1_PreCommonObjInit();
         UnBindEventAttatchedObj();
     }
