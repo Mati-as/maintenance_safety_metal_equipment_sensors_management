@@ -1,0 +1,380 @@
+fileFormatVersion: 2
+guid: 3f166dabe71528d45b0a472ef2e95e0c
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Glove
+  - first:
+      1: 100004
+    second: Goggle001
+  - first:
+      1: 100006
+    second: Group2
+  - first:
+      1: 100008
+    second: Hand
+  - first:
+      1: 100010
+    second: mask
+  - first:
+      1: 100012
+    second: Pants_bs
+  - first:
+      1: 100014
+    second: Safe_Shoes
+  - first:
+      1: 100016
+    second: Shirts_BS
+  - first:
+      1: 100018
+    second: Shoes_BS
+  - first:
+      1: 100020
+    second: Short1_Hair_Male_LOD0
+  - first:
+      1: 100022
+    second: Work_Jumper
+  - first:
+      1: 100024
+    second: Work_Pants
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Glove
+  - first:
+      4: 400004
+    second: Goggle001
+  - first:
+      4: 400006
+    second: Group2
+  - first:
+      4: 400008
+    second: Hand
+  - first:
+      4: 400010
+    second: mask
+  - first:
+      4: 400012
+    second: Pants_bs
+  - first:
+      4: 400014
+    second: Safe_Shoes
+  - first:
+      4: 400016
+    second: Shirts_BS
+  - first:
+      4: 400018
+    second: Shoes_BS
+  - first:
+      4: 400020
+    second: Short1_Hair_Male_LOD0
+  - first:
+      4: 400022
+    second: Work_Jumper
+  - first:
+      4: 400024
+    second: Work_Pants
+  - first:
+      23: 2300000
+    second: Glove
+  - first:
+      23: 2300002
+    second: Goggle001
+  - first:
+      23: 2300004
+    second: Group2
+  - first:
+      23: 2300006
+    second: Hand
+  - first:
+      23: 2300008
+    second: mask
+  - first:
+      23: 2300010
+    second: Pants_bs
+  - first:
+      23: 2300012
+    second: Safe_Shoes
+  - first:
+      23: 2300014
+    second: Shirts_BS
+  - first:
+      23: 2300016
+    second: Shoes_BS
+  - first:
+      23: 2300018
+    second: Short1_Hair_Male_LOD0
+  - first:
+      23: 2300020
+    second: Work_Jumper
+  - first:
+      23: 2300022
+    second: Work_Pants
+  - first:
+      33: 3300000
+    second: Glove
+  - first:
+      33: 3300002
+    second: Goggle001
+  - first:
+      33: 3300004
+    second: Group2
+  - first:
+      33: 3300006
+    second: Hand
+  - first:
+      33: 3300008
+    second: mask
+  - first:
+      33: 3300010
+    second: Pants_bs
+  - first:
+      33: 3300012
+    second: Safe_Shoes
+  - first:
+      33: 3300014
+    second: Shirts_BS
+  - first:
+      33: 3300016
+    second: Shoes_BS
+  - first:
+      33: 3300018
+    second: Short1_Hair_Male_LOD0
+  - first:
+      33: 3300020
+    second: Work_Jumper
+  - first:
+      33: 3300022
+    second: Work_Pants
+  - first:
+      43: 4300000
+    second: Pants_bs
+  - first:
+      43: 4300002
+    second: Goggle001
+  - first:
+      43: 4300004
+    second: Group2
+  - first:
+      43: 4300006
+    second: Hand
+  - first:
+      43: 4300008
+    second: Shoes_BS
+  - first:
+      43: 4300010
+    second: Shirts_BS
+  - first:
+      43: 4300012
+    second: Work_Jumper
+  - first:
+      43: 4300014
+    second: Work_Pants
+  - first:
+      43: 4300016
+    second: Safe_Shoes
+  - first:
+      43: 4300018
+    second: Short1_Hair_Male_LOD0
+  - first:
+      43: 4300020
+    second: Glove
+  - first:
+      43: 4300022
+    second: mask
+  - first:
+      95: 9500000
+    second: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01 - Default
+    second: {fileID: 2100000, guid: dc9a7ae69f4b3494c82b1d90ce382e10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black_Plastic
+    second: {fileID: 2100000, guid: ab918fc847d2cff4fb0b1f686aaaa64e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FGC_Male_Hair_Short1_Cap
+    second: {fileID: 2100000, guid: 5135896754fcd7949b481e67dc4c7fa2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FGC_Male_Hair_Short1_Strands
+    second: {fileID: 2100000, guid: 228a03e0c4e166547b519bb29eda2397, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FGC_Male_Hair_Short1_ThinStrands
+    second: {fileID: 2100000, guid: 8ff3d97cd0f00ca419a798d3e25ce093, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FGC_Male_Hair_Short1_TopStrands
+    second: {fileID: 2100000, guid: 228a03e0c4e166547b519bb29eda2397, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Face
+    second: {fileID: 2100000, guid: c08b83dafa9b5eb49bd46c6275c80cde, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: 605645e65f1ba9d44bf733d491e90efa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mask
+    second: {fileID: 2100000, guid: 2c7012645e3f4c34fb6f8560a0ba2e71, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red_Glave
+    second: {fileID: 2100000, guid: f6fdc53e48e22de479bf44ca8430c3ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Reflect_Metal
+    second: {fileID: 2100000, guid: 8964285a449e0754db89e5aff4c10053, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Safe_Shoes_Black
+    second: {fileID: 2100000, guid: 314fb964b05e20347ad5b9303c89953f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Safe_Shoes_Gray
+    second: {fileID: 2100000, guid: 2ecf24163b87c9647b4e730f1d78f80b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Safe_Shoes_skin
+    second: {fileID: 2100000, guid: c98a1ab88fa2a874984e42115c5ff059, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Work_Cloth_Pants
+    second: {fileID: 2100000, guid: d8dedd23b59c4fa41b3e37359160440d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Work_Cloth_Top
+    second: {fileID: 2100000, guid: ac421a084e18c004682e6153efa2c00e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: face
+    second: {fileID: 2100000, guid: f1a52e76c7b95414ba993cf50213b964, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
