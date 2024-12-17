@@ -33,10 +33,9 @@ public enum DepthC3_GameObj
     PressureSensorScale,
     PressureSensorToConditionerCable,
     PressureSensorHose,
-    PressureSensorLED,
-    
-    //32
+    PressureSensorAdapter,
     PressureSensorDamagedPart,
+    PressureSensorLED,
     NewPressureSensor,
     PipeFluid, // FluidInsidePipe
     

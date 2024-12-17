@@ -126,6 +126,7 @@ public class DepthC32_State_5 : Base_SceneState
     {
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorDamagedPart,false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensorDamagedPart);
+        _depthC3SceneController.cameraController.isControllable = true;
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}

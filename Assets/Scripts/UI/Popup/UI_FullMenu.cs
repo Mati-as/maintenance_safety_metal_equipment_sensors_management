@@ -120,7 +120,16 @@ public class UI_FullMenu : UI_Popup
             Managers.UI.ShowPopupUI<UI_ContentController>();
         }
 
-        LoadScene(Managers.ContentInfo.PlayData.Depth1);
+        
+        //뎁스3(실습) 부분은 센서별로 별도로 씬구성하기에 조건문으로 구분.
+        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.MaintenancePractice)
+        {
+            SceneManager.LoadScene("DepthC" + Managers.ContentInfo.PlayData.Depth2.ToString());
+        }
+        else
+        {
+            LoadScene(Managers.ContentInfo.PlayData.Depth1);
+        }
     }
 
     private void LoadScene(int scene)
@@ -138,7 +147,7 @@ public class UI_FullMenu : UI_Popup
                 break;
             case 3:
 
-                Managers.Scene.LoadScene(SceneType.DepthC2);
+             
                 break;
             case 4:
 

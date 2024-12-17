@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/DepthB.unity
     guid: 16cb07dde61e85649ae356910ad3ceb4
   - enabled: 1
-    path: Assets/Scenes/DepthC2.unity
-    guid: a1eb90b907649e64dba01cb6c401693c
-  - enabled: 1
     path: Assets/Scenes/DepthD2.unity
     guid: 7ce6ab69301b62841b72f315dd0e5b5f
   - enabled: 1
@@ -26,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DepthC1.unity
     guid: 2389bdadd8f21594f88b26f6265da017
+  - enabled: 1
+    path: Assets/Scenes/DepthC2.unity
+    guid: a1eb90b907649e64dba01cb6c401693c
+  - enabled: 1
+    path: Assets/Scenes/DepthC3.unity
+    guid: 750309c873216674198e435a112c4ee4
   m_configObjects: {}

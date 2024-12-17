@@ -538,9 +538,9 @@ public class UI_ContentController : UI_Popup
         }
     }
 
-    public void ShowCamInitBtn()
+    public void SetCamInitBtnStatus(bool isOn =true)
     {
-        GetButton((int)Btns.Btn_CameraInit).gameObject.SetActive(true);
+        GetButton((int)Btns.Btn_CameraInit).gameObject.SetActive(isOn);
     }
 
     public void HideCamInitBtn()

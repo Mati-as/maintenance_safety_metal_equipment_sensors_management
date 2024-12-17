@@ -56,6 +56,7 @@ public class DepthC31_State_1 : Base_SceneState
         
         SetLookAt((int)DepthC3_GameObj.PressureSensor);
         
+        //카메라 시점변경On
         CurrentScene.cameraController.isControllable = false;
         _depthC3SceneController.DepthC31Init();
         CurrentScene.contentController.ShutTrainingIntroAnim();
@@ -127,6 +128,9 @@ public class DepthC31_State_5 : Base_SceneState
     {
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorConnectingScrew,false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensorConnectingScrew);
+        
+        //카메라 시점변경On
+        CurrentScene.cameraController.isControllable = true;
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}

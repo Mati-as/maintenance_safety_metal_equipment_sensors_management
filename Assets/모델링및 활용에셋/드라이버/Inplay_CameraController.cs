@@ -10,7 +10,8 @@ using UnityEngine.UI;
 
 public class Inplay_CameraController : MonoBehaviour
 {
-   
+    private Base_SceneController _sceneController;
+    
     private Transform _target; // 
     private readonly float ZOOM_SPEED = 5f; // 줌 속도 조정
     private readonly float ROTATION_SPEED = 5.0f; // 회전 속도 조정
@@ -33,11 +34,14 @@ public class Inplay_CameraController : MonoBehaviour
 
     private float _distanceToTarget; // 카메라와 물체 사이 거리
     
+    
 
     private Camera _camera;
     private bool _isControllable =false;
     private Vector3 _currentDefaultRotation;
     private Vector3 _currentDefaultPosition;
+    
+    // 카메라 btnUI는 isControllable에 의존관계입니다. 
     public bool isControllable
     {
         get
@@ -47,6 +51,8 @@ public class Inplay_CameraController : MonoBehaviour
         set
         {
             _isControllable = value;
+
+            _sceneController.contentController.SetCamInitBtnStatus(_isControllable);
         }
     }
 
@@ -79,6 +85,8 @@ public class Inplay_CameraController : MonoBehaviour
     {
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChanged;
         UI_ContentController.OnStepBtnClicked_CurrentCount += OnStepChanged;
+
+        _sceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Base_SceneController>();
     }
 
     protected virtual void OnDestroy()

@@ -26,7 +26,7 @@ public class Base_SceneState : ISceneState
         CurrentScene.contentController.isStepChangeByMouseClick = false;
         
         
-        
+        CurrentScene.cameraController.isControllable = true;
         //평가하기가 아닌경우
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation)
         {
@@ -110,11 +110,11 @@ public class Base_SceneState : ISceneState
     protected virtual void OnAnimationCompleteHandler(int _)
     {
         
-        CurrentScene.cameraController.isControllable = true;
+      
         CurrentScene.cameraController.isDragging = false;
         if (CurrentScene.contentController != null)
         {
-            CurrentScene.contentController.ShowCamInitBtn();
+            CurrentScene.contentController.SetCamInitBtnStatus();
         }
         else Logger.Log("content Controller is Null.. it must be tutorial state.");
     }

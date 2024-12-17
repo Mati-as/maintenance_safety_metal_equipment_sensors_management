@@ -73,7 +73,7 @@ public class Tutorial_State_3 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.contentController.ShowCamInitBtn();
+        CurrentScene.contentController.SetCamInitBtnStatus();
         tutorialSceneController.contentController.BlinkBtnUI((int)Btns.Btn_CameraInit);
         tutorialSceneController.cameraController.isControllable = true;
        // SetLookAt((int)DepthC_GameObj.TemperatureSensor);
