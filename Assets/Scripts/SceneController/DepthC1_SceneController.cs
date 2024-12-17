@@ -303,6 +303,7 @@ public class DepthC1_SceneController : Base_SceneController
     public void DepthC13Init()
     {
         PreCommonInit();
+      
 
         SetDefaultTransform();
         
@@ -400,7 +401,7 @@ public class DepthC1_SceneController : Base_SceneController
         PreCommonInit();
 
         SetDefaultTransform();
-        
+        InitScrews();
         BindInteractionEvent();
         InitProbePos();
     
@@ -446,6 +447,7 @@ public class DepthC1_SceneController : Base_SceneController
     protected override void PreCommonInit()
     {
         base.PreCommonInit();
+       
         
         defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Cathode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
         defaultRotationMap.TryAdd((int)DepthC1_GameObj.Probe_Anode,GetObject((int)DepthC1_GameObj.Probe_Cathode).transform.rotation);
@@ -576,8 +578,8 @@ public class DepthC1_SceneController : Base_SceneController
         MultimeterController.OnConductiveModeReady -= OnConductiveModeSet;
         MultimeterController.OnConductiveModeReady += OnConductiveModeSet;
         
-       UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchClicked;
-       UI_ToolBox.LimitSwitchSensorClickedEvent += OnLimitSwitchClicked;
+       UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchBtnOnUIClicked;
+       UI_ToolBox.LimitSwitchSensorClickedEvent += OnLimitSwitchBtnOnUIClicked;
 
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
         C1_LimitSwitchPivotController.OnTargetPosArrive += OnTargetPosArrive;
@@ -604,7 +606,7 @@ public class DepthC1_SceneController : Base_SceneController
      //   UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
        
-        UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchClicked;
+        UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchBtnOnUIClicked;
        
         UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
@@ -613,11 +615,11 @@ public class DepthC1_SceneController : Base_SceneController
         
     }
 
-    private void OnLimitSwitchClicked()
+    private void OnLimitSwitchBtnOnUIClicked()
     {
-        if (Managers.ContentInfo.PlayData.Count == 2)
+        if (Managers.ContentInfo.PlayData.Count == 12)
         {
-            OnStepMissionComplete(animationNumber:2);
+            OnStepMissionComplete(animationNumber:12);
         }
     }
     protected override void OnDestroy()
@@ -1131,7 +1133,8 @@ public class DepthC1_SceneController : Base_SceneController
     }
     private bool  CheckDriverUsability()
     {
-        if (((Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 7) ||
+        if (((Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 6) ||
+             (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 7)||
               (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)||
               
               (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 5) ||
@@ -1715,7 +1718,7 @@ public class DepthC1_SceneController : Base_SceneController
             { 31117, new DepthC11_State_17(this) },
             { 31118, new DepthC11_State_18(this) },
        
-
+            { 3120, new DepthC12_State_1(this) },
             { 3121, new DepthC12_State_1(this) },
             { 3122, new DepthC12_State_2(this) },
             { 3123, new DepthC12_State_3(this) },
@@ -1729,7 +1732,9 @@ public class DepthC1_SceneController : Base_SceneController
             { 31211, new DepthC12_State_11(this) },
             { 31212, new DepthC12_State_12(this) },
             { 31213, new DepthC12_State_13(this) },
+            { 31214, new DepthC12_State_14(this) },
     
+            { 3130, new DepthC13_State_1(this) },
             { 3131, new DepthC13_State_1(this) },
             { 3132, new DepthC13_State_2(this) },
             { 3133, new DepthC13_State_3(this) },
@@ -1742,7 +1747,7 @@ public class DepthC1_SceneController : Base_SceneController
             { 31310, new DepthC13_State_10(this) },
             { 31311, new DepthC13_State_11(this) },
             { 31312, new DepthC13_State_12(this) },
-            { 31313, new DepthC13_State_12(this) },
+            { 31313, new DepthC13_State_13(this) },
 
         };
     }

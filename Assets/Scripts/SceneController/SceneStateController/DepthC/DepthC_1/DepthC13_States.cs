@@ -3,6 +3,33 @@ using System.Linq;
 /// <summary>
 ///     3.2.1 온도센서 상태 클래스입니다 ------------------------------------------------------------
 /// </summary>
+ public class DepthC13_State_0 : Base_SceneState
+{
+// 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+private readonly DepthC1_SceneController _depthC1SceneController;
+
+public DepthC13_State_0(DepthC1_SceneController currentScene) : base(currentScene)
+{
+    _depthC1SceneController = currentScene;
+       
+}
+
+
+public override void OnEnter()
+{
+  
+    base.OnEnter();
+}
+public override void OnStep(){base.OnStep();}
+
+public override void OnExit()
+{
+       
+    base.OnExit();
+}
+}
+
+
 public class DepthC13_State_1 : Base_SceneState
 {
     // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
@@ -17,9 +44,8 @@ public class DepthC13_State_1 : Base_SceneState
 
     public override void OnEnter()
     {
-        
-        base.OnEnter();
         _depthC1SceneController.DepthC13Init();
+        base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
 
@@ -312,6 +338,8 @@ public class DepthC13_State_13 : Base_SceneState
 
     public override void OnEnter()
     {
+       
+        
         _depthC1SceneController.InitProbe();
         _depthC1SceneController.SetToResistantMode();
         _depthC1SceneController.multimeterController.isConductive = true; 
@@ -326,7 +354,12 @@ public class DepthC13_State_13 : Base_SceneState
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+       
+        base.OnExit();
+    }
 }
 
 public class DepthC13_State_14 : Base_SceneState
@@ -342,13 +375,20 @@ public class DepthC13_State_14 : Base_SceneState
 
     public override void OnEnter()
     {
+
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewC);
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD);
         _depthC1SceneController.ClearTool();
-        base.OnEnter();
+        CurrentScene.PlayAnimation(0);
+
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+
+        base.OnExit();
+    }
 }
 
 

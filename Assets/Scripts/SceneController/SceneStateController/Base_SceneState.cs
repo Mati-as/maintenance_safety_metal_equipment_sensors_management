@@ -51,7 +51,8 @@ public class Base_SceneState : ISceneState
 
         
         //항상 클릭 가능해야하는 것들 ----
-       
+
+        CurrentScene.RefreshAnimationCoroutines();
         CurrentScene.PlayAnimation(CurrentScene.currentCount,isReverse:CurrentScene.isReverseAnim,isMissionCompleteAnim: false);
     
         

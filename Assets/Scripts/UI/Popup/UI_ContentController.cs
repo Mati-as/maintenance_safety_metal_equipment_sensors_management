@@ -1084,7 +1084,7 @@ public class UI_ContentController : UI_Popup
 
 
     
-    private void OnDepth3BtnClicked(int depth3Num)
+    public void OnDepth3BtnClicked(int depth3Num)
     {
         Precheck();
         

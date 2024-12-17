@@ -436,8 +436,8 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         MultimeterController.OnConductiveModeReady -= OnConductiveModeSet;
         MultimeterController.OnConductiveModeReady += OnConductiveModeSet;
         
-       UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchClicked;
-       UI_ToolBox.LimitSwitchSensorClickedEvent += OnLimitSwitchClicked;
+       UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchBtnClicked;
+       UI_ToolBox.LimitSwitchSensorClickedEvent += OnLimitSwitchBtnClicked;
 
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
         C1_LimitSwitchPivotController.OnTargetPosArrive += OnTargetPosArrive;
@@ -464,7 +464,7 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
      //   UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
        
-        UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchClicked;
+        UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchBtnClicked;
        
         UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
@@ -473,7 +473,7 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         
     }
 
-    private void OnLimitSwitchClicked()
+    private void OnLimitSwitchBtnClicked()
     {
         if (Managers.ContentInfo.PlayData.Count == 2)
         {

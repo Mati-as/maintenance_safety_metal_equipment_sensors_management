@@ -98,7 +98,10 @@ public class DepthC12_State_4 : Base_SceneState
     {
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LS_Cover,false);
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LS_Cover);
+        
         base.OnEnter();
+        
+        _depthC1SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -117,10 +120,10 @@ public class DepthC12_State_5 : Base_SceneState
     {
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
-        
-       
        
         base.OnEnter();
+        
+        _depthC1SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}}
@@ -137,10 +140,12 @@ public class DepthC12_State_6 : Base_SceneState
 
     public override void OnEnter()
     {
-       
-        
+    
         
         base.OnEnter();
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        _depthC1SceneController.SetCollider(DepthC1_GameObj.LimitSwitch,false);
+        _depthC1SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -159,11 +164,25 @@ public class DepthC12_State_7 : Base_SceneState
     {
         _depthC1SceneController.limitSwitchPivotController.SetLimitSwitchControllable(false);
         _depthC1SceneController.SetScrewStatus(false);
-        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LeverScrew);
+      
         base.OnEnter();
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        
+        _depthC1SceneController.TurnOffAllRegisteredHighlights();
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LeverScrew);
+            
+        _depthC1SceneController.SetCollider(DepthC1_GameObj.LimitSwitch,true);
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.Lever_Handle,false);
+        
+        _depthC1SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        _depthC1SceneController.SetCollider(DepthC1_GameObj.LimitSwitch,false);
+    }
 }
 
 public class DepthC12_State_8 : Base_SceneState
@@ -182,11 +201,11 @@ public class DepthC12_State_8 : Base_SceneState
         _depthC1SceneController.limitSwitchPivotController.SetLimitSwitchControllable(true);
         
         base.OnEnter();
-        
+        _depthC1SceneController.cameraController.isControllable = false;
      
         
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.Lever_Handle,false); 
-
+        _depthC1SceneController.SetCollider(DepthC1_GameObj.Lever_Handle,false);
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,false);
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos);
     }
@@ -256,6 +275,7 @@ public class DepthC12_State_11 : Base_SceneState
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LS_Cover,false);
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LS_Cover);
         base.OnEnter();
+        _depthC1SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -265,7 +285,19 @@ public class DepthC12_State_11 : Base_SceneState
 public class DepthC12_State_12 : Base_SceneState
 {
     private readonly DepthC1_SceneController _depthC1SceneController;
-
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        Managers.ContentInfo.PlayData.Depth1 = 3;
+        Managers.ContentInfo.PlayData.Depth2 = 1;
+        Managers.ContentInfo.PlayData.Depth3 = 3;
+        Managers.ContentInfo.PlayData.Count = 0;
+        
+        _depthC1SceneController.OnDepth3Clicked();
+        _depthC1SceneController.contentController.Refresh();
+        
+        Logger.Log($"애니메이션 Compelete 이벤트 Current Status in State13 {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
+        
+    }
     public DepthC12_State_12(DepthC1_SceneController currentScene) : base(currentScene)
     {
         _depthC1SceneController = currentScene;
@@ -277,55 +309,78 @@ public class DepthC12_State_12 : Base_SceneState
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_LimitSwitch);
         base.OnEnter();
+        _depthC1SceneController.cameraController.isControllable = false;
+        
+        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+        Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+        base.OnExit();
+    }
 }
 
 public class DepthC12_State_13 : Base_SceneState
 {
-    public DepthC12_State_13(DepthC1_SceneController currentScene) : base(currentScene){}
+    public DepthC12_State_13(DepthC1_SceneController currentScene) :base(currentScene){_depthC1SceneController = currentScene;}
   
     
     private readonly DepthC1_SceneController _depthC1SceneController;
 
 
+
     public override void OnEnter()
     {
-  
-       Logger.Log("Depth3.1.2 리밋스위치 고장유형 종료 State Enter... depth3 실행 ");
-       _depthC1SceneController.ClearTool();    
-       Managers.ContentInfo.PlayData.Depth1 = 3;
-       Managers.ContentInfo.PlayData.Depth2 = 1;
-       Managers.ContentInfo.PlayData.Depth3 = 3;
-       Managers.ContentInfo.PlayData.Count = 0;
 
-        
-       _depthC1SceneController.contentController.Refresh();
-       _depthC1SceneController.OnDepth3Clicked();
-       base.OnEnter();
+        base.OnEnter();
+
     }
 
     public override void OnStep()
     {
         base.OnStep();
     }
+
+    public override void OnExit()
+    {
+      
+        base.OnExit();
+    }
+}
+
+
+
+
+public class DepthC12_State_14 : Base_SceneState
+{
+    public DepthC12_State_14(DepthC1_SceneController currentScene) :base(currentScene){_depthC1SceneController = currentScene;}
+    private readonly DepthC1_SceneController _depthC1SceneController;
+
+
+
+
+    public override void OnEnter()
+    {
+        Managers.ContentInfo.PlayData.Depth1 = 3;
+        Managers.ContentInfo.PlayData.Depth2 = 1;
+        Managers.ContentInfo.PlayData.Depth3 = 3;
+        Managers.ContentInfo.PlayData.Count = 0;
+        Logger.Log($"CurrentStatus on State 14 -----> {Managers.ContentInfo.PlayData.CurrentDepthStatus} ");
+        _depthC1SceneController.StopAllCoroutines();
+  
+
+        _depthC1SceneController.PlayAnimation(0);
+       _depthC1SceneController.contentController.OnDepth3BtnClicked(3);
+       
+
+    }
+    public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
 
-// public class DepthC12_State_14 : Base_SceneState
-// {
-//     public DepthC12_State_14(DepthC1_SceneController currentScene) : base(currentScene){_depthC1SceneController = currentScene;}
-//     private readonly DepthC1_SceneController _depthC1SceneController;
-//
-//
-//
-//  
-//     public override void OnEnter(){base.OnEnter();}
-//     public override void OnStep(){base.OnStep();}
-//     public override void OnExit(){base.OnExit();}
-// }
-//
 //
 // public class DepthC12_State_15 : Base_SceneState
 // {
@@ -355,4 +410,4 @@ public class DepthC12_State_13 : Base_SceneState
 //     public override void OnExit(){base.OnExit();}
 // }
 //
-
+//

@@ -6,6 +6,7 @@ using DG.Tweening;
 using HighlightPlus;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -77,6 +78,29 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     
     public Dictionary<int, float> currentScrewGaugeStatus; // 나사 게이지 캐싱
 
+    private Coroutine _currentAnimationCoroutine;
+    public Coroutine currentAnimationCoroutine
+    {
+        get{return _currentAnimationCoroutine;}
+        set
+        {
+            _currentAnimationCoroutine = value;
+            Logger.Log($"Current Animation Coroutine Cancelled --->{currentCount - 1}");
+        }
+
+    }
+    
+    private Coroutine _currentAnimationOnCompleteCoroutine;
+    public Coroutine currentAnimationOnCompleteCoroutine
+    {
+        get{return _currentAnimationOnCompleteCoroutine;}
+        set
+        {
+            _currentAnimationOnCompleteCoroutine = value;
+            Logger.Log($"Current Animation On Complete Coroutine Cancelled --->{currentCount - 1}");
+        }
+
+    }
     public virtual void SetMainProperties()
     {
         _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
@@ -121,7 +145,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         PreInitBefreDepthChange();
 
-        
+        Logger.Log($"Ondepth3 Btn Clicked() execute. current depth Status ---> {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
         PlayAnimation(0);
         ChangeState(0);
     }
@@ -208,11 +232,12 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         // StepMissionComplete는 오브젝트를 직접클릭하였을때활성화 됩니다. 
         // 오브젝트를 직접 클릭하여 isStepMissionComplete를 완수하였다면, OnStepChange에서 실행하지않습니다.
-        // 즉 중복실행을 방지합니다.
+        // Prevent Duplicate Execution
         if (serveClip != null && !isReverseAnim && contentController.isStepChangeByMouseClick) // Serve 애니메이션이 존재하고, 역재생이 아닌경우
         {
             Logger.Log($"Serve animation found at path {serveAnimPath}. Playing serve animation.");
-        
+
+            if (count <= 0) OnStepMissionComplete(animationNumber: count);
             OnStepMissionComplete(animationNumber:count-1);
             DOVirtual.DelayedCall(serveClip.length, () => { ChangeState(count); });
         }
@@ -386,7 +411,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
   
     
         _mainAnimation.Play(clip.name);
-        StartCoroutine(CheckAnimationEnd(count,clip));
+        
+        if(currentAnimationOnCompleteCoroutine !=null) StopCoroutine(currentAnimationOnCompleteCoroutine);
+        currentAnimationOnCompleteCoroutine = StartCoroutine(CheckAnimationEnd(count,clip));
         currentCilpLength = clip.length;    
 
         Logger.Log($"Animation clip with index {count} is playing.");
@@ -412,7 +439,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     protected virtual void OnAnimationComplete(int count)
     {
         
-        if (contentController!=null && count == Managers.ContentInfo.PlayData.Count)
+        if (contentController!=null && (count == Managers.ContentInfo.PlayData.Count || Managers.ContentInfo.PlayData.Count  ==0))
         {
             OnAnimationCompelete?.Invoke(currentCount);
             if(!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
@@ -468,6 +495,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         foreach (var key in objectHighlightMap.Keys.ToArray())
         {
             objectHighlightMap[key].enabled = false;
+            if(_seqMap.ContainsKey(key))_seqMap[key]?.Kill();
         }
     }
    
@@ -540,7 +568,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         SetDefaultHighlight(ref highlightEffect);
         if (!objectHighlightMap.ContainsKey((int)gameObj))
         {
-  Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC1_GameObj)gameObj}");
+//  Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC1_GameObj)gameObj}");
             objectHighlightMap.Add((int)gameObj, highlightEffect);
         }
     }
@@ -607,6 +635,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     #endregion
 
+    
     protected void OnStepMissionComplete(int objectEnumToInt = -1, int animationNumber = -123456789,
         WaitForSeconds delayAmount = null, Action ActionBeforeDelay = null)
     {
@@ -617,10 +646,17 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         }
         
+        //Prevent Duplicate Playback
+        if(currentAnimationCoroutine!=null)StopCoroutine(currentAnimationCoroutine);
 
-        StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayAmount, ActionBeforeDelay));
+        currentAnimationCoroutine = StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayAmount, ActionBeforeDelay));
     }
-    
+
+    public void RefreshAnimationCoroutines()
+    {
+        if (currentAnimationCoroutine != null) StopCoroutine(currentAnimationCoroutine);
+        if (currentAnimationOnCompleteCoroutine != null) StopCoroutine(currentAnimationOnCompleteCoroutine);
+    }
     protected IEnumerator OnStepMissionCompleteCo(int currentStepNum, WaitForSeconds waitForSeconds = null,
         Action ActionBeforeNextStep = null)
     {
@@ -686,7 +722,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
                 if (gameObj != null)
                 {
                     gameObj.UnBindEvent();
-                    Logger.Log($"Event Unbind ------------------name {gameObj.name}");
+//                    Logger.Log($"Event Unbind ------------------name {gameObj.name}");
                 }
             }
     }

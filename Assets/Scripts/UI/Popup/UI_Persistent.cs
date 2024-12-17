@@ -290,10 +290,14 @@ public class UI_Persistent : UI_Scene
 
     protected virtual void OnAnimationComplete()
     {
-        Logger.Log("Main UI -----------------------------------");
-        if (Managers.initialIntroAnimPlayed) return;
-        Managers.initialIntroAnimPlayed = true;
 
+        if (Managers.initialIntroAnimPlayed)
+        {
+            GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
+            return;
+        }
+        Managers.initialIntroAnimPlayed = true;
+        Logger.Log("Main UI -----------------------------------");
         if (!Managers.UI.FindPopup<UI_Main>()) Managers.UI.ShowPopupUI<UI_Main>();
         
         GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);

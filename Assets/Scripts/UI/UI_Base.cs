@@ -158,7 +158,7 @@ public abstract class UI_Base : MonoBehaviour
 	{
 		UI_EventHandler evt = Utils.GetOrAddComponent<UI_EventHandler>(go);
 
-		Logger.Log($"{go.name}'s events unbound-------------------------------");
+	//	Logger.Log($"{go.name}'s events unbound-------------------------------");
 	
 		evt.OnClickHandler = null;
 		evt.OnPressedHandler = null;
