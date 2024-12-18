@@ -266,6 +266,8 @@ public class DepthC23_State_7 : Base_SceneState
         _depthC2SceneController.TurnOnCollidersAndInit();
         _depthC2SceneController.ClearTool();
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TemperatureSensor);
+        
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
         base.OnExit();
     }
 }

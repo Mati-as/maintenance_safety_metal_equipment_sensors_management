@@ -408,13 +408,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         //else { Logger.Log("animation is null."); }
         if(!isReverse) _mainAnimation[clip.name].time = 0;
 
-  
+        currentCilpLength = clip.length;    
     
         _mainAnimation.Play(clip.name);
         
         if(currentAnimationOnCompleteCoroutine !=null) StopCoroutine(currentAnimationOnCompleteCoroutine);
         currentAnimationOnCompleteCoroutine = StartCoroutine(CheckAnimationEnd(count,clip));
-        currentCilpLength = clip.length;    
+      
 
         Logger.Log($"Animation clip with index {count} is playing.");
       
@@ -431,7 +431,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         yield return new WaitForSeconds(clip.length);
 
-        var countCache = count; //건너뛴경우, OnAnimationEnd를 실행하지않기위한로직
+     
         OnAnimationComplete(count);
     }
 
@@ -661,6 +661,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         Action ActionBeforeNextStep = null)
     {
 
+        var currentCilpLengthCache = currentCilpLength;
         var currentStepNumCache = currentStepNum; 
         
         if(contentController.isStepMissionComplete)
@@ -683,8 +684,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         if (waitForSeconds == null)
         {
-            Logger.Log($"waitforsecond is null, wait for currentClipLength..======>{currentCilpLength + 1f}");
-            _waitBeforeNextStep = new WaitForSeconds(currentCilpLength + 0.5f);
+            Logger.Log($"waitforsecond is null, wait for currentClipLength..======>{currentCilpLengthCache }");
+            _waitBeforeNextStep = new WaitForSeconds(currentCilpLengthCache );
         }
     
         if (waitForSeconds != null)

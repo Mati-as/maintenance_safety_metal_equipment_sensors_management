@@ -61,8 +61,11 @@ public class DepthC22_State_3 : Base_SceneState
 
 public class DepthC22_State_4 : Base_SceneState
 {
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthC2_SceneController _depthC2SceneController;
     public DepthC22_State_4(DepthC2_SceneController currentScene) : base(currentScene)
     {
+        _depthC2SceneController = currentScene;
     }
 
     public override void OnEnter()
@@ -71,6 +74,7 @@ public class DepthC22_State_4 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_SensingElement);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_LockingScrew, false);
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_LockingScrew);
+       
         
        // CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         base.OnEnter();
@@ -80,14 +84,17 @@ public class DepthC22_State_4 : Base_SceneState
     {
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_SensingElement);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_LockingScrew);
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
         base.OnExit();
     }
 }
 
 public class DepthC22_State_5 : Base_SceneState
 {
+    DepthC2_SceneController _depthC2SceneController;
     public DepthC22_State_5(DepthC2_SceneController currentScene) : base(currentScene)
     {
+        _depthC2SceneController = currentScene;
     }
 
     public override void OnEnter()
@@ -99,7 +106,12 @@ public class DepthC22_State_5 : Base_SceneState
 
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
+        base.OnExit();
+    }
 }
 
 public class DepthC22_State_6 : Base_SceneState

@@ -25,6 +25,9 @@ public enum DepthC2_GameObj
     Indicator,
     Probe_Anode, // negative
     Probe_Cathode, // positive
+    Wrench,
+    
+    
     //Temperature sesnor ----------
     TS_CompensatingWire,
     TS_Stabilizer,
@@ -1600,7 +1603,9 @@ public class DepthC2_SceneController : Base_SceneController
         defaultRotationMap.TryAdd((int)DepthC2_GameObj.Probe_Cathode,GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.rotation);
         defaultRotationMap.TryAdd((int)DepthC2_GameObj.Probe_Anode,GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.rotation);
         controlPanel = GetObject((int)DepthC2_GameObj.PowerHandle).GetComponent<ControlPanelController>();
-        
+
+
+        GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
     }
 
     private void InitializeC2States()

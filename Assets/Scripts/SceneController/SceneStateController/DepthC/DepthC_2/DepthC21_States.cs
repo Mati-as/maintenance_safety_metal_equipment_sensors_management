@@ -60,9 +60,16 @@ public class DepthC21_State_3 : Base_SceneState
 
 public class DepthC21_State_4 : Base_SceneState
 {
-    public DepthC21_State_4(DepthC2_SceneController currentScene) : base(currentScene){}
-
-    public override void OnEnter(){base.OnEnter();}
+    DepthC2_SceneController _depthC2SceneController;
+    public DepthC21_State_4(DepthC2_SceneController currentScene) : base(currentScene)
+    {
+        _depthC2SceneController = currentScene;
+    }
+    public override void OnEnter()
+    {
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
@@ -94,6 +101,8 @@ public class DepthC21_State_5 : Base_SceneState
     public override void OnExit()
     {
 
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
+        
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_LockingScrew);
         CurrentScene.contentController.isStepMissionPerformable = false;
         base.OnExit();
@@ -109,9 +118,11 @@ public class DepthC21_State_6 : Base_SceneState
     }
     public override void OnEnter()
     {
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
         _depthC2SceneController.SetWaterDecalStatus(true);
         _depthC2SceneController.FadeInDecal();
         _depthC2SceneController.SetParticleStatus(true);
+        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
         
         CurrentScene.contentController.isStepMissionPerformable = true;
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_ConnectionPiping, false);
