@@ -80,8 +80,8 @@ public class Tutorial_SceneController : DepthC2_SceneController
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
 
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent += OnUIToolBoxMultimeterBtnClicked;
         
         
         
@@ -111,13 +111,13 @@ public class Tutorial_SceneController : DepthC2_SceneController
          
         // UI_Evaluation.OnRestartBtnOnEvalClicked -= TutorialInit;
          UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
-         UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-         UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+         UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
+         UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
          MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
-         UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
+         UI_ToolBox.ToolBox_TemperatureSensorClickedEvent -= OnUIBtnToolBoxTemperatureSensorClicked;
      }
 
-     protected override void OnUI_MultimeterBtnClicked()
+     protected override void OnUIToolBoxMultimeterBtnClicked()
      {
                  
          InitializeTool();

@@ -10,7 +10,8 @@ public class UI_ToolBox : UI_Popup
         Btn_ElectricScrewdriver,
         Btn_Multimeter,
         Btn_TemperatureSensor,
-        Btn_LimitSwitch
+        Btn_LimitSwitch,
+        Btn_PressureCalibrator
     }
     
 
@@ -19,10 +20,11 @@ public class UI_ToolBox : UI_Popup
     private DepthC2_SceneController _depthCsceneController;
     
     public static event Action ToolBoxOnEvent; // 도구함을 클릭해주세요 완수 시  
-    public static event Action ElectronicScrewDriverClickedEvent; // 도구함을 클릭해주세요 완수 시  
-    public static event Action MultimeterClickedEvent; // 도구함을 클릭해주세요 완수 시  
-    public static event Action TemperatureSensorClickedEvent; // 온도센서 클릭해주세요 완수 시  
-    public static event Action LimitSwitchSensorClickedEvent; // 리밋스위치 클릭해주세요 완수 시  
+    public static event Action ToolBox_ElectronicScrewDriverClickedEvent; // 도구함을 클릭해주세요 완수 시  
+    public static event Action ToolBox_MultimeterClickedEvent; // 도구함을 클릭해주세요 완수 시  
+    public static event Action ToolBox_TemperatureSensorClickedEvent; // 온도센서 클릭해주세요 완수 시  
+    public static event Action ToolBox_LimitSwitchSensorClickedEvent; // 리밋스위치 클릭해주세요 완수 시  
+    public static event Action ToolBox_PressureCalibratorClickedEvent; // 리밋스위치 클릭해주세요 완수 시  
     public override bool Init()
     {
         if (!base.Init())
@@ -31,29 +33,20 @@ public class UI_ToolBox : UI_Popup
         _depthCsceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<DepthC2_SceneController>();
         _animator = GetComponent<Animator>();
         BindButton(typeof(Btns));
-       // BindObject(typeof(Obj));
-        //
-        // GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
-        // {
-        //     
-        //     ToolBoxOnEvent?.Invoke();
-        //     SetToolBox(false);
-        //     //Managers.UI.ClosePopupUI(this);
-        // });
 
         
         
         GetButton((int)Btns.Btn_ElectricScrewdriver).gameObject.BindEvent(() =>
         {
             //_depthCsceneController.OnScrewDriverBtnClicked();
-            ElectronicScrewDriverClickedEvent?.Invoke();
+            ToolBox_ElectronicScrewDriverClickedEvent?.Invoke();
             SetToolBox(false);
         });
         
         GetButton((int)Btns.Btn_Multimeter).gameObject.BindEvent(() =>
         {
             //_depthCsceneController.OnMultimeterBtnClicked();
-            MultimeterClickedEvent?.Invoke();
+            ToolBox_MultimeterClickedEvent?.Invoke();
             SetToolBox(false);
           
         });
@@ -61,7 +54,7 @@ public class UI_ToolBox : UI_Popup
         GetButton((int)Btns.Btn_TemperatureSensor).gameObject.BindEvent(() =>
         {
             
-            TemperatureSensorClickedEvent?.Invoke();
+            ToolBox_TemperatureSensorClickedEvent?.Invoke();
             SetToolBox(false);
 
         });
@@ -70,11 +63,18 @@ public class UI_ToolBox : UI_Popup
         GetButton((int)Btns.Btn_LimitSwitch).gameObject.BindEvent(() =>
         {
             
-            LimitSwitchSensorClickedEvent?.Invoke();
+            ToolBox_LimitSwitchSensorClickedEvent?.Invoke();
             SetToolBox(false);
 
         });
 
+        GetButton((int)Btns.Btn_PressureCalibrator).gameObject.BindEvent(() =>
+        {
+            
+            ToolBox_PressureCalibratorClickedEvent?.Invoke();
+            SetToolBox(false);
+
+        });
 
         SetToolBox(false);
         Refresh();

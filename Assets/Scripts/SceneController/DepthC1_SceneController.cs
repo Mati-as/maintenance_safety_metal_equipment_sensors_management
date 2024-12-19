@@ -543,7 +543,7 @@ public class DepthC1_SceneController : Base_SceneController
     
 
     
-    protected virtual void OnUI_Btn_TemperatureSensorClicked()
+    protected virtual void OnUIBtnToolBoxTemperatureSensorClicked()
     {
         
     }
@@ -559,14 +559,14 @@ public class DepthC1_SceneController : Base_SceneController
         ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
                 
         
-        UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
-        UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
+        UI_ToolBox.ToolBox_TemperatureSensorClickedEvent -= OnUIBtnToolBoxTemperatureSensorClicked;
+        UI_ToolBox.ToolBox_TemperatureSensorClickedEvent += OnUIBtnToolBoxTemperatureSensorClicked;
 
-        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
-        UI_ToolBox.ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
         
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent += OnUIToolBoxMultimeterBtnClicked;
         
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
@@ -578,8 +578,8 @@ public class DepthC1_SceneController : Base_SceneController
         MultimeterController.OnConductiveModeReady -= OnConductiveModeSet;
         MultimeterController.OnConductiveModeReady += OnConductiveModeSet;
         
-       UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchBtnOnUIClicked;
-       UI_ToolBox.LimitSwitchSensorClickedEvent += OnLimitSwitchBtnOnUIClicked;
+       UI_ToolBox.ToolBox_LimitSwitchSensorClickedEvent -= OnToolBoxLimitSwitchBtnOnUIClicked;
+       UI_ToolBox.ToolBox_LimitSwitchSensorClickedEvent += OnToolBoxLimitSwitchBtnOnUIClicked;
 
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
         C1_LimitSwitchPivotController.OnTargetPosArrive += OnTargetPosArrive;
@@ -604,18 +604,18 @@ public class DepthC1_SceneController : Base_SceneController
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
      //   UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
        
-        UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchBtnOnUIClicked;
+        UI_ToolBox.ToolBox_LimitSwitchSensorClickedEvent -= OnToolBoxLimitSwitchBtnOnUIClicked;
        
-        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceModeSet;
         MultimeterController.OnConductiveModeReady -= OnConductiveModeSet;
         
     }
 
-    private void OnLimitSwitchBtnOnUIClicked()
+    private void OnToolBoxLimitSwitchBtnOnUIClicked()
     {
         if (Managers.ContentInfo.PlayData.Count == 12)
         {
@@ -1380,7 +1380,7 @@ public class DepthC1_SceneController : Base_SceneController
     
     
 
-    protected virtual void OnUI_MultimeterBtnClicked()
+    protected virtual void OnUIToolBoxMultimeterBtnClicked()
     {
       
         InitializeTool();

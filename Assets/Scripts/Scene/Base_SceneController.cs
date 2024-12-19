@@ -41,8 +41,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     //Animation
     public Dictionary<int, HighlightEffect> objectHighlightMap;
-    private Dictionary<int, string> _toolTipTextMap;
     protected Dictionary<int, Sequence> _seqMap;
+    private Dictionary<int, string> _toolTipTextMap;
 
     [Tooltip("Highlight Effect Setting ----------------------")]
 
@@ -465,7 +465,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     protected void SetHighlight(int gameObjName, bool isOn = true)
     {
-
         objectHighlightMap[gameObjName].enabled = true;
         objectHighlightMap[gameObjName].highlighted = isOn;
        objectHighlightMap[gameObjName].outlineWidth = OUTLINE_WIDTH_ON_HOVER;

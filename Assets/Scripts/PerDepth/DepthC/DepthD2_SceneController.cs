@@ -81,17 +81,17 @@ public class DepthD2_SceneController : DepthC2_SceneController
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
 
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent += OnUIToolBoxMultimeterBtnClicked;
         
-        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
-        UI_ToolBox.ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
 
-        UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
-        UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
+        UI_ToolBox.ToolBox_TemperatureSensorClickedEvent -= OnUIBtnToolBoxTemperatureSensorClicked;
+        UI_ToolBox.ToolBox_TemperatureSensorClickedEvent += OnUIBtnToolBoxTemperatureSensorClicked;
         
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent += OnUIToolBoxMultimeterBtnClicked;
         
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
         MultimeterController.OnResistanceMeasureReadyAction += OnResistanceReady;
@@ -252,9 +252,9 @@ public class DepthD2_SceneController : DepthC2_SceneController
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
-        UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ToolBox_TemperatureSensorClickedEvent -= OnUIBtnToolBoxTemperatureSensorClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
+        UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceReady;
         
     }
@@ -265,7 +265,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
         
     }
 
-    protected override void OnUI_MultimeterBtnClicked()
+    protected override void OnUIToolBoxMultimeterBtnClicked()
     {
         if (Managers.ContentInfo.PlayData.Depth1 != 4) return;
 
@@ -308,7 +308,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
 
 
      
-     protected override void OnUI_Btn_TemperatureSensorClicked()
+     protected override void OnUIBtnToolBoxTemperatureSensorClicked()
      {
          if (!Managers.evaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_TemperatureSensor)) return;
          

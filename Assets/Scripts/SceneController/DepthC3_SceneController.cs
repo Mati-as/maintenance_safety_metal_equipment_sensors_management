@@ -23,6 +23,7 @@ public enum DepthC3_GameObj
     MultimeterHandleHighlight,
     Probe_Anode, // negative
     Probe_Cathode, // positive,
+    
         
     ConnectionScrewA,
     ConnectionScrewB,
@@ -45,15 +46,35 @@ public enum DepthC3_GameObj
     PressureCalibrator,
     PressureSensorConnectingPipe, //연결 배관
     PressureSensorConnectingScrew, // 연결 나사 (어댑터)
-
     
-
-
+    //하이라이트 및 툴팁 적용을 위한 enum (객체컨트롤은 PressureCalibrator에서합니다.)
+    Btn_F1 , 
+    Btn_F2,
+    Btn_F3, //Tasks:LoopPower
+    Btn_F4, //Tasks::Continue
+    Btn_Tasks,
+    Btn_Arrow_Down,
+    Btn_Arrow_Up,
+    Btn_Enter,
+    Btn_Vent,
+    Btn_Number_One,
+    Btn_Number_Zero
+    
 }
 
 
 public class DepthC3_SceneController : Base_SceneController
 {
+
+    #region 압력교정기
+
+    private PressureCalibratorController _pressureCalibratorController;
+
+    #endregion
+    
+    
+    
+    
 private readonly int UNWOUND_COUNT_GOAL = 4;
     private int _unwoundCount;
     
@@ -189,6 +210,21 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
             }
         }
     }
+    private void BindhighlightAndToolTip()
+    {
+
+        BindHighlight((int)DepthC3_GameObj.Btn_F1,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_F2,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_F3,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_F4,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_Tasks,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Down,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Up,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_Enter,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_Vent,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_Number_One,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_Number_Zero,"");
+    }
 
 
     [Range(-500, 500f)] public float _toolPosXOffset = 0.3f;
@@ -264,10 +300,15 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         
         
         SetDefaultTransform();
-        
+
         InitializeC3States();
         GetScrewColliders();
         contentController.OnDepth2Init((int)Define.DepthC_Sensor.PressureSensor); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
+     
+        
+        _pressureCalibratorController = GetObject((int)DepthC3_GameObj.PressureCalibrator).GetComponent<PressureCalibratorController>();
+        Assert.IsNotNull(_pressureCalibratorController);
+        _pressureCalibratorController.Init();
         
     }
     private void LateCommonInit()
@@ -401,7 +442,7 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
     
 
     
-    protected virtual void OnUI_Btn_TemperatureSensorClicked()
+    protected virtual void OnUIBtnToolBoxTemperatureSensorClicked()
     {
         
     }
@@ -417,14 +458,14 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
                 
         
-        UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
-        UI_ToolBox.TemperatureSensorClickedEvent += OnUI_Btn_TemperatureSensorClicked;
+        UI_ToolBox.ToolBox_TemperatureSensorClickedEvent -= OnUIBtnToolBoxTemperatureSensorClicked;
+        UI_ToolBox.ToolBox_TemperatureSensorClickedEvent += OnUIBtnToolBoxTemperatureSensorClicked;
 
-        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
-        UI_ToolBox.ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
         
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
-        UI_ToolBox.MultimeterClickedEvent += OnUI_MultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent += OnUIToolBoxMultimeterBtnClicked;
         
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
@@ -436,8 +477,8 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         MultimeterController.OnConductiveModeReady -= OnConductiveModeSet;
         MultimeterController.OnConductiveModeReady += OnConductiveModeSet;
         
-       UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchBtnClicked;
-       UI_ToolBox.LimitSwitchSensorClickedEvent += OnLimitSwitchBtnClicked;
+       UI_ToolBox.ToolBox_LimitSwitchSensorClickedEvent -= OnToolBoxLimitSwitchBtnClicked;
+       UI_ToolBox.ToolBox_LimitSwitchSensorClickedEvent += OnToolBoxLimitSwitchBtnClicked;
 
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
         C1_LimitSwitchPivotController.OnTargetPosArrive += OnTargetPosArrive;
@@ -462,18 +503,18 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
      //   UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
-        UI_ToolBox.MultimeterClickedEvent -= OnUI_MultimeterBtnClicked;
+        UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
        
-        UI_ToolBox.LimitSwitchSensorClickedEvent -= OnLimitSwitchBtnClicked;
+        UI_ToolBox.ToolBox_LimitSwitchSensorClickedEvent -= OnToolBoxLimitSwitchBtnClicked;
        
-        UI_ToolBox.ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
+        UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
         MultimeterController.OnResistanceMeasureReadyAction -= OnResistanceModeSet;
         MultimeterController.OnConductiveModeReady -= OnConductiveModeSet;
         
     }
 
-    private void OnLimitSwitchBtnClicked()
+    private void OnToolBoxLimitSwitchBtnClicked()
     {
         if (Managers.ContentInfo.PlayData.Count == 2)
         {
@@ -1200,7 +1241,7 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
     
     
 
-    protected virtual void OnUI_MultimeterBtnClicked()
+    protected virtual void OnUIToolBoxMultimeterBtnClicked()
     {
       
         InitializeTool();
