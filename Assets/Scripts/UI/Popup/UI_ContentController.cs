@@ -166,6 +166,7 @@ public class UI_ContentController : UI_Popup
         set
         {
             _isStepChangeByMouseClick = value;
+            Logger.Log($"step chagned by next or prev btn clicked by mosue : {_isStepChangeByMouseClick}");
         }
     }
 
@@ -825,33 +826,36 @@ public class UI_ContentController : UI_Popup
         isStepChangeByMouseClick = true;
         if(hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
         if(!_currentMainCam.isControllable) HideCamInitBtn();
+
+        SetDepthThirdHideBtnStatus(false);
+        
         
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,true);
-
+        
+        
+  
      
        
     }
 
 
-    public void InvokeNextStep()
+    public void InvokeNextStepByMissionComplete()
     {
     
-        Logger.Log("스텝별 수행 미션 완료, 다음 스크립트 및 애니메이션 재생");
-            OnNextBtnClicked();
         
+        isStepChangeByMouseClick = false;
+        
+        Precheck();//
+        SetScriptUI();
+        CheckAndGoToNextStep();
+        
+        Logger.Log($"스텝별 수행 미션 완료, 다음 스크립트 및 애니메이션 재생----> {Managers.ContentInfo.PlayData.Count}");
 
     }
-    /// <summary>
-    /// 버튼 클릭외에 스크립트를 넘어가는 경우 (예. 미션수행완료 등) 사용
-    /// </summary>
 
-    private void OnNextBtnClicked()
+    private void CheckAndGoToNextStep()
     {
-        Precheck();//
-        
-        SetScriptUI();
-        
         if (Managers.ContentInfo.PlayData.Count >= ContentPlayData.CurrentCountMax)
         {
             Logger.Log("current count is Max ---------");
@@ -863,12 +867,25 @@ public class UI_ContentController : UI_Popup
             //depth2 invoke로직 or 버튼에 직접할당하기
         }
 
+        SetDepthThirdHideBtnStatus(false);
+        
         Managers.ContentInfo.PlayData.Count++;
-        isStepChangeByMouseClick = true;
-        Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
+      
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,false);
         if(!_currentMainCam.isControllable) HideCamInitBtn();
+    }
+    /// <summary>
+    /// 버튼 클릭외에 스크립트를 넘어가는 경우 (예. 미션수행완료 등) 사용
+    /// </summary>
+
+    private void OnNextBtnClicked()
+    {
+        isStepChangeByMouseClick = true;
         
+        Precheck();//
+        SetScriptUI();
+        CheckAndGoToNextStep();
+        Logger.Log($"Nxt Btn Clicked By Mouse ---> {Managers.ContentInfo.PlayData.Count}");
     }
 
 
@@ -1077,6 +1094,14 @@ public class UI_ContentController : UI_Popup
         
         _depth3HideBtnAnimator.SetBool(UI_ON,_isdepth3ListOn);
         GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(_isdepth3ListOn);
+    }
+    
+    private void SetDepthThirdHideBtnStatus(bool isOn)
+    {
+        _isdepth3ListOn = isOn;
+        
+        _depth3HideBtnAnimator.SetBool(UI_ON,isOn);
+        GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(isOn);
     }
 
     private bool isOnActiveArea; // 뎁스3내용 Hover시 표출. 표출이후에도 내용범위에 머물러있으면 Hover상태 유지

@@ -141,14 +141,20 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         UI_ContentController.OnStepBtnClicked_CurrentCount -= OnStepChange;
     }
 
-    public void OnDepth3Clicked()
+    public virtual void OnDepth3Clicked()
     {
         PreInitBefreDepthChange();
-
+        
         Logger.Log($"Ondepth3 Btn Clicked() execute. current depth Status ---> {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
         PlayAnimation(0);
         ChangeState(0);
     }
+    
+    public virtual void ClearTool()
+    {
+        CurrentActiveTool =  -1;
+    }
+
 
     private void PreInitBefreDepthChange()
     {
@@ -156,6 +162,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         _currentPlayingCount = -321; // 반드시 초기화 애니메이션을 실행시키기 위해 다음과같이 설정
         Managers.ContentInfo.PlayData.Count = 0;
         ExitCurrentState();
+  
 
     }
 
@@ -223,6 +230,18 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         //재생관련 파라미터를 미리 설정 한 후 재생합니다. (재생순서, 방식 등)
         isReverseAnim = isReverse;
         currentCount = count;
+        if(_changeStateByServeAnimCo!=null) StopCoroutine(_changeStateByServeAnimCo);
+
+        if (_isCurrentAnimServe && !isReverse && contentController.isStepChangeByMouseClick)
+        {
+            //서브애니메이션인 경우, State를 다시 돌리고, 
+            
+            currentCount = --Managers.ContentInfo.PlayData.Count;
+            ChangeState(currentCount);
+            Logger.Log($"current Animation is Serve --> go back to previous state and play animation ---> anim: {currentCount}");
+            return;
+        } 
+
 
         var serveAnimPath = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
                             $"{Managers.ContentInfo.PlayData.Depth2}" +
@@ -233,13 +252,17 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         // StepMissionComplete는 오브젝트를 직접클릭하였을때활성화 됩니다. 
         // 오브젝트를 직접 클릭하여 isStepMissionComplete를 완수하였다면, OnStepChange에서 실행하지않습니다.
         // Prevent Duplicate Execution
-        if (serveClip != null && !isReverseAnim && contentController.isStepChangeByMouseClick) // Serve 애니메이션이 존재하고, 역재생이 아닌경우
+        if (serveClip != null && !isReverseAnim) // Serve 애니메이션이 존재하고, 역재생이 아닌경우
         {
             Logger.Log($"Serve animation found at path {serveAnimPath}. Playing serve animation.");
-
+         
             if (count <= 0) OnStepMissionComplete(animationNumber: count);
-            OnStepMissionComplete(animationNumber:count-1);
-            DOVirtual.DelayedCall(serveClip.length, () => { ChangeState(count); });
+            else
+            {
+                OnStepMissionComplete(animationNumber:count-1);
+                _changeStateByServeAnimCo = StartCoroutine(ChangeStateByServeAnim(count,serveClip.length));
+            }
+
         }
         else // Serve 애니메이션이 없는 경우 혹은 이전으로 가는경우 바로 상태 전환
         {
@@ -247,6 +270,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             ChangeState(count);
         }
         
+    }
+
+    private Coroutine _changeStateByServeAnimCo;
+    private IEnumerator ChangeStateByServeAnim(int animCount,float waitforSec)
+    {
+        yield return new WaitForSeconds(waitforSec);
+        ChangeState(animCount);
     }
 
     /// <summary>
@@ -316,6 +346,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
 
         _isCurrentAnimServe = isMissionCompleteAnim;
+        _mainAnimation.Stop();
 
         if (_currentPlayingCount == count)
         {
@@ -369,36 +400,36 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         
 
-        if (isReverse)
-        {
-            path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
-                   $"{Managers.ContentInfo.PlayData.Depth2}" +
-                   $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count + 1}";
-            
-            Logger.Log($"Reverse Animation Path {path}");
-           
-            var reverseClip = Resources.Load<AnimationClip>(path);
-
-            if (reverseClip != null && reverseClip.length >= 1.5f) // 1frame 이상인 경우
-            {
-                clip = reverseClip;
-                _mainAnimation[clip.name].time = _mainAnimation[clip.name].length;
-                Logger.Log($"Current Anim was long enough: {reverseClip.length} ->  Rewinding Animation.");
-                if(_mainAnimation != null)_mainAnimation[clip.name].speed = isReverse ? -1 : 1;
-            }
-            else
-            {
-                path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
-                       $"{Managers.ContentInfo.PlayData.Depth2}" +
-                       $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count}";
-                
-                reverseClip = Resources.Load<AnimationClip>(path);
-                
-                clip = reverseClip;
-                Logger.Log($"Reverse clip too short, using original clip. Path:  {path}");
-                if(_mainAnimation != null)_mainAnimation[clip.name].speed = 1;
-            }
-        }
+        // if (isReverse)
+        // {
+        //     path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
+        //            $"{Managers.ContentInfo.PlayData.Depth2}" +
+        //            $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count + 1}";
+        //     
+        //     Logger.Log($"Reverse Animation Path {path}");
+        //    
+        //     var reverseClip = Resources.Load<AnimationClip>(path);
+        //
+        //     if (reverseClip != null && reverseClip.length >= 1.5f) // 1frame 이상인 경우
+        //     {
+        //         clip = reverseClip;
+        //         _mainAnimation[clip.name].time = _mainAnimation[clip.name].length;
+        //         Logger.Log($"Current Anim was long enough: {reverseClip.length} ->  Rewinding Animation.");
+        //         if(_mainAnimation != null)_mainAnimation[clip.name].speed = isReverse ? -1 : 1;
+        //     }
+        //     else
+        //     {
+        //         path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
+        //                $"{Managers.ContentInfo.PlayData.Depth2}" +
+        //                $"{Managers.ContentInfo.PlayData.Depth3}" + $"/{count}";
+        //         
+        //         reverseClip = Resources.Load<AnimationClip>(path);
+        //         
+        //         clip = reverseClip;
+        //         Logger.Log($"Reverse clip too short, using original clip. Path:  {path}");
+        //         if(_mainAnimation != null)_mainAnimation[clip.name].speed = 1;
+        //     }
+        // }
 
         if (clip == null)
         {
@@ -406,7 +437,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         }
      
         //else { Logger.Log("animation is null."); }
-        if(!isReverse) _mainAnimation[clip.name].time = 0;
+     //   if(!isReverse) _mainAnimation[clip.name].time = 0;
 
         currentCilpLength = clip.length;    
     
@@ -443,6 +474,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             OnAnimationCompelete?.Invoke(currentCount);
             if(!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
+            
+            _isCurrentAnimServe = false;
             Logger.Log("On Animation Complete ------------------");
         }
         else
@@ -647,7 +680,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         
         //Prevent Duplicate Playback
         if(currentAnimationCoroutine!=null)StopCoroutine(currentAnimationCoroutine);
-
         currentAnimationCoroutine = StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayAmount, ActionBeforeDelay));
     }
 
@@ -660,6 +692,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         Action ActionBeforeNextStep = null)
     {
 
+        contentController.isStepChangeByMouseClick = false;
         var currentCilpLengthCache = currentCilpLength;
         var currentStepNumCache = currentStepNum; 
         
@@ -682,8 +715,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         ActionBeforeNextStep?.Invoke();
         
         if (waitForSeconds == null)
-        {
-            Logger.Log($"waitforsecond is null, wait for currentClipLength..======>{currentCilpLengthCache }");
+        {  Logger.Log($"waitforsecond is null, wait for currentClipLength..======>{currentCilpLengthCache }");
             _waitBeforeNextStep = new WaitForSeconds(currentCilpLengthCache );
         }
     
@@ -698,7 +730,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             Logger.Log($"Invoke Next Step @@@ :--------------- {Managers.ContentInfo.PlayData.Count}-");
             //ChangeState(Managers.ContentInfo.PlayData.Count);
-            contentController.InvokeNextStep(); // 다음 스텝으로 넘어가기
+            contentController.InvokeNextStepByMissionComplete(); // 다음 스텝으로 넘어가기
         }
         else
         {

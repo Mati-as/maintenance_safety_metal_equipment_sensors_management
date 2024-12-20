@@ -52,6 +52,7 @@ public abstract class UI_Base : MonoBehaviour
 	protected void BindObject(Type type) { Bind<GameObject>(type);  }
 	protected void BindImage(Type type) { Bind<Image>(type);  }
 	protected void BindTMP(Type type) { Bind<TextMeshProUGUI>(type);  }
+	protected void BindNonUITMP(Type type) { Bind<TextMeshPro>(type);  }
 	protected void BindText(Type type) { Bind<Text>(type);  }
 
 	protected void BindButton(Type type)
@@ -82,6 +83,7 @@ public abstract class UI_Base : MonoBehaviour
 	protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
 	protected Text GetText(int idx) { return Get<Text>(idx); }
 	protected TextMeshProUGUI GetTMP(int idx) { return Get<TextMeshProUGUI>(idx); }
+	protected TextMeshPro GetNonUITMP(int idx) { return Get<TextMeshPro>(idx); }
 	protected virtual Button GetButton(int idx)
 	{
 		_isScaleEventOn.TryAdd(idx,false);

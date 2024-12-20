@@ -68,7 +68,7 @@ public class DepthC3_SceneController : Base_SceneController
 
     #region 압력교정기
 
-    private PressureCalibratorController _pressureCalibratorController;
+    [FormerlySerializedAs("_pressureCalibratorController")] public PressureCalibratorController pressureCalibratorController;
 
     #endregion
     
@@ -210,20 +210,157 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
             }
         }
     }
-    private void BindhighlightAndToolTip()
+    private void BindEventForPsCalibrator()
     {
 
-        BindHighlight((int)DepthC3_GameObj.Btn_F1,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_F2,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_F3,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_F4,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_Tasks,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Down,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Up,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_Enter,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_Vent,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_Number_One,"");
-        BindHighlight((int)DepthC3_GameObj.Btn_Number_Zero,"");
+        BindHighlight((int)DepthC3_GameObj.Btn_F1,"F1");
+        
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_F2,"F2");
+        
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_F3,"F3");
+        GetObject((int)DepthC3_GameObj.Btn_F3).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 10)
+            {
+                pressureCalibratorController.OnBtn_F3Clicked();
+                OnStepMissionComplete(animationNumber:10);
+            }
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 16)
+            {
+                pressureCalibratorController.OnBtn_F3Clicked();
+                ChangeTooltipText((int)DepthC3_GameObj.Btn_F4, "F4 : Continue");
+               
+            }
+        });
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_F4,"F4");
+        GetObject((int)DepthC3_GameObj.Btn_F4).BindEvent(() =>
+        {
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 16)
+            {
+                pressureCalibratorController.OnBtn_F4Clicked();
+                OnStepMissionComplete(animationNumber:16);
+               
+            }
+            
+                     
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 20)
+            {
+                pressureCalibratorController.OnBtn_F4Clicked();
+                OnStepMissionComplete(animationNumber:20);
+            }
+            
+            //AutoTest
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 21)
+            {
+                pressureCalibratorController.OnBtn_F4Clicked();
+                OnStepMissionComplete(animationNumber:21);
+            }
+        });
+        
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_Vent,"VENT");
+        GetObject((int)DepthC3_GameObj.Btn_Vent).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 9)
+            {
+                pressureCalibratorController.OnVentClicked();
+                OnStepMissionComplete(animationNumber:9);
+            }
+        });
+        
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_Tasks,"TASKS");
+        GetObject((int)DepthC3_GameObj.Btn_Tasks).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 11)
+            {
+                pressureCalibratorController.OnTasksBtnClicked();
+                OnStepMissionComplete(animationNumber:11);
+            }
+        });
+        
+        
+
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Down,"DOWN");
+        GetObject((int)DepthC3_GameObj.Btn_Arrow_Down).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 14)
+            {
+                pressureCalibratorController.OnDownBtnClicked();
+                OnStepMissionComplete(animationNumber:14);
+            }
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 18)
+            {
+                pressureCalibratorController.OnDownBtnClicked();
+            }
+        });
+        
+        
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Up,"UP");
+        
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_Enter,"ENTER");
+        GetObject((int)DepthC3_GameObj.Btn_Enter).BindEvent(() =>
+        {
+       
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 15)
+            {
+                pressureCalibratorController.OnEnterBtnClicked();
+                if(pressureCalibratorController.is100PsiSet)OnStepMissionComplete(animationNumber:15);
+            }
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 18)
+            {
+                pressureCalibratorController.OnEnterBtnClicked();
+                OnStepMissionComplete(animationNumber:18);
+            }
+            
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 19)
+            {
+                pressureCalibratorController.OnEnterBtnClicked();
+                OnStepMissionComplete(animationNumber:19);
+
+            }
+        });
+        
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_Number_One,"1");
+        GetObject((int)DepthC3_GameObj.Btn_Number_One).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12)
+            {
+                pressureCalibratorController.OnBtnNumberOneClicked();
+                OnStepMissionComplete(animationNumber:12);
+            }
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 15)
+            {
+                pressureCalibratorController.OnBtnNumberOneClicked();
+
+            }
+        });
+        
+        
+        BindHighlight((int)DepthC3_GameObj.Btn_Number_Zero,"0");
+        GetObject((int)DepthC3_GameObj.Btn_Number_Zero).BindEvent(() =>
+        {
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 15)
+            {
+                pressureCalibratorController.OnBtnNumberZeroClicked();
+
+            }
+        });
     }
 
 
@@ -306,9 +443,9 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         contentController.OnDepth2Init((int)Define.DepthC_Sensor.PressureSensor); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
      
         
-        _pressureCalibratorController = GetObject((int)DepthC3_GameObj.PressureCalibrator).GetComponent<PressureCalibratorController>();
-        Assert.IsNotNull(_pressureCalibratorController);
-        _pressureCalibratorController.Init();
+        pressureCalibratorController = GetObject((int)DepthC3_GameObj.PressureCalibrator).GetComponent<PressureCalibratorController>();
+        Assert.IsNotNull(pressureCalibratorController);
+        pressureCalibratorController.Init();
         
     }
     private void LateCommonInit()
@@ -412,13 +549,11 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
        
     }
 
-    public void DepthC11Init()
+    public void DepthC33Init()
     {
       
         PreCommonInit();
         
-       
-       
         SetMultimeterSection();
         SetScrewDriverSection();
         InitScrewForConductiveCheck();
@@ -426,13 +561,10 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         
         SetDefaultTransform();
         BindInteractionEvent();
+        BindEventForPsCalibrator();
         
-
         
-      
-        BindHighlight((int)DepthC3_GameObj.ConnectionScrewB,"접속나사");
-        BindHighlight((int)DepthC3_GameObj.ConnectionScrewC,"접속나사");
-        BindHighlight((int)DepthC3_GameObj.ConnectionScrewD,"접속나사");
+        
         
         
         
@@ -442,9 +574,13 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
     
 
     
-    protected virtual void OnUIBtnToolBoxTemperatureSensorClicked()
+    protected virtual void OnPressureCalibratorClicked()
     {
-        
+        if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 8) 
+        {
+            pressureCalibratorController.BootPressureCalibrator();
+            OnStepMissionComplete(animationNumber:8);
+        }
     }
 
     protected virtual void PowerOnOff(bool isOn)
@@ -456,16 +592,16 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
     {
         
         ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
-                
         
-        UI_ToolBox.ToolBox_TemperatureSensorClickedEvent -= OnUIBtnToolBoxTemperatureSensorClicked;
-        UI_ToolBox.ToolBox_TemperatureSensorClickedEvent += OnUIBtnToolBoxTemperatureSensorClicked;
 
         UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent += OnElectricScrewdriverBtnClicked;
         
         UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
         UI_ToolBox.ToolBox_MultimeterClickedEvent += OnUIToolBoxMultimeterBtnClicked;
+        
+        UI_ToolBox.ToolBox_PressureCalibratorClickedEvent -= OnPressureCalibratorClicked;
+        UI_ToolBox.ToolBox_PressureCalibratorClickedEvent += OnPressureCalibratorClicked;
         
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
@@ -501,10 +637,9 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
         
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
-        UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
-     //   UI_ToolBox.TemperatureSensorClickedEvent -= OnUI_Btn_TemperatureSensorClicked;
         UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
-       
+        
+        UI_ToolBox.ToolBox_PressureCalibratorClickedEvent -= OnPressureCalibratorClicked;
         UI_ToolBox.ToolBox_LimitSwitchSensorClickedEvent -= OnToolBoxLimitSwitchBtnClicked;
        
         UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
@@ -521,6 +656,8 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
             OnStepMissionComplete(animationNumber:2);
         }
     }
+
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -1410,13 +1547,14 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
         animatorMap[(int)DepthC3_GameObj.Multimeter].SetBool(MULTIMETER_ON, false); // 멀티미터는 active상태로 유지합니다.
     }
 
-    public void ClearTool()
+    public override void ClearTool()
     {
         CurrentActiveTool =  -1;
         isDriverOn= false;
         isMultimeterOn = false;
         multimeterController.isConductive = false;
     }
+
 
     public void SetScrewStatus(bool forWindAnim)
     {
@@ -1602,6 +1740,14 @@ private readonly int UNWOUND_COUNT_GOAL = 4;
             { 33314, new DepthC33_State_14(this) },
             { 33315, new DepthC33_State_15(this) },
             { 33316, new DepthC33_State_16(this) },
+            { 33317, new DepthC33_State_17(this) },
+            { 33318, new DepthC33_State_18(this) },
+            { 33319, new DepthC33_State_19(this) },
+            { 33320, new DepthC33_State_20(this) },
+            { 33321, new DepthC33_State_21(this) },
+            { 33322, new DepthC33_State_22(this) },
+            { 33323, new DepthC33_State_23(this) },
+            { 33324, new DepthC33_State_24(this) },
        
         };
     }

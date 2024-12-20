@@ -23,8 +23,8 @@ public class Base_SceneState : ISceneState
         // Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         
         //misson수행과 사용자 컨트롤의 구분
-        CurrentScene.contentController.isStepChangeByMouseClick = false;
-        
+    
+       
         
         CurrentScene.cameraController.isControllable = true;
         //평가하기가 아닌경우
@@ -57,7 +57,7 @@ public class Base_SceneState : ISceneState
     
         
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
-        
+        CurrentScene.contentController.isStepChangeByMouseClick = false;
 
     }
 
