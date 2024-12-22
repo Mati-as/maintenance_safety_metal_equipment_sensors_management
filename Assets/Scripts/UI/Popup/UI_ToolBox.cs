@@ -10,6 +10,7 @@ public class UI_ToolBox : UI_Popup
         Btn_ElectricScrewdriver,
         Btn_Multimeter,
         Btn_TemperatureSensor,
+        Btn_PressureSensor,
         Btn_LimitSwitch,
         Btn_PressureCalibrator
     }
@@ -25,6 +26,7 @@ public class UI_ToolBox : UI_Popup
     public static event Action ToolBox_TemperatureSensorClickedEvent; // 온도센서 클릭해주세요 완수 시  
     public static event Action ToolBox_LimitSwitchSensorClickedEvent; // 리밋스위치 클릭해주세요 완수 시  
     public static event Action ToolBox_PressureCalibratorClickedEvent; // 리밋스위치 클릭해주세요 완수 시  
+    public static event Action ToolBox_PressureSensorClicked; // 리밋스위치 클릭해주세요 완수 시  
     public override bool Init()
     {
         if (!base.Init())
@@ -72,6 +74,14 @@ public class UI_ToolBox : UI_Popup
         {
             
             ToolBox_PressureCalibratorClickedEvent?.Invoke();
+            SetToolBox(false);
+
+        });
+        
+        GetButton((int)Btns.Btn_PressureSensor).gameObject.BindEvent(() =>
+        {
+            
+            ToolBox_PressureSensorClicked?.Invoke();
             SetToolBox(false);
 
         });

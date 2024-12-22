@@ -63,13 +63,19 @@ public class PressureCalibratorController : UI_Popup
         SelectedYellowBgA,SelectedYellowBgB,
         TestStrategySelected,
         ToleranceSelected,
+        NotReady_Bg,
+        Stable_Bg,
+        
     }
 
     public enum NonUITMPs
     {
         Pressure100Psi,
+        TMP_TestStrategy,
         Vented,
         TMP_Psi,
+        TMP_Calibrating_PsiNum,
+        TMP_Calibrating_Current
     }
 
 
@@ -84,6 +90,7 @@ public class PressureCalibratorController : UI_Popup
         
 
         TurnOnUI(UI.Default);
+        BootPressureCalibrator();
         gameObject.SetActive(false);
         
       //  _isInit = true; 
@@ -93,22 +100,21 @@ public class PressureCalibratorController : UI_Popup
     {
         gameObject.SetActive(true);
         TurnOnUI(UI.Default);
+        _textAnimSeqMap.TryAdd((int)NonUITMPs.TMP_Psi, DOTween.Sequence());
         
         _textAnimSeqMap[(int)NonUITMPs.TMP_Psi]?.Kill();
         _textAnimSeqMap[(int)NonUITMPs.TMP_Psi] = DOTween.Sequence();
         
         var lastUpdateTime = 0f;
-        
-        
         _textAnimSeqMap[(int)NonUITMPs.TMP_Psi].AppendCallback(() =>
         {
 
             DOVirtual.Float(0, 1, 1, _ =>
             {
                 var currentTime = Time.time;
-                if (currentTime - lastUpdateTime >= 0.5f)
+                if (currentTime - lastUpdateTime >= 0.2f)
                 {
-                    GetNonUITMP((int)NonUITMPs.TMP_Psi).text = Random.Range(0.050f, 0.052f).ToString("F3");
+                    GetNonUITMP((int)NonUITMPs.TMP_Psi).text = (Random.Range(0.050f, 0.052f)).ToString("F3");
                     lastUpdateTime = currentTime;
                 }
             }).SetEase(Ease.InOutBounce);;
@@ -121,13 +127,15 @@ public class PressureCalibratorController : UI_Popup
 
     public void OnVentClicked()
     {
+        Assert.IsTrue(_textAnimSeqMap.ContainsKey((int)NonUITMPs.TMP_Psi));
+        
         if (_isVented) return;
         _isVented = true;
         //초기화
         _isLoopPowerBtnClicked = false;
         _isContinueClicked = false;
 
-        _textAnimSeqMap.TryAdd((int)NonUITMPs.TMP_Psi, DOTween.Sequence());
+    
         
         _textAnimSeqMap[(int)NonUITMPs.TMP_Psi]?.Kill();
         _textAnimSeqMap[(int)NonUITMPs.TMP_Psi] = DOTween.Sequence();
@@ -163,7 +171,7 @@ public class PressureCalibratorController : UI_Popup
 
     public void OnZeroPressureClicked()
     {
-        Assert.IsTrue(_textAnimSeqMap.ContainsKey((int)NonUITMPs.TMP_Psi));
+      
         
         _textAnimSeqMap[(int)NonUITMPs.TMP_Psi]?.Kill();
         _textAnimSeqMap[(int)NonUITMPs.TMP_Psi] = DOTween.Sequence();
@@ -171,8 +179,15 @@ public class PressureCalibratorController : UI_Popup
         var lastUpdateTime = 0f;
 
      
+        _textAnimSeqMap[(int)NonUITMPs.TMP_Psi].AppendCallback(() =>
+        {
 
-        GetNonUITMP((int)NonUITMPs.TMP_Psi).text = (0.000f).ToString("F3");
+            GetNonUITMP((int)NonUITMPs.TMP_Psi).text = (0.000f).ToString("F3");
+        });
+        
+        _textAnimSeqMap[(int)NonUITMPs.TMP_Psi].SetLoops(-1);
+        _textAnimSeqMap[(int)NonUITMPs.TMP_Psi].Play();
+     
    
     }
     public void OnVentFinished()
@@ -233,7 +248,7 @@ public class PressureCalibratorController : UI_Popup
        
     }
 
-    public void OnBtn_F4Clicked()
+    public void OnBtn_F4Clicked() //AUTO TEST OR CONTINUE...
     {
         if (_currentUI == UI.PressureAndMeasureSetting && _isLoopPowerBtnClicked)
         {
@@ -257,6 +272,11 @@ public class PressureCalibratorController : UI_Popup
         {
             TurnOnUI(UI.Calibrating);
             
+        }
+        
+        if (_currentUI == UI.Calibrating)
+        {
+           CalibratePressure();
         }
                
  
@@ -412,9 +432,108 @@ public class PressureCalibratorController : UI_Popup
         GetObject((int)UI.SelectedYellowBgB).gameObject.SetActive(true);
         _hasDownToTestStrategy = true;
     }
-    
+
+    public void KillCalibratePressureSeq()
+    {
+        _textAnimSeqMap[(int)UI.Calibrating]?.Kill();
+        _textAnimSeqMap[(int)UI.Calibrating] = DOTween.Sequence();
+    }
 
 
+    public void CalibratePressure()
+    {
+        
+        Logger.Log("Pressure Calibration Starts....");
+        GetObject((int)UI.NotReady_Bg).SetActive(true);
+        GetObject((int)UI.Stable_Bg).SetActive(false);
+        
+        _textAnimSeqMap.TryAdd((int)UI.Calibrating, DOTween.Sequence());
+        
+        _textAnimSeqMap[(int)UI.Calibrating]?.Kill();
+        _textAnimSeqMap[(int)UI.Calibrating] = DOTween.Sequence();
+        
+        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text = 0.000f.ToString("F3");
+                
+        // 두 번째 TMP 값: 비례식 적
+        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text = 0.000f.ToString("F3");
+        
+        
+        var lastUpdateTime = 0f;
+       
+        _textAnimSeqMap[(int)UI.Calibrating]
+            .Append(
+                DOVirtual.Float(0f, 50.000f, 8, val =>
+                {
+                    var currentTime = Time.time;
+                    if (currentTime - lastUpdateTime >= 0.2f)
+                    {
+                        // 첫 번째 TMP 값
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text = (val + Random.Range(-0.005f, -0.001f)).ToString("F3");
+                
+                        // 두 번째 TMP 값: 비례식 적용
+                        float current = 12f + (val) * (8f / 50f);
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text = (current + Random.Range(-0.005f, -0.001f)).ToString("F3");
+                
+                        lastUpdateTime = currentTime;
+                    }
+
+                    if (val > 49.985f)
+                    {
+                        GetObject((int)UI.NotReady_Bg).SetActive(false);
+                        GetObject((int)UI.Stable_Bg).SetActive(true);
+                    }
+                    else
+                    {
+                        GetObject((int)UI.NotReady_Bg).SetActive(true);
+                        GetObject((int)UI.Stable_Bg).SetActive(false);
+                    }
+                }).SetEase(Ease.InCirc)
+            )
+            .AppendInterval(1.5f)
+            .Append(
+                DOVirtual.Float(50f, 100.000f, 8, val =>
+                {
+                    var currentTime = Time.time;
+                    if (currentTime - lastUpdateTime >= 0.2f)
+                    {
+                        // 첫 번째 TMP 값
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text = (val + Random.Range(-0.005f, -0.001f)).ToString("F3");
+                
+                        // 두 번째 TMP 값: 비례식 적용
+                        float current = 12f + (val - 50f) * (8f / 50f);
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text = (current + Random.Range(-0.005f, -0.001f)).ToString("F3");
+                
+                        lastUpdateTime = currentTime;
+                    }
+
+                    if (val > 99.985f)
+                    {
+                        GetObject((int)UI.NotReady_Bg).SetActive(false);
+                        GetObject((int)UI.Stable_Bg).SetActive(true);
+                    }
+                    else
+                    {
+                        GetObject((int)UI.NotReady_Bg).SetActive(true);
+                        GetObject((int)UI.Stable_Bg).SetActive(false);
+                    }
+                }).SetEase(Ease.InOutBounce)
+            ).OnKill(() =>
+            {
+                GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text = 0.000f.ToString("F3");
+                
+                // 두 번째 TMP 값: 비례식 적
+                GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text = 0.000f.ToString("F3");
+            });
+
+        _textAnimSeqMap[(int)UI.Calibrating].Play();
+
+        
+    }
+
+    public void SetTestStrategyModeString(string message)
+    {
+        GetNonUITMP((int)NonUITMPs.TMP_TestStrategy).text = message;
+    }
     private void OnThisUIInit(UI ui)
     {
         
@@ -439,6 +558,8 @@ public class PressureCalibratorController : UI_Popup
                _hasDownToTestStrategy = false;
                GetObject((int)UI.ToleranceSelected).gameObject.SetActive(true);
                GetObject((int)UI.TestStrategySelected).gameObject.SetActive(false);
+               GetNonUITMP((int)NonUITMPs.TMP_TestStrategy).text = "3↑↓";
+               
                _hasDownToTestStrategy = false;
                break;
            case UI.TestStrategy:
@@ -448,7 +569,13 @@ public class PressureCalibratorController : UI_Popup
                break;
            case UI.Calibrating:
                
+                  
+               GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text = 0.000f.ToString("F3");
+               GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text = 0.000f.ToString("F3");
                
+                 GetObject((int)UI.NotReady_Bg).SetActive(true);
+                GetObject((int)UI.Stable_Bg).SetActive(false);
+               break;
            case UI.CalibrationFinish:
                
                

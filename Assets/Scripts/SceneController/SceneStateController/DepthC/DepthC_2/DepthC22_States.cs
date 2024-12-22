@@ -152,7 +152,7 @@ public class DepthC22_State_8 : Base_SceneState
     {
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_Cover, false);
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_Cover);
-        
+        _depthC2SceneController.isWindSession = false;
         
         CurrentScene.contentController.isStepMissionPerformable = true;
         foreach (var key in  _depthC2SceneController.currentScrewGaugeStatus.Keys.ToList())
@@ -267,7 +267,7 @@ public class DepthC22_State_10 : Base_SceneState
         {
             _depthC2SceneController.isScrewWindMap[key] = false;
         }
-
+      
         
         _depthC2SceneController.CurrentActiveTool =  (int)DepthC2_GameObj.ElectricScrewdriver;
         _depthC2SceneController._isDriverOn= true;

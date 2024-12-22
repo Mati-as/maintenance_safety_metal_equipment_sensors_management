@@ -16,13 +16,16 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         Display,
         MeasureGuide,
         ConductiveCheckModeBtn,
+        
+        Image_ResistanceMode,
+        Image_ConductiveMode,
+        Image_CurrentMode
     }
 
     private bool isDragging;
     private Vector3 initialMousePos;
     private float currentAngle;
-    private const float minAngle = 0f; // 최소 각도
-    private const float maxAngle = 150f; // 최대 각도
+
     private bool _isClickable = true;
     private readonly float _clikableDelay = 0.75f;
 
@@ -59,6 +62,8 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     private int _currentClickCount;
     public static event Action OnResistanceMeasureReadyAction;
     public static event Action OnConductiveModeReady;
+    
+    public static event Action OnCurrentModeReady;
 
 
     public int currentClickCount
@@ -82,6 +87,11 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
                 Logger.Log("Resistance Sensor Mode On ------------");
                 isResistanceMode = true;
                 OnResistanceMeasureReadyAction?.Invoke();
+
+                if (_currentClickCount >= 6)
+                {
+                    OnCurrentModeReady?.Invoke();
+                }
             }
             else
             {
@@ -101,14 +111,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
    //     BindConductiveCheckModeEvent();
     }
 
-    private void InitMultimeter()
-    {
-        isResistanceMode = false;
-        isConductive = false;
-        currentClickCount = 0;
-        SetToDefaultMode();
 
-    }
     public void OnPointerDown(PointerEventData eventData)
     {
         Logger.Log("Multimeter Clicked");
@@ -255,6 +258,44 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
                 if (currentTime - lastUpdateTime >= 0.78f)
                 {
                     TMPDisplay.text = (resistantTarget + Random.Range(0, 1.5f)).ToString("F1");
+                    lastUpdateTime = currentTime;
+                }
+            }).SetEase(Ease.InOutBounce);
+        });
+
+        _resistanceCheckSeq.Play();
+    }
+
+    public void OnAllProbeSetOnCurrentMode()
+    {
+        _resistanceCheckSeq?.Kill();
+        _resistanceCheckSeq = DOTween.Sequence();
+
+
+        Logger.Log("프로브 접촉 완료, 전류값 변경중 -----------------------------------------------------");
+        var lastUpdateTime = 0f;
+
+        _resistanceCheckSeq.AppendInterval(1.5f);
+        _resistanceCheckSeq.AppendCallback(() => DOVirtual.Float(0, 4.0f, 0.9f, val =>
+        {
+            var currentTime = Time.time;
+
+            if (currentTime - lastUpdateTime >= 0.5f)
+            {
+                TMPDisplay.text = (val + Random.Range(0, 1.5f)).ToString("F1");
+                lastUpdateTime = currentTime;
+            }
+        }).SetEase(Ease.InOutBounce));
+
+        _resistanceCheckSeq.AppendCallback(() =>
+        {
+            DOVirtual.Float(resistantTarget, 4f, 3f, _ =>
+            {
+                var currentTime = Time.time;
+
+                if (currentTime - lastUpdateTime >= 0.78f)
+                {
+                    TMPDisplay.text = (4 + Random.Range(0, 1.5f)).ToString("F1");
                     lastUpdateTime = currentTime;
                 }
             }).SetEase(Ease.InOutBounce);

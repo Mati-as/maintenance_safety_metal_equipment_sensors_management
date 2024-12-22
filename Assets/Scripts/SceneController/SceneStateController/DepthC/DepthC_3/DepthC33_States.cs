@@ -224,6 +224,7 @@ public class DepthC33_State_9 : Base_SceneState
     {
         base.OnEnter();
         _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.Default);
+        _depthC3SceneController.pressureCalibratorController.BootPressureCalibrator();
         _depthC3SceneController.cameraController.isControllable = false;
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Vent, false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Vent);
@@ -550,8 +551,8 @@ public class DepthC33_State_20 : Base_SceneState
         
         _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.CalibrationModeSetting);
         _depthC3SceneController.pressureCalibratorController.CursorOnTestStrategySetting();
+        _depthC3SceneController.pressureCalibratorController.SetTestStrategyModeString("3↑");
         _depthC3SceneController.cameraController.isControllable = false;
-        
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F4, false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_F4);
     }
@@ -608,12 +609,14 @@ public class DepthC33_State_22 : Base_SceneState
         base.OnEnter();
         _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.Calibrating);
         _depthC3SceneController.cameraController.isControllable = false;
+        _depthC3SceneController.pressureCalibratorController.CalibratePressure();
+        
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-
+        _depthC3SceneController.pressureCalibratorController.KillCalibratePressureSeq();
         base.OnExit();
     }
 }
@@ -631,6 +634,7 @@ public class DepthC33_State_23 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        _depthC3SceneController.pressureCalibratorController.KillCalibratePressureSeq();
         _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.CalibrationFinish);
         _depthC3SceneController.cameraController.isControllable = false;
     }

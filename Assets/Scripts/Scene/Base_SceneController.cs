@@ -342,12 +342,20 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     private int _currentPlayingCount;//중복재생방지
     public float currentCilpLength { get; private set; }
+    private AnimationClip _currentClip;
     public void PlayAnimation(int count, float delay = 0f, bool isReverse = false,bool isMissionCompleteAnim =false)
     {
 
         _isCurrentAnimServe = isMissionCompleteAnim;
+        if (_currentClip != null )
+        {
+            var animationState = _mainAnimation[_currentClip.name];
+            animationState.time = animationState.length;
+        }
         _mainAnimation.Stop();
 
+  
+        
         if (_currentPlayingCount == count)
         {
             Logger.Log("이미 같은 애니메이션이 재생중입니다.");
@@ -357,7 +365,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
       // 중복애니메이션 클립할당을 위해 추가합니다. 추후 성능이슈가 발생하는경우 로직 수정 필요합니다. 10/17/24
          Debug.Assert(_mainAnimation != null, "Animation component can't be null");
 
-       
+
         
         var path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
                    $"{Managers.ContentInfo.PlayData.Depth2}" +
@@ -439,14 +447,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         //else { Logger.Log("animation is null."); }
      //   if(!isReverse) _mainAnimation[clip.name].time = 0;
 
-        currentCilpLength = clip.length;    
-    
+        currentCilpLength = clip.length;
         _mainAnimation.Play(clip.name);
+        _currentClip = clip;
         
         if(currentAnimationOnCompleteCoroutine !=null) StopCoroutine(currentAnimationOnCompleteCoroutine);
         currentAnimationOnCompleteCoroutine = StartCoroutine(CheckAnimationEnd(count,clip));
-      
-
+        
         Logger.Log($"Animation clip with index {count} is playing.");
       
     }
