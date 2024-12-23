@@ -36,9 +36,10 @@ public enum DepthC3_GameObj
     PressureSensorHose,
     PressureSensorAdapter,
     PressureSensorDamagedPart,
-    PressureSensorLED,
+    PressureSensor_Display,
     NewPressureSensor,
     PressureSensorWaterPipeValve, // FluidInsidePipe
+    
     
     ControlPanelFrontDoor,
     AnodeSensorOutput,
@@ -570,9 +571,9 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     private void C3_PreCommonObjInit()
     {
          GetObject((int)DepthC3_GameObj.PressureSensorHose).SetActive(false);
-         
-       
-       
+         GetObject((int)DepthC3_GameObj.PressureSensor_Display).SetActive(false);
+
+
     }
 
     public void DepthC33Init()
@@ -638,6 +639,12 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         {
         
             OnStepMissionComplete(animationNumber:2);
+        }
+        
+        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 9) 
+        {
+        
+            OnStepMissionComplete(animationNumber:9);
         }
     }
 

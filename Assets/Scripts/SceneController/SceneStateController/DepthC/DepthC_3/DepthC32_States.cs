@@ -257,7 +257,17 @@ public class DepthC32_State_10 : Base_SceneState
     public override void OnEnter()
     {
       
+        Managers.ContentInfo.PlayData.Depth1 = 3;
+        Managers.ContentInfo.PlayData.Depth2 = 3;
+        Managers.ContentInfo.PlayData.Depth3 = 3;
+        Managers.ContentInfo.PlayData.Count = 1;
+
+        
+        _depthC3SceneController.contentController.Refresh();
+        _depthC3SceneController.DepthC33Init();
+        
         base.OnEnter();
+        _depthC3SceneController.PlayAnimation(1);
     }
     public override void OnStep(){base.OnStep();}
 
