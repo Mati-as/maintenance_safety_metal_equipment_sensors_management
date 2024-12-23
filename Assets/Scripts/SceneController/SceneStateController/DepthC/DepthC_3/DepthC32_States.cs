@@ -126,8 +126,12 @@ public class DepthC32_State_5 : Base_SceneState
     {
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorDamagedPart,false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensorDamagedPart);
-        _depthC3SceneController.cameraController.isControllable = true;
+        
+        
+        _depthC3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        _depthC3SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_PSNewAdaptor);
         base.OnEnter();
+        _depthC3SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
 
@@ -226,7 +230,10 @@ public class DepthC32_State_9 : Base_SceneState
 
     public override void OnEnter()
     {
+        _depthC3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        _depthC3SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_PressureSensor);
         base.OnEnter();
+        _depthC3SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
 

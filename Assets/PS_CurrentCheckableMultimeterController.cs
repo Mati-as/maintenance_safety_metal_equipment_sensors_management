@@ -89,7 +89,7 @@ public class PS_CurrentCheckableMultimeterController :UI_Base, IPointerDownHandl
         isCurrentCheckMode = false;
      
         currentClickCount = 0;
-        SetToDefaultMode();
+        PS_SetToDefaultMode();
 
     }
     public void OnPointerDown(PointerEventData eventData)
@@ -144,7 +144,7 @@ public class PS_CurrentCheckableMultimeterController :UI_Base, IPointerDownHandl
     
     
 
-    public void SetToDefaultMode()
+    public void PS_SetToDefaultMode()
     {
         _currentClickCount = 0;
         var cacheCurrentAngle = currentAngle;
@@ -236,7 +236,7 @@ public class PS_CurrentCheckableMultimeterController :UI_Base, IPointerDownHandl
         _resistanceCheckSeq.Play();
     }
 
-    public void OnAllProbeSetOnCurrentMode()
+    public void PS_OnAllProbeSetOnCurrentCheckMode()
     {
         _resistanceCheckSeq?.Kill();
         _resistanceCheckSeq = DOTween.Sequence();
@@ -252,7 +252,7 @@ public class PS_CurrentCheckableMultimeterController :UI_Base, IPointerDownHandl
 
             if (currentTime - lastUpdateTime >= 0.5f)
             {
-                TMPDisplay.text = (val + Random.Range(0, 1.5f)).ToString("F1");
+                TMPDisplay.text = (val + Random.Range(0, 0.5f)).ToString("F1");
                 lastUpdateTime = currentTime;
             }
         }).SetEase(Ease.InOutBounce));
@@ -265,7 +265,7 @@ public class PS_CurrentCheckableMultimeterController :UI_Base, IPointerDownHandl
 
                 if (currentTime - lastUpdateTime >= 0.78f)
                 {
-                    TMPDisplay.text = (4 + Random.Range(0, 1.5f)).ToString("F1");
+                    TMPDisplay.text = (4 + Random.Range(0, 0.5f)).ToString("F1");
                     lastUpdateTime = currentTime;
                 }
             }).SetEase(Ease.InOutBounce);

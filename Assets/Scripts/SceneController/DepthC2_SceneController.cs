@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Unity.VisualScripting;
+using UnityEditor.Compilation;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Rendering.Universal;
@@ -359,11 +360,9 @@ public class DepthC2_SceneController : Base_SceneController
         base.Init();
         BindObject(typeof(DepthC2_GameObj));
         InitializeC2States();
-    
         GetScrewColliders();
-       
         contentController.OnDepth2Init(2); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
-        
+        PreCommonInit();
     }
 
     private void LateCommonInit()

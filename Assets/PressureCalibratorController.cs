@@ -459,7 +459,7 @@ public class PressureCalibratorController : UI_Popup
         
         
         var lastUpdateTime = 0f;
-       
+
         _textAnimSeqMap[(int)UI.Calibrating]
             .Append(
                 DOVirtual.Float(0f, 50.000f, 8, val =>
@@ -468,12 +468,14 @@ public class PressureCalibratorController : UI_Popup
                     if (currentTime - lastUpdateTime >= 0.2f)
                     {
                         // 첫 번째 TMP 값
-                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text = (val + Random.Range(-0.005f, -0.001f)).ToString("F3");
-                
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text =
+                            (val + Random.Range(-0.005f, -0.001f)).ToString("F3");
+
                         // 두 번째 TMP 값: 비례식 적용
                         float current = 12f + (val) * (8f / 50f);
-                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text = (current + Random.Range(-0.005f, -0.001f)).ToString("F3");
-                
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text =
+                            (current + Random.Range(-0.005f, -0.001f)).ToString("F3");
+
                         lastUpdateTime = currentTime;
                     }
 
@@ -487,9 +489,30 @@ public class PressureCalibratorController : UI_Popup
                         GetObject((int)UI.NotReady_Bg).SetActive(true);
                         GetObject((int)UI.Stable_Bg).SetActive(false);
                     }
-                }).SetEase(Ease.InCirc)
+                }).SetEase(Ease.OutQuint)
             )
-            .AppendInterval(1.5f)
+            .Append(
+                DOVirtual.Float(50f, 50.000f, 2, val =>
+                {
+                    var currentTime = Time.time;
+                    if (currentTime - lastUpdateTime >= 0.2f)
+                    {
+                        // 첫 번째 TMP 값
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text =
+                            (val + Random.Range(-0.005f, -0.001f)).ToString("F3");
+
+                        // 두 번째 TMP 값: 비례식 적용
+                        float current = 12f + (val) * (8f / 50f);
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text =
+                            (current + Random.Range(-0.005f, -0.001f)).ToString("F3");
+
+                        lastUpdateTime = currentTime;
+                    }
+
+                    GetObject((int)UI.NotReady_Bg).SetActive(false);
+                    GetObject((int)UI.Stable_Bg).SetActive(true);
+                }).SetEase(Ease.OutQuint)
+            )
             .Append(
                 DOVirtual.Float(50f, 100.000f, 8, val =>
                 {
@@ -497,12 +520,14 @@ public class PressureCalibratorController : UI_Popup
                     if (currentTime - lastUpdateTime >= 0.2f)
                     {
                         // 첫 번째 TMP 값
-                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text = (val + Random.Range(-0.005f, -0.001f)).ToString("F3");
-                
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text =
+                            (val + Random.Range(-0.005f, -0.001f)).ToString("F3");
+
                         // 두 번째 TMP 값: 비례식 적용
                         float current = 12f + (val - 50f) * (8f / 50f);
-                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text = (current + Random.Range(-0.005f, -0.001f)).ToString("F3");
-                
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text =
+                            (current + Random.Range(-0.005f, -0.001f)).ToString("F3");
+
                         lastUpdateTime = currentTime;
                     }
 
@@ -516,8 +541,31 @@ public class PressureCalibratorController : UI_Popup
                         GetObject((int)UI.NotReady_Bg).SetActive(true);
                         GetObject((int)UI.Stable_Bg).SetActive(false);
                     }
-                }).SetEase(Ease.InOutBounce)
-            ).OnKill(() =>
+                }).SetEase(Ease.OutQuint)
+            ).Append(
+                DOVirtual.Float(100f, 100.000f, 2, val =>
+                {
+                    var currentTime = Time.time;
+                    if (currentTime - lastUpdateTime >= 0.2f)
+                    {
+                        // 첫 번째 TMP 값
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text =
+                            (val + Random.Range(-0.005f, -0.001f)).ToString("F3");
+
+                        // 두 번째 TMP 값: 비례식 적용
+                        float current = 12f + (val) * (8f / 50f);
+                        GetNonUITMP((int)NonUITMPs.TMP_Calibrating_Current).text =
+                            (current + Random.Range(-0.005f, -0.001f)).ToString("F3");
+
+                        lastUpdateTime = currentTime;
+                    }
+
+                    GetObject((int)UI.NotReady_Bg).SetActive(false);
+                    GetObject((int)UI.Stable_Bg).SetActive(true);
+                }).SetEase(Ease.OutQuint)
+            ).
+            
+            OnKill(() =>
             {
                 GetNonUITMP((int)NonUITMPs.TMP_Calibrating_PsiNum).text = 0.000f.ToString("F3");
                 

@@ -27,7 +27,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     private float currentAngle;
 
     private bool _isClickable = true;
-    private readonly float _clikableDelay = 0.75f;
+    private readonly float _clikableDelay = 0.15f;
 
     private bool _isConductive = false;
     public bool isConductive

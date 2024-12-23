@@ -106,7 +106,7 @@ public class UI_ContentController : UI_Popup
     private readonly Button[] _depth3Btns = new Button[Enum.GetValues(typeof(Btns)).Length]; // 방어적으로 사이즈 크게 할당
 
 
-    private readonly float _btnClickableDelay = 1.05f;
+    private readonly float _btnClickableDelay = 1.55f;
     private WaitForSeconds _waitForClick;
     public bool clickable = true;
 
@@ -157,17 +157,17 @@ public class UI_ContentController : UI_Popup
     private Dictionary<int, Image> _highlightImageMap;
     private Sequence _blinkBtnSeq;
     
-    private bool _isStepChangeByMouseClick;
+    private bool _isStepChangeByMouseClickForAnimationControl;
 
-    public bool isStepChangeByMouseClick
+    public bool isStepChangeByMouseClickForAnimationControl
     {
         get
         {
-            return _isStepChangeByMouseClick;
+            return _isStepChangeByMouseClickForAnimationControl;
         }
         set
         {
-            _isStepChangeByMouseClick = value;
+            _isStepChangeByMouseClickForAnimationControl = value;
 //            Logger.Log($"step chagned by next or prev btn clicked by mosue : {_isStepChangeByMouseClick}");
         }
     }
@@ -834,7 +834,7 @@ public class UI_ContentController : UI_Popup
 
         Managers.ContentInfo.PlayData.Count--;
 
-        isStepChangeByMouseClick = true;
+        isStepChangeByMouseClickForAnimationControl = true;
         if(hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
         if(!_currentMainCam.isControllable) HideCamInitBtn();
 
@@ -844,8 +844,6 @@ public class UI_ContentController : UI_Popup
         Logger.Log($"currentCount is {Managers.ContentInfo.PlayData.Count}");
         OnStepBtnClicked_CurrentCount?.Invoke(Managers.ContentInfo.PlayData.Count,true);
         
-        
-  
      
        
     }
@@ -855,7 +853,7 @@ public class UI_ContentController : UI_Popup
     {
     
         
-        isStepChangeByMouseClick = false;
+        isStepChangeByMouseClickForAnimationControl = false;
         
         Precheck();//
         SetScriptUI();
@@ -891,9 +889,9 @@ public class UI_ContentController : UI_Popup
 
     private void OnNextBtnClicked()
     {
-        isStepChangeByMouseClick = true;
         
-        Precheck();//
+        isStepChangeByMouseClickForAnimationControl = true;
+        Precheck();
         SetScriptUI();
         CheckAndGoToNextStep();
        // Logger.Log($"Nxt Btn Clicked By Mouse ---> {Managers.ContentInfo.PlayData.Count}");
