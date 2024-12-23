@@ -162,7 +162,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
                     _unwoundCount = 0;
                 }
 
-                if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6)
+                if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 5)
                 {
                     Logger.Log($"모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
                     OnStepMissionComplete(animationNumber:5);
@@ -435,7 +435,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
 
         InitializeC3States();
         GetScrewColliders();
-        contentController.OnDepth2Init((int)Define.DepthC_Sensor.PressureSensor); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
+        contentController.OnDepth2Init((int)Define.DepthC_Sensor.PressureSensor,1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
      
         
         pressureCalibratorController = GetObject((int)DepthC3_GameObj.PressureCalibrator).GetComponent<PressureCalibratorController>();
@@ -463,7 +463,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         InitScrews();
        
         
-        SetMultimeterSection();
+        SetPressureSensorCurrentCheckMultimeterSection();
         SetScrewDriverSection();
         InitScrewForConductiveCheck();
         InitProbePos();
@@ -541,7 +541,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         BindHighlight((int)DepthC3_GameObj.PressureSensorDamagedPart,"변형(손상된) 감압부");
         
         InitProbePos();
-        SetMultimeterSection();
+        SetPressureSensorCurrentCheckMultimeterSection();
         SetScrewDriverSection();
         
 
@@ -573,24 +573,39 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
       
         PreCommonInit();
         
-        SetMultimeterSection();
+        SetPressureSensorCurrentCheckMultimeterSection();
         SetScrewDriverSection();
+        InitScrews();
+        
         InitScrewForConductiveCheck();
         InitProbePos();
-        
         SetDefaultTransform();
         BindInteractionEvent();
         BindEventForPsCalibrator();
         
+        BindHighlight((int)DepthC3_GameObj.ConnectionScrewB,"나사");
         
         
+        BindHighlight((int)DepthC3_GameObj.PressureSensorWaterPipeValve,"밸브 열기");        
         GetObject((int)DepthC3_GameObj.PressureSensorWaterPipeValve).BindEvent(() =>
         {
             Logger.Log("잔유물제거---------------------");
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 4) 
             {
-                pressureCalibratorController.BootPressureCalibrator();
-                OnStepMissionComplete(animationNumber:8);
+                OnStepMissionComplete(animationNumber:4);
+            }  
+        });
+        
+        
+        BindHighlight((int)DepthC3_GameObj.PowerHandle,"전원 차단");
+        
+        GetObject((int)DepthC3_GameObj.PowerHandle).BindEvent(() =>
+        {
+            Logger.Log("잔유물제거---------------------");
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 3) 
+            {
+              
+                OnStepMissionComplete(animationNumber:3);
             }  
         });
     
@@ -805,7 +820,13 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
 
     }
 
-    private void SetMultimeterSection()
+    
+    
+    /// <summary>
+    /// 1.전류 측정모드 분리를 위한 압력센서 전용 멀티미터 클래스 초기화 로직입니다
+    /// 2. 다른센서 사용 XX
+    /// </summary>
+    private void SetPressureSensorCurrentCheckMultimeterSection()
     {
         multimeterController = GetObject((int)DepthC3_GameObj.Multimeter).GetComponent<PS_CurrentCheckableMultimeterController>();
  
@@ -824,7 +845,10 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     }
     protected virtual void OnToolBoxClicked()
     {
-      
+        if((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 8))
+        {
+            OnStepMissionComplete(animationNumber: 8);
+        }
     }
     
     private void InitScrewForConductiveCheck()
@@ -1052,7 +1076,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     private bool  CheckDriverUsability()
     {
         if (((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 9) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)))
+              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 5)))
         {
             return true;
         }
@@ -1370,30 +1394,6 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         animatorMap[(int)DepthC3_GameObj.Probe_Cathode].Play("B_ON", 0, 0);
         animatorMap[(int)DepthC3_GameObj.Probe_Anode].Play("C_ON", 0, 0);
         animatorMap[(int)DepthC3_GameObj.Probe_Cathode].Play("D_ON", 0, 0);
-    }
-
-    public void SetToResistantMode()
-    {
-        InitProbePos();
-        animatorMap[(int)DepthC3_GameObj.Probe_Anode].enabled = true;
-        animatorMap[(int)DepthC3_GameObj.Probe_Cathode].enabled = true;
-        animatorMap[(int)DepthC3_GameObj.Probe_Anode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
-        animatorMap[(int)DepthC3_GameObj.Probe_Cathode].SetBool(DepthC2_SceneController.PROBE_TO_SCREWB, false);
-        animatorMap[(int)DepthC3_GameObj.Probe_Anode].Play("ON", 0, 0);
-        animatorMap[(int)DepthC3_GameObj.Probe_Cathode].Play("ON", 0, 0);
-        animatorMap[(int)DepthC3_GameObj.Probe_Anode].Update(0);
-        animatorMap[(int)DepthC3_GameObj.Probe_Cathode].Update(0);
-        animatorMap[(int)DepthC3_GameObj.Probe_Anode].enabled = false;
-        animatorMap[(int)DepthC3_GameObj.Probe_Cathode].enabled = false;
-     
-        isMultimeterOn = true;
-        multimeterController.SetMeasureGuideStatus();
-        CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
-        
-        contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
-        
-        multimeterController.SetToResistanceModeAndRotation();
-    
     }
 
 

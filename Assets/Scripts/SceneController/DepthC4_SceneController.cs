@@ -341,7 +341,7 @@ public class DepthC4_SceneController : Base_SceneController
 
 
 
-    public void DepthC21Init()
+    public void DepthC41Init()
     {
         
        // Debug.Assert(Managers.ContentInfo.PlayData.Depth1 == 3 && Managers.ContentInfo.PlayData.Depth1 == 2);
@@ -562,7 +562,7 @@ public class DepthC4_SceneController : Base_SceneController
         base.UnBindEventAttatchedObj();
         UnbindStaticEvents();
     }
-    public void DepthC22Init()
+    public void DepthC42Init()
     {
         UnBindEventAttatchedObj();
         PreCommonInit();
@@ -622,7 +622,7 @@ public class DepthC4_SceneController : Base_SceneController
 
     
     
-    public void DepthC23Init()
+    public void DepthC43Init()
     {
       
         PreCommonInit();

@@ -233,12 +233,7 @@ public class DepthC31_State_9 : Base_SceneState
     public override void OnEnter()
     {
  
-          _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.AnodeSensorOutput, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.AnodeSensorOutput);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.CathodeSensorInput, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.CathodeSensorInput);
-
-
+        
         _depthC3SceneController.isWindSession = false;
         
         foreach (var key in _depthC3SceneController.currentScrewGaugeStatus.Keys.ToList())
@@ -262,9 +257,10 @@ public class DepthC31_State_9 : Base_SceneState
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.ConnectionScrewB);
 
 
-        _depthC3SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        
         
         base.OnEnter();
+        _depthC3SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
         CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
@@ -340,7 +336,10 @@ public class DepthC31_State_12 : Base_SceneState
     public override void OnEnter()
     {
       
-        
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.AnodeSensorOutput, false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.AnodeSensorOutput);
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.CathodeSensorInput, false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.CathodeSensorInput);
         base.OnEnter();
         _depthC3SceneController.InitProbePos();
         _depthC3SceneController.isMultimeterOn = true;

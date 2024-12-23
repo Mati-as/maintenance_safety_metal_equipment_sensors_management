@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class ContentPlayData : MonoBehaviour
 {
-    public static Dictionary<int, int> DEPTH_TWO_COUNT_DATA = new Dictionary<int, int>
+    public static Dictionary<int, int> DEPTH_TWO_MAX_COUNT_DATA = new Dictionary<int, int>
     {
         { 1, 2 }, //depth1 +depth2 , Depth3갯수
         { 2, 3 },
@@ -87,7 +87,7 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int COUNT_MAX_DEPTH322 = 11 + 1;
     public static readonly int COUNT_MAX_DEPTH323 = 15 + 1;
        
-    public static readonly int COUNT_MAX_DEPTH331 = 15 + 1;
+    public static readonly int COUNT_MAX_DEPTH331 = 12 + 1;
     public static readonly int COUNT_MAX_DEPTH332 = 15 + 1;
     public static readonly int COUNT_MAX_DEPTH333 = 24 + 1;
 
@@ -175,9 +175,7 @@ public class ContentPlayData : MonoBehaviour
             // Update the relevant character in CurrentDepthStatus
             UpdateCurrentDepthStatus((int)CurrentDepthData.Depth1, (char)(value + '0'));
             
-            Logger.Log($"Current Count Max:{CurrentCountMax}Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
-                       $"{CurrentDepthStatus[2]} : {CurrentDepthStatus[3]}{CurrentDepthStatus[4]}" +
-                       $"\n textNarrNum: {CurrentDepthStatus}" );
+
         }
     }
 
@@ -209,31 +207,34 @@ public class ContentPlayData : MonoBehaviour
         get { return _depth3; }
         set
         {
+            Logger.Log($"depth3 set : {value} (before processing)" );
+            
             Debug.Assert(value <= 5 && value >0,$"currentdepth 3 {value} ");
-            _depth3 = value;
+          
 
             // Update the relevant character in CurrentDepthStatus
             UpdateCurrentDepthStatus((int)CurrentDepthData.Depth3, (char)(value + '0'));
 
-
-            Logger.Log($"Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
-                       $"{CurrentDepthStatus[2]} : {CurrentDepthStatus[3]}{CurrentDepthStatus[4]}" +
-                       $"\n textNarrNum: {CurrentDepthStatus}");
-
-          
-      
-            
-            string depthKey = $"{Depth1}{Depth2}{Depth3}";
+            string depthKey = $"{Depth1}{Depth2}{value}";
             
             if (DepthCountMaxDictionary.TryGetValue(depthKey, out int countMax))
             {
-      
-                    CurrentCountMax = countMax;
+                CurrentCountMax = countMax;
+                _depth3 = value;
             }
             else
             {
-                Logger.LogError($"Invalid depth combination: {depthKey}");
+                Logger.LogWarning($"Invalid depth combination: {depthKey}");
             }
+            
+            
+            Logger.Log($"Current Count Max:{CurrentCountMax}Current Scene Info : {CurrentDepthStatus[0]}-{CurrentDepthStatus[1]}-" +
+                       $"{CurrentDepthStatus[2]} : {CurrentDepthStatus[3]}{CurrentDepthStatus[4]}" +
+                       $"\n textNarrNum: {CurrentDepthStatus}" );
+          
+      
+            
+    
         }
     }
 

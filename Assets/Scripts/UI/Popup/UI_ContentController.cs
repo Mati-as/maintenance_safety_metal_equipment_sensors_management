@@ -19,6 +19,8 @@ public enum Btns
 {
     Btn_Prev,
     Btn_Next,
+    PrevDepth2,
+    NextDepth2,
     Btn_Depth1_Title,
     Btn_TopMenu_Hide,
     Btn_Script_Hide,
@@ -166,7 +168,7 @@ public class UI_ContentController : UI_Popup
         set
         {
             _isStepChangeByMouseClick = value;
-            Logger.Log($"step chagned by next or prev btn clicked by mosue : {_isStepChangeByMouseClick}");
+//            Logger.Log($"step chagned by next or prev btn clicked by mosue : {_isStepChangeByMouseClick}");
         }
     }
 
@@ -638,7 +640,7 @@ public class UI_ContentController : UI_Popup
 
         var depth2Count = 1;
         for (var i = (int)TMPs.Text_Depth2_A;
-             i < (int)TMPs.Text_Depth2_A + ContentPlayData.DEPTH_TWO_COUNT_DATA[depth1Int];
+             i < (int)TMPs.Text_Depth2_A + ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[depth1Int];
              i++)
         {
             texts[i].text = Managers.Data.Texts[int.Parse(depth1 + "00" + depth2Count + "0")].kor;
@@ -711,6 +713,15 @@ public class UI_ContentController : UI_Popup
            
             uiToolBox.SetToolBox();
             //Managers.UI.ShowPopupUI<UI_ToolBox>();
+        });
+
+        GetButton((int)Btns.PrevDepth2).gameObject.BindEvent(() =>
+        {
+            LoadStep(Managers.ContentInfo.PlayData.Depth2 - 1);
+        });
+        GetButton((int)Btns.NextDepth2).gameObject.BindEvent(() =>
+        {
+            LoadStep(Managers.ContentInfo.PlayData.Depth2 + 1);
         });
     }
 
@@ -885,7 +896,7 @@ public class UI_ContentController : UI_Popup
         Precheck();//
         SetScriptUI();
         CheckAndGoToNextStep();
-        Logger.Log($"Nxt Btn Clicked By Mouse ---> {Managers.ContentInfo.PlayData.Count}");
+       // Logger.Log($"Nxt Btn Clicked By Mouse ---> {Managers.ContentInfo.PlayData.Count}");
     }
 
 
@@ -1021,7 +1032,7 @@ public class UI_ContentController : UI_Popup
             _depth2Toggles[i].gameObject.SetActive(false);
 
         //2. 활성화될 UI만 다시 활성화 합니다.
-        for (var i = (int)Toggles.Toggle_Depth2_A; i < (int)Toggles.Toggle_Depth2_A + ContentPlayData.DEPTH_TWO_COUNT_DATA[
+        for (var i = (int)Toggles.Toggle_Depth2_A; i < (int)Toggles.Toggle_Depth2_A + ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[
                  int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0].ToString())];
              i++)
             _depth2Toggles[i].gameObject.SetActive(true);
@@ -1328,4 +1339,50 @@ public class UI_ContentController : UI_Popup
     }
     
     
+    private void LoadStep( int depth2ToLoad)
+    {
+        
+        
+        Logger.Log("LoadStep By UI Top Controller Next/Prev Arrow");
+        Managers.ContentInfo.PlayData.Depth2 = depth2ToLoad;
+        
+        
+        //뎁스3(실습) 부분은 센서별로 별도로 씬구성하기에 조건문으로 구분.
+        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.MaintenancePractice)
+        {
+            if(Managers.ContentInfo.PlayData.Depth2 <=3 && Managers.ContentInfo.PlayData.Depth2 >=1)
+                SceneManager.LoadScene("DepthC" + Managers.ContentInfo.PlayData.Depth2.ToString());
+            else
+            {
+                Logger.Log("정비부분 씬이동불가. 미구현부분 혹은 처음, 끝 뎁스입니다.");
+            }
+        }
+        else  //뎁스3 이외 나머지 부분의 로직.
+        {
+            if (ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[Managers.ContentInfo.PlayData.Depth1] >= depth2ToLoad)
+            {
+                Managers.ContentInfo.PlayData.Depth2 = depth2ToLoad;
+            }
+            else if(ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[Managers.ContentInfo.PlayData.Depth1] < depth2ToLoad)
+            {
+                Managers.ContentInfo.PlayData.Depth2 = depth2ToLoad;
+            }
+            else if(depth2ToLoad <= 0
+                    && Managers.ContentInfo.PlayData.Depth1 != 1
+                    && Managers.ContentInfo.PlayData.Depth1 != 4)
+            {
+                Managers.ContentInfo.PlayData.Depth1--;
+                Managers.ContentInfo.PlayData.Depth2 = 1;
+            }
+
+            
+            Managers.ContentInfo.PlayData.Depth3 = 1;
+            Managers.ContentInfo.PlayData.Count = 0;
+            
+            OnDepth2ClickedAction?.Invoke();
+            Refresh();
+        }
+    }
+    
+   
 }

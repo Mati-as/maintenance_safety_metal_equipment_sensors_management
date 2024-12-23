@@ -1,5 +1,7 @@
 
 
+using System.Linq;
+
 /// <summary>
 /// 압력센서 관련 States 입니다 ---------------------------------------------------
 /// </summary>
@@ -96,10 +98,18 @@ public class DepthC33_State_3 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PowerHandle, false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PowerHandle);
         _depthC3SceneController.cameraController.isControllable = false;
+     
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PowerHandle);
+        base.OnExit();
+    }
 }
 
 public class DepthC33_State_4 : Base_SceneState
@@ -111,10 +121,18 @@ public class DepthC33_State_4 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorWaterPipeValve, false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensorWaterPipeValve);
         _depthC3SceneController.cameraController.isControllable = false;
+     
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorWaterPipeValve);
+        base.OnExit();
+    }
 }
 
 public class DepthC33_State_5 : Base_SceneState
@@ -128,8 +146,36 @@ public class DepthC33_State_5 : Base_SceneState
 
     public override void OnEnter()
     {
+
+
+        _depthC3SceneController.isWindSession = false;
+        
+        foreach (var key in _depthC3SceneController.currentScrewGaugeStatus.Keys.ToList())
+            _depthC3SceneController.currentScrewGaugeStatus[key] = 0f;
+
+        foreach (var key in _depthC3SceneController.isScrewUnwindMap.Keys.ToList())
+            _depthC3SceneController.isScrewWindMap[key] = false;
+
+
+    
+        _depthC3SceneController.TurnOnCollidersAndInit();
+        
+        
+        _depthC3SceneController.animatorMap[(int)DepthC3_GameObj.ConnectionScrewB].enabled = true;
+        _depthC3SceneController.animatorMap[(int)DepthC3_GameObj.ConnectionScrewB].SetBool(DepthC2_SceneController.UNWIND,false);
+        _depthC3SceneController.animatorMap[(int)DepthC3_GameObj.ConnectionScrewB].Play($"UnScrew", 0, 0);
+        _depthC3SceneController.animatorMap[(int)DepthC3_GameObj.ConnectionScrewB].Update(0);
+        _depthC3SceneController.animatorMap[(int)DepthC3_GameObj.ConnectionScrewB].enabled = false;
+        
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.ConnectionScrewB,false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.ConnectionScrewB);
+
+
+        
+        
         base.OnEnter();
-        _depthC3SceneController.cameraController.isControllable = false;
+        _depthC3SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}}

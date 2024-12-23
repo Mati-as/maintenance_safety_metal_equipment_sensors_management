@@ -78,20 +78,20 @@ public class UI_DepthSelection : UI_Popup
         BindButton(typeof(Btns));
         
         
-        // GetButton((int)Btns.Btn_DepthA).gameObject.BindEvent(OnDepthBtnAClicked);
-        // GetButton((int)Btns.Btn_DepthB).gameObject.BindEvent(() =>
-        // {
-        //     if (GetButton((int)Btns.Btn_DepthB).IsInteractable()) OnDepthBtnBClicked();
-        // });
-        // GetButton((int)Btns.Btn_DepthC).gameObject.BindEvent(() =>
-        // {
-        //     if (GetButton((int)Btns.Btn_DepthC).IsInteractable()) OnDepthCBtnClicked();
-        // });
-        //
-        // GetButton((int)Btns.Btn_DepthD).gameObject.BindEvent(() =>
-        // {
-        //     if (GetButton((int)Btns.Btn_DepthD).IsInteractable()) OnDepthDBtnCClicked();
-        // });
+        GetButton((int)Btns.Btn_DepthA).gameObject.BindEvent(OnDepthBtnAClicked);
+        GetButton((int)Btns.Btn_DepthB).gameObject.BindEvent(() =>
+        {
+            if (GetButton((int)Btns.Btn_DepthB).IsInteractable()) OnDepthBtnBClicked();
+        });
+        GetButton((int)Btns.Btn_DepthC).gameObject.BindEvent(() =>
+        {
+            if (GetButton((int)Btns.Btn_DepthC).IsInteractable()) OnDepthCBtnClicked();
+        });
+        
+        GetButton((int)Btns.Btn_DepthD).gameObject.BindEvent(() =>
+        {
+            if (GetButton((int)Btns.Btn_DepthD).IsInteractable()) OnDepthDBtnCClicked();
+        });
 
 
         GetButton((int)Btns.B111).gameObject.BindEvent(() => { LoadStep(Btns.B111, 111); });
@@ -211,7 +211,7 @@ public class UI_DepthSelection : UI_Popup
 
         Managers.Scene.LoadScene(SceneType.DepthC2);
         Managers.ContentInfo.PlayData.Depth1 = 3;
-        Managers.ContentInfo.PlayData.Depth2 = 2; //구현 부분뎁스만큼 수정해야합니다.
+        Managers.ContentInfo.PlayData.Depth2 = 1; //구현 부분뎁스만큼 수정해야합니다.
         Managers.ContentInfo.PlayData.Depth3 = 1;
         Managers.ContentInfo.PlayData.Count = 1;
         OnDepth1Enter();
