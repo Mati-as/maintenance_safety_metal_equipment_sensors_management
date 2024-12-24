@@ -89,7 +89,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -1.038
+        value: -1.139
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -108,7 +108,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -9.888
+        value: -9.705
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -146,7 +146,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -1.038
+        value: -1.139
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -236,6 +236,25 @@ AnimationClip:
     path: "\uBC30\uAD00\uC124\uBE44/Model/HotWaterTank/Boiler_Pump_0203_02/Base/Blue/WaterEffect_PressureSesnorPipe"
     classID: 1
     script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Enabled
+    path: Camera
+    classID: 114
+    script: {fileID: 11500000, guid: 319d2fe34a804e245819465c9505ea59, type: 3}
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -290,7 +309,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -1.038
+        value: -1.139
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -309,7 +328,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -9.888
+        value: -9.705
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -404,7 +423,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -1.038
+        value: -1.139
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -627,6 +646,25 @@ AnimationClip:
     path: "\uBC30\uAD00\uC124\uBE44/Model/HotWaterTank/Boiler_Pump_0203_02/Base/Blue/WaterEffect_PressureSesnorPipe"
     classID: 1
     script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Enabled
+    path: Camera
+    classID: 114
+    script: {fileID: 11500000, guid: 319d2fe34a804e245819465c9505ea59, type: 3}
   m_EulerEditorCurves:
   - curve:
       serializedVersion: 2

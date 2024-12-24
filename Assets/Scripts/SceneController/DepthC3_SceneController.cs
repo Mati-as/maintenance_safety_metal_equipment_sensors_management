@@ -35,8 +35,10 @@ public enum DepthC3_GameObj
     PressureSensorToConditionerCable,
     PressureSensorHose,
     PressureSensorAdapter,
+    PressureSensorAdapter_Sub,
     PressureSensorDamagedPart,
     PressureSensor_Display,
+    PressureSensor_Display_Uni,
     NewPressureSensor,
     PressureSensorWaterPipeValve, // FluidInsidePipe
     
@@ -449,7 +451,12 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         pressureCalibratorController = GetObject((int)DepthC3_GameObj.PressureCalibrator).GetComponent<PressureCalibratorController>();
         Assert.IsNotNull(pressureCalibratorController);
         pressureCalibratorController.Init();
+
         
+        
+        
+        C3_PreCommonObjInit();
+
     }
     private void LateCommonInit()
     {
@@ -547,6 +554,28 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         BindInteractionEvent();
         
         BindHighlight((int)DepthC3_GameObj.PressureSensorDamagedPart,"변형(손상된) 감압부");
+        
+          
+        BindHighlight((int)DepthC3_GameObj.PressureSensorAdapter,"압력센서 어댑터");
+        GetObject((int)DepthC3_GameObj.PressureSensorAdapter).BindEvent(() =>
+        {
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 4) 
+            {
+                Logger.Log(" 어댑터교체---------------------");
+                OnStepMissionComplete(animationNumber:4);
+            }  
+        });
+        BindHighlight((int)DepthC3_GameObj.PressureSensorAdapter_Sub,"압력센서 어댑터");
+        GetObject((int)DepthC3_GameObj.PressureSensorAdapter_Sub).BindEvent(() =>
+        {
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 4) 
+            {
+                Logger.Log(" 어댑터교체---------------------");
+                OnStepMissionComplete(animationNumber:4);
+            }  
+        });
  
         InitProbePos();
         SetPressureSensorCurrentCheckMultimeterSection();
@@ -570,9 +599,11 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     }
     private void C3_PreCommonObjInit()
     {
+        GetObject((int)DepthC3_GameObj.PressureCalibrator).SetActive(false);
          GetObject((int)DepthC3_GameObj.PressureSensorHose).SetActive(false);
          GetObject((int)DepthC3_GameObj.PressureSensor_Display).SetActive(false);
-
+         GetObject((int)DepthC3_GameObj.PressureSensor_Display_Uni).SetActive(false);
+         GetObject((int)DepthC3_GameObj.PressureSensorAdapter_Sub).SetActive(false);
 
     }
 
@@ -1213,6 +1244,9 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         {
             
             _isMultimeterOn = value;
+            
+            if (animatorMap ==null) return;
+                
             animatorMap[(int)DepthC3_GameObj.Multimeter].SetBool(MULTIMETER_ON, isMultimeterOn);
             if (!_isMultimeterOn)
             {
@@ -1482,7 +1516,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         CurrentActiveTool =  -1;
         isDriverOn= false;
         isMultimeterOn = false;
-        multimeterController.isCurrentCheckMode = false;
+        if(multimeterController!=null)multimeterController.isCurrentCheckMode = false;
     }
 
 

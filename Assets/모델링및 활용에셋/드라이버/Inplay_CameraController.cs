@@ -249,7 +249,7 @@ public class Inplay_CameraController : MonoBehaviour
 
     private Sequence _updateSeq;
 
-    private void UpdateRotation(float updateSpeed = 0.0001f)
+    public void UpdateRotation(float updateSpeed = 0.0001f)
     {
         // 현재 카메라 회전 상태를 가져와 동기화
         Vector3 currentRotation = transform.rotation.eulerAngles;

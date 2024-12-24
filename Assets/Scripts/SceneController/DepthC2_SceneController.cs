@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Unity.VisualScripting;
-using UnityEditor.Compilation;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 using Sequence = DG.Tweening.Sequence;

@@ -41,36 +41,36 @@ public class DepthC31_State_1 : Base_SceneState
     public DepthC31_State_1(DepthC3_SceneController currentScene) : base(currentScene)
     {
         _depthC3SceneController = currentScene;
-       
     }
+    
 
     protected override void OnAnimationCompleteHandler(int _)
     {
-        
+        SetLookAt((int)DepthC3_GameObj.PressureSensor);
         base.OnAnimationCompleteHandler(_);
         
     }
 
     public override void OnEnter()
     {
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
-        
-        SetLookAt((int)DepthC3_GameObj.PressureSensor);
-        
         //카메라 시점변경On
-        CurrentScene.cameraController.isControllable = false;
+       
         _depthC3SceneController.DepthC31Init();
         CurrentScene.contentController.ShutTrainingIntroAnim();
     
         base.OnEnter();
+        CurrentScene.cameraController.isControllable = false;
     }
-    public override void OnStep(){base.OnStep();}
+
+    public override void OnStep()
+    {
+       
+        base.OnStep();
+    }
 
     public override void OnExit()
     {
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        CurrentScene.cameraController.isControllable = true;
+        
         base.OnExit();
     }
 }
@@ -78,6 +78,12 @@ public class DepthC31_State_1 : Base_SceneState
 public class DepthC31_State_2 : Base_SceneState
 {
     private readonly DepthC3_SceneController _depthC3SceneController;
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        SetLookAt((int)DepthC3_GameObj.PressureSensor);
+        base.OnAnimationCompleteHandler(_);
+        
+    }
 
     public DepthC31_State_2(DepthC3_SceneController currentScene) : base(currentScene)
     {
@@ -88,8 +94,14 @@ public class DepthC31_State_2 : Base_SceneState
     {
         CurrentScene.contentController.SetScriptUI();
         base.OnEnter();
+        CurrentScene.cameraController.isControllable = false;
     }
-    public override void OnStep(){base.OnStep();}
+
+    public override void OnStep()
+    {
+        
+        base.OnStep();
+    }
     public override void OnExit(){base.OnExit();}}
 
 public class DepthC31_State_3 : Base_SceneState
@@ -98,6 +110,12 @@ public class DepthC31_State_3 : Base_SceneState
 
     public DepthC31_State_3(DepthC3_SceneController currentScene) : base(currentScene) {_depthC3SceneController = currentScene;}
 
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        SetLookAt((int)DepthC3_GameObj.PressureSensor);
+        base.OnAnimationCompleteHandler(_);
+    }
+    
     public override void OnEnter(){base.OnEnter();}
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -108,10 +126,16 @@ public class DepthC31_State_4 : Base_SceneState
     private readonly DepthC3_SceneController _depthC3SceneController;
     public DepthC31_State_4(DepthC3_SceneController currentScene) : base(currentScene) {_depthC3SceneController = currentScene;}
 
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        SetLookAt((int)DepthC3_GameObj.PressureSensor);
+        base.OnAnimationCompleteHandler(_);
+    }
 
     public override void OnEnter()
     {
         base.OnEnter();
+        CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -352,7 +376,7 @@ public class DepthC31_State_12 : Base_SceneState
 
     public override void OnEnter()
     {
-        _depthC3SceneController.multimeterController.SetToCurrentMOdeANdRotation();
+        _depthC3SceneController.multimeterController.SetToCurrentModeAndRotation();
         _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.AnodeSensorOutput, false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.AnodeSensorOutput);
@@ -366,7 +390,7 @@ public class DepthC31_State_12 : Base_SceneState
         _depthC3SceneController.InitProbePos();
         _depthC3SceneController.isMultimeterOn = true;
         _depthC3SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC3SceneController.multimeterController.SetToCurrentMOdeANdRotation();
+        _depthC3SceneController.multimeterController.SetToCurrentModeAndRotation();
         _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
         
         _depthC3SceneController.cameraController.isControllable = false;

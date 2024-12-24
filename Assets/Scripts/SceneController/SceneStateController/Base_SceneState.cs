@@ -1,4 +1,6 @@
 
+using DG.Tweening;
+
 public class Base_SceneState : ISceneState
 {
     protected Base_SceneController CurrentScene;
@@ -19,14 +21,14 @@ public class Base_SceneState : ISceneState
     public virtual void OnEnter()
     {
      
-        // Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        // Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
+ 
         
         //misson수행과 사용자 컨트롤의 구분
-    
-       
-        
-        CurrentScene.cameraController.isControllable = true;
+        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+        Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
+   
+        CurrentScene.cameraController.isControllable = false;
+
         //평가하기가 아닌경우
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation)
         {
@@ -64,6 +66,7 @@ public class Base_SceneState : ISceneState
     public virtual void OnStep()
     {
         CurrentScene.contentController.isStepMissionComplete = false;
+        Logger.Log($"현재 카메라 움직임 가능 여부 ------{CurrentScene.cameraController.isControllable}");
     }
 
     public virtual void OnExit()
@@ -80,25 +83,41 @@ public class Base_SceneState : ISceneState
            Managers.evaluationManager.EvalmodeOnStateExit();
           
        }
+    
+        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+       CurrentScene.TurnOffAllRegisteredHighlights();
+       CurrentScene.contentController.StopBtnUIBlink();
+       CurrentScene.contentController.uiToolBox.Refresh();
+
+       Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+    
+       CurrentScene.contentController.ShutTrainingIntroAnim();
+         
+
        
-          
-           CurrentScene.TurnOffAllRegisteredHighlights();
-           CurrentScene.contentController.StopBtnUIBlink();
-           CurrentScene.contentController.uiToolBox.Refresh();
-
-           Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        
-           CurrentScene.contentController.ShutTrainingIntroAnim();
-           CurrentScene.cameraController.isControllable = false;
-
+       CurrentScene.cameraController.isControllable = false;
     }
     
 
     public void SetLookAt(int objToActivate)
     {
-        CurrentScene.cameraController.SetRotationDefault(
-            CurrentScene.GetObject(objToActivate).transform
-        );
+        CurrentScene.cameraController.SetRotationDefault(CurrentScene.GetObject(objToActivate).transform);
+     
+        bool cameraControllableCache = CurrentScene.cameraController.isControllable;
+        if (cameraControllableCache) CurrentScene.cameraController.isControllable = false;
+        
+        CurrentScene.cameraController.isControllable = false;
+        DOVirtual.DelayedCall(0.001f, () =>
+        {
+       
+            CurrentScene.cameraController.UpdateRotation(0.55f);
+            DOVirtual.DelayedCall(0.76f, () =>
+            {
+                Logger.Log("카메라초기화, 이제 클릭가능");
+                if (cameraControllableCache) CurrentScene.cameraController.isControllable = true;
+
+            });
+        });
     }
     
     
@@ -110,12 +129,12 @@ public class Base_SceneState : ISceneState
     protected virtual void OnAnimationCompleteHandler(int _)
     {
         
-      
         CurrentScene.cameraController.isDragging = false;
         if (CurrentScene.contentController != null)
         {
-            CurrentScene.contentController.SetCamInitBtnStatus();
+            //CurrentScene.contentController.SetCamInitBtnStatus();
         }
+            
         else Logger.Log("content Controller is Null.. it must be tutorial state.");
     }
     

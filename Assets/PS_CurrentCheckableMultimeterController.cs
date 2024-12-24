@@ -122,7 +122,7 @@ public class PS_CurrentCheckableMultimeterController :UI_Base, IPointerDownHandl
         });
     }
 
-    public void SetToCurrentMOdeANdRotation()
+    public void SetToCurrentModeAndRotation()
     {
         currentClickCount = CLICK_COUNT_GOAL;
         var cacheCurrentAngle = currentAngle;

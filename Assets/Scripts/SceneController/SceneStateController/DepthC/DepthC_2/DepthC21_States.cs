@@ -52,8 +52,14 @@ public class DepthC21_State_2 : Base_SceneState
 public class DepthC21_State_3 : Base_SceneState
 {
     public DepthC21_State_3(DepthC2_SceneController currentScene) : base(currentScene){}
-
-    public override void OnEnter(){base.OnEnter();}
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        SetLookAt((int)DepthC2_GameObj.TemperatureSensor);
+        base.OnAnimationCompleteHandler(_);
+        
+    }
+    public override void OnEnter(){  base.OnEnter();
+        CurrentScene.cameraController.isControllable = false;}
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }

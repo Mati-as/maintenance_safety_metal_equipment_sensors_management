@@ -468,40 +468,55 @@
  
  
   <!-- Depth 3-4-1 -->
-  <TextData ID="34101" kor="테스트 Depth 3-4-1-01." eng="eng Test" />
-  <TextData ID="34102" kor="테스트 Depth 3-4-1-02." eng="eng Test" />
-  <TextData ID="34103" kor="테스트 Depth 3-4-1-03." eng="eng Test" />
-  <TextData ID="34104" kor="테스트 Depth 3-4-1-04." eng="eng Test" />
-  <TextData ID="34105" kor="테스트 Depth 3-4-1-05." eng="eng Test" />
-  <TextData ID="34106" kor="테스트 Depth 3-4-1-06." eng="eng Test" />
-  <TextData ID="34107" kor="테스트 Depth 3-4-1-07." eng="eng Test" />
-  <TextData ID="34108" kor="테스트 Depth 3-4-1-08." eng="eng Test" />
-  <TextData ID="34109" kor="테스트 Depth 3-4-1-09." eng="eng Test" />
-  <TextData ID="34110" kor="테스트 Depth 3-4-1-10." eng="eng Test" />
+  <TextData ID="34101" kor="유량 센서의 점검방식과 고장유형을 알아보고 이에 따른 정비 방법을 알아보겠습니다." eng="Learn about the inspection methods, failure types, and maintenance methods of flow sensors." />
+  <TextData ID="34102" kor="점검 방법은 센서 외부의 고정 나사, 배관의 상태 확인 및 유량 센서의 출력 신호 확인 등이 있습니다. 먼저 압력센서의 외부 점검에 대해 알아보겠습니다." eng="Inspection methods include checking the external screws of the sensor, the condition of the piping, and the output signals of the flow sensor. Let’s first examine the external inspection of the pressure sensor." />
+  <TextData ID="34103" kor="유량 센서는 주로 금속 제조 설비에 활용되는 화학물질, 냉각수, 유체가 지나가는 탱크로리, 배관에 삽입되며 고정나사로 고정되는 형태로 설치됩니다." eng="Flow sensors are primarily used in metal manufacturing facilities for chemicals, coolant, and fluids. They are installed in tank lorries and piping, secured with fixing screws." />
+  <TextData ID="34104" kor="외부 점검을 통해 설치된 연결 배관과 연결상태가 올바르게 고정 되었는지 확인하고, 연결배관의 누액 또는 누기가 없는지 확인하는 것이 중요합니다." eng="It is important to check through external inspection that the connected piping is securely fixed and there are no leaks or seepages in the connected piping." />
+  <TextData ID="34105" kor="먼저 압력 센서 연결부의 고정나사가 제대로 결합되어있는지 확인하겠습니다. 고정 나사가 제대로 체결되어있지 않으면 연결 틈새로 누액, 누기가 발생할 수 있습니다. 화면에 표시된 고정 나사를 확인하고 클릭해 점검해주세요." eng="First, check whether the fixing screws of the pressure sensor connection are properly tightened. If not, leaks or seepages may occur through the connection gaps. Check and click the indicated fixing screws on the screen." />
+  <TextData ID="34106" kor="다음으로 압력 센서가 설치된 연결배관의 연결부에 누액, 누기가 없는지 확인하겠습니다. 연결부가 제대로 연결되어있지 않으면 내부 유체가 유출되거나 위험물질에 노출 될 수 있습니다. 화면에 표시된 배관 연결부를 확인하고 클릭해 점검해주세요." eng="Next, check for leaks or seepages at the connection of the piping where the pressure sensor is installed. Improper connections may lead to fluid leakage or exposure to hazardous materials. Check and click the indicated piping connection on the screen." />
+  <TextData ID="34107" kor="유량 센서의 전류를 측정하도록 하겠습니다. 전류 측정은 일반적인 전류 측정 방법과 동일하며 먼저 유량 센서를 시그널 컨디셔너와 분리하도록 하겠습니다. 도구함을 클릭해주세요." eng="We will now measure the current of the flow sensor. The measurement is similar to standard current measurement. First, disconnect the flow sensor from the signal conditioner. Click the toolbox." />
+  <TextData ID="34108" kor="시그널 컨디셔너에 연결된 출력 신호 도선을 해제하기 위해 전동 드라이버를 클릭하고 화면에 표기된 접속단자를 클릭해 분리해주세요." eng="To disconnect the output signal cable connected to the signal conditioner, click the electric screwdriver and then click the marked terminal on the screen." />
+  <TextData ID="34109" kor="다음으로 디지털 미터를 활용해 유량 센서의 출력 전류를 측정하도록 하겠습니다. 도구함을 클릭해 디지털 미터를 꺼내주세요." eng="Next, use a digital meter to measure the output current of the flow sensor. Click the toolbox to take out the digital meter." />
+  <TextData ID="34110" kor="유량 센서의 출력 신호 단자에서 측정되는 전류를 확인해 정상동작 여부를 확인할 수 있습니다. 다이얼을 돌려 직류 전류(mA)측정 모드로 맞춰주세요." eng="Check the current measured at the output signal terminal of the flow sensor to verify its proper operation. Turn the dial to set it to DC current (mA) measurement mode." />
+  <TextData ID="34111" kor="측정은 빨간색 프로브를 센서의 출력 단자와 검정색 프로브를 시그널 컨디셔너의 입력 단자를 디지털 미터로 연결해 측정하겠습니다. 확인되는 유량이 0일 때  출력 신호 4mA가 측정되는지 확인해주세요." eng="The measurement will be conducted by connecting the red probe to the sensor’s output terminal and the black probe to the signal conditioner’s input terminal using the digital meter. Check if the output signal measures 4mA when the detected flow is 0." />
+
+  
 
   <!-- Depth 3-4-2 -->
-  <TextData ID="34201" kor="테스트 Depth 3-4-2-01." eng="eng Test" />
-  <TextData ID="34202" kor="테스트 Depth 3-4-2-02." eng="eng Test" />
-  <TextData ID="34203" kor="테스트 Depth 3-4-2-03." eng="eng Test" />
-  <TextData ID="34204" kor="테스트 Depth 3-4-2-04." eng="eng Test" />
-  <TextData ID="34205" kor="테스트 Depth 3-4-2-05." eng="eng Test" />
-  <TextData ID="34206" kor="테스트 Depth 3-4-2-06." eng="eng Test" />
-  <TextData ID="34207" kor="테스트 Depth 3-4-2-07." eng="eng Test" />
-  <TextData ID="34208" kor="테스트 Depth 3-4-2-08." eng="eng Test" />
-  <TextData ID="34209" kor="테스트 Depth 3-4-2-09." eng="eng Test" />
-  <TextData ID="34210" kor="테스트 Depth 3-4-2-10." eng="eng Test" />
+  <TextData ID="34201" kor="다음으로 유량 센서가 정상작동 하지 않는 대표적인 고장 유형 및 조치 방법에 대해 알아보겠습니다." eng="Next, let’s look at common failure types of flow sensors that cause them to malfunction and how to address them." />
+  <TextData ID="34202" kor="첫 번째 고장 유형은 현장에서 흔히 발생할 수 있는 검출단 막힘 유형으로 장기간 사용으로 인해 유량 센서가 설치된 배관 내부에 잔여물이 고착되어 검출단이 막히게 되는 유형입니다." eng="The first failure type is blockage of the detection unit, which commonly occurs on-site due to residue buildup inside the piping where the flow sensor is installed after prolonged use." />
+  <TextData ID="34203" kor="조치방법으로는 검출단이 막히기 쉬운 물질의 경우 정기적인 유지보수를 수행하거나 물리적인 청소, 화학적 세척 과정을 수행하도록 합니다. 배관을 확인하고 내부의 잔여물을 없애도록 하겠습니다." eng="For materials prone to clogging the detection unit, perform regular maintenance or conduct physical cleaning and chemical washing. Let’s inspect the piping and remove any residue." />
+  <TextData ID="34204" kor="배관 내부의 잔여물을 확인하였습니다. 화면에 표기된 막힘 부분을 클릭해 청소해주세요." eng="Residue inside the piping has been identified. Click on the marked blockage area on the screen to clean it." />
+  <TextData ID="34205" kor="다음 고장 유형은 마찬가지로 현장에서 흔히 발생할 수 있는 유형으로 사용자의 부주의로 인해 검출물이 이동하는 밸브 오조작으로 인한 센서 검출 불가 유형입니다." eng="The next failure type, also common on-site, is the inability of the sensor to detect due to user negligence, such as incorrect valve operation affecting the flow of detectable materials." />
+  <TextData ID="34206" kor="해당 고장 유형의 경우 배관에 설치된 밸브의 올바른 상태를  확인하는 것이 중요하며 이로 인해 센서 파손, 신호 왜곡 심할 경우 내부의 유체가 유출 될 수 있는 위험상황을 초래할 수 있습니다. 밸브를 확인하도록 하겠습니다." eng="For this failure type, it’s crucial to check the proper state of the valves installed in the piping. Incorrect valve states can lead to sensor damage, signal distortion, or even hazardous situations such as fluid leakage. Let’s inspect the valves." />
+  <TextData ID="34207" kor="밸브가 완전히 개방 되지 않음을 확인하였습니다. 밸브를 조작해 배관을 완전히 개방해주세요." eng="The valve is confirmed to be not fully open. Operate the valve to fully open the piping." />
 
   <!-- Depth 3-4-3 -->
-  <TextData ID="34301" kor="테스트 Depth 3-4-3-01." eng="eng Test" />
-  <TextData ID="34302" kor="테스트 Depth 3-4-3-02." eng="eng Test" />
-  <TextData ID="34303" kor="테스트 Depth 3-4-3-03." eng="eng Test" />
-  <TextData ID="34304" kor="테스트 Depth 3-4-3-04." eng="eng Test" />
-  <TextData ID="34305" kor="테스트 Depth 3-4-3-05." eng="eng Test" />
-  <TextData ID="34306" kor="테스트 Depth 3-4-3-06." eng="eng Test" />
-  <TextData ID="34307" kor="테스트 Depth 3-4-3-07." eng="eng Test" />
-  <TextData ID="34308" kor="테스트 Depth 3-4-3-08." eng="eng Test" />
-  <TextData ID="34309" kor="테스트 Depth 3-4-3-09." eng="eng Test" />
-  <TextData ID="34310" kor="테스트 Depth 3-4-3-10." eng="eng Test" />
+  <TextData ID="34301" kor="다음은 유량 센서 정비 방법에 대해 알아보겠습니다. 일반적으로 유량 센서의 정비 순서는 고장난 유량 센서 탈거, 새로운 유량 센서 교체, 교정 순서로 진행됩니다." eng="Next, let’s look at the maintenance procedures for flow sensors. Typically, maintenance involves removing the faulty sensor, replacing it with a new one, and performing calibration." />
+  <TextData ID="34302" kor="유량 센서 정비 작업을 시작하도록 하겠습니다. 먼저 도구함에서 새로 설치할 예비 유량 센서를 클릭해 꺼내주세요." eng="Let’s begin the maintenance work for the flow sensor. First, click the spare flow sensor in the toolbox to retrieve it." />
+  <TextData ID="34303" kor="다음으로 작업 전 안전을 위해 가장 중요한 안전 절차인 설비 전원 차단 및 배관내 잔류 압력과 가스를 제거하는 과정을 수행하겠습니다. 먼저 전원 차단 스위치를 눌러 전원을 차단해주세요." eng="Next, we will perform essential safety procedures before starting the work: turning off the equipment power and removing residual pressure and gas from the piping. First, press the power-off switch to disconnect the power." />
+  <TextData ID="34304" kor="다음으로 밸브를 열어 내부 잔류물을 제거해주세요." eng="Then, open the valve to remove any residual material inside." />
+  <TextData ID="34305" kor="다음으로 교체할 기존 유량 센서를 철거하도록 하겠습니다. 기존 유량 센서와 시그널 컨디셔너의 연결을 해체하겠습니다. 도구함을 클릭해 전동 드라이버를 꺼내고 화면에 표기된 접속 단자를 해체해주세요." eng="Next, let’s remove the existing flow sensor to be replaced. Disconnect the connection between the sensor and the signal conditioner. Click the toolbox to retrieve the electric screwdriver and disassemble the marked terminal on the screen." />
+  <TextData ID="34306" kor="다음으로 기존 유량 센서를 클릭해 회수하고, 꺼내놓은 예비 유량 센서를 클릭해 설치해주세요." eng="Then, click the existing flow sensor to remove it and click the spare sensor to install it." />
+  <TextData ID="34307" kor="새로 설치된 유량 센서의 교정 작업을 수행하도록 하겠습니다. 교정 작업은 현장압력 표준기를 활용해 유량 센서의 제로점(최소값), 스팬점(최대값)을 설정하고 출력값의 오차범위를 확인하는 과정을 말합니다." eng="We will now calibrate the newly installed flow sensor. Calibration involves setting the zero point (minimum) and span point (maximum) using a field pressure standard and verifying the output error range." />
+  <TextData ID="34308" kor="교정 작업은 장비 연결 - 장비 설정 - 교정 설정 - 테스트 - 결과 확인 순서로 진행됩니다. 교정 작업을 시작하겠습니다. 먼저 도구함 내 자동 압력 교정기를 클릭해 꺼내주세요." eng="The calibration process follows the steps: equipment connection, equipment setup, calibration setting, testing, and result verification. Let’s start by clicking the automatic pressure calibrator in the toolbox to retrieve it." />
+  <TextData ID="34309" kor="연결을 완료 하였습니다. 다음으로 자동 압력 교정기의 초기 설정을 진행하도록 하겠습니다. 먼저 유량 센서의 내부 압력을 0으로 만들기 위해 [VENT] 버튼을 클릭해주세요." eng="Connection is complete. Next, proceed with the initial setup of the automatic pressure calibrator. Click the [VENT] button to reduce the internal pressure of the flow sensor to zero." />
+  <TextData ID="34310" kor="자동 압력 교정기의 압력을 0으로 초기화하기 위해 화면상의 [ZERO PRESSURE] 버튼을 클릭하겠습니다. 화면에 표기된 버튼을 클릭해주세요." eng="Click the [ZERO PRESSURE] button on the screen to initialize the automatic pressure calibrator to zero pressure. Click the indicated button on the screen." />
+  <TextData ID="34311" kor="다음으로 자동 압력 교정기에 연결할 센서의 종류를 설정하도록 하겠습니다. [TASK] 버튼을 클릭해주세요." eng="Next, configure the type of sensor to connect to the automatic pressure calibrator. Click the [TASK] button." />
+  <TextData ID="34312" kor="본 과정에서는 차압식 유량센서를 교정하기 때문에 1번 항목의 압력 센서(Pressure Transmitter)를 설정하도록 하겠습니다. 숫자 [1] 버튼을 클릭해주세요." eng="In this process, we will calibrate a differential pressure flow sensor. Set it to item 1, Pressure Transmitter. Click the [1] button." />
+  <TextData ID="34313" kor="다음으로 교정할 유량 센서의 제로점과 스팬점을 설정하도록 하겠습니다. 해당 과정은 설비, 측정 환경에 따라 제로점과 스팬점 설정은 상이하며 본 과정에서는 각각 0, 100 Psi로 설정하도록 하겠습니다." eng="Next, set the zero and span points for the flow sensor calibration. The settings vary depending on the equipment and measurement environment. In this process, set them to 0 and 100 Psi, respectively." />
+  <TextData ID="34314" kor="화면에 표기된 스팬점(100%)을 100으로 설정하기 위해 [▼] 버튼을 클릭해 커서를 옮겨주세요." eng="Click the [▼] button to move the cursor and set the span point (100%) to 100 as indicated on the screen." />
+  <TextData ID="34315" kor="다음으로 100 psi를 설정하기 위해 숫자 버튼을 클릭해 [100]을 설정한 뒤, [ENTER]버튼을 클릭해 입력해주세요." eng="Next, click the numeric buttons to set 100 Psi, then click the [ENTER] button to confirm." />
+  <TextData ID="34316" kor="다음으로 유량 센서에 전원을 공급하기 위해 화면상의 [Turn Loop Power up] 버튼과 [Continue] 버튼을 클릭하겠습니다. 화면에 표기된 버튼을 클릭해주세요." eng="Next, power the flow sensor by clicking the [Turn Loop Power up] button and the [Continue] button on the screen. Click the indicated buttons." />
+  <TextData ID="34317" kor="다음은 테스트 조건 설정 화면입니다. 오차범위, 측정 포인트, 응답시간 등을 설정할 수 있으며, 각 설정은 설비에 따라 상이합니다." eng="Next is the test condition setting screen. You can configure error ranges, measurement points, and response times, depending on the equipment." />
+  <TextData ID="34318" kor="본 과정에서는 측정 포인트를 3으로 설정하겠습니다. 화면에 표기된 측정 포인트를 설정하기 위해 [▼] 버튼을 클릭해 커서를 옮긴 뒤 [ENTER] 버튼을 클릭해 메뉴에 들어가주세요." eng="In this process, set the measurement points to 3. Click the [▼] button to move the cursor, then click the [ENTER] button to access the menu." />
+  <TextData ID="34319" kor="측정 포인트는 0%, 50%, 100% 지점을 오름차순으로 측정하기 위해 [3↑]으로 설정하겠습니다. [ENTER] 버튼을 클릭해 측정 포인트를 설정해주세요." eng="Set the measurement points to [3↑] to measure at 0%, 50%, and 100% in ascending order. Click the [ENTER] button to confirm the measurement points." />
+  <TextData ID="34320" kor="모든 초기 설정을 마쳤습니다. [Continue] 버튼을 클릭해 다음으로 이동하겠습니다. 화면에 표기된 버튼을 클릭해주세요." eng="All initial settings are complete. Click the [Continue] button to proceed. Click the indicated button on the screen." />
+  <TextData ID="34321" kor="자동 테스트를 시작하기 위해 화면상의 [Auto Test] 버튼을 클릭해 교정 작업을 시작하겠습니다. 화면에 표기된 버튼을 클릭해주세요." eng="Click the [Auto Test] button on the screen to start the calibration process. Click the indicated button." />
+  <TextData ID="34322" kor="압력 교정 과정은 사전 설정된 0%, 50%, 100% 지점으로 압력을 순차적으로 설정한 뒤 5초 정도 안정화 과정을 거치는 방식으로 자동 측정됩니다. 자동 압력 교정기가 교정 과정을 마칠 때 까지 기다려주세요." eng="The pressure calibration process automatically measures by sequentially setting the pressure at pre-configured 0%, 50%, and 100% points, followed by a 5-second stabilization period. Wait for the automatic pressure calibrator to complete the process." />
+  <TextData ID="34323" kor="압력 교정이 완료되었습니다. 각 측정 포인트 별로 측정되는 출력 신호와 오차 범위를 확인할 수 있습니다. 최종적으로 교정 과정이 성공적으로 수행되었을 경우 화면 오른쪽 상단 PASS 표시를 확인할 수 있습니다." eng="Pressure calibration is complete. Verify the output signals and error ranges at each measurement point. If the calibration process was successful, you will see the PASS mark at the top-right corner of the screen." />
+  <TextData ID="34324" kor="잘 하셨습니다. 이제 설비의 전원을 다시 켜고 정비 작업을 마치도록 하겠습니다." eng="Well done. Now turn the equipment power back on to complete the maintenance work." />
+
 
   <!-- Depth 3-5 -->
   <!-- Depth 3-5-1 -->

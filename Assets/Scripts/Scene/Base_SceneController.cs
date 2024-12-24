@@ -6,8 +6,6 @@ using DG.Tweening;
 using HighlightPlus;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -161,6 +159,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         isReverseAnim = false;
         _currentPlayingCount = -321; // 반드시 초기화 애니메이션을 실행시키기 위해 다음과같이 설정
         Managers.ContentInfo.PlayData.Count = 0;
+      //  ClearTool();
         ExitCurrentState();
   
 
@@ -357,6 +356,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             _currentState?.OnExit();
             _currentState = newState;
             _currentState?.OnEnter();
+            _currentState?.OnStep();
         }
         else
         {
