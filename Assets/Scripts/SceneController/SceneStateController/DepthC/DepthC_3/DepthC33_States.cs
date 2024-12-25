@@ -85,6 +85,8 @@ public class DepthC33_State_2 : Base_SceneState
     {
         CurrentScene.contentController.SetScriptUI();
         base.OnEnter();
+        CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_PressureSensor);
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}}
@@ -98,6 +100,7 @@ public class DepthC33_State_3 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        _depthC3SceneController.controlPanel.SetPowerHandleOn();
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PowerHandle, false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PowerHandle);
         _depthC3SceneController.cameraController.isControllable = false;
@@ -121,6 +124,7 @@ public class DepthC33_State_4 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        _depthC3SceneController.controlPanel.SetPowerHandleOff();
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorWaterPipeValve, false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensorWaterPipeValve);
         _depthC3SceneController.cameraController.isControllable = false;
@@ -707,14 +711,17 @@ public class DepthC33_State_24 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.CalibrationFinish);
+        _depthC3SceneController.controlPanel.SetPowerHandleOff();
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PowerHandle, false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PowerHandle);
         _depthC3SceneController.cameraController.isControllable = false;
+     
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PowerHandle);
         base.OnExit();
     }
 }

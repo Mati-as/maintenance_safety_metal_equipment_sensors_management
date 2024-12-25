@@ -490,7 +490,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         BindHighlight((int)DepthC3_GameObj.AnodeSensorOutput,"센서 출력 단자");
         BindHighlight((int)DepthC3_GameObj.PressureSensor,"압력 센서");
         BindHighlight((int)DepthC3_GameObj.PressureCalibrator,"압력 교정기");
-        BindHighlight((int)DepthC3_GameObj.PressureSensorConnectingPipe,"연결부 파이프");
+        BindHighlight((int)DepthC3_GameObj.PressureSensorConnectingPipe,"배관 연결부");
         BindHighlight((int)DepthC3_GameObj.PressureSensorConnectingScrew,"연결부 고정 나사");
         BindHighlight((int)DepthC3_GameObj.MultimeterHandleHighlight,"전류모드로 설정");
 

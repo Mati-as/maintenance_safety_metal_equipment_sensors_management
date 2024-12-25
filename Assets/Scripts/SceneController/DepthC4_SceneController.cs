@@ -19,12 +19,15 @@ using Sequence = DG.Tweening.Sequence;
 public enum DepthC4_GameObj
 {
     FlowSensor,
+    NewFlowSensor,
+    
     ElectricScrewdriver,
     Multimeter,
     MultimeterHandleHighlight,
     Probe_Anode, // negative
     Probe_Cathode, // positive,
     CathodeSensorInput,
+    Wrench,
         
     ConnectionScrewA,
     ConnectionScrewB,
@@ -32,25 +35,17 @@ public enum DepthC4_GameObj
     ConnectionScrewD,
     PowerHandle,
     
-    
-    // PressureSensor,
-    // PressureSensorScale,
-    // PressureSensorToConditionerCable,
-    // PressureSensorHose,
-    // PressureSensorAdapter,
-    // PressureSensorAdapter_Sub,
-    // PressureSensorDamagedPart,
-    // PressureSensor_Display,
-    // NewPressureSensor,
-    // PressureSensorWaterPipeValve, // FluidInsidePipe
-    
-    
+    FlowerSensor_Valve,
+        
     ControlPanelFrontDoor,
     AnodeSensorOutput,
     PowerCable,
     PressureCalibrator,
     FlowSensorConnectingPipe, //연결 배관
     FlowSensorConnectingScrew, // 연결 나사 (어댑터)
+    
+    ResidueBlockingPiping,
+    WaterEffect,
     
     //하이라이트 및 툴팁 적용을 위한 enum (객체컨트롤은 PressureCalibrator에서합니다.)
     Btn_F1 , 
@@ -440,11 +435,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         base.Init();
         BindObject(typeof(DepthC4_GameObj));
         
-        
-        
-        
         SetDefaultTransform();
-
         InitializeC4States();
         GetScrewColliders();
         contentController.OnDepth2Init((int)Define.DepthC_Sensor.FlowSensor,1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
@@ -453,11 +444,9 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         pressureCalibratorController = GetObject((int)DepthC4_GameObj.PressureCalibrator).GetComponent<PressureCalibratorController>();
         Assert.IsNotNull(pressureCalibratorController);
         pressureCalibratorController.Init();
-
+        controlPanel = GetObject((int)DepthC4_GameObj.PowerHandle).GetComponent<ControlPanelController>();
         
-        
-        
-        C3_PreCommonObjInit();
+        C4_PreCommonObjInit();
 
     }
     private void LateCommonInit()
@@ -492,7 +481,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         BindHighlight((int)DepthC4_GameObj.AnodeSensorOutput,"센서 출력 단자");
         
         BindHighlight((int)DepthC4_GameObj.PressureCalibrator,"압력 교정기");
-        BindHighlight((int)DepthC4_GameObj.FlowSensorConnectingPipe,"연결부 파이프");
+        BindHighlight((int)DepthC4_GameObj.FlowSensorConnectingPipe,"배관 연결부");
         GetObject((int)DepthC4_GameObj.FlowSensorConnectingPipe).BindEvent(() =>
         {
             Logger.Log("배관 연결부 확인---------------------");
@@ -504,6 +493,15 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         BindHighlight((int)DepthC4_GameObj.FlowSensorConnectingScrew,"연결부 고정 나사");
+        GetObject((int)DepthC4_GameObj.FlowSensorConnectingScrew).BindEvent(() =>
+        {
+            Logger.Log("배관 연결부 확인---------------------");
+            if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 5) 
+            {
+              
+                OnStepMissionComplete(animationNumber:5);
+            }  
+        });
 
         BindHighlight((int)DepthC4_GameObj.MultimeterHandleHighlight,"전류모드로 설정");
 
@@ -545,6 +543,28 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         BindInteractionEvent();
         
+        BindHighlight((int)DepthC4_GameObj.ResidueBlockingPiping,"배관 막힘");
+        GetObject((int)DepthC4_GameObj.ResidueBlockingPiping).BindEvent(() =>
+        {
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 4) 
+            {
+                Logger.Log("배관막힘 청소---------------------");
+                OnStepMissionComplete(animationNumber:4);
+            }  
+        });
+        
+        BindHighlight((int)DepthC4_GameObj.FlowerSensor_Valve,"밸브");
+        
+        GetObject((int)DepthC4_GameObj.FlowerSensor_Valve).BindEvent(() =>
+        {
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 7) 
+            {
+                Logger.Log("밸브개방---------------------");
+                OnStepMissionComplete(animationNumber:7);
+            }  
+        });
  
         InitProbePos();
         SetPressureSensorCurrentCheckMultimeterSection();
@@ -563,14 +583,16 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         defaultRotationMap.TryAdd((int)DepthC4_GameObj.Probe_Cathode,GetObject((int)DepthC4_GameObj.Probe_Cathode).transform.rotation);
         defaultRotationMap.TryAdd((int)DepthC4_GameObj.Probe_Anode,GetObject((int)DepthC4_GameObj.Probe_Cathode).transform.rotation);
-        C3_PreCommonObjInit();
+        C4_PreCommonObjInit();
         UnBindEventAttatchedObj();
     }
-    private void C3_PreCommonObjInit()
+    private void C4_PreCommonObjInit()
     {
         GetObject((int)DepthC4_GameObj.PressureCalibrator).SetActive(false);
-
-
+        GetObject((int)DepthC4_GameObj.Wrench).SetActive(false);
+        GetObject((int)DepthC4_GameObj.ResidueBlockingPiping).SetActive(false);
+        GetObject((int)DepthC4_GameObj.WaterEffect).SetActive(false);
+        GetObject((int)DepthC4_GameObj.NewFlowSensor).SetActive(false);
     }
 
     public void DepthC43Init()
@@ -596,14 +618,36 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         GetObject((int)DepthC4_GameObj.PowerHandle).BindEvent(() =>
         {
-            Logger.Log("잔유물제거---------------------");
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 3) 
             {
-              
+                Logger.Log("전원차단---------------------");
                 OnStepMissionComplete(animationNumber:3);
             }  
         });
+        
+        BindHighlight((int)DepthC4_GameObj.FlowerSensor_Valve,"밸브");
+        
+        GetObject((int)DepthC4_GameObj.FlowerSensor_Valve).BindEvent(() =>
+        {
+           
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 4) 
+            {
+                Logger.Log("밸브개방---------------------");
+                OnStepMissionComplete(animationNumber:4);
+            }  
+        });
     
+        BindHighlight((int)DepthC4_GameObj.NewFlowSensor,"새로운 유량센서로 교체");
+        
+        GetObject((int)DepthC4_GameObj.NewFlowSensor).BindEvent(() =>
+        {
+          
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6) 
+            {
+                Logger.Log("새로운 센서로 교체---------------------");
+                OnStepMissionComplete(animationNumber:6);
+            }  
+        });
         
         LateCommonInit();
         
@@ -620,7 +664,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         }
     }
 
-    protected virtual void ToolBoxOnPressureSensorBtnClicked()
+    protected virtual void ToolBoxOnFlowSensorBtnClicked()
     {
         if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 2) 
         {
@@ -628,11 +672,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
             OnStepMissionComplete(animationNumber:2);
         }
         
-        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 9) 
-        {
-        
-            OnStepMissionComplete(animationNumber:9);
-        }
+
     }
 
     private void ToolBoxNewAdapterClicked()
@@ -676,8 +716,8 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         UI_ToolBox.ToolBox_PressureCalibratorClickedEvent -= OnPressureCalibratorClicked;
         UI_ToolBox.ToolBox_PressureCalibratorClickedEvent += OnPressureCalibratorClicked;
         
-        UI_ToolBox.ToolBox_PressureSensorClicked -= ToolBoxOnPressureSensorBtnClicked;
-        UI_ToolBox.ToolBox_PressureSensorClicked += ToolBoxOnPressureSensorBtnClicked;
+        UI_ToolBox.ToolBox_FlowSensorClicked -= ToolBoxOnFlowSensorBtnClicked;
+        UI_ToolBox.ToolBox_FlowSensorClicked += ToolBoxOnFlowSensorBtnClicked;
 
         
         UI_ToolBox.ToolBox_PS_NewAdaptorCliked -= ToolBoxNewAdapterClicked;
@@ -711,7 +751,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         UI_ToolBox.ToolBox_PS_NewAdaptorCliked -= ToolBoxNewAdapterClicked;
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
-        UI_ToolBox.ToolBox_PressureSensorClicked -= ToolBoxOnPressureSensorBtnClicked;
+        UI_ToolBox.ToolBox_PressureSensorClicked -= ToolBoxOnFlowSensorBtnClicked;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
         
@@ -861,9 +901,9 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     }
     protected virtual void OnToolBoxClicked()
     {
-        if((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 8))
+        if((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 7))
         {
-            //OnStepMissionComplete(animationNumber: 8);
+            OnStepMissionComplete(animationNumber: 7);
         }
     }
     
@@ -1648,7 +1688,14 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         { 34314, new DepthC43_State_14(this) },
         { 34315, new DepthC43_State_15(this) },
         { 34316, new DepthC43_State_16(this) },
-       
+        { 34317, new DepthC43_State_17(this) },
+        { 34318, new DepthC43_State_18(this) },
+        { 34319, new DepthC43_State_19(this) },
+        { 34320, new DepthC43_State_20(this) },
+        { 34321, new DepthC43_State_21(this) },
+        { 34322, new DepthC43_State_22(this) },
+        { 34323, new DepthC43_State_23(this) },
+        { 34324, new DepthC43_State_24(this) },
         };
     }
 }

@@ -43,6 +43,11 @@ public class DepthC41_State_1 : Base_SceneState
         _depthC4SceneController = currentScene;
     }
     
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        SetLookAt((int)DepthC4_GameObj.FlowSensor);
+        base.OnAnimationCompleteHandler(_);
+    }
 
 
     public override void OnEnter()
@@ -132,7 +137,7 @@ public class DepthC41_State_4 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        CurrentScene.cameraController.isControllable = true;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -205,6 +210,30 @@ public class DepthC41_State_7 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+               
+        _depthC4SceneController.isWindSession = false;
+        
+        foreach (var key in _depthC4SceneController.currentScrewGaugeStatus.Keys.ToList())
+            _depthC4SceneController.currentScrewGaugeStatus[key] = 0f;
+
+        foreach (var key in _depthC4SceneController.isScrewUnwindMap.Keys.ToList())
+            _depthC4SceneController.isScrewUnwindMap[key] = false;
+        
+        _depthC4SceneController.SetHighlightIgnore((int)DepthC4_GameObj.ConnectionScrewB,false);
+        _depthC4SceneController.BlinkHighlight((int)DepthC4_GameObj.ConnectionScrewB);
+
+    
+        _depthC4SceneController.TurnOnCollidersAndInit();
+        
+        
+        _depthC4SceneController.animatorMap[(int)DepthC4_GameObj.ConnectionScrewB].enabled = true;
+        _depthC4SceneController.animatorMap[(int)DepthC4_GameObj.ConnectionScrewB].SetBool(DepthC2_SceneController.UNWIND,false);
+        _depthC4SceneController.animatorMap[(int)DepthC4_GameObj.ConnectionScrewB].Play($"UnScrew", 0, 0);
+        _depthC4SceneController.animatorMap[(int)DepthC4_GameObj.ConnectionScrewB].Update(0);
+        _depthC4SceneController.animatorMap[(int)DepthC4_GameObj.ConnectionScrewB].enabled = false;
+        _depthC4SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+
+        
         CurrentScene.cameraController.isControllable = false;
     }
 

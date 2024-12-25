@@ -43,12 +43,10 @@ public class DepthC42_State_1 : Base_SceneState
         _depthC3SceneController = currentScene;
        
     }
-
     protected override void OnAnimationCompleteHandler(int _)
     {
-        
+        SetLookAt((int)DepthC4_GameObj.FlowSensor);
         base.OnAnimationCompleteHandler(_);
-        
     }
 
     public override void OnEnter()
@@ -56,20 +54,21 @@ public class DepthC42_State_1 : Base_SceneState
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         
-        SetLookAt((int)DepthC3_GameObj.PressureSensor);
+        SetLookAt((int)DepthC4_GameObj.FlowSensor);
         
-        CurrentScene.cameraController.isControllable = true;
+        
         _depthC3SceneController.DepthC42Init();
         CurrentScene.contentController.ShutTrainingIntroAnim();
     
         base.OnEnter();
+        CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        CurrentScene.cameraController.isControllable = true;
+        CurrentScene.cameraController.isControllable = false;
         base.OnExit();
     }
 }
@@ -107,14 +106,24 @@ public class DepthC42_State_4 : Base_SceneState
     private readonly DepthC4_SceneController _depthC3SceneController;
     public DepthC42_State_4(DepthC4_SceneController currentScene) : base(currentScene) {_depthC3SceneController = currentScene;}
 
-
     public override void OnEnter()
     {
+        
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC4_GameObj.ResidueBlockingPiping,false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC4_GameObj.ResidueBlockingPiping);
         base.OnEnter();
+        CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC4_GameObj.ResidueBlockingPiping);
+        base.OnExit();
+    }
+    
 }
+
 
 public class DepthC42_State_5 : Base_SceneState
 {
@@ -128,7 +137,6 @@ public class DepthC42_State_5 : Base_SceneState
     public override void OnEnter()
     {
         
-     
         base.OnEnter();
         CurrentScene.cameraController.isControllable = false;
     }
@@ -136,7 +144,7 @@ public class DepthC42_State_5 : Base_SceneState
 
     public override void OnExit()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorConnectingScrew);
+        
         base.OnExit();
     }}
 
@@ -152,8 +160,7 @@ public class DepthC42_State_6 : Base_SceneState
 
     public override void OnEnter()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorConnectingPipe,false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensorConnectingPipe);
+        
         base.OnEnter();
         CurrentScene.cameraController.isControllable = false;
     }
@@ -161,10 +168,9 @@ public class DepthC42_State_6 : Base_SceneState
 
     public override void OnExit()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensorConnectingPipe);
+        
         base.OnExit();
     }
-    
 }
 
 
@@ -180,18 +186,16 @@ public class DepthC42_State_7 : Base_SceneState
 
     public override void OnEnter()
     {
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC4_GameObj.FlowerSensor_Valve,false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC4_GameObj.FlowerSensor_Valve);
         base.OnEnter();
         CurrentScene.cameraController.isControllable = false;
     }
-
-    public override void OnStep()
-    {
-        base.OnStep();
-    }
+    public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC4_GameObj.FlowerSensor_Valve);
         base.OnExit();
     }
 }
@@ -208,9 +212,17 @@ public class DepthC42_State_8 : Base_SceneState
 
     public override void OnEnter()
     {
-        _depthC3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        Managers.ContentInfo.PlayData.Depth1 = 3;
+        Managers.ContentInfo.PlayData.Depth2 = 4;
+        Managers.ContentInfo.PlayData.Depth3 = 3;
+        Managers.ContentInfo.PlayData.Count = 1;
+
+        
+        _depthC3SceneController.contentController.Refresh();
+        _depthC3SceneController.DepthC42Init();
+        
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        _depthC3SceneController.PlayAnimation(1);
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}

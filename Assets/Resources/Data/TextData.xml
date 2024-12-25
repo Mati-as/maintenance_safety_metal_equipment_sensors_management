@@ -520,38 +520,53 @@
 
   <!-- Depth 3-5 -->
   <!-- Depth 3-5-1 -->
-  <TextData ID="35101" kor="테스트 Depth 3-5-1-01." eng="eng Test" />
-  <TextData ID="35102" kor="테스트 Depth 3-5-1-02." eng="eng Test" />
-  <TextData ID="35103" kor="테스트 Depth 3-5-1-03." eng="eng Test" />
-  <TextData ID="35104" kor="테스트 Depth 3-5-1-04." eng="eng Test" />
-  <TextData ID="35105" kor="테스트 Depth 3-5-1-05." eng="eng Test" />
-  <TextData ID="35106" kor="테스트 Depth 3-5-1-06." eng="eng Test" />
-  <TextData ID="35107" kor="테스트 Depth 3-5-1-07." eng="eng Test" />
-  <TextData ID="35108" kor="테스트 Depth 3-5-1-08." eng="eng Test" />
-  <TextData ID="35109" kor="테스트 Depth 3-5-1-09." eng="eng Test" />
-  <TextData ID="35110" kor="테스트 Depth 3-5-1-10." eng="eng Test" />
+  <TextData ID="35101" kor="레벨 센서의 점검방식과 고장유형을 알아보고 이에 따른 정비 방법을 알아보겠습니다." eng="We will learn about the inspection methods and failure types of the level sensor and the corresponding maintenance methods." />
+  <TextData ID="35102" kor="점검 방법은 센서 외부의 고정 나사, 탱크로리와 연결된 배관의 상태 확인 및 유량 센서의 출력 신호 확인 등이 있습니다. 먼저 레벨 센서의 외부 점검에 대해 알아보겠습니다." eng="Inspection methods include checking the fixed screws on the exterior of the sensor, the condition of the piping connected to the tank lorry, and the output signal of the flow sensor. First, let's look at the external inspection of the level sensor." />
+  <TextData ID="35103" kor="레벨 센서는 주로 금속 제조 설비에 활용되는 화학물질, 냉각수, 유체가 저장되는 탱크로리에 삽입되며 고정나사로 고정되는 형태로 설치됩니다." eng="Level sensors are typically installed in tank lorries that store chemicals, cooling water, or fluids used in metal manufacturing facilities, and are fixed with screws." />
+  <TextData ID="35104" kor="외부 점검을 통해 설치된 탱크로리의 연결부와 연결상태가 올바르게 고정 되었는지 확인하고, 연결배관의 누액 또는 누기가 없는지 확인하는 것이 중요합니다." eng="It is important to check whether the connections of the installed tank lorry are properly secured and whether there are any leaks or seepages in the connecting pipes." />
+  <TextData ID="35105" kor="먼저 레벨 센서 연결부의 고정나사가 제대로 결합되어있는지 확인하겠습니다. 고정 나사가 제대로 체결되어있지 않으면 연결 틈새로 누액, 누기가 발생할 수 있습니다. 화면에 표시된 고정 나사를 확인하고 클릭해 점검해주세요." eng="First, check whether the fixed screws of the level sensor connection are properly secured. If the screws are not properly tightened, leaks or seepages may occur at the connection gaps. Check and click on the displayed fixed screws on the screen." />
+  <TextData ID="35106" kor="다음으로 레벨 센서 측정부를 확인하도록 하겠습니다. 검출물과 직접 접촉하는 레벨 센서의 경우 측정부의 표면이 장시간 사용으로 오염이나 잔류물이 남아 레벨 센서가 정상 작동하지 않을 수 있습니다. 화면에 표기된 측정부를 클릭해 점검해주세요." eng="Next, we will check the measuring part of the level sensor. For level sensors that come into direct contact with detected substances, prolonged use may contaminate or leave residues on the surface of the measuring part, potentially preventing the sensor from functioning properly. Click on the displayed measuring part on the screen to inspect it." />
+  <TextData ID="35107" kor="레벨 센서의 전류를 측정하도록 하겠습니다. 전류 측정은 일반적인 전류 측정 방법과 동일하며 먼저 레벨 센서를 시그널 컨디셔너와 분리하도록 하겠습니다. 도구함을 클릭해주세요." eng="We will measure the current of the level sensor. Current measurement is the same as general current measurement methods. First, separate the level sensor from the signal conditioner. Click the toolbox." />
+  <TextData ID="35108" kor="시그널 컨디셔너에 연결된 출력 신호 도선을 해제하기 위해 전동 드라이버를 클릭하고 화면에 표기된 접속단자를 클릭해 분리해주세요." eng="To disconnect the output signal wire connected to the signal conditioner, click the electric screwdriver and then click the displayed connection terminal on the screen to disconnect it." />
+  <TextData ID="35109" kor="다음으로 디지털 미터를 활용해 레벨 센서의 출력 전류를 측정하도록 하겠습니다. 도구함을 클릭해 디지털 미터를 꺼내주세요." eng="Next, use the digital meter to measure the output current of the level sensor. Click the toolbox to take out the digital meter." />
+  <TextData ID="35110" kor="레벨 센서의 출력 신호 단자에서 측정되는 전류를 확인해 정상동작 여부를 확인할 수 있습니다. 다이얼을 돌려 직류 전류(mA)측정 모드로 맞춰주세요." eng="Check the current measured at the output signal terminal of the level sensor to verify its proper operation. Turn the dial to set it to the DC current (mA) measurement mode." />
+  <TextData ID="35111" kor="측정은 빨간색 프로브를 센서의 출력 단자와 검정색 프로브를 시그널 컨디셔너의 입력 단자를 디지털 미터로 연결해 측정하겠습니다. 측정부에 내부 검출물과 접촉하는 지점이 최저 점일 때 출력 신호 4mA가 측정되는지 확인해주세요." eng="For the measurement, connect the red probe to the sensor's output terminal and the black probe to the signal conditioner's input terminal using the digital meter. Check whether the output signal measures 4mA when the measuring part is at the lowest point of contact with the internal detected material." />
   <!-- Depth 3-5-2 -->
-  <TextData ID="35201" kor="테스트 Depth 3-5-2-01." eng="eng Test" />
-  <TextData ID="35202" kor="테스트 Depth 3-5-2-02." eng="eng Test" />
-  <TextData ID="35203" kor="테스트 Depth 3-5-2-03." eng="eng Test" />
-  <TextData ID="35204" kor="테스트 Depth 3-5-2-04." eng="eng Test" />
-  <TextData ID="35205" kor="테스트 Depth 3-5-2-05." eng="eng Test" />
-  <TextData ID="35206" kor="테스트 Depth 3-5-2-06." eng="eng Test" />
-  <TextData ID="35207" kor="테스트 Depth 3-5-2-07." eng="eng Test" />
-  <TextData ID="35208" kor="테스트 Depth 3-5-2-08." eng="eng Test" />
-  <TextData ID="35209" kor="테스트 Depth 3-5-2-09." eng="eng Test" />
-  <TextData ID="35210" kor="테스트 Depth 3-5-2-10." eng="eng Test" />
+  <TextData ID="35201" kor="다음으로 유량 센서가 정상작동 하지 않는 대표적인 고장 유형 및 조치 방법에 대해 알아보겠습니다." eng="Next, we will learn about the common failure types and corrective actions for flow sensors that are not operating properly." />
+  <TextData ID="35202" kor="첫 번째 고장 유형은 현장에서 흔히 발생할 수 있는 배관 막힘 유형으로 장기간 사용으로 인해 탱크 로리 내부에 잔여물이 고착되어 연결 배관이 막히게 되는 유형입니다." eng="The first failure type is pipe blockage, which commonly occurs in the field due to residual materials adhering inside the tank lorry over prolonged use, causing the connecting pipes to become blocked." />
+  <TextData ID="35203" kor="조치방법으로는 배관이 막히기 쉬운 물질의 경우 정기적인 유지보수를 수행하거나 물리적인 청소, 화학적 세척 과정을 수행하도록 합니다. 배관을 확인하고 내부의 잔여물을 없애도록 하겠습니다." eng="For corrective actions, if the substance is prone to clogging the pipes, perform regular maintenance, physical cleaning, or chemical cleaning processes. Let's check the pipes and remove the internal residues." />
+  <TextData ID="35204" kor="배관 내부의 잔여물을 확인하였습니다. 화면에 표기된 막힘 부분을 클릭해 청소해주세요." eng="We have identified the residues inside the pipe. Click on the blockage displayed on the screen to clean it." />
+  <TextData ID="35205" kor="다음 고장 유형은 보상 도선 체결 오류로 장시간 사용으로 인해 소선이 단선되거나 시그널 컨디셔너의 접속나사가 풀려 정상적으로 레벨 센서가 측정되지 않는 유형입니다." eng="The next failure type is compensation wire connection errors. Over prolonged use, fine wires may break, or the connection screws on the signal conditioner may loosen, preventing the level sensor from functioning correctly." />
+  <TextData ID="35206" kor="해당 고장 유형의 경우 시그널 컨디셔너와 연결된 보상 도선 접속 상태를 확인하는 것이 중요하며 접속나사를 다시 체결해 접속 불량 현상을 해결하거나 접속부분이 손상된 경우 새로운 레벨 센서로 교체할 수 있습니다." eng="For this failure type, it is important to check the connection state of the compensation wires connected to the signal conditioner. Re-tighten the connection screws to resolve connection issues, or replace the level sensor with a new one if the connection parts are damaged." />
+  <TextData ID="35207" kor="연결부분을 확인하고 보상도선을 다시 체결하도록 하겠습니다. 연결부분을 확인하기 위해 시그널 컨디셔너의 덮개를 클릭해 열어주세요." eng="Let's check the connection and reattach the compensation wire. Click the cover of the signal conditioner to open it." />
+  <TextData ID="35208" kor="화면에 표기된 도구함을 클릭해 전동 드라이버를 꺼내주세요." eng="Click the toolbox displayed on the screen to take out the electric screwdriver." />
+  <TextData ID="35209" kor="레벨 센서 보상도선 접속단자를 확인하고 전동 드라이버를 이용해 다시 체결해주세요." eng="Check the connection terminals of the level sensor compensation wire and reattach them using the electric screwdriver." />
   <!-- Depth 3-5-3 -->
-  <TextData ID="35301" kor="테스트 Depth 3-5-3-01." eng="eng Test" />
-  <TextData ID="35302" kor="테스트 Depth 3-5-3-02." eng="eng Test" />
-  <TextData ID="35303" kor="테스트 Depth 3-5-3-03." eng="eng Test" />
-  <TextData ID="35304" kor="테스트 Depth 3-5-3-04." eng="eng Test" />
-  <TextData ID="35305" kor="테스트 Depth 3-5-3-05." eng="eng Test" />
-  <TextData ID="35306" kor="테스트 Depth 3-5-3-06." eng="eng Test" />
-  <TextData ID="35307" kor="테스트 Depth 3-5-3-07." eng="eng Test" />
-  <TextData ID="35308" kor="테스트 Depth 3-5-3-08." eng="eng Test" />
-  <TextData ID="35309" kor="테스트 Depth 3-5-3-09." eng="eng Test" />
-  <TextData ID="35310" kor="테스트 Depth 3-5-3-10." eng="eng Test" />
+  <TextData ID="35301" kor="다음은 레벨 센서 정비 방법에 대해 알아보겠습니다. 일반적으로 레벨 센서의 정비 순서는 고장난 레벨 센서 탈거, 새로운 레벨 센서 교체, 기본 설정 순서로 진행됩니다." eng="Next, we will learn about the maintenance methods for level sensors. Generally, the maintenance sequence involves removing the faulty level sensor, replacing it with a new one, and performing basic configuration." />
+  <TextData ID="35302" kor="레벨 센서 정비 작업을 시작하도록 하겠습니다. 먼저 도구함에서 새로 설치할 예비 레벨 센서를 클릭해 꺼내주세요." eng="Let's begin the maintenance work for the level sensor. First, click the toolbox to take out the spare level sensor to be installed." />
+  <TextData ID="35303" kor="다음으로 작업 전 안전을 위해 가장 중요한 안전 절차인 설비 전원 차단 및 배관내 잔류 압력과 가스를 제거하는 과정을 수행하겠습니다. 먼저 전원 차단 스위치를 눌러 전원을 차단해주세요." eng="Next, for safety before starting the work, we will perform the crucial safety procedures of shutting off the facility's power and releasing the residual pressure and gas in the pipes. First, press the power-off switch to turn off the power." />
+  <TextData ID="35304" kor="다음으로 밸브를 열어 내부 잔류물을 제거해주세요." eng="Next, open the valve to remove the internal residues." />
+  <TextData ID="35305" kor="다음으로 교체할 기존 레벨 센서를 철거하도록 하겠습니다. 기존 레벨 센서와 시그널 컨디셔너의 연결을 해체하겠습니다. 도구함을 클릭해 전동 드라이버를 꺼내고 화면에 표기된 접속 단자를 해체해주세요." eng="Now, we will remove the existing level sensor to be replaced. Disconnect the existing level sensor from the signal conditioner. Click the toolbox to take out the electric screwdriver, then disconnect the connection terminals displayed on the screen." />
+  <TextData ID="35306" kor="다음으로 기존 레벨 센서를 클릭해 회수하고, 꺼내놓은 예비 레벨 센서를 클릭해 설치해주세요." eng="Next, click on the existing level sensor to retrieve it, then click on the spare level sensor to install it." />
+  <TextData ID="35307" kor="새로 설치된 레벨 센서의 기본 파라미터 값 설정 작업을 수행하도록 하겠습니다. 설정 작업은 센서에 설치되어있는 디스플레이를 활용해 검출할 두 측정 지점(OUT1, OUT2)의 SP, RP, 회로 상태 등을 설정하는 과정을 말합니다." eng="We will perform the basic parameter configuration for the newly installed level sensor. This involves using the display installed on the sensor to set the SP, RP, and circuit states for two measurement points (OUT1, OUT2)." />
+  <TextData ID="35308" kor="설정 작업은 설비 요구사항에 따라 상이하며 본 학습과정에서는 자주 활용되는 출력 신호 측정 지점의 파라미터 확인 - 파라미터 설정 - 회로 상태 설정 순서로 진행됩니다." eng="Configuration tasks vary depending on equipment requirements. In this learning process, we will proceed with checking parameters for frequently used output signal measurement points, setting the parameters, and configuring the circuit state." />
+  <TextData ID="35309" kor="설정 작업을 시작하겠습니다. 먼저 상단 출력 신호(OUT1) SP 설정 값(SP1)을 확인하기 위해 [MODE/ENTER] 버튼을 클릭해주세요." eng="Let's begin the configuration. First, to check the SP setting value (SP1) of the upper output signal (OUT1), click the [MODE/ENTER] button." />
+  <TextData ID="35310" kor="다음으로 SP 설정 메뉴를 활성화 하기 위해 [SET] 버튼을 클릭해주세요." eng="Next, click the [SET] button to activate the SP setting menu." />
+  <TextData ID="35311" kor="해당 화면은 상단 출력 신호의 SP 값(Switching Point) 설정 화면으로 사전 설정된 좌측 상단 단위와 디스플레이에 표시된 숫자를 보고 출력 신호의 SP 설정 값을 확인할 수 있습니다." eng="This screen shows the SP value (Switching Point) setting for the upper output signal. Check the SP setting value by referring to the preset unit at the top left and the numbers displayed on the screen." />
+  <TextData ID="35312" kor="다음으로 상단 출력 신호의 RP 설정 값(RP1)을 확인하겠습니다. RP1 메뉴가 다시 활성화 될 때 까지 [MODE/ENTER] 버튼을 클릭해주세요." eng="Next, let's check the RP setting value (RP1) for the upper output signal. Click the [MODE/ENTER] button until the RP1 menu is reactivated." />
+  <TextData ID="35313" kor="다음으로 상단 출력 신호의 RP 설정 메뉴를 활성화 하기 위해 [SET] 버튼을 클릭해주세요." eng="Next, click the [SET] button to activate the RP setting menu for the upper output signal." />
+  <TextData ID="35314" kor="해당 화면은 상단 출력 신호의 RP 값(Reset Point)으로 출력 신호의 RP 설정 값을 확인할 수 있습니다." eng="This screen displays the RP value (Reset Point) for the upper output signal, allowing you to check the RP setting value." />
+  <TextData ID="35315" kor="다음으로 상단 출력 신호의 SP, RP 설정 값을 변경하도록 하겠습니다. 센서의 모든 버튼은 단방향으로 동작하며 모든 메뉴가 끝나면 다시 첫번째 메뉴가 활성화 됩니다. SP1 메뉴가 다시 활성화 될 때 까지 [MODE/ENTER] 버튼을 클릭해주세요." eng="Next, we will change the SP and RP settings for the upper output signal. All sensor buttons operate in one direction, and when all menus are completed, the first menu will be reactivated. Click the [MODE/ENTER] button until the SP1 menu is reactivated." />
+  <TextData ID="35316" kor="SP 설정 값(SP1)을 변경 하기 위해 메뉴를 활성화하도록 하겠습니다. [SET] 버튼을 클릭하겠습니다." eng="To change the SP setting value (SP1), let's activate the menu by clicking the [SET] button." />
+  <TextData ID="35317" kor="SP 설정 값(SP1)을 변경하기위해서는 [SET] 버튼을 누른 상태로 유지해야합니다. 설정 값이 점멸하기 시작하면 다시 [SET] 버튼을 눌러 12로 설정해주세요." eng="To change the SP setting value (SP1), hold down the [SET] button. Once the setting value starts blinking, press the [SET] button again to set it to 12." />
+  <TextData ID="35318" kor="변경한 SP 설정 값을 저장하기 위해 [MODE/ENTER] 버튼을 클릭해주세요." eng="Click the [MODE/ENTER] button to save the changed SP setting value." />
+  <TextData ID="35319" kor="다음으로 회로 상태를 설정하겠습니다. 본 학습 과정에서는 열림상태(Normally open)로 설정하도록 하겠습니다. [MODE/ENTER] 버튼을 클릭해 확장기능(EF)을 활성화 해주세요." eng="Next, we will configure the circuit state. In this learning process, we will set it to the normally open state. Click the [MODE/ENTER] button to activate the extended features (EF)." />
+  <TextData ID="35320" kor="확장 기능 메뉴를 활성화 하기 위해 [SET] 버튼을 클릭해주세요." eng="Click the [SET] button to activate the extended feature menu." />
+  <TextData ID="35321" kor="확장 기능 메뉴가 활성화 되었습니다. 다음으로 상단 출력 신호의 회로 상태 설정 메뉴(ou1)를 활성화 하겠습니다. [MODE/ENTER] 버튼을 클릭해 상단 출력 신호(ou1)를 활성화 해주세요." eng="The extended feature menu is now active. Next, we will activate the circuit state setting menu (ou1) for the upper output signal. Click the [MODE/ENTER] button to activate ou1." />
+  <TextData ID="35322" kor="회로 상태 설정 메뉴가 활성화 되었습니다. 초기 설정은 닫힘 상태(Hnc)로 열림 상태(Hno)로 변경하기 위해 [SET] 버튼을 클릭해주세요." eng="The circuit state setting menu is now active. The initial setting is the closed state (Hnc). Click the [SET] button to change it to the open state (Hno)." />
+  <TextData ID="35323" kor="상단 출력 신호의 열림 상태(Hno)가 설정 되었습니다. 설정을 저장하기 위해[MODE/ENTER] 버튼을 클릭해 초기 메뉴로 변경해주세요." eng="The open state (Hno) for the upper output signal has been set. Click the [MODE/ENTER] button to save the settings and return to the initial menu." />
+  <TextData ID="35324" kor="설정 작업이 완료되었습니다. 레벨센서의 보상도선을 다시 연결해주세요." eng="The configuration task is complete. Please reconnect the compensation wire of the level sensor." />
+  <TextData ID="35325" kor="잘 하셨습니다. 이제 설비의 전원을 다시 켜고 정비 작업을 마치도록 하겠습니다." eng="Well done. Now, turn the facility's power back on and complete the maintenance work." />
 
 
 

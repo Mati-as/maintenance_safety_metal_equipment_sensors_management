@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
+using Sequence = DG.Tweening.Sequence;
 
 
 public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler, IPointerUpHandler
@@ -19,6 +21,7 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
     private bool isDragging = false;
     private Vector3 initialMousePos;
     private float currentAngle = 0f;
+    private bool _isAlreadyClicked = false;
 
 
     private const float ON_ANGLE = -90f;  
@@ -111,9 +114,12 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
 
     public void TurnOnPowerHandle()
     {
+        if (_isAlreadyClicked) return;
+        _isAlreadyClicked = true;
+        
         _powerOnOffSeq?.Kill();
         _powerOnOffSeq = DOTween.Sequence();
-
+        
         //var cacheCurrentAngle = currentAngle;
         _powerOnOffSeq.AppendCallback(() =>
         {
@@ -137,6 +143,9 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
 
     public void TurnOffPowerHandle()
     {
+        if (_isAlreadyClicked) return;
+        _isAlreadyClicked = true;
+            
         _powerOnOffSeq?.Kill();
         _powerOnOffSeq = DOTween.Sequence();
 
@@ -161,24 +170,19 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
     
     public void SetPowerHandleOff()
     {
+        _isAlreadyClicked = false;
         isPowerOn = false;
         GetObject((int)ControlPanel.PowerHandle).transform.localRotation = Quaternion.Euler(0, OFF_ANGLE, 0f);
     }
     public void SetPowerHandleOn()
     {
+        _isAlreadyClicked = false;
         isPowerOn = true;
         GetObject((int)ControlPanel.PowerHandle).transform.localRotation = Quaternion.Euler(0, ON_ANGLE, 0f);
     }
 
     
-    public void SetHandleToOff()
-    {
-        var cacheCurrentAngle = currentAngle;
-        DOVirtual.Float(cacheCurrentAngle, resistantTarget, 0.5f, val =>
-        {
-            GetObject((int)ControlPanel.PowerHandle).transform.localRotation = Quaternion.Euler(0, val,0f );
-        });
-    }
+
 
 
 }

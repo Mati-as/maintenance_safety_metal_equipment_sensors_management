@@ -91,6 +91,7 @@ public class UI_ContentController : UI_Popup
         Text_Depth3_E
     }
 
+
     private readonly TextMeshProUGUI[] texts = new TextMeshProUGUI[Enum.GetValues(typeof(TMPs)).Length];
 
     private Animator _depth3HideBtnAnimator;

@@ -5,6 +5,19 @@ public class Base_SceneState : ISceneState
 {
     protected Base_SceneController CurrentScene;
 
+    private bool _isCurrentStateCameraControllable;
+    
+    //OnEnter에서 카메라 사용여부 설정 - OnStep에서 캐싱 - SetLookAt에서 캐싱값사용.
+    public bool isCurrentStateCameraControllable
+    {
+        get { return _isCurrentStateCameraControllable;}
+        set
+        {
+            _isCurrentStateCameraControllable = value;
+            Logger.Log("currentSceneControllable");
+        }
+        
+    }
     
   
     protected float _animationDelay=0;
@@ -57,7 +70,7 @@ public class Base_SceneState : ISceneState
         CurrentScene.RefreshAnimationCoroutines();
         CurrentScene.PlayAnimation(CurrentScene.currentCount,isServeAnim: false);
     
-        
+         
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
 
     }
@@ -66,6 +79,10 @@ public class Base_SceneState : ISceneState
     public virtual void OnStep()
     {
         CurrentScene.contentController.isStepMissionComplete = false;
+        
+        isCurrentStateCameraControllable = CurrentScene.cameraController.isControllable;
+        
+        CurrentScene.cameraController.isControllable = false;
         Logger.Log($"현재 카메라 움직임 가능 여부 ------{CurrentScene.cameraController.isControllable}");
     }
 
@@ -103,8 +120,8 @@ public class Base_SceneState : ISceneState
     {
         CurrentScene.cameraController.SetRotationDefault(CurrentScene.GetObject(objToActivate).transform);
      
-        bool cameraControllableCache = CurrentScene.cameraController.isControllable;
-        if (cameraControllableCache) CurrentScene.cameraController.isControllable = false;
+       
+        if (isCurrentStateCameraControllable) CurrentScene.cameraController.isControllable = false;
         
         CurrentScene.cameraController.isControllable = false;
         DOVirtual.DelayedCall(0.001f, () =>
@@ -114,7 +131,7 @@ public class Base_SceneState : ISceneState
             DOVirtual.DelayedCall(0.76f, () =>
             {
                 Logger.Log("카메라초기화, 이제 클릭가능");
-                if (cameraControllableCache) CurrentScene.cameraController.isControllable = true;
+                if (isCurrentStateCameraControllable) CurrentScene.cameraController.isControllable = true;
 
             });
         });
