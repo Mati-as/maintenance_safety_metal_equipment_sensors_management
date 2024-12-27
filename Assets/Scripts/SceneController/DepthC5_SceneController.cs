@@ -41,7 +41,8 @@ public enum DepthC5_GameObj
     LevelSensorConnectingPipe, //연결 배관
     LevelSensorConnectingScrew, // 연결 나사 (어댑터)
     ContaminatedRod,
-        
+    PanelDoorHandle,
+    BlockingPipePart,
     LevelSensor_TankWaterFluidEffect,
     LevelSensor_ResidueTankWaterFluidEffect,
     
@@ -194,10 +195,17 @@ public class DepthC5_SceneController : Base_SceneController
                     _woundCount = 0;
                 }
 
-                if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 8)
+                if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 9)
                 {
                     Logger.Log($"훈련모드 나사 조임 (12) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
-                    OnStepMissionComplete(animationNumber: 8);
+                    OnStepMissionComplete(animationNumber: 9);
+                    _woundCount = 0; //초기화 
+                }
+                
+                if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 25)
+                {
+                    Logger.Log($"훈련모드 나사 조임 (12) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _woundCount}");
+                    OnStepMissionComplete(animationNumber: 25);
                     _woundCount = 0; //초기화 
                 }
             }
@@ -428,6 +436,7 @@ public class DepthC5_SceneController : Base_SceneController
 
     public static readonly int TO_SCREW_A = Animator.StringToHash("ToScrewA");
     public static readonly int TO_SCREW_B = Animator.StringToHash("ToScrewB");
+    public static readonly int TO_SCREW_B_WIND = Animator.StringToHash("ToScrewBWind");
     public static readonly int TO_SCREW_C = Animator.StringToHash("ToScrewC");
     public static readonly int TO_SCREW_D = Animator.StringToHash("ToScrewD");
     public static readonly int TO_LEVER_SCREW = Animator.StringToHash("ToLeverScrew");
@@ -554,14 +563,29 @@ public class DepthC5_SceneController : Base_SceneController
         InitScrewForConductiveCheck();
         InitProbePos();
         
+                
+        BindHighlight((int)DepthC5_GameObj.LevelSensorConnectingScrew,"연결부 고정 나사");
+        GetObject((int)DepthC5_GameObj.LevelSensorConnectingScrew).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 5) 
+            {
+                Logger.Log("고정나사 확인---------------------");
+                OnStepMissionComplete(animationNumber:5);
+            }  
+        });
+        
+                        
+
+
+        
         BindHighlight((int)DepthC5_GameObj.ContaminatedRod,"측정부 오염 확인 및 청소");
         GetObject((int)DepthC5_GameObj.ContaminatedRod).BindEvent(() =>
         {
             
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 6) 
             {
-                Logger.Log("배관막힘 청소---------------------");
-                OnStepMissionComplete(animationNumber:4);
+                Logger.Log("측정부 오염 확인 및 청소---------------------");
+                OnStepMissionComplete(animationNumber:6);
             }  
         });
 
@@ -570,35 +594,9 @@ public class DepthC5_SceneController : Base_SceneController
         BindHighlight((int)DepthC5_GameObj.CathodeSensorInput,"시그널 컨디셔너 입력단자");
         BindHighlight((int)DepthC5_GameObj.AnodeSensorOutput,"센서 출력 단자");
         
-     
-        BindHighlight((int)DepthC5_GameObj.LevelSensorConnectingScrew,"배관 연결부");
-        GetObject((int)DepthC5_GameObj.LevelSensorConnectingScrew).BindEvent(() =>
-        {
-            Logger.Log("배관 연결부 확인---------------------");
-            if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 6) 
-            {
-              
-                OnStepMissionComplete(animationNumber:6);
-            }  
-        });
-        
-        BindHighlight((int)DepthC5_GameObj.LevelSensorConnectingScrew,"연결부 고정 나사");
-        GetObject((int)DepthC5_GameObj.LevelSensorConnectingScrew).BindEvent(() =>
-        {
-            Logger.Log("배관 연결부 확인---------------------");
-            if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 5) 
-            {
-              
-                OnStepMissionComplete(animationNumber:5);
-            }  
-        });
-
         BindHighlight((int)DepthC5_GameObj.MultimeterHandleHighlight,"전류모드로 설정");
-
-        
-        
         BindHighlight((int)DepthC5_GameObj.ConnectionScrewA,"나사");
-        BindHighlight((int)DepthC5_GameObj.ConnectionScrewB,"나사");
+        BindHighlight((int)DepthC5_GameObj.ConnectionScrewB,"접속단자");
         BindHighlight((int)DepthC5_GameObj.ConnectionScrewC,"나사");
         BindHighlight((int)DepthC5_GameObj.ConnectionScrewD,"나사");
         
@@ -630,24 +628,37 @@ public class DepthC5_SceneController : Base_SceneController
         PreCommonInit();
 
         SetDefaultTransform();
-        
         BindInteractionEvent();
-        
 
-        BindHighlight((int)DepthC5_GameObj.LevelSensor_PipeValve,"밸브");
+      
         
-        GetObject((int)DepthC5_GameObj.LevelSensor_PipeValve).BindEvent(() =>
+        BindHighlight((int)DepthC5_GameObj.BlockingPipePart,"막힌 배관 청소");
+        GetObject((int)DepthC5_GameObj.BlockingPipePart).BindEvent(() =>
         {
             
-            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 4) 
+            if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 4) 
             {
                 Logger.Log("밸브개방---------------------");
                 OnStepMissionComplete(animationNumber:4);
             }  
         });
- 
+        
+                
+        BindHighlight((int)DepthC5_GameObj.PanelDoorHandle,"전원 패널 덮개 열기");
+        GetObject((int)DepthC5_GameObj.PanelDoorHandle).BindEvent(() =>
+        {
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 7) 
+            {
+                Logger.Log("패널 덮개 개방---------------------");
+                OnStepMissionComplete(animationNumber:7);
+            }  
+        });
+       
         InitProbePos();
         SetPressureSensorCurrentCheckMultimeterSection();
+        
+        InitScrews();
         SetScrewDriverSection();
         
 
@@ -682,21 +693,13 @@ public class DepthC5_SceneController : Base_SceneController
         PreCommonInit();
         
         SetPressureSensorCurrentCheckMultimeterSection();
-        SetScrewDriverSection();
-        InitScrews();
+     
         
         InitScrewForConductiveCheck();
-        InitProbePos();
-        SetDefaultTransform();
-        BindInteractionEvent();
-        BindEventForLevelSensorDisplay();
+
+    
         
-        BindHighlight((int)DepthC5_GameObj.ConnectionScrewB,"나사");
-        
-        
-       
         BindHighlight((int)DepthC5_GameObj.PowerHandle,"전원 차단");
-        
         GetObject((int)DepthC5_GameObj.PowerHandle).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 3) 
@@ -706,9 +709,21 @@ public class DepthC5_SceneController : Base_SceneController
             }  
         });
 
-        BindHighlight((int)DepthC5_GameObj.NewLevelSensor,"새로운 유량센서로 교체");
         
-        GetObject((int)DepthC5_GameObj.NewLevelSensor).BindEvent(() =>
+        BindHighlight((int)DepthC5_GameObj.LevelSensor_PipeValve,"밸브 개방");
+        GetObject((int)DepthC5_GameObj.LevelSensor_PipeValve).BindEvent(() =>
+        {
+            
+            if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 4) 
+            {
+                Logger.Log("밸브개방---------------------");
+                OnStepMissionComplete(animationNumber:4);
+            }  
+        });
+
+        
+        BindHighlight((int)DepthC5_GameObj.LevelSensor,"새로운 유량센서로 교체");
+        GetObject((int)DepthC5_GameObj.LevelSensor).BindEvent(() =>
         {
           
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 6) 
@@ -718,6 +733,15 @@ public class DepthC5_SceneController : Base_SceneController
             }  
         });
         
+        InitScrews();
+        SetScrewDriverSection();
+        
+        InitProbePos();
+        SetDefaultTransform();
+        BindInteractionEvent();
+        BindEventForLevelSensorDisplay();
+
+        
         LateCommonInit();
         
     }
@@ -725,7 +749,7 @@ public class DepthC5_SceneController : Base_SceneController
 
     
 
-    protected virtual void ToolBoxOnFlowSensorBtnClicked()
+    protected virtual void ToolBoxOnLevelSensorBtnClicked()
     {
         if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 2) 
         {
@@ -775,8 +799,8 @@ public class DepthC5_SceneController : Base_SceneController
         UI_ToolBox.ToolBox_MultimeterClickedEvent += OnUIToolBoxMultimeterBtnClicked;
         
       
-        UI_ToolBox.ToolBox_FlowSensorClicked -= ToolBoxOnFlowSensorBtnClicked;
-        UI_ToolBox.ToolBox_FlowSensorClicked += ToolBoxOnFlowSensorBtnClicked;
+        UI_ToolBox.ToolBox_LevelSensorBtnClicked -= ToolBoxOnLevelSensorBtnClicked;
+        UI_ToolBox.ToolBox_LevelSensorBtnClicked += ToolBoxOnLevelSensorBtnClicked;
 
         
         UI_ToolBox.ToolBox_PS_NewAdaptorCliked -= ToolBoxNewAdapterClicked;
@@ -786,8 +810,8 @@ public class DepthC5_SceneController : Base_SceneController
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
         
         
-        PS_CurrentCheckableMultimeterController.OnCurrentModeReady -= OnCurrentModeSet;
-        PS_CurrentCheckableMultimeterController.OnCurrentModeReady += OnCurrentModeSet;
+        CurrentCheckableMultimeterController.OnCurrentModeReady -= OnCurrentModeSet;
+        CurrentCheckableMultimeterController.OnCurrentModeReady += OnCurrentModeSet;
         
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
         C1_LimitSwitchPivotController.OnTargetPosArrive += OnTargetPosArrive;
@@ -810,7 +834,7 @@ public class DepthC5_SceneController : Base_SceneController
         
         UI_ToolBox.ToolBox_PS_NewAdaptorCliked -= ToolBoxNewAdapterClicked;
         ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
-        UI_ToolBox.ToolBox_PressureSensorClicked -= ToolBoxOnFlowSensorBtnClicked;
+        UI_ToolBox.ToolBox_LevelSensorBtnClicked -= ToolBoxOnLevelSensorBtnClicked;
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
         UI_ToolBox.ToolBox_MultimeterClickedEvent -= OnUIToolBoxMultimeterBtnClicked;
         
@@ -819,7 +843,7 @@ public class DepthC5_SceneController : Base_SceneController
         UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
        
-        PS_CurrentCheckableMultimeterController.OnCurrentModeReady -= OnCurrentModeSet;
+        CurrentCheckableMultimeterController.OnCurrentModeReady -= OnCurrentModeSet;
 
         
     }
@@ -849,6 +873,8 @@ public class DepthC5_SceneController : Base_SceneController
         
         currentScrewGaugeStatus = new Dictionary<int, float>();
         
+        BindHighlight((int)DepthC5_GameObj.ConnectionScrewB,"접속단자");
+
         
         currentScrewGaugeStatus.TryAdd((int)DepthC5_GameObj.ConnectionScrewA, 0);
         currentScrewGaugeStatus.TryAdd((int)DepthC5_GameObj.ConnectionScrewB, 0);
@@ -887,7 +913,7 @@ public class DepthC5_SceneController : Base_SceneController
                     UpdateDriverSliderUnwind((int)DepthC5_GameObj.ConnectionScrewB);
                 }
                 
-                animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, true);
+                animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].SetBool(isWindSession? TO_SCREW_B_WIND:TO_SCREW_B, true);
             }, Define.UIEvent.Pressed);
         
         
@@ -905,12 +931,12 @@ public class DepthC5_SceneController : Base_SceneController
         GetObject((int)DepthC5_GameObj.ConnectionScrewB).BindEvent(() =>
         {
             OnScrewClickDown();
-            animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].Play(TO_SCREW_B, 0, 0);
+            animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].Play(isWindSession? TO_SCREW_B_WIND:TO_SCREW_B, 0, 0);
             animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].Update(0);
 
             //animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(UNWIND, true);
 
-            animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, true);
+            animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].SetBool(isWindSession? TO_SCREW_B_WIND:TO_SCREW_B, true);
         }, Define.UIEvent.PointerDown);
 
 
@@ -922,7 +948,7 @@ public class DepthC5_SceneController : Base_SceneController
         {
             OnScrewClickUp();
             animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].enabled = false;
-            animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, false);
+            animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].SetBool(isWindSession? TO_SCREW_B_WIND:TO_SCREW_B, false);
             animatorMap[(int)DepthC5_GameObj.ElectricScrewdriver].enabled = false;
         });
 
@@ -942,7 +968,7 @@ public class DepthC5_SceneController : Base_SceneController
     /// </summary>
     private void SetPressureSensorCurrentCheckMultimeterSection()
     {
-        multimeterController = GetObject((int)DepthC5_GameObj.Multimeter).GetComponent<PS_CurrentCheckableMultimeterController>();
+        multimeterController = GetObject((int)DepthC5_GameObj.Multimeter).GetComponent<CurrentCheckableMultimeterController>();
  
 
         animatorMap.TryAdd((int)DepthC5_GameObj.Multimeter,
@@ -961,7 +987,7 @@ public class DepthC5_SceneController : Base_SceneController
     {
         if((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 7))
         {
-            OnStepMissionComplete(animationNumber: 7);
+         //   OnStepMissionComplete(animationNumber: 7);
         }
     }
     
@@ -1192,6 +1218,8 @@ public class DepthC5_SceneController : Base_SceneController
     private bool  CheckDriverUsability()
     {
         if (((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 8) ||
+             (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 9) ||
+             (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 25) ||
               (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 5)))
         {
             return true;
@@ -1228,7 +1256,7 @@ public class DepthC5_SceneController : Base_SceneController
         if (_gaugeDelay > _pressedTime) return;
 
 
-        if (objectHighlightMap[(int)DepthC5_GameObj.ConnectionScrewC].ignore) return;
+        if (objectHighlightMap[(int)DepthC5_GameObj.ConnectionScrewB].ignore) return;
         if (CurrentActiveTool != (int)DepthC5_GameObj.ElectricScrewdriver)
         {
             Logger.Log("inadequate tool selected. XXXXXX");
@@ -1336,8 +1364,7 @@ public class DepthC5_SceneController : Base_SceneController
         SetToolPos();
     }
     
-    [FormerlySerializedAs("_multimeterController")]
-    public PS_CurrentCheckableMultimeterController multimeterController;
+    public CurrentCheckableMultimeterController multimeterController;
 
 
     protected virtual void SetToolPos()
@@ -1407,9 +1434,9 @@ public class DepthC5_SceneController : Base_SceneController
         InitializeTool();
         
         
-        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5)
+        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 8)
         {
-            OnStepMissionComplete(animationNumber:5);
+            OnStepMissionComplete(animationNumber:8);
         }
 
         
@@ -1698,64 +1725,64 @@ public class DepthC5_SceneController : Base_SceneController
 
         _sceneStates = new Dictionary<int, ISceneState>
         {
-        { 3511,  new DepthC51_State_1(this) },
-        { 3512,  new DepthC51_State_2(this) },
-        { 3513,  new DepthC51_State_3(this) },
-        { 3514,  new DepthC51_State_4(this) },
-        { 3515,  new DepthC51_State_5(this) },
-        { 3516,  new DepthC51_State_6(this) },
-        { 3517,  new DepthC51_State_7(this) },
-        { 3518,  new DepthC51_State_8(this) },
-        { 3519,  new DepthC51_State_9(this) },
-        { 35110, new DepthC51_State_10(this) },
-        { 35111, new DepthC51_State_11(this) },
-        { 35112, new DepthC51_State_12(this) },
-        // { 34113, new DepthC51_State_13(this) },
-        // { 34114, new DepthC51_State_14(this) },
-        // { 34115, new DepthC51_State_15(this) },
-        // { 34116, new DepthC51_State_16(this) },
-        // { 34117, new DepthC51_State_17(this) },
-        //
-        { 3521,  new DepthC52_State_1(this) },
-        { 3522,  new DepthC52_State_2(this) },
-        { 3523,  new DepthC52_State_3(this) },
-        { 3524,  new DepthC52_State_4(this) },
-        { 3525,  new DepthC52_State_5(this) },
-        { 3526,  new DepthC52_State_6(this) },
-        { 3527,  new DepthC52_State_7(this) },
-        { 3528,  new DepthC52_State_8(this) },
-        { 3529,  new DepthC52_State_9(this) },
-        { 35210, new DepthC52_State_10(this) },
-        { 35211, new DepthC52_State_11(this) },
-        { 35212, new DepthC52_State_12(this) },
-        { 35213, new DepthC52_State_13(this) },
+            { 3511,  new DepthC51_State_1(this) },
+            { 3512,  new DepthC51_State_2(this) },
+            { 3513,  new DepthC51_State_3(this) },
+            { 3514,  new DepthC51_State_4(this) },
+            { 3515,  new DepthC51_State_5(this) },
+            { 3516,  new DepthC51_State_6(this) },
+            { 3517,  new DepthC51_State_7(this) },
+            { 3518,  new DepthC51_State_8(this) },
+            { 3519,  new DepthC51_State_9(this) },
+            { 35110, new DepthC51_State_10(this) },
+            { 35111, new DepthC51_State_11(this) },
+            { 35112, new DepthC51_State_12(this) },
+            // { 34113, new DepthC51_State_13(this) },
+            // { 34114, new DepthC51_State_14(this) },
+            // { 34115, new DepthC51_State_15(this) },
+            // { 34116, new DepthC51_State_16(this) },
+            // { 34117, new DepthC51_State_17(this) },
+            
+            { 3521,  new DepthC52_State_1(this) },
+            { 3522,  new DepthC52_State_2(this) },
+            { 3523,  new DepthC52_State_3(this) },
+            { 3524,  new DepthC52_State_4(this) },
+            { 3525,  new DepthC52_State_5(this) },
+            { 3526,  new DepthC52_State_6(this) },
+            { 3527,  new DepthC52_State_7(this) },
+            { 3528,  new DepthC52_State_8(this) },
+            { 3529,  new DepthC52_State_9(this) },
+            { 35210, new DepthC52_State_10(this) },
+            { 35211, new DepthC52_State_11(this) },
+            { 35212, new DepthC52_State_12(this) },
+            { 35213, new DepthC52_State_13(this) },
 
-        { 3531,  new DepthC53_State_1(this) },
-        { 3532,  new DepthC53_State_2(this) },
-        { 3533,  new DepthC53_State_3(this) },
-        { 3534,  new DepthC53_State_4(this) },
-        { 3535,  new DepthC53_State_5(this) },
-        { 3536,  new DepthC53_State_6(this) },
-        { 3537,  new DepthC53_State_7(this) },
-        { 3538,  new DepthC53_State_8(this) },
-        { 3539,  new DepthC53_State_9(this) },
-        { 35310, new DepthC53_State_10(this) },
-        { 35311, new DepthC53_State_11(this) },
-        { 35312, new DepthC53_State_12(this) },
-        { 35313, new DepthC53_State_13(this) },
-        { 35314, new DepthC53_State_14(this) },
-        { 35315, new DepthC53_State_15(this) },
-        { 35316, new DepthC53_State_16(this) },
-        { 35317, new DepthC53_State_17(this) },
-        { 35318, new DepthC53_State_18(this) },
-        { 35319, new DepthC53_State_19(this) },
-        { 35320, new DepthC53_State_20(this) },
-        { 35321, new DepthC53_State_21(this) },
-        { 35322, new DepthC53_State_22(this) },
-        { 35323, new DepthC53_State_23(this) },
-        { 35324, new DepthC53_State_24(this) },
-        { 35325, new DepthC53_State_25(this) },
-        { 35326, new DepthC53_State_26(this) },
+            { 3531,  new DepthC53_State_1(this) },
+            { 3532,  new DepthC53_State_2(this) },
+            { 3533,  new DepthC53_State_3(this) },
+            { 3534,  new DepthC53_State_4(this) },
+            { 3535,  new DepthC53_State_5(this) },
+            { 3536,  new DepthC53_State_6(this) },
+            { 3537,  new DepthC53_State_7(this) },
+            { 3538,  new DepthC53_State_8(this) },
+            { 3539,  new DepthC53_State_9(this) },
+            { 35310, new DepthC53_State_10(this) },
+            { 35311, new DepthC53_State_11(this) },
+            { 35312, new DepthC53_State_12(this) },
+            { 35313, new DepthC53_State_13(this) },
+            { 35314, new DepthC53_State_14(this) },
+            { 35315, new DepthC53_State_15(this) },
+            { 35316, new DepthC53_State_16(this) },
+            { 35317, new DepthC53_State_17(this) },
+            { 35318, new DepthC53_State_18(this) },
+            { 35319, new DepthC53_State_19(this) },
+            { 35320, new DepthC53_State_20(this) },
+            { 35321, new DepthC53_State_21(this) },
+            { 35322, new DepthC53_State_22(this) },
+            { 35323, new DepthC53_State_23(this) },
+            { 35324, new DepthC53_State_24(this) },
+            { 35325, new DepthC53_State_25(this) },
+            { 35326, new DepthC53_State_26(this) },
         };
     }
 }

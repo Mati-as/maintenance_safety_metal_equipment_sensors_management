@@ -892,6 +892,7 @@ public class UI_ContentController : UI_Popup
     {
         
         isStepChangeByMouseClickForAnimationControl = true;
+        isStepMissionComplete = false;
         Precheck();
         SetScriptUI();
         CheckAndGoToNextStep();

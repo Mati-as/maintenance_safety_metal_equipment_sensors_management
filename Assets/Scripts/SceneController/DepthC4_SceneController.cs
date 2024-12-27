@@ -727,8 +727,8 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         UI_ToolBox.ToolBoxOnEvent += OnToolBoxClicked;
         
         
-        PS_CurrentCheckableMultimeterController.OnCurrentModeReady -= OnCurrentModeSet;
-        PS_CurrentCheckableMultimeterController.OnCurrentModeReady += OnCurrentModeSet;
+        CurrentCheckableMultimeterController.OnCurrentModeReady -= OnCurrentModeSet;
+        CurrentCheckableMultimeterController.OnCurrentModeReady += OnCurrentModeSet;
         
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
         C1_LimitSwitchPivotController.OnTargetPosArrive += OnTargetPosArrive;
@@ -761,7 +761,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         UI_ToolBox.ToolBox_ElectronicScrewDriverClickedEvent -= OnElectricScrewdriverBtnClicked;
         C1_LimitSwitchPivotController.OnTargetPosArrive -= OnTargetPosArrive;
        
-        PS_CurrentCheckableMultimeterController.OnCurrentModeReady -= OnCurrentModeSet;
+        CurrentCheckableMultimeterController.OnCurrentModeReady -= OnCurrentModeSet;
 
         
     }
@@ -884,7 +884,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     /// </summary>
     private void SetPressureSensorCurrentCheckMultimeterSection()
     {
-        multimeterController = GetObject((int)DepthC4_GameObj.Multimeter).GetComponent<PS_CurrentCheckableMultimeterController>();
+        multimeterController = GetObject((int)DepthC4_GameObj.Multimeter).GetComponent<CurrentCheckableMultimeterController>();
  
 
         animatorMap.TryAdd((int)DepthC4_GameObj.Multimeter,
@@ -1279,7 +1279,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     }
     
     [FormerlySerializedAs("_multimeterController")]
-    public PS_CurrentCheckableMultimeterController multimeterController;
+    public CurrentCheckableMultimeterController multimeterController;
 
 
     protected virtual void SetToolPos()

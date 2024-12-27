@@ -145,12 +145,20 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
     }
 
     
+    /// <summary>
+    /// PowerOn을위한 초기화
+    /// </summary>
     public void SetPowerHandleOff()
     {
         _isAlreadyClicked = false;
         isPowerOn = false;
         GetObject((int)ControlPanel.PowerHandle).transform.localRotation = Quaternion.Euler(0, OFF_ANGLE, 0f);
     }
+    
+    
+    /// <summary>
+    /// PowerOff을위한 초기화
+    /// </summary>
     public void SetPowerHandleOn()
     {
         _isAlreadyClicked = false;

@@ -6,6 +6,7 @@ using DG.Tweening;
 using HighlightPlus;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -323,8 +324,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         if (clip == null)
         {
             Logger.LogWarning($"Animation clip at path {path} not found.");
-            Logger.LogWarning($" {path} 서브애니메이션 없음-------------현재 다음버튼 클릭시 애니메이션 빨리감기");
-            isCurrentServeAnimPlaying = false;
+            Logger.LogWarning($" {path} 서브애니메이션 없음");
         }
         else
         {
@@ -411,20 +411,16 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     /// <param name="delay"></param>
     /// <param name="isReverse"></param>
     /// <param name="isServeAnim"></param>
-    public void PlayAnimation(int count, float delay = 0f, bool isReverse = false,bool isServeAnim =false)
+    public void PlayAnimation(int count, float delay = 0f, bool isReverse = false, bool isServeAnim = false)
     {
-
-     
         _isCurrentAnimServe = isServeAnim;
         Debug.Assert(_mainAnimation != null, "Animation component can't be null");
-        
-        
-        if (_currentPlayingCount == count)
+
+        if (_currentPlayingCount == count && _currentClip != null && _mainAnimation.IsPlaying(_currentClip.name))
         {
-            Logger.Log("same animation clip or count. return");
+            Logger.Log("Same animation clip is already playing. Skipping redundant playback.");
             return;
         }
-
 
         var path = $"Animation/{Managers.ContentInfo.PlayData.Depth1}" +
                    $"{Managers.ContentInfo.PlayData.Depth2}" +
@@ -442,10 +438,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         Logger.Log($"Animation Path {path}");
 
-
         var clip = Resources.Load<AnimationClip>(path);
-
-
         if (clip == null)
         {
             Logger.LogWarning($"Animation clip at path {path} not found.");
@@ -458,6 +451,10 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             _mainAnimation.AddClip(clip, clip.name);
             Logger.Log($"Added animation clip {clip.name} to _mainAnimation.");
         }
+        else if (existedClip == clip)
+        {
+            Logger.Log("it's the same animation clip.. do nothing");
+        }
         else
         {
             _mainAnimation.RemoveClip(clip.name);
@@ -465,24 +462,31 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             Logger.Log($"Replaced existing animation clip {clip.name}.");
         }
 
-
-        if (clip == null) Logger.LogWarning($"Clip is null. path: {path}");
-
-        if (clip == _currentClip)
+        // Update current clip if it's a new one or restart only if needed
+        if (clip != _currentClip)
         {
-            Logger.Log("Same Animation Clip. return");
-            return;
+            _mainAnimation.Stop();
+            _mainAnimation.Play(clip.name);
+
+            _currentClip = clip;
+            currentCilpLength = clip.length;
+
+            // Restart the coroutine for the new animation
+            if (currentAnimationOnCompleteCoroutine != null)
+            {
+                StopCoroutine(currentAnimationOnCompleteCoroutine);
+                OnAnimationComplete(count);
+            }
+
+            currentAnimationOnCompleteCoroutine = StartCoroutine(CheckAnimationEnd(count, clip));
+
+            Logger.Log($"Animation clip {clip.name} is playing.");
+        }
+        else
+        {
+            Logger.Log("Same animation is already playing. No action taken.");
         }
 
-        _mainAnimation.Play(clip.name);
-
-
-        _currentClip = clip;
-        currentCilpLength = clip.length;
-        if (currentAnimationOnCompleteCoroutine != null) StopCoroutine(currentAnimationOnCompleteCoroutine);
-        currentAnimationOnCompleteCoroutine = StartCoroutine(CheckAnimationEnd(count, clip));
-
-        Logger.Log($"Animation clip with index {path} is playing.");
         contentController.isStepChangeByMouseClickForAnimationControl = false;
     }
 
@@ -493,33 +497,29 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         _mainAnimation.Play(clipName);
     }
 
-    private IEnumerator CheckAnimationEnd(int count,AnimationClip clip)
+    private IEnumerator CheckAnimationEnd(int count, AnimationClip clip)
     {
         yield return new WaitForSeconds(clip.length);
-
-     
         OnAnimationComplete(count);
-      
     }
 
 
     protected virtual void OnAnimationComplete(int count)
     {
-        
-        if (contentController!=null && (count == Managers.ContentInfo.PlayData.Count || Managers.ContentInfo.PlayData.Count  ==0))
+        Assert.IsNotNull(contentController);
+
+
+        if (count == Managers.ContentInfo.PlayData.Count || Managers.ContentInfo.PlayData.Count == 0)
         {
             OnAnimationCompelete?.Invoke(currentCount);
-            if(!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
-          
-      
-            Logger.Log("On Animation Complete ------------------");
+            if (!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);
+            Logger.Log($"On Animation Complete :count{currentCount}------------------");
         }
         else
         {
             Logger.Log("실행하고자하는 다음스텝과 현재 스텝이 달라, OnAnimationCompelete를 실행하지 않습니다-----" +
-                      $"\n현재스텝: {Managers.ContentInfo.PlayData.Count}, 실행하고자 하는 스텝 {count}");
+                       $"\n현재스텝: {Managers.ContentInfo.PlayData.Count}, 실행하고자 하는 스텝 {count}");
         }
-
     }
 
     public void ChangeInstructionTextWithAnim(int delay = 0)
@@ -716,7 +716,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         if (currentAnimationCoroutine != null)
         {
-    
             StopCoroutine(currentAnimationCoroutine);
         }
         currentAnimationCoroutine = StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayAmount, ActionBeforeDelay));
@@ -770,6 +769,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             Logger.Log($"Invoke Next Step @@@ :--------------- {Managers.ContentInfo.PlayData.Count}-");
             //ChangeState(Managers.ContentInfo.PlayData.Count);
+           
             contentController.InvokeNextStepByMissionComplete(); // 다음 스텝으로 넘어가기
         }
         else

@@ -46,9 +46,7 @@ public class DepthC53_State_1 : Base_SceneState
 
     public override void OnEnter()
     {
-      
-
-
+        
         CurrentScene.contentController.ShutTrainingIntroAnim();
         _depthC5SceneController.DepthC53Init();
         base.OnEnter();
@@ -75,6 +73,9 @@ public class DepthC53_State_2 : Base_SceneState
     {
         CurrentScene.contentController.SetScriptUI();
         base.OnEnter();
+        _depthC5SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_LevelSensor);
+        _depthC5SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}}
@@ -83,15 +84,26 @@ public class DepthC53_State_3 : Base_SceneState
 {
     private readonly DepthC5_SceneController _depthC5SceneController;
 
-    public DepthC53_State_3(DepthC5_SceneController currentScene) : base(currentScene) {_depthC5SceneController = currentScene;}
+    public DepthC53_State_3(DepthC5_SceneController currentScene) : base(currentScene)
+    {
+        _depthC5SceneController = currentScene;
+    }
 
     public override void OnEnter()
     {
+
+        _depthC5SceneController.controlPanel.SetPowerHandleOn();
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.PowerHandle,false);
+        _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.PowerHandle);
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = true;
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.PowerHandle);
+        base.OnExit();
+    }
 }
 
 public class DepthC53_State_4 : Base_SceneState
@@ -102,10 +114,19 @@ public class DepthC53_State_4 : Base_SceneState
 
     public override void OnEnter()
     {
+
+        
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.LevelSensor_PipeValve,false);
+        _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.LevelSensor_PipeValve);
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.LevelSensor_PipeValve);
+        base.OnExit();
+    }
 }
 
 public class DepthC53_State_5 : Base_SceneState
@@ -120,9 +141,31 @@ public class DepthC53_State_5 : Base_SceneState
     public override void OnEnter()
     {
         
-     
+                    
+        _depthC5SceneController.isWindSession = false;
+        
+        foreach (var key in _depthC5SceneController.currentScrewGaugeStatus.Keys.ToList())
+            _depthC5SceneController.currentScrewGaugeStatus[key] = 0f;
+        foreach (var key in _depthC5SceneController.isScrewUnwindMap.Keys.ToList())
+            _depthC5SceneController.isScrewUnwindMap[key] = false;
+        
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.ConnectionScrewB,false);
+        _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.ConnectionScrewB);
+        _depthC5SceneController.TurnOnCollidersAndInit();
+        
+        
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].enabled = true;
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].SetBool(DepthC2_SceneController.UNWIND,true);
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Play($"UnScrew", 0, 0);
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Update(0);
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].enabled = false;
+       
+  
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        
+        _depthC5SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+  
+
     }
     public override void OnStep(){base.OnStep();}
 
@@ -141,21 +184,21 @@ public class DepthC53_State_6 : Base_SceneState
         _depthC5SceneController = currentScene;
     }
 
-
     public override void OnEnter()
     {
-        
-        base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.LevelSensor,false);
+        _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.LevelSensor);
         _depthC5SceneController.levelSensorDisplayController.PowerOffSensor();
+        base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-        // _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.PressureSensorConnectingPipe);
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.LevelSensor);
         base.OnExit();
     }
+
     
 }
 
@@ -203,7 +246,7 @@ public class DepthC53_State_8 : Base_SceneState
     {
   
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -694,7 +737,30 @@ public class DepthC53_State_25 : Base_SceneState
     {
         _depthC5SceneController.levelSensorDisplayController.SetMode(LevelSensorDisplayController.Mode.Default_ValueCheck);
         _depthC5SceneController.levelSensorDisplayController.currentDisplayValue =LevelSensorDisplayController.SP1_DEFAULT_VALUE.ToString("F1");
+     
+        
+        _depthC5SceneController.isWindSession = true;
+        
+        foreach (var key in _depthC5SceneController.currentScrewGaugeStatus.Keys.ToList())
+            _depthC5SceneController.currentScrewGaugeStatus[key] = 0f;
+        foreach (var key in _depthC5SceneController.isScrewWindMap.Keys.ToList())
+            _depthC5SceneController.isScrewWindMap[key] = false;
+        
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.ConnectionScrewB,false);
+        _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.ConnectionScrewB);
+        _depthC5SceneController.TurnOnCollidersAndInit();
+        
+        
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].enabled = true;
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].SetBool(DepthC2_SceneController.UNWIND,false);
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Play($"Screw", 0, 0);
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Update(0);
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].enabled = false;
+     
+
         base.OnEnter();
+        _depthC5SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+
     }
     public override void OnStep(){base.OnStep();}
 
@@ -717,6 +783,10 @@ public class DepthC53_State_26 : Base_SceneState
 
     public override void OnEnter()
     {
+        _depthC5SceneController.ClearTool();
+        _depthC5SceneController.controlPanel.SetPowerHandleOff();
+        
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.PowerHandle,false);
         _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.PowerHandle);
         base.OnEnter();
     }
@@ -724,7 +794,7 @@ public class DepthC53_State_26 : Base_SceneState
 
     public override void OnExit()
     {
-
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.PowerHandle);
         base.OnExit();
     }
 }

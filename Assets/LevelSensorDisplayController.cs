@@ -159,17 +159,6 @@ public class LevelSensorDisplayController : UI_Base
         
         // 여기서 바인딩하면 안됩니다 (Scenecntroller가 Unbind함)------------------------
         // GetObject((int)UI.SetBtn).BindEvent(() =>
-        // {
-        //     isSetBtnClickingForValueSettingMode = true;
-        // },Define.UIEvent.Pressed);
-        // GetObject((int)UI.SetBtn).BindEvent(() =>
-        // {
-        //     isSetBtnClickingForValueSettingMode = true;
-        // },Define.UIEvent.Click);
-        // GetObject((int)UI.SetBtn).BindEvent(() =>
-        // {
-        //     isSetBtnClickingForValueSettingMode = false;
-        // },Define.UIEvent.PointerUp);
 
         return true;
         
@@ -345,6 +334,8 @@ public class LevelSensorDisplayController : UI_Base
                 CurrentModeInit(Mode.SP1);
                 break;
             case Mode.CircuitStatusSetting:
+                currentMode = Mode.CircuitStatusSetting;
+                CurrentModeInit(Mode.CircuitStatusSetting);
                 break;
         }
     }
@@ -387,12 +378,12 @@ public class LevelSensorDisplayController : UI_Base
             
             
             case Mode.rES:
-                currentDisplayValue = "rES";
+                currentDisplayValue =  Mode.rES.ToString();
                 break;
             case Mode.OutputSelection:
                 break;
             case Mode.CircuitStatusSetting:
-                currentDisplayValue = "ou1";
+                currentDisplayValue = OUTPUT_ONE;
                 break;
         } 
         
@@ -454,57 +445,10 @@ public class LevelSensorDisplayController : UI_Base
     
     public void SetMode(Mode mode)
     {
-      
         isClickable = true;
      
-        switch (mode)
-        {
-            case Mode.Default_ValueCheck:
-                currentMode = mode;
-                CurrentModeInit(mode);
-                break;
-            
-            case Mode.SP1:
-                currentMode = mode;
-                CurrentModeInit(mode);
-                break;
-            case Mode.rP1:
-                currentMode = mode;
-                CurrentModeInit(mode);
-                break;
-            case Mode.SP2:
-                 currentMode = mode;
-                CurrentModeInit(mode);
-                break;
-            case Mode.rP2:
-                 currentMode = mode;
-                CurrentModeInit(mode);
-                break;
-            case Mode.MEdI:
-                 currentMode = mode;
-                CurrentModeInit(mode);
-                break;
-            case Mode.EF:
-                 currentMode = mode;
-                CurrentModeInit(mode);
-                break;
-            
-            case Mode.ValueSetting:
-                currentMode = mode;
-                CurrentModeInit(mode);
-                break;
-             
-            case Mode.rES:
-                CurrentModeInit(mode);
-                break;
-            case Mode.OutputSelection:
-                currentMode = mode;
-                CurrentModeInit(mode);
-                break;
-            case Mode.CircuitStatusSetting:
-                break;
-        }
-        
+        currentMode = mode;
+        CurrentModeInit(mode);
         
         if(mode != Mode.ValueSetting){  StopBlink();}
     }
@@ -571,7 +515,7 @@ public class LevelSensorDisplayController : UI_Base
     }
     private void StopBlink()
     {
-        Logger.Log($"Stop Invoke---------------------------------------");
+        
         GetNonUITMP((int)TMPs.LevelSensor_DisplayMain).enabled = true;
         _blinkSeq?.Kill();
     }

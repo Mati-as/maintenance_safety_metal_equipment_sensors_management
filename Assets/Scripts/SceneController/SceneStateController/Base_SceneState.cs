@@ -99,8 +99,6 @@ public class Base_SceneState : ISceneState
            Managers.evaluationManager.EvalmodeOnStateExit();
           
        }
-    
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
        CurrentScene.TurnOffAllRegisteredHighlights();
        CurrentScene.contentController.StopBtnUIBlink();
        CurrentScene.contentController.uiToolBox.Refresh();
@@ -146,12 +144,7 @@ public class Base_SceneState : ISceneState
     {
         
         CurrentScene.cameraController.isDragging = false;
-        if (CurrentScene.contentController != null)
-        {
-            //CurrentScene.contentController.SetCamInitBtnStatus();
-        }
-            
-        else Logger.Log("content Controller is Null.. it must be tutorial state.");
+        if (CurrentScene.contentController == null) Logger.Log("content Controller is Null.. it must be tutorial state.");
     }
     
 

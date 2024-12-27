@@ -50,9 +50,11 @@ public class Inplay_CameraController : MonoBehaviour
         }
         set
         {
-            _isControllable = value;
-
-            _sceneController.contentController.SetCamInitBtnStatus(_isControllable);
+            if (_isControllable != value)
+            {
+                _sceneController.contentController.SetCamInitBtnStatus(_isControllable);
+                _isControllable = value;
+            }
         }
     }
 

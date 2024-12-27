@@ -82,7 +82,11 @@ public class DepthC51_State_3 : Base_SceneState
 
     public DepthC51_State_3(DepthC5_SceneController currentScene) : base(currentScene) {_depthC5SceneController = currentScene;}
 
-    public override void OnEnter(){base.OnEnter();}
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        _depthC5SceneController.cameraController.isControllable = true;
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
@@ -103,7 +107,7 @@ public class DepthC51_State_4 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        _depthC5SceneController.cameraController.isControllable = true;
+       
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -120,18 +124,20 @@ public class DepthC51_State_5 : Base_SceneState
 
     public override void OnEnter()
     {
-        
-     
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.LevelSensorConnectingScrew,false);
+        _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.LevelSensorConnectingScrew);
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-       
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.LevelSensorConnectingScrew);
         base.OnExit();
-    }}
+    }
+    
+    
+}
 
 public class DepthC51_State_6 : Base_SceneState
 {
@@ -142,22 +148,21 @@ public class DepthC51_State_6 : Base_SceneState
         _depthC5SceneController = currentScene;
     }
 
-
     public override void OnEnter()
     {
-        // _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.PressureSensorConnectingPipe,false);
-        // _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.PressureSensorConnectingPipe);
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.ContaminatedRod,false);
+        _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.ContaminatedRod);
+      
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-        // _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.PressureSensorConnectingPipe);
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.ContaminatedRod);
         base.OnExit();
     }
-    
+
 }
 
 
@@ -176,6 +181,8 @@ public class DepthC51_State_7 : Base_SceneState
     {
         base.OnEnter();
                
+      
+        
         _depthC5SceneController.isWindSession = false;
         
         foreach (var key in _depthC5SceneController.currentScrewGaugeStatus.Keys.ToList())
@@ -196,9 +203,7 @@ public class DepthC51_State_7 : Base_SceneState
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Play($"UnScrew", 0, 0);
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Update(0);
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].enabled = false;
-        _depthC5SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
-
-        
+   
         CurrentScene.cameraController.isControllable = false;
     }
 
@@ -213,26 +218,6 @@ public class DepthC51_State_7 : Base_SceneState
         base.OnExit();
     }
 }
-
-// public class DepthC51_State_8 : Base_SceneState
-// {
-//     private readonly DepthC5_SceneController _depthC5SceneController;
-//
-//     public DepthC51_State_8(DepthC5_SceneController currentScene) : base(currentScene)
-//     {
-//         _depthC5SceneController = currentScene;
-//     }
-//
-//
-//     public override void OnEnter()
-//     {
-//         _depthC5SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
-//         base.OnEnter();
-//         CurrentScene.cameraController.isControllable = false;
-//     }
-//     public override void OnStep(){base.OnStep();}
-//     public override void OnExit(){base.OnExit();}
-// }
 
 
 public class DepthC51_State_8 : Base_SceneState
@@ -269,14 +254,13 @@ public class DepthC51_State_8 : Base_SceneState
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Play($"UnScrew", 0, 0);
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Update(0);
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].enabled = false;
-        
 
-
-
-        
-        
         base.OnEnter();
+              
         _depthC5SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        _depthC5SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+
+
         CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
@@ -288,13 +272,14 @@ public class DepthC51_State_8 : Base_SceneState
     }
 }
 
+
 public class DepthC51_State_9 : Base_SceneState
 {
-    private readonly DepthC5_SceneController _depthC5SceneController;
+    private readonly DepthC5_SceneController _depthC4SceneController;
 
     public DepthC51_State_9(DepthC5_SceneController currentScene) : base(currentScene)
     {
-        _depthC5SceneController = currentScene;
+        _depthC4SceneController = currentScene;
     }
 
 
@@ -302,8 +287,8 @@ public class DepthC51_State_9 : Base_SceneState
     {
       
         base.OnEnter();
-        _depthC5SceneController.ClearTool();
-        _depthC5SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        _depthC4SceneController.ClearTool();
+        _depthC4SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         CurrentScene.cameraController.isControllable = false;
     }
@@ -318,11 +303,11 @@ public class DepthC51_State_9 : Base_SceneState
 
 public class DepthC51_State_10 : Base_SceneState
 {
-    private readonly DepthC5_SceneController _depthC5SceneController;
+    private readonly DepthC5_SceneController _depthC4SceneController;
 
     public DepthC51_State_10(DepthC5_SceneController currentScene) : base(currentScene)
     {
-        _depthC5SceneController = currentScene;
+        _depthC4SceneController = currentScene;
     }
 
 
@@ -331,14 +316,14 @@ public class DepthC51_State_10 : Base_SceneState
     {
      
         
-        _depthC5SceneController.InitProbePos();
-        _depthC5SceneController.isMultimeterOn = true;
-        _depthC5SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC5SceneController.multimeterController.PS_SetToDefaultMode();
-        _depthC5SceneController.CurrentActiveTool = (int)DepthC5_GameObj.Multimeter;
+        _depthC4SceneController.InitProbePos();
+        _depthC4SceneController.isMultimeterOn = true;
+        _depthC4SceneController.multimeterController.SetMeasureGuideStatus();
+        _depthC4SceneController.multimeterController.PS_SetToDefaultMode();
+        _depthC4SceneController.CurrentActiveTool = (int)DepthC5_GameObj.Multimeter;
         
-        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.MultimeterHandleHighlight,false);
-        _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.MultimeterHandleHighlight);
+        _depthC4SceneController.SetHighlightIgnore((int)DepthC5_GameObj.MultimeterHandleHighlight,false);
+        _depthC4SceneController.BlinkHighlight((int)DepthC5_GameObj.MultimeterHandleHighlight);
       
         
         base.OnEnter();
@@ -349,7 +334,7 @@ public class DepthC51_State_10 : Base_SceneState
 
     public override void OnExit()
     {
-        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.MultimeterHandleHighlight);
+        _depthC4SceneController.SetHighlightIgnore((int)DepthC5_GameObj.MultimeterHandleHighlight);
         base.OnExit();
     }
 }
@@ -357,39 +342,38 @@ public class DepthC51_State_10 : Base_SceneState
 
 public class DepthC51_State_11 : Base_SceneState
 {
-    private readonly DepthC5_SceneController _depthC5SceneController;
+    private readonly DepthC5_SceneController _depthC4SceneController;
 
     public DepthC51_State_11(DepthC5_SceneController currentScene) : base(currentScene)
     {
-        _depthC5SceneController = currentScene;
+        _depthC4SceneController = currentScene;
     }
 
 
     public override void OnEnter()
     {
-        _depthC5SceneController.multimeterController.SetToCurrentModeAndRotation();
-        _depthC5SceneController.CurrentActiveTool = (int)DepthC5_GameObj.Multimeter;
-        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.AnodeSensorOutput, false);
-        _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.AnodeSensorOutput);
-        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.CathodeSensorInput, false);
+        _depthC4SceneController.multimeterController.SetToCurrentModeAndRotation();
+        _depthC4SceneController.CurrentActiveTool = (int)DepthC5_GameObj.Multimeter;
+        _depthC4SceneController.SetHighlightIgnore((int)DepthC5_GameObj.AnodeSensorOutput, false);
+        _depthC4SceneController.BlinkHighlight((int)DepthC5_GameObj.AnodeSensorOutput);
+        _depthC4SceneController.SetHighlightIgnore((int)DepthC5_GameObj.CathodeSensorInput, false);
         
         //Anode 입력시 Cathode Blink effect
-       // _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.CathodeSensorInput);
+       // _depthC4SceneController.BlinkHighlight((int)DepthC5_GameObj.CathodeSensorInput);
         
-        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.ConnectionScrewB);
+        _depthC4SceneController.SetHighlightIgnore((int)DepthC5_GameObj.ConnectionScrewB);
         base.OnEnter();
-        _depthC5SceneController.InitProbePos();
-        _depthC5SceneController.isMultimeterOn = true;
-        _depthC5SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC5SceneController.multimeterController.SetToCurrentModeAndRotation();
-        _depthC5SceneController.CurrentActiveTool = (int)DepthC5_GameObj.Multimeter;
+        _depthC4SceneController.InitProbePos();
+        _depthC4SceneController.isMultimeterOn = true;
+        _depthC4SceneController.multimeterController.SetMeasureGuideStatus();
+        _depthC4SceneController.multimeterController.SetToCurrentModeAndRotation();
+        _depthC4SceneController.CurrentActiveTool = (int)DepthC5_GameObj.Multimeter;
         
-        _depthC5SceneController.cameraController.isControllable = false;
+        _depthC4SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
-
 public class DepthC51_State_12 : Base_SceneState
 {
     private readonly DepthC5_SceneController _depthC5SceneController;
@@ -403,9 +387,9 @@ public class DepthC51_State_12 : Base_SceneState
     public override void OnEnter()
     {
         Managers.ContentInfo.PlayData.Depth1 = 3;
-        Managers.ContentInfo.PlayData.Depth2 = 4;
+        Managers.ContentInfo.PlayData.Depth2 = 5;
         Managers.ContentInfo.PlayData.Depth3 = 2;
-        Managers.ContentInfo.PlayData.Count = 1;
+        Managers.ContentInfo.PlayData.Count = 0;
 
         
         _depthC5SceneController.contentController.Refresh();
