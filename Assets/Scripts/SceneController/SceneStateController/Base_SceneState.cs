@@ -81,7 +81,6 @@ public class Base_SceneState : ISceneState
         CurrentScene.contentController.isStepMissionComplete = false;
         
         isCurrentStateCameraControllable = CurrentScene.cameraController.isControllable;
-        
         CurrentScene.cameraController.isControllable = false;
         Logger.Log($"현재 카메라 움직임 가능 여부 ------{CurrentScene.cameraController.isControllable}");
     }

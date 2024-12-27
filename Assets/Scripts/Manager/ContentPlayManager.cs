@@ -95,9 +95,9 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int COUNT_MAX_DEPTH342 = 7 + 1;
     public static readonly int COUNT_MAX_DEPTH343 = 24 + 1;
 
-    public static readonly int COUNT_MAX_DEPTH351 = 3 + 1;
-    public static readonly int COUNT_MAX_DEPTH352 = 3 + 1;
-    public static readonly int COUNT_MAX_DEPTH353 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH351 = 11 + 1;
+    public static readonly int COUNT_MAX_DEPTH352 = 9 + 1;
+    public static readonly int COUNT_MAX_DEPTH353 = 26 + 1;
    
     public static readonly int COUNT_MAX_DEPTH401 = 12 + 1;
     public static readonly int COUNT_MAX_DEPTH402 = 12 + 1;

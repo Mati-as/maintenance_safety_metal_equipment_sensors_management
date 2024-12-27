@@ -66,30 +66,7 @@ public class ControlPanelController : UI_Base, IPointerDownHandler, IDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        // if (isDragging)
-        // {
-        //     // 마우스 포인터의 현재 월드 좌표 계산
-        //     Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.nearClipPlane));
-        //
-        //     // 핸들의 중심 위치
-        //     Vector3 handlePos = GetObject((int)ControlPanel.PowerHandle).transform.position;
-        //
-        //     // 초기 마우스 위치와 현재 마우스 위치에서 핸들 중심으로의 벡터 계산
-        //     Vector3 initialDirection = initialMousePos - handlePos;
-        //     Vector3 currentDirection = currentMousePos - handlePos;
-        //
-        //     // 벡터들 사이의 각도 계산 (Z축 기준)
-        //     float angle = -Vector3.SignedAngle(initialDirection, currentDirection, Vector3.forward);
-        //
-        //     // 현재 회전 각도에 새로운 각도 추가
-        //     float newAngle = currentAngle + angle * 15;
-        //
-        //     // 각도를 0도에서 150도 사이로 클램프 (제한)
-        //     newAngle = Mathf.Clamp(newAngle, minAngle, maxAngle);
-        //
-        //     // 핸들에 회전 적용 (Z축 기준)
-        //     GetObject((int)ControlPanel.PowerHandle).transform.localRotation = Quaternion.Euler(0, newAngle,0f );
-        // }
+
     }
 
     public void OnPointerUp(PointerEventData eventData)
