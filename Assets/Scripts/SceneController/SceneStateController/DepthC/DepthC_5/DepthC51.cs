@@ -79,6 +79,13 @@ public class DepthC51_State_2 : Base_SceneState
 public class DepthC51_State_3 : Base_SceneState
 {
     private readonly DepthC5_SceneController _depthC5SceneController;
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        
+        base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthC5_GameObj.LookAtPoint_LevelSensor);
+        
+    }
 
     public DepthC51_State_3(DepthC5_SceneController currentScene) : base(currentScene) {_depthC5SceneController = currentScene;}
 
@@ -96,18 +103,12 @@ public class DepthC51_State_4 : Base_SceneState
     private readonly DepthC5_SceneController _depthC5SceneController;
     public DepthC51_State_4(DepthC5_SceneController currentScene) : base(currentScene) {_depthC5SceneController = currentScene;}
 
-    protected override void OnAnimationCompleteHandler(int _)
-    {
-        
-        base.OnAnimationCompleteHandler(_);
-        SetLookAt((int)DepthC5_GameObj.LookAtPoint_LevelSensor);
-        
-    }
+
 
     public override void OnEnter()
     {
         base.OnEnter();
-       
+        _depthC5SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -389,7 +390,7 @@ public class DepthC51_State_12 : Base_SceneState
         Managers.ContentInfo.PlayData.Depth1 = 3;
         Managers.ContentInfo.PlayData.Depth2 = 5;
         Managers.ContentInfo.PlayData.Depth3 = 2;
-        Managers.ContentInfo.PlayData.Count = 0;
+        Managers.ContentInfo.PlayData.Count = 1;
 
         
         _depthC5SceneController.contentController.Refresh();

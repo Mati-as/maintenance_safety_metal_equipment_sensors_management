@@ -56,6 +56,7 @@ public class DepthC52_State_1 : Base_SceneState
         
         CurrentScene.contentController.ShutTrainingIntroAnim();
         _depthC5SceneController.DepthC52Init();
+        _depthC5SceneController.levelSensorDisplayController.currentDisplayValue = LevelSensorDisplayController.ZERO_ON_ERROR.ToString("F1");
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -79,6 +80,7 @@ public class DepthC52_State_2 : Base_SceneState
     public override void OnEnter()
     {
         CurrentScene.contentController.SetScriptUI();
+        _depthC5SceneController.levelSensorDisplayController.currentDisplayValue = LevelSensorDisplayController.ZERO_ON_ERROR.ToString("F1");
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
