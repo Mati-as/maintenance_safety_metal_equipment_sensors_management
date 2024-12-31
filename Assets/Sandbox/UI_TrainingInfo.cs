@@ -7,7 +7,8 @@ public class UI_TrainingInfo : UI_Popup
 {
     enum Texts
     {
-        Head_Depth1, // 회색음영글자
+        Head_Depth1,
+        Head_Depth3, // 회색음영글자
         Head_Depth1_2, // Heading one 
         Text_TrainingGoal,
         Text_TrainingInfo,
@@ -68,7 +69,9 @@ public class UI_TrainingInfo : UI_Popup
         
         Logger.Log("RefreshUI Objective -----------");
         
-        GetText((int)Texts.Head_Depth1).text =
+        GetText((int)Texts.Head_Depth1).text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.Depth1 + "0000")].kor;
+        
+        GetText((int)Texts.Head_Depth3).text =
             Managers.Data.Texts[int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
                                           $"{Managers.ContentInfo.PlayData.Depth2}" + DEPTH1)].kor;
 

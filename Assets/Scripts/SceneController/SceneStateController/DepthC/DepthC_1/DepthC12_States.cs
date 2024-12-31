@@ -146,9 +146,18 @@ public class DepthC12_State_6 : Base_SceneState
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
         _depthC1SceneController.SetCollider(DepthC1_GameObj.LimitSwitch,false);
         _depthC1SceneController.cameraController.isControllable = false;
+        
+        _depthC1SceneController.CurrentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
+        _depthC1SceneController._isDriverOn = true;
+        CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC1SceneController.ClearTool();
+        base.OnExit();
+    }
 }
 
 public class DepthC12_State_7 : Base_SceneState

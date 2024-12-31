@@ -46,8 +46,8 @@ public class DepthC31_State_1 : Base_SceneState
 
     protected override void OnAnimationCompleteHandler(int _)
     {
-        SetLookAt((int)DepthC3_GameObj.PressureSensor);
         base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthC3_GameObj.PressureSensor);
         
     }
 
@@ -59,7 +59,7 @@ public class DepthC31_State_1 : Base_SceneState
         CurrentScene.contentController.ShutTrainingIntroAnim();
     
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        
     }
 
     public override void OnStep()

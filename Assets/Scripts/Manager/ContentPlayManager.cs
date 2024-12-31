@@ -69,13 +69,16 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int COUNT_MAX_DEPTH112 = 9 ;
     
     // 최대 State 및 스크립트 갯수 + 1(마지막 상태에서, 애니메이션 재생없이 새로운 뎁스 로드 혹은 초기화진행)
-    public static readonly int COUNT_MAX_DEPTH211 = 3 + 1;
+    public static readonly int COUNT_MAX_DEPTH211 = 9 + 1;
+    
     public static readonly int COUNT_MAX_DEPTH212 = 3 + 1;
     public static readonly int COUNT_MAX_DEPTH213 = 3 + 1;
-    public static readonly int COUNT_MAX_DEPTH221 = 3 + 1;
+    
+    public static readonly int COUNT_MAX_DEPTH221 = 9 + 1;
     public static readonly int COUNT_MAX_DEPTH222 = 3 + 1;
     public static readonly int COUNT_MAX_DEPTH223 = 3 + 1;
-    public static readonly int COUNT_MAX_DEPTH231 = 3 + 1;
+    
+    public static readonly int COUNT_MAX_DEPTH231 = 15 + 1;
     public static readonly int COUNT_MAX_DEPTH232 = 3 + 1;
     public static readonly int COUNT_MAX_DEPTH233 = 3 + 1;
 
@@ -92,7 +95,7 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int COUNT_MAX_DEPTH333 = 24 + 1;
 
     public static readonly int COUNT_MAX_DEPTH341 = 11 + 1;
-    public static readonly int COUNT_MAX_DEPTH342 = 7 + 1;
+    public static readonly int COUNT_MAX_DEPTH342 = 8 + 1;
     public static readonly int COUNT_MAX_DEPTH343 = 24 + 1;
 
     public static readonly int COUNT_MAX_DEPTH351 = 11 + 1;

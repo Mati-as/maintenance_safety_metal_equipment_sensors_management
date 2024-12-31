@@ -17,6 +17,7 @@ public class DepthC21_State_1 : Base_SceneState
         _depthC2SceneController = currentScene;
     }
 
+
     public override void OnEnter()
     {
         _depthC2SceneController.DepthC21Init();
@@ -38,11 +39,18 @@ public class DepthC21_State_2 : Base_SceneState
     public DepthC21_State_2(DepthC2_SceneController currentScene) : base(currentScene)
     {
     }
+    
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthC2_GameObj.TemperatureSensor);
+    }
 
     public override void OnEnter()
     {
         CurrentScene.contentController.SetScriptUI();
         base.OnEnter();
+        CurrentScene.cameraController.isControllable = true;
     }
     
     public override void OnStep(){base.OnStep();}
@@ -54,12 +62,12 @@ public class DepthC21_State_3 : Base_SceneState
     public DepthC21_State_3(DepthC2_SceneController currentScene) : base(currentScene){}
     protected override void OnAnimationCompleteHandler(int _)
     {
-        SetLookAt((int)DepthC2_GameObj.TemperatureSensor);
         base.OnAnimationCompleteHandler(_);
-        
+        SetLookAt((int)DepthC2_GameObj.TemperatureSensor);
     }
-    public override void OnEnter(){  base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;}
+    public override void OnEnter(){  
+        base.OnEnter();
+        CurrentScene.cameraController.isControllable = true;}
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
@@ -231,6 +239,34 @@ public class DepthC21_State_9 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
         CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
         CurrentScene.contentController.isStepMissionPerformable = false;
+        
+               
+        foreach (var key in  _depthC2SceneController.currentScrewGaugeStatus.Keys.ToList())
+        {
+            _depthC2SceneController.currentScrewGaugeStatus[key] = 0f;
+        }
+        
+             
+        foreach (var key in  _depthC2SceneController.isScrewUnwindMap.Keys.ToList())
+        {
+            _depthC2SceneController.isScrewUnwindMap[key] = false;
+        }
+        
+        
+
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
+    
+        
+        
+        //나사 위치 초기
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = true;
+       
+        
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].SetBool(DepthC2_SceneController.UNWIND,false);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 0);
+        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Update(0);
+
+
     }
 }
 
@@ -244,64 +280,11 @@ public class DepthC21_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
-        
         _depthC2SceneController.TurnOnCollidersAndInit();
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
         CurrentScene.contentController.isStepMissionPerformable = true;
+
        
-        foreach (var key in  _depthC2SceneController.currentScrewGaugeStatus.Keys.ToList())
-        {
-            _depthC2SceneController.currentScrewGaugeStatus[key] = 0f;
-        }
-        
-             
-        foreach (var key in  _depthC2SceneController.isScrewUnwindMap.Keys.ToList())
-        {
-            _depthC2SceneController.isScrewUnwindMap[key] = false;
-        }
-        
-        
-        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
-        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
-        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC);
-
-        
-        
-        //나사 위치 초기화
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = true;
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = true;
-        
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].SetBool(DepthC2_SceneController.UNWIND,true);
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].SetBool(DepthC2_SceneController.UNWIND,true);
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].SetBool(DepthC2_SceneController.UNWIND,true);
-        
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].Play($"UnScrew", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Play($"UnScrew", 0, 0);
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].Play($"UnScrew", 0, 0);
-        
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].Update(0);
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].Update(0);
-        
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].StopPlayback();
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].StopPlayback();
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].StopPlayback();
-        
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = false;
-        _depthC2SceneController.animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = false;
-        
-
-      
-        
-        _depthC2SceneController.GetObject((int)DepthC2_GameObj.Indicator)
-            .GetComponent<IndicatorController>().ShowErrorMessage();
-        
-        CurrentScene.contentController.isStepMissionPerformable = true;
-        
-        
-        
-  
         base.OnEnter();
     }
 

@@ -209,7 +209,7 @@ public class UI_DepthSelection : UI_Popup
         Debug.Log("Depth 3 계측 센서 정비 Start");
 #endif
 
-        Managers.Scene.LoadScene(SceneType.DepthC2);
+        Managers.Scene.LoadScene(SceneType.DepthC1);
         Managers.ContentInfo.PlayData.Depth1 = 3;
         Managers.ContentInfo.PlayData.Depth2 = 1; //구현 부분뎁스만큼 수정해야합니다.
         Managers.ContentInfo.PlayData.Depth3 = 1;

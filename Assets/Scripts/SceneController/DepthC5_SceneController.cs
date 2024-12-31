@@ -522,15 +522,10 @@ public class DepthC5_SceneController : Base_SceneController
         SetDefaultTransform();
         InitializeC5States();
         GetScrewColliders();
-        contentController.OnDepth2Init((int)Define.DepthC_Sensor.LevelSensor,1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
-     
-        
+        contentController.OnDepth2Init((int)Define.DepthC_Sensor.LevelSensor,1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다.
         controlPanel = GetObject((int)DepthC5_GameObj.PowerHandle).GetComponent<ControlPanelController>();
-
         levelSensorDisplayController =
             GetObject((int)DepthC5_GameObj.LevelSensor).GetComponent<LevelSensorDisplayController>();
-
-
         Assert.IsNotNull(levelSensorDisplayController);
         
         

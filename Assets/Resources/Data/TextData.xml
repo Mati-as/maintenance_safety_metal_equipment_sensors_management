@@ -37,8 +37,8 @@
   
   <TextData ID="310" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
   <TextData ID="311" kor="3.1 검출 스위치" eng="Training Object Info Test" />
-  <TextData ID="312" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
-  <TextData ID="313" kor="" eng="Overall Traning Goal Test" />
+  <TextData ID="312" kor="검출스위치의 상태를 점검하고 고장 유형을 설명할 수 있다.&#xA;검출스위치의 정비 방법을 설명할 수 있다." eng="Training Object Info Test" />
+  <TextData ID="313" kor="검출스위치 외부 및 내부 점검.&#xA;검출스위치 고장 유형 파악.&#xA;온도센서 정비." eng="Overall Traning Goal Test" />
 
   <TextData ID="320" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
   <TextData ID="321" kor="3.2 온도 센서" eng="Training Object Info Test" />
@@ -47,18 +47,20 @@
 
   <TextData ID="330" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
   <TextData ID="331" kor="3.3 압력 센서 (테스트)" eng="Training Object Info Test" />
-  <TextData ID="332" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
-  <TextData ID="333" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+  <TextData ID="332" kor="압력센서의 상태를 점검하고 고장 유형을 설명할 수 있다.&#xA;압력센서의 정비 방법을 설명할 수 있다." eng="Training Object Info Test" />
+  <TextData ID="333" kor="압력센서 외부 및 내부 점검.&#xA;압력센서 고장 유형 파악.&#xA;압력센서 정비." eng="Overall Traning Goal Test" />
+
 
   <TextData ID="340" kor="3.4 유량 센서  (테스트)" eng="Training Object Info Test" />
   <TextData ID="341" kor="뎁스별 훈련 내용 (테스트)" eng="Training Object Info Test" />
-  <TextData ID="342" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
-  <TextData ID="343" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+  <TextData ID="342" kor="유량센서의 상태를 점검하고 고장 유형을 설명할 수 있다.&#xA;유량센서의 정비 방법을 설명할 수 있다." eng="Training Object Info Test" />
+  <TextData ID="343" kor="유량센서 외부 및 내부 점검.&#xA;유량센서 고장 유형 파악.&#xA;유량센서 정비." eng="Overall Traning Goal Test" />
+
   
   <TextData ID="350" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
   <TextData ID="351" kor="3.5 레벨 센서  (테스트)" eng="Training Object Info Test" />
-  <TextData ID="352" kor="뎁스별 훈련 목표  (테스트)" eng="Training Object Info Test" />
-  <TextData ID="353" kor="전체 훈련 목표 (테스트)" eng="Overall Traning Goal Test" />
+  <TextData ID="352" kor="레벨센서의 상태를 점검하고 고장 유형을 설명할 수 있다.&#xA;레벨센서의 정비 방법을 설명할 수 있다." eng="Training Object Info Test" />
+  <TextData ID="353" kor="레벨센서 외부 및 내부 점검.&#xA;레벨센서 고장 유형 파악.&#xA;레벨센서 정비." eng="Overall Traning Goal Test" />
 
 
   <TextData ID="410" kor="계측 센서 정비 실습" eng="Training Object Info Test" />
@@ -190,13 +192,13 @@
   <!-- Depth 2 -->
   <!-- Depth 2-1 -->
   <!-- Depth 2-1-1 -->
-  <TextData ID="21101" kor="테스트 Depth 2-1-1-01." eng="eng Test" />
-  <TextData ID="21102" kor="테스트 Depth 2-1-1-02." eng="eng Test" />
-  <TextData ID="21103" kor="테스트 Depth 2-1-1-03." eng="eng Test" />
-  <TextData ID="21104" kor="테스트 Depth 2-1-1-04." eng="eng Test" />
-  <TextData ID="21105" kor="테스트 Depth 2-1-1-05." eng="eng Test" />
-  <TextData ID="21106" kor="테스트 Depth 2-1-1-06." eng="eng Test" />
-  <TextData ID="21107" kor="테스트 Depth 2-1-1-07." eng="eng Test" />
+  <TextData ID="21101" kor="계측센서 정비 과정 중 가장 중요한 안전관리 방법에 대해 알아보겠습니다." eng="eng Test" />
+  <TextData ID="21102" kor="정비 작업에 앞서 안전한 정비 작업을 위해서는 설비에 들어가기전 반드시 안전장구 및 점검 도구를 확인해야합니다. 먼저 화면에 표기된 안전장구 보관함을 열고 안전장구에대해 살펴보겠습니다." eng="eng Test" />
+  <TextData ID="21103" kor="정비 작업에 앞서 안전한 정비 작업을 위해서는 설비에 들어가기전 반드시 안전장구 및 점검 도구를 확인해야합니다. 먼저 화면에 표기된 안전장구 보관함을 열고 안전장구에대해 살펴보겠습니다." eng="eng Test" />
+  <TextData ID="21104" kor="정비 작업에 앞서 안전한 정비 작업을 위해서는 설비에 들어가기전 반드시 안전장구 및 점검 도구를 확인해야합니다. 먼저 화면에 표기된 안전장구 보관함을 열고 안전장구에대해 살펴보겠습니다." eng="eng Test" />
+  <TextData ID="21105" kor="정비 작업에 앞서 안전한 정비 작업을 위해서는 설비에 들어가기전 반드시 안전장구 및 점검 도구를 확인해야합니다. 먼저 화면에 표기된 안전장구 보관함을 열고 안전장구에대해 살펴보겠습니다." eng="eng Test" />
+  <TextData ID="21106" kor="정비 작업에 앞서 안전한 정비 작업을 위해서는 설비에 들어가기전 반드시 안전장구 및 점검 도구를 확인해야합니다. 먼저 화면에 표기된 안전장구 보관함을 열고 안전장구에대해 살펴보겠습니다." eng="eng Test" />
+  <TextData ID="21107" kor="정비 작업에 앞서 안전한 정비 작업을 위해서는 설비에 들어가기전 반드시 안전장구 및 점검 도구를 확인해야합니다. 먼저 화면에 표기된 안전장구 보관함을 열고 안전장구에대해 살펴보겠습니다." eng="eng Test" />
   <TextData ID="21108" kor="테스트 Depth 2-1-1-08." eng="eng Test" />
   <TextData ID="21109" kor="테스트 Depth 2-1-1-09." eng="eng Test" />
   <TextData ID="21110" kor="테스트 Depth 2-1-1-10." eng="eng Test" />
@@ -230,21 +232,19 @@
   
   
   <!-- Depth 2-2-1 -->
-  <TextData ID="22101" kor="계측센서 정비 과정 중 가장 중요한 안전관리 방법에 대해 알아보겠습니다." eng="eng Test" />
-  <TextData ID="22102" kor="안전 관리는 각 계측센서를 정비하기전 위험요소를 사전에 방지하는 작업으로, 작업 안전을 위해 정비 전에 꼭 확인해야하는 중요한 절차입니다." eng="eng Test" />
-  <TextData ID="22103" kor="계측센서 정비 전 안전 관리 조치로는 전원, 밸브 차단이나 잔여 유체 제거, 안전보호구 착용 등이 있습니다. 각각의 안전 작업 방법 및 조치 사항에 대해 알아보겠습니다." eng="eng Test" />
-  <TextData ID="22104" kor="첫 번째 안전 관리 조치 사항은 전원, 배관 밸브 차단입니다. 해당 과정은 압력 센서, 온도 센서, 유량 센서 등 기체, 유체를 보관하는 탱크 로리, 배관에 설치되는 계측센서의 기본 안전 관리 조치입니다." eng="eng Test" />
-  <TextData ID="22105" kor="작업 전 계측센서가 연결된 배관의 밸브 미차단으로 인해 순간적인 내부 압력이나 위험물질의 유출로 인해 크게 다칠 수 있습니다. 화면에 보이는 배관을 차단해주세요." eng="eng Test" />
-  <TextData ID="22106" kor="테스트 Depth 2-2-1-06." eng="eng Test" />
-  <TextData ID="22107" kor="테스트 Depth 2-2-1-07." eng="eng Test" />
-  <TextData ID="22108" kor="테스트 Depth 2-2-1-08." eng="eng Test" />
-  <TextData ID="22109" kor="테스트 Depth 2-2-1-09." eng="eng Test" />
-  <TextData ID="22110" kor="테스트 Depth 2-2-1-10." eng="eng Test" />
+  <TextData ID="22101" kor="계측센서 정비 작업을 위해 전기 작업시 활용하는 점검 도구를 준비하도록 하겠습니다" eng="eng Test" />
+  <TextData ID="22102" kor="계측센서 정비 작업시에 활용되는 점검도구에는 전동드라이버, 디지털 미터, 자동압력 교정기, 스트립퍼 등이 있습니다. 작업대에 비치된 점검 도구를 클릭하면 각 점검 도구에 대한 설명을 확인할 수 있습니다." eng="eng Test" />
+  <TextData ID="22103" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
+  <TextData ID="22104" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
+  <TextData ID="22105" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
+  <TextData ID="22106" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
+  <TextData ID="22107" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
+  
 
   <!-- Depth 2-2-2 -->
-  <TextData ID="22201" kor="테스트 Depth 2-2-2-01." eng="eng Test" />
-  <TextData ID="22202" kor="테스트 Depth 2-2-2-02." eng="eng Test" />
-  <TextData ID="22203" kor="테스트 Depth 2-2-2-03." eng="eng Test" />
+  <TextData ID="22201" kor="계측센서 정비 작업을 위해 전기 작업시 활용하는 점검 도구를 준비하도록 하겠습니다." eng="eng Test" />
+  <TextData ID="22202" kor="계측센서 정비 작업시에 활용되는 점검도구에는 전동드라이버, 디지털 미터, 자동압력 교정기, 스트립퍼 등이 있습니다. 작업대에 비치된 점검 도구를 클릭하면 각 점검 도구에 대한 설명을 확인할 수 있습니다." eng="eng Test" />
+  <TextData ID="22203" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
   <TextData ID="22204" kor="테스트 Depth 2-2-2-04." eng="eng Test" />
   <TextData ID="22205" kor="테스트 Depth 2-2-2-05." eng="eng Test" />
   <TextData ID="22206" kor="테스트 Depth 2-2-2-06." eng="eng Test" />
@@ -266,16 +266,21 @@
   <TextData ID="22310" kor="테스트 Depth 2-2-3-10." eng="eng Test" />
 
   <!-- Depth 2-3-1 -->
-  <TextData ID="23101" kor="테스트 Depth 2-3-1-01." eng="eng Test" />
-  <TextData ID="23102" kor="테스트 Depth 2-3-1-02." eng="eng Test" />
-  <TextData ID="23103" kor="테스트 Depth 2-3-1-03." eng="eng Test" />
-  <TextData ID="23104" kor="테스트 Depth 2-3-1-04." eng="eng Test" />
-  <TextData ID="23105" kor="테스트 Depth 2-3-1-05." eng="eng Test" />
-  <TextData ID="23106" kor="테스트 Depth 2-3-1-06." eng="eng Test" />
-  <TextData ID="23107" kor="테스트 Depth 2-3-1-07." eng="eng Test" />
-  <TextData ID="23108" kor="테스트 Depth 2-3-1-08." eng="eng Test" />
-  <TextData ID="23109" kor="테스트 Depth 2-3-1-09." eng="eng Test" />
-  <TextData ID="23110" kor="테스트 Depth 2-3-1-10." eng="eng Test" />
+  <TextData ID="23101" kor="계측센서 정비 과정 중 가장 중요한 안전관리 방법에 대해 알아보겠습니다." eng="eng Test" />
+  <TextData ID="23102" kor="안전 관리는 각 계측센서를 정비하기전 위험요소를 사전에 방지하는 작업으로 작업 안전을 위해 정비 전에 꼭 확인해야하는 중요한 절차입니다." eng="eng Test" />
+  <TextData ID="23103" kor="계측센서 정비 전 안전 관리 조치로는 전원, 밸브 차단이나 잔여 유체 제거, 안전보호구 착용 등이 있습니다. 각각의 안전 작업 방법 및 조치 사항에 대해 알아보겠습니다." eng="eng Test" />
+  <TextData ID="23104" kor="첫 번째 안전 관리 조치 사항은 전원, 배관 밸브 차단입니다. 해당 과정은 압력 센서, 온도 센서, 유량 센서 등 기체, 유체를 보관하는 탱크 로리, 배관에 설치되는 계측센서의 기본 안전 관리 조치입니다." eng="eng Test" />
+  <TextData ID="23105" kor="작업 전 계측센서가 연결된 배관의 밸브 미차단으로 인해 순간적인 내부 압력이나 위험물질의 유출로 인해 크게 다칠 수 있습니다." eng="eng Test" />
+  <TextData ID="23106" kor="화면에 보이는 배관을 차단해주세요." eng="eng Test" />
+  <TextData ID="23107" kor="다음 안전 관리 조치 사항은 잔여 유체, 기체 완전 제거입니다. 계측센서 정비 전 배관에 유체를 공급하는 밸브를 차단한 뒤에도 센서가 설치된 배관에 남아있는 잔여물을 제거하는 과정이 중요합니다." eng="eng Test" />
+  <TextData ID="23108" kor="계측센서가 물질과 직접 접촉하기 위해 배관 내부로 삽입 되는 경우 연결된 배관 내부에 남아있는 유독물질, 냉각수 등으로 인해 위험상황을 초래할 수 있습니다." eng="eng Test" />
+  <TextData ID="23109" kor="화면에 표기된 드레인 밸브를 열어 내부 잔여 유체를 제거해주세요." eng="eng Test" />
+  <TextData ID="23110" kor="다음 안전 관리 조치 사항은 전원 차단 확인입니다. 계측센서 정비 전 관련 설비가 작동하지 않도록 전원 차단을 확인한 뒤 작업하는 과정이 중요합니다." eng="eng Test" />
+  <TextData ID="23111" kor="전원이 차단 되지 않을 경우 예상하지 못한 작동으로 인해 끼임사고나 감전사고, 용광로 쇳물 분출같은 위험상황을 초래할 수 있습니다." eng="eng Test" />
+  <TextData ID="23112" kor="화면에 표기된 전원 스위치를 눌러 설비 전원을 차단해주세요." eng="eng Test" />
+  <TextData ID="23113" kor="다음 안전 관리 조치 사항은 안전 장구 착용입니다. 설비 특성상 고열에 노출 될 수 있는 상황이 발생하는데 이때 필수인 고열작업복을 착용하고 작업에 나서는 것이 중요합니다." eng="eng Test" />
+  <TextData ID="23114" kor="금속재료 제조 설비의 계측센서 정비작업은 설비 특성상 용광로 폭발, 쇳물 분출와 같이 항시 예기치 못한 위험에 노출 될 수 있으며 이에 반드시 안전장구를 착용해야합니다." eng="eng Test" />
+  <TextData ID="23115" kor="화면에 표기된 고열작업복을 클릭해 착용해주세요." eng="eng Test" />
 
   <!-- Depth 2-3-2 -->
   <TextData ID="23201" kor="테스트 Depth 2-3-2-01." eng="eng Test" />
@@ -314,7 +319,7 @@
   <TextData ID="31107" kor="다음으로 조절 레버가 정상작동 하는지 확인하겠습니다. 화면에 표기된 레버를 클릭해 좌우로 움직이고 동작램프가 정상적으로 점등하는지 확인해주세요." eng="eng Test" />
 
   <!-- 3.1.1 검출 스위치 점검(내부) -->
-  <TextData ID="31108" kor="다   음으로 리밋 스위치의 내부를 점검하겠습니다. 내부 점검을 통해 내부 도선에 이상이 없는지 확인하고 통전 상태 확인을 통해 동작에 이상이 없는지 확인하는 것이 중요합니다." eng="eng Test" />
+  <TextData ID="31108" kor="다음으로 리밋 스위치의 내부를 점검하겠습니다. 내부 점검을 통해 내부 도선에 이상이 없는지 확인하고 통전 상태 확인을 통해 동작에 이상이 없는지 확인하는 것이 중요합니다." eng="eng Test" />
   <TextData ID="31109" kor="먼저 검출 스위치의 덮개를 열고 내부에 이상이 없는지 확인하겠습니다. 화면에 표시된 검출 스위치 덮개를 클릭하고 덮개를 열어주세요." eng="eng Test" />
   <TextData ID="31110" kor="검출 스위치의 경우 검출물과 직접 접촉으로 인해 발생하는 진동, 충격으로 인해 내부 접속단자가 풀려 정상 작동하지 않을 수 있습니다. 화면에 표기된 접속나사를 클릭해 점검해주세요." eng="eng Test" />
   <TextData ID="31111" kor="다음 내부 점검은 통전 상태 확인입니다. 검출 스위치의 접속단자가 정상 체결되어있어도 노후되거나 내부 단선으로 인해 정상 작동하지 않을 수 있습니다. 이러한 경우 접속 단자의 통전 상태를 확인하는 것이 중요합니다." eng="eng Test" />

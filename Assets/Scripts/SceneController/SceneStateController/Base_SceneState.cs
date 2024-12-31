@@ -14,7 +14,11 @@ public class Base_SceneState : ISceneState
         set
         {
             _isCurrentStateCameraControllable = value;
-            Logger.Log("currentSceneControllable");
+            if(_isCurrentStateCameraControllable)Logger.Log("currentSceneControllable");
+            else
+            {
+                Logger.Log("카메라 컨트롤 불가로 설정");
+            }
         }
         
     }
@@ -41,6 +45,7 @@ public class Base_SceneState : ISceneState
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
    
         CurrentScene.cameraController.isControllable = false;
+     
 
         //평가하기가 아닌경우
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation)
@@ -61,7 +66,7 @@ public class Base_SceneState : ISceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.MultimeterHandleHighlight,false);
           
         CurrentScene.contentController.SetNextPrevBtnsActiveStatus();
-        CurrentScene.contentController.isStepMissionComplete = false;
+      
         CurrentScene.ChangeInstructionTextWithAnim();
 
         
@@ -69,8 +74,8 @@ public class Base_SceneState : ISceneState
 
         CurrentScene.RefreshAnimationCoroutines();
         CurrentScene.PlayAnimation(CurrentScene.currentCount,isServeAnim: false);
-    
-         
+        
+        CurrentScene.contentController.isStepMissionComplete = false;
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
 
     }
@@ -82,7 +87,7 @@ public class Base_SceneState : ISceneState
         
         isCurrentStateCameraControllable = CurrentScene.cameraController.isControllable;
         CurrentScene.cameraController.isControllable = false;
-        Logger.Log($"현재 카메라 움직임 가능 여부 ------{CurrentScene.cameraController.isControllable}");
+        Logger.Log($"OnStep현재 카메라 움직임 가능 여부 ------{isCurrentStateCameraControllable}");
     }
 
     public virtual void OnExit()
@@ -109,7 +114,9 @@ public class Base_SceneState : ISceneState
          
 
        
-       CurrentScene.cameraController.isControllable = false;
+     
+     
+
     }
     
 
@@ -127,8 +134,16 @@ public class Base_SceneState : ISceneState
             CurrentScene.cameraController.UpdateRotation(0.55f);
             DOVirtual.DelayedCall(0.76f, () =>
             {
-                Logger.Log("카메라초기화, 이제 클릭가능");
-                if (isCurrentStateCameraControllable) CurrentScene.cameraController.isControllable = true;
+
+                if (isCurrentStateCameraControllable)
+                {
+                    Logger.Log("카메라초기화완료, 및 카메라 컨트롤 현재부터 가능");
+                    CurrentScene.cameraController.isControllable = true;
+                }
+                else
+                {
+                    Logger.Log("카메라 컨트롤 불가");
+                }
 
             });
         });
@@ -141,9 +156,9 @@ public class Base_SceneState : ISceneState
     /// </summary>
     /// <param name="_"></param>
     protected virtual void OnAnimationCompleteHandler(int _)
-    {
+    { 
         
-        CurrentScene.cameraController.isDragging = false;
+        if(CurrentScene!=null) CurrentScene.cameraController.isDragging = false;
         if (CurrentScene.contentController == null) Logger.Log("content Controller is Null.. it must be tutorial state.");
     }
     

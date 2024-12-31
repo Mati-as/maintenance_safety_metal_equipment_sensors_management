@@ -88,7 +88,9 @@ public class UI_ContentController : UI_Popup
         Text_Depth3_B,
         Text_Depth3_C,
         Text_Depth3_D,
-        Text_Depth3_E
+        Text_Depth3_E,
+        Text_NextDepth2, Text_PrevDepth2
+        
     }
 
 
@@ -660,11 +662,27 @@ public class UI_ContentController : UI_Popup
             // Debug.Log($"Depth3 텍스트 변환 완료 : { texts[i].text}");
         }
 
-        Logger.Log(
-            $"{texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
+        
+        //prev next depth3 refresh----------------------------------------------
+        var currentDepth2 = Managers.ContentInfo.PlayData.Depth2;
+        var prevDepth2 = currentDepth2 - 1;
+        var nextDepth2 = currentDepth2 + 1;
+        var processednextDepth3 = int.Parse(depth1 + "00" + nextDepth2 + "0");
+        if (prevDepth2 > 0)
+            GetTMP((int)TMPs.Text_PrevDepth2).text =
+                Managers.Data.Texts[int.Parse(depth1 + "00" + prevDepth2 + "0")].kor;
+        else GetTMP((int)TMPs.Text_PrevDepth2).text = string.Empty;
+        if (Managers.Data.Texts.ContainsKey(processednextDepth3))
+            GetTMP((int)TMPs.Text_NextDepth2).text = Managers.Data.Texts[processednextDepth3].kor;
+        else
+            GetTMP((int)TMPs.Text_NextDepth2).text = string.Empty;
+
 
         
+
         
+         
+        //current  depth3 refresh----------------------------------------------
         texts[(int)TMPs.Text_Current3Depth].text =
             Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
                 + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + Managers.ContentInfo.PlayData.CurrentDepthStatus[2])].kor;
@@ -685,12 +703,12 @@ public class UI_ContentController : UI_Popup
             65f + (charCountWithoutSpaces * 35f), // width based on non-space characters
             currentDepth3UIRect.sizeDelta.y);
         
-        
+        Logger.Log($"{texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
       
     //    Logger.Log($"Current Depth Size delta = {currentDepth3UIRect.sizeDelta.x}");
     }
 
-
+ 
     public UI_ToolBox uiToolBox
     {
         get
@@ -1350,11 +1368,14 @@ public class UI_ContentController : UI_Popup
         //뎁스3(실습) 부분은 센서별로 별도로 씬구성하기에 조건문으로 구분.
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.MaintenancePractice)
         {
-            if(Managers.ContentInfo.PlayData.Depth2 <=3 && Managers.ContentInfo.PlayData.Depth2 >=1)
+            if (Managers.ContentInfo.PlayData.Depth2 <= 5 && Managers.ContentInfo.PlayData.Depth2 >= 1)
+            {
                 SceneManager.LoadScene("DepthC" + Managers.ContentInfo.PlayData.Depth2.ToString());
+            }
             else
             {
                 Logger.Log("정비부분 씬이동불가. 미구현부분 혹은 처음, 끝 뎁스입니다.");
+                return;
             }
         }
         else  //뎁스3 이외 나머지 부분의 로직.

@@ -47,6 +47,7 @@ public class DepthC51_State_1 : Base_SceneState
 
     public override void OnEnter()
     {
+        CurrentScene.contentController.ShutTrainingIntroAnim();
         _depthC5SceneController.DepthC51Init();
         base.OnEnter();
     }

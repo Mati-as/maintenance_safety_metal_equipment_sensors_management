@@ -43,11 +43,7 @@ public class DepthC41_State_1 : Base_SceneState
         _depthC4SceneController = currentScene;
     }
     
-    protected override void OnAnimationCompleteHandler(int _)
-    {
-        SetLookAt((int)DepthC4_GameObj.FlowSensor);
-        base.OnAnimationCompleteHandler(_);
-    }
+
 
 
     public override void OnEnter()
@@ -84,17 +80,12 @@ public class DepthC41_State_2 : Base_SceneState
         _depthC4SceneController = currentScene;
     }
 
-    protected override void OnAnimationCompleteHandler(int _)
-    {
-        SetLookAt((int)DepthC4_GameObj.FlowSensor);
-        base.OnAnimationCompleteHandler(_);
-    }
-    
+
     public override void OnEnter()
     {
         CurrentScene.contentController.SetScriptUI();
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = true;
+        CurrentScene.cameraController.isControllable = false;
     }
 
     public override void OnStep()
@@ -116,9 +107,12 @@ public class DepthC41_State_3 : Base_SceneState
         base.OnAnimationCompleteHandler(_);
     }
     
-    public override void OnEnter(){ 
+    public override void OnEnter()
+    { 
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = true;}
+        CurrentScene.cameraController.isControllable = true;
+        
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }

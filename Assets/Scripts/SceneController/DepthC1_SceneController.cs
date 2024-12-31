@@ -25,6 +25,7 @@ using Sequence = DG.Tweening.Sequence;
 public enum DepthC1_GameObj
 {
     // Common------------------
+    LimitSwitchLookAt,
     ElectricScrewdriver,
     Multimeter,
     MultimeterHandleHighlight,
@@ -524,11 +525,12 @@ public class DepthC1_SceneController : Base_SceneController
         {
             Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/MultermeterConductiveModeClick");
             Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/beep_01");
-            multimeterController.isConductive = !multimeterController.isConductive;
-            if (Managers.ContentInfo.PlayData.Count == 15)
+           
+            if (Managers.ContentInfo.PlayData.Count == 15 &&  !multimeterController.isConductive)
             {
                 Logger.Log("통전버튼 전환미션 완료");
-                OnStepMissionComplete((int)DepthC1_GameObj.ConductiveCheckModeBtn, 15);
+                multimeterController.isConductive = true;
+                OnStepMissionComplete( animationNumber:15);
             }
         });
         BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속나사");

@@ -219,7 +219,7 @@ public class DepthC42_State_8 : Base_SceneState
 
         
         _depthC3SceneController.contentController.Refresh();
-        _depthC3SceneController.DepthC42Init();
+        _depthC3SceneController.DepthC43Init();
         
         base.OnEnter();
         _depthC3SceneController.PlayAnimation(1);
