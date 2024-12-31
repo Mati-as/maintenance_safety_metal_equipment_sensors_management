@@ -268,32 +268,44 @@ public class StateB11_10 : Base_SceneState
     }
 
     public override void OnEnter()
-    {base.OnEnter();}
-    public override void OnStep()
-    {base.OnStep();}
-    public override void OnExit()
-    {base.OnExit();}
-}
-
-
-public class StateB11_11 : Base_SceneState
-{
-    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
-    private readonly DepthB_SceneController _depthBSceneController;
-
-    public StateB11_11(DepthB_SceneController currentScene) : base(currentScene)
     {
-        _depthBSceneController = currentScene;
-    }
+        Managers.ContentInfo.PlayData.Depth1 = 3;
+        Managers.ContentInfo.PlayData.Depth2 = 2;
+        Managers.ContentInfo.PlayData.Depth3 = 2;
+        Managers.ContentInfo.PlayData.Count = 1;
 
-    public override void OnEnter()
-    {base.OnEnter();}
+        
+        _depthBSceneController.contentController.Refresh();
+        _depthBSceneController.DepthB21Init();
+        
+        base.OnEnter();
+        _depthBSceneController.PlayAnimation(1);
+    }
     public override void OnStep()
     {base.OnStep();}
     public override void OnExit()
     {base.OnExit();}
 }
 
+
+// public class StateB11_11 : Base_SceneState
+// {
+//     // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+//     private readonly DepthB_SceneController _depthBSceneController;
+//
+//     public StateB11_11(DepthB_SceneController currentScene) : base(currentScene)
+//     {
+//         _depthBSceneController = currentScene;
+//     }
+//
+//     public override void OnEnter()
+//     {base.OnEnter();}
+//     public override void OnStep()
+//     {base.OnStep();}
+//     public override void OnExit()
+//     {base.OnExit();}
+// }
+//
 
 public class StateB11_12 : Base_SceneState
 {

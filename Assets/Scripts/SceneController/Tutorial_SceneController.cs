@@ -108,6 +108,9 @@ public class Tutorial_SceneController : DepthC2_SceneController
      private new void OnDestroy()
      {
          base.OnDestroy();
+
+         Managers.Resource.Destroy(Managers.UI.FindPopup<UI_ContentController>().gameObject);
+     
          
         // UI_Evaluation.OnRestartBtnOnEvalClicked -= TutorialInit;
          UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
@@ -130,7 +133,16 @@ public class Tutorial_SceneController : DepthC2_SceneController
      }
      
 
-     
+     protected override void OnToolBoxClicked()
+     {
+         if (Managers.ContentInfo.PlayData.Count == 5 )
+         {
+             Logger.Log("Toolbox Click event : 툴박스 클릭 이벤트 5 ------------------");
+             OnStepMissionComplete(animationNumber: 5);
+         }
+     }
+
+
        private void InitTutorialStates()
     {
         if (_sceneStates == null)

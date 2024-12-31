@@ -14,8 +14,9 @@ public class Tutorial_State_1 : Base_SceneState
     }
     public override void OnEnter()
     {
-        
+      
         base.OnEnter();
+        tutorialSceneController.contentController.HideToolBoxBtn();
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit() {base.OnExit();}
@@ -36,23 +37,23 @@ public class Tutorial_State_2 : Base_SceneState
     
     public override void OnEnter()
     {
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
-        
-        
-//        CurrentScene.HighlightBlink((int)DepthAGameObj.TemperatureSensor);
         base.OnEnter();
-        tutorialSceneController.contentController.HideCamInitBtn();
+        tutorialSceneController.contentController.HideToolBoxBtn();
+        tutorialSceneController.cameraController.isControllable = true;
+
     }
 
     public override void OnStep()
     {
-      
+        base.OnStep();
+        isCurrentStateCameraControllable = true;
+       
+        tutorialSceneController.cameraController.isControllable = true;
+        tutorialSceneController.contentController.HideCamInitBtn();
     }
 
     public override void OnExit()
     {
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         base.OnExit();
     }
 }
@@ -64,29 +65,29 @@ public class Tutorial_State_3 : Base_SceneState
     {
         tutorialSceneController = currentScene;
     }
-    
     protected override void OnAnimationCompleteHandler(int _)
     {
-     //   SetLookAt((int)DepthC_GameObj.TemperatureSensor);
+        base.OnAnimationCompleteHandler(_);
+        Logger.Log("튜토리얼 ---------------------------------------카메라 초기화 버튼 표출");
+        CurrentScene.contentController.SetCamInitBtnStatus(true);
+        tutorialSceneController.contentController.HideToolBoxBtn();
     }
-    
+
+   
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.contentController.SetCamInitBtnStatus();
-        tutorialSceneController.contentController.BlinkBtnUI((int)Btns.Btn_CameraInit);
+       
+        CurrentScene.contentController.SetCamInitBtnStatus(true);
         tutorialSceneController.cameraController.isControllable = true;
-       // SetLookAt((int)DepthC_GameObj.TemperatureSensor);
+
     }
 
-    public override void OnStep()
-    {
-        
-    }
+    public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
+       
         base.OnExit();
     }
 }
@@ -99,16 +100,21 @@ public class Tutorial_State_4 : Base_SceneState
         tutorialSceneController = currentScene;
     }
     
-    protected override void OnAnimationCompleteHandler(int _)
+
+
+    public override void OnEnter()
     {
+       
+        tutorialSceneController.contentController.ShowToolBoxAndGuideBookBtn();
+     
+        base.OnEnter();
+        CurrentScene.contentController.HideToolBoxBtn();
     }
-
-
-    public override void OnEnter(){base.OnEnter();}
     public override void OnStep(){base.OnStep();}
     public override void OnExit()
     {
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
+        CurrentScene.contentController.HideToolBoxBtn();
         base.OnExit();
     }
 }
@@ -130,22 +136,28 @@ public class Tutorial_State_5 : Base_SceneState
 
     public override void OnEnter()
     {
+        
+        CurrentScene.contentController.ShowToolBoxAndGuideBookBtn();
         tutorialSceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         base.OnEnter();
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
+        CurrentScene.contentController.HideToolBoxBtn();
         base.OnExit();
     }
 }
 
 public class Tutorial_State_6 : Base_SceneState
 {
+    private Tutorial_SceneController tutorialSceneController;
     public Tutorial_State_6(Tutorial_SceneController currentScene) : base(currentScene)
     {
+        tutorialSceneController = currentScene;
     }
 
 
@@ -154,6 +166,8 @@ public class Tutorial_State_6 : Base_SceneState
         
         DOVirtual.DelayedCall(3, () => { CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_Next); });
         base.OnEnter();
+        tutorialSceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
+        tutorialSceneController.contentController.HideToolBoxBtn();
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit() {base.OnExit();}
@@ -188,6 +202,7 @@ public class Tutorial_State_7 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
         base.OnEnter();
+        tutorialSceneController.contentController.HideToolBoxBtn();
     }
     public override void OnStep(){base.OnStep();}
 
@@ -209,18 +224,31 @@ public class Tutorial_State_8 : Base_SceneState
     }
 
 
-    public override void OnEnter(){base.OnEnter();}
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_Next);
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit() {base.OnExit();}
 }
 
 public class Tutorial_State_9 : Base_SceneState
 {
+    private Tutorial_SceneController tutorialSceneController;
     public Tutorial_State_9(Tutorial_SceneController currentScene) : base(currentScene)
     {
+       
+        tutorialSceneController = currentScene;
     }
 
-    public override void OnEnter(){base.OnEnter();}
+    public override void OnEnter()
+    {
+        Managers.isTutorialAlreadyPlayed = true;
+        tutorialSceneController.contentController.gameObject.SetActive(false);
+        Managers.Scene.LoadScene(SceneType.Main);
+  
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit() {base.OnExit();}
 }

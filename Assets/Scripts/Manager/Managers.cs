@@ -17,12 +17,12 @@ public class Managers : MonoBehaviour
     private static EvaluationManager s_evaluationManager = new();
 
     private static bool _initialIntroAnimPlayed = false;
-    private static bool _isTutorialPlayed = false;
+    private static bool _isTutorialAlreadyPlayed = false;
 
-    public static bool isTutorialPlayed
+    public static bool isTutorialAlreadyPlayed
     {
-        get { return _isTutorialPlayed;}
-        set { _isTutorialPlayed = value;}
+        get { return _isTutorialAlreadyPlayed;}
+        set { _isTutorialAlreadyPlayed = value;}
     }
     
     public static bool initialIntroAnimPlayed

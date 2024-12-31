@@ -238,6 +238,7 @@ public class UI_ContentController : UI_Popup
             return false;
 
        
+        this.gameObject.SetActive(true);
         
         SoundManager.OnNarrationComplete -= BlinkNextBtnUI;
         SoundManager.OnNarrationComplete += BlinkNextBtnUI;
@@ -922,6 +923,7 @@ public class UI_ContentController : UI_Popup
 
     public void ChangeInstructionText()
     {
+        this.gameObject.SetActive(true); 
         StartCoroutine(ChangeTextWithAnimCo());
     }
 

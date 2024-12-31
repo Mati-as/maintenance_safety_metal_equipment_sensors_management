@@ -52,7 +52,7 @@ public class DepthB_SceneController : Base_SceneController
         InitializeBStates();
         BindObject(typeof(DepthB_Objects));
         contentController.OnDepth2Init(1); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
-        
+        DepthB11Init();
 
     }
 
@@ -199,6 +199,11 @@ public class DepthB_SceneController : Base_SceneController
         });
 
         TurnOffAllOnCharacter();
+    }
+
+    public void DepthB21Init()
+    {
+        
     }
     protected virtual void SetDepthNum()
     {

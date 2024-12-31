@@ -55,16 +55,18 @@ public class UI_Main : UI_Popup
 
     private void OnMainStartBtnClicked()
     {
-        if (Managers.isTutorialPlayed)
+        if ((int)Managers.Data.Preference[(int)Define.Preferences.ControlGuide] == Define.YES
+            && !Managers.isTutorialAlreadyPlayed)
         {
             Managers.UI.ClosePopupUI();
-            Managers.UI.ShowPopupUI<UI_DepthSelection>();
+            Managers.UI.ShowPopupUI<UI_Tutorial>();
+            Managers.isTutorialAlreadyPlayed = true;
         }
         else
         {
             Managers.UI.ClosePopupUI();
-            Managers.UI.ShowPopupUI<UI_Tutorial>();
-            Managers.isTutorialPlayed = true;
+            Managers.UI.ShowPopupUI<UI_DepthSelection>();
+
         }
       
         // Managers.UI.ShowPopupUI<UI_DepthSelection>();

@@ -212,7 +212,8 @@ public class UIManager : MonoBehaviour
 			return;
 
 		UI_Popup popup = PopupStack.Pop();
-		Managers.Resource.Destroy(popup.gameObject);
+		//Tutiorial상 Destroy로 인해 null  될 수 있음
+		if(popup!=null) Managers.Resource.Destroy(popup.gameObject);
 		popup = null;
 		_order--;
 	}
