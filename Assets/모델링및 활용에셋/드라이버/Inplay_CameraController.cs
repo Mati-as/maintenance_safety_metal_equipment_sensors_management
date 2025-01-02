@@ -6,6 +6,7 @@ using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class Inplay_CameraController : MonoBehaviour
@@ -89,6 +90,18 @@ public class Inplay_CameraController : MonoBehaviour
         UI_ContentController.OnStepBtnClicked_CurrentCount += OnStepChanged;
 
         _sceneController = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Base_SceneController>();
+        
+        // Get the Volume component from the main camera
+        volume = Camera.main.GetComponent<Volume>();
+
+        if (volume != null && volume.profile.TryGet(out colorAdjustments))
+        {
+            colorAdjustments.active = true;
+        }
+        else
+        {
+            Debug.LogError("ColorAdjustments not found or Volume missing!");
+        }
     }
 
     protected virtual void OnDestroy()
@@ -299,4 +312,42 @@ public class Inplay_CameraController : MonoBehaviour
             UpdateRotation();
         }
     }
+    
+    public float fadeDuration = 1.0f; // Fade duration as a variable
+    private Volume volume;
+    private ColorAdjustments colorAdjustments;
+    private Coroutine fadeCoroutine;
+
+
+
+    public void FadeOut()
+    {
+        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+        fadeCoroutine = StartCoroutine(FadeEffect(-100f));
+    }
+
+    public void FadeIn()
+    {
+        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+        fadeCoroutine = StartCoroutine(FadeEffect(0f));
+    }
+
+    private IEnumerator FadeEffect(float targetValue)
+    {
+        if (colorAdjustments == null) yield break;
+
+        float startValue = colorAdjustments.postExposure.value;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float newValue = Mathf.Lerp(startValue, targetValue, elapsedTime / fadeDuration);
+            colorAdjustments.postExposure.value = newValue;
+            yield return null;
+        }
+
+        colorAdjustments.postExposure.value = targetValue;
+    }
+
 }

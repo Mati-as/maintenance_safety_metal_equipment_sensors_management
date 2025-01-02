@@ -134,7 +134,12 @@ public class DepthC13_State_5 : Base_SceneState
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}}
+
+    public override void OnExit()
+    {
+        _depthC1SceneController.ClearTool();
+        base.OnExit();
+    }}
 
 public class DepthC13_State_6 : Base_SceneState
 {
@@ -149,6 +154,7 @@ public class DepthC13_State_6 : Base_SceneState
     public override void OnEnter()
     {
         
+        _depthC1SceneController.limitSwitchPivotController.SetLimitSwitchControllableOrClickable(true);
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LimitSwitch,false);
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LimitSwitch);
         base.OnEnter();
@@ -174,7 +180,7 @@ public class DepthC13_State_7 : Base_SceneState
     public override void OnEnter()
     {
         _depthC1SceneController.ClearTool();
-        _depthC1SceneController.limitSwitchPivotController.SetLimitSwitchControllable(false);
+        _depthC1SceneController.limitSwitchPivotController.SetLimitSwitchControllableOrClickable(false);
 
         _depthC1SceneController.isLeverScrewUnwound = false;
         
@@ -189,8 +195,7 @@ public class DepthC13_State_7 : Base_SceneState
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LeverScrew,false);
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LeverScrew);
 
-        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,false);
-        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos);
+  
         
         base.OnEnter();
         
@@ -202,7 +207,7 @@ public class DepthC13_State_7 : Base_SceneState
         
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.Lever_Handle);
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LeverHandleReadjustTargetPos);
-        _depthC1SceneController.limitSwitchPivotController.SetLimitSwitchControllable(false);
+        _depthC1SceneController.limitSwitchPivotController.SetLimitSwitchControllableOrClickable(false);
         _depthC1SceneController.ClearTool();
         base.OnExit();
     }
@@ -227,7 +232,12 @@ public class DepthC13_State_8 : Base_SceneState
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        _depthC1SceneController.ClearTool();
+        base.OnExit();
+    }
 }
 
 
@@ -243,6 +253,7 @@ public class DepthC13_State_9 : Base_SceneState
 
     public override void OnEnter()
     {
+         _depthC1SceneController.ClearTool();
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         base.OnEnter();
@@ -263,6 +274,7 @@ public class DepthC13_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
+        
         _depthC1SceneController.TakeDefaultMultimeter();
         base.OnEnter();
     }
@@ -332,7 +344,7 @@ public class DepthC13_State_13 : Base_SceneState
 
     public DepthC13_State_13(DepthC1_SceneController currentScene) : base(currentScene)
     {
-        
+        _depthC1SceneController = currentScene;
     }
 
 

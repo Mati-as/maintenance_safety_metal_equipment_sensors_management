@@ -531,7 +531,7 @@ public class DepthC2_SceneController : Base_SceneController
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
                 Action action = multimeterController.OnAllProbeSetOnResistanceMode;
-                OnStepMissionComplete(animationNumber: 15, delayAmount: new WaitForSeconds(4f),
+                OnStepMissionComplete(animationNumber: 15, delayTimeAmount: new WaitForSeconds(4f),
                     ActionBeforeDelay: action);
             }
 
@@ -572,7 +572,7 @@ public class DepthC2_SceneController : Base_SceneController
             animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(TO_GROUNDING_TERMINAL, true);
             multimeterController.OnAllProbeSetToGroundingTerminal();
          
-            OnStepMissionComplete(animationNumber:16, delayAmount: new WaitForSeconds(6f));
+            OnStepMissionComplete(animationNumber:16, delayTimeAmount: new WaitForSeconds(6f));
         });
 
 
@@ -632,7 +632,7 @@ public class DepthC2_SceneController : Base_SceneController
             Debug.Assert(Managers.ContentInfo.PlayData.Depth3 == 2,$"Depth3 is {Managers.ContentInfo.PlayData.Depth3} but must be 2)");
             if (Managers.ContentInfo.PlayData.Count != 4) return;
 
-            OnStepMissionComplete( animationNumber:4,delayAmount:new WaitForSeconds(8f));
+            OnStepMissionComplete( animationNumber:4,delayTimeAmount:new WaitForSeconds(8f));
             SetHighlightIgnore((int)DepthC2_GameObj.TS_SensingElement, false);
             BlinkHighlight((int)DepthC2_GameObj.TS_SensingElement);
         });
@@ -644,7 +644,7 @@ public class DepthC2_SceneController : Base_SceneController
             
             if (Managers.ContentInfo.PlayData.Count != 8) return;
 
-            OnStepMissionComplete( animationNumber:8,delayAmount:new WaitForSeconds(4f));
+            OnStepMissionComplete( animationNumber:8,delayTimeAmount:new WaitForSeconds(4f));
         });
 
        
@@ -716,7 +716,7 @@ public class DepthC2_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Count != 4) return;
 
             Logger.Log("벨브 잠금 및 유체 차단 애니메이션 재생 -----------------");
-            OnStepMissionComplete(animationNumber: 4,delayAmount: new WaitForSeconds(4.5f));
+            OnStepMissionComplete(animationNumber: 4,delayTimeAmount: new WaitForSeconds(4.5f));
         });
 
         GetObject((int)DepthC2_GameObj.TS_Cover).BindEvent(() =>
@@ -726,7 +726,7 @@ public class DepthC2_SceneController : Base_SceneController
                 Logger.Log("현재 커버관련 재생불가");
                 return;
             }
-            OnStepMissionComplete(animationNumber: 5,delayAmount: new WaitForSeconds(2.5f));
+            OnStepMissionComplete(animationNumber: 5,delayTimeAmount: new WaitForSeconds(2.5f));
         });
         
         GetObject((int)DepthC2_GameObj.TemperatureSensor).BindEvent(() =>
@@ -735,7 +735,7 @@ public class DepthC2_SceneController : Base_SceneController
 
             if (Managers.ContentInfo.PlayData.Count != 7) return;
             
-            OnStepMissionComplete(animationNumber:7,delayAmount:new WaitForSeconds(6f));
+            OnStepMissionComplete(animationNumber:7,delayTimeAmount:new WaitForSeconds(6f));
         });
         
         // GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
@@ -818,7 +818,7 @@ public class DepthC2_SceneController : Base_SceneController
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
                 Action action = multimeterController.OnAllProbeSetOnResistanceMode;
-                OnStepMissionComplete(animationNumber:10, delayAmount: new WaitForSeconds(6f),
+                OnStepMissionComplete(animationNumber:10, delayTimeAmount: new WaitForSeconds(6f),
                     ActionBeforeDelay: action);
             }
         });
@@ -843,7 +843,7 @@ public class DepthC2_SceneController : Base_SceneController
             animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(TO_GROUNDING_TERMINAL, true);
             multimeterController.OnAllProbeSetToGroundingTerminal();
          
-            OnStepMissionComplete(animationNumber:11, delayAmount: new WaitForSeconds(6f));
+            OnStepMissionComplete(animationNumber:11, delayTimeAmount: new WaitForSeconds(6f));
         });
         
 #endregion
@@ -861,17 +861,17 @@ public class DepthC2_SceneController : Base_SceneController
       
         
         if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 9)
-            OnStepMissionComplete(animationNumber:9, delayAmount: new WaitForSeconds(1f));
+            OnStepMissionComplete(animationNumber:9, delayTimeAmount: new WaitForSeconds(1f));
         
         if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 14)
-            OnStepMissionComplete(animationNumber:14, delayAmount: new WaitForSeconds(1f));
+            OnStepMissionComplete(animationNumber:14, delayTimeAmount: new WaitForSeconds(1f));
     }
     
     protected virtual void OnUIBtnToolBoxTemperatureSensorClicked()
     {
         if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5 )
         {
-            OnStepMissionComplete( animationNumber:5,delayAmount:new WaitForSeconds(12.9f));
+            OnStepMissionComplete( animationNumber:5,delayTimeAmount:new WaitForSeconds(12.9f));
             indicator.ShowTemperature(7.5f);
             return;
         }
@@ -879,7 +879,7 @@ public class DepthC2_SceneController : Base_SceneController
 
         if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 2)
         {
-            OnStepMissionComplete( animationNumber:2,delayAmount:new WaitForSeconds(3.8f));
+            OnStepMissionComplete( animationNumber:2,delayTimeAmount:new WaitForSeconds(3.8f));
         }
         
     }

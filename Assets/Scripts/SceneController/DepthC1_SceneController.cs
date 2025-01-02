@@ -165,12 +165,12 @@ public class DepthC1_SceneController : Base_SceneController
                     _unwoundCount = 0;//초기화 
                 }
                 
-                if (Managers.ContentInfo.PlayData.Depth3 == 3  && Managers.ContentInfo.PlayData.Count == 6)
-                {
-                    Logger.Log($"모든 나사 풀림 (6) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
-                    OnStepMissionComplete(animationNumber:6);
-                    _unwoundCount = 0;//초기화 
-                }
+                // if (Managers.ContentInfo.PlayData.Depth3 == 3  && Managers.ContentInfo.PlayData.Count == 6)
+                // {
+                //     Logger.Log($"모든 나사 풀림 (6) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
+                //     OnStepMissionComplete(animationNumber:6);
+                //     _unwoundCount = 0;//초기화 
+                // }
             }
    
 
@@ -361,12 +361,12 @@ public class DepthC1_SceneController : Base_SceneController
             }
         });
         
-        GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
+        GetObject((int)DepthC1_GameObj.LimitSwitch).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Count == 6)
             {
                 Logger.Log("MissionComplete limitswitch");
-                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 6);
+                OnStepMissionComplete(animationNumber: 6);
             }
         });
         
@@ -417,13 +417,14 @@ public class DepthC1_SceneController : Base_SceneController
         BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
         BindHighlight((int)DepthC1_GameObj.Lever_Handle,"레버 길이 조절");
         
+
         
         GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Count == 4)
+            if (Managers.ContentInfo.PlayData.Count == 3)
             {
                 Logger.Log("MissionComplete limitswitch");
-                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 4);
+                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 3);
             }
         });
         
@@ -484,15 +485,15 @@ public class DepthC1_SceneController : Base_SceneController
         
         BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
         BindHighlight((int)DepthC1_GameObj.ConductiveCheckModeBtn,"통전모드 전환 버튼");
-        BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
         BindHighlight((int)DepthC1_GameObj.MultimeterHandleHighlight,"저항측정 모드로 설정");
             
+        BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
         GetObject((int)DepthC1_GameObj.Lever_Handle).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Count == 6)
+            if (Managers.ContentInfo.PlayData.Count == 5)
             {
                 Logger.Log("MissionComplete limitswitch");
-                OnStepMissionComplete((int)DepthC1_GameObj.Lever_Handle, 6);
+                OnStepMissionComplete((int)DepthC1_GameObj.Lever_Handle, 5);
             }
         });
         
@@ -501,7 +502,7 @@ public class DepthC1_SceneController : Base_SceneController
                 
         GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Count == 9)
+            if (Managers.ContentInfo.PlayData.Count == 8)
             {
                 Logger.Log("MissionComplete limitswitch");
                 OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 9);
@@ -513,11 +514,11 @@ public class DepthC1_SceneController : Base_SceneController
         
         GetObject((int)DepthC1_GameObj.ConnectionScrewA).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Count == 10)
+            if (Managers.ContentInfo.PlayData.Count == 9)
             {
                 Logger.Log("MissionComplete limitswitch");
       
-                OnStepMissionComplete((int)DepthC1_GameObj.ConnectionScrewA, 10);
+                OnStepMissionComplete((int)DepthC1_GameObj.ConnectionScrewA, 9);
             }
         });
         
@@ -526,11 +527,11 @@ public class DepthC1_SceneController : Base_SceneController
             Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/MultermeterConductiveModeClick");
             Managers.Sound.Play(SoundManager.Sound.Effect,"Audio/Object/beep_01");
            
-            if (Managers.ContentInfo.PlayData.Count == 15 &&  !multimeterController.isConductive)
+            if (Managers.ContentInfo.PlayData.Count == 14 &&  !multimeterController.isConductive)
             {
                 Logger.Log("통전버튼 전환미션 완료");
                 multimeterController.isConductive = true;
-                OnStepMissionComplete( animationNumber:15);
+                OnStepMissionComplete( animationNumber:14);
             }
         });
         BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속나사");
@@ -557,7 +558,7 @@ public class DepthC1_SceneController : Base_SceneController
 
     private void BindInteractionEvent()
     {
-        
+        ControlPanelController.PowerOnOffActionWithBool -= PowerOnOff;
         ControlPanelController.PowerOnOffActionWithBool += PowerOnOff;
                 
         
@@ -589,9 +590,10 @@ public class DepthC1_SceneController : Base_SceneController
 
     private void OnTargetPosArrive()
     {
-        if (Managers.ContentInfo.PlayData.Depth3 == 2 &&Managers.ContentInfo.PlayData.Count == 8)
+        if (Managers.ContentInfo.PlayData.Depth3 == 2 &&Managers.ContentInfo.PlayData.Count == 6)
         {
-            OnStepMissionComplete(animationNumber:8);
+            Logger.Log("OnTargetPos Arrive -------------------6 -----------------미션수행 --------------");
+            OnStepMissionComplete(animationNumber:6,delayTimeAmount:new WaitForSeconds(3f));
         }
         
         if (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 7)
@@ -619,11 +621,24 @@ public class DepthC1_SceneController : Base_SceneController
 
     private void OnToolBoxLimitSwitchBtnOnUIClicked()
     {
-        if (Managers.ContentInfo.PlayData.Count == 12)
+        if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 2)
         {
-            OnStepMissionComplete(animationNumber:12);
+            OnStepMissionComplete(animationNumber: 2);
         }
+
+        
+            if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 9)
+            {
+                OnStepMissionComplete(animationNumber: 9);
+            }
+
+            if (Managers.ContentInfo.PlayData.Count == 12)
+            {
+                OnStepMissionComplete(animationNumber: 12);
+            }
+        
     }
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -901,7 +916,7 @@ public class DepthC1_SceneController : Base_SceneController
         {
           
             
-            if((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 16)||
+            if((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 15)||
                (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 12))
             {
                 animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = true;
@@ -925,7 +940,7 @@ public class DepthC1_SceneController : Base_SceneController
         {
             
                     
-            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 16)||
+            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 15)||
                 (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 12))
             {
                 
@@ -935,14 +950,14 @@ public class DepthC1_SceneController : Base_SceneController
                 animatorMap[(int)DepthC1_GameObj.Probe_Cathode].enabled = true;
                 animatorMap[(int)DepthC1_GameObj.Probe_Cathode].SetBool(TO_SCREW_B, true);
 
-                Action action = multimeterController.OnAllProbeSetOnResistanceMode;
-                         if (Managers.ContentInfo.PlayData.Count == 16)
+                Action action = multimeterController.OnAllProbeSetOnConductiveCheckMode;
+                         if (Managers.ContentInfo.PlayData.Count == 15)
                 {
-                    OnStepMissionComplete(animationNumber: 16, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                    OnStepMissionComplete(animationNumber: 15, delayTimeAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
                 }
                 else if (Managers.ContentInfo.PlayData.Count == 11)
                 {
-                    OnStepMissionComplete(animationNumber: 12, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                    OnStepMissionComplete(animationNumber: 12, delayTimeAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
                 }
                 
             }
@@ -954,7 +969,7 @@ public class DepthC1_SceneController : Base_SceneController
         
         GetObject((int)DepthC1_GameObj.ConnectionScrewC).BindEvent(() =>
         {
-            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 17)||
+            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 16)||
                 (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 13))
             {
 
@@ -977,7 +992,7 @@ public class DepthC1_SceneController : Base_SceneController
         
         GetObject((int)DepthC1_GameObj.ConnectionScrewD).BindEvent(() =>
         {
-            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 17)||
+            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 16)||
                 (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 13))
             {
 
@@ -988,11 +1003,11 @@ public class DepthC1_SceneController : Base_SceneController
 
                 if (Managers.ContentInfo.PlayData.Count == 12)
                 {
-                    OnStepMissionComplete(animationNumber: 12, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                    OnStepMissionComplete(animationNumber: 12, delayTimeAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
                 }
-                else if (Managers.ContentInfo.PlayData.Count == 17)
+                else if (Managers.ContentInfo.PlayData.Count == 16)
                 {
-                    OnStepMissionComplete(animationNumber: 17, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                    OnStepMissionComplete(animationNumber: 16, delayTimeAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
                 }
                 
                
@@ -1126,17 +1141,23 @@ public class DepthC1_SceneController : Base_SceneController
     private void OnLeverScrewUnWound()
     {
         isLeverScrewUnwound = true;
-        limitSwitchPivotController.SetLimitSwitchControllable(true);
+        limitSwitchPivotController.SetLimitSwitchControllableOrClickable(true);
+        
+      
         Logger.Log("레버나사 풀림 ->컨트롤가능");
-        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 7  )
+        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5  )
         {
-            OnStepMissionComplete(animationNumber:7);
+  
+            OnStepMissionComplete(animationNumber:5);
         }
+        
+        
+        SetHighlightIgnore((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,false);
+        BlinkHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos);
     }
     private bool  CheckDriverUsability()
     {
-        if (((Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 6) ||
-             (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 7)||
+        if (((Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5) ||
               (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 10)||
               
               (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 5) ||
@@ -1310,9 +1331,9 @@ public class DepthC1_SceneController : Base_SceneController
             GetObject((int)DepthC1_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
             GetObject((int)DepthC1_GameObj.Probe_Anode).SetActive(isMultimeterOn);
 
-            if ((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 16 &&
+            if ((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 15 &&
                  !isAnodePut)
-                || (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 17 &&
+                || (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 16 &&
                     !isAnodePut)
                 || (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12 &&
                     !isAnodePut)
@@ -1327,9 +1348,9 @@ public class DepthC1_SceneController : Base_SceneController
             }
 
             if
-                ((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 16 &&
+                ((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 15 &&
                   isAnodePut)
-                 || (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 17 &&
+                 || (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 16 &&
                      isAnodePut)
                  || (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12 &&
                      isAnodePut)
@@ -1364,9 +1385,9 @@ public class DepthC1_SceneController : Base_SceneController
         InitializeTool();
         
         
-        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5)
+        if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 4)
         {
-            OnStepMissionComplete(animationNumber:5);
+            OnStepMissionComplete(animationNumber:4);
         }
 
         
@@ -1393,9 +1414,9 @@ public class DepthC1_SceneController : Base_SceneController
         
         Logger.Log($"is Multimeter on? : {isMultimeterOn}");
 
-        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 13)
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 12)
         {
-            OnStepMissionComplete(animationNumber:13);
+            OnStepMissionComplete(animationNumber:12);
         }
         
         if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 9)
@@ -1409,9 +1430,9 @@ public class DepthC1_SceneController : Base_SceneController
     protected virtual void OnResistanceModeSet()
     {
       
-        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 14)
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 13)
         {
-            OnStepMissionComplete(animationNumber:14);
+            OnStepMissionComplete(animationNumber:13);
         }
         
             

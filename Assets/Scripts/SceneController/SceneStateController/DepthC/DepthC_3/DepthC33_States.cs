@@ -200,14 +200,15 @@ public class DepthC33_State_6 : Base_SceneState
     }
     public override void OnStep()
     {
-
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensor, false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.PressureSensor);
         base.OnStep();
        
     }
 
     public override void OnExit()
     {
-
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PressureSensor);
         base.OnExit();
     }
 }

@@ -93,7 +93,7 @@ public class Tutorial_SceneController : DepthC2_SceneController
             animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
             animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
             
-            OnStepMissionComplete(animationNumber: 7, delayAmount: new WaitForSeconds(2f));
+            OnStepMissionComplete(animationNumber: 7, delayTimeAmount: new WaitForSeconds(2f));
             
         }, Define.UIEvent.PointerDown);
 

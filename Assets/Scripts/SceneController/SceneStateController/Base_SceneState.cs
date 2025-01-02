@@ -131,7 +131,7 @@ public class Base_SceneState : ISceneState
         DOVirtual.DelayedCall(0.001f, () =>
         {
        
-            CurrentScene.cameraController.UpdateRotation(0.55f);
+            CurrentScene.cameraController.UpdateRotation(0.45f);
             DOVirtual.DelayedCall(0.76f, () =>
             {
 

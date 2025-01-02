@@ -50,7 +50,7 @@ public class DepthC21_State_2 : Base_SceneState
     {
         CurrentScene.contentController.SetScriptUI();
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = true;
+
     }
     
     public override void OnStep(){base.OnStep();}
@@ -67,7 +67,9 @@ public class DepthC21_State_3 : Base_SceneState
     }
     public override void OnEnter(){  
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = true;}
+        CurrentScene.cameraController.isControllable = true;
+        
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
@@ -83,6 +85,7 @@ public class DepthC21_State_4 : Base_SceneState
     {
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
         base.OnEnter();
+        CurrentScene.cameraController.isControllable = true;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -103,7 +106,7 @@ public class DepthC21_State_5 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_LockingScrew, false);
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_LockingScrew);
       
-        CurrentScene.contentController.isStepMissionPerformable = true;
+     
         base.OnEnter();
 
     }

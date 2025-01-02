@@ -10,11 +10,10 @@ public class DepthA2_State_1 : Base_SceneState
        
         
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.LimitSwitch,false);
-        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.ProximitySwitch,false);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor_Whole);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.LevelSensor,false);
-        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.FlowMeter,false);
+        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.FlowSensor,false);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.PressureSensor,false);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_CompensatingWire,false);
         CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TS_Stabilizer,false);
@@ -73,9 +72,7 @@ public class DepthA2_State_3 : Base_SceneState
     
     public override void OnEnter()
     {
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
-        
+
         
         CurrentScene.BlinkHighlight((int)DepthAGameObj.LimitSwitch);
         base.OnEnter();
@@ -126,15 +123,12 @@ public class DepthA2_State_5 : Base_SceneState
     protected override void OnAnimationCompleteHandler(int _)
     {
         base.OnAnimationCompleteHandler(_);
-        SetLookAt((int)DepthAGameObj.ProximitySwitch);
+        SetLookAt((int)DepthAGameObj.LimitSwitch);
     }
     
     public override void OnEnter()
     {
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
-        Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
-        
-        CurrentScene.BlinkHighlight((int)DepthAGameObj.ProximitySwitch);
+        CurrentScene.BlinkHighlight((int)DepthAGameObj.LimitSwitch);
         base.OnEnter();
     }
 
@@ -144,7 +138,7 @@ public class DepthA2_State_5 : Base_SceneState
 
     public override void OnExit()
     {
-        Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
+      
         base.OnExit();
     }
 }

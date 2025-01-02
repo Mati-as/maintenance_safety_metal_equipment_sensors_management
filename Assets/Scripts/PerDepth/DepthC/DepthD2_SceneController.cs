@@ -125,7 +125,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
         {
             if (Managers.ContentInfo.PlayData.Count == 4)
             {
-                OnStepMissionComplete(animationNumber: 4,delayAmount: new WaitForSeconds(4.5f));
+                OnStepMissionComplete(animationNumber: 4,delayTimeAmount: new WaitForSeconds(4.5f));
                 Logger.Log("벨브 잠금 및 유체 차단 애니메이션 재생 -----------------");
             }
         });
@@ -134,7 +134,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
         {
             if (Managers.ContentInfo.PlayData.Count == 5)
             {
-                OnStepMissionComplete(animationNumber: 5,delayAmount: new WaitForSeconds(4f));
+                OnStepMissionComplete(animationNumber: 5,delayTimeAmount: new WaitForSeconds(4f));
                 Logger.Log("커버 애니메이션 재생");
             }
         });
@@ -201,7 +201,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(PROBE_TO_SCREWB, true);
 
                 multimeterController.OnAllProbeSetOnResistanceMode();
-                OnStepMissionComplete(animationNumber: 8, delayAmount: new WaitForSeconds(6f));
+                OnStepMissionComplete(animationNumber: 8, delayTimeAmount: new WaitForSeconds(6f));
             }
         });
 
@@ -226,7 +226,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
                 animatorMap[(int)DepthC2_GameObj.Probe_Cathode].SetBool(TO_GROUNDING_TERMINAL, true);
                 multimeterController.OnAllProbeSetToGroundingTerminal();
          
-                OnStepMissionComplete(animationNumber:9, delayAmount: new WaitForSeconds(6f));
+                OnStepMissionComplete(animationNumber:9, delayTimeAmount: new WaitForSeconds(6f));
                 
             }
 
@@ -314,7 +314,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
          
          if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5 )
          {
-             OnStepMissionComplete( animationNumber:5,delayAmount:new WaitForSeconds(12.9f));
+             OnStepMissionComplete( animationNumber:5,delayTimeAmount:new WaitForSeconds(12.9f));
              GetObject((int)DepthC2_GameObj.Indicator).GetComponent<IndicatorController>().ShowTemperature(7.5f);
              return;
          }
@@ -323,7 +323,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
          if (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count == 2 )
          {
              Logger.Log($"4.2.1.2 온도센서 버튼 클릭 및 꺼내기 미션 수행");
-             OnStepMissionComplete( animationNumber:2,delayAmount:new WaitForSeconds(3.8f));
+             OnStepMissionComplete( animationNumber:2,delayTimeAmount:new WaitForSeconds(3.8f));
           //   GetObject((int)DepthC_GameObj.Indicator).GetComponent<IndicatorController>().ShowTemperature(7.5f);
              return;
          }

@@ -15,31 +15,57 @@ public class DepthB_SceneController : Base_SceneController
       //안전장구(캐릭터)
       OnCharacter_Helmet,
       OnCharacter_InsulatedGloves,
+      OnCharacter_Earplugs,
       OnCharacter_Mask,
       OnCharacter_ProtectiveGoggles,
-      OnCharacter_Earplugs,
       OnCharacter_InsulatedShoes,
       OnCharacter_FlameResistantClothing, //캐릭터위에 실제로 배치되어있지는 않음
       //안전장구(보관함)
       OnStorage_Helmet,
       OnStorage_InsulatedGloves,
-      OnStorage_InsulatedShoes,
+      OnStorage_Earplugs,
       OnStorage_Mask,
       OnStorage_ProtectiveGoggles,
-      OnStorage_Earplugs,
+      OnStorage_InsulatedShoes,
       OnStorage_FlameResistantClothing,
       
       
       Character_NoFlameSuit,
           
       //집기
-      Stripper,
-      Wrench,
-      Multimeter,
-      PressureCalibrator,
       ElectronicDriver,
+      Multimeter,
+      Wrench,
+      Stripper,
+      PressureCalibrator,
       
     }
+
+    private Dictionary<int, bool> _isClickedMap = new Dictionary<int, bool>();
+    public const int TOTAL_EQUIPMENT_COUNT = 5;
+    private int _currentClickedToolCount;
+    
+
+    public int currentClickedToolCount
+    {
+        get { return _currentClickedToolCount; }
+        set
+        {
+            _currentClickedToolCount = value;
+            if (_currentClickedToolCount >= TOTAL_EQUIPMENT_COUNT)
+            {
+                OnStepMissionComplete(animationNumber:3);
+            }
+        }
+    }
+
+    protected override void OnDepth2ClickedAction()
+    {
+        base.OnDepth2ClickedAction();
+        TurnOffAllOnCharacter();
+    }
+    
+        
  
     public override void Init()
     {
@@ -112,12 +138,18 @@ public class DepthB_SceneController : Base_SceneController
 
     public void TurnOffObjectOnCharacter(DepthB_Objects objOnCharacter = DepthB_Objects.OnCharacter_Helmet)
     {
+        for (int i =  (int)DepthB_Objects.OnCharacter_Helmet; i <= (int)objOnCharacter; i++)
+        {
+            GetObject(i).gameObject.SetActive(true);
+        }
+        
         for (int i = (int)objOnCharacter; i <= (int)DepthB_Objects.OnCharacter_FlameResistantClothing; i++)
         {
             GetObject(i).gameObject.SetActive(false);
         }
         
     }
+    
 
     private void TurnOffAllOnCharacter()
     {
@@ -134,6 +166,7 @@ public class DepthB_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 3)
             {
                 GetObject((int)DepthB_Objects.OnCharacter_Helmet).SetActive(true);
+                OnStepMissionComplete(animationNumber:3);
             }  
         });
         
@@ -143,6 +176,7 @@ public class DepthB_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 4)
             {
                 GetObject((int)DepthB_Objects.OnCharacter_InsulatedGloves).SetActive(true);
+                OnStepMissionComplete(animationNumber:4);
             }  
         });
         
@@ -153,6 +187,7 @@ public class DepthB_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 5)
             {
                 GetObject((int)DepthB_Objects.OnCharacter_Earplugs).SetActive(true);
+                OnStepMissionComplete(animationNumber:5);
             }  
         });
         
@@ -163,6 +198,7 @@ public class DepthB_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 6)
             {
                 GetObject((int)DepthB_Objects.OnCharacter_Mask).SetActive(true);
+                OnStepMissionComplete(animationNumber:6);
             }  
         });
         
@@ -173,6 +209,7 @@ public class DepthB_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 7)
             {
                 GetObject((int)DepthB_Objects.OnCharacter_ProtectiveGoggles).SetActive(true);
+                OnStepMissionComplete(animationNumber:7);
             }  
         });
         
@@ -183,6 +220,7 @@ public class DepthB_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 8)
             {
                 GetObject((int)DepthB_Objects.OnCharacter_InsulatedShoes).SetActive(true);
+                OnStepMissionComplete(animationNumber:8);
             }  
         });
         
@@ -193,6 +231,7 @@ public class DepthB_SceneController : Base_SceneController
             {
                 GetObject((int)DepthB_Objects.Character_NoFlameSuit).SetActive(false);
                 GetObject((int)DepthB_Objects.OnCharacter_FlameResistantClothing).SetActive(true);
+                OnStepMissionComplete(animationNumber:9, delayTimeAmount:new WaitForSeconds(3f));
             }
 
             GetObject((int)DepthB_Objects.OnStorage_Helmet);
@@ -203,7 +242,95 @@ public class DepthB_SceneController : Base_SceneController
 
     public void DepthB21Init()
     {
+        InitEquipmentSelectionPart();
         
+        BindHighlight((int)DepthB_Objects.ElectronicDriver,"전동 드라이버");
+        
+        GetObject((int)DepthB_Objects.ElectronicDriver).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth2 == 2 && Managers.ContentInfo.PlayData.Count >= 3 && !_isClickedMap[(int)DepthB_Objects.ElectronicDriver])
+            {
+                GetObject((int)DepthB_Objects.ElectronicDriver).SetActive(false);
+                _isClickedMap[(int)DepthB_Objects.ElectronicDriver] = true;
+                currentClickedToolCount++;
+            }  
+        });
+        
+        BindHighlight((int)DepthB_Objects.Multimeter,"멀티미터");
+        GetObject((int)DepthB_Objects.Multimeter).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth2 == 2 && Managers.ContentInfo.PlayData.Count >= 3 && !_isClickedMap[(int)DepthB_Objects.Multimeter])
+            {
+                _isClickedMap[(int)DepthB_Objects.Multimeter] = true; 
+                currentClickedToolCount++;
+                GetObject((int)DepthB_Objects.Multimeter).SetActive(false);
+            }  
+        });
+        
+        BindHighlight((int)DepthB_Objects.Wrench,"렌치");
+        GetObject((int)DepthB_Objects.Wrench).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth2 == 2 && Managers.ContentInfo.PlayData.Count >= 3 && !_isClickedMap[(int)DepthB_Objects.Wrench])
+            {
+                _isClickedMap[(int)DepthB_Objects.Wrench] = true; 
+                currentClickedToolCount++;
+                GetObject((int)DepthB_Objects.Wrench).SetActive(false);
+            }  
+        });
+        
+        BindHighlight((int)DepthB_Objects.Stripper,"스트리퍼");
+        GetObject((int)DepthB_Objects.Stripper).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth2 == 2 && Managers.ContentInfo.PlayData.Count >= 3 && !_isClickedMap[(int)DepthB_Objects.Stripper])
+            {
+                _isClickedMap[(int)DepthB_Objects.Stripper] = true; 
+                currentClickedToolCount++;
+                GetObject((int)DepthB_Objects.Stripper).SetActive(false);
+            }  
+        });
+        
+        BindHighlight((int)DepthB_Objects.PressureCalibrator,"자동 압력 교정기");
+        GetObject((int)DepthB_Objects.PressureCalibrator).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Depth2 == 2 && Managers.ContentInfo.PlayData.Count >= 3 && !_isClickedMap[(int)DepthB_Objects.PressureCalibrator])
+            {
+                _isClickedMap[(int)DepthB_Objects.PressureCalibrator] = true; 
+                currentClickedToolCount++;
+                GetObject((int)DepthB_Objects.PressureCalibrator).SetActive(false);
+            }  
+        });
+
+    }
+
+
+
+    public void TurnOnAllEquiment()
+    {
+        GetObject((int)DepthB_SceneController.DepthB_Objects.ElectronicDriver).SetActive(true);
+        GetObject((int)DepthB_SceneController.DepthB_Objects.Multimeter).SetActive(true);
+        GetObject((int)DepthB_SceneController.DepthB_Objects.Wrench).SetActive(true);
+        GetObject((int)DepthB_SceneController.DepthB_Objects.Stripper).SetActive(true);
+        GetObject((int)DepthB_SceneController.DepthB_Objects.PressureCalibrator).SetActive(true);
+    }
+    
+    
+    /// <summary>
+    /// 장비 선택 관련 변수 초기화
+    /// </summary>
+    public void InitEquipmentSelectionPart()
+    {
+        
+        _isClickedMap = new Dictionary<int, bool>()
+        {
+            
+            {(int)DepthB_Objects.ElectronicDriver,false},
+            {(int)DepthB_Objects.Multimeter,false},
+            {(int)DepthB_Objects.Wrench,false},
+            {(int)DepthB_Objects.Stripper,false},
+            {(int)DepthB_Objects.PressureCalibrator,false},
+        };
+
+        currentClickedToolCount = 0;
     }
     protected virtual void SetDepthNum()
     {

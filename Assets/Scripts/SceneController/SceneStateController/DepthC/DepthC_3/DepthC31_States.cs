@@ -59,7 +59,7 @@ public class DepthC31_State_1 : Base_SceneState
         CurrentScene.contentController.ShutTrainingIntroAnim();
     
         base.OnEnter();
-        
+        _depthC3SceneController.cameraController.isControllable = true;
     }
 
     public override void OnStep()
@@ -94,7 +94,7 @@ public class DepthC31_State_2 : Base_SceneState
     {
         CurrentScene.contentController.SetScriptUI();
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        
     }
 
     public override void OnStep()
@@ -112,11 +112,15 @@ public class DepthC31_State_3 : Base_SceneState
 
     protected override void OnAnimationCompleteHandler(int _)
     {
-        SetLookAt((int)DepthC3_GameObj.PressureSensor);
         base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthC3_GameObj.PressureSensor);
     }
-    
-    public override void OnEnter(){base.OnEnter();}
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        _depthC3SceneController.cameraController.isControllable = true;
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
@@ -128,14 +132,14 @@ public class DepthC31_State_4 : Base_SceneState
 
     protected override void OnAnimationCompleteHandler(int _)
     {
-        SetLookAt((int)DepthC3_GameObj.PressureSensor);
         base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthC3_GameObj.PressureSensor);
     }
 
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        _depthC3SceneController.cameraController.isControllable = true;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -157,7 +161,7 @@ public class DepthC31_State_5 : Base_SceneState
         
      
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        _depthC3SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
 
@@ -207,6 +211,7 @@ public class DepthC31_State_7 : Base_SceneState
 
     public override void OnEnter()
     {
+       
         base.OnEnter();
         CurrentScene.cameraController.isControllable = false;
     }
@@ -235,28 +240,7 @@ public class DepthC31_State_8 : Base_SceneState
 
     public override void OnEnter()
     {
-        _depthC3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
-        base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
-    }
-    public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
-}
 
-
-public class DepthC31_State_9 : Base_SceneState
-{
-    private readonly DepthC3_SceneController _depthC3SceneController;
-
-    public DepthC31_State_9(DepthC3_SceneController currentScene) : base(currentScene)
-    {
-        _depthC3SceneController = currentScene;
-    }
-
-
-    public override void OnEnter()
-    {
- 
         
         _depthC3SceneController.isWindSession = false;
         
@@ -286,7 +270,33 @@ public class DepthC31_State_9 : Base_SceneState
         
         base.OnEnter();
         _depthC3SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        _depthC3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.cameraController.isControllable = false;
+    }
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class DepthC31_State_9 : Base_SceneState
+{
+    private readonly DepthC3_SceneController _depthC3SceneController;
+
+    public DepthC31_State_9(DepthC3_SceneController currentScene) : base(currentScene)
+    {
+        _depthC3SceneController = currentScene;
+    }
+
+
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        _depthC3SceneController.ClearTool();
+        _depthC3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
+        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
+        CurrentScene.cameraController.isControllable = false;
+        
+      
     }
     public override void OnStep(){base.OnStep();}
 
@@ -309,12 +319,18 @@ public class DepthC31_State_10 : Base_SceneState
 
     public override void OnEnter()
     {
-      
+              
+        _depthC3SceneController.InitProbePos();
+        _depthC3SceneController.isMultimeterOn = true;
+        _depthC3SceneController.multimeterController.SetMeasureGuideStatus();
+        _depthC3SceneController.multimeterController.PS_SetToDefaultMode();
+        _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
+        
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.MultimeterHandleHighlight,false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.MultimeterHandleHighlight);
         base.OnEnter();
-        _depthC3SceneController.ClearTool();
-        _depthC3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
-        CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
-        CurrentScene.cameraController.isControllable = false;
+
+       
     }
     public override void OnStep(){base.OnStep();}
 
@@ -339,19 +355,24 @@ public class DepthC31_State_11 : Base_SceneState
     public override void OnEnter()
     {
      
+        _depthC3SceneController.multimeterController.SetToCurrentModeAndRotation();
+        _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.AnodeSensorOutput, false);
+        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.AnodeSensorOutput);
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.CathodeSensorInput, false);
         
+        //Anode 입력시 Cathode Blink effect
+        // _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.CathodeSensorInput);
+        
+        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.ConnectionScrewB);
+        base.OnEnter();
         _depthC3SceneController.InitProbePos();
         _depthC3SceneController.isMultimeterOn = true;
         _depthC3SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC3SceneController.multimeterController.PS_SetToDefaultMode();
+        _depthC3SceneController.multimeterController.SetToCurrentModeAndRotation();
         _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
         
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.MultimeterHandleHighlight,false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.MultimeterHandleHighlight);
-      
-        
-        base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        _depthC3SceneController.cameraController.isControllable = false;
 
     }
     public override void OnStep(){base.OnStep();}
@@ -376,24 +397,17 @@ public class DepthC31_State_12 : Base_SceneState
 
     public override void OnEnter()
     {
-        _depthC3SceneController.multimeterController.SetToCurrentModeAndRotation();
-        _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.AnodeSensorOutput, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.AnodeSensorOutput);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.CathodeSensorInput, false);
+        Managers.ContentInfo.PlayData.Depth1 = 3;
+        Managers.ContentInfo.PlayData.Depth2 = 3;
+        Managers.ContentInfo.PlayData.Depth3 = 2;
+        Managers.ContentInfo.PlayData.Count = 1;
+
         
-        //Anode 입력시 Cathode Blink effect
-       // _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.CathodeSensorInput);
+        _depthC3SceneController.contentController.Refresh();
+        _depthC3SceneController.DepthC32Init();
         
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.ConnectionScrewB);
         base.OnEnter();
-        _depthC3SceneController.InitProbePos();
-        _depthC3SceneController.isMultimeterOn = true;
-        _depthC3SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC3SceneController.multimeterController.SetToCurrentModeAndRotation();
-        _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
-        
-        _depthC3SceneController.cameraController.isControllable = false;
+        _depthC3SceneController.PlayAnimation(1);
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -411,17 +425,7 @@ public class DepthC31_State_13 : Base_SceneState
 
     public override void OnEnter()
     {
-        Managers.ContentInfo.PlayData.Depth1 = 3;
-        Managers.ContentInfo.PlayData.Depth2 = 3;
-        Managers.ContentInfo.PlayData.Depth3 = 2;
-        Managers.ContentInfo.PlayData.Count = 1;
-
-        
-        _depthC3SceneController.contentController.Refresh();
-        _depthC3SceneController.DepthC32Init();
-        
-        base.OnEnter();
-        _depthC3SceneController.PlayAnimation(1);
+    
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}

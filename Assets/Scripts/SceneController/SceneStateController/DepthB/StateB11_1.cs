@@ -269,9 +269,9 @@ public class StateB11_10 : Base_SceneState
 
     public override void OnEnter()
     {
-        Managers.ContentInfo.PlayData.Depth1 = 3;
+        Managers.ContentInfo.PlayData.Depth1 = 2;
         Managers.ContentInfo.PlayData.Depth2 = 2;
-        Managers.ContentInfo.PlayData.Depth3 = 2;
+        Managers.ContentInfo.PlayData.Depth3 = 1;
         Managers.ContentInfo.PlayData.Count = 1;
 
         

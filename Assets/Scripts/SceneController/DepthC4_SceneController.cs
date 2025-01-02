@@ -948,7 +948,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
                 Action action = multimeterController.PS_OnAllProbeSetOnCurrentCheckMode;
                          if (Managers.ContentInfo.PlayData.Count == 11)
                 {
-                    OnStepMissionComplete(animationNumber: 11, delayAmount: new WaitForSeconds(6f),ActionBeforeDelay:action);
+                    OnStepMissionComplete(animationNumber: 11, delayTimeAmount: new WaitForSeconds(6f),ActionBeforeDelay:action);
                 }
    
                 
@@ -995,11 +995,11 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
 
                 if (Managers.ContentInfo.PlayData.Count == 12)
                 {
-                    OnStepMissionComplete(animationNumber: 12, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                    OnStepMissionComplete(animationNumber: 12, delayTimeAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
                 }
                 else if (Managers.ContentInfo.PlayData.Count == 17)
                 {
-                    OnStepMissionComplete(animationNumber: 17, delayAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
+                    OnStepMissionComplete(animationNumber: 17, delayTimeAmount: new WaitForSeconds(4f),ActionBeforeDelay:action);
                 }
                 
                

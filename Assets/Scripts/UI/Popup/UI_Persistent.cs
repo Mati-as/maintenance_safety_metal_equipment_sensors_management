@@ -110,6 +110,12 @@ public class UI_Persistent : UI_Scene
     private void SetupButton(int btnIndex, Action onClickAction)
     {
         // 클릭 Up 이벤트 설정
+        if (!GetButton(btnIndex).IsInteractable())
+        {
+            Logger.Log($"{(Btns)btnIndex} is not interacable..retrun");
+            return;
+        }
+        
         GetButton(btnIndex).gameObject.BindEvent(onClickAction, Define.UIEvent.PointerUp);
 
 

@@ -186,7 +186,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     
     
-    private void OnDepth2ClickedAction()
+    protected virtual void OnDepth2ClickedAction()
     {
         PreInitBefreDepthChange();
         
@@ -705,7 +705,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     
     protected void OnStepMissionComplete(int objectEnumToInt = -1, int animationNumber = -123456789,
-        WaitForSeconds delayAmount = null, Action ActionBeforeDelay = null)
+        WaitForSeconds delayTimeAmount = null, Action ActionBeforeDelay = null)
     {
         if (objectEnumToInt != -1 && objectHighlightMap.ContainsKey(objectEnumToInt) &&
             objectHighlightMap[objectEnumToInt].ignore)
@@ -718,7 +718,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         {
             StopCoroutine(currentAnimationCoroutine);
         }
-        currentAnimationCoroutine = StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayAmount, ActionBeforeDelay));
+        currentAnimationCoroutine = StartCoroutine(OnStepMissionCompleteCo(animationNumber, delayTimeAmount, ActionBeforeDelay));
     }
 
     public void RefreshAnimationCoroutines()

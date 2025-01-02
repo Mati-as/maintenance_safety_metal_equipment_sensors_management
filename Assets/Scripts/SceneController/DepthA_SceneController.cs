@@ -6,11 +6,10 @@ using UnityEngine;
 public enum DepthAGameObj
 {
     LimitSwitch,
-    ProximitySwitch,
     TemperatureSensor,
     TemperatureSensor_Whole,//분해 로직이랑 구분
     LevelSensor,
-    FlowMeter,
+    FlowSensor,
     PressureSensor,
     //Parts
     TS_CompensatingWire,
@@ -49,11 +48,10 @@ public class DepthA_SceneController : Base_SceneController
         
         // 딕셔너리에 추가 및 이벤트 바인딩
         BindHighlight((int)DepthAGameObj.LimitSwitch, "리밋 스위치");
-        BindHighlight((int)DepthAGameObj.ProximitySwitch, "근접 스위치");
         BindHighlight((int)DepthAGameObj.TemperatureSensor, "온도 센서");
         BindHighlight((int)DepthAGameObj.TemperatureSensor_Whole, "온도 센서");
         BindHighlight((int)DepthAGameObj.LevelSensor, "레벨 센서");
-        BindHighlight((int)DepthAGameObj.FlowMeter, "유량 센서");
+        BindHighlight((int)DepthAGameObj.FlowSensor, "유량 센서");
         BindHighlight((int)DepthAGameObj.PressureSensor, "압력 센서");
         BindHighlight((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
         BindHighlight((int)DepthAGameObj.TS_Stabilizer, "고정자");

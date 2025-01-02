@@ -17,7 +17,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
+        value: {x: -0.9614107, y: 0, z: 0, w: 0.27511722}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -52,7 +52,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.1834, y: 0.0451, z: -0.0326}
+        value: {x: 0.1834059, y: 0.044754133, z: -0.10845395}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -177,6 +177,25 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_IsActive
     path: PressureSensor-Related/PressureSensor/PressureSensorAdapter/PressureSensorDamagedPart
+    classID: 1
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: PressureSensor-Related/PressureSensor/PressureSensor_Display
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -366,7 +385,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.1834
+        value: 0.1834059
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -385,7 +404,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.0451
+        value: 0.044754133
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -404,7 +423,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.0326
+        value: -0.10845395
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -423,7 +442,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.70710677
+        value: -0.9614107
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -480,7 +499,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.70710677
+        value: 0.27511722
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -511,6 +530,25 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_IsActive
     path: PressureSensor-Related/PressureSensor/PressureSensorAdapter/PressureSensorDamagedPart
+    classID: 1
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: PressureSensor-Related/PressureSensor/PressureSensor_Display
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -549,7 +587,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -90
+        value: -148.062
         inSlope: 0
         outSlope: 0
         tangentMode: 136

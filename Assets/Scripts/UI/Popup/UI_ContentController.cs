@@ -1402,6 +1402,11 @@ public class UI_ContentController : UI_Popup
             Managers.ContentInfo.PlayData.Depth3 = 1;
             Managers.ContentInfo.PlayData.Count = 0;
             
+            if (Managers.ContentInfo.PlayData.Depth3 != 1)
+            {
+                ShutTrainingIntroAnim();
+                if(_hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
+            }
             OnDepth2ClickedAction?.Invoke();
             Refresh();
         }

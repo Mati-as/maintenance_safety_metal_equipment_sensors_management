@@ -30,9 +30,10 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
     }
 
 
-    public void SetLimitSwitchControllable(bool isActive)
+    public void SetLimitSwitchControllableOrClickable(bool isActive)
     {
         _collider.enabled = isActive;
+        isTargetPosEventInvoked = false;
     }
 
     public void InitLimitSwitch()
@@ -47,12 +48,12 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
     {
         if (!isDragging) return;
         
-        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 7)
+        if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 6)
         {
             RotateHandle(eventData);
         }
-        else if((Managers.ContentInfo.PlayData.Depth3 == 1  && Managers.ContentInfo.PlayData.Count == 8)||
-                (Managers.ContentInfo.PlayData.Depth3 == 2  && Managers.ContentInfo.PlayData.Count == 8)||
+        else if(
+                (Managers.ContentInfo.PlayData.Depth3 == 2  && Managers.ContentInfo.PlayData.Count == 6)||
                 (Managers.ContentInfo.PlayData.Depth3 == 3  && Managers.ContentInfo.PlayData.Count == 7 && 
                 GameObject.FindWithTag("ObjectAnimationController").GetComponent<DepthC1_SceneController>().isLeverScrewUnwound))
         {
@@ -110,12 +111,20 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
     private float maxZ;
 
     public static event Action OnTargetPosArrive; 
-    [Range(0, 100000)] public float sensitivity; 
-    
+    [Range(0, 100000)] public float sensitivity;
+
+    public bool isTargetPosEventInvoked;
+
+    private float _newZPos;
     public void MoveHandleZ(PointerEventData eventData)
     {
+        if (isTargetPosEventInvoked)
+        {
+            Logger.Log("이미 Z축 움직이기 수행과제 완료..  return");
+            return;
+        }
         Logger.Log("리밋스위치 핸들 Z축 이동 조절중 --------------------");
-
+        
         // 마우스 포인터의 현재 월드 좌표 계산
         Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, Camera.main.nearClipPlane));
 
@@ -126,22 +135,33 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
         float deltaZ = currentMousePos.y - initialMousePos.y; // y축 차이를 Z축 이동에 매핑
 
         // 새로운 Z축 위치 계산
-        float newZPos = handlePos.z + deltaZ/sensitivity ;
+        _newZPos = handlePos.z + deltaZ/sensitivity ;
 
         // Z축 위치를 제한 (필요하면 범위 설정)
-        newZPos = Mathf.Clamp(newZPos, minZ, maxZ); // minZ와 maxZ를 원하는 값으로 설정
+        _newZPos = Mathf.Clamp(_newZPos, minZ, maxZ); // minZ와 maxZ를 원하는 값으로 설정
 
         // 핸들의 위치 업데이트
-        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).transform.position = new Vector3(handlePos.x, handlePos.y, newZPos);
+        GetObject((int)LimitSwitch.Limitswitch_ArmPivot).transform.position = new Vector3(handlePos.x, handlePos.y, _newZPos);
 
         // 초기 마우스 위치 갱신
         initialMousePos = currentMousePos;
 
-        if (newZPos - minZ < 0.010f)
+     
+    }
+
+
+    public void CheckAndInvokeTargetPosArrivalEvent()
+    {
+         if (!isTargetPosEventInvoked && _newZPos - minZ < 0.008f )
         {
             OnTargetPosArrive?.Invoke();
+            isTargetPosEventInvoked = true;
             Logger.Log("target arrvie action invoke");
         }
+         else
+         {
+             Logger.Log($"target arrvive invoke condition is not met. value: ({_newZPos - minZ})has to be lower than 0.02");
+         }
     }
     public void InitLamp()
     {
@@ -178,7 +198,7 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        // 드래그 종료 처리
+        CheckAndInvokeTargetPosArrivalEvent();
         isDragging = false;
     }
     public void OnPointerDown(PointerEventData eventData)
