@@ -344,7 +344,7 @@ public class UI_Persistent : UI_Scene
     }
 
     private Sequence _fadeEffectSeq;
-    public void FadeIn(float duration =2.5f)
+    public void FadeIn(float duration =1.25f)
     {
         _fadeEffectSeq?.Kill();
         _fadeEffectSeq = DOTween.Sequence();

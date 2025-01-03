@@ -288,7 +288,7 @@ public class UI_ContentController : UI_Popup
         CheckIfTutorialMode();
 
         _contentControllerFadeEffectImage = GetObject((int)UI.FadeInOutEffect).GetComponent<Image>();
-        FadeIn(2.25f);
+        FadeIn(1.55f);
         if(Managers.UI_Persistent!=null)Managers.UI_Persistent.FadeIn();
         return true;
     }

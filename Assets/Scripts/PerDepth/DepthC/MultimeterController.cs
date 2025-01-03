@@ -17,9 +17,9 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         MeasureGuide,
         ConductiveCheckModeBtn,
         
-        Image_ResistanceMode,
-        Image_ConductiveMode,
-        Image_CurrentMode
+        ResistanceModeSymbol,
+        ConductiveModeSymbol,
+        CurrentCheckModeSymbol
     }
 
     private bool isDragging;
@@ -45,12 +45,27 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
 
             if (value) // 이미 true인 경우에는 중복해서 소리를 울리지 않음. 
             {
+                TurnOnCurrentMultimeterModeImage(Multimeter.ConductiveModeSymbol);
                 OnConductiveModeReady?.Invoke();
             }
             
             _isConductive = value;
             Logger.Log($"conductive mode? :{_isConductive})");
         }
+    }
+
+    private void TurnOnCurrentMultimeterModeImage(Multimeter currentMode)
+    {
+        TurnOffAllMultimeterModeImage();
+        
+        GetObject((int)currentMode).SetActive(true);
+    }
+
+    private void TurnOffAllMultimeterModeImage()
+    {
+        GetObject((int)Multimeter.ResistanceModeSymbol).SetActive(false);
+        GetObject((int)Multimeter.ConductiveModeSymbol).SetActive(false);
+        GetObject((int)Multimeter.CurrentCheckModeSymbol).SetActive(false);
     }
 
     private readonly float resistantTarget = 108;
@@ -87,6 +102,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
                 TMPDisplay.text = OVER_LIMIT_TEXT;
                 Logger.Log("Resistance Sensor Mode On ------------");
                 isResistanceMode = true;
+                TurnOnCurrentMultimeterModeImage(Multimeter.ResistanceModeSymbol);
                 OnResistanceMeasureReadyAction?.Invoke();
 
                 if (_currentClickCount >= 6)
@@ -109,7 +125,8 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         TMPDisplay = GetObject((int)Multimeter.Display).GetComponent<TextMeshPro>();
         TMPDisplay.text = "";
         SetMeasureGuideStatus(false);
-   //     BindConductiveCheckModeEvent();
+        TurnOffAllMultimeterModeImage();
+        //     BindConductiveCheckModeEvent();
     }
 
 

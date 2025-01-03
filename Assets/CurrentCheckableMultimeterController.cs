@@ -19,9 +19,9 @@ public class CurrentCheckableMultimeterController :UI_Base, IPointerDownHandler,
         Display,
         MeasureGuide,
         ConductiveCheckModeBtn,
-        Image_ResistanceMode,
-        Image_ConductiveMode,
-        Image_CurrentMode
+        ResistanceModeSymbol,
+        ConductiveModeSymbol,
+        CurrentCheckModeSymbol
     }
 
     private bool isDragging;
@@ -42,7 +42,19 @@ public class CurrentCheckableMultimeterController :UI_Base, IPointerDownHandler,
 
     public static event Action OnCurrentModeReady;
 
+    private void TurnOnCurrentMultimeterModeImage(Multimeter currentMode)
+    {
+        TurnOffAllMultimeterModeImage();
+        
+        GetObject((int)currentMode).SetActive(true);
+    }
 
+    private void TurnOffAllMultimeterModeImage()
+    {
+        GetObject((int)Multimeter.ResistanceModeSymbol).SetActive(false);
+        GetObject((int)Multimeter.ConductiveModeSymbol).SetActive(false);
+        GetObject((int)Multimeter.CurrentCheckModeSymbol).SetActive(false);
+    }
     public int currentClickCount
     {
         get => _currentClickCount;
@@ -63,11 +75,13 @@ public class CurrentCheckableMultimeterController :UI_Base, IPointerDownHandler,
                 TMPDisplay.text = "O.L";
                 Logger.Log("Resistance Sensor Mode On ------------");
                 isCurrentCheckMode = true;
+                TurnOnCurrentMultimeterModeImage(Multimeter.CurrentCheckModeSymbol);
                 OnCurrentModeReady?.Invoke();
        
             }
             else
             {
+                TurnOffAllMultimeterModeImage();
                 isCurrentCheckMode = false;
             }
         }
