@@ -36,7 +36,6 @@ public class UI_Main : UI_Popup
         BindTMP(typeof(TMPs));
         BindButton(typeof(Btns));
         BindSlider(typeof(Slider));
-
         GetButton((int)Btns.Btn_Start).gameObject.BindEvent(OnMainStartBtnClicked);
 
         GetSlider((int)Slider.LanguageSetting).onValueChanged.AddListener(_=>
@@ -50,6 +49,7 @@ public class UI_Main : UI_Popup
        
         Managers.UI_Persistent.OnMainUIPopUP();
         UI_Persistent.SetStatus(true);
+        Managers.UI_Persistent.FadeIn(1.8f);
         return true;
     }
 

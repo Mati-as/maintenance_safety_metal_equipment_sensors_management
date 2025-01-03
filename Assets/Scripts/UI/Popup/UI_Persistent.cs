@@ -22,14 +22,15 @@ public class UI_Persistent : UI_Scene
         Btn_FullMenu,
         Btn_Setting,
         Btn_Close,
-        Btn_SkipIntro
+        Btn_SkipIntro,
+      
     }
     
 
 
     private enum UI
     {
-        Persistent_Menu
+        Persistent_Menu,  FadeInOutEffect
     }
 
     private Animator _activationAnimator;
@@ -37,7 +38,8 @@ public class UI_Persistent : UI_Scene
     private readonly Image[] hoverTexts = new Image[Enum.GetValues(typeof(Btns)).Length];
     private Coroutine _mainIntroCo;
     private Canvas _canvas;
-
+    private Image _fadeEffectImage;
+    private bool _introSkipBtnClicked;
     public override bool Init()
     {
         if (base.Init() == false)
@@ -67,11 +69,16 @@ public class UI_Persistent : UI_Scene
 
         GetButton((int)Btns.Btn_SkipIntro).gameObject.BindEvent(() =>
         {
+            if (_introSkipBtnClicked) return;
             
             StopCoroutine(_mainIntroCo);
-            OnAnimationComplete();
-          
-        
+            
+            _fadeEffectImage.DOFade(1, 1.5f).OnComplete(() =>
+            {
+                _introSkipBtnClicked = true;
+                OnAnimationComplete();
+            });
+            
         });
         
         SetupButton((int)Btns.Btn_Main, OnMainBtnClicked);
@@ -84,6 +91,8 @@ public class UI_Persistent : UI_Scene
         
         
         GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
+
+        _fadeEffectImage = GetObject((int)UI.FadeInOutEffect).GetComponent<Image>();
         SetStatus(false);
         return true;
     }
@@ -155,7 +164,6 @@ public class UI_Persistent : UI_Scene
     private void OnMainBtnClicked()
     {
         Managers.UI.CloseAllPopupUI();
-        
         Managers.Scene.LoadScene(SceneType.Main);
         //if (Managers.UI.SceneUI<UI_Persistent>() == null) Managers.UI.ShowSceneUI<UI_Persistent>();
     }
@@ -296,17 +304,19 @@ public class UI_Persistent : UI_Scene
 
     protected virtual void OnAnimationComplete()
     {
-
+        
         if (Managers.initialIntroAnimPlayed)
         {
             GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
             return;
         }
+        
         Managers.initialIntroAnimPlayed = true;
+        
         Logger.Log("Main UI -----------------------------------");
         if (!Managers.UI.FindPopup<UI_Main>()) Managers.UI.ShowPopupUI<UI_Main>();
-        
         GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
+        
     }
 
     public void OnMainUIPopUP()
@@ -331,5 +341,44 @@ public class UI_Persistent : UI_Scene
         bool isFullScreenMode = false;
         isFullScreenMode = Screen.fullScreen;
         Managers.Data.Preference[(int)Define.Preferences.Fullscreen] = isFullScreenMode? Define.YES : Define.NO ;
+    }
+
+    private Sequence _fadeEffectSeq;
+    public void FadeIn(float duration =2.5f)
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
+        
+        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, 0.0001f));
+        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, duration));
+    }
+
+    public void FadeOut(float duration =1.5f)
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
+
+        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, 0.0001f));
+        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, duration));
+    }
+
+    public void FadeOutAndIn()
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
+        
+        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, 1.35f));
+        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, 1.0f));
+        
+    }
+    
+    public void FadeOutAndInForDepth3()
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
+        
+        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, 0.5f));
+        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, 0.7f));
+        
     }
 }

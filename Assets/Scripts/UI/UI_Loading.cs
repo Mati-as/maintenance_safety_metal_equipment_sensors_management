@@ -49,6 +49,7 @@ public class UI_Loading : UI_Popup
                 {
                     Managers.UI_Persistent = Managers.UI.ShowSceneUI<UI_Persistent>();
                     Managers.UI_Persistent.Init();
+                    Managers.UI_Persistent.FadeIn();
                 }
 
                 Managers.UI_Persistent.PlayIntroAndShowAnimOnMainUI();

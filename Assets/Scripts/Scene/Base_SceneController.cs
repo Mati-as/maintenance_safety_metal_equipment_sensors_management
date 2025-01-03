@@ -54,6 +54,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public virtual void Start()
     {
         Init();
+       
     }
 
     /// <summary>
@@ -62,9 +63,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public virtual void Init()
     {
         BindEvent();
-
-
         SetMainProperties();
+        
 
     }
     
@@ -147,6 +147,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         Logger.Log($"Ondepth3 Btn Clicked() execute. current depth Status ---> {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
         PlayAnimation(0);
         ChangeState(0);
+    
     }
     
     public virtual void ClearTool()
@@ -189,8 +190,9 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     protected virtual void OnDepth2ClickedAction()
     {
         PreInitBefreDepthChange();
-        
         PlayAnimation(1);
+        
+     
     }
     protected IEnumerator OnSceneStartCo()
     {

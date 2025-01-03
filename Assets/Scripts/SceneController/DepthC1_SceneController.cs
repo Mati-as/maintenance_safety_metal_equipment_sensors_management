@@ -328,7 +328,7 @@ public class DepthC1_SceneController : Base_SceneController
         BindHighlight((int)DepthC1_GameObj.ConductiveCheckModeBtn,"통전모드 전환 버튼");
         BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
         BindHighlight((int)DepthC1_GameObj.MultimeterHandleHighlight,"저항측정 모드로 설정");
-        BindHighlight((int)DepthC1_GameObj.LS_Cover,"리밋스위치 커버");
+        BindHighlight((int)DepthC1_GameObj.LS_Cover,"검출스위치 덮개");
         BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
         BindHighlight((int)DepthC1_GameObj.Lever_Handle,"레버 길이 조절");
         BindHighlight((int)DepthC1_GameObj.PowerHandle,"전원");
@@ -412,7 +412,7 @@ public class DepthC1_SceneController : Base_SceneController
         SetScrewDriverSection();
         limitSwitchPivotController.InitLimitSwitch();
         
-        BindHighlight((int)DepthC1_GameObj.LS_Cover,"리밋스위치 커버");
+        BindHighlight((int)DepthC1_GameObj.LS_Cover,"검출스위치 덮개");
         BindHighlight((int)DepthC1_GameObj.LeverScrew,"조절 레버");
         BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
         BindHighlight((int)DepthC1_GameObj.Lever_Handle,"레버 길이 조절");
@@ -498,14 +498,14 @@ public class DepthC1_SceneController : Base_SceneController
         });
         
         
-        BindHighlight((int)DepthC1_GameObj.LS_Cover,"리밋스위치 커버");
+        BindHighlight((int)DepthC1_GameObj.LS_Cover,"검출스위치 덮개");
                 
         GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Count == 8)
             {
                 Logger.Log("MissionComplete limitswitch");
-                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 9);
+                OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 8);
             }
         });
 

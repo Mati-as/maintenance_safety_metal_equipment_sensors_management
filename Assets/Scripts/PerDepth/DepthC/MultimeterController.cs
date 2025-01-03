@@ -30,6 +30,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
     private readonly float _clikableDelay = 0.15f;
 
     private bool _isConductive = false;
+    private const string OVER_LIMIT_TEXT = "O.L";
     public bool isConductive
     {
         get { return _isConductive;}
@@ -83,7 +84,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
             else if (_currentClickCount > 0 && _currentClickCount < 4) TMPDisplay.text = "000.0";
             if (_currentClickCount >= 4)
             {
-                TMPDisplay.text = "O.L";
+                TMPDisplay.text = OVER_LIMIT_TEXT;
                 Logger.Log("Resistance Sensor Mode On ------------");
                 isResistanceMode = true;
                 OnResistanceMeasureReadyAction?.Invoke();
@@ -228,81 +229,20 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         _resistanceCheckSeq = DOTween.Sequence();
       
 
-        Logger.Log("프로브 접촉 완료, 저항값 변경중 -----------------------------------------------------");
+        Logger.Log("프로브 접촉 완료, 통전 확인 -----------------------------------------------------");
         var lastUpdateTime = 0f;
 
         _resistanceCheckSeq.AppendInterval(1.2f);
         _resistanceCheckSeq.AppendCallback(() =>
         {
+            TMPDisplay.text = OVER_LIMIT_TEXT;
             Managers.Sound.Play(SoundManager.Sound.Effect, "Audio/Object/beep_01");
         });
-        _resistanceCheckSeq.AppendCallback(() => DOVirtual.Float(0, resistantTarget, 0.9f, val =>
-        {
-            
-           
-            var currentTime = Time.time;
-
-            if (currentTime - lastUpdateTime >= 0.5f)
-            {
-                TMPDisplay.text = (val + Random.Range(0, 1.5f)).ToString("F1");
-                lastUpdateTime = currentTime;
-            }
-        }).SetEase(Ease.InOutBounce));
-
-        _resistanceCheckSeq.AppendCallback(() =>
-        {
-            DOVirtual.Float(resistantTarget, resistantTarget, 3f, _ =>
-            {
-                var currentTime = Time.time;
-
-                if (currentTime - lastUpdateTime >= 0.78f)
-                {
-                    TMPDisplay.text = (resistantTarget + Random.Range(0, 1.5f)).ToString("F1");
-                    lastUpdateTime = currentTime;
-                }
-            }).SetEase(Ease.InOutBounce);
-        });
-
+        
         _resistanceCheckSeq.Play();
     }
 
-    public void OnAllProbeSetOnCurrentMode()
-    {
-        _resistanceCheckSeq?.Kill();
-        _resistanceCheckSeq = DOTween.Sequence();
 
-
-        Logger.Log("프로브 접촉 완료, 전류값 변경중 -----------------------------------------------------");
-        var lastUpdateTime = 0f;
-
-        _resistanceCheckSeq.AppendInterval(1.5f);
-        _resistanceCheckSeq.AppendCallback(() => DOVirtual.Float(0, 4.0f, 0.9f, val =>
-        {
-            var currentTime = Time.time;
-
-            if (currentTime - lastUpdateTime >= 0.5f)
-            {
-                TMPDisplay.text = (val + Random.Range(0, 1.5f)).ToString("F1");
-                lastUpdateTime = currentTime;
-            }
-        }).SetEase(Ease.InOutBounce));
-
-        _resistanceCheckSeq.AppendCallback(() =>
-        {
-            DOVirtual.Float(resistantTarget, 4f, 3f, _ =>
-            {
-                var currentTime = Time.time;
-
-                if (currentTime - lastUpdateTime >= 0.78f)
-                {
-                    TMPDisplay.text = (4 + Random.Range(0, 1.5f)).ToString("F1");
-                    lastUpdateTime = currentTime;
-                }
-            }).SetEase(Ease.InOutBounce);
-        });
-
-        _resistanceCheckSeq.Play();
-    }
 
     public void OnGroundNothing()
     {
@@ -341,7 +281,7 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         _resistanceCheckSeq.AppendInterval(1.5f);
         _resistanceCheckSeq.AppendCallback(() =>
         {
-            DOVirtual.Float(resistantTarget, resistantTarget, 3f, _ => { TMPDisplay.text = "O.L"; })
+            DOVirtual.Float(resistantTarget, resistantTarget, 3f, _ => { TMPDisplay.text = OVER_LIMIT_TEXT; })
                 .SetEase(Ease.InOutBounce);
         });
 

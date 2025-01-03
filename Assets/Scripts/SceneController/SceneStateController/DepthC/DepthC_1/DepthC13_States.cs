@@ -162,8 +162,8 @@ public class DepthC13_State_6 : Base_SceneState
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
-    { _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LimitSwitch);
-        
+    { 
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.LimitSwitch);
         base.OnExit();
     }
 }

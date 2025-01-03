@@ -64,7 +64,8 @@ public class UI_ContentController : UI_Popup
         UI_ToolBox,
         UI_DrverOnly_GaugeSlider,
         UI_CurrentDepth_Mid,
-        ToggleGroup_TopMenuBar
+        ToggleGroup_TopMenuBar,
+        FadeInOutEffect
        
         // ActiveArea,
         // InactiveAreaA,
@@ -216,7 +217,7 @@ public class UI_ContentController : UI_Popup
     public static event Action OnCameraInitBtnClicked;
 
 
-    
+    private Image _contentControllerFadeEffectImage;
     
     /// <summary>
     /// 1. in tutorial, some Ui objs must be shut.they'll be executed in this logic
@@ -237,6 +238,8 @@ public class UI_ContentController : UI_Popup
         if (!base.Init())
             return false;
 
+        
+      
        
         this.gameObject.SetActive(true);
         
@@ -283,7 +286,10 @@ public class UI_ContentController : UI_Popup
 
         OnSensorOverall();
         CheckIfTutorialMode();
-        
+
+        _contentControllerFadeEffectImage = GetObject((int)UI.FadeInOutEffect).GetComponent<Image>();
+        FadeIn(2.25f);
+        if(Managers.UI_Persistent!=null)Managers.UI_Persistent.FadeIn();
         return true;
     }
 
@@ -1412,5 +1418,44 @@ public class UI_ContentController : UI_Popup
         }
     }
     
+    
+    private Sequence _fadeEffectSeq;
+    public void FadeIn(float duration =2.5f)
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
+        
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(1, 0.0001f));
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(0, duration));
+    }
+
+    public void FadeOut(float duration =1.5f)
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
+
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(0, 0.0001f));
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(1, duration));
+    }
+
+    public void FadeOutAndIn()
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
+        
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(1, 1.35f));
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(0, 1.0f));
+        
+    }
+    
+    public void FadeOutAndInForDepth3()
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
+        
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(1, 0.5f));
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(0, 0.7f));
+        
+    }
    
 }
