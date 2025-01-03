@@ -80,6 +80,22 @@ AnimationClip:
       m_RotationOrder: 4
     path: "ObjectsInControl(Highlight,Hover)/LimitSwitch/\uB9AC\uBC0B\uC2A4\uC704\uCE58(\uB808\uBC84\uD615)/Lever/WLCA12-2-Q
       EKF 0 degree arm/Arm/Limitswitch_ArmPivot/Lever_Handle"
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: 23.5969, y: 0.9326, z: -6.707999}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: ObjectsInControl(Highlight,Hover)/ConveyorCube
   m_ScaleCurves: []
   m_FloatCurves:
   - curve:
@@ -455,6 +471,63 @@ AnimationClip:
     attribute: m_LocalPosition.z
     path: "ObjectsInControl(Highlight,Hover)/LimitSwitch/\uB9AC\uBC0B\uC2A4\uC704\uCE58(\uB808\uBC84\uD615)/Lever/WLCA12-2-Q
       EKF 0 degree arm/Arm/Limitswitch_ArmPivot/Lever_Handle"
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 23.5969
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: ObjectsInControl(Highlight,Hover)/ConveyorCube
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.9326
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: ObjectsInControl(Highlight,Hover)/ConveyorCube
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -6.707999
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: ObjectsInControl(Highlight,Hover)/ConveyorCube
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:

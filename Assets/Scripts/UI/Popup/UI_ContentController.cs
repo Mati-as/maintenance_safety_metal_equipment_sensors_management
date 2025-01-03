@@ -97,7 +97,7 @@ public class UI_ContentController : UI_Popup
 
     private readonly TextMeshProUGUI[] texts = new TextMeshProUGUI[Enum.GetValues(typeof(TMPs)).Length];
 
-    private Animator _depth3HideBtnAnimator;
+    private Animator animator_UI_CurrentDepth_Mid;
     private Animator _depthOneTextMoveAnimator;
     private Animator _instructionAnimator;
     private Animator _topMenuAnimator;
@@ -290,6 +290,7 @@ public class UI_ContentController : UI_Popup
         _contentControllerFadeEffectImage = GetObject((int)UI.FadeInOutEffect).GetComponent<Image>();
         FadeIn(1.55f);
         if(Managers.UI_Persistent!=null)Managers.UI_Persistent.FadeIn();
+        SetInstructionShowOrHideStatus(false);
         return true;
     }
 
@@ -464,7 +465,7 @@ public class UI_ContentController : UI_Popup
         _depthOneTextMoveAnimator.enabled = false;
 
 
-        _depth3HideBtnAnimator = GetButton((int)Btns.Btn_ThirdDepthList_Hide).gameObject.GetComponent<Animator>();
+        animator_UI_CurrentDepth_Mid = GetObject((int)UI.UI_CurrentDepth_Mid).gameObject.GetComponent<Animator>();
         BindHoverEventToButton(Btns.Btn_Depth1_Title, OnDepthOneTitleHover, OnDepthOneTitleHoverExit);
         _topMenuAnimator = GetObject((int)UI.UI_Top).gameObject.GetComponent<Animator>();
         _btn_TopMenu_Hide_animator =GetObject((int)UI.UI_Top).GetComponent<Animator>(); 
@@ -937,8 +938,8 @@ public class UI_ContentController : UI_Popup
 
     private IEnumerator ChangeTextWithAnimCo()
     {
-       // _instructionFlipAnimator.SetTrigger(UI_Flip);
-        if (animDelay == null) animDelay = new WaitForSeconds(0.15f);
+        _instructionFlipAnimator.SetTrigger(UI_Flip);
+        if (animDelay == null) animDelay = new WaitForSeconds(0.2f);
         yield return animDelay;
 
         if (Managers.ContentInfo.PlayData.Count ==0)
@@ -1129,16 +1130,16 @@ public class UI_ContentController : UI_Popup
     {
         _isdepth3ListOn = !_isdepth3ListOn;
         
-        _depth3HideBtnAnimator.SetBool(UI_ON,_isdepth3ListOn);
-        GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(_isdepth3ListOn);
+        animator_UI_CurrentDepth_Mid.SetBool(UI_ON,_isdepth3ListOn);
+        GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(true);
     }
     
     private void SetDepthThirdHideBtnStatus(bool isOn)
     {
         _isdepth3ListOn = isOn;
         
-        _depth3HideBtnAnimator.SetBool(UI_ON,isOn);
-        GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(isOn);
+        animator_UI_CurrentDepth_Mid.SetBool(UI_ON,isOn);
+       // GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(isOn);
     }
 
     private bool isOnActiveArea; // 뎁스3내용 Hover시 표출. 표출이후에도 내용범위에 머물러있으면 Hover상태 유지
@@ -1272,6 +1273,8 @@ public class UI_ContentController : UI_Popup
         _isTopMenuOn = !_isTopMenuOn;
         _topMenuAnimator.SetBool(UI_ON, _isTopMenuOn);
         _btn_TopMenu_Hide_animator.SetBool(UI_ON, _isTopMenuOn);
+        
+        if(!_isTopMenuOn)animator_UI_CurrentDepth_Mid.SetBool(UI_ON,false);
 
         Logger.Log($" topMenu Status: {_isTopMenuOn}");
     }

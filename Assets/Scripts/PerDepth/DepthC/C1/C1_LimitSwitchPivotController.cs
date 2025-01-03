@@ -41,8 +41,8 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
         
         InitLamp();
 
-        minZ = transform.position.z-0.020f;
-        maxZ= transform.position.z;
+        minZ = transform.position.z-0.0275f;
+        maxZ= transform.position.z + 0.02f;
     }
     public void OnDrag(PointerEventData eventData)
     {

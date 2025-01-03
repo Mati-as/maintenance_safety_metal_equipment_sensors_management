@@ -158,7 +158,7 @@ public class DepthC43_State_5 : Base_SceneState
             _depthC4SceneController.currentScrewGaugeStatus[key] = 0f;
 
         foreach (var key in _depthC4SceneController.isScrewUnwindMap.Keys.ToList())
-            _depthC4SceneController.isScrewWindMap[key] = false;
+            _depthC4SceneController.isScrewUnwindMap[key] = false;
 
 
     
@@ -179,6 +179,7 @@ public class DepthC43_State_5 : Base_SceneState
         
         base.OnEnter();
         _depthC4SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        _depthC4SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}

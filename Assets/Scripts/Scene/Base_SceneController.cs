@@ -103,8 +103,12 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public virtual void SetMainProperties()
     {
         _mainAnimation = GameObject.FindWithTag("ObjectAnimationController").GetComponent<Animation>();
-        
-        if(Managers.UI.SceneUI ==null) Managers.UI.ShowSceneUI<UI_Persistent>();
+
+        if (Managers.UI.SceneUI == null)
+        {
+            Managers.UI.ShowSceneUI<UI_Persistent>();
+            UI_Persistent.SetStatus(true);
+        }
         
         objectHighlightMap = new Dictionary<int, HighlightEffect>();
         _seqMap = new Dictionary<int, Sequence>();
@@ -145,8 +149,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         PreInitBefreDepthChange();
         
         Logger.Log($"Ondepth3 Btn Clicked() execute. current depth Status ---> {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
-        PlayAnimation(0);
-        ChangeState(0);
+        PlayAnimation(1);
+        ChangeState(1);
     
     }
     
@@ -358,7 +362,10 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             _currentState?.OnExit();
             _currentState = newState;
             _currentState?.OnEnter();
-            _currentState?.OnStep();
+            DOVirtual.DelayedCall(0.123f,()=>
+            {
+                _currentState?.OnStep();
+            });
         }
         else
         {
@@ -510,8 +517,13 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         Assert.IsNotNull(contentController);
 
+        if (Managers.ContentInfo.PlayData.Count == 0)
+        {
+            Logger.Log("OnAniimationCompelete By Clicking Depth3");
+            currentCount = 0;
+        }
 
-        if (count == Managers.ContentInfo.PlayData.Count || Managers.ContentInfo.PlayData.Count == 0)
+        if (count == Managers.ContentInfo.PlayData.Count)
         {
             OnAnimationCompelete?.Invoke(currentCount);
             if (!_isCurrentAnimServe) Managers.Sound.PlayNarration(_narrationStartDelay);

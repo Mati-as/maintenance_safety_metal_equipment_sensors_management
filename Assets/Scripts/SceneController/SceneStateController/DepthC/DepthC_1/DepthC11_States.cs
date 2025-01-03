@@ -480,9 +480,9 @@ public class DepthC11_State_17 : Base_SceneState
 
         
         _depthC1SceneController.contentController.Refresh();
+        _depthC1SceneController.PlayAnimation(1);
         
         base.OnEnter();
-        _depthC1SceneController.PlayAnimation(1);
         
     }
     public override void OnStep(){base.OnStep();}

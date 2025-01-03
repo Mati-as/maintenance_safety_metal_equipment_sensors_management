@@ -402,12 +402,10 @@ public class DepthC1_SceneController : Base_SceneController
         PreCommonInit();
 
         SetDefaultTransform();
-        InitScrews();
         BindInteractionEvent();
         InitProbePos();
-    
-       
         
+        InitScrews();
         SetMultimeterSection();
         SetScrewDriverSection();
         limitSwitchPivotController.InitLimitSwitch();
@@ -426,17 +424,14 @@ public class DepthC1_SceneController : Base_SceneController
                 Logger.Log("MissionComplete limitswitch");
                 OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 3);
             }
-        });
-        
-        
-        GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
-        {
+            
             if (Managers.ContentInfo.PlayData.Count == 11)
             {
                 Logger.Log("MissionComplete limitswitch");
                 OnStepMissionComplete((int)DepthC1_GameObj.LS_Cover, 11);
             }
         });
+
 
         
         InitTransform(DepthC1_GameObj.LS_Cover);

@@ -54,7 +54,7 @@ public class DepthC41_State_1 : Base_SceneState
         CurrentScene.contentController.ShutTrainingIntroAnim();
     
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        
     }
 
     public override void OnStep()
@@ -67,7 +67,7 @@ public class DepthC41_State_1 : Base_SceneState
     {
         
         base.OnExit();
-        CurrentScene.cameraController.isControllable = false;
+
     }
 }
 
@@ -80,18 +80,22 @@ public class DepthC41_State_2 : Base_SceneState
     {
         _depthC4SceneController = currentScene;
     }
-
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthC4_GameObj.FlowSensor);
+    }
 
     public override void OnEnter()
     {
         CurrentScene.contentController.SetScriptUI();
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = false;
+        isCurrentStateCameraControllable = true;
+;
     }
 
     public override void OnStep()
     {
-        
         base.OnStep();
     }
     public override void OnExit(){base.OnExit();}}
@@ -104,15 +108,15 @@ public class DepthC41_State_3 : Base_SceneState
 
     protected override void OnAnimationCompleteHandler(int _)
     {
-        SetLookAt((int)DepthC4_GameObj.FlowSensor);
         base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthC4_GameObj.FlowSensor);
     }
     
     public override void OnEnter()
     { 
         base.OnEnter();
-        CurrentScene.cameraController.isControllable = true;
-        
+        isCurrentStateCameraControllable = true;
+
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -127,13 +131,13 @@ public class DepthC41_State_4 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-  
+        isCurrentStateCameraControllable = true;
     }
 
     public override void OnStep()
     {
         base.OnStep();
-        CurrentScene.cameraController.isControllable = true;
+       
     }
     public override void OnExit(){base.OnExit();}
 }

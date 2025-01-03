@@ -60,17 +60,28 @@ public class CurrentCheckableMultimeterController :UI_Base, IPointerDownHandler,
         get => _currentClickCount;
         set
         {
-
+            if (value > CLICK_COUNT_GOAL) return;
+            
             if (_currentClickCount != value) Managers.Sound.Play(SoundManager.Sound.Effect, "Object/DigitalMeterDial",0.5f);
             
             _currentClickCount = value;
             _currentClickCount = Mathf.Clamp(_currentClickCount, 0, 6);
 
 
+            if (_currentClickCount == 4)
+            {
+                TurnOnCurrentMultimeterModeImage(Multimeter.ResistanceModeSymbol);
+                return;
+            }
+            
+            
             if (_currentClickCount == 0)
                 TMPDisplay.text = "";
+                
+    
             else if (_currentClickCount > 0 && _currentClickCount < 4) TMPDisplay.text = "000.0";
-            if (_currentClickCount >= 6)
+      
+            if (_currentClickCount >= CLICK_COUNT_GOAL)
             {
                 TMPDisplay.text = "O.L";
                 Logger.Log("Resistance Sensor Mode On ------------");

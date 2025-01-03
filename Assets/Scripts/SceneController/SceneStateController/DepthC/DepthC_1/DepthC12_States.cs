@@ -138,15 +138,11 @@ public class DepthC12_State_5 : Base_SceneState
       
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);
         
-                
         _depthC1SceneController.TurnOffAllRegisteredHighlights();
-        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LeverScrew);
-            
-        //_depthC1SceneController.SetCollider(DepthC1_GameObj.LimitSwitch,true);
-        //_depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.Lever_Handle,false);
-
-        
+     
         _depthC1SceneController.SetCollider(DepthC1_GameObj.LimitSwitch,false);
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.LeverScrew);
+
         _depthC1SceneController.cameraController.isControllable = false;
         
         _depthC1SceneController.CurrentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
@@ -439,7 +435,7 @@ public class DepthC12_State_14 : Base_SceneState
         _depthC1SceneController.StopAllCoroutines();
   
 
-        _depthC1SceneController.PlayAnimation(0);
+        _depthC1SceneController.PlayAnimation(1);
        _depthC1SceneController.contentController.OnDepth3BtnClicked(3);
        
 
