@@ -43,6 +43,11 @@ public class DepthC41_State_1 : Base_SceneState
         _depthC4SceneController = currentScene;
     }
     
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthC4_GameObj.FlowSensor);
+    }
 
 
 

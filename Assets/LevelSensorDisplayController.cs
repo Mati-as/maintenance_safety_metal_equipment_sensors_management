@@ -40,7 +40,7 @@ public class LevelSensorDisplayController : UI_Base
         LevelSensor_DisplayLightCm,
     }
 
-    public const float ZERO_ON_ERROR = 0.0f;// only compile-time
+    public const string ZERO_ON_ERROR = "----";// only compile-time
     public const float SP1_DEFAULT_VALUE = 10.0f;// only compile-time
     public const float RP1_VALUE = 9.5f;
     public const string NULL_VALUE = "NULL_VALUE";// only compile-time
