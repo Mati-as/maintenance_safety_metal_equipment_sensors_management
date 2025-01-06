@@ -15,7 +15,32 @@ public enum DepthAGameObj
     TS_CompensatingWire,
     TS_Stabilizer,
     TS_SensingElement,
+    TS_FixingScrew,
     TS_Cover,
+    
+    LookAt_OnPipeAssociatedSensors,
+    LookAt_PressureSensor,
+    LookAtPoint_LevelSensor,
+    LookAt_LimitSwitch,
+    
+    
+    LS_Cover,
+    LS_Roller,
+    LS_Head,
+    
+    PS_Adapter,
+    PS_Housing,
+    PS_SensorParts,
+    PS_AnaloguePart,
+    
+    FS_Adapter,
+    FS_Housing,
+    FS_SensorParts,
+    
+    LvS_Housing,
+    LvS_Display,
+    Lvs_SensorProbe,
+    
 }
 
 
@@ -54,7 +79,8 @@ public class DepthA_SceneController : Base_SceneController
         BindHighlight((int)DepthAGameObj.FlowSensor, "유량 센서");
         BindHighlight((int)DepthAGameObj.PressureSensor, "압력 센서");
         BindHighlight((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
-        BindHighlight((int)DepthAGameObj.TS_Stabilizer, "고정자");
+        BindHighlight((int)DepthAGameObj.TS_Stabilizer, "보상전선");
+        BindHighlight((int)DepthAGameObj.TS_FixingScrew, "고정자");
         BindHighlight((int)DepthAGameObj.TS_SensingElement, "감온부");
         BindHighlight((int)DepthAGameObj.TS_Cover, "덮개");
         
@@ -62,6 +88,71 @@ public class DepthA_SceneController : Base_SceneController
         GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
         contentController.OnDepth2Init( Managers.ContentInfo.PlayData.Depth2); 
         
+    }
+    
+    public void DepthA1Init()
+    {
+        PreCommonInit();
+        UnBindEventAttatchedObj();
+        
+        // 딕셔너리에 추가 및 이벤트 바인딩
+        BindHighlight((int)DepthAGameObj.LimitSwitch, "리밋 스위치");
+        BindHighlight((int)DepthAGameObj.TemperatureSensor, "온도 센서");
+        BindHighlight((int)DepthAGameObj.TemperatureSensor_Whole, "온도 센서");
+        BindHighlight((int)DepthAGameObj.LevelSensor, "레벨 센서");
+        BindHighlight((int)DepthAGameObj.FlowSensor, "유량 센서");
+        BindHighlight((int)DepthAGameObj.PressureSensor, "압력 센서");
+        BindHighlight((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
+        BindHighlight((int)DepthAGameObj.TS_Stabilizer, "보상전선");
+        BindHighlight((int)DepthAGameObj.TS_FixingScrew, "고정자");
+        BindHighlight((int)DepthAGameObj.TS_SensingElement, "감온부");
+        BindHighlight((int)DepthAGameObj.TS_Cover, "덮개");
+        
+        GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
+        GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
+        contentController.OnDepth2Init( Managers.ContentInfo.PlayData.Depth2);
+
+        LateCommonInit();
+    }
+
+
+    public void DepthA2Init()
+    {
+        PreCommonInit();
+        UnBindEventAttatchedObj();
+        
+        BindHighlight((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
+        BindHighlight((int)DepthAGameObj.TS_Stabilizer, "고정자");
+        BindHighlight((int)DepthAGameObj.TS_SensingElement, "감온부");
+        BindHighlight((int)DepthAGameObj.TS_Cover, "덮개");
+        BindHighlight((int)DepthAGameObj.LS_Cover, "롤러");
+        BindHighlight((int)DepthAGameObj.LS_Roller, "롤러");
+        BindHighlight((int)DepthAGameObj.LS_Head, "헤드");
+        BindHighlight((int)DepthAGameObj.PS_SensorParts, "센서부");
+        BindHighlight((int)DepthAGameObj.PS_AnaloguePart, "아날로그 지시부");
+        BindHighlight((int)DepthAGameObj.PS_Housing, "하우징");
+        BindHighlight((int)DepthAGameObj.PS_Adapter, "어댑터");
+        BindHighlight((int)DepthAGameObj.FS_Adapter,"어댑터");
+        BindHighlight((int)DepthAGameObj.FS_Housing,"하우징");
+        BindHighlight((int)DepthAGameObj.FS_SensorParts,"센서부");
+        
+        BindHighlight((int)DepthAGameObj.LvS_Housing,"하우징");
+        BindHighlight((int)DepthAGameObj.LvS_Display,"디지털 디스플레이");
+        BindHighlight((int)DepthAGameObj.Lvs_SensorProbe,"센서 프로브");
+        
+        
+        GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
+        GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
+        contentController.OnDepth2Init( Managers.ContentInfo.PlayData.Depth2);
+
+        LateCommonInit();
+    }
+    private void LateCommonInit()
+    {
+        
+        ClearTool();
+        
+
     }
 
 

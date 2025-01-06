@@ -66,7 +66,7 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int DEPTH1_MAX_COUNT = 5; // 1.개요,2.안전관리,3.정비실습,4.평가하기,5.튜토리얼 순서
     
     public static readonly int COUNT_MAX_DEPTH111 = 10 + 1;
-    public static readonly int COUNT_MAX_DEPTH121 = 6 ;
+    public static readonly int COUNT_MAX_DEPTH121 = 13 + 1 ;
     
     // 최대 State 및 스크립트 갯수 + 1(마지막 상태에서, 애니메이션 재생없이 새로운 뎁스 로드 혹은 초기화진행)
     public static readonly int COUNT_MAX_DEPTH211 = 9 + 1;

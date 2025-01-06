@@ -39,14 +39,11 @@ public class Base_SceneState : ISceneState
 
     public virtual void OnEnter()
     {
-     
- 
         
         //misson수행과 사용자 컨트롤의 구분
         Base_SceneController.OnAnimationCompelete -= OnAnimationCompleteHandler;
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
-   
-        CurrentScene.cameraController.isControllable = false;
+
         isCurrentStateCameraControllable = false;
 
         //평가하기가 아닌경우
@@ -78,18 +75,20 @@ public class Base_SceneState : ISceneState
         CurrentScene.PlayAnimation(CurrentScene.currentCount,isServeAnim: false);
         
         CurrentScene.contentController.isStepMissionComplete = false;
+        CurrentScene.cameraController.isControllable = false;
         Logger.Log($"현재 애니메이션 순서 : 애니메이션 재생{CurrentScene.currentCount}");
 
     }
 
 
+    /// <summary>
+    /// 1.카메라 동작여부
+    ///     - 기본적으로 컨트롤 불가로 설정해 놓았습니다. 사용 시에만 true로 설정하면 됩니다. 
+    /// 2.기타 OnEnter이후에 실행될 기능을 넣어줍니다.  
+    /// </summary>
     public virtual void OnStep()
     {
-        CurrentScene.contentController.isStepMissionComplete = false;
-        CurrentScene.cameraController.isControllable = false;//ui를 끄기위해 STEP에서 반드시 실행
-        
-        // isCurrentStateCameraControllable = CurrentScene.cameraController.isControllable;
-        // CurrentScene.cameraController.isControllable = false;
+       
         Logger.Log($"OnStep현재 카메라 움직임 가능 여부 ------{isCurrentStateCameraControllable}");
     }
 
@@ -127,7 +126,7 @@ public class Base_SceneState : ISceneState
         CurrentScene.cameraController.SetRotationDefault(CurrentScene.GetObject(objToActivate).transform);
         if (isCurrentStateCameraControllable) CurrentScene.cameraController.isControllable = false;
         
-        CurrentScene.cameraController.isControllable = false;
+     
         
         _lookAtSeq?.Kill();
         _lookAtSeq = DOTween.Sequence();

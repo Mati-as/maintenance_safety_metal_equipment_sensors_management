@@ -3,14 +3,17 @@ using System;
 public class DepthA1_State_1 : Base_SceneState
 {
     // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    private DepthA_SceneController _currentAScene;
     public DepthA1_State_1(DepthA_SceneController currentScene) : base(currentScene)
     {
+        _currentAScene = currentScene;
     }
 
     public override void OnEnter()
     {
         CurrentScene.contentController.ShutTrainingIntroAnim();
         base.OnEnter();
+        _currentAScene.DepthA2Init();
     }
 
     public override void OnStep()
@@ -73,10 +76,17 @@ public class DepthA1_State_3 : Base_SceneState
         base.OnEnter();
        
     }
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthAGameObj.LimitSwitch);
+        
+    }
 
     public override void OnStep()
     {
         base.OnStep();
+        isCurrentStateCameraControllable = true;
     }
 
     public override void OnExit()
@@ -94,22 +104,17 @@ public class DepthA1_State_4 : Base_SceneState
     }
     
 
-    protected override void OnAnimationCompleteHandler(int _)
-    {
-        base.OnAnimationCompleteHandler(_);
-        SetLookAt((int)DepthAGameObj.LimitSwitch);
-        
-    }
     public override void OnEnter()
     {
         base.OnEnter();
-        _currentAScene.cameraController.isControllable = true;
+      
     }
 
 
     public override void OnStep()
     {
         base.OnStep();
+        isCurrentStateCameraControllable = true;
     }
 
     public override void OnExit()
@@ -129,7 +134,12 @@ public class DepthA1_State_5 : Base_SceneState
     }
 
  
-
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthAGameObj.LookAt_OnPipeAssociatedSensors);
+        
+    }
 
     public override void OnEnter()
     {
@@ -147,6 +157,7 @@ public class DepthA1_State_5 : Base_SceneState
     public override void OnStep()
     {
         base.OnStep();
+        isCurrentStateCameraControllable = true;
     }
 
     public override void OnExit()
@@ -160,6 +171,12 @@ public class DepthA1_State_6 : Base_SceneState
 {
     public DepthA1_State_6(DepthA_SceneController currentScene) : base(currentScene)
     {
+    }
+    protected override void OnAnimationCompleteHandler(int _)
+    {
+        base.OnAnimationCompleteHandler(_);
+        SetLookAt((int)DepthAGameObj.LookAt_OnPipeAssociatedSensors);
+        
     }
 
     public override void OnEnter()
@@ -178,11 +195,13 @@ public class DepthA1_State_6 : Base_SceneState
 
     public override void OnStep()
     {
+        base.OnStep();
+        isCurrentStateCameraControllable = true;
     }
 
     public override void OnExit()
     {
-        CurrentScene.cameraController.isControllable = false;
+  
         base.OnExit();
         // CurrentScene.cameraController.
         //     SetLookAtAndFollow(null);
@@ -204,6 +223,7 @@ public class DepthA1_State_7 : Base_SceneState
 
     public override void OnStep()
     {
+        isCurrentStateCameraControllable = true;
     }
 
     public override void OnExit()
@@ -298,6 +318,7 @@ public class DepthA1_State_11 : Base_SceneState
         
         
         base.OnEnter();
+        
     }
 
     public override void OnStep()
