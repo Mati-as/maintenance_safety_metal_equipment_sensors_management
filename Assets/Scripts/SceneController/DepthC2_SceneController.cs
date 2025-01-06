@@ -301,9 +301,12 @@ public class DepthC2_SceneController : Base_SceneController
     }
     public static readonly int UNWIND = Animator.StringToHash("Unwind");
 
-    public static readonly int TO_SCREW_A = Animator.StringToHash("ScrewA");
-    public static readonly int TO_SCREW_B = Animator.StringToHash("ScrewB");
-    public static readonly int TO_SCREW_C = Animator.StringToHash("ScrewC");
+    public static readonly int SCREW_A = Animator.StringToHash("ScrewA");
+    public static readonly int SCREW_B = Animator.StringToHash("ScrewB");
+    public static readonly int SCREW_C = Animator.StringToHash("ScrewC");
+    public static readonly int UNSCREW_A = Animator.StringToHash("UnscrewA");
+    public static readonly int UNSCREW_B = Animator.StringToHash("UnscrewB");
+    public static readonly int UNSCREW_C = Animator.StringToHash("UnscrewC");
 
     public static readonly int PROBE_TO_SCREWB = Animator.StringToHash("On");
     public static readonly int MULTIMITER_ON = Animator.StringToHash("On");
@@ -998,7 +1001,7 @@ public class DepthC2_SceneController : Base_SceneController
                     UpdateDriverSliderUnwind((int)DepthC2_GameObj.TS_InnerScrewA);
                 }
                 
-                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_A, true);
+                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(isWindSession? SCREW_A : UNSCREW_A, true);
             }, Define.UIEvent.Pressed);
 
         GetObject((int)DepthC2_GameObj.TS_InnerScrewB)
@@ -1015,7 +1018,7 @@ public class DepthC2_SceneController : Base_SceneController
                     UpdateDriverSliderUnwind((int)DepthC2_GameObj.TS_InnerScrewB);
                 }
                 
-                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, true);
+                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(isWindSession? SCREW_B : UNSCREW_B, true);
             }, Define.UIEvent.Pressed);
 
         GetObject((int)DepthC2_GameObj.TS_InnerScrewC)
@@ -1033,42 +1036,42 @@ public class DepthC2_SceneController : Base_SceneController
                     UpdateDriverSliderUnwind((int)DepthC2_GameObj.TS_InnerScrewC);
                 }
                 
-                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_C, true);
+                animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(isWindSession? SCREW_C : UNSCREW_C, true);
             }, Define.UIEvent.Pressed);
 
 
         GetObject((int)DepthC2_GameObj.TS_InnerScrewA).BindEvent(() =>
         {
             OnScrewClickDown();
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Play(TO_SCREW_A, 0, 0);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Play(isWindSession? SCREW_A : UNSCREW_A, 0, 0);
             animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Update(0);
 
            // animatorMap[(int)DepthC_GameObj.TS_InnerScrewA].SetBool(UNWIND, true);
 
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_A, true);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(isWindSession? SCREW_A : UNSCREW_A, true);
         }, Define.UIEvent.PointerDown);
 
         GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
         {
             OnScrewClickDown();
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Play(TO_SCREW_B, 0, 0);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Play(isWindSession? SCREW_B : UNSCREW_B, 0, 0);
             animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Update(0);
 
             //animatorMap[(int)DepthC_GameObj.TS_InnerScrewB].SetBool(UNWIND, true);
 
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, true);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(isWindSession? SCREW_B : UNSCREW_B, true);
         }, Define.UIEvent.PointerDown);
 
         GetObject((int)DepthC2_GameObj.TS_InnerScrewC).BindEvent(() =>
         {
             OnScrewClickDown();
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Play(TO_SCREW_C, 0, 0);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Play(isWindSession? SCREW_C : UNSCREW_C, 0, 0);
             animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].Update(0);
 
          
          //   animatorMap[(int)DepthC_GameObj.TS_InnerScrewC].SetBool(UNWIND, true);
 
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_C, true);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(isWindSession? SCREW_C : UNSCREW_C, true);
         }, Define.UIEvent.PointerDown);
 
         #endregion
@@ -1078,7 +1081,8 @@ public class DepthC2_SceneController : Base_SceneController
         {
             OnScrewClickUp();
             animatorMap[(int)DepthC2_GameObj.TS_InnerScrewA].enabled = false;
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_A, false);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(UNSCREW_A, false);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(SCREW_A, false);
             animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = false;
         });
 
@@ -1086,7 +1090,8 @@ public class DepthC2_SceneController : Base_SceneController
         {
             OnScrewClickUp();
             animatorMap[(int)DepthC2_GameObj.TS_InnerScrewB].enabled = false;
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_B, false);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(UNSCREW_B, false);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(SCREW_B, false);
             animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = false;
         });
 
@@ -1094,10 +1099,10 @@ public class DepthC2_SceneController : Base_SceneController
         {
             OnScrewClickUp();
             animatorMap[(int)DepthC2_GameObj.TS_InnerScrewC].enabled = false;
-            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(TO_SCREW_C, false);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(UNSCREW_C, false);
+            animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].SetBool(SCREW_C, false);
             animatorMap[(int)DepthC2_GameObj.ElectricScrewdriver].enabled = false;
         });
-
 
 
         GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>

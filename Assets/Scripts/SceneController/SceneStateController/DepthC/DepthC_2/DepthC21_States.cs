@@ -227,6 +227,7 @@ public class DepthC21_State_9 : Base_SceneState
         CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 점검");
         
         CurrentScene.contentController.isStepMissionPerformable = true;
+        _depthC2SceneController.isWindSession = false;
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
         base.OnEnter();
@@ -239,6 +240,7 @@ public class DepthC21_State_9 : Base_SceneState
     public override void OnExit()
     {
         base.OnExit();
+        
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
         CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
         CurrentScene.contentController.isStepMissionPerformable = false;
