@@ -51,11 +51,9 @@ public class Inplay_CameraController : MonoBehaviour
         }
         set
         {
-            if (_isControllable != value)
-            {
-                _isControllable = value;
-            }
-            _sceneController.contentController.SetCamInitBtnStatus(_isControllable);
+       
+            _isControllable = value;
+
         }
     }
 
@@ -72,8 +70,8 @@ public class Inplay_CameraController : MonoBehaviour
         _currentDefaultPosition =cam.position;
         _currentDefaultRotation =cam.localRotation.eulerAngles;
         isControllable = true;
-        Logger.Log($"saved current state default rotation and position :\n rotation : {_currentDefaultPosition}" +
-                   $"position {_currentDefaultPosition}");
+//        Logger.Log($"saved current state default rotation and position :\n rotation : {_currentDefaultPosition}" +
+ //                  $"position {_currentDefaultPosition}");
     }
 
     private Sequence _cameraInitSeq;
@@ -241,8 +239,8 @@ public class Inplay_CameraController : MonoBehaviour
         _currentHorizontalAngle = _horizontalPivotCenter;
         _currentVerticalAngle = _verticalPivotCenter ;
 
-        Logger.Log($"camera Lookat and distance set: obj: {target.gameObject.name}, distance  = {_distanceToTarget}");
-        Logger.Log($"Vertical Angle: {_verticalPivotCenter}, Horizontal Angle: {_horizontalPivotCenter}");
+        // Logger.Log($"camera Lookat and distance set: obj: {target.gameObject.name}, distance  = {_distanceToTarget}");
+        // Logger.Log($"Vertical Angle: {_verticalPivotCenter}, Horizontal Angle: {_horizontalPivotCenter}");
             
         SaveStateDefaultTransform();
         isControllable = true;
@@ -259,6 +257,12 @@ public class Inplay_CameraController : MonoBehaviour
 
     public void UpdateRotation(float updateSpeed = 0.0001f)
     {
+
+        if (_target == null)
+        {
+            Logger.Log($"현재 카메라 업데이트용 타겟 Null.. return");
+            return;
+        }
         // 현재 카메라 회전 상태를 가져와 동기화
         Vector3 currentRotation = transform.rotation.eulerAngles;
         _currentHorizontalAngle = currentRotation.y;

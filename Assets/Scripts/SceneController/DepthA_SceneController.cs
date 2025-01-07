@@ -18,6 +18,8 @@ public enum DepthAGameObj
     TS_FixingScrew,
     TS_Cover,
     
+    
+    LookAt_TS,
     LookAt_OnPipeAssociatedSensors,
     LookAt_PressureSensor,
     LookAtPoint_LevelSensor,
@@ -68,25 +70,12 @@ public class DepthA_SceneController : Base_SceneController
         InitializeStates();
         BindObject(typeof(DepthAGameObj));
 
-        
-       
-        
-        // 딕셔너리에 추가 및 이벤트 바인딩
-        BindHighlight((int)DepthAGameObj.LimitSwitch, "리밋 스위치");
-        BindHighlight((int)DepthAGameObj.TemperatureSensor, "온도 센서");
-        BindHighlight((int)DepthAGameObj.TemperatureSensor_Whole, "온도 센서");
-        BindHighlight((int)DepthAGameObj.LevelSensor, "레벨 센서");
-        BindHighlight((int)DepthAGameObj.FlowSensor, "유량 센서");
-        BindHighlight((int)DepthAGameObj.PressureSensor, "압력 센서");
-        BindHighlight((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
-        BindHighlight((int)DepthAGameObj.TS_Stabilizer, "보상전선");
-        BindHighlight((int)DepthAGameObj.TS_FixingScrew, "고정자");
-        BindHighlight((int)DepthAGameObj.TS_SensingElement, "감온부");
-        BindHighlight((int)DepthAGameObj.TS_Cover, "덮개");
-        
-        GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
-        GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
+
+
+        DepthA1Init();
         contentController.OnDepth2Init( Managers.ContentInfo.PlayData.Depth2); 
+     
+
         
     }
     
@@ -102,16 +91,18 @@ public class DepthA_SceneController : Base_SceneController
         BindHighlight((int)DepthAGameObj.LevelSensor, "레벨 센서");
         BindHighlight((int)DepthAGameObj.FlowSensor, "유량 센서");
         BindHighlight((int)DepthAGameObj.PressureSensor, "압력 센서");
-        BindHighlight((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
-        BindHighlight((int)DepthAGameObj.TS_Stabilizer, "보상전선");
-        BindHighlight((int)DepthAGameObj.TS_FixingScrew, "고정자");
-        BindHighlight((int)DepthAGameObj.TS_SensingElement, "감온부");
-        BindHighlight((int)DepthAGameObj.TS_Cover, "덮개");
         
+        
+        SetHighlightIgnore((int)DepthAGameObj.LimitSwitch,false);
+        SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor,false);
+        SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor_Whole,false);
+        SetHighlightIgnore((int)DepthAGameObj.LevelSensor,false);
+        SetHighlightIgnore((int)DepthAGameObj.FlowSensor,false);
+        SetHighlightIgnore((int)DepthAGameObj.PressureSensor,false);
+
         GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
         GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
-        contentController.OnDepth2Init( Managers.ContentInfo.PlayData.Depth2);
-
+   
         LateCommonInit();
     }
 
@@ -122,8 +113,10 @@ public class DepthA_SceneController : Base_SceneController
         UnBindEventAttatchedObj();
         
         BindHighlight((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
-        BindHighlight((int)DepthAGameObj.TS_Stabilizer, "고정자");
+        BindHighlight((int)DepthAGameObj.TS_Stabilizer, "보상전선");
         BindHighlight((int)DepthAGameObj.TS_SensingElement, "감온부");
+        BindHighlight((int)DepthAGameObj.TS_FixingScrew, "고정자");
+        
         BindHighlight((int)DepthAGameObj.TS_Cover, "덮개");
         BindHighlight((int)DepthAGameObj.LS_Cover, "롤러");
         BindHighlight((int)DepthAGameObj.LS_Roller, "롤러");
@@ -141,9 +134,9 @@ public class DepthA_SceneController : Base_SceneController
         BindHighlight((int)DepthAGameObj.Lvs_SensorProbe,"센서 프로브");
         
         
-        GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(true);
-        GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(false);
-        contentController.OnDepth2Init( Managers.ContentInfo.PlayData.Depth2);
+        GetObject((int)DepthAGameObj.TemperatureSensor_Whole).SetActive(false);
+        GetObject((int)DepthAGameObj.TemperatureSensor).SetActive(true);
+      
 
         LateCommonInit();
     }

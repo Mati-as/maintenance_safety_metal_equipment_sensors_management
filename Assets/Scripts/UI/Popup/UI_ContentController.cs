@@ -555,6 +555,7 @@ public class UI_ContentController : UI_Popup
     public void SetCamInitBtnStatus(bool isOn =true)
     {
         GetButton((int)Btns.Btn_CameraInit).gameObject.SetActive(isOn);
+        Logger.Log($"카메라 초기화 버튼 활성화?:----- {isOn}");
     }
 
     public void HideCamInitBtn()

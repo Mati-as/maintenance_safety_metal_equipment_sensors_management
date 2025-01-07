@@ -64,8 +64,6 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         BindEvent();
         SetMainProperties();
-        
-
     }
     
     public Dictionary<int, Animator> animatorMap;
@@ -162,11 +160,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     private void PreInitBefreDepthChange()
     {
+        
         isReverseAnim = false;
+        ExitCurrentState();
+        
         _currentPlayingCount = -321; // 반드시 초기화 애니메이션을 실행시키기 위해 다음과같이 설정
         Managers.ContentInfo.PlayData.Count = 0;
       //  ClearTool();
-        ExitCurrentState();
+     
   
 
     }
@@ -195,8 +196,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         PreInitBefreDepthChange();
         PlayAnimation(1);
-        
-     
+
+        contentController.HideCamInitBtn(); 
     }
     protected IEnumerator OnSceneStartCo()
     {
@@ -311,6 +312,11 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         yield return new WaitForSeconds(waitforSec);
         ChangeState(animCount);
+    }
+
+    public bool CheckIfAnimationPlaying()
+    {
+        return _mainAnimation.isPlaying;
     }
 
     // private void FixedUpdate()
@@ -585,13 +591,15 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     public void BlinkHighlight(int gameObj, float startDelay = 1f)
     {
-       // Logger.Log($"Highlight 로직 재생중 {(DepthC2_GameObj)gameObj}");
+        objectHighlightMap[(int)gameObj].enabled = true;
+        objectHighlightMap[(int)gameObj].highlighted= true;
+        
+        ;
         _seqMap.TryAdd(gameObj, null);
         _seqMap[gameObj]?.Kill();
         _seqMap[gameObj]= DOTween.Sequence();
         
-        objectHighlightMap[(int)gameObj].enabled = true;
-        objectHighlightMap[(int)gameObj].highlighted= true;
+       
         
         objectHighlightMap[(int)gameObj].innerGlow = 0;
         objectHighlightMap[(int)gameObj].outlineWidth = 0;
@@ -606,7 +614,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         _seqMap[gameObj].AppendInterval(startDelay);
         _seqMap[gameObj].AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = true; });
-
+        
         var loopCount = 12;
         for (var i = 0; i < loopCount; i++)
         {
@@ -629,7 +637,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         }
 
         _seqMap[gameObj].AppendCallback(() => { objectHighlightMap[(int)gameObj].highlighted = false; });
-
+        _seqMap[gameObj].SetAutoKill(false);
         _seqMap[gameObj].OnKill(() =>
         {
             objectHighlightMap[(int)gameObj].highlighted = false;
