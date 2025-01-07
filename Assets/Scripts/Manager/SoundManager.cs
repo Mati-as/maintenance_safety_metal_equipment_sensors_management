@@ -185,19 +185,13 @@ public class SoundManager : MonoBehaviour
         {
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Narration])
             {
-
-              //  Debug.Log("Currently Bgm is on Mute");
-
+                
                 return false;
             }
             var audioClip = GetAudioClip(path);
             if (audioClip == null)
             {
-
-                //Debug.Log($"narration clip is null{path}");
-
                 return false;
-                
             }
             
 

@@ -30,6 +30,7 @@ public enum Btns
     //Btn_Evaluation,
     Btn_ToolBox,
     Btn_Guidebook,
+    Btn_TrainingInfo_Confirm,
 
     //  UI_Depth3_List, // Active Area
     Depth3_A,
@@ -37,7 +38,14 @@ public enum Btns
     Depth3_C,
     Depth3_D,
     Depth3_E,
+    
 }
+
+/// <summary>
+/// 1.훈련화면상 UI와 메인화면등 기타 UI를 구분하기 위한 클래스입니다.
+/// 2.훈련 진행에 필요한 UI를 총괄합니다.
+/// 3 크게 사용자입력처리 및 훈련상태를 담당합니다.
+/// </summary>
 public class UI_ContentController : UI_Popup
 {
 
@@ -62,16 +70,12 @@ public class UI_ContentController : UI_Popup
         UI_Depth3_List,
         UI_ToolTip,
         UI_ToolBox,
+        UI_Checklist,
+        
         UI_DrverOnly_GaugeSlider,
         UI_CurrentDepth_Mid,
         ToggleGroup_TopMenuBar,
         FadeInOutEffect
-       
-        // ActiveArea,
-        // InactiveAreaA,
-       // InactiveAreaB,
-        //InactiveAreaC,
-        //InactiveAreaD
     }
 
 
@@ -229,9 +233,6 @@ public class UI_ContentController : UI_Popup
         GetButton((int)Btns.Btn_TopMenu_Hide).gameObject.SetActive(!isTutorial);
         GetButton((int)Btns.Btn_Guidebook).gameObject.SetActive(!isTutorial);
     }
-
-
-    
     
     public override bool Init()
     {
@@ -255,8 +256,7 @@ public class UI_ContentController : UI_Popup
 #endif 
 
         _currentMainCam =Camera.main.GetComponent<Inplay_CameraController>();
-
-
+        
         
         BindUIElements();
         InitTopMenu();
@@ -290,7 +290,8 @@ public class UI_ContentController : UI_Popup
         _contentControllerFadeEffectImage = GetObject((int)UI.FadeInOutEffect).GetComponent<Image>();
         FadeIn(1.55f);
         if(Managers.UI_Persistent!=null)Managers.UI_Persistent.FadeIn();
-        SetInstructionShowOrHideStatus(false);
+        
+        SetInstructionShowOrHideStatus(true);
         return true;
     }
 
@@ -674,18 +675,63 @@ public class UI_ContentController : UI_Popup
         
         //prev next depth3 refresh----------------------------------------------
         var currentDepth2 = Managers.ContentInfo.PlayData.Depth2;
+        
         var prevDepth2 = currentDepth2 - 1;
+        var processedPrevDepth2 = int.Parse(depth1 + "00" + prevDepth2 + "0");
+        
         var nextDepth2 = currentDepth2 + 1;
-        var processednextDepth3 = int.Parse(depth1 + "00" + nextDepth2 + "0");
-        if (prevDepth2 > 0)
-            GetTMP((int)TMPs.Text_PrevDepth2).text =
-                Managers.Data.Texts[int.Parse(depth1 + "00" + prevDepth2 + "0")].kor;
-        else GetTMP((int)TMPs.Text_PrevDepth2).text = string.Empty;
-        if (Managers.Data.Texts.ContainsKey(processednextDepth3))
-            GetTMP((int)TMPs.Text_NextDepth2).text = Managers.Data.Texts[processednextDepth3].kor;
-        else
-            GetTMP((int)TMPs.Text_NextDepth2).text = string.Empty;
+        var processedNextDepth2 = int.Parse(depth1 + "00" + currentDepth2 + "0");
 
+        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.SensorOverview)
+        {
+            if (Managers.ContentInfo.PlayData.Depth2 == ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.SensorOverview])
+            {
+                if(Managers.Data.Texts.ContainsKey(processedPrevDepth2)) GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[processedPrevDepth2].kor;
+                if(Managers.Data.Texts.ContainsKey(20010)) GetTMP((int)TMPs.Text_PrevDepth2).text =Managers.Data.Texts[20010].kor;
+            }
+            else
+            {
+              
+                if(Managers.Data.Texts.ContainsKey(processedPrevDepth2)) GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[processedPrevDepth2].kor;
+                if(Managers.Data.Texts.ContainsKey(nextDepth2)) GetTMP((int)TMPs.Text_PrevDepth2).text =Managers.Data.Texts[nextDepth2].kor;
+            }
+            
+        }
+        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Safety)
+        {
+            
+            if (Managers.ContentInfo.PlayData.Depth2 == ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.Safety])
+            {
+                if(Managers.Data.Texts.ContainsKey(processedPrevDepth2)) GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[processedPrevDepth2].kor;
+                if(Managers.Data.Texts.ContainsKey(30010)) GetTMP((int)TMPs.Text_PrevDepth2).text =Managers.Data.Texts[30010].kor;
+            }
+            else
+            {
+                if(Managers.Data.Texts.ContainsKey(processedPrevDepth2))  GetTMP((int)TMPs.Text_PrevDepth2).text =
+                    Managers.Data.Texts[processedPrevDepth2].kor;
+                if(Managers.Data.Texts.ContainsKey(nextDepth2)) GetTMP((int)TMPs.Text_PrevDepth2).text =
+                    Managers.Data.Texts[nextDepth2].kor;
+            }
+        }
+        
+        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.MaintenancePractice)
+        {
+            if (Managers.ContentInfo.PlayData.Depth2 == ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.MaintenancePractice])
+            {
+                if(Managers.Data.Texts.ContainsKey(processedPrevDepth2)) GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[processedPrevDepth2].kor;
+                GetTMP((int)TMPs.Text_PrevDepth2).text = string.Empty; //평가하기?
+            }
+            else
+            {
+                if(Managers.Data.Texts.ContainsKey(processedPrevDepth2))  GetTMP((int)TMPs.Text_PrevDepth2).text =
+                    Managers.Data.Texts[processedPrevDepth2].kor;
+                if(Managers.Data.Texts.ContainsKey(nextDepth2)) GetTMP((int)TMPs.Text_PrevDepth2).text =
+                    Managers.Data.Texts[nextDepth2].kor;
+            }
+        }
+          
+
+     
 
         
 
@@ -730,6 +776,14 @@ public class UI_ContentController : UI_Popup
         }
     }
     
+    public UI_Checklist uiChecklist
+    {
+        get
+        {
+            return GetObject((int)UI.UI_Checklist).GetComponent<UI_Checklist>();
+        }
+    }
+    
     private void SetBtns()
     {
         GetButton((int)Btns.Btn_Prev).gameObject.BindEvent(OnPrevBtnClicked);
@@ -751,6 +805,13 @@ public class UI_ContentController : UI_Popup
         {
             LoadStep(Managers.ContentInfo.PlayData.Depth2 + 1);
         });
+        
+        GetButton((int)Btns. Btn_TrainingInfo_Confirm).gameObject.BindEvent(() =>
+        {
+            ShutTrainingIntroAnim();
+            SetInstructionShowOrHideStatus();
+        });
+       
     }
 
 
@@ -1198,7 +1259,7 @@ public class UI_ContentController : UI_Popup
         Refresh();
         ChangeInstructionText();
         
-        SetInstructionShowOrHideStatus(false);
+        SetInstructionShowOrHideStatus(true);
         OnDepth3ClickedAction?.Invoke();
         
         
@@ -1380,33 +1441,54 @@ public class UI_ContentController : UI_Popup
         //뎁스3(실습) 부분은 센서별로 별도로 씬구성하기에 조건문으로 구분.
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.MaintenancePractice)
         {
+            
+            if (depth2ToLoad <= 0)
+            {
+                Managers.Scene.LoadScene(SceneType.DepthB);
+            }
+            
+            
             if (Managers.ContentInfo.PlayData.Depth2 <= 5 && Managers.ContentInfo.PlayData.Depth2 >= 1)
             {
                 SceneManager.LoadScene("DepthC" + Managers.ContentInfo.PlayData.Depth2.ToString());
             }
             else
             {
-                Logger.Log("정비부분 씬이동불가. 미구현부분 혹은 처음, 끝 뎁스입니다.");
+                Logger.Log("학습 제일 끝부분입니다.");
                 return;
             }
         }
         else  //뎁스3 이외 나머지 부분의 로직.
         {
-            if (ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[Managers.ContentInfo.PlayData.Depth1] >= depth2ToLoad)
+
+            if (Managers.ContentInfo.PlayData.Depth1 ==  (int)Define.Depth.SensorOverview)
             {
-                Managers.ContentInfo.PlayData.Depth2 = depth2ToLoad;
+                if (depth2ToLoad > ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.SensorOverview])
+                {
+                    Managers.Scene.LoadScene(SceneType.DepthB);
+                }
+                
+                if (depth2ToLoad < 1)
+                {
+                    Logger.Log("학습 최초화면 입니다. Do nothing..");
+                }
             }
-            else if(ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[Managers.ContentInfo.PlayData.Depth1] < depth2ToLoad)
+            
+            
+            if (Managers.ContentInfo.PlayData.Depth1 ==  (int)Define.Depth.Safety)
             {
-                Managers.ContentInfo.PlayData.Depth2 = depth2ToLoad;
+                if (depth2ToLoad > ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.Safety])
+                {
+                    Managers.Scene.LoadScene(SceneType.DepthC1);
+                }
+                
+                if (depth2ToLoad < 1)
+                {
+                    Managers.Scene.LoadScene(SceneType.DepthA);
+                }
             }
-            else if(depth2ToLoad <= 0
-                    && Managers.ContentInfo.PlayData.Depth1 != 1
-                    && Managers.ContentInfo.PlayData.Depth1 != 4)
-            {
-                Managers.ContentInfo.PlayData.Depth1--;
-                Managers.ContentInfo.PlayData.Depth2 = 1;
-            }
+            
+            
 
             
             Managers.ContentInfo.PlayData.Depth3 = 1;
@@ -1415,7 +1497,7 @@ public class UI_ContentController : UI_Popup
             if (Managers.ContentInfo.PlayData.Depth3 != 1)
             {
                 ShutTrainingIntroAnim();
-                if(_hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
+              //  if(_hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
             }
             OnDepth2ClickedAction?.Invoke();
             Refresh();

@@ -144,7 +144,7 @@ public class Base_SceneState : ISceneState
             return;
         }
         
-        CurrentScene.cameraController.SetRotationDefault(CurrentScene.GetObject(objToActivate).transform);
+       CurrentScene.cameraController.SetRotationDefault(CurrentScene.GetObject(objToActivate).transform);
      
      
         if (_lookAtSeq == null || !_lookAtSeq.IsActive() || !_lookAtSeq.IsPlaying())
