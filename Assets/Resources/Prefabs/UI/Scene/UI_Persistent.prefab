@@ -896,6 +896,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280616183652097043, guid: 1bec3aef72b462647bddf70b725b1818,
         type: 3}
+      propertyPath: m_Text
+      value: "\uC885\uB8CC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280616183652097043, guid: 1bec3aef72b462647bddf70b725b1818,
+        type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 28
       objectReference: {fileID: 0}

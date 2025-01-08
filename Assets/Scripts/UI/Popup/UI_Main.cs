@@ -60,7 +60,7 @@ public class UI_Main : UI_Popup
         {
             Managers.UI.ClosePopupUI();
             Managers.UI.ShowPopupUI<UI_Tutorial>();
-            Managers.isTutorialAlreadyPlayed = true;
+           
         }
         else
         {

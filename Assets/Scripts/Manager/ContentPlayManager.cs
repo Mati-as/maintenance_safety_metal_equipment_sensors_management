@@ -15,7 +15,7 @@ public class ContentPlayData : MonoBehaviour
         { 2, 3 },
         { 3, 5 }, 
         { 4, 5 }, 
-        { 5, 0 }, // 5는 조작법안내화면, 토글 없음 
+        { 5, 1 }, // 5는 조작법안내화면, 토글 없음 
    
     };
     public static Dictionary<int, int> DEPTH_THREE_COUNT_DATA = new Dictionary<int, int>
@@ -39,7 +39,7 @@ public class ContentPlayData : MonoBehaviour
         { 44, 1 },
         { 45, 1 },
         
-        { 51, 0 }
+        { 51, 1 }
     };
 
     public enum CurrentDepthData
@@ -102,13 +102,13 @@ public class ContentPlayData : MonoBehaviour
     public static readonly int COUNT_MAX_DEPTH352 = 9 + 1;
     public static readonly int COUNT_MAX_DEPTH353 = 26 + 1;
    
-    public static readonly int COUNT_MAX_DEPTH401 = 12 + 1;
-    public static readonly int COUNT_MAX_DEPTH402 = 12 + 1;
-    public static readonly int COUNT_MAX_DEPTH403 = 12 + 1;
-    public static readonly int COUNT_MAX_DEPTH404 = 12 + 1;
-    public static readonly int COUNT_MAX_DEPTH405 = 12 + 1;
+    public static readonly int COUNT_MAX_DEPTH411 = 12 + 1;
+    public static readonly int COUNT_MAX_DEPTH421 = 12 + 1;
+    public static readonly int COUNT_MAX_DEPTH431 = 12 + 1;
+    public static readonly int COUNT_MAX_DEPTH441 = 12 + 1;
+    public static readonly int COUNT_MAX_DEPTH451 = 12 + 1;
     
-    public static readonly int COUNT_MAX_DEPTH501 = 8 + 1;
+    public static readonly int COUNT_MAX_DEPTH511 = 7 + 1;
     
     private static readonly Dictionary<string, int> DepthCountMaxDictionary = new Dictionary<string, int>
     {
@@ -150,13 +150,13 @@ public class ContentPlayData : MonoBehaviour
         { "353", COUNT_MAX_DEPTH353 },
     
         /////////////////////////////////////
-        { "411", COUNT_MAX_DEPTH401 },
-        { "421", COUNT_MAX_DEPTH402 },
-        { "431", COUNT_MAX_DEPTH403 },
-        { "441", COUNT_MAX_DEPTH404 },
-        { "451", COUNT_MAX_DEPTH405 },
+        { "411", COUNT_MAX_DEPTH411 },
+        { "421", COUNT_MAX_DEPTH421 },
+        { "431", COUNT_MAX_DEPTH431 },
+        { "441", COUNT_MAX_DEPTH441 },
+        { "451", COUNT_MAX_DEPTH451 },
         
-        { "511", COUNT_MAX_DEPTH501 },
+        { "511", COUNT_MAX_DEPTH511 },
 
         
         // ... 추가 DEPTH 값들

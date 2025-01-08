@@ -54,7 +54,8 @@ public class UI_Loading : UI_Popup
 
                 Managers.UI_Persistent.PlayIntroAndShowAnimOnMainUI();
 
-                Managers.Sound.Play(SoundManager.Sound.Bgm, "Bgm");
+                //Bgm 삭제 01/08/25
+                //Managers.Sound.Play(SoundManager.Sound.Bgm, "Bgm");
             });
     }
 }

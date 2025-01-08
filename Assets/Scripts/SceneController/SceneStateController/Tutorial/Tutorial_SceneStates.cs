@@ -17,6 +17,7 @@ public class Tutorial_State_1 : Base_SceneState
       
         base.OnEnter();
         tutorialSceneController.contentController.HideToolBoxBtn();
+       // Managers.isTutorialAlreadyPlayed = true;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit() {base.OnExit();}
@@ -32,7 +33,7 @@ public class Tutorial_State_2 : Base_SceneState
     protected override void OnAnimationCompleteHandler(int _)
     {
         base.OnAnimationCompleteHandler(_);
-        SetLookAt((int)DepthC2_GameObj.TemperatureSensor);
+        SetLookAt((int)DepthC2_GameObj.TS_Stabilizer);
     }
     
     public override void OnEnter()
@@ -163,7 +164,8 @@ public class Tutorial_State_6 : Base_SceneState
 
     public override void OnEnter()
     {
-        
+        CurrentScene.contentController.ShowToolBoxAndGuideBookBtn();
+        CurrentScene.contentController.uiToolBox.SetToolBox(true);
         DOVirtual.DelayedCall(3, () => { CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_Next); });
         base.OnEnter();
         tutorialSceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
@@ -187,12 +189,12 @@ public class Tutorial_State_7 : Base_SceneState
 
     public override void OnEnter()
     {
+        tutorialSceneController.contentController.uiToolBox.SetToolBox(false);
         tutorialSceneController.multimeterController.SetMeasureGuideStatus(false);
         tutorialSceneController.isMultimeterOn = true;
         tutorialSceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
-        tutorialSceneController.multimeterController.currentClickCount = 3;
         
-        tutorialSceneController.multimeterController.SetToResistanceModeAndRotation();
+        tutorialSceneController.multimeterController.SetToDefaultMode();
         tutorialSceneController.GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
         tutorialSceneController.GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
 
@@ -227,7 +229,12 @@ public class Tutorial_State_8 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_Next);
+           
+        DOVirtual.DelayedCall(1.5f,()=>
+        {
+            Managers.UI.ShowPopupUI<UI_OnEndTutorialConfirmation>();
+        });
+        //CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_Next);
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit() {base.OnExit();}
@@ -244,9 +251,9 @@ public class Tutorial_State_9 : Base_SceneState
 
     public override void OnEnter()
     {
-        Managers.isTutorialAlreadyPlayed = true;
-        tutorialSceneController.contentController.gameObject.SetActive(false);
-        Managers.Scene.LoadScene(SceneType.Main);
+        
+    
+       
   
     }
     public override void OnStep(){base.OnStep();}

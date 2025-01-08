@@ -125,12 +125,9 @@ public class Base_SceneState : ISceneState
        
        CurrentScene.contentController.StopBtnUIBlink();
        CurrentScene.contentController.uiToolBox.Refresh();
+       CurrentScene.contentController.EmptyInstructionTextBox();
 
         
-       
-       CurrentScene.contentController.ShutTrainingIntroAnim();
-        
-       
 
     }
     

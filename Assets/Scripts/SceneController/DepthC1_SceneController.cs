@@ -271,7 +271,7 @@ public class DepthC1_SceneController : Base_SceneController
     }
     public override void Init()
     {
-        if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") 
+       // if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") 
             SetDepthNum(); //개발용
 
         base.Init();

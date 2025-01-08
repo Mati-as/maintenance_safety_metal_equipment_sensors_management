@@ -85,7 +85,8 @@ public class DepthC51_State_3 : Base_SceneState
         
         base.OnAnimationCompleteHandler(_);
         SetLookAt((int)DepthC5_GameObj.LookAtPoint_LevelSensor);
-        
+        isCurrentStateCameraControllable = true;
+
     }
 
     public DepthC51_State_3(DepthC5_SceneController currentScene) : base(currentScene) {_depthC5SceneController = currentScene;}
@@ -93,7 +94,7 @@ public class DepthC51_State_3 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        _depthC5SceneController.cameraController.isControllable = true;
+    
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -102,14 +103,19 @@ public class DepthC51_State_3 : Base_SceneState
 public class DepthC51_State_4 : Base_SceneState
 {
     private readonly DepthC5_SceneController _depthC5SceneController;
-    public DepthC51_State_4(DepthC5_SceneController currentScene) : base(currentScene) {_depthC5SceneController = currentScene;}
+
+    public DepthC51_State_4(DepthC5_SceneController currentScene) : base(currentScene)
+    {
+        _depthC5SceneController = currentScene;
+        isCurrentStateCameraControllable = true;
+    }
 
 
 
     public override void OnEnter()
     {
         base.OnEnter();
-        _depthC5SceneController.cameraController.isControllable = false;
+       
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -177,37 +183,38 @@ public class DepthC51_State_7 : Base_SceneState
     public DepthC51_State_7(DepthC5_SceneController currentScene) : base(currentScene)
     {
         _depthC5SceneController = currentScene;
+        
     }
 
     public override void OnEnter()
     {
         base.OnEnter();
-               
-      
-        
+
+
+
         _depthC5SceneController.isWindSession = false;
-        
+
         foreach (var key in _depthC5SceneController.currentScrewGaugeStatus.Keys.ToList())
             _depthC5SceneController.currentScrewGaugeStatus[key] = 0f;
 
         foreach (var key in _depthC5SceneController.isScrewUnwindMap.Keys.ToList())
             _depthC5SceneController.isScrewUnwindMap[key] = false;
-        
-        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.ConnectionScrewB,false);
+
+        _depthC5SceneController.SetHighlightIgnore((int)DepthC5_GameObj.ConnectionScrewB, false);
         _depthC5SceneController.BlinkHighlight((int)DepthC5_GameObj.ConnectionScrewB);
 
-    
+
         _depthC5SceneController.TurnOnCollidersAndInit();
-        
-        
+
+
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].enabled = true;
-        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].SetBool(DepthC2_SceneController.UNWIND,false);
+        _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB]
+            .SetBool(DepthC2_SceneController.UNWIND, false);
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Play($"UnScrew", 0, 0);
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].Update(0);
         _depthC5SceneController.animatorMap[(int)DepthC5_GameObj.ConnectionScrewB].enabled = false;
-   
-        CurrentScene.cameraController.isControllable = false;
     }
+
 
     public override void OnStep()
     {
@@ -263,7 +270,7 @@ public class DepthC51_State_8 : Base_SceneState
         _depthC5SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
 
 
-        CurrentScene.cameraController.isControllable = false;
+        
     }
     public override void OnStep(){base.OnStep();}
 

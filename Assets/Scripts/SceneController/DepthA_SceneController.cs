@@ -112,19 +112,31 @@ public class DepthA_SceneController : Base_SceneController
         PreCommonInit();
         UnBindEventAttatchedObj();
         
+        
+        BindHighlight((int)DepthAGameObj.LimitSwitch, "리밋 스위치");
+        BindHighlight((int)DepthAGameObj.TemperatureSensor, "온도 센서");
+        BindHighlight((int)DepthAGameObj.TemperatureSensor_Whole, "온도 센서");
+        BindHighlight((int)DepthAGameObj.LevelSensor, "레벨 센서");
+        BindHighlight((int)DepthAGameObj.FlowSensor, "유량 센서");
+        BindHighlight((int)DepthAGameObj.PressureSensor, "압력 센서");
+
+        
         BindHighlight((int)DepthAGameObj.TS_CompensatingWire, "보상전선");
         BindHighlight((int)DepthAGameObj.TS_Stabilizer, "보상전선");
         BindHighlight((int)DepthAGameObj.TS_SensingElement, "감온부");
         BindHighlight((int)DepthAGameObj.TS_FixingScrew, "고정자");
-        
         BindHighlight((int)DepthAGameObj.TS_Cover, "덮개");
-        BindHighlight((int)DepthAGameObj.LS_Cover, "롤러");
+        
+        
+        BindHighlight((int)DepthAGameObj.LS_Cover, "덮개");
         BindHighlight((int)DepthAGameObj.LS_Roller, "롤러");
         BindHighlight((int)DepthAGameObj.LS_Head, "헤드");
+        
         BindHighlight((int)DepthAGameObj.PS_SensorParts, "센서부");
         BindHighlight((int)DepthAGameObj.PS_AnaloguePart, "아날로그 지시부");
         BindHighlight((int)DepthAGameObj.PS_Housing, "하우징");
         BindHighlight((int)DepthAGameObj.PS_Adapter, "어댑터");
+        
         BindHighlight((int)DepthAGameObj.FS_Adapter,"어댑터");
         BindHighlight((int)DepthAGameObj.FS_Housing,"하우징");
         BindHighlight((int)DepthAGameObj.FS_SensorParts,"센서부");
@@ -156,13 +168,13 @@ public class DepthA_SceneController : Base_SceneController
     /// </summary>
     private void Dev_SetDepthNum()
     {
-        if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000")
-        {
+     //   if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000")
+     //   {
             Managers.ContentInfo.PlayData.Depth1 = 1;
             Managers.ContentInfo.PlayData.Depth2 = 1;
             Managers.ContentInfo.PlayData.Depth3 = 1;
             Managers.ContentInfo.PlayData.Count = 1;
-        }
+       // }
  
     }
     
@@ -185,8 +197,8 @@ public class DepthA_SceneController : Base_SceneController
             { 1117, new DepthA1_State_7(this) },
             { 1118, new DepthA1_State_8(this) },
             { 1119, new DepthA1_State_9(this) },
-            { 11110, new DepthA1_State_10(this) },
-            { 11111, new DepthA1_State_11(this) },
+            // { 11110, new DepthA1_State_10(this) },
+            // { 11111, new DepthA1_State_11(this) },
 
             
             { 1211, new DepthA2_State_1(this) },

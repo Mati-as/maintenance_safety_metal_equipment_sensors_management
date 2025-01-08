@@ -10,7 +10,7 @@ public class UI_Exit : UI_Popup
         Btn_Confirmation_Yes,
         Btn_Confirmation_No,
  
-        // Btn_Close
+         Btn_Close
     }
 
     public enum TMPs
@@ -49,6 +49,11 @@ public class UI_Exit : UI_Popup
         GetButton((int)Btns.Btn_Confirmation_No).gameObject.BindEvent(() =>
         {
            Managers.UI.ClosePopupUI(this);
+        });
+        
+        GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
+        {
+            Managers.UI.ClosePopupUI(this);
         });
         
         return true;

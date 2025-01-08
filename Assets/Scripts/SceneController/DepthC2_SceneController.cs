@@ -354,7 +354,7 @@ public class DepthC2_SceneController : Base_SceneController
     // ReSharper disable Unity.PerformanceAnalysis
     public override void Init()
     {
-        if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") SetDepthNum(); //개발용
+        SetDepthNum(); //개발용
 
         base.Init();
         BindObject(typeof(DepthC2_GameObj));

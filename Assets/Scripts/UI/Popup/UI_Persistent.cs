@@ -163,9 +163,9 @@ public class UI_Persistent : UI_Scene
 
     private void OnMainBtnClicked()
     {
-        Managers.UI.CloseAllPopupUI();
-        Managers.Scene.LoadScene(SceneType.Main);
-        //if (Managers.UI.SceneUI<UI_Persistent>() == null) Managers.UI.ShowSceneUI<UI_Persistent>();
+
+        Managers.UI.ShowPopupUI<UI_MainConfirmation>();
+       
     }
 
     private void OnHelpBtnClicked()

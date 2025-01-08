@@ -144,7 +144,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
     public virtual void OnDepth3Clicked()
     {
-        PreInitBefreDepthChange();
+        PreCommonInitBefreDepthChange();
         
         Logger.Log($"Ondepth3 Btn Clicked() execute. current depth Status ---> {Managers.ContentInfo.PlayData.CurrentDepthStatus}");
         PlayAnimation(1);
@@ -158,9 +158,10 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     }
 
 
-    private void PreInitBefreDepthChange()
+    private void PreCommonInitBefreDepthChange()
     {
-        
+
+        cameraController.isControllable = false;
         isReverseAnim = false;
         ExitCurrentState();
         
@@ -194,7 +195,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     
     protected virtual void OnDepth2ClickedAction()
     {
-        PreInitBefreDepthChange();
+        PreCommonInitBefreDepthChange();
         PlayAnimation(1);
 
         contentController.HideCamInitBtn(); 

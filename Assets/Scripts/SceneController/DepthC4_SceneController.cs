@@ -429,7 +429,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     }
     public override void Init()
     {
-        if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") 
+       // if (Managers.ContentInfo.PlayData.CurrentDepthStatus == "00000") 
             SetDepthNum(); //개발용
 
         base.Init();

@@ -15,24 +15,13 @@ public class UI_Tutorial : UI_Popup
         
         Btn_Confirmation_Yes,
         Btn_Confirmation_No,
-        Btn_Prev,
-        Btn_Next,
-        Btn_ToolBox,
-        Btn_CameraInit,
-       // Btn_Close
+        Btn_Close
     }
-
-    public enum TMPs
-    {
-        Text_Instruction
-    }
+    
     
     public enum UI
     {
-        UI_Bottom,
-        UI_ToolBox,
         UI_Confirmation,
-        UI_ToolTip
         
     }
 
@@ -47,7 +36,6 @@ public class UI_Tutorial : UI_Popup
     public override bool Init()
     {
         
-        BindTMP(typeof(TMPs));
         BindButton(typeof(Btns));
         BindObject(typeof(UI));
       
@@ -67,6 +55,12 @@ public class UI_Tutorial : UI_Popup
             isTutorialEndedOrSkipped = true;
         });
         
+        GetButton((int)Btns.Btn_Close).gameObject.BindEvent(() =>
+        {
+            Managers.UI.ClosePopupUI(this);
+            Managers.UI.ShowPopupUI<UI_Main>();
+        });
+
         return true;
 
     }

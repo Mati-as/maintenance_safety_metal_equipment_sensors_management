@@ -27,38 +27,11 @@ public class DepthA1_State_1 : Base_SceneState
     }
 }
 
+
 public class DepthA1_State_2 : Base_SceneState
 {
-    private DepthA_SceneController CurrentScene;
-    public DepthA1_State_2(DepthA_SceneController currentScene) : base(currentScene)
-    {
-        CurrentScene = currentScene;
-        isCurrentStateCameraControllable = false;
-    }
-
-    public override void OnEnter()
-    {
-
-        base.OnEnter();
-       
-
-    }
-
-    public override void OnStep()
-    {
-        base.OnStep();
-    }
-
-    public override void OnExit()
-    {
-        base.OnExit();
-    }
-}
-
-public class DepthA1_State_3 : Base_SceneState
-{
     private DepthA_SceneController _currentAScene;
-    public DepthA1_State_3(DepthA_SceneController currentScene) : base(currentScene)
+    public DepthA1_State_2(DepthA_SceneController currentScene) : base(currentScene)
     {
         _currentAScene = currentScene;
         isCurrentStateCameraControllable = true;
@@ -88,10 +61,10 @@ public class DepthA1_State_3 : Base_SceneState
     }
 }
 
-public class DepthA1_State_4 : Base_SceneState
+public class DepthA1_State_3 : Base_SceneState
 {
     private DepthA_SceneController _currentAScene;
-    public DepthA1_State_4(DepthA_SceneController currentScene) : base(currentScene)
+    public DepthA1_State_3(DepthA_SceneController currentScene) : base(currentScene)
     {
         _currentAScene = currentScene;
         isCurrentStateCameraControllable = true;
@@ -123,55 +96,11 @@ public class DepthA1_State_4 : Base_SceneState
     }
 }
 
-public class DepthA1_State_5 : Base_SceneState
+
+
+public class DepthA1_State_4 : Base_SceneState
 {
-    private DepthA_SceneController _currentAScene;
-    public DepthA1_State_5(DepthA_SceneController currentScene) : base(currentScene)
-    {
-        _currentAScene = currentScene;
-        isCurrentStateCameraControllable = true;
-    }
-
- 
-    protected override void OnAnimationCompleteHandler(int _)
-    {
-        base.OnAnimationCompleteHandler(_);
-        SetLookAt((int)DepthAGameObj.LookAt_OnPipeAssociatedSensors);
-        
-    }
-
-    public override void OnEnter()
-    {
-
-        base.OnEnter();
-        
-        CurrentScene.SetHighlightIgnore((int)DepthAGameObj.TemperatureSensor_Whole,false);
-        CurrentScene.SetHighlightStatus((int)DepthAGameObj.TemperatureSensor_Whole,true);
-        
-        CurrentScene.BlinkHighlight((int)DepthAGameObj.TemperatureSensor_Whole);
-        CurrentScene.BlinkHighlight((int)DepthAGameObj.LevelSensor);
-        CurrentScene.BlinkHighlight((int)DepthAGameObj.FlowSensor);
-        CurrentScene.BlinkHighlight((int)DepthAGameObj.PressureSensor);
-      
-     
-    }
-
-    public override void OnStep()
-    {
-        base.OnStep();
-     
-    }
-
-    public override void OnExit()
-    {
-        
-        base.OnExit();
-    }
-}
-
-public class DepthA1_State_6 : Base_SceneState
-{
-    public DepthA1_State_6(DepthA_SceneController currentScene) : base(currentScene)
+    public DepthA1_State_4(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
     protected override void OnAnimationCompleteHandler(int _)
@@ -214,9 +143,9 @@ public class DepthA1_State_6 : Base_SceneState
     }
 }
 
-public class DepthA1_State_7 : Base_SceneState
+public class DepthA1_State_5 : Base_SceneState
 {
-    public DepthA1_State_7(DepthA_SceneController currentScene) : base(currentScene)
+    public DepthA1_State_5(DepthA_SceneController currentScene) : base(currentScene)
     {
         isCurrentStateCameraControllable = true;
     }
@@ -247,9 +176,9 @@ public class DepthA1_State_7 : Base_SceneState
     }
 }
 
-public class DepthA1_State_8 : Base_SceneState
+public class DepthA1_State_6 : Base_SceneState
 {
-    public DepthA1_State_8(DepthA_SceneController currentScene) : base(currentScene)
+    public DepthA1_State_6(DepthA_SceneController currentScene) : base(currentScene)
     {
         isCurrentStateCameraControllable = true;
     }
@@ -269,9 +198,9 @@ public class DepthA1_State_8 : Base_SceneState
     }
 }
 
-public class DepthA1_State_9 : Base_SceneState
+public class DepthA1_State_7 : Base_SceneState
 {
-    public DepthA1_State_9(DepthA_SceneController currentScene) : base(currentScene)
+    public DepthA1_State_7(DepthA_SceneController currentScene) : base(currentScene)
     {
         isCurrentStateCameraControllable = true;
     }
@@ -292,10 +221,10 @@ public class DepthA1_State_9 : Base_SceneState
     }
 }
 
-public class DepthA1_State_10 : Base_SceneState
+public class DepthA1_State_8 : Base_SceneState
 {
     
-    public DepthA1_State_10(DepthA_SceneController currentScene) : base(currentScene)
+    public DepthA1_State_8(DepthA_SceneController currentScene) : base(currentScene)
     {
         isCurrentStateCameraControllable = true;
     }
@@ -316,9 +245,9 @@ public class DepthA1_State_10 : Base_SceneState
     }
 }
 
-public class DepthA1_State_11 : Base_SceneState
+public class DepthA1_State_9 : Base_SceneState
 {
-    public DepthA1_State_11(DepthA_SceneController currentScene) : base(currentScene)
+    public DepthA1_State_9(DepthA_SceneController currentScene) : base(currentScene)
     {
     }
 
@@ -328,7 +257,8 @@ public class DepthA1_State_11 : Base_SceneState
         Managers.ContentInfo.PlayData.Depth1 = 1;
         Managers.ContentInfo.PlayData.Depth2 = 2;
         Managers.ContentInfo.PlayData.Depth3 = 1;
-        Managers.ContentInfo.PlayData.Count = 1;
+        Managers.ContentInfo.PlayData.Count = 0;
+        
         CurrentScene.contentController.OnDepth2Init(2);
         CurrentScene.PlayAnimation(count:1);
         
