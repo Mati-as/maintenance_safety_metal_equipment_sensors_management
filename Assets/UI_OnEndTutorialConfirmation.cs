@@ -36,14 +36,16 @@ public class UI_OnEndTutorialConfirmation : UI_Popup
 
         GetButton((int)Btns.Btn_Confirmation_Yes).gameObject.BindEvent(() =>
         {
-            Managers.isTutorialAlreadyPlayed = true;
+            Managers.UI.ClosePopupUI(this);
+         //   Managers.isTutorialAlreadyPlayed = true;
             Managers.Scene.LoadScene(SceneType.DepthA);
         });
 
 
         GetButton((int)Btns.Btn_Confirmation_No).gameObject.BindEvent(() =>
         {
-            Managers.isTutorialAlreadyPlayed = true;
+            Managers.UI.ClosePopupUI(this);
+          //  Managers.isTutorialAlreadyPlayed = true;
             Managers.Scene.LoadScene(SceneType.Main);
         });
         

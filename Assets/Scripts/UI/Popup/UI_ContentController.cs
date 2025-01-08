@@ -151,15 +151,15 @@ public class UI_ContentController : UI_Popup
 
     private InputAction _mouseClickAction;
 
-    public Text Text_tooltip { get; set; }
-    public Image Text_image { get; set; }
+    private Text Text_tooltip { get; set; }
+    private Image Text_image { get; set; }
 
     public Slider UI_DrverOnly_GaugeSlider { get; set; }
-    public RectTransform gaugeRectPos { get; set; }
+    private RectTransform gaugeRectPos { get; set; }
     
-    public RectTransform toolTipRectPos { get; set; }
-    protected readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
-    protected readonly Vector3 _sliderPosOffset = new(-20, 30, 0);
+    private RectTransform toolTipRectPos { get; set; }
+    private readonly Vector3 _toolTipPosOffset = new(55, 55, 0);
+    private readonly Vector3 _sliderPosOffset = new(-20, 30, 0);
     public bool isGuageUsable;
 
     private Dictionary<int, Image> _highlightImageMap;
@@ -299,7 +299,7 @@ public class UI_ContentController : UI_Popup
         return true;
     }
 
-    public void EmptyInstructionTextBox()
+    private void EmptyInstructionTextBox()
     {
         texts[(int)TMPs.Text_Instruction].text = string.Empty;
     }
@@ -848,6 +848,9 @@ public class UI_ContentController : UI_Popup
         {
             ShutTrainingIntroAnim();
             SetInstructionShowOrHideStatus();
+
+            Managers.ContentInfo.PlayData.Count = 1;
+            ChangeInstructionText();
         });
        
     }
@@ -1412,7 +1415,9 @@ public class UI_ContentController : UI_Popup
         UI_AnimSeq = DOTween.Sequence();
         UI_AnimSeq.AppendCallback(() =>
         {
+            EmptyInstructionTextBox();//더 결합도 낮은곳으로 옮길여지 있음 010825
            
+            
             GetObject((int)UI.UI_TrainingInfo).GetComponent<CanvasGroup>().alpha = 0;
         });
         UI_AnimSeq.Append(GetObject((int)UI.UI_TrainingInfo).transform.GetComponent<CanvasGroup>().DOFade(1, 0.6f).SetEase(Ease.InCirc));

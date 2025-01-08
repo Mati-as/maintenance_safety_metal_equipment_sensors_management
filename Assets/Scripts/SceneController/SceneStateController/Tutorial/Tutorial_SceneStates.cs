@@ -29,6 +29,7 @@ public class Tutorial_State_2 : Base_SceneState
     public Tutorial_State_2(Tutorial_SceneController currentScene) : base(currentScene)
     {
         tutorialSceneController = currentScene;
+        isCurrentStateCameraControllable = true;
     }
     protected override void OnAnimationCompleteHandler(int _)
     {
@@ -40,21 +41,21 @@ public class Tutorial_State_2 : Base_SceneState
     {
         base.OnEnter();
         tutorialSceneController.contentController.HideToolBoxBtn();
-        tutorialSceneController.cameraController.isControllable = true;
+   
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_CoverScrew,false);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_CoverScrew);
 
     }
 
     public override void OnStep()
     {
         base.OnStep();
-        isCurrentStateCameraControllable = true;
-       
-        tutorialSceneController.cameraController.isControllable = true;
-        tutorialSceneController.contentController.HideCamInitBtn();
+        
     }
 
     public override void OnExit()
     {
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_CoverScrew);
         base.OnExit();
     }
 }
@@ -65,22 +66,34 @@ public class Tutorial_State_3 : Base_SceneState
     public Tutorial_State_3(Tutorial_SceneController currentScene) : base(currentScene)
     {
         tutorialSceneController = currentScene;
+        isCurrentStateCameraControllable = true;
+
     }
     protected override void OnAnimationCompleteHandler(int _)
     {
         base.OnAnimationCompleteHandler(_);
-        Logger.Log("튜토리얼 ---------------------------------------카메라 초기화 버튼 표출");
-        CurrentScene.contentController.SetCamInitBtnStatus(true);
-        tutorialSceneController.contentController.HideToolBoxBtn();
+        SetLookAt((int)DepthC2_GameObj.TS_Stabilizer);
+      
     }
 
    
     public override void OnEnter()
     {
+        tutorialSceneController.contentController.isStepMissionComplete = false;
+        
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB,false);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC,false);
+        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewC);
+        tutorialSceneController.contentController.HideToolBoxBtn();
         base.OnEnter();
-       
-        CurrentScene.contentController.SetCamInitBtnStatus(true);
-        tutorialSceneController.cameraController.isControllable = true;
+        DOVirtual.Float(0,0,5f, _ =>
+        {
+            isCurrentStateCameraControllable = true;
+            CurrentScene.contentController.SetCamInitBtnStatus(true);
+        });
 
     }
 
@@ -88,7 +101,8 @@ public class Tutorial_State_3 : Base_SceneState
 
     public override void OnExit()
     {
-       
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
+        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
         base.OnExit();
     }
 }
@@ -141,6 +155,7 @@ public class Tutorial_State_5 : Base_SceneState
         CurrentScene.contentController.ShowToolBoxAndGuideBookBtn();
         tutorialSceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         base.OnEnter();
+        CurrentScene.contentController.uiToolBox.SetToolBox(false);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
     }
     public override void OnStep(){base.OnStep();}
@@ -195,14 +210,10 @@ public class Tutorial_State_7 : Base_SceneState
         tutorialSceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
         
         tutorialSceneController.multimeterController.SetToDefaultMode();
-        tutorialSceneController.GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
-        tutorialSceneController.GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
 
-        DOVirtual.DelayedCall(3, () => { CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_Next); });
     
 
-        CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
-        CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
+    
         base.OnEnter();
         tutorialSceneController.contentController.HideToolBoxBtn();
     }
@@ -230,7 +241,7 @@ public class Tutorial_State_8 : Base_SceneState
     {
         base.OnEnter();
            
-        DOVirtual.DelayedCall(1.5f,()=>
+        DOVirtual.DelayedCall(2.5f,()=>
         {
             Managers.UI.ShowPopupUI<UI_OnEndTutorialConfirmation>();
         });

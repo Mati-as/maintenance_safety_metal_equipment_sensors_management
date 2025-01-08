@@ -47,6 +47,11 @@ public enum DepthC2_GameObj
   
     PowerHandle,
     TankValve,
+    
+    
+    //주의: 튜토리얼전용
+    TS_CoverScrew
+    
     // ControlPanel,
     // TS_CompensatingWireA,
     // TS_CompensatingWireB,

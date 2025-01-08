@@ -57,6 +57,8 @@ public class Tutorial_SceneController : DepthC2_SceneController
         BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "클릭");
         BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "클릭");
         BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "클릭");
+        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "클릭");
+        BindHighlight((int)DepthC2_GameObj.TS_CoverScrew, "클릭");
         BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "클릭");
         BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "클릭");
          
@@ -81,6 +83,25 @@ public class Tutorial_SceneController : DepthC2_SceneController
         UI_ToolBox.ToolBox_MultimeterClickedEvent += OnUIToolBoxMultimeterBtnClicked;
         
 
+
+        
+        GetObject((int)DepthC2_GameObj.TS_CoverScrew).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 2) OnStepMissionComplete(animationNumber:2);
+        });
+        
+        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 3) OnStepMissionComplete(animationNumber:3);
+        });
+        GetObject((int)DepthC2_GameObj.TS_InnerScrewA).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 3) OnStepMissionComplete(animationNumber:3);
+        });
+        GetObject((int)DepthC2_GameObj.TS_InnerScrewC).BindEvent(() =>
+        {
+            if (Managers.ContentInfo.PlayData.Count == 3) OnStepMissionComplete(animationNumber:3);
+        });
 
         SetDepthNum();
         
@@ -108,7 +129,7 @@ public class Tutorial_SceneController : DepthC2_SceneController
 
      private void OnResistantReadyOnTutorial()
      {
-         OnStepMissionComplete(animationNumber: 7, delayTimeAmount: new WaitForSeconds(2f));
+         OnStepMissionComplete(animationNumber: 7, delayTimeAmount: new WaitForSeconds(1f));
      }
 
      protected override void OnUIToolBoxMultimeterBtnClicked()
@@ -118,8 +139,6 @@ public class Tutorial_SceneController : DepthC2_SceneController
          OnStepMissionComplete(animationNumber: 6);
          CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
          isMultimeterOn = !isMultimeterOn;
-         multimeterController.SetToResistanceModeAndRotation();
-
          if (isMultimeterOn == false) CurrentActiveTool = -1;
      }
      
