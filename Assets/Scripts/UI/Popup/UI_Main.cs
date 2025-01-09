@@ -1,3 +1,7 @@
+using System.Collections;
+using DG.Tweening;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UI_Main : UI_Popup
@@ -7,7 +11,20 @@ public class UI_Main : UI_Popup
         Btn_Start
     }
 
+    private enum TMPs
+    {
+        Korean,
+        Eng
+    }
+
+
+    private enum Slider
+    {
+        LanguageSetting
+    }
+
     private UI_Popup main;
+
 
     public override bool Init()
     {
@@ -16,19 +33,61 @@ public class UI_Main : UI_Popup
         main = this;
 
 
+        BindTMP(typeof(TMPs));
         BindButton(typeof(Btns));
-
+        BindSlider(typeof(Slider));
         GetButton((int)Btns.Btn_Start).gameObject.BindEvent(OnMainStartBtnClicked);
+
+        GetSlider((int)Slider.LanguageSetting).onValueChanged.AddListener(_=>
+        {
+            SetText();
+        });
+        
         Debug.Log("Main UI Init");
+        
+        
+       
+        Managers.UI_Persistent.OnMainUIPopUP();
+        UI_Persistent.SetStatus(true);
+        Managers.UI_Persistent.FadeIn(1.8f);
         return true;
     }
 
     private void OnMainStartBtnClicked()
     {
-#if UNITY_EDITOR
-        Debug.Log("Main Content Start");
-#endif
-        Managers.UI.ClosePopupUI(main);
-        Managers.UI.ShowPopupUI<UI_DepthSelection>();
+        if ((int)Managers.Data.Preference[(int)Define.Preferences.ControlGuide] == Define.YES
+            && !Managers.isTutorialAlreadyPlayed)
+        {
+            Managers.UI.ClosePopupUI();
+            Managers.UI.ShowPopupUI<UI_Tutorial>();
+           
+        }
+        else
+        {
+            Managers.UI.ClosePopupUI();
+            Managers.UI.ShowPopupUI<UI_DepthSelection>();
+
+        }
+      
+        // Managers.UI.ShowPopupUI<UI_DepthSelection>();
     }
+
+    private void SetText()
+    {
+        var currentContent = (int)GetSlider((int)Slider.LanguageSetting).value;
+
+        if (currentContent == (int)Define.LanguageMode.Kor)
+        {
+            // 한국어는 볼드 + 흰색, 영어는 밝은 회색
+            GetTMP((int)TMPs.Korean).text = "<color=#FFFFFF>한글</color>";
+            GetTMP((int)TMPs.Eng).text = "<color=#9F9F9F>English</color>";
+        }
+        else
+        {
+            // 영어는 볼드 + 흰색, 한국어는 밝은 회색
+            GetTMP((int)TMPs.Korean).text = "<color=#9F9F9F>한글</color>";
+            GetTMP((int)TMPs.Eng).text = "<color=#FFFFFF>English</color>";
+        }
+    }
+
 }

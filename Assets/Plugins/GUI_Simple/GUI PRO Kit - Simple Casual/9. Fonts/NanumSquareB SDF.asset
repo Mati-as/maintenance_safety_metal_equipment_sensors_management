@@ -1,0 +1,2194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!28 &-4248583587442607466
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: NanumSquareB SDF Atlas
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 2
+  m_Width: 0
+  m_Height: 0
+  m_CompleteImageSize: 0
+  m_MipsStripped: 0
+  m_TextureFormat: 1
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 0
+  m_PlatformBlob: 
+  image data: 0
+  _typelessdata: 
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+  m_Name: NanumSquareB SDF
+  m_EditorClassIdentifier: 
+  hashCode: 1133903115
+  material: {fileID: 7740370938378926287}
+  materialHashCode: -1291565109
+  m_Version: 1.1.0
+  m_SourceFontFileGUID: 0de052646ef65834ba24616a5bbf1af5
+  m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 0de052646ef65834ba24616a5bbf1af5,
+    type: 3}
+  m_SourceFontFile: {fileID: 12800000, guid: 0de052646ef65834ba24616a5bbf1af5, type: 3}
+  m_AtlasPopulationMode: 1
+  m_FaceInfo:
+    m_FaceIndex: 0
+    m_FamilyName: NanumSquare
+    m_StyleName: Bold
+    m_PointSize: 100
+    m_Scale: 1
+    m_UnitsPerEM: 1000
+    m_LineHeight: 113.5
+    m_AscentLine: 85
+    m_CapLine: 70
+    m_MeanLine: 53
+    m_Baseline: 0
+    m_DescentLine: -25.5
+    m_SuperscriptOffset: 85
+    m_SuperscriptSize: 0.5
+    m_SubscriptOffset: -25.5
+    m_SubscriptSize: 0.5
+    m_UnderlineOffset: -10
+    m_UnderlineThickness: 5
+    m_StrikethroughOffset: 21.2
+    m_StrikethroughThickness: 5
+    m_TabWidth: 25
+  m_GlyphTable: []
+  m_CharacterTable: []
+  m_AtlasTextures:
+  - {fileID: -4248583587442607466}
+  m_AtlasTextureIndex: 0
+  m_IsMultiAtlasTexturesEnabled: 0
+  m_ClearDynamicDataOnBuild: 1
+  m_UsedGlyphRects: []
+  m_FreeGlyphRects:
+  - m_X: 0
+    m_Y: 0
+    m_Width: 2047
+    m_Height: 4095
+  m_fontInfo:
+    Name: 
+    PointSize: 0
+    Scale: 0
+    CharacterCount: 0
+    LineHeight: 0
+    Baseline: 0
+    Ascender: 0
+    CapHeight: 0
+    Descender: 0
+    CenterLine: 0
+    SuperscriptOffset: 0
+    SubscriptOffset: 0
+    SubSize: 0
+    Underline: 0
+    UnderlineThickness: 0
+    strikethrough: 0
+    strikethroughThickness: 0
+    TabWidth: 0
+    Padding: 0
+    AtlasWidth: 0
+    AtlasHeight: 0
+  atlas: {fileID: 0}
+  m_AtlasWidth: 2048
+  m_AtlasHeight: 4096
+  m_AtlasPadding: 10
+  m_AtlasRenderMode: 4165
+  m_glyphInfoList: []
+  m_KerningTable:
+    kerningPairs: []
+  m_FontFeatureTable:
+    m_GlyphPairAdjustmentRecords: []
+  fallbackFontAssets: []
+  m_FallbackFontAssetTable: []
+  m_CreationSettings:
+    sourceFontFileName: 
+    sourceFontFileGUID: 0de052646ef65834ba24616a5bbf1af5
+    pointSizeSamplingMode: 0
+    pointSize: 100
+    padding: 10
+    packingMode: 0
+    atlasWidth: 2048
+    atlasHeight: 4096
+    characterSetSelectionMode: 7
+    characterSequence: "\n\r !\"#%&'()*+,-./0123456789:;<=>?ABCDEFGHIKLMNOPRSTUVWXYZ[]_`abcdefghijklmnopqrstuvwxyz\u03A9\u2019\u2026\u2191\u25A1\u25BC\uAC00\uAC01\uAC04\uAC10\uAC11\uAC12\uAC19\uAC1C\uAC70\uAC74\uAC80\uAC83\uAC8C\uACA0\uACA8\uACA9\uACB0\uACB9\uACBD\uACC4\uACE0\uACE1\uACF5\uACFC\uAD00\uAD11\uAD50\uAD6C\uADC0\uADF8\uADF9\uADFC\uAE00\uAE08\uAE09\uAE30\uAE34\uAE38\uAE4C\uAEBC\uAF2D\uAFB8\uB05D\uB07C\uB098\uB09C\uB0A8\uB0B4\uB0C5\uB0C9\uB108\uB110\uB123\uB178\uB192\uB193\uB204\uB20C\uB274\uB294\uB2A5\uB2C8\uB2E4\uB2E8\uB2EB\uB2EC\uB2F5\uB2F9\uB300\uB311\uB354\uB36E\uB370\uB371\uB381\uB3C4\uB3C5\uB3CC\uB3D5\uB3D9\uB418\uB41C\uB420\uB429\uB450\uB4A4\uB4DC\uB4E0\uB4E4\uB4F1\uB514\uB52A\uB530\uB54C\uB5A4\uB610\uB6F0\uB77C\uB78C\uB798\uB7A8\uB7B5\uB7C9\uB7EC\uB7FC\uB808\uB80C\uB824\uB825\uB828\uB840\uB85C\uB85D\uB864\uB8CC\uB958\uB974\uB978\uB97C\uB984\uB9AC\uB9AD\uB9BC\uB9BD\uB9C1\uB9C8\uB9C9\uB9CC\uB9D0\uB9DE\uBA38\uBA3C\uBA40\uBA54\uBA70\uBA74\uBA78\uBA85\uBAA8\uBAA9\uBABB\uBB38\uBB3C\uBBC0\uBBF8\uBC0B\uBC0F\uBC14\uBC18\uBC1C\uBC29\uBC30\uBC38\uBC84\uBC88\uBC94\uBC95\uBCA0\uBCA8\uBCC0\uBCC4\uBCF4\uBCF5\uBCF8\uBCFC\uBD80\uBD84\uBD88\uBE0C\uBE44\uBE68\uC0AC\uC0B4\uC0BD\uC0C1\uC0C8\uC0C9\uC0DD\uC11C\uC120\uC124\uC131\uC138\uC13C\uC154\uC158\uC168\uC18C\uC18D\uC190\uC1A1\uC1F3\uC218\uC21C\uC22B\uC26C\uC2A4\uC2B5\uC2DC\uC2DD\uC2E0\uC2E4\uC2EC\uC4F0\uC544\uC545\uC548\uC54A\uC54C\uC555\uC55E\uC560\uC561\uC57C\uC591\uC5B4\uC5BC\uC5C5\uC5C6\uC5C8\uC5D0\uC5D4\uC5EC\uC5ED\uC5F0\uC5F4\uC5FC\uC600\uC608\uC624\uC628\uC62C\uC62E\uC634\uC640\uC644\uC655\uC65C\uC678\uC67C\uC694\uC6A9\uC6B0\uC6B4\uC6C0\uC6D0\uC704\uC720\uC721\uC73C\uC740\uC744\uC74C\uC751\uC758\uC774\uC778\uC77C\uC784\uC785\uC788\uC790\uC791\uC794\uC798\uC7A5\uC7AC\uC800\uC801\uC804\uC808\uC810\uC811\uC815\uC81C\uC870\uC874\uC880\uC885\uC88C\uC8FC\uC900\uC911\uC9C0\uC9C1\uC9C4\uC9C8\uC9D5\uC9F8\uCABD\uCC28\uCC29\uCC2C\uCC38\uCC3E\uCC98\uCC99\uCCA0\uCCAB\uCCAD\uCCB4\uCCE4\uCD08\uCD09\uCD1D\uCD5C\uCD94\uCD9C\uCDA9\uCDB0\uCE21\uCE28\uCE58\uCE60\uCE74\uCEE4\uCEE8\uCF1C\uCF54\uD06C\uD074\uD07C\uD0C0\uD0C8\uD0DC\uD0DD\uD0F1\uD130\uD138\uD14C\uD15C\uD1A0\uD1B5\uD29C\uD2B8\uD2B9\uD2BC\uD2C0\uD2C8\uD2F0\uD30C\uD310\uD328\uD32C\uD37C\uD3B4\uD3C9\uD3EC\uD3ED\uD45C\uD480\uD488\uD504\uD50C\uD544\uD558\uD559\uD55C\uD560\uD568\uD569\uD56D\uD574\uD588\uD589\uD5A5\uD5D8\uD5E4\uD604\uD615\uD638\uD639\uD654\uD655\uD658\uD65C\uD669\uD68C\uD6C4\uD6C8\uD718\uD750\uD754\uD788\uD798<?xml
+      version=\"1.0\" encoding=\"utf-8\"?>\r\n<ArrayOfTextData xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"
+      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n\r\n  <!-- Depth
+      1 -->\r\n  <!-- Depth 1-1 -->\r\n  <!-- Depth 1-1-1 -->\r\n\r\n\r\n\r\n  <TextData
+      ID=\"3300\" kor=\"\uC804\uCCB4 \uD6C8\uB828 \uC815\uBCF4\" eng=\"Training Object
+      Info Test\" />\r\n  <TextData ID=\"3301\" kor=\"\uC804\uCCB4 \uD6C8\uB828 \uBAA9\uD45C
+      \" eng=\"Training Object Info Test\" />\r\n  \r\n  <TextData ID=\"110\" kor=\"\uAE30\uBCF8
+      \uD559\uC2B5\" eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"111\"
+      kor=\"1.1 \uAE08\uC18D\uC81C\uC870\uC124\uBE44 \uAD6C\uC131\uD655\uC778\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"112\" kor=\"- \uAE08\uC18D\uC7AC\uB8CC
+      \uC81C\uC870\uC124\uBE44\uC5D0\uC11C \uD65C\uC6A9\uB418\uB294 \uACC4\uCE21\uC13C\uC11C
+      \uAC80\uCD9C \uC2A4\uC704\uCE58, \uC628\uB3C4 \uC13C\uC11C, \uC555\uB825 \uC13C\uC11C,
+      \uC720\uB7C9 \uC13C\uC11C, \uB808\uBCA8 \uC13C\uC11C\uC758 \uAE30\uBCF8 \uB3D9\uC791
+      \uC6D0\uB9AC\uB97C \uC778\uC9C0\uD558\uACE0 \uD65C\uC6A9\uB418\uB294 \uACC4\uCE21\uC13C\uC11C
+      \uAD6C\uC131\uC744 \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"113\" kor=\"- \uAE08\uC18D\uC7AC\uB8CC
+      \uC81C\uC870\uC124\uBE44 \uBC0F \uACC4\uCE21\uC13C\uC11C \uAD6C\uC131 \uD655\uC778.\"
+      eng=\"Training Object Info Test\" />\r\n\r\n  <TextData ID=\"120\" kor=\"\uAE30\uBCF8
+      \uD559\uC2B5\" eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"121\"
+      kor=\"1.2 \uACC4\uCE21\uC13C\uC11C \uAD6C\uC870\uC774\uD574\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"122\" kor=\"- \uC124\uBE44\uC5D0
+      \uC124\uCE58\uB41C \uACC4\uCE21\uC13C\uC11C \uAC80\uCD9C \uC2A4\uC704\uCE58,
+      \uC628\uB3C4 \uC13C\uC11C, \uC555\uB825 \uC13C\uC11C, \uC720\uB7C9 \uC13C\uC11C,
+      \uB808\uBCA8 \uC13C\uC11C\uC758 \uAD6C\uC870\uB97C \uC124\uBA85\uD560 \uC218
+      \uC788\uB2E4.\" eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"123\"
+      kor=\"- \uAE08\uC18D\uC81C\uC870 \uC124\uBE44 \uB0B4 \uACC4\uCE21 \uC13C\uC11C
+      \uAE30\uBCF8 \uB3D9\uC791 \uC6D0\uB9AC \uD655\uC778.&#xA;- \uACC4\uCE21 \uC13C\uC11C
+      \uAD6C\uC870 \uBC0F \uC8FC\uC694 \uBD80\uD488 \uD655\uC778.\" eng=\"Training
+      Object Info Test\" />\r\n\r\n  <TextData ID=\"210\" kor=\"\uC548\uC804 \uAD00\uB9AC\"
+      eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"211\" kor=\"2.1 \uC548\uC804
+      \uC7A5\uAD6C \" eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"212\"
+      kor=\"- \uACC4\uCE21 \uC13C\uC11C \uC815\uBE44 \uC804 \uD544\uC694\uD55C \uB3C4\uAD6C\uC5D0
+      \uB300\uD574 \uC778\uC9C0\uD558\uACE0 \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.\"
+      eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"213\" kor=\"- \uC548\uC804
+      \uC7A5\uAD6C \uBC0F \uC810\uAC80 \uB3C4\uAD6C \uAE30\uB2A5 \uC774\uD574.&#xA;-
+      \uACC4\uCE21\uC13C\uC11C \uC815\uBE44 \uC791\uC5C5\uC2DC \uD544\uC694\uD55C
+      \uC548\uC804 \uC7A5\uAD6C \uC900\uBE44\" eng=\"Training Object Info Test\"
+      />\r\n\r\n  <TextData ID=\"220\" kor=\"\uC810\uAC80 \uB3C4\uAD6C\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"221\" kor=\"2.2 \uC810\uAC80 \uB3C4\uAD6C
+      \" eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"222\" kor=\"- \uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC804 \uD544\uC694\uD55C \uB3C4\uAD6C\uC5D0 \uB300\uD574
+      \uC778\uC9C0\uD558\uACE0 \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"223\" kor=\"- \uC548\uC804 \uC7A5\uAD6C
+      \uBC0F \uC810\uAC80 \uB3C4\uAD6C \uAE30\uB2A5 \uC774\uD574.&#xA;- \uACC4\uCE21\uC13C\uC11C
+      \uC815\uBE44 \uC791\uC5C5\uC2DC \uD544\uC694\uD55C \uC810\uAC80 \uB3C4\uAD6C
+      \uC900\uBE44\" eng=\"Training Object Info Test\" />\r\n\r\n  <TextData ID=\"230\"
+      kor=\"\uC548\uC804 \uAD00\uB9AC\" eng=\"Training Object Info Test\" />\r\n 
+      <TextData ID=\"231\" kor=\"2.3 \uC548\uC804 \uC0AC\uACE0 \uC0AC\uB840 (\uD14C\uC2A4\uD2B8)\"
+      eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"232\" kor=\"- \uACC4\uCE21\uC13C\uC11C
+      \uC815\uBE44 \uC791\uC5C5 \uC804 \uC0AC\uC804 \uC900\uBE44 \uC0AC\uD56D\uC744
+      \uC778\uC9C0\uD558\uACE0 \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.&#xA;- \uC548\uC804
+      \uC0AC\uACE0 \uC0AC\uB840\uB97C \uD1B5\uD574 \uC0AC\uACE0 \uC704\uD5D8\uC131\uC744
+      \uC778\uC9C0\uD558\uACE0 \uC870\uCE58 \uBC29\uBC95\uC744 \uC9C4\uD589\uD560
+      \uC218 \uC788\uB2E4.\" eng=\"Training Object Info Test\" />\r\n  <TextData
+      ID=\"233\" kor=\"- \uACC4\uCE21\uC13C\uC11C \uC815\uBE44 \uC804 \uC548\uC804
+      \uAD00\uB9AC \uBC0F \uC870\uCE58 \uC0AC\uD56D \uC2E4\uC2B5.&#xA;- \uC548\uC804
+      \uC0AC\uACE0 \uC0AC\uB840 \uCCB4\uD5D8\" eng=\"Training Object Info Test\"
+      />\r\n  \r\n  <TextData ID=\"310\" kor=\"\uACC4\uCE21 \uC13C\uC11C \uC815\uBE44
+      \uC2E4\uC2B5\" eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"311\"
+      kor=\"3.1 \uAC80\uCD9C \uC2A4\uC704\uCE58\" eng=\"Training Object Info Test\"
+      />\r\n  <TextData ID=\"312\" kor=\"- \uAC80\uCD9C\uC2A4\uC704\uCE58\uC758 \uC0C1\uD0DC\uB97C
+      \uC810\uAC80\uD558\uACE0 \uACE0\uC7A5 \uC720\uD615\uC744 \uC124\uBA85\uD560
+      \uC218 \uC788\uB2E4.&#xA;- \uAC80\uCD9C\uC2A4\uC704\uCE58\uC758 \uC815\uBE44
+      \uBC29\uBC95\uC744 \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"313\" kor=\"- \uAC80\uCD9C\uC2A4\uC704\uCE58
+      \uC678\uBD80 \uBC0F \uB0B4\uBD80 \uC810\uAC80.&#xA;- \uAC80\uCD9C\uC2A4\uC704\uCE58
+      \uACE0\uC7A5 \uC720\uD615 \uD30C\uC545.&#xA;\u2981- \uAC80\uCD9C\uC2A4\uC704\uCE58
+      \uC815\uBE44.\" eng=\"Overall Traning Goal Test\" />\r\n\r\n  <TextData ID=\"320\"
+      kor=\"\uACC4\uCE21 \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"321\" kor=\"3.2 \uC628\uB3C4 \uC13C\uC11C\"
+      eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"322\" kor=\"- \uC628\uB3C4\uC13C\uC11C\uC758
+      \uC0C1\uD0DC\uB97C \uC810\uAC80\uD558\uACE0 \uACE0\uC7A5 \uC720\uD615\uC744
+      \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.&#xA;- \uC628\uB3C4\uC13C\uC11C\uC758
+      \uC815\uBE44 \uBC29\uBC95\uC744 \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"323\" kor=\"- \uC628\uB3C4\uC13C\uC11C
+      \uC678\uBD80 \uBC0F \uB0B4\uBD80 \uC810\uAC80.&#xA;- \uC628\uB3C4\uC13C\uC11C
+      \uACE0\uC7A5 \uC720\uD615 \uD30C\uC545.&#xA;- \uC628\uB3C4\uC13C\uC11C \uC815\uBE44.\"
+      eng=\"Overall Traning Goal Test\" />\r\n\r\n  <TextData ID=\"330\" kor=\"\uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5\" eng=\"Training Object Info Test\"
+      />\r\n  <TextData ID=\"331\" kor=\"3.3 \uC555\uB825 \uC13C\uC11C\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"332\" kor=\"- \uC555\uB825\uC13C\uC11C\uC758
+      \uC0C1\uD0DC\uB97C \uC810\uAC80\uD558\uACE0 \uACE0\uC7A5 \uC720\uD615\uC744
+      \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.&#xA;- \uC555\uB825\uC13C\uC11C\uC758
+      \uC815\uBE44 \uBC29\uBC95\uC744 \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"333\" kor=\"- \uC555\uB825\uC13C\uC11C
+      \uC678\uBD80 \uBC0F \uB0B4\uBD80 \uC810\uAC80.&#xA;- \uC555\uB825\uC13C\uC11C
+      \uACE0\uC7A5 \uC720\uD615 \uD30C\uC545.&#xA;- \uC555\uB825\uC13C\uC11C \uC815\uBE44.\"
+      eng=\"Overall Traning Goal Test\" />\r\n\r\n\r\n  <TextData ID=\"340\" kor=\"\uC720\uB7C9
+      \uC13C\uC11C\" eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"341\"
+      kor=\"3.4 \uC720\uB7C9 \uC13C\uC11C\" eng=\"Training Object Info Test\" />\r\n 
+      <TextData ID=\"342\" kor=\"- \uC720\uB7C9\uC13C\uC11C\uC758 \uC0C1\uD0DC\uB97C
+      \uC810\uAC80\uD558\uACE0 \uACE0\uC7A5 \uC720\uD615\uC744 \uC124\uBA85\uD560
+      \uC218 \uC788\uB2E4.&#xA;- \uC720\uB7C9\uC13C\uC11C\uC758 \uC815\uBE44 \uBC29\uBC95\uC744
+      \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.\" eng=\"Training Object Info Test\"
+      />\r\n  <TextData ID=\"343\" kor=\"- \uC720\uB7C9\uC13C\uC11C \uC678\uBD80
+      \uBC0F \uB0B4\uBD80 \uC810\uAC80.&#xA;- \uC720\uB7C9\uC13C\uC11C \uACE0\uC7A5
+      \uC720\uD615 \uD30C\uC545.&#xA;- \uC720\uB7C9\uC13C\uC11C \uC815\uBE44.\" eng=\"Overall
+      Traning Goal Test\" />\r\n\r\n  \r\n  <TextData ID=\"350\" kor=\"\uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5\" eng=\"Training Object Info Test\"
+      />\r\n  <TextData ID=\"351\" kor=\"3.5 \uB808\uBCA8 \uC13C\uC11C\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"352\" kor=\"- \uB808\uBCA8\uC13C\uC11C\uC758
+      \uC0C1\uD0DC\uB97C \uC810\uAC80\uD558\uACE0 \uACE0\uC7A5 \uC720\uD615\uC744
+      \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.&#xA;- \uB808\uBCA8\uC13C\uC11C\uC758
+      \uC815\uBE44 \uBC29\uBC95\uC744 \uC124\uBA85\uD560 \uC218 \uC788\uB2E4.\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"353\" kor=\"- \uB808\uBCA8\uC13C\uC11C
+      \uC678\uBD80 \uBC0F \uB0B4\uBD80 \uC810\uAC80.&#xA;- \uB808\uBCA8\uC13C\uC11C
+      \uACE0\uC7A5 \uC720\uD615 \uD30C\uC545.&#xA;- \uB808\uBCA8\uC13C\uC11C \uC815\uBE44.\"
+      eng=\"Overall Traning Goal Test\" />\r\n\r\n\r\n  <TextData ID=\"410\" kor=\"\uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5\" eng=\"Training Object Info Test\"
+      />\r\n  <TextData ID=\"411\" kor=\"\uD3C9\uAC00\uD558\uAE30\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"412\" kor=\"\uB381\uC2A4\uBCC4 \uD6C8\uB828
+      \uBAA9\uD45C  (\uD14C\uC2A4\uD2B8)\" eng=\"Training Object Info Test\" />\r\n 
+      <TextData ID=\"413\" kor=\"\uC804\uCCB4 \uD6C8\uB828 \uBAA9\uD45C (\uD14C\uC2A4\uD2B8)\"
+      eng=\"Overall Traning Goal Test\" />\r\n  \r\n  <TextData ID=\"420\" kor=\"\uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5\" eng=\"Training Object Info Test\"
+      />\r\n  <TextData ID=\"421\" kor=\"\uD3C9\uAC00\uD558\uAE30\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"422\" kor=\"\uB381\uC2A4\uBCC4 \uD6C8\uB828
+      \uBAA9\uD45C  (\uD14C\uC2A4\uD2B8)\" eng=\"Training Object Info Test\" />\r\n 
+      <TextData ID=\"423\" kor=\"\uC804\uCCB4 \uD6C8\uB828 \uBAA9\uD45C (\uD14C\uC2A4\uD2B8)\"
+      eng=\"Overall Traning Goal Test\" />\r\n  \r\n  <TextData ID=\"430\" kor=\"\uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5\" eng=\"Training Object Info Test\"
+      />\r\n  <TextData ID=\"431\" kor=\"\uD3C9\uAC00\uD558\uAE30\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"432\" kor=\"\uB381\uC2A4\uBCC4 \uD6C8\uB828
+      \uBAA9\uD45C  (\uD14C\uC2A4\uD2B8)\" eng=\"Training Object Info Test\" />\r\n 
+      <TextData ID=\"433\" kor=\"\uC804\uCCB4 \uD6C8\uB828 \uBAA9\uD45C (\uD14C\uC2A4\uD2B8)\"
+      eng=\"Overall Traning Goal Test\" />\r\n  \r\n  <TextData ID=\"440\" kor=\"\uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5\" eng=\"Training Object Info Test\"
+      />\r\n  <TextData ID=\"441\" kor=\"\uD3C9\uAC00\uD558\uAE30\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"442\" kor=\"\uB381\uC2A4\uBCC4 \uD6C8\uB828
+      \uBAA9\uD45C  (\uD14C\uC2A4\uD2B8)\" eng=\"Training Object Info Test\" />\r\n 
+      <TextData ID=\"443\" kor=\"\uC804\uCCB4 \uD6C8\uB828 \uBAA9\uD45C (\uD14C\uC2A4\uD2B8)\"
+      eng=\"Overall Traning Goal Test\" />\r\n  \r\n  <TextData ID=\"450\" kor=\"\uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5\" eng=\"Training Object Info Test\"
+      />\r\n  <TextData ID=\"451\" kor=\"\uD3C9\uAC00\uD558\uAE30\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"452\" kor=\"\uB381\uC2A4\uBCC4 \uD6C8\uB828
+      \uBAA9\uD45C  (\uD14C\uC2A4\uD2B8)\" eng=\"Training Object Info Test\" />\r\n 
+      <TextData ID=\"453\" kor=\"\uC804\uCCB4 \uD6C8\uB828 \uBAA9\uD45C (\uD14C\uC2A4\uD2B8)\"
+      eng=\"Overall Traning Goal Test\" />\r\n\r\n\r\n  <TextData ID=\"510\" kor=\"\uC870\uC791\uBC95
+      \uC548\uB0B4\" eng=\"Training Object Info Test\" />\r\n  <TextData ID=\"511\"
+      kor=\"\uC870\uC791\uBC95 \uC548\uB0B4\" eng=\"Training Object Info Test\" />\r\n 
+      <TextData ID=\"512\" kor=\"- \uD6C8\uB828 \uC9C4\uD589\uC744 \uC704\uD55C \uC870\uC791
+      \uBC29\uBC95\uC744 \uC774\uD574\uD560 \uC218 \uC788\uB2E4.\" eng=\"Training
+      Object Info Test\" />\r\n  <TextData ID=\"513\" kor=\"- \uD654\uBA74 \uD68C\uC804
+      \uBC0F \uC774\uB3D9 \uBC29\uBC95\uC744 \uC774\uD574\uD560 \uC218 \uC788\uB2E4
+      &#xA; - \uAC00\uC0C1\uD6C8\uB828 \uC0C1 \uD65C\uC6A9\uB418\uB294 \uB3C4\uAD6C
+      \uC870\uC791 \uBC29\uBC95\uC744 \uC774\uD574\uD560 \uC218 \uC788\uB2E4\" />\r\n\r\n\r\n\r\n 
+      <!-- Depth 2 -->\r\n  <!-- Depth 2-1 -->\r\n  <!-- Depth 2-1-1 -->\r\n  <TextData
+      ID=\"21101\" kor=\"\uACC4\uCE21\uC13C\uC11C \uC815\uBE44 \uACFC\uC815 \uC911
+      \uAC00\uC7A5 \uC911\uC694\uD55C \uC548\uC804\uAD00\uB9AC \uBC29\uBC95\uC5D0
+      \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"21102\" kor=\"\uC815\uBE44 \uC791\uC5C5\uC5D0 \uC55E\uC11C
+      \uC548\uC804\uD55C \uC815\uBE44 \uC791\uC5C5\uC744 \uC704\uD574\uC11C\uB294
+      \uC124\uBE44\uC5D0 \uB4E4\uC5B4\uAC00\uAE30\uC804 \uBC18\uB4DC\uC2DC \uC548\uC804\uC7A5\uAD6C
+      \uBC0F \uC810\uAC80 \uB3C4\uAD6C\uB97C \uD655\uC778\uD574\uC57C\uD569\uB2C8\uB2E4.
+      \uBA3C\uC800 \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uC548\uC804\uC7A5\uAD6C
+      \uBCF4\uAD00\uD568\uC744 \uC5F4\uACE0 \uC548\uC804\uC7A5\uAD6C\uC5D0\uB300\uD574
+      \uC0B4\uD3B4\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"21103\" kor=\"\uC81C\uC77C\uBA3C\uC800 \uC548\uC804\uBAA8\uB97C \uCC29\uC6A9\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC548\uC804\uBAA8\uB97C \uD074\uB9AD\uD558\uC5EC \uCC29\uC6A9\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"21104\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC808\uC5F0\uC7A5\uAC11\uC744 \uCC29\uC6A9\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC808\uC5F0\uC7A5\uAC11\uC744 \uD074\uB9AD\uD558\uC5EC \uCC29\uC6A9\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"21105\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uADC0\uB9C8\uAC1C\uB97C \uCC29\uC6A9\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uADC0\uB9C8\uAC1C\uB97C
+      \uD074\uB9AD\uD558\uC5EC \uCC29\uC6A9\uD574\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"21106\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uB9C8\uC2A4\uD06C\uB97C
+      \uCC29\uC6A9\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB9C8\uC2A4\uD06C\uB97C \uD074\uB9AD\uD558\uC5EC
+      \uCC29\uC6A9\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"21107\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uBCF4\uD638\uC548\uC744\uACBD
+      \uCC29\uC6A9\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBCF4\uD638\uC548\uACBD\uC744
+      \uD074\uB9AD\uD558\uC5EC \uCC29\uC6A9\uD574\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"21108\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC808\uC5F0\uC7A5\uD654\uB97C
+      \uCC29\uC6A9\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC808\uC5F0\uC7A5\uD654\uB97C
+      \uD074\uB9AD\uD558\uC5EC \uCC29\uC6A9\uD574\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"21109\" kor=\"\uB9C8\uC9C0\uB9C9\uC73C\uB85C
+      \uACE0\uC5F4\uC791\uC5C5\uBCF5\uC744 \uCC29\uC6A9\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uACE0\uC5F4\uC791\uC5C5\uBCF5\uC744 \uD074\uB9AD\uD558\uC5EC \uCC29\uC6A9\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"21110\" kor=\"\" eng=\"eng Test\" />\r\n\r\n\r\n 
+      \r\n  \r\n  <!-- Depth 2-2-1 -->\r\n  <TextData ID=\"22101\" kor=\"\uACC4\uCE21\uC13C\uC11C
+      \uC815\uBE44 \uC791\uC5C5\uC744 \uC704\uD574 \uC804\uAE30 \uC791\uC5C5\uC2DC
+      \uD65C\uC6A9\uD558\uB294 \uC810\uAC80 \uB3C4\uAD6C\uB97C \uC900\uBE44\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4\" eng=\"eng Test\" />\r\n  <TextData ID=\"22102\"
+      kor=\"\uACC4\uCE21\uC13C\uC11C \uC815\uBE44 \uC791\uC5C5\uC2DC\uC5D0 \uD65C\uC6A9\uB418\uB294
+      \uC810\uAC80\uB3C4\uAD6C\uC5D0\uB294 \uC804\uB3D9\uB4DC\uB77C\uC774\uBC84,
+      \uB514\uC9C0\uD138 \uBBF8\uD130, \uC790\uB3D9\uC555\uB825 \uAD50\uC815\uAE30,
+      \uC2A4\uD2B8\uB9BD\uD37C \uB4F1\uC774 \uC788\uC2B5\uB2C8\uB2E4. \uC791\uC5C5\uB300\uC5D0
+      \uBE44\uCE58\uB41C \uC810\uAC80 \uB3C4\uAD6C\uB97C \uD074\uB9AD\uD558\uBA74
+      \uAC01 \uC810\uAC80 \uB3C4\uAD6C\uC5D0 \uB300\uD55C \uC124\uBA85\uC744 \uD655\uC778\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"22103\"
+      kor=\"\uD654\uBA74\uC5D0 \uC88C\uCE21\uC5D0 \uD45C\uAE30\uB418\uB294 \uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC804 \uC810\uAC80\uB3C4\uAD6C \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uB97C
+      \uD655\uC778\uD558\uACE0 \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uC758 \uC810\uAC80
+      \uB3C4\uAD6C\uB97C \uD074\uB9AD\uD574 \uB3C4\uAD6C\uD568\uC5D0 \uB123\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"22104\"
+      kor=\"\uD654\uBA74\uC5D0 \uC88C\uCE21\uC5D0 \uD45C\uAE30\uB418\uB294 \uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC804 \uC810\uAC80\uB3C4\uAD6C \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uB97C
+      \uD655\uC778\uD558\uACE0 \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uC758 \uC810\uAC80
+      \uB3C4\uAD6C\uB97C \uD074\uB9AD\uD574 \uB3C4\uAD6C\uD568\uC5D0 \uB123\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"22105\"
+      kor=\"\uD654\uBA74\uC5D0 \uC88C\uCE21\uC5D0 \uD45C\uAE30\uB418\uB294 \uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC804 \uC810\uAC80\uB3C4\uAD6C \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uB97C
+      \uD655\uC778\uD558\uACE0 \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uC758 \uC810\uAC80
+      \uB3C4\uAD6C\uB97C \uD074\uB9AD\uD574 \uB3C4\uAD6C\uD568\uC5D0 \uB123\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"22106\"
+      kor=\"\uD654\uBA74\uC5D0 \uC88C\uCE21\uC5D0 \uD45C\uAE30\uB418\uB294 \uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC804 \uC810\uAC80\uB3C4\uAD6C \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uB97C
+      \uD655\uC778\uD558\uACE0 \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uC758 \uC810\uAC80
+      \uB3C4\uAD6C\uB97C \uD074\uB9AD\uD574 \uB3C4\uAD6C\uD568\uC5D0 \uB123\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"22107\"
+      kor=\"\uD654\uBA74\uC5D0 \uC88C\uCE21\uC5D0 \uD45C\uAE30\uB418\uB294 \uACC4\uCE21
+      \uC13C\uC11C \uC815\uBE44 \uC804 \uC810\uAC80\uB3C4\uAD6C \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uB97C
+      \uD655\uC778\uD558\uACE0 \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uC758 \uC810\uAC80
+      \uB3C4\uAD6C\uB97C \uD074\uB9AD\uD574 \uB3C4\uAD6C\uD568\uC5D0 \uB123\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  \r\n\r\n  <!-- Depth
+      2-2-2 -->\r\n  <TextData ID=\"22201\" kor=\"\uACC4\uCE21\uC13C\uC11C \uC815\uBE44
+      \uC791\uC5C5\uC744 \uC704\uD574 \uC804\uAE30 \uC791\uC5C5\uC2DC \uD65C\uC6A9\uD558\uB294
+      \uC810\uAC80 \uB3C4\uAD6C\uB97C \uC900\uBE44\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"22202\" kor=\"\uACC4\uCE21\uC13C\uC11C
+      \uC815\uBE44 \uC791\uC5C5\uC2DC\uC5D0 \uD65C\uC6A9\uB418\uB294 \uC810\uAC80\uB3C4\uAD6C\uC5D0\uB294
+      \uC804\uB3D9\uB4DC\uB77C\uC774\uBC84, \uB514\uC9C0\uD138 \uBBF8\uD130, \uC790\uB3D9\uC555\uB825
+      \uAD50\uC815\uAE30, \uC2A4\uD2B8\uB9BD\uD37C \uB4F1\uC774 \uC788\uC2B5\uB2C8\uB2E4.
+      \uC791\uC5C5\uB300\uC5D0 \uBE44\uCE58\uB41C \uC810\uAC80 \uB3C4\uAD6C\uB97C
+      \uD074\uB9AD\uD558\uBA74 \uAC01 \uC810\uAC80 \uB3C4\uAD6C\uC5D0 \uB300\uD55C
+      \uC124\uBA85\uC744 \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"22203\" kor=\"\uD654\uBA74\uC5D0 \uC88C\uCE21\uC5D0
+      \uD45C\uAE30\uB418\uB294 \uACC4\uCE21 \uC13C\uC11C \uC815\uBE44 \uC804 \uC810\uAC80\uB3C4\uAD6C
+      \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uB97C \uD655\uC778\uD558\uACE0 \uCCB4\uD06C\uB9AC\uC2A4\uD2B8\uC758
+      \uC810\uAC80 \uB3C4\uAD6C\uB97C \uD074\uB9AD\uD574 \uB3C4\uAD6C\uD568\uC5D0
+      \uB123\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"22204\" kor=\"\uD14C\uC2A4\uD2B8 Depth 2-2-2-04.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"22205\" kor=\"\uD14C\uC2A4\uD2B8 Depth 2-2-2-05.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"22206\" kor=\"\uD14C\uC2A4\uD2B8 Depth
+      2-2-2-06.\" eng=\"eng Test\" />\r\n  <TextData ID=\"22207\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-2-2-07.\" eng=\"eng Test\" />\r\n  <TextData ID=\"22208\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-2-2-08.\" eng=\"eng Test\" />\r\n  <TextData ID=\"22209\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-2-2-09.\" eng=\"eng Test\" />\r\n  <TextData ID=\"22210\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-2-2-10.\" eng=\"eng Test\" />\r\n\r\n\r\n\r\n  <!-- Depth 2-3-2-->\r\n 
+      <TextData ID=\"23101\" kor=\"\uD14C\uC2A4\uD2B8 Depth 2-3-2-01.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"23102\" kor=\"\uD14C\uC2A4\uD2B8 Depth 2-3-2-02.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"23103\" kor=\"\uD14C\uC2A4\uD2B8 Depth
+      2-3-2-03.\" eng=\"eng Test\" />\r\n  <TextData ID=\"23104\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-3-2-04.\" eng=\"eng Test\" />\r\n  <TextData ID=\"23105\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-3-2-05.\" eng=\"eng Test\" />\r\n  <TextData ID=\"23106\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-3-2-06.\" eng=\"eng Test\" />\r\n  <TextData ID=\"23107\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-3-2-07.\" eng=\"eng Test\" />\r\n  <TextData ID=\"23108\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-3-2-08.\" eng=\"eng Test\" />\r\n  <TextData ID=\"23109\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-3-2-09.\" eng=\"eng Test\" />\r\n  <TextData ID=\"23110\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 2-3-2-10.\" eng=\"eng Test\" />\r\n\r\n\r\n  \r\n  <!-- \uC548\uC804\uAD00\uB9AC
+      \uCCB4\uD06C\uB9AC\uC2A4\uD2B8 \uBD80\uBD84 -->\r\n  <TextData ID=\"22001\"
+      kor=\"\uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"22002\" kor=\"\uB514\uC9C0\uD138 \uBA40\uD2F0\uBBF8\uD130\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"22003\" kor=\"\uB80C\uCE58\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"22004\" kor=\"\uC2A4\uD2B8\uB9AC\uD37C\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"22005\" kor=\"\uC790\uB3D9 \uC555\uB825 \uAD50\uC815\uAE30\"
+      eng=\"eng Test\" />\r\n\r\n\r\n  \r\n  <!-- \uC870\uC791\uBC95 \uC548\uB0B4
+      -->\r\n  <TextData ID=\"51101\" kor=\"\uACC4\uCE21\uC13C\uC11C \uC815\uBE44
+      \uC2E4\uC2B5\uC5D0 \uC55E\uC11C \uD559\uC2B5\uC744 \uC704\uD55C \uC870\uC791\uBC95\uC5D0
+      \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"51102\" kor=\"\uBA3C\uC800 \uD654\uBA74 \uD68C\uC804
+      \uBC0F \uC774\uB3D9 \uC870\uC791 \uBC29\uBC95\uC5D0 \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uAC00\uC774\uB4DC\uB97C \uCC38\uACE0\uD574
+      &#60;color=#FFA500&#62;\uB9C8\uC6B0\uC2A4 \uC88C\uD074\uB9AD&#60;/color&#62;\uC744
+      \uB204\uB978 \uC0C1\uD0DC\uB85C \uB4DC\uB798\uADF8\uD558\uC5EC \uD654\uBA74\uC744
+      \uD68C\uC804\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"51103\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C
+      \uAC00\uC774\uB4DC\uB97C \uCC38\uACE0\uD574 &#60;color=#FFA500&#62;\uB9C8\uC6B0\uC2A4
+      \uD720&#60;/color&#62;\uC744 \uB3CC\uB824 \uD654\uBA74\uC744 \uD655\uB300\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"51104\" kor=\"\uACC4\uCE21\uC13C\uC11C
+      \uC815\uBE44 \uACFC\uC815\uC5D0 \uD65C\uC6A9\uB418\uB294 \uC810\uAC80 \uB3C4\uAD6C\uC758
+      \uC870\uC791 \uBC29\uBC95\uC5D0 \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"51105\" kor=\"\uD559\uC2B5\uC5D0 \uD65C\uC6A9\uB418\uB294
+      \uC810\uAC80 \uB3C4\uAD6C\uB294 \uB3C4\uAD6C\uD568\uC744 \uD1B5\uD574 \uD655\uC778\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;\uB3C4\uAD6C\uD568&#60;/color&#62;\uC744
+      \uD074\uB9AD\uD574 \uD65C\uC131\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"51106\" kor=\"\uB3C4\uAD6C\uD568\uC5D0 \uC788\uB294
+      \uC810\uAC80\uB3C4\uAD6C\uB97C \uD074\uB9AD\uD558\uBA74 \uD574\uB2F9 \uB3C4\uAD6C\uAC00
+      \uD65C\uC131\uD654 \uB429\uB2C8\uB2E4. &#60;color=#FFA500&#62;\uB514\uC9C0\uD138
+      \uBBF8\uD130&#60;/color&#62;\uB97C \uD074\uB9AD\uD574 \uAEBC\uB0B4\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"51107\" kor=\"\uB9C8\uC9C0\uB9C9\uC73C\uB85C
+      \uD558\uC774\uB77C\uC774\uD2B8 \uB41C \uBD80\uD488\uC744 \uD074\uB9AD\uD574
+      \uC810\uAC80 \uB3C4\uAD6C\uB97C \uC870\uC791\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+      &#60;color=#FFA500&#62;\uB2E4\uC774\uC5BC&#60;/color&#62;\uC744 \uD074\uB9AD\uD574
+      \uC800\uD56D \uCE21\uC815 \uBAA8\uB4DC\uAE4C\uC9C0 \uB3CC\uB824\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"51108\" kor=\"\uC798 \uD558\uC168\uC2B5\uB2C8\uB2E4.
+      \uD29C\uD1A0\uB9AC\uC5BC\uC744 \uB9C8\uCE58\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n\r\n\r\n\r\n  <!-- Depth 1-1-1-->\r\n  <TextData ID=\"11101\"
+      kor=\"\uC774\uBC88 \uD559\uC2B5 \uACFC\uC815\uC5D0\uC11C\uB294 \uACC4\uCE21\uC13C\uC11C
+      \uC810\uAC80, \uC815\uBE44 \uC2E4\uC2B5\uC744 \uB3D5\uAE30 \uC704\uD574 \uAE08\uC18D
+      \uC81C\uC870\uC124\uBE44\uC5D0 \uC124\uCE58\uB41C \uACC4\uCE21 \uC13C\uC11C\uB97C
+      \uC804\uCCB4\uC801\uC73C\uB85C \uD655\uC778\uD558\uACE0, \uAC01 \uC13C\uC11C\uAC00
+      \uC5B4\uB5A4 \uC5ED\uD560\uC744 \uD558\uB294\uC9C0 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"11102\" kor=\"\uBA3C\uC800 &#60;color=#FFA500&#62;\uAC80\uCD9C
+      \uC2A4\uC704\uCE58&#60;/color&#62;\uC785\uB2C8\uB2E4. \uAC80\uCD9C \uC2A4\uC704\uCE58\uB294
+      \uC8FC\uB85C \uAC80\uCD9C\uBB3C\uC744 \uC774\uC1A1\uD558\uB294 \uC6B4\uBC18
+      \uC2DC\uC2A4\uD15C\uC5D0 \uC124\uCE58\uB418\uBA70 \uC81C\uC5B4 \uB300\uC0C1\uC758
+      \uC0C1\uD0DC, \uBCC0\uD654\uB97C \uCE21\uC815\uD558\uACE0 \uC124\uBE44\uC758
+      \uAE30\uACC4 \uC791\uB3D9\uC744 \uC81C\uC5B4\uD558\uB294\uB370 \uD65C\uC6A9\uB429\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"11103\" kor=\"\uAC00\uACF5 \uC804\uD6C4
+      \uAC80\uCD9C\uBB3C\uC774 \uCEE8\uBCA0\uC774\uC5B4 \uBCA8\uD2B8\uB97C \uB530\uB77C
+      \uC774\uB3D9\uD558\uBA70 \uC774\uB54C \uAC80\uCD9C \uC2A4\uC704\uCE58\uB97C
+      \uD1B5\uD574 \uC704\uCE58\uB97C \uCE21\uC815\uD558\uACE0 \uC124\uBE44\uC758
+      \uAE30\uACC4 \uC791\uB3D9\uC744 \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"11104\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC628\uB3C4
+      \uC13C\uC11C, \uC555\uB825 \uC13C\uC11C, \uC720\uB7C9 \uC13C\uC11C, \uB808\uBCA8
+      \uC13C\uC11C\uC785\uB2C8\uB2E4. \uD574\uB2F9 \uC13C\uC11C\uB4E4\uC740 \uAE30\uCCB4\uB098
+      \uACF5\uC815\uC0C1\uC5D0 \uD544\uC694\uD55C \uACF5\uC815 \uC720\uCCB4\uB4E4\uC744
+      \uC800\uC7A5\uD558\uACE0 \uC774\uC1A1\uD558\uB294 \uC2DC\uC2A4\uD15C\uC5D0
+      \uC124\uCE58\uB418\uBA70 \uC628\uB3C4, \uC555\uB825 \uBCC0\uD654 \uB4F1\uC744
+      \uAC10\uC9C0\uD558\uB294\uB370 \uD65C\uC6A9\uB429\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"11105\" kor=\"\uBA3C\uC800 &#60;color=#FFA500&#62;\uC628\uB3C4
+      \uC13C\uC11C&#60;/color&#62;\uC785\uB2C8\uB2E4. \uC628\uB3C4 \uC13C\uC11C\uB294
+      \uD0F1\uD06C\uB85C\uB9AC, \uBC30\uAD00\uC5D0 \uC124\uCE58\uB418\uC5B4 \uB0C9\uB09C\uBC29
+      \uC2DC\uC2A4\uD15C \uC81C\uC5B4, \uACF5\uC815 \uC720\uCCB4 \uC628\uB3C4 \uBAA8\uB2C8\uD130\uB9C1
+      \uB4F1\uC5D0 \uD65C\uC6A9\uB418\uBA70 \uB0B4\uBD80 \uC720\uCCB4\uC758 \uC628\uB3C4
+      \uBCC0\uD654\uC5D0 \uB530\uB978 \uC804\uAE30\uC801 \uBCC0\uD654\uB97C \uAC10\uC9C0\uD558\uC5EC
+      \uAC12\uC744 \uCD9C\uB825\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"11106\" kor=\"\uB2E4\uC74C\uC73C\uB85C &#60;color=#FFA500&#62;\uC555\uB825
+      \uC13C\uC11C&#60;/color&#62;\uC785\uB2C8\uB2E4. \uC555\uB825 \uC13C\uC11C\uB294
+      \uD0F1\uD06C\uB85C\uB9AC, \uBC30\uAD00 \uBC0F \uC555\uB825 \uC6A9\uAE30\uC5D0
+      \uC124\uCE58\uB418\uC5B4 \uACF5\uC815 \uC720\uCCB4\uB098 \uAC00\uC2A4\uC758
+      \uC555\uB825 \uAD00\uB9AC, \uACF5\uC555 \uC2DC\uC2A4\uD15C \uC81C\uC5B4 \uB4F1\uC5D0
+      \uD65C\uC6A9\uB418\uBA70 \uB0B4\uBD80 \uC555\uB825 \uBCC0\uD654\uC5D0 \uB530\uB77C
+      \uBC1C\uC0DD\uD558\uB294 \uC804\uAE30 \uC2E0\uD638\uB97C \uCD9C\uB825\uD569\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"11107\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      &#60;color=#FFA500&#62;\uC720\uB7C9 \uC13C\uC11C&#60;/color&#62;\uC785\uB2C8\uB2E4.
+      \uC720\uB7C9 \uC13C\uC11C\uB294 \uBC30\uAD00\uC5D0 \uC124\uCE58\uB418\uC5B4
+      \uC720\uCCB4\uB098 \uAC00\uC2A4\uC758 \uD750\uB984\uC744 \uAC10\uC9C0\uD558\uACE0
+      \uC774\uB97C \uC2E0\uD638\uB85C \uCD9C\uB825\uD558\uC5EC \uBB3C \uACF5\uAE09
+      \uC2DC\uC2A4\uD15C, \uACF5\uC815 \uC720\uCCB4 \uAD00\uB9AC \uBC0F \uC5D0\uB108\uC9C0
+      \uAD00\uB9AC \uB4F1\uC5D0 \uD65C\uC6A9\uB429\uB2C8\uB2E4.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"11108\" kor=\"\uB2E4\uC74C\uC73C\uB85C &#60;color=#FFA500&#62;\uB808\uBCA8
+      \uC13C\uC11C&#60;/color&#62;\uC785\uB2C8\uB2E4. \uB808\uBCA8 \uC13C\uC11C\uB294
+      \uC800\uC7A5\uD0F1\uD06C, \uBC30\uAD00 \uBC0F \uACF5\uC815 \uC7A5\uBE44\uC5D0
+      \uC124\uCE58\uB418\uC5B4 \uC561\uCCB4\uB098 \uACE0\uCCB4 \uBB3C\uC9C8\uC758
+      \uB192\uC774\uB97C \uAC10\uC9C0\uD558\uACE0 \uC774\uB97C \uCE21\uC815\uD558\uC5EC
+      \uACF5\uC815 \uC790\uB3D9\uD654, \uC800\uC7A5\uD0F1\uD06C\uC758 \uBB3C\uC9C8
+      \uAD00\uB9AC \uB4F1\uC5D0 \uD65C\uC6A9\uB429\uB2C8\uB2E4.\" eng=\"eng Test\"
+      />\r\n\r\n  <!-- Depth 1-1-2-->\r\n  <TextData ID=\"12101\" kor=\"\uC774\uBC88
+      \uD559\uC2B5 \uACFC\uC815\uC5D0\uC11C\uB294 \uC815\uBE44 \uACFC\uC815\uC744
+      \uD559\uC2B5\uD560 \uAC80\uCD9C \uC2A4\uC704\uCE58, \uC628\uB3C4 \uC13C\uC11C,
+      \uC555\uB825 \uC13C\uC11C, \uC720\uB7C9 \uC13C\uC11C, \uB808\uBCA8 \uC13C\uC11C\uC758
+      \uB0B4\uBD80\uB97C \uD655\uC778\uD558\uBA70 \uC13C\uC11C \uAD6C\uC870 \uBC0F
+      \uB3D9\uC791\uC6D0\uB9AC\uC5D0 \uB300\uD574 \uAC04\uB2E8\uD558\uAC8C \uC54C\uC544\uBCF4\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"12102\"
+      kor=\"\uBA3C\uC800 \uAC80\uCD9C \uC2A4\uC704\uCE58\uC785\uB2C8\uB2E4. \uAC80\uCD9C
+      \uC2A4\uC704\uCE58\uB294 \uC81C\uC5B4 \uB300\uC0C1\uC758 \uC704\uCE58\uB97C
+      \uC815\uD655\uD558\uAC8C \uAC80\uCD9C\uD558\uB294 \uC2A4\uC704\uCE58\uB85C
+      \uC8FC\uB85C \uCEE8\uBCA0\uC774\uC5B4 \uBCA8\uD2B8, \uAE30\uACC4 \uC7A5\uCE58
+      \uC8FC\uBCC0\uBD80\uC5D0 \uC124\uCE58\uB418\uBA70 \uCEE8\uBCA0\uC774\uC5B4
+      \uBCA8\uD2B8\uC5D0\uC11C \uC774\uB3D9\uD558\uB294 \uAE08\uC18D \uC7AC\uB8CC(\uAC80\uCD9C\uBB3C)
+      \uB610\uB294 \uC655\uBCF5 \uC6B4\uB3D9\uC744 \uD558\uB294 \uAE30\uACC4 \uC7A5\uCE58\uC758
+      \uC6C0\uC9C1\uC784\uC744 \uB808\uBC84\uC758 \uC811\uCD09\uC744 \uD1B5\uD574
+      \uAC10\uC9C0\uD574 \uCE21\uC815\uD558\uB294 \uC13C\uC11C\uC785\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"12103\" kor=\"\uAC80\uCD9C \uC2A4\uC704\uCE58\uB294
+      \uD5E4\uB4DC, \uC870\uC808 \uB808\uBC84, \uC811\uC18D\uB098\uC0AC \uB4F1\uC73C\uB85C
+      \uAD6C\uC131\uB418\uBA70 \uD5E4\uB4DC\uC5D0 \uC5F0\uACB0 \uB418\uC5B4\uC788\uB294
+      &#60;color=#FFA500&#62;\uC870\uC808 \uB808\uBC84&#60;/color&#62;\uAC00 \uBB3C\uCCB4\uC5D0
+      \uC811\uCD09\uD558\uBA74 \uB0B4\uBD80\uC758 &#60;color=#FFA500&#62;\uC2A4\uC704\uCE58&#60;/color&#62;\uB97C
+      \uB20C\uB7EC \uCE21\uC815\uD558\uB294 \uC6D0\uB9AC\uB85C \uB3D9\uC791\uD569\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"12104\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC628\uB3C4 \uC13C\uC11C\uC785\uB2C8\uB2E4. \uC628\uB3C4 \uC13C\uC11C\uB294
+      \uC124\uBE44\uC5D0 \uD65C\uC6A9\uB418\uB294 \uC561\uCCB4, \uAE30\uCCB4\uAC00
+      \uC800\uC7A5\uB41C \uD0F1\uD06C\uB85C\uB9AC\uB098 \uC774\uB97C \uC6B4\uBC18\uD558\uB294
+      \uD30C\uC774\uD504 \uBC30\uAD00\uC5D0 \uC124\uCE58\uB418\uBA70 \uC124\uCE58\uB41C
+      \uBD80\uBD84\uC758 \uC628\uB3C4\uB97C \uCE21\uC815\uD558\uB294 \uC13C\uC11C\uC785\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"12105\" kor=\"\uD574\uB2F9 \uC628\uB3C4
+      \uC13C\uC11C\uB294 \uCE21\uC628\uC800\uD56D\uCCB4\uB85C \uAC10\uC628\uBD80,
+      \uB36E\uAC1C, \uBCF4\uC0C1\uC804\uC120, \uACE0\uC815\uB098\uC0AC \uB4F1\uC73C\uB85C
+      \uAD6C\uC131\uB418\uBA70, &#60;color=#FFA500&#62;\uAC10\uC628\uBD80&#60;/color&#62;\uC5D0
+      \uCE21\uC815\uB41C \uC628\uB3C4 \uBCC0\uD654\uB85C \uC778\uD574 &#60;color=#FFA500&#62;\uB3C4\uC120
+      \uC800\uD56D&#60;/color&#62;\uC774 \uBCC0\uD654\uD558\uAC8C \uB418\uBA74 \uC774\uB97C
+      \uCE21\uC815\uD558\uB294 \uBC29\uC2DD\uC73C\uB85C \uB3D9\uC791\uD569\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"12106\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC555\uB825 \uC13C\uC11C\uC785\uB2C8\uB2E4. \uBC30\uAD00\uC5D0 \uD750\uB974\uB294
+      \uAC01\uC885 \uC720\uCCB4\uC758 \uC555\uB825\uC744 \uCE21\uC815\uD560 \uC218
+      \uC788\uC2B5\uB2C8\uB2E4. \uBC30\uAD00\uC774\uB098 \uD0F1\uD06C\uC758 \uC555\uB825\uC744
+      \uC9C1\uC811\uC801\uC73C\uB85C \uCE21\uC815\uD558\uAC70\uB098, \uC720\uB7C9,
+      \uB808\uBCA8 \uC13C\uC11C\uC640 \uBCF5\uD569\uC801\uC73C\uB85C \uD65C\uC6A9\uB418\uAE30\uB3C4
+      \uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"12107\" kor=\"\uC555\uB825
+      \uC13C\uC11C\uB294 \uD558\uC6B0\uC9D5, \uC9C0\uC2DC\uBD80, \uB2E4\uC774\uC5B4\uD504\uB7A8,
+      \uC5B4\uB311\uD130 \uB4F1\uC73C\uB85C \uAD6C\uC131\uB429\uB2C8\uB2E4. \uC555\uB825\uC5D0
+      \uC758\uD574 &#60;color=#FFA500&#62;\uB2E4\uC774\uC5B4\uD504\uB7A8&#60;/color&#62;\uC774
+      \uC774\uB3D9\uD558\uBA74 \uADF8\uB85C \uC778\uD574 \uBCC0\uD654\uD558\uB294
+      \uC800\uD56D\uC73C\uB85C \uC774\uB97C \uCE21\uC815\uD558\uB294 \uBC29\uC2DD\uC73C\uB85C
+      \uB3D9\uC791\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"12108\"
+      kor=\"\uB2E4\uC74C\uC73C\uB85C \uC720\uB7C9 \uC13C\uC11C\uC785\uB2C8\uB2E4.
+      \uBC30\uAD00\uC5D0 \uD750\uB974\uB294 \uC720\uCCB4, \uAE30\uCCB4\uC758 \uC720\uB7C9\uC744
+      \uCE21\uC815\uD569\uB2C8\uB2E4. \uC720\uB7C9\uC13C\uC11C\uC758 \uC720\uD615\uC5D0
+      \uB530\uB77C \uC218\uC9C1 \uD639\uC740 \uC218\uD3C9\uC73C\uB85C \uD65C\uC6A9\uB420
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"12109\"
+      kor=\"\uD574\uB2F9 \uC720\uB7C9 \uC13C\uC11C\uB294 \uCC28\uC555\uC2DD \uC720\uB7C9
+      \uC13C\uC11C\uB85C \uD558\uC6B0\uC9D5, \uB2E4\uC774\uC5B4\uD504\uB7A8, \uC5B4\uB311\uD130
+      \uB4F1\uC73C\uB85C \uAD6C\uC131\uB429\uB2C8\uB2E4. \uC555\uB825\uC5D0 \uC758\uD574
+      &#60;color=#FFA500&#62;\uB2E4\uC774\uC5B4\uD504\uB7A8&#60;/color&#62;\uC774
+      \uC774\uB3D9\uD558\uBA74 \uADF8\uB85C \uC778\uD574 \uBCC0\uD654\uD558\uB294
+      \uC800\uD56D\uC73C\uB85C \uAD00\uB0B4 \uC720\uB7C9\uC744 \uCE21\uC815\uD558\uB294
+      \uBC29\uC2DD\uC73C\uB85C \uB3D9\uC791\uD569\uB2C8\uB2E4.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"12110\" kor=\"\uB9C8\uC9C0\uB9C9\uC73C\uB85C \uB808\uBCA8
+      \uC13C\uC11C\uC785\uB2C8\uB2E4. \uD0F1\uD06C, \uC6A9\uAE30, \uC0AC\uC77C\uB85C
+      \uB4F1\uC5D0 \uC124\uCE58\uB418\uBA70 \uC124\uCE58\uB41C \uACF5\uAC04 \uB0B4
+      \uC561\uCCB4\uB098 \uBC8C\uD06C \uBB3C\uC9C8\uC758 \uCDA9\uC804 \uC0C1\uD0DC\uB97C
+      \uCE21\uC815\uD558\uB294 \uC13C\uC11C \uC785\uB2C8\uB2E4.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"12111\" kor=\"\uB808\uBCA8 \uC13C\uC11C\uB294 \uC9C0\uC2DC\uBD80,
+      \uC13C\uC11C \uD504\uB85C\uBE0C \uB4F1\uC73C\uB85C \uAD6C\uC131\uB418\uBA70,
+      &#60;color=#FFA500&#62;\uC13C\uC11C \uD504\uB85C\uBE0C&#60;/color&#62;\uC5D0
+      \uC811\uCD09\uB41C \uB9E4\uCCB4\uC758 \uC804\uAE30\uC801 \uD2B9\uC131\uC744
+      \uC774\uC6A9\uD574 \uB808\uBCA8\uC744 \uAC10\uC9C0\uD558\uBA70 \uC774\uB97C
+      \uC9C0\uC2DC\uBD80\uC5D0 \uD45C\uAE30\uD574\uC8FC\uB294 \uBC29\uC2DD\uC73C\uB85C
+      \uB3D9\uC791\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n\r\n\r\n  <!-- Depth
+      3-1-1 -->\r\n  <TextData ID=\"31101\" kor=\"\uC774\uBC88 \uD559\uC2B5 \uACFC\uC815\uC5D0\uC11C\uB294
+      \uAE08\uC18D\uC81C\uC870 \uC124\uBE44\uC5D0 \uD65C\uC6A9\uB418\uB294 \uACC4\uCE21\uC13C\uC11C\uC758
+      &#60;color=#FFA500&#62;\uC810\uAC80&#60;/color&#62;, &#60;color=#FFA500&#62;\uACE0\uC7A5\uC720\uD615&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uC815\uBE44 \uBC29\uBC95&#60;/color&#62;\uC5D0 \uB300\uD574
+      \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uBA3C\uC800 \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758
+      \uC810\uAC80\uBC29\uC2DD\uACFC \uACE0\uC7A5\uC720\uD615\uC744 \uC54C\uC544\uBCF4\uACE0
+      \uC774\uC5D0 \uB530\uB978 \uC815\uBE44 \uBC29\uBC95\uC744 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31102\" kor=\"\uC810\uAC80 \uBC29\uBC95\uC740
+      \uAC80\uCD9C \uC2A4\uC704\uCE58 \uC678\uBD80\uB97C \uC810\uAC80\uD558\uB294
+      &#60;color=#FFA500&#62;\uC678\uBD80 \uC810\uAC80&#60;/color&#62;\uACFC \uC2A4\uC704\uCE58
+      \uB0B4\uBD80\uC758 \uC804\uC120 \uC5F0\uACB0\uC0C1\uD0DC, \uB3D9\uC791\uC744
+      \uD655\uC778\uD558\uB294 &#60;color=#FFA500&#62;\uB0B4\uBD80 \uC810\uAC80&#60;/color&#62;\uC774
+      \uC788\uC2B5\uB2C8\uB2E4. \uBA3C\uC800 \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758
+      \uC678\uBD80 \uC810\uAC80\uC5D0 \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31103\" kor=\"\uAC80\uCD9C \uC2A4\uC704\uCE58\uB294
+      \uC8FC\uB85C \uAE08\uC18D \uC81C\uC870 \uC124\uBE44\uC5D0 \uD65C\uC6A9\uB418\uB294
+      \uAE08\uC18D \uAC00\uACF5\uBB3C\uC758 \uC774\uC1A1, \uC801\uC7AC\uB97C \uC704\uD574
+      \uC124\uCE58\uB418\uBA70 \uAC80\uCD9C\uBB3C\uC5D0 \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758
+      \uB808\uBC84\uAC00 \uC811\uCD09\uD558\uBA74 \uC2A4\uC704\uCE58\uAC00 \uB3D9\uC791\uD558\uB294
+      \uD615\uD0DC\uB85C \uB3D9\uC791\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"31104\" kor=\"\uC678\uBD80 \uC810\uAC80\uC744 \uD1B5\uD574 \uAC80\uCD9C\uBB3C\uACFC
+      \uAC80\uCD9C \uC2A4\uC704\uCE58\uAC04 &#60;color=#FFA500&#62;\uAC80\uCD9C\uAC70\uB9AC&#60;/color&#62;\uAC00
+      \uC801\uC808\uD558\uAC8C \uC124\uC815\uB418\uC5C8\uB294\uC9C0 \uD655\uC778\uD558\uACE0
+      \uC2A4\uC704\uCE58 &#60;color=#FFA500&#62;\uC870\uC808 \uB808\uBC84&#60;/color&#62;\uC758
+      \uC0C1\uD0DC\uC5D0 \uC774\uC0C1\uC774 \uC5C6\uB294\uC9C0 \uC6C0\uC9C1\uC784\uC740
+      \uC6D0\uD65C\uD55C\uC9C0 \uD655\uC778\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31105\" kor=\"\uBA3C\uC800 \uAC80\uCD9C
+      \uC2A4\uC704\uCE58\uC758 \uC870\uC808 \uB808\uBC84\uB97C \uC721\uC548 \uC810\uAC80\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uAC80\uCD9C \uC2A4\uC704\uCE58 \uB0B4\uBD80\uC758 \uB808\uBC84\uAC00 \uD718\uAC70\uB098
+      \uC6C0\uC9C1\uC784\uC774 \uC6D0\uD65C\uD558\uC9C0 \uC54A\uC744 \uACBD\uC6B0
+      \uAC80\uCD9C\uBB3C\uC758 \uC0C1\uD0DC\uB97C \uCE21\uC815\uD560 \uC218 \uC5C6\uC73C\uBA70,
+      \uC2EC\uD560 \uACBD\uC6B0 \uAC80\uCD9C\uBB3C\uC774 \uC774\uD0C8\uD560 \uC218
+      \uC788\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uAC80\uCD9C
+      \uC2A4\uC704\uCE58 \uC870\uC808 \uB808\uBC84&#60;/color&#62;\uB97C \uD074\uB9AD\uD574
+      \uC810\uAC80\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"31106\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC870\uC808 \uB808\uBC84\uAC00
+      \uC815\uC0C1\uC791\uB3D9 \uD558\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uB808\uBC84&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uC88C\uC6B0\uB85C \uC870\uC791&#60;/color&#62;\uD558\uACE0,
+      &#60;color=#FFA500&#62;\uB3D9\uC791\uB7A8\uD504&#60;/color&#62;\uAC00 &#60;color=#FFA500&#62;\uC815\uC0C1
+      \uC810\uB4F1&#60;/color&#62;\uD558\uB294\uC9C0 \uD655\uC778\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n\r\n  <!-- Depth 3-1-1 \uAC80\uCD9C \uC2A4\uC704\uCE58
+      \uC810\uAC80(\uB0B4\uBD80) -->\r\n  <TextData ID=\"31107\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uB0B4\uBD80\uB97C \uC810\uAC80\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB0B4\uBD80 \uC810\uAC80\uC744 \uD1B5\uD574 \uB0B4\uBD80 &#60;color=#FFA500&#62;\uB3C4\uC120
+      \uC774\uC0C1&#60;/color&#62;\uC744 &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD558\uACE0
+      &#60;color=#FFA500&#62;\uD1B5\uC804 \uC0C1\uD0DC \uD655\uC778&#60;/color&#62;\uC744
+      \uD1B5\uD574 \uB3D9\uC791\uC5D0 \uC774\uC0C1\uC774 \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uB294
+      \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"31108\" kor=\"\uBA3C\uC800 \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uB36E\uAC1C\uB97C
+      \uC5F4\uACE0 \uB0B4\uBD80\uC5D0 \uC774\uC0C1\uC774 \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uC2DC\uB41C \uAC80\uCD9C \uC2A4\uC704\uCE58 \uB36E\uAC1C\uB97C
+      \uD074\uB9AD\uD574 \uC5F4\uC5B4\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"31109\" kor=\"\uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uACBD\uC6B0
+      \uAC80\uCD9C\uBB3C\uACFC \uC9C1\uC811 \uC811\uCD09\uC73C\uB85C \uC778\uD574
+      \uBC1C\uC0DD\uD558\uB294 \uC9C4\uB3D9, \uCDA9\uACA9\uC73C\uB85C \uC778\uD574
+      \uB0B4\uBD80 \uC811\uC18D\uB2E8\uC790\uAC00 \uD480\uB824 \uC815\uC0C1 \uC791\uB3D9\uD558\uC9C0
+      \uC54A\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C
+      &#60;color=#FFA500&#62;\uC811\uC18D\uB098\uC0AC&#60;/color&#62;\uB97C \uD074\uB9AD\uD574
+      \uC810\uAC80\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"31110\" kor=\"\uB2E4\uC74C \uB0B4\uBD80 \uC810\uAC80\uC740 \uD1B5\uC804
+      \uC0C1\uD0DC \uD655\uC778\uC785\uB2C8\uB2E4. \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758
+      \uC811\uC18D\uB2E8\uC790\uAC00 \uC815\uC0C1 \uCCB4\uACB0\uB418\uC5B4 \uC788\uC5B4\uB3C4
+      \uB178\uD6C4\uB418\uAC70\uB098 \uB0B4\uBD80 \uB2E8\uC120\uC73C\uB85C \uC778\uD574
+      \uC815\uC0C1 \uC791\uB3D9\uD558\uC9C0 \uC54A\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+      \uC774\uB7EC\uD55C \uACBD\uC6B0 &#60;color=#FFA500&#62;\uC811\uC18D \uB2E8\uC790&#60;/color&#62;\uC758
+      &#60;color=#FFA500&#62;\uD1B5\uC804 \uC0C1\uD0DC&#60;/color&#62;\uB97C &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD558\uB294
+      \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"31111\" kor=\"\uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uD1B5\uC804 \uC0C1\uD0DC\uB97C
+      \uD655\uC778\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC124\uCE58\uB418\uB294
+      \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uC885\uB958\uC5D0 \uB530\uB77C \uD14C\uC2A4\uD2B8
+      \uBC29\uBC95\uC740 \uC0C1\uC774\uD558\uBA70, \uC8FC\uB85C \uC0AC\uC6A9\uB418\uB294
+      4\uC120\uC2DD \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uD1B5\uC804 \uC0C1\uD0DC\uB97C
+      \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"31112\" kor=\"\uB514\uC9C0\uD138 \uBBF8\uD130\uB97C \uD65C\uC6A9\uD574
+      \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uD1B5\uC804 \uC0C1\uD0DC\uB97C \uD655\uC778\uD558\uAE30
+      \uC704\uD574 \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uB514\uC9C0\uD138
+      \uBBF8\uD130&#60;/color&#62;\uB97C \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"31113\" kor=\"\uAC80\uCD9C \uC2A4\uC704\uCE58\uC758
+      \uAC01 \uC5F4\uC758 \uB450 \uB2E8\uC790\uB97C \uCE21\uC815\uD574 \uD1B5\uC804
+      \uC0C1\uD0DC\uB97C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;\uB2E4\uC774\uC5BC&#60;/color&#62;\uC744
+      \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uC800\uD56D(\u03A9)\uCE21\uC815
+      \uBAA8\uB4DC&#60;/color&#62;\uB85C \uB9DE\uCDB0\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"31114\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uAE30\uB2A5
+      \uBCC0\uACBD \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uD1B5\uC804
+      \uAE30\uB2A5&#60;/color&#62;\uC73C\uB85C \uBAA8\uB4DC\uB97C \uBCC0\uACBD\uD558\uACE0
+      \uD1B5\uC804 \uC0C1\uD0DC\uB97C \uD655\uC778\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4. 
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uAE30\uB2A5 \uBCC0\uACBD
+      \uBC84\uD2BC&#60;/color&#62;\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31115\" kor=\"\uD504\uB85C\uBE0C\uB97C
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uC811\uC18D\uB2E8\uC790\uC5D0 \uC21C\uCC28\uC801\uC73C\uB85C
+      \uC811\uCD09\uD574 \uCE21\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uAC01 &#60;color=#FFA500&#62;\uC811\uC18D\uB2E8\uC790&#60;/color&#62;\uB97C
+      \uB514\uC9C0\uD138 \uBBF8\uD130\uC758 \uD504\uB85C\uBE0C\uB85C \uC811\uCD09\uD558\uB3C4\uB85D
+      \uD558\uACE0 \uC774 \uB54C &#60;color=#FFA500&#62;\uD1B5\uC804 \uC54C\uB78C&#60;/color&#62;\uC774
+      \uB098\uC624\uB294\uC9C0 &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31116\" kor=\"\uD504\uB85C\uBE0C\uB97C
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uC811\uC18D\uB2E8\uC790\uC5D0 \uC21C\uCC28\uC801\uC73C\uB85C
+      \uC811\uCD09\uD574 \uCE21\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uAC01 &#60;color=#FFA500&#62;\uC811\uC18D\uB2E8\uC790&#60;/color&#62;\uB97C
+      \uB514\uC9C0\uD138 \uBBF8\uD130\uC758 \uD504\uB85C\uBE0C\uB85C \uC811\uCD09\uD558\uB3C4\uB85D
+      \uD558\uACE0 \uC774 \uB54C &#60;color=#FFA500&#62;\uD1B5\uC804 \uC54C\uB78C&#60;/color&#62;\uC774
+      \uB098\uC624\uB294\uC9C0 &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n\r\n  <!-- Depth 3-1-2 -->\r\n  <TextData ID=\"31201\"
+      kor=\"\uB2E4\uC74C\uC73C\uB85C \uAC80\uCD9C \uC2A4\uC704\uCE58\uAC00 \uC815\uC0C1\uC791\uB3D9
+      \uD558\uC9C0 \uC54A\uB294 \uB300\uD45C\uC801\uC778 \uACE0\uC7A5 \uC720\uD615
+      \uBC0F \uC870\uCE58 \uBC29\uBC95\uC5D0 \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31202\" kor=\"\uCCAB \uBC88\uC9F8 \uACE0\uC7A5
+      \uC720\uD615\uC740 &#60;color=#FFA500&#62;\uAC80\uCD9C \uAC70\uB9AC \uC774\uD0C8&#60;/color&#62;\uC785\uB2C8\uB2E4.
+      \uC7A5\uAE30\uAC04 \uC0AC\uC6A9\uC73C\uB85C &#60;color=#FFA500&#62;\uB808\uBC84
+      \uACE0\uC815\uC704\uCE58&#60;/color&#62;\uAC00 &#60;color=#FFA500&#62;\uBCC0\uD615&#60;/color&#62;\uB418\uC5B4,
+      \uAC80\uCD9C\uBB3C\uC774 \uC815\uC0C1\uC801\uC73C\uB85C \uC774\uB3D9\uD558\uC5EC\uB3C4
+      \uC815\uC0C1\uC801\uC73C\uB85C \uAC80\uCD9C\uC774 \uB418\uC9C0 \uC54A\uB294
+      \uC720\uD615\uC785\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"31203\"
+      kor=\"\uC870\uCE58\uBC29\uBC95\uC73C\uB85C\uB294 \uAC80\uCD9C \uC2A4\uC704\uCE58\uB97C
+      \uB36E\uAC1C\uB97C \uBD84\uD574\uD558\uACE0 \uB808\uBC84 \uB098\uC0AC\uB97C
+      \uC870\uC808\uD574 \uB808\uBC84\uB97C \uAC80\uCD9C \uAC70\uB9AC\uB0B4\uC5D0\uC11C
+      \uB3D9\uC791\uD560 \uC218 \uC788\uB3C4\uB85D \uC870\uC808\uD569\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uAC80\uCD9C \uC2A4\uC704\uCE58 \uB36E\uAC1C\uB97C
+      \uD074\uB9AD\uD574 \uC5F4\uACE0 \uC870\uC808 \uB808\uBC84\uB97C \uD655\uC778\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31204\" kor=\"\uAC80\uCD9C\uBB3C\uACFC
+      \uC870\uC808 \uB808\uBC84\uAC04 \uAC80\uCD9C \uAC70\uB9AC\uC5D0 \uC774\uC0C1\uC774
+      \uC788\uC74C\uC744 \uD655\uC778\uD588\uC2B5\uB2C8\uB2E4. \uAC80\uCD9C \uAC70\uB9AC\uB97C
+      \uC870\uC808\uD558\uAE30 \uC704\uD574 \uB808\uBC84 \uAC04\uACA9\uC744 \uC870\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD558\uACE0
+      &#60;color=#FFA500&#62;\uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84&#60;/color&#62;\uB97C
+      \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData ID=\"31205\"
+      kor=\"\uAC80\uCD9C \uC2A4\uC704\uCE58 \uC870\uC808 \uB808\uBC84\uB97C \uD480\uACE0
+      \uC870\uC808 \uB808\uBC84\uB97C \uBAA9\uD45C \uC704\uCE58\uAE4C\uC9C0 \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4. 
+      \uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\uB97C \uD65C\uC6A9\uD574 \uAC80\uCD9C
+      \uC2A4\uC704\uCE58 &#60;color=#FFA500&#62;\uB808\uBC84 \uC870\uC808 \uB098\uC0AC&#60;/color&#62;\uB97C
+      \uD480\uC5B4\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData ID=\"31206\"
+      kor=\"\uB808\uBC84 \uC870\uC808 \uB098\uC0AC\uB97C \uC7AC\uC870\uC815\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4.  \uC870\uC808 \uB808\uBC84\uB97C \uD654\uBA74\uC5D0
+      \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uBAA9\uD45C\uC704\uCE58&#60;/color&#62;\uAE4C\uC9C0
+      &#60;color=#FFA500&#62;\uC870\uC815&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n\r\n  <!-- Depth 3-1-3 -->\r\n  <TextData ID=\"31301\"
+      kor=\"\uB2E4\uC74C\uC740 \uAC80\uCD9C \uC2A4\uC704\uCE58 \uC815\uBE44 \uBC29\uBC95\uC5D0
+      \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC77C\uBC18\uC801\uC73C\uB85C
+      \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uC815\uBE44 \uC21C\uC11C\uB294 \uACE0\uC7A5\uB09C
+      &#60;color=#FFA500&#62;\uAC80\uCD9C \uC2A4\uC704\uCE58 \uD0C8\uAC70&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uC0C8\uB85C\uC6B4 \uAC80\uCD9C \uC2A4\uC704\uCE58 \uAD50\uCCB4&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uC815\uC0C1 \uC791\uB3D9 \uD655\uC778&#60;/color&#62;
+      \uC21C\uC11C\uB85C \uC9C4\uD589\uB429\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"31302\" kor=\"\uAC80\uCD9C \uC2A4\uC704\uCE58 \uC815\uBE44 \uC791\uC5C5\uC744
+      \uC2DC\uC791\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBA3C\uC800
+      \uB3C4\uAD6C\uD568\uC5D0\uC11C \uC0C8\uB85C \uC124\uCE58\uD560 &#60;color=#FFA500&#62;\uC608\uBE44
+      \uAC80\uCD9C \uC2A4\uC704\uCE58&#60;/color&#62;\uB97C \uD074\uB9AD\uD574 \uAEBC\uB0B4\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31303\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC791\uC5C5 \uC804 \uC548\uC804\uC744 \uC704\uD574 \uC911\uC694\uD55C \uC548\uC804
+      \uC808\uCC28\uC778 \uC124\uBE44 \uC804\uC6D0 \uCC28\uB2E8 \uACFC\uC815\uC744
+      \uC218\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBA3C\uC800 &#60;color=#FFA500&#62;\uC804\uC6D0
+      \uCC28\uB2E8 \uC2A4\uC704\uCE58&#60;/color&#62;\uB97C \uB20C\uB7EC \uC804\uC6D0\uC744
+      \uCC28\uB2E8\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"31304\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uAD50\uCCB4\uD560 \uAE30\uC874
+      \uAC80\uCD9C \uC2A4\uC704\uCE58\uB97C \uCCA0\uAC70\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uAE30\uC874 \uAC80\uCD9C \uC2A4\uC704\uCE58\uC5D0 \uC5F0\uACB0\uB41C \uC811\uC18D
+      \uB098\uC0AC \uD574\uCCB4\uB97C \uC704\uD574 &#60;color=#FFA500&#62;\uAC80\uCD9C
+      \uC2A4\uC704\uCE58 \uB36E\uAC1C&#60;/color&#62;\uB97C \uC5F4\uC5B4\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31305\" kor=\"\uB3C4\uAD6C\uD568\uC744
+      \uD074\uB9AD\uD574 \uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\uB97C \uAEBC\uB0B4\uACE0
+      &#60;color=#FFA500&#62;\uC811\uC18D \uB098\uC0AC&#60;/color&#62;\uC5D0 \uC5F0\uACB0\uB41C
+      \uBCF4\uC0C1 \uB3C4\uC120\uC744 &#60;color=#FFA500&#62;\uD574\uCCB4&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31306\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uAE30\uC874 \uAC80\uCD9C \uC2A4\uC704\uCE58\uB97C \uD074\uB9AD\uD574 \uD68C\uC218\uD558\uACE0,
+      \uAEBC\uB0B4\uB193\uC740 &#60;color=#FFA500&#62;\uC608\uBE44 \uAC80\uCD9C \uC2A4\uC704\uCE58&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uC124\uCE58\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"31307\" kor=\"\uC0C8\uB85C \uC124\uCE58\uB41C \uAC80\uCD9C
+      \uC2A4\uC704\uCE58\uC758 \uC870\uC808 \uB808\uBC84\uB97C \uAC80\uCD9C \uAC70\uB9AC\uB9CC\uD07C
+      \uC870\uC808\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB808\uBC84\uC758 &#60;color=#FFA500&#62;\uC870\uC808
+      \uB098\uC0AC&#60;/color&#62;\uB97C \uD480\uACE0 &#60;color=#FFA500&#62;\uBAA9\uD45C
+      \uC704\uCE58&#60;/color&#62;\uB85C \uC870\uC815\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31308\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC0C8\uB85C \uC124\uCE58\uB41C \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uBCF4\uC0C1\uB3C4\uC120\uC744
+      \uB2E4\uC2DC \uC5F0\uACB0\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758
+      &#60;color=#FFA500&#62;\uC811\uC18D\uB098\uC0AC&#60;/color&#62;\uB97C \uB2E4\uC2DC
+      &#60;color=#FFA500&#62;\uCCB4\uACB0&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31309\" kor=\"\uB9C8\uC9C0\uB9C9\uC73C\uB85C
+      \uAC80\uCD9C \uC2A4\uC704\uCE58\uC758 \uC815\uC0C1\uC791\uB3D9\uC744 \uD655\uC778\uD558\uAE30
+      \uC704\uD574 \uC811\uC18D\uB2E8\uC790\uC758 \uD1B5\uC804 \uC0C1\uD0DC\uB97C
+      \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574
+      &#60;color=#FFA500&#62;\uB514\uC9C0\uD138 \uBBF8\uD130&#60;/color&#62;\uB97C
+      \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData ID=\"31310\"
+      kor=\"&#60;color=#FFA500&#62;\uB2E4\uC774\uC5BC&#60;/color&#62;\uC744 \uB3CC\uB824
+      &#60;color=#FFA500&#62;\uC800\uD56D(\u03A9)\uCE21\uC815 \uBAA8\uB4DC&#60;/color&#62;\uB85C
+      \uB9DE\uCDB0\uC8FC\uC138\uC694. \uCE21\uC815\uC740 \uD504\uB85C\uBE0C\uC758
+      \uADF9\uC5D0 \uC0C1\uAD00\uC5C6\uC774 \uB450 \uC9C0\uC810\uC744 \uCE21\uC815\uD569\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31311\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      &#60;color=#FFA500&#62;\uAE30\uB2A5 \uBCC0\uACBD \uBC84\uD2BC&#60;/color&#62;\uC744
+      \uD074\uB9AD\uD574 \uD1B5\uC804 \uAE30\uB2A5\uC73C\uB85C \uBAA8\uB4DC\uB97C
+      \uBCC0\uACBD\uD558\uACE0 &#60;color=#FFA500&#62;\uD1B5\uC804 \uC0C1\uD0DC&#60;/color&#62;\uB97C
+      &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31312\" kor=\"\uD654\uBA74\uC5D0 \uB098\uD0C0\uB09C
+      \uD504\uB85C\uBE0C\uB97C \uCE21\uC815 \uAC00\uC774\uB4DC\uB97C \uCC38\uACE0\uD574
+      \uC21C\uCC28\uC801\uC73C\uB85C &#60;color=#FFA500&#62;\uD1B5\uC804 \uC0C1\uD0DC&#60;/color&#62;\uB97C
+      \uD655\uC778\uD574\uC8FC\uC138\uC694. \uAC01 &#60;color=#FFA500&#62;\uC811\uC18D
+      \uB2E8\uC790&#60;/color&#62;\uB97C \uB514\uC9C0\uD138 \uBBF8\uD130\uC758 \uD504\uB85C\uBE0C\uB85C
+      \uC811\uCD09\uD558\uB3C4\uB85D \uD558\uACE0 \uC774\uB54C &#60;color=#FFA500&#62;\r\n\t\uD1B5\uC804
+      \uC54C\uB78C&#60;/color&#62;\uC774  \uB098\uC624\uB294\uC9C0 &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"31313\" kor=\"\uD654\uBA74\uC5D0 \uB098\uD0C0\uB09C
+      \uD504\uB85C\uBE0C\uB97C \uCE21\uC815 \uAC00\uC774\uB4DC\uB97C \uCC38\uACE0\uD574
+      \uC21C\uCC28\uC801\uC73C\uB85C &#60;color=#FFA500&#62;\uD1B5\uC804 \uC0C1\uD0DC&#60;/color&#62;\uB97C
+      \uD655\uC778\uD574\uC8FC\uC138\uC694. \uAC01 &#60;color=#FFA500&#62;\uC811\uC18D
+      \uB2E8\uC790&#60;/color&#62;\uB97C \uB514\uC9C0\uD138 \uBBF8\uD130\uC758 \uD504\uB85C\uBE0C\uB85C
+      \r\n\t\uC811\uCD09\uD558\uB3C4\uB85D \uD558\uACE0 \uC774\uB54C &#60;color=#FFA500&#62;\uD1B5\uC804
+      \uC54C\uB78C&#60;/color&#62;\uC774  \uB098\uC624\uB294\uC9C0 &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\"/>\r\n  <!-- Depth 3-2-1 -->\r\n  <TextData ID=\"32101\" kor=\"\uC628\uB3C4
+      \uC13C\uC11C\uC758 \uC810\uAC80\uBC29\uC2DD\uACFC \uACE0\uC7A5\uC720\uD615\uC744
+      \uC54C\uC544\uBCF4\uACE0 \uC774\uC5D0 \uB530\uB978 \uC815\uBE44 \uBC29\uBC95\uC744
+      \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"32102\" kor=\"\uC810\uAC80 \uBC29\uBC95\uC740 \uC13C\uC11C \uC678\uBD80\uB97C
+      \uC810\uAC80\uD558\uB294 &#60;color=#FFA500&#62;\uC678\uBD80 \uC810\uAC80&#60;/color&#62;\uACFC
+      \uC628\uB3C4 \uC13C\uC11C \uB0B4\uBD80\uC758 \uB2E8\uC790\uB300, \uC804\uC120
+      \uC5F0\uACB0\uC0C1\uD0DC\uB97C \uD655\uC778\uD558\uB294 &#60;color=#FFA500&#62;\uB0B4\uBD80
+      \uC810\uAC80&#60;/color&#62;\uC774 \uC788\uC2B5\uB2C8\uB2E4. \uBA3C\uC800 \uCE21\uC628\uC800\uD56D\uCCB4\uC758
+      \uC678\uBD80 \uC810\uAC80\uC5D0 \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32103\" kor=\"\uC628\uB3C4 \uC13C\uC11C\uB294
+      \uC8FC\uB85C \uAE08\uC18D \uC81C\uC870 \uC124\uBE44\uC5D0 \uD65C\uC6A9\uB418\uB294
+      \uD654\uD559\uBB3C\uC9C8, \uB0C9\uAC01\uC218, \uD0F1\uD06C\uB85C\uB9AC \uBC30\uAD00
+      \uB4F1\uC5D0 \uC0BD\uC785\uB418\uBA70 \uAC80\uCD9C\uBB3C\uC774 \uC811\uCD09\uD558\uBA74
+      \uAC10\uC628\uBD80\uC758 \uC0C1\uD0DC\uAC00 \uBCC0\uD654\uD558\uB294 \uD615\uD0DC\uB85C
+      \uB3D9\uC791\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"32104\"
+      kor=\"\uC678\uBD80 \uC810\uAC80\uC744 \uD1B5\uD574 \uC124\uCE58\uB41C \uC5F0\uACB0
+      \uBC30\uAD00\uACFC &#60;color=#FFA500&#62;\uC5F0\uACB0\uC0C1\uD0DC&#60;/color&#62;\uAC00
+      \uC62C\uBC14\uB974\uAC8C \uACE0\uC815\uB418\uC5C8\uB294\uC9C0 \uD655\uC778\uD558\uACE0,
+      \uC5F0\uACB0\uBC30\uAD00\uC758 &#60;color=#FFA500&#62;\uB204\uC561&#60;/color&#62;
+      \uB610\uB294 &#60;color=#FFA500&#62;\uB204\uAE30&#60;/color&#62;\uAC00 \uC5C6\uB294\uC9C0
+      \uD655\uC778\uD558\uB294 \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"32105\" kor=\"\uBA3C\uC800 \uC628\uB3C4 \uC13C\uC11C\uC758
+      \uACE0\uC815\uB098\uC0AC \uACB0\uD569\uC744 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4
+      \uACE0\uC815 \uB098\uC0AC\uAC00 \uC81C\uB300\uB85C \uCCB4\uACB0 \uB418\uC5B4\uC788\uC9C0
+      \uC54A\uC73C\uBA74 \uB204\uC561, \uB204\uAE30\uAC00 \uBC1C\uC0DD\uD560 \uC218
+      \uC788\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0 \uD45C\uC2DC\uB41C &#60;color=#FFA500&#62;\uACE0\uC815
+      \uB098\uC0AC&#60;/color&#62;\uB97C \uD655\uC778\uD558\uACE0 \uD074\uB9AD\uD574
+      \uC810\uAC80\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"32106\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC628\uB3C4 \uC13C\uC11C\uAC00
+      \uC124\uCE58\uB41C \uC5F0\uACB0\uBC30\uAD00\uC758 \uC5F0\uACB0\uBD80\uC5D0
+      \uB204\uC561, \uB204\uAE30\uAC00 \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4
+      \uC5F0\uACB0\uBD80\uAC00 \uC81C\uB300\uB85C \uC5F0\uACB0\uB418\uC5B4\uC788\uC9C0
+      \uC54A\uC73C\uBA74 \uB0B4\uBD80 \uC720\uCCB4\uAC00 \uC720\uCD9C\uB418\uAC70\uB098
+      \uC704\uD5D8\uBB3C\uC9C8\uC5D0 \uB178\uCD9C \uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uC2DC\uB41C &#60;color=#FFA500&#62;\uBC30\uAD00 \uC5F0\uACB0\uBD80&#60;/color&#62;\uB97C
+      \uD655\uC778\uD558\uACE0 \uD074\uB9AD\uD574 \uC810\uAC80\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32107\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC628\uB3C4 \uC13C\uC11C\uC758 \uB0B4\uBD80\uB97C \uC810\uAC80\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB0B4\uBD80 \uC810\uAC80\uC744 \uD1B5\uD574 \uB0B4\uBD80\uC758 &#60;color=#FFA500&#62;\uB3C4\uC120
+      \uC5F0\uACB0&#60;/color&#62;\uC5D0 \uC774\uC0C1\uC774 \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uACE0
+      &#60;color=#FFA500&#62;\uC800\uD56D \uCE21\uC815&#60;/color&#62;\uC744 \uD1B5\uD574
+      \uB3D9\uC791\uC5D0 \uC774\uC0C1\uC774 \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uB294
+      \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"32108\" kor=\"\uBA3C\uC800 \uC628\uB3C4 \uC13C\uC11C \uB36E\uAC1C\uB97C
+      \uC5F4\uACE0 \uB0B4\uBD80\uC5D0 \uC774\uC0C1\uC774 \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uC2DC\uB41C \uC628\uB3C4 \uC13C\uC11C \uB36E\uAC1C\uB97C
+      \uD074\uB9AD\uD558\uACE0 \uB36E\uAC1C\uB97C \uC5F4\uC5B4\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32109\" kor=\"\uC628\uB3C4 \uC13C\uC11C\uC758
+      \uACBD\uC6B0 \uC678\uBD80\uC5D0\uC11C \uBC1C\uC0DD\uD558\uB294 \uC9C4\uB3D9,
+      \uC791\uC5C5 \uBD88\uB7C9 \uB4F1\uC73C\uB85C \uC778\uD574 \uB0B4\uBD80 \uC811\uC18D\uB2E8\uC790\uAC00
+      \uC815\uC0C1 \uCCB4\uACB0 \uB418\uC5B4\uC788\uC9C0 \uC54A\uC744 \uACBD\uC6B0
+      \uC628\uB3C4 \uC13C\uC11C\uAC00 \uC791\uB3D9\uD558\uC9C0 \uC54A\uC744 \uC218
+      \uC788\uC2B5\uB2C8\uB2E4.  \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uC811\uC18D\uB2E8\uC790&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uC810\uAC80\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"32110\" kor=\"\uB2E4\uC74C \uB0B4\uBD80 \uC810\uAC80\uC740
+      \uC800\uD56D \uCE21\uC815\uC785\uB2C8\uB2E4. \uC628\uB3C4 \uC13C\uC11C\uC758
+      \uBCF4\uC0C1\uB3C4\uC120\uC774 \uC815\uC0C1 \uCCB4\uACB0 \uB418\uC5B4\uC788\uC5B4\uB3C4
+      \uC77C\uC2DC\uC801 \uC5D0\uB7EC\uB85C \uC778\uD574 \uC624\uCC28\uBC94\uC704\uAC00
+      \uD06C\uAC70\uB098 \uC815\uC0C1 \uC791\uB3D9\uD558\uC9C0 \uC54A\uC744 \uC218
+      \uC788\uC2B5\uB2C8\uB2E4. \uC774\uB7EC\uD55C \uACBD\uC6B0 \uBCF4\uC0C1 \uB3C4\uC120\uC758
+      &#60;color=#FFA500&#62;\uCE21\uC815 \uC800\uD56D&#60;/color&#62;\uC744 &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD558\uB294
+      \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"32111\" kor=\"\uC628\uB3C4 \uC13C\uC11C\uC758 \uC800\uD56D\uC744 \uCE21\uC815\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC800\uD56D \uCE21\uC815\uC2DC\uC5D0\uB294
+      \uCE21\uC815\uAC12\uC5D0 \uC624\uB958\uAC00 \uC0DD\uAE38 \uC218 \uC788\uC5B4
+      \uC5F0\uACB0\uB41C \uC628\uB3C4\uC13C\uC11C\uB97C \uBD84\uB9AC\uD558\uB294
+      \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4. \uBA3C\uC800 \uC628\uB3C4 \uC13C\uC11C\uB97C
+      \uBD84\uB9AC\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32112\" kor=\"\uC811\uC18D\uB2E8\uC790\uC5D0
+      \uC5F0\uACB0\uB41C \uB3C4\uC120\uC744 \uD574\uC81C\uD558\uAE30 \uC704\uD574
+      \uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\uB97C \uD074\uB9AD\uD558\uACE0 \uD654\uBA74\uC5D0
+      \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uC811\uC18D\uB2E8\uC790&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uBD84\uB9AC\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"32113\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uB514\uC9C0\uD138
+      \uBBF8\uD130\uB97C \uD65C\uC6A9\uD574 \uC628\uB3C4 \uC13C\uC11C\uC758 \uC800\uD56D\uC744
+      \uCE21\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB3C4\uAD6C\uD568\uC744
+      \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uB514\uC9C0\uD138 \uBBF8\uD130&#60;/color&#62;\uB97C
+      \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData ID=\"32114\"
+      kor=\"\uC628\uB3C4 \uC13C\uC11C\uC758 \uAC01 \uB2E8\uC790\uC5D0\uC11C \uCE21\uC815\uB418\uB294
+      \uC800\uD56D\uC744 \uD655\uC778\uD574 \uC815\uC0C1\uB3D9\uC791 \uC5EC\uBD80\uB97C
+      \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;\uB2E4\uC774\uC5BC&#60;/color&#62;\uC744
+      \uB3CC\uB824 &#60;color=#FFA500&#62;\uC800\uD56D(\u03A9)\uCE21\uC815 \uBAA8\uB4DC&#60;/color&#62;\uB85C
+      \uB9DE\uCDB0\uC8FC\uC138\uC694. \uCE21\uC815\uC740 \uD504\uB85C\uBE0C\uC758
+      \uADF9\uC5D0 \uC0C1\uAD00\uC5C6\uC774 \uB450 \uC9C0\uC810\uC744 \uCE21\uC815\uD569\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32115\" kor=\"\uCE21\uC815 \uAC00\uC774\uB4DC\uB97C
+      \uCC38\uACE0\uD574 \uC811\uC18D\uB2E8\uC790\uB97C \uCE21\uC815\uD574\uC8FC\uC138\uC694.
+      \uBA3C\uC800 &#60;color=#FFA500&#62;\uCE21\uC815\uB2E8\uC790 A, B&#60;/color&#62;\uB97C
+      \uAC01\uAC01 \uB514\uC9C0\uD138 \uBBF8\uD130\uC758 \uD504\uB85C\uBE0C\uB85C
+      \uC811\uCD09\uD558\uB3C4\uB85D \uD558\uACE0 \uC774\uB54C\uC758 \uC800\uD56D\uC774
+      \uC0C1\uC628\uC5D0\uC11C &#60;color=#FFA500&#62;108\u03A9&#60;/color&#62;\uC774
+      \uCE21\uC815 \uB418\uB294\uC9C0 \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"32116\" kor=\"\uB9C8\uC9C0\uB9C9\uC73C\uB85C
+      \uCE21\uC815\uB2E8\uC790 &#60;color=#FFA500&#62;A-\uC811\uC9C0&#60;/color&#62;
+      \uB610\uB294&#60;color=#FFA500&#62; B-\uC811\uC9C0&#60;/color&#62;\uB97C \uD504\uB85C\uBE0C\uB85C
+      \uC811\uCD09\uD558\uB3C4\uB85D \uD558\uACE0 \uC815\uC0C1\uC801\uC73C\uB85C
+      &#60;color=#FFA500&#62;OL(Over Limit)&#60;/color&#62;\uAC00 &#60;color=#FFA500&#62;\uD45C\uC2DC&#60;/color&#62;
+      \uB418\uB294\uC9C0 \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n\r\n  <!-- Depth 3-2-2 -->\r\n  <TextData ID=\"32201\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC628\uB3C4 \uC13C\uC11C\uAC00 \uC815\uC0C1\uC791\uB3D9 \uD558\uC9C0 \uC54A\uB294
+      \uB300\uD45C\uC801\uC778 \uACE0\uC7A5 \uC720\uD615 \uBC0F \uC870\uCE58 \uBC29\uBC95\uC5D0
+      \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"32202\" kor=\"\uCCAB \uBC88\uC9F8 \uACE0\uC7A5 \uC720\uD615\uC740
+      &#60;color=#FFA500&#62;\uC678\uBD80 \uBCC0\uD615&#60;/color&#62;\uC73C\uB85C
+      \uC7A5\uAE30\uAC04 \uC0AC\uC6A9\uC73C\uB85C \uC778\uD574 \uC628\uB3C4 \uC13C\uC11C\uAC00
+      \uC124\uCE58\uB41C \uBC30\uAD00\uC758 &#60;color=#FFA500&#62;\uC0BD\uC785\uBD80&#60;/color&#62;\uAC00
+      \uBB3C\uB9AC\uC801\uC778 &#60;color=#FFA500&#62;\uBCC0\uD615&#60;/color&#62;\uB418\uC5B4
+      \uC815\uC0C1\uC801\uC73C\uB85C \uB3D9\uC791\uD558\uC9C0 \uC54A\uB294 \uC720\uD615\uC785\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32203\" kor=\"\uC870\uCE58\uBC29\uBC95\uC73C\uB85C\uB294
+      \uC678\uBD80\uC758 \uCDA9\uACA9\uC73C\uB85C\uBD80\uD130 \uC628\uB3C4\uC13C\uC11C\uB97C
+      \uBCF4\uD638\uD558\uAE30\uC704\uD55C \uBCF4\uD638\uAD00\uC744 \uC124\uCE58\uD560
+      \uC218 \uC788\uC73C\uBA70 \uC77C\uBC18\uC801\uC73C\uB85C \uAE30\uC874 \uC628\uB3C4
+      \uC13C\uC11C\uB97C \uD0C8\uAC70\uD558\uACE0 \uC0C8\uB85C\uC6B4 \uC628\uB3C4\uC13C\uC11C\uB85C
+      \uAD50\uCCB4\uD569\uB2C8\uB2E4. \uC628\uB3C4\uC13C\uC11C\uB97C \uAD50\uCCB4\uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32204\" kor=\"\uBA3C\uC800 \uD654\uBA74\uC5D0
+      \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uACE0\uC815 \uB098\uC0AC&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uAE30\uC874 \uC628\uB3C4\uC13C\uC11C\uB97C \uD0C8\uAC70\uD558\uACE0
+      &#60;color=#FFA500&#62;\uBCC0\uD615 \uC815\uB3C4&#60;/color&#62;\uB97C \uD655\uC778\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32205\" kor=\"\uC628\uB3C4 \uC13C\uC11C
+      \uAC10\uC628\uBD80\uAC00 \uBCC0\uD615 \uB418\uC5C8\uC74C\uC744 \uD655\uC778\uD588\uC2B5\uB2C8\uB2E4.
+      \uC0C8\uB85C\uC6B4 \uC628\uB3C4 \uC13C\uC11C\uB85C \uAD50\uCCB4\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB3C4\uAD6C\uD568\uC5D0 \uC788\uB294 &#60;color=#FFA500&#62;\uC0C8\uB85C\uC6B4
+      \uC628\uB3C4\uC13C\uC11C&#60;/color&#62;\uB97C \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32206\" kor=\"\uB2E4\uC74C \uACE0\uC7A5
+      \uC720\uD615\uC740 &#60;color=#FFA500&#62;\uB0B4\uBD80 \uBCF4\uC0C1 \uB3C4\uC120
+      \uCCB4\uACB0 \uC624\uB958&#60;/color&#62;\uB85C \uC7A5\uC2DC\uAC04 \uC0AC\uC6A9\uC73C\uB85C
+      \uC778\uD574 \uC18C\uC120\uC774 \uB2E8\uC120\uB418\uAC70\uB098 \uC811\uC18D\uB098\uC0AC\uAC00
+      \uD480\uB824 \uC815\uC0C1\uC801\uC73C\uB85C \uC628\uB3C4 \uC13C\uC11C\uAC00
+      \uB3D9\uC791\uD558\uC9C0 \uC54A\uB294 \uC720\uD615\uC785\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"32207\" kor=\"\uD574\uB2F9 \uACE0\uC7A5 \uC720\uD615\uC758
+      \uACBD\uC6B0 \uC628\uB3C4 \uC13C\uC11C \uB0B4\uBD80 &#60;color=#FFA500&#62;\uBCF4\uC0C1
+      \uB3C4\uC120 \uC811\uC18D \uC0C1\uD0DC&#60;/color&#62;\uB97C &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD558\uB294
+      \uAC83\uC774 \uC911\uC694\uD558\uBA70 \uC811\uC18D\uB098\uC0AC\uB97C \uB2E4\uC2DC
+      \uCCB4\uACB0\uD574 \uC811\uC18D \uBD88\uB7C9 \uD604\uC0C1\uC744 \uD574\uACB0\uD558\uAC70\uB098
+      \uC811\uC18D\uBD80\uBD84\uC774 \uC190\uC0C1\uB41C \uACBD\uC6B0 \uC0C8\uB85C\uC6B4
+      \uC628\uB3C4\uC13C\uC11C\uB85C \uAD50\uCCB4\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32208\" kor=\"\uB0B4\uBD80\uB97C \uD655\uC778\uD558\uACE0
+      \uBCF4\uC0C1\uB3C4\uC120\uC744 \uB2E4\uC2DC \uCCB4\uACB0\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB0B4\uBD80\uB97C \uD655\uC778\uD558\uAE30
+      \uC704\uD574 \uB36E\uAC1C\uB97C \uD074\uB9AD\uD574 \uC5F4\uC5B4\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32209\" kor=\" \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C
+      \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uC804\uB3D9
+      \uB4DC\uB77C\uC774\uBC84&#60;/color&#62;\uB97C \uAEBC\uB0B4\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32210\" kor=\"\uC628\uB3C4 \uC13C\uC11C
+      \uBCF4\uC0C1\uB3C4\uC120\uC758 &#60;color=#FFA500&#62;\uC811\uC18D \uB2E8\uC790&#60;/color&#62;\uB97C
+      \uD655\uC778\uD558\uACE0 \uC811\uC18D \uB098\uC0AC\uB97C \uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\uB97C
+      \uC774\uC6A9\uD574 \uB2E4\uC2DC &#60;color=#FFA500&#62;\uCCB4\uACB0&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n\r\n  <!-- Depth 3-2-3 -->\r\n  <TextData ID=\"32301\"
+      kor=\"\uB2E4\uC74C\uC740 \uC628\uB3C4 \uC13C\uC11C \uC815\uBE44 \uBC29\uBC95\uC5D0
+      \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC77C\uBC18\uC801\uC73C\uB85C
+      \uC628\uB3C4 \uC13C\uC11C\uC758 \uC815\uBE44 \uC21C\uC11C\uB294 \uACE0\uC7A5\uB09C
+      &#60;color=#FFA500&#62;\uC628\uB3C4 \uC13C\uC11C \uD0C8\uAC70&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uC0C8\uB85C\uC6B4 \uC628\uB3C4 \uC13C\uC11C \uAD50\uCCB4&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uC815\uC0C1\uC791\uB3D9 \uD655\uC778&#60;/color&#62;
+      \uC21C\uC11C\uB85C \uC9C4\uD589\uB429\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"32302\" kor=\"\uC628\uB3C4 \uC13C\uC11C \uC815\uBE44 \uC791\uC5C5\uC744
+      \uC2DC\uC791\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBA3C\uC800
+      \uB3C4\uAD6C\uD568\uC5D0\uC11C \uC0C8\uB85C \uC124\uCE58\uD560 &#60;color=#FFA500&#62;\uC608\uBE44
+      \uC628\uB3C4\uC13C\uC11C&#60;/color&#62;\uB97C \uD074\uB9AD\uD574 \uAEBC\uB0B4\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32303\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC791\uC5C5 \uC804 \uC548\uC804\uC744 \uC704\uD574 \uC911\uC694\uD55C \uC548\uC804
+      \uC808\uCC28\uC778 \uC124\uBE44 \uC804\uC6D0 \uCC28\uB2E8 \uBC0F \uBC30\uAD00\uB0B4
+      \uC794\uB958 \uC555\uB825\uACFC \uAC00\uC2A4\uB97C \uC81C\uAC70\uD558\uB294
+      \uACFC\uC815\uC744 \uC218\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBA3C\uC800
+      &#60;color=#FFA500&#62;\uC804\uC6D0 \uCC28\uB2E8 \uC2A4\uC704\uCE58&#60;/color&#62;\uB97C
+      \uB20C\uB7EC \uC804\uC6D0\uC744 \uCC28\uB2E8\uD574\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"32304\" kor=\"\uB2E4\uC74C\uC73C\uB85C  &#60;color=#FFA500&#62;\uBC38\uBE0C&#60;/color&#62;\uB97C
+      \uC5F4\uC5B4 \uB0B4\uBD80 \uC794\uB958\uBB3C\uC744 \uC81C\uAC70\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32305\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uAD50\uCCB4\uD560 \uAE30\uC874 \uC628\uB3C4 \uC13C\uC11C\uB97C \uCCA0\uAC70\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uAE30\uC874 \uC628\uB3C4\uC13C\uC11C\uC5D0
+      \uC5F0\uACB0\uB41C \uBCF4\uC0C1\uB3C4\uC120 \uD574\uCCB4\uB97C \uC704\uD574
+      &#60;color=#FFA500&#62;\uC628\uB3C4 \uC13C\uC11C \uB36E\uAC1C&#60;/color&#62;\uB97C
+      \uC5F4\uC5B4\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData ID=\"32306\"
+      kor=\"\uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574 \uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\uB97C
+      \uAEBC\uB0B4\uACE0 &#60;color=#FFA500&#62;\uC811\uC18D \uB098\uC0AC&#60;/color&#62;\uC5D0
+      \uC5F0\uACB0\uB41C \uBCF4\uC0C1 \uB3C4\uC120\uC744 &#60;color=#FFA500&#62;\uD574\uCCB4&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32307\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uAE30\uC874 \uC628\uB3C4\uC13C\uC11C\uB97C \uD074\uB9AD\uD574 \uD68C\uC218\uD558\uACE0,
+      \uAEBC\uB0B4\uB193\uC740 &#60;color=#FFA500&#62;\uC608\uBE44 \uC628\uB3C4\uC13C\uC11C&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uC124\uCE58\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"32308\" kor=\"\uC0C8\uB85C \uC124\uCE58\uB41C \uC628\uB3C4\uC13C\uC11C\uC758
+      \uC815\uC0C1\uC791\uB3D9\uC744 \uD655\uC778\uD558\uAE30 \uC704\uD574 \uC800\uD56D\uC774
+      \uC815\uC0C1\uC801\uC73C\uB85C \uCE21\uC815\uB418\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uB514\uC9C0\uD138
+      \uBBF8\uD130&#60;/color&#62;\uB97C \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"32309\" kor=\"&#60;color=#FFA500&#62;\uB2E4\uC774\uC5BC&#60;/color&#62;\uC744
+      \uB3CC\uB824 &#60;color=#FFA500&#62;\uC800\uD56D(\u03A9) \uCE21\uC815 \uBAA8\uB4DC&#60;/color&#62;\uB85C
+      \uB9DE\uCDB0\uC8FC\uC138\uC694. \uCE21\uC815\uC740 \uD504\uB85C\uBE0C\uC758
+      \uADF9\uC5D0 \uC0C1\uAD00\uC5C6\uC774 \uB450 \uC9C0\uC810\uC744 \uCE21\uC815\uD569\uB2C8\uB2E4.
+      \" eng=\"eng Test\" />\r\n  <TextData ID=\"32310\" kor=\"\uD654\uBA74\uC5D0
+      \uB098\uD0C0\uB09C \uD504\uB85C\uBE0C\uB97C \uCE21\uC815 \uAC00\uC774\uB4DC\uB97C
+      \uCC38\uACE0\uD574 \uC21C\uCC28\uC801\uC73C\uB85C \uC800\uD56D\uC744 \uCE21\uC815\uD574\uC8FC\uC138\uC694.
+      \uBA3C\uC800 &#60;color=#FFA500&#62;\uCE21\uC815\uB2E8\uC790 A, B&#60;/color&#62;\uB97C
+      \uAC01\uAC01 \uB514\uC9C0\uD138 \uBBF8\uD130\uC758 \uD504\uB85C\uBE0C\uB85C
+      \uC811\uCD09\uD558\uB3C4\uB85D \uD558\uACE0 \uC774\uB54C\uC758 \uC800\uD56D\uC774
+      \uC0C1\uC628\uC5D0\uC11C &#60;color=#FFA500&#62;108\uC634&#60;/color&#62;\uC774
+      \uCE21\uC815 \uB418\uB294\uC9C0 \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"32311\" kor=\"\uB9C8\uC9C0\uB9C9\uC73C\uB85C
+      \uCE21\uC815\uB2E8\uC790 &#60;color=#FFA500&#62;A-\uC811\uC9C0&#60;/color&#62;
+      \uB610\uB294&#60;color=#FFA500&#62; B-\uC811\uC9C0&#60;/color&#62;\uB97C \uD504\uB85C\uBE0C\uB85C
+      \uC811\uCD09\uD558\uB3C4\uB85D\uD558\uACE0 \uC815\uC0C1\uC801\uC73C\uB85C &#60;color=#FFA500&#62;OL(Over
+      Limit)&#60;/color&#62;\uAC00 &#60;color=#FFA500&#62;\uD45C\uC2DC&#60;/color&#62;
+      \uB418\uB294\uC9C0 \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"32312\" kor=\"\uC815\uC0C1\uC801\uC73C\uB85C \uC791\uB3D9\uD558\uB294
+      \uAC83\uC744 \uD655\uC778\uD558\uC600\uC2B5\uB2C8\uB2E4. \uC628\uB3C4\uC13C\uC11C\uC758
+      &#60;color=#FFA500&#62;\uBCF4\uC0C1\uB3C4\uC120&#60;/color&#62;\uC744 \uB2E4\uC2DC
+      &#60;color=#FFA500&#62;\uC5F0\uACB0&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"32313\" kor=\"\uC798 \uD558\uC168\uC2B5\uB2C8\uB2E4.
+      \uC774\uC81C \uC124\uBE44\uC758 \uC804\uC6D0\uC744 \uB2E4\uC2DC \uCF1C\uACE0
+      \uC815\uBE44 \uC791\uC5C5\uC744 \uB9C8\uCE58\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n\r\n\r\n  <!-- Depth 3-3-1 -->\r\n  <TextData ID=\"33101\"
+      kor=\"\uC555\uB825\uC13C\uC11C\uC758 \uC810\uAC80\uBC29\uC2DD\uACFC \uACE0\uC7A5\uC720\uD615\uC744
+      \uC54C\uC544\uBCF4\uACE0 \uC774\uC5D0 \uB530\uB978 \uC815\uBE44 \uBC29\uBC95\uC744
+      \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"33102\" kor=\"\uC810\uAC80 \uBC29\uBC95\uC740 \uC13C\uC11C \uC678\uBD80\uC758
+      \uACE0\uC815 \uB098\uC0AC, \uBC30\uAD00\uC758 \uC0C1\uD0DC \uD655\uC778 \uBC0F
+      \uC555\uB825 \uC13C\uC11C\uC758 \uCD9C\uB825 \uC2E0\uD638 \uD655\uC778 \uB4F1\uC774
+      \uC788\uC2B5\uB2C8\uB2E4. \uBA3C\uC800 \uC555\uB825\uC13C\uC11C\uC758 \uC678\uBD80
+      \uC810\uAC80\uC5D0 \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33103\" kor=\"\uC555\uB825 \uC13C\uC11C\uB294
+      \uC8FC\uB85C \uAE08\uC18D \uC81C\uC870 \uC124\uBE44\uC5D0 \uD65C\uC6A9\uB418\uB294
+      \uD654\uD559\uBB3C\uC9C8, \uB0C9\uAC01\uC218, \uD0F1\uD06C\uB85C\uB9AC \uBC30\uAD00
+      \uB4F1\uC5D0 \uC0BD\uC785\uB418\uBA70 \uC13C\uC11C\uBD80\uB97C \uD1B5\uD574
+      \uBC30\uAD00 \uB0B4 \uC555\uB825\uC744 \uCE21\uC815\uD558\uB294 \uD615\uD0DC\uB85C
+      \uB3D9\uC791\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"33104\"
+      kor=\"\uC678\uBD80 \uC810\uAC80\uC744 \uD1B5\uD574 \uC124\uCE58\uB41C &#60;color=#FFA500&#62;\uC5F0\uACB0
+      \uBC30\uAD00&#60;/color&#62;\uC758 \uC5F0\uACB0\uC0C1\uD0DC\uAC00 \uC62C\uBC14\uB974\uAC8C
+      \uACE0\uC815\uB418\uC5C8\uB294\uC9C0 \uD655\uC778\uD558\uACE0, \uC5F0\uACB0\uBC30\uAD00\uC758
+      &#60;color=#FFA500&#62;\uB204\uC561&#60;/color&#62; \uB610\uB294 &#60;color=#FFA500&#62;\uB204\uAE30&#60;/color&#62;\uAC00
+      \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uB294 \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4.
+      \uBA3C\uC800 \uC555\uB825 \uC13C\uC11C \uC5F0\uACB0\uBD80\uC758 \uACE0\uC815\uB098\uC0AC\uAC00
+      \uC81C\uB300\uB85C \uACB0\uD569 \uB418\uC5B4\uC788\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uC2DC\uB41C &#60;color=#FFA500&#62;\uACE0\uC815 \uB098\uC0AC&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uC810\uAC80\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"33105\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC555\uB825
+      \uC13C\uC11C\uAC00 \uC124\uCE58\uB41C \uC5F0\uACB0\uBC30\uAD00\uC758 \uC5F0\uACB0\uBD80\uC5D0
+      \uB204\uC561, \uB204\uAE30\uAC00 \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC5F0\uACB0\uBD80\uAC00 \uC81C\uB300\uB85C \uC5F0\uACB0 \uB418\uC5B4\uC788\uC9C0
+      \uC54A\uC73C\uBA74 \uB0B4\uBD80 \uC720\uCCB4\uAC00 \uC720\uCD9C\uB418\uAC70\uB098
+      \uC704\uD5D8\uBB3C\uC9C8\uC5D0 \uB178\uCD9C\uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uC2DC\uB41C &#60;color=#FFA500&#62;\uBC30\uAD00 \uC5F0\uACB0\uBD80&#60;/color&#62;\uB97C
+      \uD655\uC778\uD558\uACE0 \uD074\uB9AD\uD574 \uC810\uAC80\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33106\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC555\uB825 \uC13C\uC11C\uC758 \uCD9C\uB825\uC2E0\uD638\uB97C \uD655\uC778\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC555\uB825 \uC13C\uC11C \uC790\uCCB4\uC5D0
+      \uACB0\uD568\uC774 \uC5C6\uB294\uC9C0 \uB2E8\uC790\uC5D0\uB294 \uC774\uC0C1\uC774
+      \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uAE30 \uC704\uD574 &#60;color=#FFA500&#62;\uCD9C\uB825\uC2E0\uD638&#60;/color&#62;\uB97C
+      &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD558\uB294 \uAC83\uC774
+      \uC911\uC694\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"33107\"
+      kor=\"\uC555\uB825 \uC13C\uC11C\uC758 \uC804\uB958\uB97C \uCE21\uC815\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC800\uD56D \uCE21\uC815\uC2DC\uC5D0\uB294
+      \uCE21\uC815\uAC12\uC5D0 \uC624\uB958\uAC00 \uC0DD\uAE38 \uC218 \uC788\uC5B4
+      \uC5F0\uACB0\uB41C \uC628\uB3C4\uC13C\uC11C\uB97C \uBD84\uB9AC\uD558\uB294
+      \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4. \uBA3C\uC800 \uC555\uB825 \uC13C\uC11C\uB97C
+      \uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC640 \uBD84\uB9AC\uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33108\" kor=\"\uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC5D0
+      \uC5F0\uACB0\uB41C \uCD9C\uB825 \uC2E0\uD638 \uB3C4\uC120\uC744 \uD574\uC81C\uD558\uAE30
+      \uC704\uD574 \uB3C4\uAD6C\uD568\uC744 \uC5F4\uC5B4 \uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\uB97C
+      \uD074\uB9AD\uD558\uACE0 \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uC811\uC18D\uB2E8\uC790&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uBD84\uB9AC\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"33109\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uB514\uC9C0\uD138
+      \uBBF8\uD130\uB97C \uD65C\uC6A9\uD574 \uC555\uB825 \uC13C\uC11C\uC758 &#60;color=#FFA500&#62;\uCD9C\uB825
+      \uC804\uB958&#60;/color&#62;\uB97C \uCE21\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uB514\uC9C0\uD138
+      \uBBF8\uD130&#60;/color&#62;\uB97C \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"33110\" kor=\"\uC555\uB825 \uC13C\uC11C\uC758
+      \uCD9C\uB825 \uC2E0\uD638 \uB2E8\uC790\uC5D0\uC11C \uCE21\uC815\uB418\uB294
+      \uC804\uB958\uB97C \uD655\uC778\uD574 \uC815\uC0C1\uB3D9\uC791 \uC5EC\uBD80\uB97C
+      \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;\uB2E4\uC774\uC5BC&#60;/color&#62;\uC744
+      \uB3CC\uB824 &#60;color=#FFA500&#62;\uC9C1\uB958 \uC804\uB958(A)\uCE21\uC815
+      \uBAA8\uB4DC&#60;/color&#62;\uB85C \uB9DE\uCDB0\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"33111\" kor=\"\uCE21\uC815\uC740 &#60;color=#FFA500&#62;\uBE68\uAC04\uC0C9
+      \uD504\uB85C\uBE0C&#60;/color&#62;\uB97C \uC13C\uC11C\uC758 &#60;color=#FFA500&#62;\uCD9C\uB825
+      \uB2E8\uC790&#60;/color&#62;\uC640 &#60;color=#FFA500&#62;\uAC80\uC815\uC0C9
+      \uD504\uB85C\uBE0C&#60;/color&#62;\uB97C \uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC758
+      &#60;color=#FFA500&#62;\uC785\uB825 \uB2E8\uC790&#60;/color&#62;\uC5D0 \uC5F0\uACB0\uD574
+      \uCE21\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC785\uB825\uB418\uB294 \uC555\uB825\uC774
+      0\uC77C \uB54C \uC804\uB958\uAC00 &#60;color=#FFA500&#62;4mA&#60;/color&#62;\uAC00
+      \uCE21\uC815\uB418\uB294\uC9C0 \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n\r\n  <!-- Depth 3-3-2 -->\r\n  <TextData ID=\"33201\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC555\uB825 \uC13C\uC11C\uAC00 \uC815\uC0C1\uC791\uB3D9 \uD558\uC9C0 \uC54A\uB294
+      \uB300\uD45C\uC801\uC778 \uACE0\uC7A5 \uC720\uD615 \uBC0F \uC870\uCE58 \uBC29\uBC95\uC5D0
+      \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"33202\" kor=\"\uCCAB \uBC88\uC9F8 \uACE0\uC7A5 \uC720\uD615\uC740
+      &#60;color=#FFA500&#62;\uC5F0\uACB0\uBD80 \uBD88\uB7C9&#60;/color&#62;\uC73C\uB85C
+      \uC7A5\uAE30\uAC04 \uC0AC\uC6A9\uC73C\uB85C \uC778\uD574 \uC555\uB825 \uC13C\uC11C\uAC00
+      \uC124\uCE58\uB41C \uBC30\uAD00\uC758 \uC5F0\uACB0\uBD80\uAC00 \uB178\uD654\uB418\uAC70\uB098
+      \uBB3C\uB9AC\uC801\uC778 \uBCC0\uD615\uC774 \uBC1C\uC0DD\uD574 \uC815\uC0C1\uC801\uC73C\uB85C
+      \uB3D9\uC791\uD558\uC9C0 \uC54A\uB294 \uC720\uD615\uC785\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"33203\" kor=\"\uC870\uCE58\uBC29\uBC95\uC73C\uB85C\uB294
+      \uC678\uBD80\uC758 \uCDA9\uACA9\uC73C\uB85C\uBD80\uD130 \uC555\uB825 \uC13C\uC11C\uB97C
+      \uBCF4\uD638\uD558\uAE30\uC704\uD55C \uBCC4\uB3C4\uC758 \uC5B4\uB311\uD130
+      \uC124\uCE58\uD560 \uC218 \uC788\uC73C\uBA70 \uC77C\uBC18\uC801\uC73C\uB85C
+      \uAE30\uC874 \uC555\uB825 \uC13C\uC11C\uB97C \uD0C8\uAC70\uD558\uACE0 \uC5F0\uACB0\uBD80
+      \uB610\uB294 \uC624\uB9C1\uC744 \uAD50\uCCB4\uD558\uAC70\uB098 \uC0C8\uB85C\uC6B4
+      \uC555\uB825 \uC13C\uC11C\uB85C \uAD50\uCCB4\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uC5F0\uACB0\uBD80
+      \uC5B4\uB311\uD130&#60;/color&#62;\uB97C \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uBCC0\uD615
+      \uC815\uB3C4&#60;/color&#62;\uB97C \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33204\" kor=\"\uC5F0\uACB0\uBD80 \uC5B4\uB311\uD130
+      \uBCC0\uD615\uC744 \uD655\uC778\uD588\uC2B5\uB2C8\uB2E4. \uC0C8\uB85C\uC6B4
+      \uC5B4\uB311\uD130\uB85C \uAD50\uCCB4\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB3C4\uAD6C\uD568\uC5D0 \uC788\uB294 &#60;color=#FFA500&#62;\uC0C8\uB85C\uC6B4
+      \uC5B4\uB311\uD130&#60;/color&#62;\uB97C \uD074\uB9AD\uD574 \uAD50\uCCB4\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33205\" kor=\"\uC555\uB825\uC13C\uC11C\uC758
+      \uC5B4\uB311\uD130\uB97C \uAD50\uCCB4\uD558\uC600\uC2B5\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"33206\" kor=\"\uB2E4\uC74C \uACE0\uC7A5 \uC720\uD615\uC740
+      \uC555\uB825 \uC13C\uC11C\uC758 \uB0B4\uBD80 \uD68C\uB85C \uACE0\uC7A5, \uBD80\uD488
+      \uC774\uC0C1\uC73C\uB85C \uC778\uD574  \uC555\uB825 \uC13C\uC11C\uC758 \uC804\uBA74
+      \uC9C0\uC2DC\uBD80 \uD45C\uC2DC\uAC00 \uC815\uC0C1\uC801\uC73C\uB85C \uB3D9\uC791\uD558\uC9C0
+      \uC54A\uB294 &#60;color=#FFA500&#62;\uC9C0\uC2DC\uBD80 \uD45C\uC2DC \uBD88\uB7C9&#60;/color&#62;
+      \uC720\uD615\uC785\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"33207\"
+      kor=\"\uD574\uB2F9 \uACE0\uC7A5 \uC720\uD615\uC758 \uACBD\uC6B0 &#60;color=#FFA500&#62;\uCD9C\uB825
+      \uC2E0\uD638&#60;/color&#62;\uC640 &#60;color=#FFA500&#62;\uC804\uBA74 \uC9C0\uC2DC\uBD80&#60;/color&#62;\uAC00
+      \uB3D9\uC77C\uD55C\uC9C0 \uD655\uC778\uD558\uB294 \uAC83\uC774 \uC911\uC694\uD558\uBA70
+      \uC804\uBA74 \uC9C0\uC2DC\uBD80\uC758 \uC774\uC0C1\uC774 \uBC1C\uC0DD\uD55C
+      \uACBD\uC6B0 \uC77C\uBC18\uC801\uC73C\uB85C \uC0C8\uB85C\uC6B4 \uC555\uB825
+      \uC13C\uC11C\uB85C \uAD50\uCCB4\uD558\uB3C4\uB85D \uD569\uB2C8\uB2E4. \uC0C8\uB85C\uC6B4
+      \uC555\uB825 \uC13C\uC11C\uB85C \uAD50\uCCB4\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB3C4\uAD6C\uD568\uC5D0 \uC788\uB294 &#60;color=#FFA500&#62;\uC0C8\uB85C\uC6B4
+      \uC555\uB825\uC13C\uC11C&#60;/color&#62;\uB97C \uD074\uB9AD\uD574 \uAD50\uCCB4\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n\r\n  <!-- Depth 3-3-3 -->\r\n  <TextData ID=\"33301\"
+      kor=\"\uB2E4\uC74C\uC740 \uC555\uB825 \uC13C\uC11C \uC815\uBE44 \uBC29\uBC95\uC5D0
+      \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC77C\uBC18\uC801\uC73C\uB85C
+      \uC555\uB825 \uC13C\uC11C\uC758 \uC815\uBE44 \uC21C\uC11C\uB294 \uACE0\uC7A5\uB09C
+      &#60;color=#FFA500&#62;\uC555\uB825 \uC13C\uC11C \uD0C8\uAC70&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uC0C8\uB85C\uC6B4 \uC555\uB825 \uC13C\uC11C \uAD50\uCCB4&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uAD50\uC815&#60;/color&#62; \uC21C\uC11C\uB85C \uC9C4\uD589\uB429\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33302\" kor=\"\uC555\uB825 \uC13C\uC11C
+      \uC815\uBE44 \uC791\uC5C5\uC744 \uC2DC\uC791\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uBA3C\uC800 \uB3C4\uAD6C\uD568\uC5D0\uC11C \uC0C8\uB85C \uC124\uCE58\uD560
+      &#60;color=#FFA500&#62;\uC608\uBE44 \uC555\uB825 \uC13C\uC11C&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"33303\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC791\uC5C5 \uC804 \uC548\uC804\uC744
+      \uC704\uD574 \uC911\uC694\uD55C \uC548\uC804 \uC808\uCC28\uC778 \uC124\uBE44
+      \uC804\uC6D0 \uCC28\uB2E8 \uBC0F \uBC30\uAD00\uB0B4 \uC794\uB958 \uC555\uB825\uACFC
+      \uAC00\uC2A4\uB97C \uC81C\uAC70\uD558\uB294 \uACFC\uC815\uC744 \uC218\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uBA3C\uC800 &#60;color=#FFA500&#62;\uC804\uC6D0 \uCC28\uB2E8 \uC2A4\uC704\uCE58&#60;/color&#62;\uB97C
+      \uB20C\uB7EC \uC804\uC6D0\uC744 \uCC28\uB2E8\uD574\uC8FC\uC138\uC694.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"33304\" kor=\"\uB2E4\uC74C\uC73C\uB85C &#60;color=#FFA500&#62;\uBC38\uBE0C&#60;/color&#62;\uB97C
+      \uC5F4\uC5B4 \uB0B4\uBD80 \uC794\uB958\uBB3C\uC744 \uC81C\uAC70\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33305\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uAD50\uCCB4\uD560 \uAE30\uC874 \uC555\uB825 \uC13C\uC11C\uB97C \uCCA0\uAC70\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uAE30\uC874 \uC555\uB825 \uC13C\uC11C\uC640
+      \uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC758 \uC5F0\uACB0\uC744 \uD574\uCCB4\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uC804\uB3D9
+      \uB4DC\uB77C\uC774\uBC84&#60;/color&#62;\uB97C \uAEBC\uB0B4\uACE0 \uD654\uBA74\uC5D0
+      \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uC811\uC18D \uB2E8\uC790&#60;/color&#62;\uB97C
+      &#60;color=#FFA500&#62;\uD574\uCCB4&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33306\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uAE30\uC874 \uC555\uB825 \uC13C\uC11C\uB97C \uD074\uB9AD\uD574 \uD68C\uC218\uD558\uACE0,
+      \uAEBC\uB0B4\uB193\uC740 \uC608\uBE44 \uC555\uB825 \uC13C\uC11C\uB97C \uD074\uB9AD\uD574
+      \uC124\uCE58\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"33307\" kor=\"\uC0C8\uB85C \uC124\uCE58\uB41C \uC555\uB825 \uC13C\uC11C\uC758
+      \uAD50\uC815 \uC791\uC5C5\uC744 \uC218\uD589\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uAD50\uC815 \uC791\uC5C5\uC740 \uC790\uB3D9 \uC555\uB825 \uAD50\uC815\uAE30\uB97C
+      \uD65C\uC6A9\uD574 \uC555\uB825 \uC13C\uC11C\uC758 &#60;color=#FFA500&#62;\uC81C\uB85C\uC810&#60;/color&#62;(\uCD5C\uC18C\uAC12),
+      &#60;color=#FFA500&#62;\uC2A4\uD32C\uC810&#60;/color&#62;(\uCD5C\uB300\uAC12)\uC744
+      \uC124\uC815\uD558\uACE0 \uCD9C\uB825 \uAC12\uC758 &#60;color=#FFA500&#62;\uC624\uCC28\uBC94\uC704&#60;/color&#62;\uB97C
+      \uD655\uC778\uD558\uB294 \uACFC\uC815\uC744 \uB9D0\uD569\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"33308\" kor=\"\uAD50\uC815 \uC791\uC5C5\uC740
+      \uC7A5\uBE44 \uC5F0\uACB0 - \uC7A5\uBE44 \uC124\uC815 - \uAD50\uC815 \uC124\uC815
+      - \uD14C\uC2A4\uD2B8 - \uACB0\uACFC \uD655\uC778 \uC21C\uC11C\uB85C \uC9C4\uD589\uB429\uB2C8\uB2E4.
+      \uAD50\uC815 \uC791\uC5C5\uC744 \uC2DC\uC791\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uBA3C\uC800 \uB3C4\uAD6C\uD568 \uB0B4 &#60;color=#FFA500&#62;\uC790\uB3D9
+      \uC555\uB825 \uAD50\uC815\uAE30&#60;/color&#62;\uB97C \uD074\uB9AD\uD574 \uAEBC\uB0B4\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33309\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC790\uB3D9 \uC555\uB825 \uAD50\uC815\uAE30\uC758 &#60;color=#FFA500&#62;\uCD08\uAE30
+      \uC124\uC815&#60;/color&#62;\uC744 \uC9C4\uD589\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uBA3C\uC800 \uC555\uB825 \uC13C\uC11C\uC758 \uB0B4\uBD80 \uC555\uB825\uC744
+      0\uC73C\uB85C \uB9CC\uB4E4\uAE30 \uC704\uD574 &#60;color=#FFA500&#62;[VENT]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"33310\" kor=\"\uC790\uB3D9 \uC555\uB825 \uAD50\uC815\uAE30\uC758
+      \uC555\uB825\uC744 0\uC73C\uB85C \uCD08\uAE30\uD654\uD558\uAE30 \uC704\uD574
+      \uD654\uBA74\uC0C1\uC758 &#60;color=#FFA500&#62;[ZERO PRESSURE]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0
+      \uD45C\uAE30\uB41C \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33311\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC790\uB3D9 \uC555\uB825 \uAD50\uC815\uAE30\uC5D0 \uC5F0\uACB0\uD560 \uC13C\uC11C\uC758
+      \uC885\uB958\uB97C \uC124\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      &#60;color=#FFA500&#62;[TASK]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33312\" kor=\"\uBCF8 \uACFC\uC815\uC5D0\uC11C\uB294
+      \uC555\uB825\uC13C\uC11C\uB97C \uAD50\uC815\uD558\uAE30 \uB54C\uBB38\uC5D0
+      1\uBC88 \uD56D\uBAA9\uC758 &#60;color=#FFA500&#62;\uC555\uB825 \uC13C\uC11C(Pressure
+      Transmitter)&#60;/color&#62;\uB97C \uC124\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC22B\uC790 &#60;color=#FFA500&#62;[1]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"33313\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uAD50\uC815\uD560 \uC555\uB825
+      \uC13C\uC11C\uC758 \uC81C\uB85C\uC810\uACFC \uC2A4\uD32C\uC810\uC744 \uC124\uC815\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uD574\uB2F9 \uACFC\uC815\uC740 \uC124\uBE44,
+      \uCE21\uC815 \uD658\uACBD\uC5D0 \uB530\uB77C \uC81C\uB85C\uC810\uACFC \uC2A4\uD32C\uC810
+      \uC124\uC815\uC740 \uC0C1\uC774\uD558\uBA70 \uBCF8 \uACFC\uC815\uC5D0\uC11C\uB294
+      \uAC01\uAC01 0, 100 Psi\uB85C \uC124\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33314\" kor=\"\uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C
+      \uC2A4\uD32C\uC810(100%)\uC744 100\uC73C\uB85C \uC124\uC815\uD558\uAE30 \uC704\uD574
+      &#60;color=#FFA500&#62;[\u25BC]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574
+      \uCEE4\uC11C\uB97C \uC62E\uACA8\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"33315\" kor=\"\uB2E4\uC74C\uC73C\uB85C 100 psi\uB97C \uC124\uC815\uD558\uAE30
+      \uC704\uD574 \uC22B\uC790 \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;[100]&#60;/color&#62;\uC744
+      \uC124\uC815\uD55C \uB4A4, &#60;color=#FFA500&#62;[ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD\uD574 \uC785\uB825\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"33316\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC555\uB825\uC13C\uC11C\uC5D0
+      \uC804\uC6D0\uC744 \uACF5\uAE09\uD558\uAE30 \uC704\uD574 \uD654\uBA74\uC0C1\uC758
+      &#60;color=#FFA500&#62;[Turn Loop Power up]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD \uD55C \uD6C4 &#60;color=#FFA500&#62;[Continue]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0
+      \uD45C\uAE30\uB41C \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33317\" kor=\"\uB2E4\uC74C\uC740 \uD14C\uC2A4\uD2B8
+      \uC870\uAC74 \uC124\uC815 \uD654\uBA74\uC785\uB2C8\uB2E4. \uC624\uCC28\uBC94\uC704,
+      \uCE21\uC815 \uD3EC\uC778\uD2B8, \uC751\uB2F5\uC2DC\uAC04 \uB4F1\uC744 \uC124\uC815\uD560
+      \uC218 \uC788\uC73C\uBA70, \uAC01 \uC124\uC815\uC740 \uC124\uBE44\uC5D0 \uB530\uB77C
+      \uC0C1\uC774\uD569\uB2C8\uB2E4.\" eng=\"eng Test\" />\r\n  <TextData ID=\"33318\"
+      kor=\"\uBCF8 \uACFC\uC815\uC5D0\uC11C\uB294 \uCE21\uC815 \uD3EC\uC778\uD2B8\uB97C
+      3\uC73C\uB85C \uC124\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0
+      \uD45C\uAE30\uB41C \uCE21\uC815 \uD3EC\uC778\uD2B8\uB97C \uC124\uC815\uD558\uAE30
+      \uC704\uD574 &#60;color=#FFA500&#62;[\u25BC]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD\uD574 \uCEE4\uC11C\uB97C \uC62E\uAE34 \uB4A4 &#60;color=#FFA500&#62;[ENTER]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574 \uBA54\uB274\uC5D0 \uB4E4\uC5B4\uAC00\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33319\" kor=\"\uCE21\uC815 \uD3EC\uC778\uD2B8\uB294
+      0%, 50%, 100% \uC9C0\uC810\uC744 \uC624\uB984\uCC28\uC21C\uC73C\uB85C \uCE21\uC815\uD558\uAE30
+      \uC704\uD574 &#60;color=#FFA500&#62;[3\u2191]&#60;/color&#62;\uC73C\uB85C \uC124\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      &#60;color=#FFA500&#62;[ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574
+      \uCE21\uC815 \uD3EC\uC778\uD2B8\uB97C \uC124\uC815\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33320\" kor=\"\uBAA8\uB4E0 \uCD08\uAE30
+      \uC124\uC815\uC744 \uB9C8\uCCE4\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;[Continue]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574 \uB2E4\uC74C\uC73C\uB85C \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33321\" kor=\"\uC790\uB3D9 \uD14C\uC2A4\uD2B8\uB97C
+      \uC2DC\uC791\uD558\uAE30 \uC704\uD574 \uD654\uBA74\uC0C1\uC758 &#60;color=#FFA500&#62;[Auto
+      Test]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574 \uAD50\uC815 \uC791\uC5C5\uC744
+      \uC2DC\uC791\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"33322\" kor=\"\uC555\uB825 \uAD50\uC815 \uACFC\uC815\uC740
+      \uC0AC\uC804 \uC124\uC815\uB41C 0%, 50%, 100% \uC9C0\uC810\uC73C\uB85C \uC555\uB825\uC744
+      \uC21C\uCC28\uC801\uC73C\uB85C \uC124\uC815\uD55C \uB4A4 5\uCD08 \uC815\uB3C4
+      \uC548\uC815\uD654 \uACFC\uC815\uC744 \uAC70\uCE58\uB294 \uBC29\uC2DD\uC73C\uB85C
+      \uC790\uB3D9 \uCE21\uC815\uB429\uB2C8\uB2E4. \uC790\uB3D9 \uC555\uB825 \uAD50\uC815\uAE30\uAC00
+      \uAD50\uC815 \uACFC\uC815\uC744 \uB9C8\uCE60 \uB54C\uAE4C\uC9C0 \uAE30\uB2E4\uB824\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"33323\" kor=\"\uC555\uB825 \uAD50\uC815\uC774
+      \uC644\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uAC01 \uCE21\uC815 \uD3EC\uC778\uD2B8
+      \uBCC4\uB85C \uCE21\uC815\uB418\uB294 \uCD9C\uB825 \uC2E0\uD638\uC640 \uC624\uCC28
+      \uBC94\uC704\uB97C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uCD5C\uC885\uC801\uC73C\uB85C
+      \uAD50\uC815 \uACFC\uC815\uC774 \uC131\uACF5\uC801\uC73C\uB85C \uC218\uD589\uB418\uC5C8\uC744
+      \uACBD\uC6B0 \uD654\uBA74 \uC624\uB978\uCABD \uC0C1\uB2E8 &#60;color=#FFA500&#62;PASS&#60;/color&#62;
+      \uD45C\uC2DC\uB97C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"33324\" kor=\"\uC798 \uD558\uC168\uC2B5\uB2C8\uB2E4.
+      \uC774\uC81C \uC124\uBE44\uC758 \uC804\uC6D0\uC744 \uB2E4\uC2DC \uCF1C\uACE0
+      \uC815\uBE44 \uC791\uC5C5\uC744 \uB9C8\uCE58\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n\r\n  <!-- Depth 3-4-1 -->\r\n  <TextData ID=\"34101\"
+      kor=\"\uC720\uB7C9 \uC13C\uC11C\uC758 \uC810\uAC80\uBC29\uC2DD\uACFC \uACE0\uC7A5\uC720\uD615\uC744
+      \uC54C\uC544\uBCF4\uACE0 \uC774\uC5D0 \uB530\uB978 \uC815\uBE44 \uBC29\uBC95\uC744
+      \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"Learn about the inspection
+      methods, failure types, and maintenance methods of flow sensors.\" />\r\n 
+      <TextData ID=\"34102\" kor=\"\uC810\uAC80 \uBC29\uBC95\uC740 \uC13C\uC11C \uC678\uBD80\uC758
+      \uACE0\uC815 \uB098\uC0AC, \uBC30\uAD00\uC758 \uC0C1\uD0DC \uD655\uC778 \uBC0F
+      \uC720\uB7C9 \uC13C\uC11C\uC758 \uCD9C\uB825 \uC2E0\uD638 \uD655\uC778 \uB4F1\uC774
+      \uC788\uC2B5\uB2C8\uB2E4. \uBA3C\uC800 \uC720\uB7C9\uC13C\uC11C\uC758 \uC678\uBD80
+      \uC810\uAC80\uC5D0 \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"Inspection methods include checking the external screws of the sensor,
+      the condition of the piping, and the output signals of the flow sensor. Let\u2019s
+      first examine the external inspection of the pressure sensor.\" />\r\n  <TextData
+      ID=\"34103\" kor=\"\uC720\uB7C9 \uC13C\uC11C\uB294 \uC8FC\uB85C \uAE08\uC18D
+      \uC81C\uC870 \uC124\uBE44\uC5D0 \uD65C\uC6A9\uB418\uB294 \uD654\uD559\uBB3C\uC9C8,
+      \uB0C9\uAC01\uC218, \uD0F1\uD06C\uB85C\uB9AC \uBC30\uAD00 \uB4F1\uC5D0 \uC0BD\uC785\uB418\uBA70
+      \uBC30\uAD00 \uB0B4 \uC555\uB825\uC744 \uD1B5\uD574 \uC720\uB7C9\uC744 \uCE21\uC815\uD558\uB294
+      \uD615\uD0DC\uB85C \uB3D9\uC791\uD569\uB2C8\uB2E4.\" eng=\"Flow sensors are
+      primarily used in metal manufacturing facilities for chemicals, coolant, and
+      fluids. They are installed in tank lorries and piping, secured with fixing
+      screws.\" />\r\n  <TextData ID=\"34104\" kor=\"\uC678\uBD80 \uC810\uAC80\uC744
+      \uD1B5\uD574 \uC124\uCE58\uB41C &#60;color=#FFA500&#62;\uC5F0\uACB0 \uBC30\uAD00&#60;/color&#62;\uC758
+      \uC5F0\uACB0\uC0C1\uD0DC\uAC00 \uC62C\uBC14\uB974\uAC8C \uACE0\uC815\uB418\uC5C8\uB294\uC9C0
+      \uD655\uC778\uD558\uACE0, \uC5F0\uACB0\uBC30\uAD00\uC758 &#60;color=#FFA500&#62;\uB204\uC561&#60;/color&#62;
+      \uB610\uB294 &#60;color=#FFA500&#62;\uB204\uAE30&#60;/color&#62;\uAC00 \uC5C6\uB294\uC9C0
+      \uD655\uC778\uD558\uB294 \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4.\" eng=\"It
+      is important to check through external inspection that the connected piping
+      is securely fixed and there are no leaks or seepages in the connected piping.\"
+      />\r\n  <TextData ID=\"34105\" kor=\"\uBA3C\uC800 \uC720\uB7C9 \uC13C\uC11C
+      \uC5F0\uACB0\uBD80\uC758 \uACE0\uC815\uB098\uC0AC\uAC00 \uC81C\uB300\uB85C
+      \uACB0\uD569\uB418\uC5B4\uC788\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uACE0\uC815 \uB098\uC0AC\uAC00 \uC81C\uB300\uB85C \uCCB4\uACB0 \uB418\uC5B4\uC788\uC9C0
+      \uC54A\uC73C\uBA74 \uC5F0\uACB0 \uD2C8\uC0C8\uB85C &#60;color=#FFA500&#62;\uB204\uC561&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uB204\uAE30&#60;/color&#62;\uAC00 \uBC1C\uC0DD\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0 \uD45C\uC2DC\uB41C &#60;color=#FFA500&#62;\uACE0\uC815
+      \uB098\uC0AC&#60;/color&#62;\uB97C \uD074\uB9AD\uD574 \uC810\uAC80\uD574\uC8FC\uC138\uC694.\"
+      eng=\"First, check whether the fixing screws of the pressure sensor connection
+      are properly tightened. If not, leaks or seepages may occur through the connection
+      gaps. Check and click the indicated fixing screws on the screen.\" />\r\n 
+      <TextData ID=\"34106\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC720\uB7C9 \uC13C\uC11C\uAC00
+      \uC124\uCE58\uB41C \uC5F0\uACB0\uBC30\uAD00\uC758 \uC5F0\uACB0\uBD80\uC5D0
+      &#60;color=#FFA500&#62;\uB204\uC561&#60;/color&#62;, &#60;color=#FFA500&#62;\uB204\uAE30&#60;/color&#62;\uAC00
+      \uC5C6\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC5F0\uACB0\uBD80\uAC00
+      \uC81C\uB300\uB85C \uC5F0\uACB0 \uB418\uC5B4\uC788\uC9C0 \uC54A\uC73C\uBA74
+      \uB0B4\uBD80 \uC720\uCCB4\uAC00 \uC720\uCD9C\uB418\uAC70\uB098 \uC704\uD5D8\uBB3C\uC9C8\uC5D0
+      \uB178\uCD9C\uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0 \uD45C\uC2DC\uB41C
+      &#60;color=#FFA500&#62;\uBC30\uAD00 \uC5F0\uACB0\uBD80&#60;/color&#62;\uB97C
+      \uD655\uC778\uD558\uACE0 \uD074\uB9AD\uD574 \uC810\uAC80\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Next, check for leaks or seepages at the connection of the piping where
+      the pressure sensor is installed. Improper connections may lead to fluid leakage
+      or exposure to hazardous materials. Check and click the indicated piping connection
+      on the screen.\" />\r\n  <TextData ID=\"34107\" kor=\"\uC720\uB7C9 \uC13C\uC11C\uC758
+      \uC804\uB958\uB97C \uCE21\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC804\uB958 \uCE21\uC815\uC740 \uC77C\uBC18\uC801\uC778 \uC804\uB958 \uCE21\uC815
+      \uBC29\uBC95\uACFC \uB3D9\uC77C\uD558\uBA70 \uBA3C\uC800 \uC720\uB7C9 \uC13C\uC11C\uB97C
+      \uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC640 \uBD84\uB9AC\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"We will now measure the current of
+      the flow sensor. The measurement is similar to standard current measurement.
+      First, disconnect the flow sensor from the signal conditioner. Click the toolbox.\"
+      />\r\n  <TextData ID=\"34108\" kor=\"\uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC5D0
+      \uC5F0\uACB0\uB41C \uCD9C\uB825 \uC2E0\uD638 \uB3C4\uC120\uC744 \uD574\uC81C\uD558\uAE30
+      \uC704\uD574 \uB3C4\uAD6C\uD568\uC744 \uC5F4\uC5B4 \uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\uB97C
+      \uD074\uB9AD\uD558\uACE0 \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uC811\uC18D\uB2E8\uC790&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uBD84\uB9AC\uD574\uC8FC\uC138\uC694.\" eng=\"To disconnect
+      the output signal cable connected to the signal conditioner, click the electric
+      screwdriver and then click the marked terminal on the screen.\" />\r\n  <TextData
+      ID=\"34109\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uB514\uC9C0\uD138 \uBBF8\uD130\uB97C
+      \uD65C\uC6A9\uD574 \uC555\uB825 \uC13C\uC11C\uC758 &#60;color=#FFA500&#62;\uCD9C\uB825
+      \uC804\uB958&#60;/color&#62;\uB97C \uCE21\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uB514\uC9C0\uD138
+      \uBBF8\uD130&#60;/color&#62;\uB97C \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"Next,
+      use a digital meter to measure the output current of the flow sensor. Click
+      the toolbox to take out the digital meter.\" />\r\n  <TextData ID=\"34110\"
+      kor=\"\uC720\uB7C9 \uC13C\uC11C\uC758 \uCD9C\uB825 \uC2E0\uD638 \uB2E8\uC790\uC5D0\uC11C
+      \uCE21\uC815\uB418\uB294 \uC804\uB958\uB97C \uD655\uC778\uD574 \uC815\uC0C1\uB3D9\uC791
+      \uC5EC\uBD80\uB97C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;\uB2E4\uC774\uC5BC&#60;/color&#62;\uC744
+      \uB3CC\uB824 &#60;color=#FFA500&#62;\uC9C1\uB958 \uC804\uB958(A)\uCE21\uC815
+      \uBAA8\uB4DC&#60;/color&#62;\uB85C \uB9DE\uCDB0\uC8FC\uC138\uC694.\" eng=\"Check
+      the current measured at the output signal terminal of the flow sensor to verify
+      its proper operation. Turn the dial to set it to DC current (mA) measurement
+      mode.\" />\r\n  <TextData ID=\"34111\" kor=\"\uCE21\uC815\uC740 &#60;color=#FFA500&#62;\uBE68\uAC04\uC0C9
+      \uD504\uB85C\uBE0C&#60;/color&#62;\uB97C \uC13C\uC11C\uC758 &#60;color=#FFA500&#62;\uCD9C\uB825
+      \uB2E8\uC790&#60;/color&#62;\uC640 &#60;color=#FFA500&#62;\uAC80\uC815\uC0C9
+      \uD504\uB85C\uBE0C&#60;/color&#62;\uB97C \uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC758
+      &#60;color=#FFA500&#62;\uC785\uB825 \uB2E8\uC790&#60;/color&#62;\uC5D0 \uC5F0\uACB0\uD574
+      \uCE21\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC785\uB825\uB418\uB294 \uC555\uB825\uC774
+      0\uC77C \uB54C \uC804\uB958\uAC00 &#60;color=#FFA500&#62;4mA&#60;/color&#62;\uAC00
+      \uCE21\uC815\uB418\uB294\uC9C0 \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"The
+      measurement will be conducted by connecting the red probe to the sensor\u2019s
+      output terminal and the black probe to the signal conditioner\u2019s input
+      terminal using the digital meter. Check if the output signal measures 4mA when
+      the detected flow is 0.\" />\r\n\r\n  <!-- Depth 3-4-2 -->\r\n  <TextData ID=\"34201\"
+      kor=\"\uB2E4\uC74C\uC73C\uB85C \uC720\uB7C9 \uC13C\uC11C\uAC00 \uC815\uC0C1\uC791\uB3D9
+      \uD558\uC9C0 \uC54A\uB294 \uB300\uD45C\uC801\uC778 \uACE0\uC7A5 \uC720\uD615
+      \uBC0F \uC870\uCE58 \uBC29\uBC95\uC5D0 \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"Next, let\u2019s look at common failure types of flow sensors that cause
+      them to malfunction and how to address them.\" />\r\n  <TextData ID=\"34202\"
+      kor=\"\uCCAB \uBC88\uC9F8 \uACE0\uC7A5 \uC720\uD615\uC740 \uD604\uC7A5\uC5D0\uC11C
+      \uD754\uD788 \uBC1C\uC0DD\uD560 \uC218 \uC788\uB294 &#60;color=#FFA500&#62;\uAC80\uCD9C\uB2E8
+      \uB9C9\uD798&#60;/color&#62; \uC720\uD615\uC73C\uB85C \uC7A5\uAE30\uAC04 \uC0AC\uC6A9\uC73C\uB85C
+      \uC778\uD574 \uC720\uB7C9 \uC13C\uC11C\uAC00 \uC124\uCE58\uB41C \uBC30\uAD00
+      \uB0B4\uBD80\uC5D0 \uC794\uC5EC\uBB3C\uC774 \uACE0\uCC29\uB418\uC5B4 \uAC80\uCD9C\uB2E8\uC774
+      \uB9C9\uD788\uAC8C \uB418\uB294 \uC720\uD615\uC785\uB2C8\uB2E4.\" eng=\"The
+      first failure type is blockage of the detection unit, which commonly occurs
+      on-site due to residue buildup inside the piping where the flow sensor is installed
+      after prolonged use.\" />\r\n  <TextData ID=\"34203\" kor=\"\uC870\uCE58\uBC29\uBC95\uC73C\uB85C\uB294
+      \uAC80\uCD9C\uB2E8\uC774 \uB9C9\uD788\uAE30 \uC26C\uC6B4 \uBB3C\uC9C8\uC758
+      \uACBD\uC6B0 \uC815\uAE30\uC801\uC778 \uC720\uC9C0\uBCF4\uC218\uB97C \uC218\uD589\uD558\uAC70\uB098
+      \uBB3C\uB9AC\uC801\uC778 \uCCAD\uC18C, \uD654\uD559\uC801 \uC138\uCC99 \uACFC\uC815\uC744
+      \uC218\uD589\uD558\uB3C4\uB85D \uD569\uB2C8\uB2E4. \uBC30\uAD00\uC744 \uD655\uC778\uD558\uACE0
+      \uB0B4\uBD80\uC758 \uC794\uC5EC\uBB3C\uC744 \uC5C6\uC560\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"For materials prone to clogging the detection unit, perform regular maintenance
+      or conduct physical cleaning and chemical washing. Let\u2019s inspect the piping
+      and remove any residue.\" />\r\n  <TextData ID=\"34204\" kor=\"\uBC30\uAD00
+      \uB0B4\uBD80\uC758 \uC794\uC5EC\uBB3C\uC744 \uD655\uC778\uD558\uC600\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uB9C9\uD798 \uBD80\uBD84\uC744 \uD074\uB9AD\uD574
+      \uCCAD\uC18C\uD574\uC8FC\uC138\uC694.\" eng=\"Residue inside the piping has
+      been identified. Click on the marked blockage area on the screen to clean it.\"
+      />\r\n  <TextData ID=\"34205\" kor=\"\uB2E4\uC74C \uACE0\uC7A5 \uC720\uD615\uC740
+      \uB9C8\uCC2C\uAC00\uC9C0\uB85C \uD604\uC7A5\uC5D0\uC11C \uD754\uD788 \uBC1C\uC0DD\uD560
+      \uC218 \uC788\uB294 \uC720\uD615\uC73C\uB85C \uC0AC\uC6A9\uC790\uC758 \uBD80\uC8FC\uC758\uB85C
+      \uC778\uD574 \uAC80\uCD9C\uBB3C\uC774 \uC774\uB3D9\uD558\uB294 \uBC38\uBE0C
+      \uC624\uC870\uC791\uC73C\uB85C \uC778\uD55C &#60;color=#FFA500&#62;\uC13C\uC11C
+      \uAC80\uCD9C \uBD88\uAC00&#60;/color&#62; \uC720\uD615\uC785\uB2C8\uB2E4.\"
+      eng=\"The next failure type, also common on-site, is the inability of the sensor
+      to detect due to user negligence, such as incorrect valve operation affecting
+      the flow of detectable materials.\" />\r\n  <TextData ID=\"34206\" kor=\"\uD574\uB2F9
+      \uACE0\uC7A5 \uC720\uD615\uC758 \uACBD\uC6B0 \uBC30\uAD00\uC5D0 \uC124\uCE58\uB41C
+      &#60;color=#FFA500&#62;\uBC38\uBE0C&#60;/color&#62;\uC758 &#60;color=#FFA500&#62;\uC62C\uBC14\uB978
+      \uC0C1\uD0DC&#60;/color&#62;\uB97C \uD655\uC778\uD558\uB294 \uAC83\uC774 \uC911\uC694\uD558\uBA70
+      \uC774\uB85C \uC778\uD574 \uC13C\uC11C \uD30C\uC190, \uC2E0\uD638 \uC65C\uACE1
+      \uC2EC\uD560 \uACBD\uC6B0 \uB0B4\uBD80\uC758 \uC720\uCCB4\uAC00 \uC720\uCD9C
+      \uB420 \uC218 \uC788\uB294 \uC704\uD5D8\uC0C1\uD669\uC744 \uCD08\uB798\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;\uBC38\uBE0C&#60;/color&#62;\uB97C
+      \uD655\uC778\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"For
+      this failure type, it\u2019s crucial to check the proper state of the valves
+      installed in the piping. Incorrect valve states can lead to sensor damage,
+      signal distortion, or even hazardous situations such as fluid leakage. Let\u2019s
+      inspect the valves.\" />\r\n  <TextData ID=\"34207\" kor=\"\uBC38\uBE0C\uAC00
+      \uC644\uC804\uD788 \uAC1C\uBC29\uB418\uC9C0 \uC54A\uC74C\uC744 \uD655\uC778\uD558\uC600\uC2B5\uB2C8\uB2E4.
+      &#60;color=#FFA500&#62;\uBC38\uBE0C&#60;/color&#62;\uB97C \uC870\uC791\uD574
+      \uBC30\uAD00\uC744 \uC644\uC804\uD788 \uAC1C\uBC29\uD574\uC8FC\uC138\uC694.\"
+      eng=\"The valve is confirmed to be not fully open. Operate the valve to fully
+      open the piping.\" />\r\n\r\n  <!-- Depth 3-4-3 -->\r\n  <TextData ID=\"34301\"
+      kor=\"\uB2E4\uC74C\uC740 \uC720\uB7C9 \uC13C\uC11C \uC815\uBE44 \uBC29\uBC95\uC5D0
+      \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4. \uC77C\uBC18\uC801\uC73C\uB85C
+      \uC720\uB7C9 \uC13C\uC11C\uC758 \uC815\uBE44 \uC21C\uC11C\uB294 &#60;color=#FFA500&#62;\uC720\uB7C9
+      \uC13C\uC11C \uD0C8\uAC70&#60;/color&#62;, &#60;color=#FFA500&#62;\uC0C8\uB85C\uC6B4
+      \uC720\uB7C9 \uC13C\uC11C \uAD50\uCCB4&#60;/color&#62;, &#60;color=#FFA500&#62;\uAD50\uC815&#60;/color&#62;
+      \uC21C\uC11C\uB85C \uC9C4\uD589\uB429\uB2C8\uB2E4.\" eng=\"Next, let\u2019s
+      look at the maintenance procedures for flow sensors. Typically, maintenance
+      involves removing the faulty sensor, replacing it with a new one, and performing
+      calibration.\" />\r\n  <TextData ID=\"34302\" kor=\"\uC720\uB7C9 \uC13C\uC11C
+      \uC815\uBE44 \uC791\uC5C5\uC744 \uC2DC\uC791\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uBA3C\uC800 \uB3C4\uAD6C\uD568\uC5D0\uC11C \uC0C8\uB85C \uC124\uCE58\uD560
+      &#60;color=#FFA500&#62;\uC608\uBE44 \uC720\uB7C9 \uC13C\uC11C&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"Let\u2019s begin
+      the maintenance work for the flow sensor. First, click the spare flow sensor
+      in the toolbox to retrieve it.\" />\r\n  <TextData ID=\"34303\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC791\uC5C5 \uC804 \uC548\uC804\uC744 \uC704\uD574 \uC911\uC694\uD55C \uC548\uC804
+      \uC808\uCC28\uC778 \uC124\uBE44 \uC804\uC6D0 \uCC28\uB2E8 \uBC0F \uBC30\uAD00\uB0B4
+      \uC794\uB958 \uC555\uB825\uACFC \uAC00\uC2A4\uB97C \uC81C\uAC70\uD558\uB294
+      \uACFC\uC815\uC744 \uC218\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBA3C\uC800
+      &#60;color=#FFA500&#62;\uC804\uC6D0 \uCC28\uB2E8 \uC2A4\uC704\uCE58&#60;/color&#62;\uB97C
+      \uB20C\uB7EC \uC804\uC6D0\uC744 \uCC28\uB2E8\uD574\uC8FC\uC138\uC694.\" eng=\"Next,
+      we will perform essential safety procedures before starting the work: turning
+      off the equipment power and removing residual pressure and gas from the piping.
+      First, press the power-off switch to disconnect the power.\" />\r\n  <TextData
+      ID=\"34304\" kor=\"\uB2E4\uC74C\uC73C\uB85C &#60;color=#FFA500&#62;\uBC38\uBE0C&#60;/color&#62;\uB97C
+      \uC5F4\uC5B4 \uB0B4\uBD80 \uC794\uB958\uBB3C\uC744 \uC81C\uAC70\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Then, open the valve to remove any residual material inside.\" />\r\n 
+      <TextData ID=\"34305\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uAD50\uCCB4\uD560 \uAE30\uC874
+      \uC720\uB7C9 \uC13C\uC11C\uB97C \uCCA0\uAC70\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uAE30\uC874 \uC720\uB7C9 \uC13C\uC11C\uC640 \uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC758
+      \uC5F0\uACB0\uC744 \uD574\uCCB4\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB3C4\uAD6C\uD568\uC744
+      \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84&#60;/color&#62;\uB97C
+      \uAEBC\uB0B4\uACE0 \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uC811\uC18D
+      \uB2E8\uC790&#60;/color&#62;\uB97C &#60;color=#FFA500&#62;\uD574\uCCB4&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Next, let\u2019s remove the existing flow sensor to be replaced. Disconnect
+      the connection between the sensor and the signal conditioner. Click the toolbox
+      to retrieve the electric screwdriver and disassemble the marked terminal on
+      the screen.\" />\r\n  <TextData ID=\"34306\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uAE30\uC874 \uC720\uB7C9 \uC13C\uC11C\uB97C \uD074\uB9AD\uD574 \uD68C\uC218\uD558\uACE0,
+      \uAEBC\uB0B4\uB193\uC740 \uC608\uBE44 \uC720\uB7C9 \uC13C\uC11C\uB97C \uD074\uB9AD\uD574
+      \uC124\uCE58\uD574\uC8FC\uC138\uC694.\" eng=\"Then, click the existing flow
+      sensor to remove it and click the spare sensor to install it.\" />\r\n  <TextData
+      ID=\"34307\" kor=\"\uC0C8\uB85C \uC124\uCE58\uB41C \uC720\uB7C9 \uC13C\uC11C\uC758
+      \uAD50\uC815 \uC791\uC5C5\uC744 \uC218\uD589\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uAD50\uC815 \uC791\uC5C5\uC740 \uD604\uC7A5\uC555\uB825 \uD45C\uC900\uAE30\uB97C
+      \uD65C\uC6A9\uD574 \uC720\uB7C9 \uC13C\uC11C\uC758 &#60;color=#FFA500&#62;\uC81C\uB85C\uC810&#60;/color&#62;(\uCD5C\uC18C\uAC12),
+      &#60;color=#FFA500&#62;\uC2A4\uD32C\uC810&#60;/color&#62;(\uCD5C\uB300\uAC12)\uC744
+      \uC124\uC815\uD558\uACE0 \uCD9C\uB825 \uAC12\uC758 &#60;color=#FFA500&#62;\uC624\uCC28\uBC94\uC704&#60;/color&#62;\uB97C
+      \uD655\uC778\uD558\uB294 \uACFC\uC815\uC744 \uB9D0\uD569\uB2C8\uB2E4.\" eng=\"We
+      will now calibrate the newly installed flow sensor. Calibration involves setting
+      the zero point (minimum) and span point (maximum) using a field pressure standard
+      and verifying the output error range.\" />\r\n  <TextData ID=\"34308\" kor=\"\uAD50\uC815
+      \uC791\uC5C5\uC740 \uC7A5\uBE44 \uC5F0\uACB0 - \uC7A5\uBE44 \uC124\uC815 -
+      \uAD50\uC815 \uC124\uC815 - \uD14C\uC2A4\uD2B8 - \uACB0\uACFC \uD655\uC778
+      \uC21C\uC11C\uB85C \uC9C4\uD589\uB429\uB2C8\uB2E4. \uAD50\uC815 \uC791\uC5C5\uC744
+      \uC2DC\uC791\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBA3C\uC800 \uB3C4\uAD6C\uD568
+      \uB0B4 &#60;color=#FFA500&#62;\uC790\uB3D9 \uC555\uB825 \uAD50\uC815\uAE30&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"The calibration
+      process follows the steps: equipment connection, equipment setup, calibration
+      setting, testing, and result verification. Let\u2019s start by clicking the
+      automatic pressure calibrator in the toolbox to retrieve it.\" />\r\n  <TextData
+      ID=\"34309\" kor=\"\uC5F0\uACB0\uC744 \uC644\uB8CC \uD558\uC600\uC2B5\uB2C8\uB2E4.
+      \uB2E4\uC74C\uC73C\uB85C \uC790\uB3D9 \uC555\uB825 \uAD50\uC815\uAE30\uC758
+      \uCD08\uAE30 \uC124\uC815\uC744 \uC9C4\uD589\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uBA3C\uC800 \uC720\uB7C9 \uC13C\uC11C\uC758 \uB0B4\uBD80 \uC555\uB825\uC744
+      0\uC73C\uB85C \uB9CC\uB4E4\uAE30 \uC704\uD574 &#60;color=#FFA500&#62;[VENT]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"Connection
+      is complete. Next, proceed with the initial setup of the automatic pressure
+      calibrator. Click the [VENT] button to reduce the internal pressure of the
+      flow sensor to zero.\" />\r\n  <TextData ID=\"34310\" kor=\"\uC790\uB3D9 \uC555\uB825
+      \uAD50\uC815\uAE30\uC758 \uC555\uB825\uC744 0\uC73C\uB85C \uCD08\uAE30\uD654\uD558\uAE30
+      \uC704\uD574 \uD654\uBA74\uC0C1\uC758 &#60;color=#FFA500&#62;[ZERO PRESSURE]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0
+      \uD45C\uAE30\uB41C \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Click the [ZERO PRESSURE] button on the screen to initialize the automatic
+      pressure calibrator to zero pressure. Click the indicated button on the screen.\"
+      />\r\n  <TextData ID=\"34311\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC790\uB3D9
+      \uC555\uB825 \uAD50\uC815\uAE30\uC5D0 \uC5F0\uACB0\uD560 \uC13C\uC11C\uC758
+      \uC885\uB958\uB97C \uC124\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      &#60;color=#FFA500&#62;[TASK]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Next, configure the type of sensor to connect to the automatic pressure
+      calibrator. Click the [TASK] button.\" />\r\n  <TextData ID=\"34312\" kor=\"\uBCF8
+      \uACFC\uC815\uC5D0\uC11C\uB294 \uCC28\uC555\uC2DD \uC720\uB7C9\uC13C\uC11C\uB97C
+      \uAD50\uC815\uD558\uAE30 \uB54C\uBB38\uC5D0 1\uBC88 \uD56D\uBAA9\uC758 &#60;color=#FFA500&#62;\uC555\uB825
+      \uC13C\uC11C(Pressure Transmitter)&#60;/color&#62;\uB97C \uC124\uC815\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC22B\uC790 &#60;color=#FFA500&#62;[1]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"In this process,
+      we will calibrate a differential pressure flow sensor. Set it to item 1, Pressure
+      Transmitter. Click the [1] button.\" />\r\n  <TextData ID=\"34313\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uAD50\uC815\uD560 \uC720\uB7C9 \uC13C\uC11C\uC758 \uC81C\uB85C\uC810\uACFC
+      \uC2A4\uD32C\uC810\uC744 \uC124\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD574\uB2F9 \uACFC\uC815\uC740 \uC124\uBE44, \uCE21\uC815 \uD658\uACBD\uC5D0
+      \uB530\uB77C \uC81C\uB85C\uC810\uACFC \uC2A4\uD32C\uC810 \uC124\uC815\uC740
+      \uC0C1\uC774\uD558\uBA70 \uBCF8 \uACFC\uC815\uC5D0\uC11C\uB294 \uAC01\uAC01
+      0, 100 Psi\uB85C \uC124\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"Next, set the zero and span points for the flow sensor calibration. The
+      settings vary depending on the equipment and measurement environment. In this
+      process, set them to 0 and 100 Psi, respectively.\" />\r\n  <TextData ID=\"34314\"
+      kor=\"\uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uC2A4\uD32C\uC810(100%)\uC744
+      100\uC73C\uB85C \uC124\uC815\uD558\uAE30 \uC704\uD574 &#60;color=#FFA500&#62;[\u25BC]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574 \uCEE4\uC11C\uB97C \uC62E\uACA8\uC8FC\uC138\uC694.\"
+      eng=\"Click the [\u25BC] button to move the cursor and set the span point (100%)
+      to 100 as indicated on the screen.\" />\r\n  <TextData ID=\"34315\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      100 psi\uB97C \uC124\uC815\uD558\uAE30 \uC704\uD574 \uC22B\uC790 \uBC84\uD2BC\uC744
+      \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;[100]&#60;/color&#62;\uC744 \uC124\uC815\uD55C
+      \uB4A4, &#60;color=#FFA500&#62;[ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574
+      \uC785\uB825\uD574\uC8FC\uC138\uC694.\" eng=\"Next, click the numeric buttons
+      to set 100 Psi, then click the [ENTER] button to confirm.\" />\r\n  <TextData
+      ID=\"34316\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC720\uB7C9 \uC13C\uC11C\uC5D0
+      \uC804\uC6D0\uC744 \uACF5\uAE09\uD558\uAE30 \uC704\uD574 \uD654\uBA74\uC0C1\uC758
+      &#60;color=#FFA500&#62;[Turn Loop Power up]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD \uD55C \uD6C4 &#60;color=#FFA500&#62;[Continue]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0
+      \uD45C\uAE30\uB41C \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Next, power the flow sensor by clicking the [Turn Loop Power up] button
+      and the [Continue] button on the screen. Click the indicated buttons.\" />\r\n 
+      <TextData ID=\"34317\" kor=\"\uB2E4\uC74C\uC740 \uD14C\uC2A4\uD2B8 \uC870\uAC74
+      \uC124\uC815 \uD654\uBA74\uC785\uB2C8\uB2E4. \uC624\uCC28\uBC94\uC704, \uCE21\uC815
+      \uD3EC\uC778\uD2B8, \uC751\uB2F5\uC2DC\uAC04 \uB4F1\uC744 \uC124\uC815\uD560
+      \uC218 \uC788\uC73C\uBA70, \uAC01 \uC124\uC815\uC740 \uC124\uBE44\uC5D0 \uB530\uB77C
+      \uC0C1\uC774\uD569\uB2C8\uB2E4.\" eng=\"Next is the test condition setting
+      screen. You can configure error ranges, measurement points, and response times,
+      depending on the equipment.\" />\r\n  <TextData ID=\"34318\" kor=\"\uBCF8 \uACFC\uC815\uC5D0\uC11C\uB294
+      \uCE21\uC815 \uD3EC\uC778\uD2B8\uB97C 3\uC73C\uB85C \uC124\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uCE21\uC815 \uD3EC\uC778\uD2B8\uB97C
+      \uC124\uC815\uD558\uAE30 \uC704\uD574 &#60;color=#FFA500&#62;[\u25BC]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574 \uCEE4\uC11C\uB97C \uC62E\uAE34 \uB4A4
+      &#60;color=#FFA500&#62;[ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574
+      \uBA54\uB274\uC5D0 \uB4E4\uC5B4\uAC00\uC8FC\uC138\uC694.\" eng=\"In this process,
+      set the measurement points to 3. Click the [\u25BC] button to move the cursor,
+      then click the [ENTER] button to access the menu.\" />\r\n  <TextData ID=\"34319\"
+      kor=\"\uCE21\uC815 \uD3EC\uC778\uD2B8\uB294 0%, 50%, 100% \uC9C0\uC810\uC744
+      \uC624\uB984\uCC28\uC21C\uC73C\uB85C \uCE21\uC815\uD558\uAE30 \uC704\uD574
+      &#60;color=#FFA500&#62;[3\u2191]&#60;/color&#62;\uC73C\uB85C \uC124\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      &#60;color=#FFA500&#62;[ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574
+      \uCE21\uC815 \uD3EC\uC778\uD2B8\uB97C \uC124\uC815\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Set the measurement points to [3\u2191] to measure at 0%, 50%, and 100%
+      in ascending order. Click the [ENTER] button to confirm the measurement points.\"
+      />\r\n  <TextData ID=\"34320\" kor=\"\uBAA8\uB4E0 \uCD08\uAE30 \uC124\uC815\uC744
+      \uB9C8\uCCE4\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;[Continue]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574 \uB2E4\uC74C\uC73C\uB85C \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"All initial settings are complete. Click the [Continue] button to proceed.
+      Click the indicated button on the screen.\" />\r\n  <TextData ID=\"34321\"
+      kor=\"\uC790\uB3D9 \uD14C\uC2A4\uD2B8\uB97C \uC2DC\uC791\uD558\uAE30 \uC704\uD574
+      \uD654\uBA74\uC0C1\uC758 &#60;color=#FFA500&#62;[Auto Test]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574 \uAD50\uC815 \uC791\uC5C5\uC744 \uC2DC\uC791\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Click the [Auto Test] button on the screen to start the calibration process.
+      Click the indicated button.\" />\r\n  <TextData ID=\"34322\" kor=\"\uC555\uB825
+      \uAD50\uC815 \uACFC\uC815\uC740 \uC0AC\uC804 \uC124\uC815\uB41C 0%, 50%, 100%
+      \uC9C0\uC810\uC73C\uB85C \uC555\uB825\uC744 \uC21C\uCC28\uC801\uC73C\uB85C
+      \uC124\uC815\uD55C \uB4A4 5\uCD08 \uC815\uB3C4 \uC548\uC815\uD654 \uACFC\uC815\uC744
+      \uAC70\uCE58\uB294 \uBC29\uC2DD\uC73C\uB85C \uC790\uB3D9 \uCE21\uC815\uB429\uB2C8\uB2E4.
+      \uC790\uB3D9 \uC555\uB825 \uAD50\uC815\uAE30\uAC00 \uAD50\uC815 \uACFC\uC815\uC744
+      \uB9C8\uCE60 \uB54C \uAE4C\uC9C0 \uAE30\uB2E4\uB824\uC8FC\uC138\uC694.\" eng=\"The
+      pressure calibration process automatically measures by sequentially setting
+      the pressure at pre-configured 0%, 50%, and 100% points, followed by a 5-second
+      stabilization period. Wait for the automatic pressure calibrator to complete
+      the process.\" />\r\n  <TextData ID=\"34323\" kor=\"\uC555\uB825 \uAD50\uC815\uC774
+      \uC644\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uAC01 \uCE21\uC815 \uD3EC\uC778\uD2B8
+      \uBCC4\uB85C \uCE21\uC815\uB418\uB294 \uCD9C\uB825 \uC2E0\uD638\uC640 \uC624\uCC28
+      \uBC94\uC704\uB97C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uCD5C\uC885\uC801\uC73C\uB85C
+      \uAD50\uC815 \uACFC\uC815\uC774 \uC131\uACF5\uC801\uC73C\uB85C \uC218\uD589\uB418\uC5C8\uC744
+      \uACBD\uC6B0 \uD654\uBA74 \uC624\uB978\uCABD \uC0C1\uB2E8 &#60;color=#FFA500&#62;PASS&#60;/color&#62;
+      \uD45C\uC2DC\uB97C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\" eng=\"Pressure
+      calibration is complete. Verify the output signals and error ranges at each
+      measurement point. If the calibration process was successful, you will see
+      the PASS mark at the top-right corner of the screen.\" />\r\n  <TextData ID=\"34324\"
+      kor=\"\uC798 \uD558\uC168\uC2B5\uB2C8\uB2E4. \uC774\uC81C \uC124\uBE44\uC758
+      \uC804\uC6D0\uC744 \uB2E4\uC2DC \uCF1C\uACE0 \uC815\uBE44 \uC791\uC5C5\uC744
+      \uB9C8\uCE58\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"Well done.
+      Now turn the equipment power back on to complete the maintenance work.\" />\r\n\r\n 
+      <!-- Depth 3-5-1 -->\r\n  <TextData ID=\"35101\" kor=\"\uB808\uBCA8 \uC13C\uC11C\uC758
+      \uC810\uAC80\uBC29\uC2DD\uACFC \uACE0\uC7A5\uC720\uD615\uC744 \uC54C\uC544\uBCF4\uACE0
+      \uC774\uC5D0 \uB530\uB978 \uC815\uBE44 \uBC29\uBC95\uC744 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"We will learn about the inspection methods and failure types of the level
+      sensor and the corresponding maintenance methods.\" />\r\n  <TextData ID=\"35102\"
+      kor=\"\uC810\uAC80 \uBC29\uBC95\uC740 \uC13C\uC11C \uC678\uBD80\uC758 \uACE0\uC815
+      \uB098\uC0AC, \uD0F1\uD06C\uB85C\uB9AC\uC640 \uC5F0\uACB0\uB41C \uBC30\uAD00\uC758
+      \uC0C1\uD0DC \uD655\uC778 \uBC0F \uC720\uB7C9 \uC13C\uC11C\uC758 \uCD9C\uB825
+      \uC2E0\uD638 \uD655\uC778 \uB4F1\uC774 \uC788\uC2B5\uB2C8\uB2E4. \uBA3C\uC800
+      \uB808\uBCA8 \uC13C\uC11C\uC758 \uC678\uBD80 \uC810\uAC80\uC5D0 \uB300\uD574
+      \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"Inspection methods include
+      checking the fixed screws on the exterior of the sensor, the condition of the
+      piping connected to the tank lorry, and the output signal of the flow sensor.
+      First, let's look at the external inspection of the level sensor.\" />\r\n 
+      <TextData ID=\"35103\" kor=\"\uB808\uBCA8 \uC13C\uC11C\uB294 \uC8FC\uB85C \uAE08\uC18D
+      \uC81C\uC870 \uC124\uBE44\uC5D0 \uD65C\uC6A9\uB418\uB294 \uD654\uD559\uBB3C\uC9C8,
+      \uB0C9\uAC01\uC218, \uC720\uCCB4\uAC00 \uC800\uC7A5\uB418\uB294 \uD0F1\uD06C\uB85C\uB9AC\uC5D0
+      \uC0BD\uC785\uB418\uBA70 \uACE0\uC815\uB098\uC0AC\uB85C \uACE0\uC815\uB418\uB294
+      \uD615\uD0DC\uB85C \uC124\uCE58\uB429\uB2C8\uB2E4.\" eng=\"Level sensors are
+      typically installed in tank lorries that store chemicals, cooling water, or
+      fluids used in metal manufacturing facilities, and are fixed with screws.\"
+      />\r\n  <TextData ID=\"35104\" kor=\"\uC678\uBD80 \uC810\uAC80\uC744 \uD1B5\uD574
+      \uC124\uCE58\uB41C \uD0F1\uD06C\uB85C\uB9AC\uC758 &#60;color=#FFA500&#62;\uC5F0\uACB0\uBD80&#60;/color&#62;\uC640
+      \uC5F0\uACB0\uC0C1\uD0DC\uAC00 \uC62C\uBC14\uB974\uAC8C \uACE0\uC815\uB418\uC5C8\uB294\uC9C0
+      \uD655\uC778\uD558\uACE0, \uC5F0\uACB0\uBC30\uAD00\uC758 &#60;color=#FFA500&#62;\uB204\uC561&#60;/color&#62;
+      \uB610\uB294 &#60;color=#FFA500&#62;\uB204\uAE30&#60;/color&#62;\uAC00 \uC5C6\uB294\uC9C0
+      \uD655\uC778\uD558\uB294 \uAC83\uC774 \uC911\uC694\uD569\uB2C8\uB2E4.\" eng=\"It
+      is important to check whether the connections of the installed tank lorry are
+      properly secured and whether there are any leaks or seepages in the connecting
+      pipes.\" />\r\n  <TextData ID=\"35105\" kor=\"\uBA3C\uC800 \uB808\uBCA8 \uC13C\uC11C
+      \uC5F0\uACB0\uBD80\uC758 \uACE0\uC815\uB098\uC0AC\uAC00 \uC81C\uB300\uB85C
+      \uACB0\uD569 \uB418\uC5B4\uC788\uB294\uC9C0 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uACE0\uC815 \uB098\uC0AC\uAC00 \uC81C\uB300\uB85C \uCCB4\uACB0 \uB418\uC5B4\uC788\uC9C0
+      \uC54A\uC73C\uBA74 \uC5F0\uACB0 \uD2C8\uC0C8\uB85C \uB204\uC561, \uB204\uAE30\uAC00
+      \uBC1C\uC0DD\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0 \uD45C\uC2DC\uB41C
+      &#60;color=#FFA500&#62;\uACE0\uC815 \uB098\uC0AC&#60;/color&#62;\uB97C \uD655\uC778\uD558\uACE0
+      \uD074\uB9AD\uD574 \uC810\uAC80\uD574\uC8FC\uC138\uC694.\" eng=\"First, check
+      whether the fixed screws of the level sensor connection are properly secured.
+      If the screws are not properly tightened, leaks or seepages may occur at the
+      connection gaps. Check and click on the displayed fixed screws on the screen.\"
+      />\r\n  <TextData ID=\"35106\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uB808\uBCA8
+      \uC13C\uC11C \uCE21\uC815\uBD80\uB97C \uD655\uC778\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uAC80\uCD9C\uBB3C\uACFC \uC9C1\uC811 \uC811\uCD09\uD558\uB294 \uB808\uBCA8
+      \uC13C\uC11C\uC758 \uACBD\uC6B0 \uCE21\uC815\uBD80\uC758 \uD45C\uBA74\uC774
+      \uC7A5\uC2DC\uAC04 \uC0AC\uC6A9\uC73C\uB85C \uC624\uC5FC\uC774\uB098 \uC794\uB958\uBB3C\uC774
+      \uB0A8\uC544 \uB808\uBCA8 \uC13C\uC11C\uAC00 \uC815\uC0C1 \uC791\uB3D9\uD558\uC9C0
+      \uC54A\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C
+      &#60;color=#FFA500&#62;\uCE21\uC815\uBD80&#60;/color&#62;\uB97C \uD074\uB9AD\uD574
+      \uC810\uAC80\uD574\uC8FC\uC138\uC694.\" eng=\"Next, we will check the measuring
+      part of the level sensor. For level sensors that come into direct contact with
+      detected substances, prolonged use may contaminate or leave residues on the
+      surface of the measuring part, potentially preventing the sensor from functioning
+      properly. Click on the displayed measuring part on the screen to inspect it.\"
+      />\r\n  <TextData ID=\"35107\" kor=\"\uB808\uBCA8 \uC13C\uC11C\uC758 \uC804\uB958\uB97C
+      \uCE21\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uC804\uB958
+      \uCE21\uC815\uC740 \uC77C\uBC18\uC801\uC778 \uC804\uB958 \uCE21\uC815 \uBC29\uBC95\uACFC
+      \uB3D9\uC77C\uD558\uBA70 \uBA3C\uC800 \uB808\uBCA8 \uC13C\uC11C\uB97C \uC2DC\uADF8\uB110
+      \uCEE8\uB514\uC154\uB108\uC640 \uBD84\uB9AC\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"We will measure the current of the level sensor. Current measurement
+      is the same as general current measurement methods. First, separate the level
+      sensor from the signal conditioner. Click the toolbox.\" />\r\n  <TextData
+      ID=\"35108\" kor=\"\uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC5D0 \uC5F0\uACB0\uB41C
+      \uCD9C\uB825 \uC2E0\uD638 \uB3C4\uC120\uC744 \uD574\uC81C\uD558\uAE30 \uC704\uD574
+      \uB3C4\uAD6C\uD568\uC744 \uC5F4\uC5B4 \uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\uB97C
+      \uD074\uB9AD \uD558\uACE0, \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uC811\uC18D\uB2E8\uC790&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uBD84\uB9AC\uD574\uC8FC\uC138\uC694.\" eng=\"To disconnect
+      the output signal wire connected to the signal conditioner, click the electric
+      screwdriver and then click the displayed connection terminal on the screen
+      to disconnect it.\" />\r\n  <TextData ID=\"35109\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uB514\uC9C0\uD138 \uBBF8\uD130\uB97C \uD65C\uC6A9\uD574 \uB808\uBCA8 \uC13C\uC11C\uC758
+      &#60;color=#FFA500&#62;\uCD9C\uB825 \uC804\uB958&#60;/color&#62;\uB97C \uCE21\uC815\uD558\uB3C4\uB85D
+      \uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574
+      &#60;color=#FFA500&#62;\uB514\uC9C0\uD138 \uBBF8\uD130&#60;/color&#62;\uB97C
+      \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"Next, use the digital meter to measure
+      the output current of the level sensor. Click the toolbox to take out the digital
+      meter.\" />\r\n  <TextData ID=\"35110\" kor=\"\uB808\uBCA8 \uC13C\uC11C\uC758
+      \uCD9C\uB825 \uC2E0\uD638 \uB2E8\uC790\uC5D0\uC11C \uCE21\uC815\uB418\uB294
+      \uC804\uB958\uB97C \uD655\uC778\uD574 \uC815\uC0C1\uB3D9\uC791 \uC5EC\uBD80\uB97C
+      \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;\uB2E4\uC774\uC5BC&#60;/color&#62;\uC744
+      \uB3CC\uB824 &#60;color=#FFA500&#62;\uC9C1\uB958 \uC804\uB958(A)\uCE21\uC815
+      \uBAA8\uB4DC&#60;/color&#62;\uB85C \uB9DE\uCDB0\uC8FC\uC138\uC694.\" eng=\"Check
+      the current measured at the output signal terminal of the level sensor to verify
+      its proper operation. Turn the dial to set it to the DC current (mA) measurement
+      mode.\" />\r\n\r\n  <!-- Depth 3-5-2 -->\r\n  <TextData ID=\"35111\" kor=\"\uCE21\uC815\uC740
+      &#60;color=#FFA500&#62;\uBE68\uAC04\uC0C9 \uD504\uB85C\uBE0C&#60;/color&#62;\uB97C
+      \uC13C\uC11C\uC758 &#60;color=#FFA500&#62;\uCD9C\uB825 \uB2E8\uC790&#60;/color&#62;\uC640
+      &#60;color=#FFA500&#62;\uAC80\uC815\uC0C9 \uD504\uB85C\uBE0C&#60;/color&#62;\uB97C
+      \uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC758 &#60;color=#FFA500&#62;\uC785\uB825
+      \uB2E8\uC790&#60;/color&#62;\uC5D0 \uC5F0\uACB0\uD574 \uCE21\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uCE21\uC815\uBD80\uC5D0 \uB0B4\uBD80 \uAC80\uCD9C\uBB3C\uACFC \uC811\uCD09\uD558\uB294
+      \uC9C0\uC810\uC774 \uCD5C\uC800 \uC810\uC77C \uB54C \uCD9C\uB825 \uC2E0\uD638
+      &#60;color=#FFA500&#62;4mA&#60;/color&#62;\uAC00 \uCE21\uC815\uB418\uB294\uC9C0
+      \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"For the measurement, connect
+      the red probe to the sensor's output terminal and the black probe to the signal
+      conditioner's input terminal using the digital meter. Check whether the output
+      signal measures 4mA when the measuring part is at the lowest point of contact
+      with the internal detected material.\" />\r\n  <TextData ID=\"35201\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC720\uB7C9 \uC13C\uC11C\uAC00 \uC815\uC0C1\uC791\uB3D9 \uD558\uC9C0 \uC54A\uB294
+      \uB300\uD45C\uC801\uC778 \uACE0\uC7A5 \uC720\uD615 \uBC0F \uC870\uCE58 \uBC29\uBC95\uC5D0
+      \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"Next, we will
+      learn about the common failure types and corrective actions for flow sensors
+      that are not operating properly.\" />\r\n  <TextData ID=\"35202\" kor=\"\uCCAB
+      \uBC88\uC9F8 \uACE0\uC7A5 \uC720\uD615\uC740 \uD604\uC7A5\uC5D0\uC11C \uD754\uD788
+      \uBC1C\uC0DD\uD560 \uC218 \uC788\uB294 &#60;color=#FFA500&#62;\uBC30\uAD00
+      \uB9C9\uD798&#60;/color&#62; \uC720\uD615\uC73C\uB85C \uC7A5\uAE30\uAC04 \uC0AC\uC6A9\uC73C\uB85C
+      \uC778\uD574 \uD0F1\uD06C \uB85C\uB9AC \uB0B4\uBD80\uC5D0 \uC794\uC5EC\uBB3C\uC774
+      \uACE0\uCC29\uB418\uC5B4 \uC5F0\uACB0 \uBC30\uAD00\uC774 \uB9C9\uD788\uAC8C
+      \uB418\uB294 \uC720\uD615\uC785\uB2C8\uB2E4.\" eng=\"The first failure type
+      is pipe blockage, which commonly occurs in the field due to residual materials
+      adhering inside the tank lorry over prolonged use, causing the connecting pipes
+      to become blocked.\" />\r\n  <TextData ID=\"35203\" kor=\"\uC870\uCE58\uBC29\uBC95\uC73C\uB85C\uB294
+      \uBC30\uAD00\uC774 \uB9C9\uD788\uAE30 \uC26C\uC6B4 \uBB3C\uC9C8\uC758 \uACBD\uC6B0
+      \uC815\uAE30\uC801\uC778 \uC720\uC9C0\uBCF4\uC218\uB97C \uC218\uD589\uD558\uAC70\uB098
+      \uBB3C\uB9AC\uC801\uC778 \uCCAD\uC18C, \uD654\uD559\uC801 \uC138\uCC99 \uACFC\uC815\uC744
+      \uC218\uD589\uD558\uB3C4\uB85D \uD569\uB2C8\uB2E4. \uBC30\uAD00\uC744 \uD655\uC778\uD558\uACE0
+      \uB0B4\uBD80\uC758 \uC794\uC5EC\uBB3C\uC744 \uC5C6\uC560\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"For corrective actions, if the substance is prone to clogging the pipes,
+      perform regular maintenance, physical cleaning, or chemical cleaning processes.
+      Let's check the pipes and remove the internal residues.\" />\r\n  <TextData
+      ID=\"35204\" kor=\"\uBC30\uAD00 \uB0B4\uBD80\uC758 \uC794\uC5EC\uBB3C\uC744
+      \uD655\uC778\uD558\uC600\uC2B5\uB2C8\uB2E4. \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C
+      \uB9C9\uD798 \uBD80\uBD84\uC744 \uD074\uB9AD\uD574 \uCCAD\uC18C\uD574\uC8FC\uC138\uC694.\"
+      eng=\"We have identified the residues inside the pipe. Click on the blockage
+      displayed on the screen to clean it.\" />\r\n  <TextData ID=\"35205\" kor=\"\uB2E4\uC74C
+      \uACE0\uC7A5 \uC720\uD615\uC740 &#60;color=#FFA500&#62;\uBCF4\uC0C1 \uB3C4\uC120
+      \uCCB4\uACB0 \uC624\uB958&#60;/color&#62;\uB85C \uC7A5\uC2DC\uAC04 \uC0AC\uC6A9\uC73C\uB85C
+      \uC778\uD574 \uC18C\uC120\uC774 \uB2E8\uC120\uB418\uAC70\uB098 \uC2DC\uADF8\uB110
+      \uCEE8\uB514\uC154\uB108\uC758 \uC811\uC18D\uB098\uC0AC\uAC00 \uD480\uB824
+      \uC815\uC0C1\uC801\uC73C\uB85C \uB808\uBCA8 \uC13C\uC11C\uAC00 \uCE21\uC815\uB418\uC9C0
+      \uC54A\uB294 \uC720\uD615\uC785\uB2C8\uB2E4.\" eng=\"The next failure type
+      is compensation wire connection errors. Over prolonged use, fine wires may
+      break, or the connection screws on the signal conditioner may loosen, preventing
+      the level sensor from functioning correctly.\" />\r\n  <TextData ID=\"35206\"
+      kor=\"\uD574\uB2F9 \uACE0\uC7A5 \uC720\uD615\uC758 \uACBD\uC6B0 \uC2DC\uADF8\uB110
+      \uCEE8\uB514\uC154\uB108\uC640 \uC5F0\uACB0\uB41C &#60;color=#FFA500&#62;\uBCF4\uC0C1
+      \uB3C4\uC120 \uC811\uC18D \uC0C1\uD0DC&#60;/color&#62;\uB97C &#60;color=#FFA500&#62;\uD655\uC778&#60;/color&#62;\uD558\uB294
+      \uAC83\uC774 \uC911\uC694\uD558\uBA70 \uC811\uC18D\uB098\uC0AC\uB97C \uB2E4\uC2DC
+      \uCCB4\uACB0\uD574 \uC811\uC18D \uBD88\uB7C9 \uD604\uC0C1\uC744 \uD574\uACB0\uD558\uAC70\uB098
+      \uC811\uC18D\uBD80\uBD84\uC774 \uC190\uC0C1\uB41C \uACBD\uC6B0 \uC0C8\uB85C\uC6B4
+      \uB808\uBCA8 \uC13C\uC11C\uB85C \uAD50\uCCB4\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\"
+      eng=\"For this failure type, it is important to check the connection state
+      of the compensation wires connected to the signal conditioner. Re-tighten the
+      connection screws to resolve connection issues, or replace the level sensor
+      with a new one if the connection parts are damaged.\" />\r\n  <TextData ID=\"35207\"
+      kor=\"\uC5F0\uACB0\uBD80\uBD84\uC744 \uD655\uC778\uD558\uACE0 \uBCF4\uC0C1
+      \uB3C4\uC120\uC744 \uB2E4\uC2DC \uCCB4\uACB0\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC5F0\uACB0\uBD80\uBD84\uC744 \uD655\uC778\uD558\uAE30 \uC704\uD574 \uC804\uC6D0
+      \uD328\uB110\uC758 \uB36E\uAC1C\uB97C \uD074\uB9AD\uD574 \uC5F4\uC5B4\uC8FC\uC138\uC694.\"
+      eng=\"Let's check the connection and reattach the compensation wire. Click
+      the cover of the signal conditioner to open it.\" />\r\n  <TextData ID=\"35208\"
+      kor=\"\uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uB3C4\uAD6C\uD568\uC744 \uD074\uB9AD\uD574
+      &#60;color=#FFA500&#62;\uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84&#60;/color&#62;\uB97C
+      \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"Click the toolbox displayed on the
+      screen to take out the electric screwdriver.\" />\r\n  <TextData ID=\"35209\"
+      kor=\"\uB808\uBCA8 \uC13C\uC11C \uBCF4\uC0C1\uB3C4\uC120 &#60;color=#FFA500&#62;\uC811\uC18D
+      \uB2E8\uC790&#60;/color&#62;\uB97C \uD655\uC778\uD558\uACE0 \uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84\uB97C
+      \uC774\uC6A9\uD574 \uB2E4\uC2DC &#60;color=#FFA500&#62;\uCCB4\uACB0&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Check the connection terminals of the level sensor compensation wire
+      and reattach them using the electric screwdriver.\" />\r\n\r\n  <!-- Depth
+      3-5-3 -->\r\n  <TextData ID=\"35301\" kor=\"\uB2E4\uC74C\uC740 \uB808\uBCA8
+      \uC13C\uC11C \uC815\uBE44 \uBC29\uBC95\uC5D0 \uB300\uD574 \uC54C\uC544\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC77C\uBC18\uC801\uC73C\uB85C \uB808\uBCA8 \uC13C\uC11C\uC758 \uC815\uBE44
+      \uC21C\uC11C\uB294 &#60;color=#FFA500&#62;\uB808\uBCA8 \uC13C\uC11C \uD0C8\uAC70&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uC0C8\uB85C\uC6B4 \uB808\uBCA8 \uC13C\uC11C \uAD50\uCCB4&#60;/color&#62;,
+      &#60;color=#FFA500&#62;\uAE30\uBCF8 \uC124\uC815&#60;/color&#62; \uC21C\uC11C\uB85C
+      \uC9C4\uD589\uB429\uB2C8\uB2E4.\" eng=\"Next, we will learn about the maintenance
+      methods for level sensors. Generally, the maintenance sequence involves removing
+      the faulty level sensor, replacing it with a new one, and performing basic
+      configuration.\" />\r\n  <TextData ID=\"35302\" kor=\"\uB808\uBCA8 \uC13C\uC11C
+      \uC815\uBE44 \uC791\uC5C5\uC744 \uC2DC\uC791\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uBA3C\uC800 \uB3C4\uAD6C\uD568\uC5D0\uC11C \uC0C8\uB85C \uC124\uCE58\uD560
+      &#60;color=#FFA500&#62;\uC608\uBE44 \uB808\uBCA8 \uC13C\uC11C&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"Let's begin the
+      maintenance work for the level sensor. First, click the toolbox to take out
+      the spare level sensor to be installed.\" />\r\n  <TextData ID=\"35303\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uC791\uC5C5 \uC804 \uC548\uC804\uC744 \uC704\uD574 \uC911\uC694\uD55C \uC548\uC804
+      \uC808\uCC28\uC778 \uC124\uBE44 \uC804\uC6D0 \uCC28\uB2E8 \uBC0F \uBC30\uAD00\uB0B4
+      \uC794\uB958 \uC555\uB825\uACFC \uAC00\uC2A4\uB97C \uC81C\uAC70\uD558\uB294
+      \uACFC\uC815\uC744 \uC218\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBA3C\uC800
+      &#60;color=#FFA500&#62;\uC804\uC6D0 \uCC28\uB2E8 \uC2A4\uC704\uCE58&#60;/color&#62;\uB97C
+      \uB20C\uB7EC \uC804\uC6D0\uC744 \uCC28\uB2E8\uD574\uC8FC\uC138\uC694.\" eng=\"Next,
+      for safety before starting the work, we will perform the crucial safety procedures
+      of shutting off the facility's power and releasing the residual pressure and
+      gas in the pipes. First, press the power-off switch to turn off the power.\"
+      />\r\n  <TextData ID=\"35304\" kor=\"\uB2E4\uC74C\uC73C\uB85C &#60;color=#FFA500&#62;\uBC38\uBE0C&#60;/color&#62;\uB97C
+      \uC5F4\uC5B4 \uB0B4\uBD80 \uC794\uB958\uBB3C\uC744 \uC81C\uAC70\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Next, open the valve to remove the internal residues.\" />\r\n  <TextData
+      ID=\"35305\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uAD50\uCCB4\uD560 \uAE30\uC874
+      \uB808\uBCA8 \uC13C\uC11C\uB97C \uCCA0\uAC70\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uAE30\uC874 \uB808\uBCA8 \uC13C\uC11C\uC640 \uC2DC\uADF8\uB110 \uCEE8\uB514\uC154\uB108\uC758
+      \uC5F0\uACB0\uC744 \uD574\uCCB4\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uB3C4\uAD6C\uD568\uC744
+      \uD074\uB9AD\uD574 &#60;color=#FFA500&#62;\uC804\uB3D9 \uB4DC\uB77C\uC774\uBC84&#60;/color&#62;\uB97C
+      \uAEBC\uB0B4\uACE0 \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C &#60;color=#FFA500&#62;\uC811\uC18D
+      \uB2E8\uC790&#60;/color&#62;\uB97C &#60;color=#FFA500&#62;\uD574\uCCB4&#60;/color&#62;\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Now, we will remove the existing level sensor to be replaced. Disconnect
+      the existing level sensor from the signal conditioner. Click the toolbox to
+      take out the electric screwdriver, then disconnect the connection terminals
+      displayed on the screen.\" />\r\n  <TextData ID=\"35306\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uAE30\uC874 \uB808\uBCA8 \uC13C\uC11C\uB97C \uD074\uB9AD\uD574 \uD68C\uC218\uD558\uACE0,
+      \uAEBC\uB0B4\uB193\uC740 &#60;color=#FFA500&#62;\uC608\uBE44 \uB808\uBCA8 \uC13C\uC11C&#60;/color&#62;\uB97C
+      \uD074\uB9AD\uD574 \uC124\uCE58\uD574\uC8FC\uC138\uC694.\" eng=\"Next, click
+      on the existing level sensor to retrieve it, then click on the spare level
+      sensor to install it.\" />\r\n  <TextData ID=\"35307\" kor=\"\uC0C8\uB85C \uC124\uCE58\uB41C
+      \uB808\uBCA8 \uC13C\uC11C\uC758 \uAE30\uBCF8 \uD30C\uB77C\uBBF8\uD130 \uAC12
+      \uC124\uC815 \uC791\uC5C5\uC744 \uC218\uD589\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC124\uC815 \uC791\uC5C5\uC740 \uC13C\uC11C\uC5D0 \uC124\uCE58\uB418\uC5B4\uC788\uB294
+      \uB514\uC2A4\uD50C\uB808\uC774\uB97C \uD65C\uC6A9\uD574 \uAC80\uCD9C\uD560
+      \uB450 \uCE21\uC815 \uC9C0\uC810(OUT1, OUT2)\uC758 &#60;color=#FFA500&#62;SP&#60;/color&#62;,
+      &#60;color=#FFA500&#62;RP&#60;/color&#62;, &#60;color=#FFA500&#62;\uD68C\uB85C
+      \uC0C1\uD0DC&#60;/color&#62; \uB4F1\uC744 \uC124\uC815\uD558\uB294 \uACFC\uC815\uC744
+      \uB9D0\uD569\uB2C8\uB2E4.\" eng=\"We will perform the basic parameter configuration
+      for the newly installed level sensor. This involves using the display installed
+      on the sensor to set the SP, RP, and circuit states for two measurement points
+      (OUT1, OUT2).\" />\r\n  <TextData ID=\"35308\" kor=\"\uC124\uC815 \uC791\uC5C5\uC740
+      \uC124\uBE44 \uC694\uAD6C\uC0AC\uD56D\uC5D0 \uB530\uB77C \uC0C1\uC774\uD558\uBA70
+      \uBCF8 \uD559\uC2B5\uACFC\uC815\uC5D0\uC11C\uB294 \uC790\uC8FC \uD65C\uC6A9\uB418\uB294
+      \uCD9C\uB825 \uC2E0\uD638 \uCE21\uC815 \uC9C0\uC810\uC758 &#60;color=#FFA500&#62;\uD30C\uB77C\uBBF8\uD130
+      \uD655\uC778&#60;/color&#62; - &#60;color=#FFA500&#62;\uD30C\uB77C\uBBF8\uD130
+      \uC124\uC815&#60;/color&#62; - &#60;color=#FFA500&#62;\uD68C\uB85C \uC0C1\uD0DC
+      \uC124\uC815&#60;/color&#62; \uC21C\uC11C\uB85C \uC9C4\uD589\uB429\uB2C8\uB2E4.\"
+      eng=\"Configuration tasks vary depending on equipment requirements. In this
+      learning process, we will proceed with checking parameters for frequently used
+      output signal measurement points, setting the parameters, and configuring the
+      circuit state.\" />\r\n  <TextData ID=\"35309\" kor=\"\uC124\uC815 \uC791\uC5C5\uC744
+      \uC2DC\uC791\uD558\uACA0\uC2B5\uB2C8\uB2E4. \uBA3C\uC800 \uC0C1\uB2E8 \uCD9C\uB825
+      \uC2E0\uD638(OUT1) SP \uC124\uC815 \uAC12(SP1)\uC744 \uD655\uC778\uD558\uAE30
+      \uC704\uD574 &#60;color=#FFA500&#62;[MODE/ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"Let's begin the configuration.
+      First, to check the SP setting value (SP1) of the upper output signal (OUT1),
+      click the [MODE/ENTER] button.\" />\r\n  <TextData ID=\"35310\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      SP \uC124\uC815 \uBA54\uB274\uB97C \uD65C\uC131\uD654 \uD558\uAE30 \uC704\uD574
+      &#60;color=#FFA500&#62;[SET]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Next, click the [SET] button to activate the SP setting menu.\" />\r\n 
+      <TextData ID=\"35311\" kor=\"\uD574\uB2F9 \uD654\uBA74\uC740 \uC0C1\uB2E8 \uCD9C\uB825
+      \uC2E0\uD638\uC758 SP \uAC12(Switching Point) \uC124\uC815 \uD654\uBA74\uC73C\uB85C
+      \uC0AC\uC804 \uC124\uC815\uB41C \uC88C\uCE21 \uC0C1\uB2E8 \uB2E8\uC704\uC640
+      \uB514\uC2A4\uD50C\uB808\uC774\uC5D0 \uD45C\uC2DC\uB41C \uC22B\uC790\uB97C
+      \uBCF4\uACE0 \uCD9C\uB825 \uC2E0\uD638\uC758 SP \uC124\uC815 \uAC12\uC744 \uD655\uC778\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4.\" eng=\"This screen shows the SP value (Switching
+      Point) setting for the upper output signal. Check the SP setting value by referring
+      to the preset unit at the top left and the numbers displayed on the screen.\"
+      />\r\n  <TextData ID=\"35312\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC0C1\uB2E8
+      \uCD9C\uB825 \uC2E0\uD638\uC758 RP \uC124\uC815 \uAC12(RP1)\uC744 \uD655\uC778\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      RP1 \uBA54\uB274\uAC00 \uB2E4\uC2DC \uD65C\uC131\uD654 \uB420 \uB54C \uAE4C\uC9C0
+      &#60;color=#FFA500&#62;[MODE/ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Next, let's check the RP setting value (RP1) for the upper output signal.
+      Click the [MODE/ENTER] button until the RP1 menu is reactivated.\" />\r\n 
+      <TextData ID=\"35313\" kor=\"\uB2E4\uC74C\uC73C\uB85C \uC0C1\uB2E8 \uCD9C\uB825
+      \uC2E0\uD638\uC758 RP \uC124\uC815 \uBA54\uB274\uB97C \uD65C\uC131\uD654 \uD558\uAE30
+      \uC704\uD574 &#60;color=#FFA500&#62;[SET]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"Next, click the [SET] button
+      to activate the RP setting menu for the upper output signal.\" />\r\n  <TextData
+      ID=\"35314\" kor=\"\uD574\uB2F9 \uD654\uBA74\uC740 \uC0C1\uB2E8 \uCD9C\uB825
+      \uC2E0\uD638\uC758 RP \uAC12(Reset Point)\uC73C\uB85C \uCD9C\uB825 \uC2E0\uD638\uC758
+      RP \uC124\uC815 \uAC12\uC744 \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\"
+      eng=\"This screen displays the RP value (Reset Point) for the upper output
+      signal, allowing you to check the RP setting value.\" />\r\n  <TextData ID=\"35315\"
+      kor=\"\uB2E4\uC74C\uC73C\uB85C \uC0C1\uB2E8 \uCD9C\uB825 \uC2E0\uD638\uC758
+      SP, RP \uC124\uC815 \uAC12\uC744 \uBCC0\uACBD\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uC13C\uC11C\uC758 \uBAA8\uB4E0 \uBC84\uD2BC\uC740 \uB2E8\uBC29\uD5A5\uC73C\uB85C
+      \uB3D9\uC791\uD558\uBA70 \uBAA8\uB4E0 \uBA54\uB274\uAC00 \uB05D\uB098\uBA74
+      \uB2E4\uC2DC \uCCAB \uBC88\uC9F8 \uBA54\uB274\uAC00 \uD65C\uC131\uD654 \uB429\uB2C8\uB2E4.
+      SP1 \uBA54\uB274\uAC00 \uB2E4\uC2DC \uD65C\uC131\uD654\uB420 \uB54C\uAE4C\uC9C0
+      &#60;color=#FFA500&#62;[MODE/ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Next, let\u2019s modify the SP and RP settings of the upper output signal.
+      All sensor buttons operate unidirectionally, and the menu cycles back to the
+      first menu once all options are completed. Click the [MODE/ENTER] button until
+      the SP1 menu is reactivated.\" />\r\n  <TextData ID=\"35316\" kor=\"SP \uC124\uC815
+      \uAC12(SP1)\uC744 \uBCC0\uACBD\uD558\uAE30 \uC704\uD574 \uBA54\uB274\uB97C
+      \uD65C\uC131\uD654\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4. &#60;color=#FFA500&#62;[SET]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"To change
+      the SP setting (SP1), let\u2019s activate the menu. Click the [SET] button.\"
+      />\r\n  <TextData ID=\"35317\" kor=\"SP \uC124\uC815 \uAC12(SP1)\uC744 \uBCC0\uACBD\uD558\uAE30
+      \uC704\uD574\uC11C\uB294 &#60;color=#FFA500&#62;[SET]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uB204\uB978 \uC0C1\uD0DC\uB85C \uC720\uC9C0\uD574\uC57C \uD569\uB2C8\uB2E4.
+      \uC124\uC815 \uAC12\uC774 \uC810\uBA78\uD558\uAE30 \uC2DC\uC791\uD558\uBA74
+      \uB2E4\uC2DC &#60;color=#FFA500&#62;[SET]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uB20C\uB7EC 12\uB85C \uC124\uC815\uD574\uC8FC\uC138\uC694.\" eng=\"To change
+      the SP setting (SP1), hold down the [SET] button. Once the value starts blinking,
+      press the [SET] button again to set it to 12.\" />\r\n  <TextData ID=\"35318\"
+      kor=\"\uBCC0\uACBD\uD55C SP \uC124\uC815 \uAC12\uC744 \uC800\uC7A5\uD558\uAE30
+      \uC704\uD574 &#60;color=#FFA500&#62;[MODE/ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"Click the [MODE/ENTER] button
+      to save the modified SP setting.\" />\r\n  <TextData ID=\"35319\" kor=\"\uB2E4\uC74C\uC73C\uB85C
+      \uD68C\uB85C \uC0C1\uD0DC\uB97C \uC124\uC815\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uBCF8 \uD559\uC2B5 \uACFC\uC815\uC5D0\uC11C\uB294 &#60;color=#FFA500&#62;\uC5F4\uB9BC\uC0C1\uD0DC(Normally
+      open)&#60;/color&#62;\uB85C \uC124\uC815\uD558\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      &#60;color=#FFA500&#62;[MODE/ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574
+      \uD655\uC7A5\uAE30\uB2A5(EF)\uC744 \uD65C\uC131\uD654 \uD574\uC8FC\uC138\uC694.\"
+      eng=\"Next, let\u2019s configure the circuit state. In this session, we will
+      set it to Normally Open (NO). Click the [MODE/ENTER] button to activate the
+      extended functionality (EF).\" />\r\n  <TextData ID=\"35320\" kor=\"\uD655\uC7A5
+      \uAE30\uB2A5 \uBA54\uB274\uB97C \uD65C\uC131\uD654 \uD558\uAE30 \uC704\uD574
+      &#60;color=#FFA500&#62;[SET]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"Click the [SET] button to activate the extended functionality menu.\"
+      />\r\n  <TextData ID=\"35321\" kor=\"\uD655\uC7A5 \uAE30\uB2A5 \uBA54\uB274\uAC00
+      \uD65C\uC131\uD654 \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uB2E4\uC74C\uC73C\uB85C
+      \uC0C1\uB2E8 \uCD9C\uB825 \uC2E0\uD638\uC758 \uD68C\uB85C \uC0C1\uD0DC \uC124\uC815
+      \uBA54\uB274(ou1)\uB97C \uC120\uD0DD\uD574\uBCF4\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      &#60;color=#FFA500&#62;[MODE/ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574
+      \uBA54\uB274\uB97C \uC0C1\uB2E8 &#60;color=#FFA500&#62;\uCD9C\uB825 \uC2E0\uD638(ou1)&#60;/color&#62;\uB85C
+      \uBCC0\uACBD\uD574\uC8FC\uC138\uC694.\" eng=\"The extended functionality menu
+      has been activated. Next, select the circuit state setting menu for the upper
+      output signal (ou1). Click the [MODE/ENTER] button to change the menu to upper
+      output signal (ou1).\" />\r\n  <TextData ID=\"35322\" kor=\"\uC0C1\uB2E8 \uCD9C\uB825
+      \uC2E0\uD638\uB85C \uBCC0\uACBD\uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uD68C\uB85C
+      \uC0C1\uD0DC \uC124\uC815 \uBA54\uB274\uB97C \uD65C\uC131\uD654 \uD558\uAE30
+      \uC704\uD574 &#60;color=#FFA500&#62;[MODE/ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"The menu has been changed to
+      the upper output signal. Click the [MODE/ENTER] button to activate the circuit
+      state setting menu.\" />\r\n  <TextData ID=\"35323\" kor=\"\uD68C\uB85C \uC0C1\uD0DC
+      \uC124\uC815 \uBA54\uB274\uAC00 \uD65C\uC131\uD654 \uB418\uC5C8\uC2B5\uB2C8\uB2E4.
+      \uCD08\uAE30 \uC124\uC815\uC740 \uB2EB\uD798 \uC0C1\uD0DC(Hnc)\uC774\uBA70
+      &#60;color=#FFA500&#62;\uC5F4\uB9BC \uC0C1\uD0DC(Hno)&#60;/color&#62;\uB85C
+      \uBCC0\uACBD\uD558\uAE30 \uC704\uD574 &#60;color=#FFA500&#62;[SET]&#60;/color&#62;
+      \uBC84\uD2BC\uC744 \uD074\uB9AD\uD574\uC8FC\uC138\uC694.\" eng=\"The circuit
+      state setting menu has been activated. The default state is Closed (Hnc). Click
+      the [SET] button to change it to Open (Hno).\" />\r\n  <TextData ID=\"35324\"
+      kor=\"\uC0C1\uB2E8 \uCD9C\uB825 \uC2E0\uD638\uC758 \uC5F4\uB9BC \uC0C1\uD0DC(Hno)\uAC00
+      \uC124\uC815 \uB418\uC5C8\uC2B5\uB2C8\uB2E4. \uC124\uC815\uC744 \uC800\uC7A5\uD558\uAE30
+      \uC704\uD574 &#60;color=#FFA500&#62;[MODE/ENTER]&#60;/color&#62; \uBC84\uD2BC\uC744
+      \uD074\uB9AD\uD574 \uCD08\uAE30 \uBA54\uB274\uB85C \uBCC0\uACBD\uD574\uC8FC\uC138\uC694.\"
+      eng=\"The upper output signal has been set to Open (Hno). Click the [MODE/ENTER]
+      button to save the settings and return to the initial menu.\" />\r\n  <TextData
+      ID=\"35325\" kor=\"\uC124\uC815 \uC791\uC5C5\uC774 \uC644\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4.
+      \uB808\uBCA8\uC13C\uC11C\uC758 \uBCF4\uC0C1 \uB3C4\uC120\uC744 \uB2E4\uC2DC
+      \uC5F0\uACB0\uD574\uC8FC\uC138\uC694.\" eng=\"The configuration is complete.
+      Please reconnect the compensating wire of the level sensor.\" />\r\n  <TextData
+      ID=\"35326\" kor=\"\uC798 \uD558\uC168\uC2B5\uB2C8\uB2E4. \uC774\uC81C \uC124\uBE44\uC758
+      \uC804\uC6D0\uC744 \uB2E4\uC2DC \uCF1C\uACE0 \uC815\uBE44 \uC791\uC5C5\uC744
+      \uB9C8\uCE58\uB3C4\uB85D \uD558\uACA0\uC2B5\uB2C8\uB2E4.\" eng=\"Well done.
+      Now turn the equipment power back on to complete the maintenance work.\" />\r\n\r\n\r\n 
+      <!-- Depth 3-3-1 -->\r\n  <TextData ID=\"41101\" kor=\"\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"41102\" kor=\"\uD14C\uC2A4\uD2B8 Depth 4-2-1-02.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"41103\" kor=\"\uD14C\uC2A4\uD2B8 Depth 4-2-1-03.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"41104\" kor=\"\uD14C\uC2A4\uD2B8 Depth
+      4-2-1-04.\" eng=\"eng Test\" />\r\n  <TextData ID=\"41105\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 4-2-1-05.\" eng=\"eng Test\" />\r\n  <TextData ID=\"41106\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 4-2-1-06.\" eng=\"eng Test\" />\r\n  <TextData ID=\"41107\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 4-2-1-07.\" eng=\"eng Test\" />\r\n  <TextData ID=\"41108\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 4-2-1-08.\" eng=\"eng Test\" />\r\n  <TextData ID=\"41109\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 4-2-1-09.\" eng=\"eng Test\" />\r\n  <TextData ID=\"41110\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 4-2-1-10.\" eng=\"eng Test\" />\r\n  <!-- Depth 3-341 -->\r\n  <!-- depth\uC640
+      \uC560\uB2C8\uBA54\uC774\uC158 \uACB9\uCE58\uB294 \uC21C\uC11C : 4-4 // 5-5(6):\uB4DC\uB77C\uC774\uBC84
+      \uD3EC\uD568 //\r\n  6-7 \uC628\uB3C4\uC13C\uC11C \uD68C\uC218 // 7-7 //8-9,10//
+      9 - 11 // 10 - 12 // 11- 13 \r\n  &lt;color=#00F5FF&gt;\uAE08\uC18D\uC81C\uC870&lt;/color&gt;
+      \uC124\uBE44 \uACC4\uCE21 \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5 \uC911 \uC628\uB3C4
+      \uC13C\uC11C \uC815\uBE44 \uACFC\uC815\uC758 \uD3C9\uAC00\uB97C \uC9C4\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \r\n  \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uC218\uD589 \uB9AC\uC2A4\uD2B8\uB97C
+      \uD655\uC778\uD558\uACE0 \uC21C\uC11C\uB300\uB85C \uC815\uBE44\uB97C \uC9C4\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4\r\n  
+      -->\r\n  <TextData ID=\"42101\" kor=\"\uAE08\uC18D\uC81C\uC870 \uC124\uBE44
+      \uACC4\uCE21 \uC13C\uC11C \uC815\uBE44 \uC2E4\uC2B5 \uC911 \uC628\uB3C4 \uC13C\uC11C
+      \uC815\uBE44 \uACFC\uC815\uC758 \uD3C9\uAC00\uB97C \uC9C4\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4.
+      \uD654\uBA74\uC5D0 \uD45C\uAE30\uB41C \uC218\uD589 \uB9AC\uC2A4\uD2B8\uB97C
+      \uD655\uC778\uD558\uACE0 \uC21C\uC11C\uB300\uB85C \uC815\uBE44\uB97C \uC9C4\uD589\uD558\uACA0\uC2B5\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"42102\" kor=\"\uB3C4\uAD6C\uD568\uC73C\uB85C
+      \uAC00\uC11C, \uC0C8\uB85C \uAD50\uCCB4\uD560 \uC628\uB3C4\uC13C\uC11C\uB97C
+      \uAEBC\uB0B4\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData ID=\"42103\"
+      kor=\"\uC124\uBE44 \uC804\uC6D0\uC744 \uCC28\uB2E8\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"42104\" kor=\"\uBC38\uBE0C\uB97C \uC870\uC791\uD574
+      \uBC30\uAD00 \uB0B4 \uC794\uB958\uBB3C\uC744 \uC81C\uAC70\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"42105\" kor=\"\uC628\uB3C4\uC13C\uC11C
+      \uB36E\uAC1C\uB97C \uC5F4\uACE0, \uC804\uB3D9\uB4DC\uB77C\uC774\uBC84\uB97C
+      \uC774\uC6A9\uD574 \uC811\uC18D\uB098\uC0AC\uB97C \uD574\uCCB4\uD574\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"42106\" kor=\"\uC13C\uC11C \uB36E\uAC1C\uB97C
+      \uC5F4\uACE0, \uC804\uB3D9\uB4DC\uB77C\uC774\uBC84\uB97C \uAEBC\uB0B4 \uD574\uCCB4\uD569\uB2C8\uB2E4.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"42107\" kor=\"\uB3C4\uAD6C\uD568 \uB0B4
+      \uB514\uC9C0\uD138 \uBBF8\uD130\uB97C \uD074\uB9AD\uD574 \uAEBC\uB0B4\uC8FC\uC138\uC694.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"42108\" kor=\"\uC800\uD56D(\u03A9)
+      \uCE21\uC815 \uBAA8\uB4DC\uB85C \uBCC0\uACBD\uD558\uACE0, \uCD9C\uB825\uC2E0\uD638\uB97C
+      \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"42109\" kor=\"\uC811\uC9C0\uBD80\uBD84 \uCD9C\uB825\uC2E0\uD638\uB97C
+      \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"42110\" kor=\"\uB4DC\uB77C\uC774\uBC84\uB97C \uC774\uC6A9\uD574 \uB098\uC0AC\uB97C
+      \uB2E4\uC2DC \uCCB4\uACB0\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"42111\" kor=\"\uC804\uC6D0\uC744 \uCF1C\uACE0 \uC815\uC0C1\uB3D9\uC791\uC744
+      \uD655\uC778\uD574\uC8FC\uC138\uC694.\" eng=\"eng Test\" />\r\n\r\n  <!-- \uD3C9\uAC00\uD558\uAE30
+      \uD56D\uBAA9 \uBD80\uBD84 -->\r\n  <TextData ID=\"4201\" kor=\"\uAD50\uCCB4
+      \uC628\uB3C4 \uC13C\uC11C \uC900\uBE44\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"4202\" kor=\"\uC791\uC5C5 \uC804 \uC804\uC6D0 \uCC28\uB2E8\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"4203\" kor=\"\uBC30\uAD00 \uC794\uB958\uBB3C
+      \uC81C\uAC70\" eng=\"eng Test\" />\r\n  <TextData ID=\"4204\" kor=\"\uC628\uB3C4\uC13C\uC11C
+      \uD574\uCCB4\" eng=\"eng Test\" />\r\n  <TextData ID=\"4205\" kor=\"\uB514\uC9C0\uD138
+      \uBBF8\uD130 \uC900\uBE44\" eng=\"eng Test\" />\r\n  <TextData ID=\"4206\"
+      kor=\"\uB514\uC9C0\uD138\uBBF8\uD130 \uC870\uC791 - \uC628\uB3C4 \uC13C\uC11C
+      \uC800\uD56D \uCE21\uC815\" eng=\"eng Test\" />\r\n  <TextData ID=\"4207\"
+      kor=\"\uB514\uC9C0\uD138\uBBF8\uD130 \uC870\uC791 - \uC811\uC9C0\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"4208\" kor=\"\uC628\uB3C4\uC13C\uC11C \uCCB4\uACB0\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"4209\" kor=\"\uC815\uC0C1\uB3D9\uC791\uD655\uC778\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"42010\" kor=\"\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"42011\" kor=\"\" eng=\"eng Test\" />\r\n  <!-- \uD3C9\uAC00\uD558\uAE30
+      \uCCB4\uD06C\uB9AC\uC2A4\uD2B8 \uBD80\uBD84 -->\r\n  <TextData ID=\"42001\"
+      kor=\"\uC0C8 \uC628\uB3C4 \uC13C\uC11C \uC900\uBE44\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"42002\" kor=\"\uC791\uC5C5 \uC804 \uC804\uC6D0 \uCC28\uB2E8\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"42003\" kor=\"\uBC30\uAD00 \uC794\uB958\uBB3C
+      \uC81C\uAC70\" eng=\"eng Test\" />\r\n  <TextData ID=\"42004\" kor=\"\uC628\uB3C4
+      \uC13C\uC11C \uC811\uC18D\uB098\uC0AC \uD574\uCCB4\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"42005\" kor=\"\uC800\uD56D \uCD9C\uB825\uC2E0\uD638 \uD655\uC778\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"42006\" kor=\"\uC124\uBE44 \uC804\uC6D0
+      \uBCF5\uAD6C\" eng=\"eng Test\" />\r\n  <TextData ID=\"42007\" kor=\"\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"42008\" kor=\"\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"42009\" kor=\"\" eng=\"eng Test\" />\r\n  <TextData ID=\"420010\" kor=\"\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"420011\" kor=\"\" eng=\"eng Test\"
+      />\r\n  <TextData ID=\"420012\" kor=\"\" eng=\"eng Test\" />\r\n  \r\n  <!--
+      Depth 3-3-1 -->\r\n  <TextData ID=\"43101\" kor=\"\uD14C\uC2A4\uD2B8 Depth
+      3-3-1-01.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43102\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-1-02.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43103\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-1-03.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43104\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-1-04.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43105\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-1-05.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43106\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-1-06.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43107\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-1-07.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43108\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-1-08.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43109\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-1-09.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43110\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-1-10.\" eng=\"eng Test\" />\r\n  <!-- Depth 3-342 -->\r\n  <TextData
+      ID=\"43201\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-3-2-01.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"43202\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-3-2-02.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"43203\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-3-2-03.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"43204\" kor=\"\uD14C\uC2A4\uD2B8 Depth
+      3-3-2-04.\" eng=\"eng Test\" />\r\n  <TextData ID=\"43205\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-3-2-05.\" eng=\"eng Test\" />\r\n  <!-- Depth 3-343 -->\r\n  <TextData
+      ID=\"43301\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-3-3-01.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"43302\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-3-3-02.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"43303\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-3-3-03.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"43304\" kor=\"\uD14C\uC2A4\uD2B8 Depth
+      3-3-3-04.\" eng=\"eng Test\" />\r\n  <!-- Depth 3-441 -->\r\n  <TextData ID=\"44101\"
+      kor=\"\uD14C\uC2A4\uD2B8 Depth 3-4-1-01.\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"44102\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-4-1-02.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"44103\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-4-1-03.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"44104\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-4-1-04.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"44105\" kor=\"\uD14C\uC2A4\uD2B8 Depth
+      3-4-1-05.\" eng=\"eng Test\" />\r\n  <TextData ID=\"44106\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-4-1-06.\" eng=\"eng Test\" />\r\n  <TextData ID=\"44107\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-4-1-07.\" eng=\"eng Test\" />\r\n  <TextData ID=\"44108\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-4-1-08.\" eng=\"eng Test\" />\r\n  <TextData ID=\"44109\" kor=\"\uD14C\uC2A4\uD2B8
+      \r\n  Depth 3-4-1-09.\" eng=\"eng Test\" />\r\n  <TextData ID=\"44110\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-4-1-10.\" eng=\"eng Test\" />\r\n  <!-- Depth 3-442 -->\r\n  <TextData
+      ID=\"44201\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-4-2-01.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"44202\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-4-2-02.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"44203\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-4-2-03.\"
+      eng=\"eng Test\" />\r\n  <!-- Depth 3-443 -->\r\n  <TextData ID=\"44301\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-4-3-01.\" eng=\"eng Test\" />\r\n  <TextData ID=\"44302\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-4-3-02.\" eng=\"eng Test\" />\r\n  <TextData ID=\"44303\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-4-3-03.\" eng=\"eng Test\" />\r\n  <TextData ID=\"44304\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-4-3-04.\" eng=\"eng Test\" />\r\n  <!-- Depth 3-54-->\r\n  <!-- Depth
+      3-541 -->\r\n  <TextData ID=\"45101\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-5-1-01.\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"45102\" kor=\"\uD14C\uC2A4\uD2B8 Depth
+      3-5-1-02.\" eng=\"eng Test\" />\r\n  <TextData ID=\"45103\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-5-1-03.\" eng=\"eng Test\" />\r\n  <TextData ID=\"45104\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-5-1-04.\" eng=\"eng Test\" />\r\n  <!-- Depth 3-542 -->\r\n  <TextData
+      ID=\"45201\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-5-2-01.\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"45202\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-5-2-02.\" eng=\"eng
+      Test\" />\r\n  <TextData ID=\"45203\" kor=\"\uD14C\uC2A4\uD2B8 Depth 3-5-2-03.\"
+      eng=\"eng Test\" />\r\n  <!-- Depth 3-543 -->\r\n  <TextData ID=\"45301\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-5-3-01.\" eng=\"eng Test\" />\r\n  <TextData ID=\"45302\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-5-3-02.\" eng=\"eng Test\" />\r\n  <TextData ID=\"45303\" kor=\"\uD14C\uC2A4\uD2B8
+      Depth 3-5-3-03.\" eng=\"eng Test\" />\r\n  \r\n  \r\n  <!-- \uC778\uB371\uC2A4
+      \uBC0F \uD0C0\uC774\uD2C0                                            -->\r\n 
+      <!-- Depth 1 \uD0C0\uC774\uD2C0 -->\r\n  <TextData ID=\"10000\" kor=\"\uAE30\uBCF8
+      \uD559\uC2B5\" eng=\"eng Test\" />\r\n  <!-- Depth 2 \uD0C0\uC774\uD2C0 -->\r\n 
+      <TextData ID=\"10010\" kor=\"\uAE08\uC18D\uC81C\uC870 \uC124\uBE44 \uAD6C\uC131\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"10020\" kor=\"\uACC4\uCE21\uC13C\uC11C
+      \uAD6C\uC870 \uC774\uD574\" eng=\"eng Test\" />\r\n  <!-- Depth 3 \uD0C0\uC774\uD2C0
+      -->\r\n  <TextData ID=\"10011\" kor=\"\uC81C\uC870 \uC124\uBE44 \uBC0F \uACC4\uCE21\uC13C\uC11C
+      \uAD6C\uC131\" eng=\"eng Test\" />\r\n  <TextData ID=\"10012\" kor=\"\uC81C\uC870
+      \uC124\uBE44 \uBC0F \uACC4\uCE21\uC13C\uC11C \uAC1C\uC694\" eng=\"eng Test\"
+      />\r\n  \r\n  <TextData ID=\"10021\" kor=\"\uAC80\uCD9C \uC2A4\uC704\uCE58\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"10022\" kor=\"\uC628\uB3C4 \uC13C\uC11C\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"10023\" kor=\"\uC555\uB825 \uC13C\uC11C\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"10024\" kor=\"\uC720\uB7C9 \uC13C\uC11C\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"10025\" kor=\"\uB808\uBCA8 \uC13C\uC11C\"
+      eng=\"eng Test\" />\r\n  <!-- Depth 2 1 -->\r\n  <TextData ID=\"20000\" kor=\"\uC548\uC804
+      \uAD00\uB9AC\" eng=\"eng Test\" />\r\n  <!-- Depth 2 2 -->\r\n  <TextData ID=\"20010\"
+      kor=\"\uC548\uC804 \uC7A5\uAD6C\" eng=\"eng Test\" />\r\n  <TextData ID=\"20020\"
+      kor=\"\uC810\uAC80 \uB3C4\uAD6C\" eng=\"eng Test\" />\r\n  <TextData ID=\"20030\"
+      kor=\"\uC548\uC804 \uC0AC\uACE0 \uC0AC\uB840\" eng=\"eng Test\" />\r\n  <!--
+      Depth 2 -3 -->\r\n  <TextData ID=\"20011\" kor=\"\uC548\uC804 \uC7A5\uAD6C
+      \uCC29\uC6A9\" eng=\"eng Test\" />\r\n  <TextData ID=\"20021\" kor=\"\uC810\uAC80
+      \uB3C4\uAD6C \uD655\uC778\" eng=\"eng Test\" />\r\n  <TextData ID=\"20031\"
+      kor=\"\uC548\uC804 \uC791\uC5C5 \uBC29\uBC95 \uBC0F \uC870\uCE58\uC0AC\uD56D\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"20032\" kor=\"\uC548\uC804 \uC0AC\uACE0
+      \uC0AC\uB840\" eng=\"eng Test\" />\r\n\r\n  <!-- Depth 1 \uD0C0\uC774\uD2C0
+      -->\r\n  <TextData ID=\"30000\" kor=\"\uACC4\uCE21 \uC13C\uC11C \uC815\uBE44\"
+      eng=\"eng Test\" />\r\n  <!-- Depth 2 \uD0C0\uC774\uD2C0 -->\r\n  <TextData
+      ID=\"30010\" kor=\"\uAC80\uCD9C \uC2A4\uC704\uCE58\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"30020\" kor=\"\uC628\uB3C4 \uC13C\uC11C\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"30030\" kor=\"\uC555\uB825 \uC13C\uC11C\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"30040\" kor=\"\uC720\uB7C9 \uC13C\uC11C\" eng=\"eng Test\" />\r\n 
+      <TextData ID=\"30050\" kor=\"\uB808\uBCA8 \uC13C\uC11C\" eng=\"eng Test\" />\r\n\r\n 
+      \r\n  <!-- Depth 3 \uD0C0\uC774\uD2C0 -->\r\n  <TextData ID=\"30011\" kor=\"\uAC80\uCD9C\uC2A4\uC704\uCE58
+      \uC810\uAC80\" eng=\"eng Test\" />\r\n  <TextData ID=\"30012\" kor=\"\uAC80\uCD9C\uC2A4\uC704\uCE58
+      \uACE0\uC7A5 \uC720\uD615 \uC774\uD574\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"30013\" kor=\"\uAC80\uCD9C\uC2A4\uC704\uCE58 \uC13C\uC11C \uC815\uBE44\"
+      eng=\"eng Test\" />\r\n\r\n  \r\n  <TextData ID=\"30021\" kor=\"\uC628\uB3C4\uC13C\uC11C
+      \uC810\uAC80\" eng=\"eng Test\" />\r\n  <TextData ID=\"30022\" kor=\"\uC628\uB3C4\uC13C\uC11C
+      \uACE0\uC7A5 \uC720\uD615 \uC774\uD574\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"30023\" kor=\"\uC628\uB3C4\uC13C\uC11C \uC815\uBE44\" eng=\"eng Test\"
+      />\r\n\r\n  \r\n  <TextData ID=\"30031\" kor=\"\uC555\uB825\uC13C\uC11C \uC810\uAC80\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"30032\" kor=\"\uC555\uB825\uC13C\uC11C
+      \uACE0\uC7A5 \uC720\uD615 \uC774\uD574\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"30033\" kor=\"\uC555\uB825\uC13C\uC11C \uC815\uBE44\" eng=\"eng Test\"
+      />\r\n\r\n  <TextData ID=\"30041\" kor=\"\uC720\uB7C9\uC13C\uC11C \uC810\uAC80\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"30042\" kor=\"\uC720\uB7C9\uC13C\uC11C
+      \uACE0\uC7A5 \uC720\uD615 \uC774\uD574\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"30043\" kor=\"\uC720\uB7C9\uC13C\uC11C \uC815\uBE44\" eng=\"eng Test\"
+      />\r\n\r\n  \r\n  <TextData ID=\"30051\" kor=\"\uB808\uBCA8\uC13C\uC11C \uC810\uAC80\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"30052\" kor=\"\uB808\uBCA8\uC13C\uC11C
+      \uACE0\uC7A5 \uC720\uD615 \uC774\uD574\" eng=\"eng Test\" />\r\n  <TextData
+      ID=\"30053\" kor=\"\uB808\uBCA8\uC13C\uC11C \uC815\uBE44\" eng=\"eng Test\"
+      />\r\n\r\n\r\n  <!-- Depth 1 \uD0C0\uC774\uD2C0 -->\r\n  <TextData ID=\"40000\"
+      kor=\"\uACC4\uCE21 \uC13C\uC11C \uC815\uBE44\" eng=\"eng Test\" />\r\n  <!--
+      Depth 2 \uD0C0\uC774\uD2C0 -->\r\n  <TextData ID=\"40010\" kor=\"\uAC80\uCD9C\uC2A4\uC704\uCE58\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"40020\" kor=\"\uC628\uB3C4\uC13C\uC11C\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"40030\" kor=\"\uC555\uB825\uC13C\uC11C\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"40040\" kor=\"\uC720\uB7C9\uC13C\uC11C\"
+      eng=\"eng Test\" />\r\n  <TextData ID=\"40050\" kor=\"\uB808\uBCA8\uC13C\uC11C\"
+      eng=\"eng Test\" />\r\n\r\n  <!-- Depth 1 \uD0C0\uC774\uD2C0 -->\r\n  <TextData
+      ID=\"50000\" kor=\"\uC870\uC791 \uBC29\uBC95 \uC548\uB0B4\" eng=\"eng Test\"
+      />\r\n  <!-- Depth 2 \uD0C0\uC774\uD2C0 -->\r\n  <TextData ID=\"50010\" kor=\"\uC870\uC791
+      \uBC29\uBC95 \uC548\uB0B4\" eng=\"eng Test\" />\r\n  <TextData ID=\"50011\"
+      kor=\"\uC870\uC791 \uBC29\uBC95 \uC548\uB0B4\" eng=\"eng Test\" />\r\n\r\n\r\n\r\n 
+      <!-- Depth 3 \uD0C0\uC774\uD2C0 -->\r\n  <TextData ID=\"40011\" kor=\"\uD3C9\uAC00\uD558\uAE30\"
+      eng=\"eng Test\" />\r\n  \r\n  <TextData ID=\"40021\" kor=\"\uD3C9\uAC00\uD558\uAE30\"
+      eng=\"eng Test\" />\r\n  \r\n  <TextData ID=\"40031\" kor=\"\uD3C9\uAC00\uD558\uAE30\"
+      eng=\"eng Test\" />\r\n  \r\n  <TextData ID=\"40041\" kor=\"\uD3C9\uAC00\uD558\uAE30\"
+      eng=\"eng Test\" />\r\n  \r\n  <TextData ID=\"40051\" kor=\"\uD3C9\uAC00\uD558\uAE30\"
+      eng=\"eng Test\" />\r\n  \r\n\r\n</ArrayOfTextData>"
+    referencedFontAssetGUID: 949bf7a466414b0408c72ac4aa3ab5de
+    referencedTextAssetGUID: 
+    fontStyle: 0
+    fontStyleModifier: 0
+    renderMode: 4165
+    includeFontFeatures: 0
+  m_FontWeightTable:
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  - regularTypeface: {fileID: 0}
+    italicTypeface: {fileID: 0}
+  fontWeights: []
+  normalStyle: 0
+  normalSpacingOffset: 0
+  boldStyle: 0.75
+  boldSpacing: 7
+  italicStyle: 35
+  tabSize: 10
+--- !u!21 &7740370938378926287
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: NanumSquareB SDF Material
+  m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FaceTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: -4248583587442607466}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Ambient: 0.5
+    - _Bevel: 0.5
+    - _BevelClamp: 0
+    - _BevelOffset: 0
+    - _BevelRoundness: 0
+    - _BevelWidth: 0
+    - _BumpFace: 0
+    - _BumpOutline: 0
+    - _ColorMask: 15
+    - _CullMode: 0
+    - _Diffuse: 0.5
+    - _FaceDilate: 0
+    - _FaceUVSpeedX: 0
+    - _FaceUVSpeedY: 0
+    - _GlowInner: 0.05
+    - _GlowOffset: 0
+    - _GlowOuter: 0.05
+    - _GlowPower: 0.75
+    - _GradientScale: 11
+    - _LightAngle: 3.1416
+    - _MaskSoftnessX: 0
+    - _MaskSoftnessY: 0
+    - _OutlineSoftness: 0
+    - _OutlineUVSpeedX: 0
+    - _OutlineUVSpeedY: 0
+    - _OutlineWidth: 0
+    - _PerspectiveFilter: 0.875
+    - _Reflectivity: 10
+    - _ScaleRatioA: 0.90909094
+    - _ScaleRatioB: 0.7386364
+    - _ScaleRatioC: 0.7386364
+    - _ScaleX: 1
+    - _ScaleY: 1
+    - _ShaderFlags: 0
+    - _Sharpness: 0
+    - _SpecularPower: 2
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _TextureHeight: 4096
+    - _TextureWidth: 2048
+    - _UnderlayDilate: 0
+    - _UnderlayOffsetX: 0
+    - _UnderlayOffsetY: 0
+    - _UnderlaySoftness: 0
+    - _VertexOffsetX: 0
+    - _VertexOffsetY: 0
+    - _WeightBold: 0.75
+    - _WeightNormal: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
+    - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
+    - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_BuildTextureStacks: []

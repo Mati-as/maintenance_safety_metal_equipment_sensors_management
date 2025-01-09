@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using DG.Tweening;
+using Sequence = DG.Tweening.Sequence;
 
 
 /// <summary>
@@ -137,9 +141,9 @@ public class SoundManager : MonoBehaviour
         {
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Bgm])
             {
-#if UNITY_EDITOR
-                Debug.Log("Currently Bgm is on Mute");
-#endif
+
+//    Debug.Log("Currently Bgm is on Mute");
+
                 return false;
             }
             
@@ -161,9 +165,9 @@ public class SoundManager : MonoBehaviour
         {
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Effect])
             {
-#if UNITY_EDITOR
-                Debug.Log("Currently Bgm is on Mute");
-#endif
+
+              //  Debug.Log("Currently Bgm is on Mute");
+
                 return false;
             }
             var audioClip = GetAudioClip(path);
@@ -176,35 +180,45 @@ public class SoundManager : MonoBehaviour
             return true;
         }
 
+        
         if (type == Sound.Narration)
         {
             if (_isMute[(int)Sound.Main] ||_isMute[(int)Sound.Narration])
             {
-#if UNITY_EDITOR
-                Debug.Log("Currently Bgm is on Mute");
-#endif
+                
                 return false;
             }
             var audioClip = GetAudioClip(path);
             if (audioClip == null)
             {
-#if UNITY_EDITOR
-                Debug.Log($"narration clip is null{path}");
-#endif
                 return false;
-                
             }
             
 
+            
             audioSource.volume = volumes[(int)Sound.Narration];
             audioSource.clip = audioClip;
           
             audioSource.PlayOneShot(audioClip);
+            
+            InvokeNarrationEndEvent(audioClip.length);
+          
+            Logger.Log($"나레이션 길이 : ------{audioClip.length}");
             return true;
         }
 
+       
         return false;
     }
+
+    private int _currentNumCache;
+    private Sequence _narrationEndEventInvokeSeq;
+
+
+    public static event Action OnNarrationComplete;
+
+
+
     
     
     public bool Play(Sound type, string path, float volume = 1.0f, float pitch = 1.0f)
@@ -225,7 +239,11 @@ public class SoundManager : MonoBehaviour
         {
             var audioClip = Resources.Load<AudioClip>(path);
             if (audioClip == null)
+            {
+                Logger.Log($"narration clip is null{path}");
                 return false;
+            }
+
 
             if (audioSource.isPlaying)
                 audioSource.Stop();
@@ -241,7 +259,10 @@ public class SoundManager : MonoBehaviour
         {
             var audioClip = GetAudioClip(path);
             if (audioClip == null)
+            {
+                Logger.Log($"narration clip is null{path}");
                 return false;
+            }
 
             audioSource.volume = volume * volumes[(int)Sound.Effect];
             audioSource.pitch = pitch;
@@ -255,28 +276,52 @@ public class SoundManager : MonoBehaviour
             var audioClip = GetAudioClip(path);
             if (audioClip == null)
             {
-#if UNITY_EDITOR
-                Debug.Log($"narration clip is null{path}");
-#endif
+                Logger.Log($"narration clip is null{path}");
                 return false;
-                
             }
             
 
         
             audioSource.clip = audioClip;
             audioSource.pitch = pitch;
+     
             audioSource.PlayOneShot(audioClip);
+            InvokeNarrationEndEvent(audioClip.length);
             return true;
         }
 
         return false;
     }
 
+    private void InvokeNarrationEndEvent(float length)
+    {
+               
+        _narrationEndEventInvokeSeq?.Kill();
+        _narrationEndEventInvokeSeq = DOTween.Sequence();
+
+        _narrationEndEventInvokeSeq.AppendInterval(length);
+        Logger.Log($"나레이션 길이 : ------{length}");
+            
+        _narrationEndEventInvokeSeq.AppendCallback(() =>
+        {
+            OnNarrationComplete?.Invoke();
+            Logger.Log("next btn Click Event Invoke ------------------------");
+        });
+        _narrationEndEventInvokeSeq.Play();
+    }
     public void Stop(Sound type)
     {
         var audioSource = audioSources[(int)type];
         audioSource.Stop();
+    }
+    
+    public void StopAllAudio()
+    {
+        foreach (var audioSource in audioSources)
+        {
+            audioSource.Stop();
+        }
+     
     }
     
     public void Pause(Sound type)
@@ -304,6 +349,35 @@ public class SoundManager : MonoBehaviour
         return audioClip;
     }
 
+    private Sequence _narrationSeq;
+
+    public void PlayNarration(float delay =0)
+    {
+        Managers.Sound.Stop(Sound.Narration);
+        
+        
+        _narrationSeq?.Kill();
+        _narrationSeq = DOTween.Sequence();
+        
+        _narrationSeq.AppendInterval(delay);
+        _narrationSeq.AppendCallback(() =>
+        {
+            Managers.Sound.Play(Sound.Narration,
+                $"Audio/Narration/{Managers.ContentInfo.PlayData.Depth1}" +
+                $"{Managers.ContentInfo.PlayData.Depth2}" +
+                $"{Managers.ContentInfo.PlayData.Depth3}" +
+                $"/{Managers.ContentInfo.PlayData.Count}");
+        });
+        
+        // Logger.Log($"나레이션 재생:경로Audio/Narration/{Managers.ContentInfo.PlayData.Depth1}" +
+        // $"{Managers.ContentInfo.PlayData.Depth2}" +
+        //     $"{Managers.ContentInfo.PlayData.Depth3}" +
+        //     $"/{Managers.ContentInfo.PlayData.Count}");
+        _narrationSeq.Play();
+    }
+
+  
+
 
     public void SetMute(Sound sound, bool isMute = true)
     {
@@ -320,7 +394,7 @@ public class SoundManager : MonoBehaviour
 
             if (sound == Sound.Bgm) audioSources[(int)sound].Play();
             if (sound == Sound.Effect) Play(Sound.Effect, "Audio/Test_Effect");
-            if (sound == Sound.Narration) Play(Sound.Narration, "Audio/Test_Narration");
+         //   if (sound == Sound.Narration) Play(Sound.Narration, "Audio/Test_Narration");
         }
 
         if (sound == Sound.Main) kindOfSoundMute = Define.Preferences.Mute_Main;
@@ -341,5 +415,6 @@ public class SoundManager : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log($"{sound} is muted");
 #endif
+        Managers.Data.SaveCurrentSetting();
     }
 }

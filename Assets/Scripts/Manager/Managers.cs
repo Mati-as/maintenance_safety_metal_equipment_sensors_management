@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,15 +7,45 @@ public class Managers : MonoBehaviour
 {
     public static Managers s_instance;
     public static Managers Instance => s_instance;
-
+    private static UI_Persistent s_ui_Persistent;
     private static SceneLoader s_sceneLoader = new();
     private static SoundManager s_soundManager = new();
     private static DataManager s_DataManager = new();
     private static UIManager s_uiManager = new();
     private static ContentPlayManager s_contentPlayManager = new(); 
     private static ResourceManager s_resourceManager = new ResourceManager();
+    private static EvaluationManager s_evaluationManager = new();
+
+    private static bool _initialIntroAnimPlayed = false;
+    private static bool _isTutorialAlreadyPlayed = false;
+
+    public static bool isTutorialAlreadyPlayed
+    {
+        get { return _isTutorialAlreadyPlayed;}
+        set { _isTutorialAlreadyPlayed = value;}
+    }
+    
+    public static bool initialIntroAnimPlayed
+    {
+        get { return _initialIntroAnimPlayed;}
+        set { _initialIntroAnimPlayed = value;}
+    }
+
+    public static UI_Persistent UI_Persistent
+    {
+        get { return s_ui_Persistent;}
+        set { s_ui_Persistent = value;}
+    }
+    
+    public static EvaluationManager evaluationManager
+    {get{Init();
+        return s_evaluationManager;}}
     
     
+    //controller로  이름 변경우 UIManager로 통합가능 (11/01/24)
+    private static CursorImageManager s_cursorImageManager= new CursorImageManager();
+    public static CursorImageManager cursorImageManager
+    {get{Init();return s_cursorImageManager;}}
     public static DataManager Data
     { get { Init(); return s_DataManager; }}
 
@@ -60,7 +91,9 @@ public class Managers : MonoBehaviour
             s_resourceManager.Init();
             s_sceneLoader.Init();
             s_soundManager.Init();
+            s_cursorImageManager.Init();
             InitialSet();
+            Application.runInBackground = true;
 
         }
     }
@@ -84,12 +117,10 @@ public class Managers : MonoBehaviour
         Application.targetFrameRate = 60;
     }
 
-    
-    /// <summary>
-    /// 씬로드시 제일 초기UI설정
-    /// </summary>
-    public static void SetDefaultUIPerScene(string currentDepth =null)
+  
+
+    private void OnApplicationQuit()
     {
-       // Managers.UI.ShowSceneUI<UI_Persistent>();
+        Managers.Data.SaveCurrentSetting();
     }
 }

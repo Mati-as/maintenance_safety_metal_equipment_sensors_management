@@ -1,38 +1,167 @@
 fileFormatVersion: 2
 guid: 28ef652af9b01df45a939352c6329eca
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: A
-    100002: //RootNode
-    100004: Plane001
-    400000: A
-    400002: //RootNode
-    400004: Plane001
-    2100000: 'Material #2125703500'
-    2100002: 'Material #2125703496'
-    2100004: 'Material #2125703495'
-    2100006: 'Material #2125703498'
-    2100008: 'Material #2125703501'
-    2100010: 'Material #2125715977'
-    2100012: 'Material #2125716473'
-    2100014: 'Material #2125717423'
-    2100016: 'Material #2125716412'
-    2100018: 'Material #2125717422'
-    2100020: 'Material #2125717424'
-    2100022: 'Material #2125716485'
-    2100024: 'Material #2125716498'
-    2100026: 'Material #2125703497'
-    2100028: 'Material #2125717555'
-    2300000: A
-    2300002: Plane001
-    3300000: A
-    3300002: Plane001
-    4300000: A
-    4300002: Plane001
-  externalObjects: {}
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: A
+  - first:
+      1: 100002
+    second: //RootNode
+  - first:
+      1: 100004
+    second: Plane001
+  - first:
+      4: 400000
+    second: A
+  - first:
+      4: 400002
+    second: //RootNode
+  - first:
+      4: 400004
+    second: Plane001
+  - first:
+      21: 2100000
+    second: Material #2125703500
+  - first:
+      21: 2100002
+    second: Material #2125703496
+  - first:
+      21: 2100004
+    second: Material #2125703495
+  - first:
+      21: 2100006
+    second: Material #2125703498
+  - first:
+      21: 2100008
+    second: Material #2125703501
+  - first:
+      21: 2100010
+    second: Material #2125715977
+  - first:
+      21: 2100012
+    second: Material #2125716473
+  - first:
+      21: 2100014
+    second: Material #2125717423
+  - first:
+      21: 2100016
+    second: Material #2125716412
+  - first:
+      21: 2100018
+    second: Material #2125717422
+  - first:
+      21: 2100020
+    second: Material #2125717424
+  - first:
+      21: 2100022
+    second: Material #2125716485
+  - first:
+      21: 2100024
+    second: Material #2125716498
+  - first:
+      21: 2100026
+    second: Material #2125703497
+  - first:
+      21: 2100028
+    second: Material #2125717555
+  - first:
+      23: 2300000
+    second: A
+  - first:
+      23: 2300002
+    second: Plane001
+  - first:
+      33: 3300000
+    second: A
+  - first:
+      33: 3300002
+    second: Plane001
+  - first:
+      43: 4300000
+    second: A
+  - first:
+      43: 4300002
+    second: Plane001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125703495
+    second: {fileID: 2100000, guid: 18655b6ffe9188448b49919118155931, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125703496
+    second: {fileID: 2100000, guid: 0feb04d14916a30408d996f575ba23cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125703497
+    second: {fileID: 2100000, guid: 5ecf4cd8761850247b771cf2f7d07b4e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125703498
+    second: {fileID: 2100000, guid: a6a07b2b6ec856548ba88763fa03a7fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125703500
+    second: {fileID: 2100000, guid: 71799aa8ad47e9f45a7667639b2ae62c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125703501
+    second: {fileID: 2100000, guid: 5cc9a3453a0cfd44d88aa50c300eb609, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125715977
+    second: {fileID: 2100000, guid: d594a0557cb628f4f903a2a2fa3cdb96, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125716412
+    second: {fileID: 2100000, guid: 58d0c2822d7c520489b3009414068dee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125716473
+    second: {fileID: 2100000, guid: 84b403a0385442a439622613cae6b336, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125716485
+    second: {fileID: 2100000, guid: 305d417efe8fb354da33f9b086029fef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125716498
+    second: {fileID: 2100000, guid: 52154ca0dfd416f43a84cd85d901b4c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125717422
+    second: {fileID: 2100000, guid: 1dda2d37f86246240b056410c761037f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125717423
+    second: {fileID: 2100000, guid: 2e5a145e0e8cbfc41a798907e6e9b603, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125717424
+    second: {fileID: 2100000, guid: 706ea17758775ba4f9a96cf7202dbf3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #2125717555
+    second: {fileID: 2100000, guid: cc48d093c1eaf314587ecf69066d888b, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -41,6 +170,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -65,25 +195,34 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -92,10 +231,10 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -105,13 +244,18 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 0
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
