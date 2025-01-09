@@ -245,12 +245,12 @@ public class DepthD3_SceneController : DepthC3_SceneController
        
         
         InitializeTool();
-        CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         isMultimeterOn = !isMultimeterOn;
 
         if (isMultimeterOn == false)
         {
-            CurrentActiveTool = -1;
+            currentActiveTool = -1;
         }
 
         if (Managers.ContentInfo.PlayData.Count == 7)
@@ -287,13 +287,13 @@ public class DepthD3_SceneController : DepthC3_SceneController
              distanceFromCamera));
 
 
-         if (isDriverOn && CurrentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver)
+         if (isDriverOn && currentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver)
          {
 
              GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(isDriverOn);
              GetObject((int)DepthC2_GameObj.ElectricScrewdriver).transform.position = mousePosition;
          }
-         else if (isMultimeterOn && CurrentActiveTool == (int)DepthC2_GameObj.Multimeter && multimeterController.isCurrentCheckMode)
+         else if (isMultimeterOn && currentActiveTool == (int)DepthC2_GameObj.Multimeter && multimeterController.isCurrentCheckMode)
          {
              GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
              GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(isMultimeterOn);

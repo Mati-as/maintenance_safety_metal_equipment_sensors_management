@@ -522,7 +522,7 @@ public class DepthC21_State_14 : Base_SceneState
 
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        _depthC2SceneController.currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         _depthC2SceneController.multimeterController.SetToDefaultMode();
@@ -557,7 +557,7 @@ public class DepthC21_State_15 : Base_SceneState
         _depthC2SceneController.InitProbePos();
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        _depthC2SceneController.currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         _depthC2SceneController.multimeterController.SetToResistanceModeAndRotation();
@@ -637,7 +637,7 @@ public class DepthC21_State_16 : Base_SceneState
         
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus();
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        _depthC2SceneController.currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         _depthC2SceneController.multimeterController.SetToResistanceModeAndRotation();

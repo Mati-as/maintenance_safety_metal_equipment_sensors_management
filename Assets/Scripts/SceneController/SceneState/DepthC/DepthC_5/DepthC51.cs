@@ -329,7 +329,7 @@ public class DepthC51_State_10 : Base_SceneState
         _depthC4SceneController.isMultimeterOn = true;
         _depthC4SceneController.multimeterController.SetMeasureGuideStatus();
         _depthC4SceneController.multimeterController.PS_SetToDefaultMode();
-        _depthC4SceneController.CurrentActiveTool = (int)DepthC5_GameObj.Multimeter;
+        _depthC4SceneController.currentActiveTool = (int)DepthC5_GameObj.Multimeter;
         
         _depthC4SceneController.SetHighlightIgnore((int)DepthC5_GameObj.MultimeterHandleHighlight,false);
         _depthC4SceneController.BlinkHighlight((int)DepthC5_GameObj.MultimeterHandleHighlight);
@@ -362,7 +362,7 @@ public class DepthC51_State_11 : Base_SceneState
     public override void OnEnter()
     {
         _depthC4SceneController.multimeterController.SetToCurrentModeAndRotation();
-        _depthC4SceneController.CurrentActiveTool = (int)DepthC5_GameObj.Multimeter;
+        _depthC4SceneController.currentActiveTool = (int)DepthC5_GameObj.Multimeter;
         _depthC4SceneController.SetHighlightIgnore((int)DepthC5_GameObj.AnodeSensorOutput, false);
         _depthC4SceneController.BlinkHighlight((int)DepthC5_GameObj.AnodeSensorOutput);
         _depthC4SceneController.SetHighlightIgnore((int)DepthC5_GameObj.CathodeSensorInput, false);
@@ -376,7 +376,7 @@ public class DepthC51_State_11 : Base_SceneState
         _depthC4SceneController.isMultimeterOn = true;
         _depthC4SceneController.multimeterController.SetMeasureGuideStatus();
         _depthC4SceneController.multimeterController.SetToCurrentModeAndRotation();
-        _depthC4SceneController.CurrentActiveTool = (int)DepthC5_GameObj.Multimeter;
+        _depthC4SceneController.currentActiveTool = (int)DepthC5_GameObj.Multimeter;
         
         _depthC4SceneController.cameraController.isControllable = false;
     }

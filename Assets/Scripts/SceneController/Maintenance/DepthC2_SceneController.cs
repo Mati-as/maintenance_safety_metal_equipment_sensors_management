@@ -230,7 +230,7 @@ public class DepthC2_SceneController : Base_SceneController
                 {
                     Logger.Log($"평가하기: 커버열고 모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
                     OnStepMissionComplete(animationNumber:6);
-                    CurrentActiveTool = -1;
+                    currentActiveTool = -1;
                     isDriverOn = false;
                     _unwoundCount = 0;
                 }
@@ -1138,7 +1138,7 @@ public class DepthC2_SceneController : Base_SceneController
         {
             DOVirtual.DelayedCall(0.5f, () =>
             {
-                if (CurrentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver) Managers.Sound.Play(SoundManager.Sound.Effect, "Object/ElectronicDriver", 0.4f);
+                if (currentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver) Managers.Sound.Play(SoundManager.Sound.Effect, "Object/ElectronicDriver", 0.4f);
             });
         });
 
@@ -1185,7 +1185,7 @@ public class DepthC2_SceneController : Base_SceneController
 
 
         if (objectHighlightMap[(int)DepthC2_GameObj.TS_InnerScrewC].ignore) return;
-        if (CurrentActiveTool != (int)DepthC2_GameObj.ElectricScrewdriver)
+        if (currentActiveTool != (int)DepthC2_GameObj.ElectricScrewdriver)
         {
             Logger.Log("inadequate tool selected. XXXXXX");
             return;
@@ -1273,7 +1273,7 @@ public class DepthC2_SceneController : Base_SceneController
 
 
         if (objectHighlightMap[(int)DepthC2_GameObj.TS_InnerScrewC].ignore) return;
-        if (CurrentActiveTool != (int)DepthC2_GameObj.ElectricScrewdriver)
+        if (currentActiveTool != (int)DepthC2_GameObj.ElectricScrewdriver)
         {
             Logger.Log("inadequate tool selected. XXXXXX");
             return;
@@ -1365,10 +1365,10 @@ public class DepthC2_SceneController : Base_SceneController
             _isDriverOn = value;
 
             if (_isDriverOn)
-                CurrentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
+                currentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
             else
             {
-                CurrentActiveTool = NO_TOOL_SELECTED;
+                currentActiveTool = NO_TOOL_SELECTED;
                 GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(false);
             }
         }
@@ -1393,13 +1393,13 @@ public class DepthC2_SceneController : Base_SceneController
             distanceFromCamera));
 
 
-        if (isDriverOn && CurrentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver)
+        if (isDriverOn && currentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver)
         {
 
             GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(isDriverOn);
             GetObject((int)DepthC2_GameObj.ElectricScrewdriver).transform.position = mousePosition;
         }
-        else if (isMultimeterOn && CurrentActiveTool == (int)DepthC2_GameObj.Multimeter && multimeterController.isResistanceMode)
+        else if (isMultimeterOn && currentActiveTool == (int)DepthC2_GameObj.Multimeter && multimeterController.isResistanceMode)
         {
             GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
             GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(isMultimeterOn);
@@ -1444,10 +1444,10 @@ public class DepthC2_SceneController : Base_SceneController
         
         
         
-        CurrentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
+        currentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
 
         isDriverOn = !isDriverOn;
-        if (isDriverOn == false) CurrentActiveTool = -1;
+        if (isDriverOn == false) currentActiveTool = -1;
 
         ToggleActiveState(GetObject((int)DepthC2_GameObj.ElectricScrewdriver), isDriverOn);
 
@@ -1472,10 +1472,10 @@ public class DepthC2_SceneController : Base_SceneController
         
         InitializeTool();
      
-        CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         isMultimeterOn = !isMultimeterOn;
 
-        if (isMultimeterOn == false) CurrentActiveTool = -1;
+        if (isMultimeterOn == false) currentActiveTool = -1;
 
 
         
@@ -1498,14 +1498,14 @@ public class DepthC2_SceneController : Base_SceneController
     protected void InitializeTool()
     {
 
-        CurrentActiveTool = -1;
+        currentActiveTool = -1;
         ToggleActiveState(GetObject((int)DepthC2_GameObj.ElectricScrewdriver), false);
         animatorMap[(int)DepthC2_GameObj.Multimeter].SetBool(PROBE_TO_SCREWB, false); // 멀티미터는 active상태로 유지합니다.
     }
 
     public void ClearTool()
     {
-        CurrentActiveTool =  -1;
+        currentActiveTool =  -1;
         isDriverOn= false;
         isMultimeterOn = false;
         

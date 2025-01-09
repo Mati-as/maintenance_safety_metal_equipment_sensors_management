@@ -35,7 +35,7 @@ public class Define
 		Fullscreen,
 		Resolution,
 		GraphicQuality,
-		EngMode,
+		IsEng,
 		ControlGuide, 
 		//---------
 		Mute_Main,

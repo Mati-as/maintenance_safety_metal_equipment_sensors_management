@@ -147,9 +147,9 @@ public class Tutorial_SceneController : DepthC2_SceneController
                  
          InitializeTool();
          OnStepMissionComplete(animationNumber: 6);
-         CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+         currentActiveTool = (int)DepthC2_GameObj.Multimeter;
          isMultimeterOn = !isMultimeterOn;
-         if (isMultimeterOn == false) CurrentActiveTool = -1;
+         if (isMultimeterOn == false) currentActiveTool = -1;
      }
      
 

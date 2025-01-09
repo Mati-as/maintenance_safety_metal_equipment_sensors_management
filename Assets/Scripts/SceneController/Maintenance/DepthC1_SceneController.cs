@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using Unity.Collections;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Rendering.Universal;
@@ -25,31 +26,80 @@ using Sequence = DG.Tweening.Sequence;
 public enum DepthC1_GameObj
 {
     // Common------------------
-    LimitSwitchLookAt,
-    ElectricScrewdriver,
-    Multimeter,
-    MultimeterHandleHighlight,
-    ConductiveCheckModeBtn,
-    Indicator,
     Probe_Anode, // negative
     Probe_Cathode, // positive,
+    ElectricScrewdriver,
+    Multimeter,
+    
+    //Highlight X
+    ConveyorCube,
+    NewLimitSwitch,
+    LimitSwitchLookAt,
+ 
+      
+    //Highlight O
+    
+    
+    MultimeterHandleHighlight,
+    ConductiveCheckModeBtn,
     LimitSwitch,
     Lever_Handle,
     LeverHandleReadjustTargetPos,
-    Limitswitch_ArmPivot,
     LS_Cover,
     LeverScrew,
     ConnectionScrewA,
     ConnectionScrewB,
     ConnectionScrewC,
     ConnectionScrewD,
-    ConveyorCube,
     PowerHandle,
-    NewLimitSwitch
+
 }
+
+//Limitswitch_ArmPivot
+
+
+
 
 public class DepthC1_SceneController : Base_SceneController
 {
+    
+    
+    //하이라이트 표출되는(클릭가능한) 오브젝트들로만 구성
+    protected override void SetObjectName()=>ObjectNameMap = new Dictionary<int, ObjectTextData>
+    {
+        { (int)DepthC1_GameObj.MultimeterHandleHighlight, new ObjectTextData((int)DepthC1_GameObj.MultimeterHandleHighlight, "멀티미터 다이얼", "Multimeter Dial") },
+        { (int)DepthC1_GameObj.ConductiveCheckModeBtn, new ObjectTextData((int)DepthC1_GameObj.ConductiveCheckModeBtn, "통전모드 전환 버튼", "Switch to Conductive Mode") },
+        { (int)DepthC1_GameObj.LimitSwitchLookAt, new ObjectTextData((int)DepthC1_GameObj.LimitSwitchLookAt, "", "Look at Limit Switch") },
+        { (int)DepthC1_GameObj.LimitSwitch, new ObjectTextData((int)DepthC1_GameObj.LimitSwitch, "검출 스위치", "Detection Switch") },
+        { (int)DepthC1_GameObj.Lever_Handle, new ObjectTextData((int)DepthC1_GameObj.Lever_Handle, "레버 핸들", "Lever Handle") },
+        { (int)DepthC1_GameObj.LS_Cover, new ObjectTextData((int)DepthC1_GameObj.LS_Cover, "검출 스위치 덮개", "Limit Switch Cover") },
+        { (int)DepthC1_GameObj.LeverScrew, new ObjectTextData((int)DepthC1_GameObj.LeverScrew, "조절 레버 나사", "Lever Adjustment Screw") },
+        { (int)DepthC1_GameObj.ConnectionScrewA, new ObjectTextData((int)DepthC1_GameObj.ConnectionScrewA, "접속단자", "Connection Terminal") },
+        { (int)DepthC1_GameObj.ConnectionScrewB, new ObjectTextData((int)DepthC1_GameObj.ConnectionScrewB, "접속단자", "Connection Terminal") },
+        { (int)DepthC1_GameObj.ConnectionScrewC, new ObjectTextData((int)DepthC1_GameObj.ConnectionScrewC, "접속단자", "Connection Terminal") },
+        { (int)DepthC1_GameObj.ConnectionScrewD, new ObjectTextData((int)DepthC1_GameObj.ConnectionScrewD, "접속단자", "Connection Terminal") },
+        { (int)DepthC1_GameObj.PowerHandle, new ObjectTextData((int)DepthC1_GameObj.PowerHandle, "전원", "Power Handle") },
+        { (int)DepthC1_GameObj.LeverHandleReadjustTargetPos, new ObjectTextData((int)DepthC1_GameObj.LeverHandleReadjustTargetPos, "", "") }
+    };
+
+    protected override void BindAllClickableObj()
+    {
+        SetObjectName();
+        BindHighlightWithEnum((int)DepthC1_GameObj.MultimeterHandleHighlight);
+        BindHighlightWithEnum((int)DepthC1_GameObj.ConductiveCheckModeBtn);
+        BindHighlightWithEnum((int)DepthC1_GameObj.LimitSwitch);
+        BindHighlightWithEnum((int)DepthC1_GameObj.Lever_Handle);
+        BindHighlightWithEnum((int)DepthC1_GameObj.LeverHandleReadjustTargetPos);
+        BindHighlightWithEnum((int)DepthC1_GameObj.LS_Cover);
+        BindHighlightWithEnum((int)DepthC1_GameObj.LeverScrew);
+        BindHighlightWithEnum((int)DepthC1_GameObj.ConnectionScrewA);
+        BindHighlightWithEnum((int)DepthC1_GameObj.ConnectionScrewB);
+        BindHighlightWithEnum((int)DepthC1_GameObj.ConnectionScrewC);
+        BindHighlightWithEnum((int)DepthC1_GameObj.ConnectionScrewD);
+        BindHighlightWithEnum((int)DepthC1_GameObj.PowerHandle);
+    }
+    
+    
     private readonly int UNWOUND_COUNT_GOAL = 4;
     private int _unwoundCount;
     private C1_LimitSwitchPivotController InitLimitSwitchController;
@@ -122,17 +172,6 @@ public class DepthC1_SceneController : Base_SceneController
         animatorMap.TryAdd((int)obj, GetObject((int)obj).GetComponent<Animator>());
     }
 
-    private IndicatorController _indicator;
-    public IndicatorController indicator
-    {
-        get
-        {
-            if(_indicator == null)
-                _indicator = GetObject((int)DepthC1_GameObj.Indicator).GetComponent<IndicatorController>();
-            return _indicator;
-        }
-        
-    }
 
 
     public bool isAnodePut; // 음극단자 설정을 위한 bool값입니다.
@@ -153,7 +192,7 @@ public class DepthC1_SceneController : Base_SceneController
                 {
                     Logger.Log($"평가하기: 커버열고 모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
                     OnStepMissionComplete(animationNumber:6);
-                    CurrentActiveTool = -1;
+                    currentActiveTool = -1;
                     isDriverOn = false;
                     _unwoundCount = 0;
                 }
@@ -277,13 +316,12 @@ public class DepthC1_SceneController : Base_SceneController
         base.Init();
         BindObject(typeof(DepthC1_GameObj));
         
-        
-        
         SetAnimator(DepthC1_GameObj.ConnectionScrewA);
         SetAnimator(DepthC1_GameObj.ConnectionScrewB);
-        
-        
+
+        SetMultimeterSection();
         SetDefaultTransform();
+        BindAllClickableObj();
         
         InitializeC1States();
         GetScrewColliders();
@@ -292,11 +330,13 @@ public class DepthC1_SceneController : Base_SceneController
     }
     private void LateCommonInit()
     {
-        
+        BindAllClickableObj();
         ClearTool();
         isAnodePut = false;
-        indicator.ShowNothing();
     }
+
+
+    
 
 
     
@@ -324,23 +364,27 @@ public class DepthC1_SceneController : Base_SceneController
         limitSwitchPivotController.InitLimitSwitch();
         
         
-        BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
-        BindHighlight((int)DepthC1_GameObj.ConductiveCheckModeBtn,"통전모드 전환 버튼");
-        BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
-        BindHighlight((int)DepthC1_GameObj.MultimeterHandleHighlight,"저항측정 모드로 설정");
-        BindHighlight((int)DepthC1_GameObj.LS_Cover,"검출스위치 덮개");
-        BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
-        BindHighlight((int)DepthC1_GameObj.Lever_Handle,"레버 길이 조절");
-        BindHighlight((int)DepthC1_GameObj.PowerHandle,"전원");
-        BindHighlight((int)DepthC1_GameObj.LimitSwitch,"리밋스위치 교체");
+       // BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
+        
+        var isKorMode = Managers.UI.isEngMode == (int)Define.LanguageMode.Kor ;
         
         
-        BindHighlight((int)DepthC1_GameObj.LeverScrew,"조절 레버");
+       // BindHighlight((int)DepthC1_GameObj.ConductiveCheckModeBtn,"통전모드 전환 버튼");
+       // BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
+       // BindHighlight((int)DepthC1_GameObj.MultimeterHandleHighlight,"멀티미터 다이얼");
+       // BindHighlight((int)DepthC1_GameObj.LS_Cover,"검출스위치 덮개");
+       // BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
+       // BindHighlight((int)DepthC1_GameObj.Lever_Handle,"레버 길이 조절");
+       // BindHighlight((int)DepthC1_GameObj.PowerHandle,"전원");
+       // BindHighlight((int)DepthC1_GameObj.LimitSwitch,"리밋스위치 교체");
         
-        BindHighlight((int)DepthC1_GameObj.ConnectionScrewA,"나사");
-        BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속 단자");
-        BindHighlight((int)DepthC1_GameObj.ConnectionScrewC,"나사");
-        BindHighlight((int)DepthC1_GameObj.ConnectionScrewD,"나사");
+        
+       // BindHighlight((int)DepthC1_GameObj.LeverScrew,"조절 레버");
+        
+       // BindHighlight((int)DepthC1_GameObj.ConnectionScrewA,"접속 단자");
+       // BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속 단자");
+       // BindHighlight((int)DepthC1_GameObj.ConnectionScrewC,"접속 단자");
+       // BindHighlight((int)DepthC1_GameObj.ConnectionScrewD,"접속 단자");
         
         GetObject((int)DepthC1_GameObj.PowerHandle).BindEvent(() =>
         {
@@ -410,10 +454,10 @@ public class DepthC1_SceneController : Base_SceneController
         SetScrewDriverSection();
         limitSwitchPivotController.InitLimitSwitch();
         
-        BindHighlight((int)DepthC1_GameObj.LS_Cover,"검출스위치 덮개");
-        BindHighlight((int)DepthC1_GameObj.LeverScrew,"조절 레버");
-        BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
-        BindHighlight((int)DepthC1_GameObj.Lever_Handle,"레버 길이 조절");
+       // BindHighlight((int)DepthC1_GameObj.LS_Cover,"검출스위치 덮개");
+       // BindHighlight((int)DepthC1_GameObj.LeverScrew,"조절 레버");
+       // BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
+       // BindHighlight((int)DepthC1_GameObj.Lever_Handle,"레버 길이 조절");
         
 
         
@@ -478,11 +522,11 @@ public class DepthC1_SceneController : Base_SceneController
         limitSwitchPivotController.InitLimitSwitch();
         
         
-        BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
-        BindHighlight((int)DepthC1_GameObj.ConductiveCheckModeBtn,"통전모드 전환 버튼");
-        BindHighlight((int)DepthC1_GameObj.MultimeterHandleHighlight,"저항측정 모드로 설정");
+        ////BindHighlight((int)DepthC1_GameObj.LeverHandleReadjustTargetPos,"");
+        ////BindHighlight((int)DepthC1_GameObj.ConductiveCheckModeBtn,"통전모드 전환 버튼");
+        ////BindHighlight((int)DepthC1_GameObj.MultimeterHandleHighlight,"멀티미터 다이얼");
             
-        BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
+        ////BindHighlight((int)DepthC1_GameObj.Lever_Handle,"리밋스위치 레버");
         GetObject((int)DepthC1_GameObj.Lever_Handle).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Count == 5)
@@ -493,7 +537,7 @@ public class DepthC1_SceneController : Base_SceneController
         });
         
         
-        BindHighlight((int)DepthC1_GameObj.LS_Cover,"검출스위치 덮개");
+        ////BindHighlight((int)DepthC1_GameObj.LS_Cover,"검출스위치 덮개");
                 
         GetObject((int)DepthC1_GameObj.LS_Cover).BindEvent(() =>
         {
@@ -505,7 +549,7 @@ public class DepthC1_SceneController : Base_SceneController
         });
 
 
-        BindHighlight((int)DepthC1_GameObj.ConnectionScrewA,"접속나사 확인");
+        ////BindHighlight((int)DepthC1_GameObj.ConnectionScrewA,"접속나사 확인");
         
         GetObject((int)DepthC1_GameObj.ConnectionScrewA).BindEvent(() =>
         {
@@ -529,9 +573,9 @@ public class DepthC1_SceneController : Base_SceneController
                 OnStepMissionComplete( animationNumber:14);
             }
         });
-        BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속나사");
-        BindHighlight((int)DepthC1_GameObj.ConnectionScrewC,"접속나사");
-        BindHighlight((int)DepthC1_GameObj.ConnectionScrewD,"접속나사");
+        ////BindHighlight((int)DepthC1_GameObj.ConnectionScrewB,"접속나사");
+        ////BindHighlight((int)DepthC1_GameObj.ConnectionScrewC,"접속나사");
+        ////BindHighlight((int)DepthC1_GameObj.ConnectionScrewD,"접속나사");
         
         
         
@@ -648,8 +692,8 @@ public class DepthC1_SceneController : Base_SceneController
     public void SetScrewDriverSection(bool isWind = false)
     {
         
+       
         currentScrewGaugeStatus = new Dictionary<int, float>();
-        
         
         currentScrewGaugeStatus.TryAdd((int)DepthC1_GameObj.ConnectionScrewA, 0);
         currentScrewGaugeStatus.TryAdd((int)DepthC1_GameObj.ConnectionScrewB, 0);
@@ -1032,7 +1076,7 @@ public class DepthC1_SceneController : Base_SceneController
         {
             DOVirtual.DelayedCall(0.5f, () =>
             {
-                if (CurrentActiveTool == (int)DepthC1_GameObj.ElectricScrewdriver) Managers.Sound.Play(SoundManager.Sound.Effect, "Object/ElectronicDriver", 0.4f);
+                if (currentActiveTool == (int)DepthC1_GameObj.ElectricScrewdriver) Managers.Sound.Play(SoundManager.Sound.Effect, "Object/ElectronicDriver", 0.4f);
             });
         });
 
@@ -1080,7 +1124,7 @@ public class DepthC1_SceneController : Base_SceneController
 
 
         if (objectHighlightMap[(int)DepthC1_GameObj.ConnectionScrewC].ignore) return;
-        if (CurrentActiveTool != (int)DepthC1_GameObj.ElectricScrewdriver)
+        if (currentActiveTool != (int)DepthC1_GameObj.ElectricScrewdriver)
         {
             Logger.Log("inadequate tool selected. XXXXXX");
             return;
@@ -1200,7 +1244,7 @@ public class DepthC1_SceneController : Base_SceneController
 
 
         if (objectHighlightMap[(int)DepthC1_GameObj.ConnectionScrewC].ignore) return;
-        if (CurrentActiveTool != (int)DepthC1_GameObj.ElectricScrewdriver)
+        if (currentActiveTool != (int)DepthC1_GameObj.ElectricScrewdriver)
         {
             Logger.Log("inadequate tool selected. XXXXXX");
             return;
@@ -1289,10 +1333,10 @@ public class DepthC1_SceneController : Base_SceneController
             _isDriverOn = value;
 
             if (_isDriverOn)
-                CurrentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
+                currentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
             else
             {
-                CurrentActiveTool = NO_TOOL_SELECTED;
+                currentActiveTool = NO_TOOL_SELECTED;
                 GetObject((int)DepthC1_GameObj.ElectricScrewdriver).SetActive(false);
             }
         }
@@ -1317,13 +1361,13 @@ public class DepthC1_SceneController : Base_SceneController
             distanceFromCamera));
 
 
-        if (isDriverOn && CurrentActiveTool == (int)DepthC1_GameObj.ElectricScrewdriver)
+        if (isDriverOn && currentActiveTool == (int)DepthC1_GameObj.ElectricScrewdriver)
         {
             GetObject((int)DepthC1_GameObj.ElectricScrewdriver).SetActive(isDriverOn);
             GetObject((int)DepthC1_GameObj.ElectricScrewdriver).transform.position = mousePosition;
         }
 
-        else if (isMultimeterOn && CurrentActiveTool == (int)DepthC1_GameObj.Multimeter &&
+        else if (isMultimeterOn && currentActiveTool == (int)DepthC1_GameObj.Multimeter &&
                  multimeterController.isResistanceMode && multimeterController.isConductive)
         {
             GetObject((int)DepthC1_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
@@ -1389,10 +1433,10 @@ public class DepthC1_SceneController : Base_SceneController
         }
 
         
-        CurrentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
+        currentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
 
         isDriverOn = !isDriverOn;
-        if (isDriverOn == false) CurrentActiveTool = -1;
+        if (isDriverOn == false) currentActiveTool = -1;
 
         ToggleActiveState(GetObject((int)DepthC1_GameObj.ElectricScrewdriver), isDriverOn);
         Logger.Log($"Electronic Screw Driver btn Clicked -------is driver on? : {isDriverOn}");
@@ -1405,10 +1449,10 @@ public class DepthC1_SceneController : Base_SceneController
     {
       
         InitializeTool();
-        CurrentActiveTool = (int)DepthC1_GameObj.Multimeter;
+        currentActiveTool = (int)DepthC1_GameObj.Multimeter;
         isMultimeterOn = !isMultimeterOn;
 
-        if (isMultimeterOn == false) CurrentActiveTool = -1;
+        if (isMultimeterOn == false) currentActiveTool = -1;
         
         Logger.Log($"is Multimeter on? : {isMultimeterOn}");
 
@@ -1458,7 +1502,7 @@ public class DepthC1_SceneController : Base_SceneController
     {
         isMultimeterOn = true;
         multimeterController.SetMeasureGuideStatus();
-        CurrentActiveTool = (int)DepthC1_GameObj.Multimeter;
+        currentActiveTool = (int)DepthC1_GameObj.Multimeter;
         contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
         multimeterController.SetToDefaultMode();
@@ -1514,7 +1558,7 @@ public class DepthC1_SceneController : Base_SceneController
      
         isMultimeterOn = true;
         multimeterController.SetMeasureGuideStatus();
-        CurrentActiveTool = (int)DepthC1_GameObj.Multimeter;
+        currentActiveTool = (int)DepthC1_GameObj.Multimeter;
         
         contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         
@@ -1568,14 +1612,14 @@ public class DepthC1_SceneController : Base_SceneController
     }
     protected void InitializeTool()
     {
-        CurrentActiveTool = -1;
+        currentActiveTool = -1;
         ToggleActiveState(GetObject((int)DepthC1_GameObj.ElectricScrewdriver), false);
         animatorMap[(int)DepthC1_GameObj.Multimeter].SetBool(MULTIMETER_ON, false); // 멀티미터는 active상태로 유지합니다.
     }
 
     public void ClearTool()
     {
-        CurrentActiveTool =  -1;
+        currentActiveTool =  -1;
         isDriverOn= false;
         isMultimeterOn = false;
         multimeterController.isConductive = false;

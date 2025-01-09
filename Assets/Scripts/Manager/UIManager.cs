@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
 	public bool isFullScreen { get; set; }
 	
-	private int _languageSetting;
+	private int _isEngMode;
 	
 	
 // 	
@@ -70,17 +70,17 @@ public class UIManager : MonoBehaviour
 //
 // #endif
 // 	}
-	public int languageSetting
+	public int isEngMode
 	{
 		get
 		{
-			return _languageSetting;
+			return _isEngMode;
 		}
 		set
 		{
-			if (value != _languageSetting)
+			if (value != _isEngMode)
 			{
-				_languageSetting = value;
+				_isEngMode = value;
 		
 			}
 		}
@@ -266,7 +266,7 @@ public class UIManager : MonoBehaviour
 		Debug.Log($"EngMode is  {isEngMode}");
 #endif
 		
-		Managers.Data.Preference[(int)Define.Preferences.EngMode] = isEngMode? Define.YES  : Define.NO;
+		Managers.Data.Preference[(int)Define.Preferences.IsEng] = isEngMode? Define.YES  : Define.NO;
 	
 	}
 

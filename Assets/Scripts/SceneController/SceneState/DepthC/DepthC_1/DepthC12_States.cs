@@ -145,7 +145,7 @@ public class DepthC12_State_5 : Base_SceneState
 
         _depthC1SceneController.cameraController.isControllable = false;
         
-        _depthC1SceneController.CurrentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
+        _depthC1SceneController.currentActiveTool = (int)DepthC1_GameObj.ElectricScrewdriver;
         _depthC1SceneController._isDriverOn = true;
         CurrentScene.cameraController.isControllable = false;
         base.OnEnter();

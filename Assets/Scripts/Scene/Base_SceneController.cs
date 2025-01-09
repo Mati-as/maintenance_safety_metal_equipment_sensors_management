@@ -7,15 +7,21 @@ using HighlightPlus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 public class Base_SceneController : MonoBehaviour, ISceneController
 {
-   
+
+    protected Dictionary<int, ObjectTextData> ObjectNameMap;
+    protected virtual void SetObjectName(){}
+
+    protected virtual void BindAllClickableObj(){}
+
     private WaitForSeconds _waitBeforeNextStep;
     private readonly float _waitBeforeNextStepSeconds = 0.1f;
-    public int CurrentActiveTool;
+    public int currentActiveTool;
     protected readonly int NO_TOOL_SELECTED = -1;
  
     [Tooltip("Camera and Effect Setting-----------------------")]
@@ -26,6 +32,8 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     private WaitForSeconds _wait;
     
     private int _currentStateNum;
+
+    
 
     //Animation Part
 
@@ -64,6 +72,28 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     {
         BindEvent();
         SetMainProperties();
+     
+    }
+
+    protected virtual void BindHighlightWithEnum(int enumId)
+    {
+    
+
+        
+        Assert.IsNotNull(ObjectNameMap);
+        
+        
+        bool isKorMode = (int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.LanguageMode.Kor;
+        if (ObjectNameMap.TryGetValue(enumId, out var textData))
+        {
+            string displayText = isKorMode ? textData.Kor : textData.Eng;
+            Debug.Log($"Binding Highlight: {displayText}");
+            BindHighlight(enumId,displayText);
+        }
+        else
+        {
+            Debug.LogWarning($"Enum ID {enumId} not found in ObjectNameMap.");
+        }
     }
     
     public Dictionary<int, Animator> animatorMap;
@@ -154,7 +184,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     
     public virtual void ClearTool()
     {
-        CurrentActiveTool =  -1;
+        currentActiveTool =  -1;
     }
 
 
@@ -672,7 +702,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         effect.outlineWidth = 4;
 
     }
-    public void BindHighlightAndTooltip(int gameObj, string tooltipText)
+    public void BindHLAndToolTip(int gameObj, string tooltipText)
     {
 
         if (_toolTipTextMap == null) _toolTipTextMap = new Dictionary<int, string>();
@@ -724,7 +754,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public void BindHighlight(int gameObj, string tooltipText)
     {
         AddToHighlightDictionary(gameObj);
-        BindHighlightAndTooltip(gameObj, tooltipText);
+        BindHLAndToolTip(gameObj, tooltipText);
     }
 
 

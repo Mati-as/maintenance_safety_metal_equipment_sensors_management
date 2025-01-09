@@ -324,7 +324,7 @@ public class DepthC31_State_10 : Base_SceneState
         _depthC3SceneController.isMultimeterOn = true;
         _depthC3SceneController.multimeterController.SetMeasureGuideStatus();
         _depthC3SceneController.multimeterController.PS_SetToDefaultMode();
-        _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
+        _depthC3SceneController.currentActiveTool = (int)DepthC3_GameObj.Multimeter;
         
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.MultimeterHandleHighlight,false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.MultimeterHandleHighlight);
@@ -356,7 +356,7 @@ public class DepthC31_State_11 : Base_SceneState
     {
      
         _depthC3SceneController.multimeterController.SetToCurrentModeAndRotation();
-        _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
+        _depthC3SceneController.currentActiveTool = (int)DepthC3_GameObj.Multimeter;
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.AnodeSensorOutput, false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.AnodeSensorOutput);
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.CathodeSensorInput, false);
@@ -370,7 +370,7 @@ public class DepthC31_State_11 : Base_SceneState
         _depthC3SceneController.isMultimeterOn = true;
         _depthC3SceneController.multimeterController.SetMeasureGuideStatus();
         _depthC3SceneController.multimeterController.SetToCurrentModeAndRotation();
-        _depthC3SceneController.CurrentActiveTool = (int)DepthC3_GameObj.Multimeter;
+        _depthC3SceneController.currentActiveTool = (int)DepthC3_GameObj.Multimeter;
         
         _depthC3SceneController.cameraController.isControllable = false;
 

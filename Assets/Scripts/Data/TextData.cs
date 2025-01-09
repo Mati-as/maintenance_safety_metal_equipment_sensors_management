@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using UnityEngine;
 
 
+
 public class TextData
 {
 	[XmlAttribute]
@@ -36,5 +37,19 @@ public class TextDataLoader : ILoader<int, TextData>
 	public bool Validate()
 	{
 		return true;
+	}
+}
+
+public class ObjectTextData
+{
+	public int EnumId;
+	public string Kor;
+	public string Eng;
+	
+	public ObjectTextData(int enumId, string kor, string eng)
+	{
+		EnumId = enumId;
+		Kor = kor;
+		Eng = eng;
 	}
 }

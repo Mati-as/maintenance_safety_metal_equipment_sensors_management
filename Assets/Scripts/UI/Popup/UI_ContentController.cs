@@ -458,9 +458,17 @@ public class UI_ContentController : UI_Popup
 
         Text_tooltip.text = text;
         var rect_1 = (RectTransform)Text_image.transform;
-        rect_1.sizeDelta = new Vector2(text.Length * 30, 50);
+        rect_1.sizeDelta =
+            new Vector2(
+                (int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.Preferences.IsEng
+                    ? text.Length * 20
+                    : text.Length * 30, 50);
         var rect_2 = (RectTransform)Text_tooltip.transform;
-        rect_2.sizeDelta = new Vector2(text.Length * 30, 50);
+        rect_2.sizeDelta =
+            new Vector2(
+                (int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.Preferences.IsEng
+                    ? text.Length * 20
+                    : text.Length * 30, 50);
     }
 
     public void SetToolTipActiveStatus(bool isOn = true)

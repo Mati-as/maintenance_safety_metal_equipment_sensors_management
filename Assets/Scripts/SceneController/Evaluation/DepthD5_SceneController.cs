@@ -56,8 +56,9 @@ public class DepthD5_SceneController : DepthC5_SceneController
         UnBindEventAttatchedObj();
 
 
-        var isKorMode = Managers.UI.languageSetting == (int)Define.LanguageMode.Kor ;
-        BindHighlight((int)DepthC5_GameObj.LevelSensor,isKorMode ?"클릭": "Eng");
+        var isKorMode = Managers.UI.isEngMode == (int)Define.LanguageMode.Kor ;
+        
+        BindHighlight((int)DepthC5_GameObj.LevelSensor,isKorMode ?"레벨센서": "Eng");
         BindHighlight((int)DepthC5_GameObj.NewLevelSensor,isKorMode ?"클릭" : "Eng");
         BindHighlight((int)DepthC5_GameObj.LookAtPoint_LevelSensor,isKorMode ?"클릭" : "Eng");
         BindHighlight((int)DepthC5_GameObj.ElectricScrewdriver,isKorMode ?"클릭" : "Eng");
@@ -82,7 +83,7 @@ public class DepthD5_SceneController : DepthC5_SceneController
         BindHighlight((int)DepthC5_GameObj.LevelSensor_TankWaterFluidEffect,isKorMode ?"클릭" : "Eng");
         BindHighlight((int)DepthC5_GameObj.LevelSensor_ResidueTankWaterFluidEffect,isKorMode ?"클릭" : "Eng");
         BindHighlight((int)DepthC5_GameObj.ModeOrEnterBtn,isKorMode ?"클릭" : "Eng");
-        BindHighlight((int)DepthC5_GameObj.SetBtn,"세팅버튼");
+        BindHighlight((int)DepthC5_GameObj.SetBtn,isKorMode ?"세팅버튼": "Eng");
     
  
         SetScrewDriverSection();
@@ -269,12 +270,12 @@ public class DepthD5_SceneController : DepthC5_SceneController
        
         
         InitializeTool();
-        CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         isMultimeterOn = !isMultimeterOn;
 
         if (isMultimeterOn == false)
         {
-            CurrentActiveTool = -1;
+            currentActiveTool = -1;
         }
 
         if (Managers.ContentInfo.PlayData.Count == 7)
@@ -314,13 +315,13 @@ public class DepthD5_SceneController : DepthC5_SceneController
              distanceFromCamera));
 
 
-         if (isDriverOn && CurrentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver)
+         if (isDriverOn && currentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver)
          {
 
              GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(isDriverOn);
              GetObject((int)DepthC2_GameObj.ElectricScrewdriver).transform.position = mousePosition;
          }
-         else if (isMultimeterOn && CurrentActiveTool == (int)DepthC2_GameObj.Multimeter && multimeterController.isCurrentCheckMode)
+         else if (isMultimeterOn && currentActiveTool == (int)DepthC2_GameObj.Multimeter && multimeterController.isCurrentCheckMode)
          {
              GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
              GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(isMultimeterOn);

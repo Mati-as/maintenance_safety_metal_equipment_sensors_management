@@ -65,7 +65,7 @@ public class Managers : MonoBehaviour
         if (Managers.Data.Texts.TryGetValue(id, out TextData value) == false)
             return null;
 
-        return Data.Preference[(int)Define.Preferences.EngMode] == 0 ? value.kor:value.eng;
+        return Data.Preference[(int)Define.Preferences.IsEng] == 0 ? value.kor:value.eng;
     }
 
 

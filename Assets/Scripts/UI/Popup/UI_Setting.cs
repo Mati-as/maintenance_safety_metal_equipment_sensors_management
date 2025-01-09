@@ -198,10 +198,11 @@ public class UI_Setting : UI_Popup
         
         GetSlider((int)Sliders.Slider_Language).onValueChanged.AddListener(_ =>
         {
-            // if (Managers.UI.FindPopup<UI_LanguageChangeConfirmation_Restart>() == null)
-            // {
-            //     Managers.UI.ShowPopupUI<UI_LanguageChangeConfirmation_Restart>();
-            // }
+            Managers.Data.Preference[(int)Define.Preferences.IsEng] = GetSlider((int)Sliders.Slider_Language).value;
+            Managers.UI.isEngMode =  (int)Managers.Data.Preference[(int)Define.Preferences.IsEng];
+            Managers.Data.SaveCurrentSetting();
+            
+            
         });
 
         return true;
@@ -254,8 +255,8 @@ public class UI_Setting : UI_Popup
             (int)Managers.Data.Preference[(int)Define.Preferences.Mute_Bgm] == Define.OFF ? false : true;
 
 
-        Managers.UI.languageSetting = (int)Managers.Data.Preference[(int)Define.Preferences.EngMode];
-        GetSlider((int)Sliders.Slider_Language).value = Managers.Data.Preference[(int)Define.Preferences.EngMode];
+        Managers.UI.isEngMode = (int)Managers.Data.Preference[(int)Define.Preferences.IsEng];
+        GetSlider((int)Sliders.Slider_Language).value = Managers.Data.Preference[(int)Define.Preferences.IsEng];
         GetSlider((int)Sliders.Slider_ScreenMode).value = Managers.Data.Preference[(int)Define.Preferences.Fullscreen];
         GetSlider((int)Sliders.Slider_ControlGuideOn).value =
             Managers.Data.Preference[(int)Define.Preferences.ControlGuide];
@@ -421,11 +422,11 @@ public class UI_Setting : UI_Popup
 
     public void SetLanguageWithConfirmation()
     {
-        Managers.UI.languageSetting = (int)GetSlider((int)Sliders.Slider_Language).value;
+        Managers.UI.isEngMode = (int)GetSlider((int)Sliders.Slider_Language).value;
 
         if (GetSlider((int)Sliders.Slider_Language).value >= 1)
         {
-            Managers.Data.Preference[(int)Define.Preferences.EngMode] = 1;
+            Managers.Data.Preference[(int)Define.Preferences.IsEng] = 1;
             Managers.UI.SetEngMode(UIManager.ENG);
 #if UNITY_EDITOR
             Debug.Log("Preference Changed --------------------------EngMode On");
@@ -437,7 +438,7 @@ public class UI_Setting : UI_Popup
 #if UNITY_EDITOR
             Debug.Log("Preference Changed --------------------------EngMode off");
 #endif
-            Managers.Data.Preference[(int)Define.Preferences.EngMode] = 0;
+            Managers.Data.Preference[(int)Define.Preferences.IsEng] = 0;
             Managers.UI.SetEngMode(UIManager.KOR);
         }
     }

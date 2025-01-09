@@ -175,7 +175,7 @@ public class DepthC23_State_6 : Base_SceneState
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewC);
 
-        _depthC2SceneController.CurrentActiveTool = -1;
+        _depthC2SceneController.currentActiveTool = -1;
         _depthC2SceneController._isDriverOn = false;
         _depthC2SceneController.isMultimeterOn = false;
 
@@ -359,7 +359,7 @@ public class DepthC23_State_9 : Base_SceneState
     {
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus(true);
         _depthC2SceneController.isMultimeterOn = true;
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        _depthC2SceneController.currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         _depthC2SceneController.multimeterController.SetToDefaultMode();
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
@@ -387,7 +387,7 @@ public class DepthC23_State_10 : Base_SceneState
         _depthC2SceneController.TurnOnCollidersAndInit();
         _depthC2SceneController.isMultimeterOn = true;
         _depthC2SceneController.multimeterController.SetMeasureGuideStatus(true);
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        _depthC2SceneController.currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         _depthC2SceneController.multimeterController.SetToResistanceModeAndRotation();
 
 
@@ -445,7 +445,7 @@ public class DepthC23_State_11 : Base_SceneState
         CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
         
         _depthC2SceneController.isMultimeterOn = true;
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        _depthC2SceneController.currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         
         CurrentScene.contentController.isStepMissionPerformable = true;
 
@@ -518,7 +518,7 @@ public class DepthC23_State_12 : Base_SceneState
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewC);
 
-        _depthC2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
+        _depthC2SceneController.currentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
         _depthC2SceneController._isDriverOn = true;
         
         _depthC2SceneController.ToggleActiveState(_depthC2SceneController.GetObject((int)DepthC2_GameObj.ElectricScrewdriver),

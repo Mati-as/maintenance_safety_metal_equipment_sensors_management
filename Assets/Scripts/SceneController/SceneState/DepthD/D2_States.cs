@@ -350,7 +350,7 @@ public class StateD21_9 : Base_SceneState
         depthD2SceneController.BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
         
         depthD2SceneController.isMultimeterOn = true;
-        depthD2SceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        depthD2SceneController.currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         depthD2SceneController.isAnodePut = false;
         depthD2SceneController.multimeterController.OnGroundNothing();
         

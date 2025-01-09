@@ -204,7 +204,7 @@ public class Tutorial_State_7 : Base_SceneState
         tutorialSceneController.contentController.uiToolBox.SetToolBox(false);
         tutorialSceneController.multimeterController.SetMeasureGuideStatus(false);
         tutorialSceneController.isMultimeterOn = true;
-        tutorialSceneController.CurrentActiveTool = (int)DepthC2_GameObj.Multimeter;
+        tutorialSceneController.currentActiveTool = (int)DepthC2_GameObj.Multimeter;
         
         tutorialSceneController.multimeterController.SetToDefaultMode();
 

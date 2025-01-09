@@ -117,8 +117,8 @@ public class DataManager
     Managers.Data.Preference[(int)Define.Preferences.GraphicQuality] = int.Parse(graphicQuality);
     
     // load english mode setting
-    var engMode = node.Attributes[nameof(Define.Preferences.EngMode)].Value;
-    Managers.Data.Preference[(int)Define.Preferences.EngMode] = int.Parse(engMode);
+    var engMode = node.Attributes[nameof(Define.Preferences.IsEng)].Value;
+    Managers.Data.Preference[(int)Define.Preferences.IsEng] = int.Parse(engMode);
     
     // load control guide setting
     var controlGuide = node.Attributes[nameof(Define.Preferences.ControlGuide)].Value;
@@ -170,8 +170,8 @@ public class DataManager
         setting.SetAttribute(nameof(Define.Preferences.GraphicQuality),
             Managers.Data.Preference[(int)Define.Preferences.GraphicQuality].ToString());
 
-        setting.SetAttribute(nameof(Define.Preferences.EngMode),
-            Managers.Data.Preference[(int)Define.Preferences.EngMode].ToString());
+        setting.SetAttribute(nameof(Define.Preferences.IsEng),
+            Managers.Data.Preference[(int)Define.Preferences.IsEng].ToString());
 
         setting.SetAttribute(nameof(Define.Preferences.ControlGuide),
             Managers.Data.Preference[(int)Define.Preferences.ControlGuide].ToString());
@@ -228,7 +228,7 @@ public class DataManager
             initSetting.SetAttribute(nameof(Define.Preferences.Fullscreen), "1");
             initSetting.SetAttribute(nameof(Define.Preferences.Resolution), "1920");
             initSetting.SetAttribute(nameof(Define.Preferences.GraphicQuality), ((int)(Define.QaulityLevel.High)).ToString());
-            initSetting.SetAttribute(nameof(Define.Preferences.EngMode), ((int)(Define.LanguageMode.Kor)).ToString());
+            initSetting.SetAttribute(nameof(Define.Preferences.IsEng), ((int)(Define.LanguageMode.Kor)).ToString());
             initSetting.SetAttribute(nameof(Define.Preferences.ControlGuide), "1"); //Yes
             initSetting.SetAttribute(nameof(Define.Preferences.Mute_Main), "0"); //No
             initSetting.SetAttribute(nameof(Define.Preferences.Mute_Narration), "0"); //No
@@ -249,6 +249,13 @@ public class DataManager
         document.Save(path);
         Debug.Log($"{path}");
         //Debug.Log("SAVED DATA WRITE");
+    }
+
+    public static bool CheckIfKoreanMode()
+    {
+        if ((int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.LanguageMode.Kor)
+            return true;
+        else return false;
     }
 
     #endregion

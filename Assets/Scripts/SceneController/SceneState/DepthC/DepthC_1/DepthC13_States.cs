@@ -229,7 +229,7 @@ public class DepthC13_State_8 : Base_SceneState
         _depthC1SceneController.isWindSession = true;
         _depthC1SceneController.SetScrewStatus(true);
         
-        _depthC1SceneController.CurrentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
+        _depthC1SceneController.currentActiveTool = (int)DepthC2_GameObj.ElectricScrewdriver;
         _depthC1SceneController._isDriverOn = true;
         
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_ElectricScrewdriver);

@@ -269,7 +269,7 @@ public class DepthC22_State_10 : Base_SceneState
         }
       
         
-        _depthC2SceneController.CurrentActiveTool =  (int)DepthC2_GameObj.ElectricScrewdriver;
+        _depthC2SceneController.currentActiveTool =  (int)DepthC2_GameObj.ElectricScrewdriver;
         _depthC2SceneController._isDriverOn= true;
         _depthC2SceneController.ToggleActiveState(_depthC2SceneController.
             GetObject((int)DepthC2_GameObj.ElectricScrewdriver), _depthC2SceneController.isDriverOn);
