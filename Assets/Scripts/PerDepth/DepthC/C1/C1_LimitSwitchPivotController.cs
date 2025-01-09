@@ -32,8 +32,11 @@ public class C1_LimitSwitchPivotController : UI_Base, IPointerDownHandler, IDrag
 
     public void SetLimitSwitchControllableOrClickable(bool isActive)
     {
-        _collider.enabled = isActive;
-        isTargetPosEventInvoked = false;
+        DOVirtual.DelayedCall(1f, () =>
+        {
+          _collider.enabled = isActive;
+          isTargetPosEventInvoked = false;
+        });
     }
 
     public void InitLimitSwitch()

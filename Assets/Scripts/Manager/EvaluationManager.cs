@@ -21,6 +21,18 @@ public class EvaluationManager : MonoBehaviour
     public readonly Dictionary<int, int> SCORE_PER_ITEM_MAP = new Dictionary<int, int>()
     {
         // 인덱스 참조를 위한 - 1
+        { 411, 10 },
+        { 412, 20 },
+        { 413, 20 },
+        { 414, 10 },
+        { 415, 20 },
+        { 416, 10 },
+        { 417, 10 },
+        { 418, 1 },
+        { 419, 1 },
+        { 4110, 1 },
+        
+        // 인덱스 참조를 위한 - 1
         { 421, 10 },
         { 422, 20 },
         { 423, 20 },
@@ -210,7 +222,7 @@ public class EvaluationManager : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="clickedObj"></param>
-    public bool CheckIfAnswerIsCorrect(DepthC2_GameObj clickedObj)
+    public bool CheckIfAnswerIsCorrect(int clickedObj)
     {
         if (!isScoringState) return false;
         if (isAlreadyWrongAnswerChecked)
@@ -285,7 +297,7 @@ public class EvaluationManager : MonoBehaviour
     {
         correctAnswersCount++;
         
-        Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/Correct");
+       // Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/Correct");
             
         string currentDepth1 = Managers.ContentInfo.PlayData.Depth1.ToString();
         string currentDepth2 = Managers.ContentInfo.PlayData.Depth2.ToString();

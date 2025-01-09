@@ -446,12 +446,35 @@
   <TextData ID="41108" kor="테스트 Depth 4-2-1-08." eng="eng Test" />
   <TextData ID="41109" kor="테스트 Depth 4-2-1-09." eng="eng Test" />
   <TextData ID="41110" kor="테스트 Depth 4-2-1-10." eng="eng Test" />
-  <!-- Depth 3-341 -->
-  <!-- depth와 애니메이션 겹치는 순서 : 4-4 // 5-5(6):드라이버 포함 //
-  6-7 온도센서 회수 // 7-7 //8-9,10// 9 - 11 // 10 - 12 // 11- 13 
-  &lt;color=#00F5FF&gt;금속제조&lt;/color&gt; 설비 계측 센서 정비 실습 중 온도 센서 정비 과정의 평가를 진행하겠습니다. 
-  화면에 표기된 수행 리스트를 확인하고 순서대로 정비를 진행하겠습니다
-   -->
+
+
+
+  <!-- 평가하기 항목 부분 -->
+  <TextData ID="4101" kor="교체 온도 센서 준비" eng="eng Test" />
+  <TextData ID="4102" kor="작업 전 전원 차단" eng="eng Test" />
+  <TextData ID="4103" kor="검출스위치 해체" eng="eng Test" />
+  <TextData ID="4104" kor="디지털 미터 준비" eng="eng Test" />
+  <TextData ID="4105" kor="디지털미터 조작 - 검출스위치 통전 상태 측정" eng="eng Test" />
+  <TextData ID="4106" kor="리밋스위치 체결" eng="eng Test" />
+  <TextData ID="4107" kor="정상동작확인" eng="eng Test" />
+  <TextData ID="4109" kor="" eng="eng Test" />
+  <TextData ID="41010" kor="" eng="eng Test" />
+  <TextData ID="41011" kor="" eng="eng Test" />
+  <!-- 평가하기 체크리스트 부분 -->
+  <TextData ID="41001" kor="새 검출스위치 준비" eng="eng Test" />
+  <TextData ID="41002" kor="작업 전 전원 차단" eng="eng Test" />
+  <TextData ID="41003" kor="검출스위치 해체" eng="eng Test" />
+  <TextData ID="41004" kor="통전 상태 확인" eng="eng Test" />
+  <TextData ID="41005" kor="설비 전원 복구" eng="eng Test" />
+  <TextData ID="41006" kor="" eng="eng Test" />
+  <TextData ID="41007" kor="" eng="eng Test" />
+  <TextData ID="41008" kor="" eng="eng Test" />
+  <TextData ID="41009" kor="" eng="eng Test" />
+  <TextData ID="410010" kor="" eng="eng Test" />
+  <TextData ID="410011" kor="" eng="eng Test" />
+  <TextData ID="410012" kor="" eng="eng Test" />
+  
+   <!-- Depth2 온도센서 평가하기-->
   <TextData ID="42101" kor="금속제조 설비 계측 센서 정비 실습 중 온도 센서 정비 과정의 평가를 진행하겠습니다. 화면에 표기된 수행 리스트를 확인하고 순서대로 정비를 진행하겠습니다." eng="eng Test" />
   <TextData ID="42102" kor="도구함으로 가서, 새로 교체할 온도센서를 꺼내주세요." eng="eng Test" />
   <TextData ID="42103" kor="설비 전원을 차단해주세요." eng="eng Test" />
@@ -642,6 +665,38 @@
   <TextData ID="40041" kor="평가하기" eng="eng Test" />
   
   <TextData ID="40051" kor="평가하기" eng="eng Test" />
-  
 
+
+
+
+  <!-- 장비목록 6digits - Depth1 + Depth2 + 88 + 01~99 -->
+  
+  <!-- C2 온도센서 장비 목록-->
+  <TextData ID="418801" kor="평가하기" eng="eng Test" />
+  <TextData ID="418802" kor="평가하기" eng="eng Test" />
+  <TextData ID="418803" kor="평가하기" eng="eng Test" />
+  <TextData ID="418804" kor="평가하기" eng="eng Test" />
+  <TextData ID="418805" kor="평가하기" eng="eng Test" />
+  <TextData ID="418806" kor="평가하기" eng="eng Test" />
+  <TextData ID="418807" kor="평가하기" eng="eng Test" />
+  <TextData ID="418808" kor="평가하기" eng="eng Test" />
+  <TextData ID="418809" kor="평가하기" eng="eng Test" />
+  <TextData ID="418810" kor="평가하기" eng="eng Test" />
+  <TextData ID="418811" kor="평가하기" eng="eng Test" />
+  <TextData ID="418812" kor="평가하기" eng="eng Test" />
+  <TextData ID="418813" kor="평가하기" eng="eng Test" />
+  <TextData ID="418814" kor="평가하기" eng="eng Test" />
+  <TextData ID="418815" kor="평가하기" eng="eng Test" />
+  <TextData ID="418816" kor="평가하기" eng="eng Test" />
+  <TextData ID="418817" kor="평가하기" eng="eng Test" />
+  <TextData ID="418818" kor="평가하기" eng="eng Test" />
+  <TextData ID="418819" kor="평가하기" eng="eng Test" />
+  <TextData ID="418820" kor="평가하기" eng="eng Test" />
+  <TextData ID="418821" kor="평가하기" eng="eng Test" />
+  <TextData ID="418822" kor="평가하기" eng="eng Test" />
+  <TextData ID="418823" kor="평가하기" eng="eng Test" />
+  <TextData ID="418824" kor="평가하기" eng="eng Test" />
+  
+  
+  
 </ArrayOfTextData>
