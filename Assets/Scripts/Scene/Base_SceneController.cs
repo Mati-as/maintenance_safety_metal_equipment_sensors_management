@@ -686,12 +686,16 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             SetHighlight(gameObj);
             contentController.SetToolTipActiveStatus();
             contentController.SetToolTipText(_toolTipTextMap[gameObj]);
+            Logger.Log(" Enter_ On 마우스 손가락 이미지로 변경 ----------------------------");
+            Cursor.SetCursor(Managers.cursorImageManager.Get_hand_image(), Vector2.zero, CursorMode.ForceSoftware);
         }, Define.UIEvent.PointerEnter);
 
         // PointerExit 이벤트 바인딩
         GetObject((int)gameObj).BindEvent(() =>
         {
+            Logger.Log(" Enter_ Exit 마우스 화살표  이미지로 변경 ----------------------------");
             SetHighlight(gameObj,false);
+            Cursor.SetCursor(Managers.cursorImageManager.Get_arrow_image(), Vector2.zero, CursorMode.ForceSoftware);
             contentController.SetToolTipActiveStatus(false);
         }, Define.UIEvent.PointerExit);
         
@@ -737,6 +741,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         }
 
+        if (contentController.isStepMissionComplete)
+        {
+            Logger.Log("클릭불가 상태 중복실행을 방지합니다.");
+            return;
+        } 
+        
+        Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/Correct");
+        
         if (currentAnimationCoroutine != null)
         {
             StopCoroutine(currentAnimationCoroutine);

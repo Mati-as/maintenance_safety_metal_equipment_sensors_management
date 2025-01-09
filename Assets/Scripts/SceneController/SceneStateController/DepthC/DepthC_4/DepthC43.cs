@@ -58,7 +58,7 @@ public class DepthC43_State_1 : Base_SceneState
         Base_SceneController.OnAnimationCompelete += OnAnimationCompleteHandler;
         _depthC4SceneController.DepthC43Init();
         CurrentScene.cameraController.isControllable = false;
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+     
     
         base.OnEnter();
     }

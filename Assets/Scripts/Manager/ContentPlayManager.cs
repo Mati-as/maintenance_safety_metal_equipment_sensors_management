@@ -21,7 +21,7 @@ public class ContentPlayData : MonoBehaviour
     public static Dictionary<int, int> DEPTH_THREE_COUNT_DATA = new Dictionary<int, int>
     {
         { 11, 1 }, 
-        { 12, 5 },
+        { 12, 1 },
         
         { 21, 1 },
         { 22, 1 },

@@ -54,7 +54,7 @@ public class DepthC52_State_1 : Base_SceneState
     public override void OnEnter()
     {
         
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+     
         _depthC5SceneController.DepthC52Init();
         _depthC5SceneController.levelSensorDisplayController.TurnOn(LevelSensorDisplayController.TMPs.LevelSensor_DisplayMain);
         _depthC5SceneController.levelSensorDisplayController.currentDisplayValue = LevelSensorDisplayController.ZERO_ON_ERROR;

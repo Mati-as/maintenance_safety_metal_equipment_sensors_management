@@ -93,6 +93,7 @@ public class CurrentCheckableMultimeterController :UI_Base, IPointerDownHandler,
             else
             {
                 TurnOffAllMultimeterModeImage();
+                
                 isCurrentCheckMode = false;
             }
         }

@@ -56,7 +56,7 @@ public class DepthC41_State_1 : Base_SceneState
         //카메라 시점변경On
        
         _depthC4SceneController.DepthC41Init();
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+        
     
         base.OnEnter();
         

@@ -101,7 +101,7 @@ public class UI_ContentController : UI_Popup
 
     private readonly TextMeshProUGUI[] texts = new TextMeshProUGUI[Enum.GetValues(typeof(TMPs)).Length];
 
-    private Animator animator_UI_CurrentDepth_Mid;
+    private Animator animator_depth3Hide;
     private Animator _depthOneTextMoveAnimator;
     private Animator _instructionAnimator;
     private Animator _topMenuAnimator;
@@ -292,7 +292,7 @@ public class UI_ContentController : UI_Popup
         //CheckIfTutorialMode();
 
         _contentControllerFadeEffectImage = GetObject((int)UI.FadeInOutEffect).GetComponent<Image>();
-        FadeIn(1.55f);
+        FadeOutAndIn(0.25f,0.8f);
         if(Managers.UI_Persistent!=null)Managers.UI_Persistent.FadeIn();
         
         SetInstructionShowOrHideStatus(true);
@@ -474,7 +474,7 @@ public class UI_ContentController : UI_Popup
         _depthOneTextMoveAnimator.enabled = false;
 
 
-        animator_UI_CurrentDepth_Mid = GetObject((int)UI.UI_CurrentDepth_Mid).gameObject.GetComponent<Animator>();
+        animator_depth3Hide = GetObject((int)UI.UI_CurrentDepth_Mid).gameObject.GetComponent<Animator>();
         BindHoverEventToButton(Btns.Btn_Depth1_Title, OnDepthOneTitleHover, OnDepthOneTitleHoverExit);
         _topMenuAnimator = GetObject((int)UI.UI_Top).gameObject.GetComponent<Animator>();
         _btn_TopMenu_Hide_animator =GetObject((int)UI.UI_Top).GetComponent<Animator>(); 
@@ -583,6 +583,10 @@ public class UI_ContentController : UI_Popup
         GetButton((int)Btns.Btn_ToolBox).gameObject.SetActive(false);
     }
 
+    private void OnDepth3BtnEnter()
+    {
+        
+    }
 
     private void InitCommonUI()
     {
@@ -779,8 +783,10 @@ public class UI_ContentController : UI_Popup
         texts[(int)TMPs.Text_Current3Depth].text =
             Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
                 + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + Managers.ContentInfo.PlayData.CurrentDepthStatus[2])].kor;
-       
-           
+
+        Logger.Log($"depth3 문구 변경 현재 뎁스인포 :{int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] +"00"+ Managers.ContentInfo.PlayData.Depth2 + Managers.ContentInfo.PlayData.Depth3)}");
+
+
         string text = texts[(int)TMPs.Text_Current3Depth].text;
         int charCountWithoutSpaces = text.Replace(" ", "").Length;
         
@@ -796,7 +802,7 @@ public class UI_ContentController : UI_Popup
             65f + (charCountWithoutSpaces * 35f), // width based on non-space characters
             currentDepth3UIRect.sizeDelta.y);
         
-        Logger.Log($"{texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
+      Logger.Log($"{texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.Depth2 + Managers.ContentInfo.PlayData.Depth3)].kor}");
       
     //    Logger.Log($"Current Depth Size delta = {currentDepth3UIRect.sizeDelta.x}");
     }
@@ -849,8 +855,10 @@ public class UI_ContentController : UI_Popup
             ShutTrainingIntroAnim();
             SetInstructionShowOrHideStatus();
 
+            
             Managers.ContentInfo.PlayData.Count = 1;
-            ChangeInstructionText();
+            OnStepBtnClicked_CurrentCount?.Invoke(1,false);
+ 
         });
        
     }
@@ -1232,7 +1240,7 @@ public class UI_ContentController : UI_Popup
     {
         _isdepth3ListOn = !_isdepth3ListOn;
         
-        animator_UI_CurrentDepth_Mid.SetBool(UI_ON,_isdepth3ListOn);
+        animator_depth3Hide.SetBool(UI_ON,_isdepth3ListOn);
         GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(true);
     }
     
@@ -1240,7 +1248,7 @@ public class UI_ContentController : UI_Popup
     {
         _isdepth3ListOn = isOn;
         
-        animator_UI_CurrentDepth_Mid.SetBool(UI_ON,isOn);
+        animator_depth3Hide.SetBool(UI_ON,isOn);
        // GetObject((int)UI.UI_Depth3_List).gameObject.SetActive(isOn);
     }
 
@@ -1277,23 +1285,30 @@ public class UI_ContentController : UI_Popup
             _depth3Btns[i].gameObject.SetActive(true);
         }
         
-        Logger.Log(
-            $"depth 3 current: {texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
+        // Logger.Log($"depth 3 current: {texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
+        //
+        //
+        // Managers.ContentInfo.PlayData.Depth3 = depth3Num;
+        // texts[(int)TMPs.Text_Current3Depth].text =
+        //     Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
+        //         + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + depth3Num)].kor;
 
-
-        Managers.ContentInfo.PlayData.Depth3 = depth3Num;
-        texts[(int)TMPs.Text_Current3Depth].text =
-            Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
-                + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + depth3Num)].kor;
-
-        Managers.ContentInfo.PlayData.Count = 1;
+        Logger.Log($"depth3 문구 변경 현재 뎁스인포 :{int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"+ Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + depth3Num)} ");
+                   
         
- 
-        if (Managers.ContentInfo.PlayData.Depth3 == 1) PlayTrainingGoalAnim();
+        
+        Managers.ContentInfo.PlayData.Count = 1;
+
+
+        if (Managers.ContentInfo.PlayData.Depth3 == 1)
+        {
+            animator_depth3Hide.SetBool(UI_ON,false);
+            PlayTrainingGoalAnim();
+        }
         
         if (Managers.ContentInfo.PlayData.Depth3 != 1)
         {
-            ShutTrainingIntroAnim();
+   
             if(_hideBtn_isInstructionViewActive)SetInstructionShowOrHideStatus();
         }
         
@@ -1301,19 +1316,17 @@ public class UI_ContentController : UI_Popup
         ChangeInstructionText();
         
         SetInstructionShowOrHideStatus(true);
+        FadeOutAndIn(0.3f,0.8f);
         OnDepth3ClickedAction?.Invoke();
         
         
     }
 
-    private void OnDepthClickedWhenDepthC()
+
+    private void Depth3TextChange()
     {
         
     }
-    private void OnDepth3BtnEnter()
-    {
-    }
-
 
     private void OnDepth3ABtnExit()
     {
@@ -1377,7 +1390,7 @@ public class UI_ContentController : UI_Popup
         _topMenuAnimator.SetBool(UI_ON, _isTopMenuOn);
         _btn_TopMenu_Hide_animator.SetBool(UI_ON, _isTopMenuOn);
         
-        if(!_isTopMenuOn)animator_UI_CurrentDepth_Mid.SetBool(UI_ON,false);
+        if(!_isTopMenuOn)animator_depth3Hide.SetBool(UI_ON,false);
 
         Logger.Log($" topMenu Status: {_isTopMenuOn}");
     }
@@ -1471,7 +1484,7 @@ public class UI_ContentController : UI_Popup
         
         
         Logger.Log("LoadStep By UI Top Controller Next/Prev Arrow");
-        EmptyInstructionTextBox();
+      
 
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Tutorial)
         {
@@ -1486,14 +1499,15 @@ public class UI_ContentController : UI_Popup
             
             if (depth2ToLoad <= 0)
             {
-                Managers.Scene.LoadScene(SceneType.DepthB);
+                FadeOutAndLoadScene(SceneType.DepthB);
                 return;
             }
             
             
             if (depth2ToLoad<= 5 && depth2ToLoad >= 1)
             {
-                SceneManager.LoadScene("DepthC" + depth2ToLoad.ToString());
+                
+                FadeOutAndLoadScene("DepthC" + depth2ToLoad.ToString());
                 return;
             }
             else
@@ -1509,7 +1523,7 @@ public class UI_ContentController : UI_Popup
             {
                 if (depth2ToLoad > ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.SensorOverview])
                 {
-                    Managers.Scene.LoadScene(SceneType.DepthB);
+                    FadeOutAndLoadScene(SceneType.DepthB);
                     return;
                 }
                 
@@ -1525,19 +1539,22 @@ public class UI_ContentController : UI_Popup
             {
                 if (depth2ToLoad > ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.Safety])
                 {
-                    Managers.Scene.LoadScene(SceneType.DepthC1);
+                 
+                    FadeOutAndLoadScene(SceneType.DepthC1);
+                 
                     return;
                 }
                 
                 if (depth2ToLoad < 1)
                 {
-                    Managers.Scene.LoadScene(SceneType.DepthA);
+                    FadeOutAndLoadScene(SceneType.DepthA);
                     return;
                 }
             }
             
-            
-
+            // depth2 이동전 Initialize Part---------------------------------
+            animator_depth3Hide.SetBool(UI_ON,false);
+            EmptyInstructionTextBox();
             
             Managers.ContentInfo.PlayData.Depth2 = depth2ToLoad;
             Managers.ContentInfo.PlayData.Depth3 = 1;
@@ -1550,8 +1567,31 @@ public class UI_ContentController : UI_Popup
             Refresh();
         }
     }
+
+
+    private void FadeOutAndLoadScene(SceneType sceneType)
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
     
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(1, 0.5f));
+        _fadeEffectSeq.AppendCallback(() =>
+        {
+            Managers.Scene.LoadScene(sceneType);
+        });
+    }
     
+    private void FadeOutAndLoadScene(string sceneName)
+    {
+        _fadeEffectSeq?.Kill();
+        _fadeEffectSeq = DOTween.Sequence();
+    
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(1, 0.5f));
+        _fadeEffectSeq.AppendCallback(() =>
+        {
+            SceneManager.LoadScene(sceneName);
+        });
+    }
     private Sequence _fadeEffectSeq;
     public void FadeIn(float duration =2.5f)
     {
@@ -1571,13 +1611,13 @@ public class UI_ContentController : UI_Popup
         _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(1, duration));
     }
 
-    public void FadeOutAndIn()
+    public void FadeOutAndIn(float outTime= 1.0f, float inTime =1.0f)
     {
         _fadeEffectSeq?.Kill();
         _fadeEffectSeq = DOTween.Sequence();
         
-        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(1, 1.35f));
-        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(0, 1.0f));
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(1, outTime));
+        _fadeEffectSeq.Append(_contentControllerFadeEffectImage.DOFade(0, inTime));
         
     }
     

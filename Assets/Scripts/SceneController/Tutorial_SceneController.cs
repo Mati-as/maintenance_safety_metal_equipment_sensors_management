@@ -55,10 +55,14 @@ public class Tutorial_SceneController : DepthC2_SceneController
         BindHighlight((int)DepthC2_GameObj.TemperatureSensor, "클릭");
         BindHighlight((int)DepthC2_GameObj.TS_Stabilizer, "클릭");
         BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "클릭");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "클릭");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "클릭");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "클릭");
-        BindHighlight((int)DepthC2_GameObj.TS_CoverScrew, "클릭");
+        
+        
+        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
+        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
+        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
+        BindHighlight((int)DepthC2_GameObj.TS_CoverScrew, "나사");
+        
+        
         BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "클릭");
         BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "클릭");
          
@@ -87,22 +91,28 @@ public class Tutorial_SceneController : DepthC2_SceneController
         
         GetObject((int)DepthC2_GameObj.TS_CoverScrew).BindEvent(() =>
         {
+           // if(!contentController.isStepMissionComplete)Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/Correct");
             if (Managers.ContentInfo.PlayData.Count == 2) OnStepMissionComplete(animationNumber:2);
         });
         
-        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
-        {
-            if (Managers.ContentInfo.PlayData.Count == 3) OnStepMissionComplete(animationNumber:3);
-        });
+        
         GetObject((int)DepthC2_GameObj.TS_InnerScrewA).BindEvent(() =>
         {
+          // if(!contentController.isStepMissionComplete)Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/Correct");
+            if (Managers.ContentInfo.PlayData.Count == 3) OnStepMissionComplete(animationNumber:3);
+        });
+        GetObject((int)DepthC2_GameObj.TS_InnerScrewB).BindEvent(() =>
+        {
+           //if(!contentController.isStepMissionComplete)Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/Correct");
             if (Managers.ContentInfo.PlayData.Count == 3) OnStepMissionComplete(animationNumber:3);
         });
         GetObject((int)DepthC2_GameObj.TS_InnerScrewC).BindEvent(() =>
         {
+         //  if(!contentController.isStepMissionComplete)Managers.Sound.Play(SoundManager.Sound.Effect, "Etc/Correct");
             if (Managers.ContentInfo.PlayData.Count == 3) OnStepMissionComplete(animationNumber:3);
         });
 
+        
         SetDepthNum();
         
         ChangeState(1);

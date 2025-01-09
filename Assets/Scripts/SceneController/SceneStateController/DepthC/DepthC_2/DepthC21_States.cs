@@ -21,7 +21,7 @@ public class DepthC21_State_1 : Base_SceneState
     public override void OnEnter()
     {
         _depthC2SceneController.DepthC21Init();
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+      
         
         _depthC2SceneController.GetObject((int)DepthC2_GameObj.Indicator)
             .GetComponent<IndicatorController>().ShowNothing();

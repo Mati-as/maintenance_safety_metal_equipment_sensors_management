@@ -17,7 +17,7 @@ public class StateB11_1 : Base_SceneState
     {
        
         base.OnEnter();
-        _depthBSceneController.contentController.ShutTrainingIntroAnim();
+       
         _depthBSceneController.DepthB11Init();
     }
 

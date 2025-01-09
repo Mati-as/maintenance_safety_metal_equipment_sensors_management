@@ -43,7 +43,7 @@ public class DepthC11_State_1 : Base_SceneState
     public override void OnEnter()
     {
    
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+       
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -319,10 +319,12 @@ public class DepthC11_State_12 : Base_SceneState
     }
 
     
-    public override void OnEnter(){        _depthC1SceneController.ClearTool();
+    public override void OnEnter(){     
+       
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         base.OnEnter();
+        _depthC1SceneController.ClearTool();
         CurrentScene.cameraController.isControllable = false;}
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -345,7 +347,8 @@ public class DepthC11_State_13 : Base_SceneState
         CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+    public override void OnExit(){
+        _depthC1SceneController.ClearTool();base.OnExit();}
 }
 
 public class DepthC11_State_14 : Base_SceneState

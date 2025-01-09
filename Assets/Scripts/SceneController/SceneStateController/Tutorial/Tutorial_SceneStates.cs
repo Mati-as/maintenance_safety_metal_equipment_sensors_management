@@ -81,6 +81,7 @@ public class Tutorial_State_3 : Base_SceneState
     {
         tutorialSceneController.contentController.isStepMissionComplete = false;
         
+        
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA,false);
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewA);
         CurrentScene.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB,false);
@@ -89,11 +90,7 @@ public class Tutorial_State_3 : Base_SceneState
         CurrentScene.BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewC);
         tutorialSceneController.contentController.HideToolBoxBtn();
         base.OnEnter();
-        DOVirtual.Float(0,0,5f, _ =>
-        {
-            isCurrentStateCameraControllable = true;
-            CurrentScene.contentController.SetCamInitBtnStatus(true);
-        });
+  
 
     }
 

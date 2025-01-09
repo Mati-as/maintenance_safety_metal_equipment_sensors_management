@@ -16,7 +16,7 @@ public class StateD21_1 : Base_SceneState
     public override void OnEnter()
     {
       
-        depthD2SceneController.contentController.ShutTrainingIntroAnim();
+       
         depthD2SceneController.indicator.ShowErrorMessage();
        
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.TS_CompensatingWire);

@@ -62,12 +62,12 @@ public class UI_TrainingInfo : UI_Popup
         SetIntroImage();
 
         
-        Logger.Log("RefreshUI Objective -----------");
+        Logger.Log($"{Managers.ContentInfo.PlayData.CurrentDepthStatus} : Training Goal Refresh UI  -----------");
         
         GetText((int)Texts.Head_Depth1).text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.Depth1 + "0000")].kor;
         
         
-        // 사용 X 011723
+        
         // GetText((int)Texts.Head_Depth3).text =
         //     Managers.Data.Texts[int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
         //                                   $"{Managers.ContentInfo.PlayData.Depth2}" + DEPTH1)].kor;

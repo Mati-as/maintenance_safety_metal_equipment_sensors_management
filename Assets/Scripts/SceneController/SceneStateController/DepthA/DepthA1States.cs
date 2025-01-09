@@ -12,7 +12,7 @@ public class DepthA1_State_1 : Base_SceneState
 
     public override void OnEnter()
     {
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+      
         base.OnEnter();
         _currentAScene. DepthA1Init();
     }

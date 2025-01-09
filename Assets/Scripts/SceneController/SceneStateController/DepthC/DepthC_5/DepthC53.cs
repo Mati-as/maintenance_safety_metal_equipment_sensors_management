@@ -47,7 +47,7 @@ public class DepthC53_State_1 : Base_SceneState
     public override void OnEnter()
     {
         
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+        
         _depthC5SceneController.DepthC53Init();
         base.OnEnter();
         CurrentScene.cameraController.isControllable = false;

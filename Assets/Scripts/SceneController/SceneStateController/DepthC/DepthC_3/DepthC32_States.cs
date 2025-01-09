@@ -58,7 +58,7 @@ public class DepthC32_State_1 : Base_SceneState
     {
  
         _depthC3SceneController.DepthC32Init();
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+       
     
         base.OnEnter();
       

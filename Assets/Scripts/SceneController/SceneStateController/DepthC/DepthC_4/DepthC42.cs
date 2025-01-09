@@ -58,7 +58,7 @@ public class DepthC42_State_1 : Base_SceneState
         
         
         _depthC3SceneController.DepthC42Init();
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+       
     
         base.OnEnter();
         CurrentScene.cameraController.isControllable = false;

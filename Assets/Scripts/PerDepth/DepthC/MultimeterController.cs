@@ -249,16 +249,46 @@ public class MultimeterController : UI_Base, IPointerDownHandler, IDragHandler, 
         Logger.Log("프로브 접촉 완료, 통전 확인 -----------------------------------------------------");
         var lastUpdateTime = 0f;
 
-        _resistanceCheckSeq.AppendInterval(1.2f);
+        _resistanceCheckSeq.AppendInterval(1.0f);
         _resistanceCheckSeq.AppendCallback(() =>
         {
             TMPDisplay.text = OVER_LIMIT_TEXT;
+            var lastUpdateTime = 0f;
+            DOVirtual.Float(0, 0, 3f, _ =>
+            {
+                var currentTime = Time.time;
+
+                if (currentTime - lastUpdateTime >= 0.38f)
+                {
+                    TMPDisplay.text = (0 + Random.Range(2, 2.505f)).ToString("F3");
+                    lastUpdateTime = currentTime;
+                }
+            }).SetEase(Ease.InOutBounce);
+            
             Managers.Sound.Play(SoundManager.Sound.Effect, "Audio/Object/beep_01");
         });
         
         _resistanceCheckSeq.Play();
     }
 
+    public void OnAllProbeSetOnConductiveCheckModeNoSound()
+    {
+        _resistanceCheckSeq?.Kill();
+        _resistanceCheckSeq = DOTween.Sequence();
+      
+
+        Logger.Log("프로브 접촉 완료, 통전X 소리 안남-----------------------------------------------------");
+        var lastUpdateTime = 0f;
+
+        _resistanceCheckSeq.AppendInterval(1.2f);
+        _resistanceCheckSeq.AppendCallback(() =>
+        {
+            TMPDisplay.text = OVER_LIMIT_TEXT;
+           
+        });
+        
+        _resistanceCheckSeq.Play();
+    }
 
 
     public void OnGroundNothing()

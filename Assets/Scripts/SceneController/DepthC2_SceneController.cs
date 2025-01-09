@@ -50,7 +50,8 @@ public enum DepthC2_GameObj
     
     
     //주의: 튜토리얼전용
-    TS_CoverScrew
+    TS_CoverScrew,
+    LookAtPoint3
     
     // ControlPanel,
     // TS_CompensatingWireA,

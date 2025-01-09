@@ -531,6 +531,7 @@ public class DepthC5_SceneController : Base_SceneController
         
         
         C5_PreCommonObjInit();
+        
 
     }
     private void LateCommonInit()
@@ -584,6 +585,7 @@ public class DepthC5_SceneController : Base_SceneController
             }  
         });
 
+        
         
         
         BindHighlight((int)DepthC5_GameObj.CathodeSensorInput,"시그널 컨디셔너 입력단자");

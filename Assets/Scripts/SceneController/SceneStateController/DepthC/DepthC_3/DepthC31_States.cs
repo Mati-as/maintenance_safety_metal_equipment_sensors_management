@@ -56,7 +56,7 @@ public class DepthC31_State_1 : Base_SceneState
         //카메라 시점변경On
        
         _depthC3SceneController.DepthC31Init();
-        CurrentScene.contentController.ShutTrainingIntroAnim();
+       
     
         base.OnEnter();
         _depthC3SceneController.cameraController.isControllable = true;
