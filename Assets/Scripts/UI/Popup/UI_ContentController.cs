@@ -1069,6 +1069,7 @@ public class UI_ContentController : UI_Popup
         
         texts[(int)TMPs.Text_Instruction].text =
             Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus)].kor;
+        //영문버전 도입시 반영 //Managers.GetText(int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus));
     }
 
 

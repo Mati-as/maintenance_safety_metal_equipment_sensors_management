@@ -59,6 +59,53 @@ public class UI_DepthSelection : UI_Popup
         B441,
         B451,
     }
+
+    private enum TMPs
+    {
+        TMP_DepthA,
+        TMP_DepthB,
+        TMP_DepthC,
+        TMP_DepthD,
+        Title_Heading1,//큰 부분
+        Title_Heading2,//작은 부분
+    }
+
+    private const float ENG_SIZE_HEAD1_ENG = 45;
+    private const float KOR_SIZE_HEAD1_KOR = 70;
+    private const float ENG_SIZE = 26;
+    private const float KOR_SIZE = 35;
+
+    public override void RefreshText()
+    {
+        if (Managers.Data.CheckIfEngMode())
+        {
+            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
+            //GetTMP((int)TMPs.TMP_DepthB).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
+            GetTMP((int)TMPs.Title_Heading1).text =
+                "Maintenance and Safety Management of\n Metal Manufacturing Equipment and Measurement Sensors";
+            GetTMP((int)TMPs.Title_Heading2).text = "금속제조설비 계측센서정비 및 안전관리";
+        }
+        else
+        {
+            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
+           // GetTMP((int)TMPs.TMP_DepthB).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
+           
+            GetTMP((int)TMPs.Title_Heading1).text = "금속제조설비 계측센서\n정비 및 안전관리";
+            GetTMP((int)TMPs.Title_Heading2).text =
+                "Maintenance and Safety Management of\nMetal Manufacturing Equipment and Measurement Sensors";
+        }
+
+
+        GetTMP((int)TMPs.TMP_DepthA).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
+        GetTMP((int)TMPs.TMP_DepthB).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
+        GetTMP((int)TMPs.TMP_DepthC).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
+        GetTMP((int)TMPs.TMP_DepthD).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
+
+        GetTMP((int)TMPs.TMP_DepthA).text = Managers.GetText(10000);
+        GetTMP((int)TMPs.TMP_DepthB).text = Managers.GetText(20000);
+        GetTMP((int)TMPs.TMP_DepthC).text = Managers.GetText(30000);
+        GetTMP((int)TMPs.TMP_DepthD).text = Managers.GetText(40000);
+    }
     
 
     private Animator _animator;
@@ -76,7 +123,7 @@ public class UI_DepthSelection : UI_Popup
 
 
         BindButton(typeof(Btns));
-        
+        BindTMP(typeof(TMPs));
         
         GetButton((int)Btns.Btn_DepthA).gameObject.BindEvent(OnDepthBtnAClicked);
         GetButton((int)Btns.Btn_DepthB).gameObject.BindEvent(() =>
@@ -93,58 +140,62 @@ public class UI_DepthSelection : UI_Popup
             if (GetButton((int)Btns.Btn_DepthD).IsInteractable()) OnDepthDBtnCClicked();
         });
 
+        
+        RefreshText();
+        
+        // GetButton((int)Btns.B111).gameObject.BindEvent(() => { LoadStep(Btns.B111, 111); });
+        // GetButton((int)Btns.B111).gameObject.BindEvent(() => { LoadStep(Btns.B112, 112); });
+        //
+        // GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B121, 121); });
+        // GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B122, 122); });
+        // GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B123, 123); });
+        // GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B124, 124); });
+        // GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B125, 125); });
+        //
+        // GetButton((int)Btns.B211).gameObject.BindEvent(() => { LoadStep(Btns.B211, 211); });
+        // GetButton((int)Btns.B221).gameObject.BindEvent(() => { LoadStep(Btns.B221, 221); });
+        //
+        // GetButton((int)Btns.B231).gameObject.BindEvent(() => { LoadStep(Btns.B231, 231); });
+        // GetButton((int)Btns.B232).gameObject.BindEvent(() => { LoadStep(Btns.B232, 232); });
+        //
+        //
+        //
+        // GetButton((int)Btns.B311).gameObject.BindEvent(() => { LoadStep(Btns.B311, 311); });
+        // GetButton((int)Btns.B312).gameObject.BindEvent(() => { LoadStep(Btns.B312, 312); });
+        // GetButton((int)Btns.B313).gameObject.BindEvent(() => { LoadStep(Btns.B313, 313); });
+        //
+        // GetButton((int)Btns.B321).gameObject.BindEvent(() => { LoadStep(Btns.B321, 321); });
+        // GetButton((int)Btns.B322).gameObject.BindEvent(() => { LoadStep(Btns.B322, 322); });
+        // GetButton((int)Btns.B323).gameObject.BindEvent(() => { LoadStep(Btns.B323, 323); });
+        //
+        // GetButton((int)Btns.B331).gameObject.BindEvent(() => { LoadStep(Btns.B331, 331); });
+        // GetButton((int)Btns.B332).gameObject.BindEvent(() => { LoadStep(Btns.B332, 332); });
+        // GetButton((int)Btns.B333).gameObject.BindEvent(() => { LoadStep(Btns.B333, 333); });
+        //
+        // GetButton((int)Btns.B341).gameObject.BindEvent(() => { LoadStep(Btns.B341, 341); });
+        // GetButton((int)Btns.B342).gameObject.BindEvent(() => { LoadStep(Btns.B342, 342); });
+        // GetButton((int)Btns.B343).gameObject.BindEvent(() => { LoadStep(Btns.B343, 343); });
+        //
+        // GetButton((int)Btns.B351).gameObject.BindEvent(() => { LoadStep(Btns.B351, 351); });
+        // GetButton((int)Btns.B352).gameObject.BindEvent(() => { LoadStep(Btns.B352, 352); });
+        // GetButton((int)Btns.B353).gameObject.BindEvent(() => { LoadStep(Btns.B353, 353); });
+        //
+        //
+        //
+        // GetButton((int)Btns.B411).gameObject.BindEvent(() => { LoadStep(Btns.B411, 411); });
+        // GetButton((int)Btns.B421).gameObject.BindEvent(() => { LoadStep(Btns.B421, 421); });
+        // GetButton((int)Btns.B431).gameObject.BindEvent(() => { LoadStep(Btns.B431, 431); });
+        // GetButton((int)Btns.B441).gameObject.BindEvent(() => { LoadStep(Btns.B441, 441); });
+        // GetButton((int)Btns.B451).gameObject.BindEvent(() => { LoadStep(Btns.B451, 451); });
+        //
+        //
+        // GetButton((int)Btns.Btn_DepthA).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHA_OPEN); },Define.UIEvent.PointerDown);
+        // GetButton((int)Btns.Btn_DepthB).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHB_OPEN); },Define.UIEvent.PointerDown);
+        // GetButton((int)Btns.Btn_DepthC).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHC_OPEN); },Define.UIEvent.PointerDown);
+        // GetButton((int)Btns.Btn_DepthD).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHD_OPEN); },Define.UIEvent.PointerDown);
 
-        GetButton((int)Btns.B111).gameObject.BindEvent(() => { LoadStep(Btns.B111, 111); });
-        GetButton((int)Btns.B111).gameObject.BindEvent(() => { LoadStep(Btns.B112, 112); });
-        
-        GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B121, 121); });
-        GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B122, 122); });
-        GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B123, 123); });
-        GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B124, 124); });
-        GetButton((int)Btns.B121).gameObject.BindEvent(() => { LoadStep(Btns.B125, 125); });
-        
-        GetButton((int)Btns.B211).gameObject.BindEvent(() => { LoadStep(Btns.B211, 211); });
-        GetButton((int)Btns.B221).gameObject.BindEvent(() => { LoadStep(Btns.B221, 221); });
-        
-        GetButton((int)Btns.B231).gameObject.BindEvent(() => { LoadStep(Btns.B231, 231); });
-        GetButton((int)Btns.B232).gameObject.BindEvent(() => { LoadStep(Btns.B232, 232); });
-        
-        
-        
-        GetButton((int)Btns.B311).gameObject.BindEvent(() => { LoadStep(Btns.B311, 311); });
-        GetButton((int)Btns.B312).gameObject.BindEvent(() => { LoadStep(Btns.B312, 312); });
-        GetButton((int)Btns.B313).gameObject.BindEvent(() => { LoadStep(Btns.B313, 313); });
-        
-        GetButton((int)Btns.B321).gameObject.BindEvent(() => { LoadStep(Btns.B321, 321); });
-        GetButton((int)Btns.B322).gameObject.BindEvent(() => { LoadStep(Btns.B322, 322); });
-        GetButton((int)Btns.B323).gameObject.BindEvent(() => { LoadStep(Btns.B323, 323); });
-        
-        GetButton((int)Btns.B331).gameObject.BindEvent(() => { LoadStep(Btns.B331, 331); });
-        GetButton((int)Btns.B332).gameObject.BindEvent(() => { LoadStep(Btns.B332, 332); });
-        GetButton((int)Btns.B333).gameObject.BindEvent(() => { LoadStep(Btns.B333, 333); });
 
-        GetButton((int)Btns.B341).gameObject.BindEvent(() => { LoadStep(Btns.B341, 341); });
-        GetButton((int)Btns.B342).gameObject.BindEvent(() => { LoadStep(Btns.B342, 342); });
-        GetButton((int)Btns.B343).gameObject.BindEvent(() => { LoadStep(Btns.B343, 343); });
-        
-        GetButton((int)Btns.B351).gameObject.BindEvent(() => { LoadStep(Btns.B351, 351); });
-        GetButton((int)Btns.B352).gameObject.BindEvent(() => { LoadStep(Btns.B352, 352); });
-        GetButton((int)Btns.B353).gameObject.BindEvent(() => { LoadStep(Btns.B353, 353); });
-        
-        
-        
-        GetButton((int)Btns.B411).gameObject.BindEvent(() => { LoadStep(Btns.B411, 411); });
-        GetButton((int)Btns.B421).gameObject.BindEvent(() => { LoadStep(Btns.B421, 421); });
-        GetButton((int)Btns.B431).gameObject.BindEvent(() => { LoadStep(Btns.B431, 431); });
-        GetButton((int)Btns.B441).gameObject.BindEvent(() => { LoadStep(Btns.B441, 441); });
-        GetButton((int)Btns.B451).gameObject.BindEvent(() => { LoadStep(Btns.B451, 451); });
-        
-        
-        GetButton((int)Btns.Btn_DepthA).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHA_OPEN); },Define.UIEvent.PointerDown);
-        GetButton((int)Btns.Btn_DepthB).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHB_OPEN); },Define.UIEvent.PointerDown);
-        GetButton((int)Btns.Btn_DepthC).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHC_OPEN); },Define.UIEvent.PointerDown);
-        GetButton((int)Btns.Btn_DepthD).gameObject.BindEvent(() => { ChangeDepth1Animation(DEPTHD_OPEN); },Define.UIEvent.PointerDown);
-        
+
         // GetButton((int)Btns.Btn_DepthA).gameObject.BindEvent(ShutDepth1Animation ,Define.UIEvent.PointerExit);
         // GetButton((int)Btns.Btn_DepthB).gameObject.BindEvent(ShutDepth1Animation ,Define.UIEvent.PointerExit);
         // GetButton((int)Btns.Btn_DepthC).gameObject.BindEvent(ShutDepth1Animation ,Define.UIEvent.PointerExit);
@@ -152,6 +203,8 @@ public class UI_DepthSelection : UI_Popup
 
         return true;
     }
+    
+    
 
     private void ChangeDepth1Animation(int hash)
     {
@@ -223,10 +276,10 @@ public class UI_DepthSelection : UI_Popup
 #if UNITY_EDITOR
         Debug.Log("Depth 3 계측 센서 정비 Start");
 #endif
-
+        Managers.Scene.LoadScene(SceneType.DepthD1);
         //Managers.Scene.LoadScene(SceneType.DepthD2);
         Managers.ContentInfo.PlayData.Depth1 = 4;
-        Managers.ContentInfo.PlayData.Depth2 = 2; //구현 부분뎁스만큼 수정해야합니다.
+        Managers.ContentInfo.PlayData.Depth2 = 1; //구현 부분뎁스만큼 수정해야합니다.
         Managers.ContentInfo.PlayData.Depth3 = 1;
         Managers.ContentInfo.PlayData.Count = 1;
         OnDepth1Enter();
