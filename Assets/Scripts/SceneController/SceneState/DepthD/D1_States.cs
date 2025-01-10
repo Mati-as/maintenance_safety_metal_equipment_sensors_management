@@ -42,7 +42,12 @@ public class StateD11_2 : Base_SceneState
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(1,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
 }
 
 
@@ -94,8 +99,7 @@ public class StateD11_4 : Base_SceneState
 
     public override void OnExit()
     {
-        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(3,
-            Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(3,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
     }
 }
@@ -111,14 +115,20 @@ public class StateD11_5 : Base_SceneState
     // ReSharper disable Unity.PerformanceAnalysis
     public override void OnEnter()
     {
-        depthD1SceneController.UIEvaluation.RefreshCheckListImage(3);
+        depthD1SceneController.UIEvaluation.RefreshCheckListImage(2);
         depthD1SceneController.isWindSession = false;
+        depthD1SceneController.TurnOffCollider((int)DepthC1_GameObj.LeverScrew);
         base.OnEnter();
         depthD1SceneController.SetScrewStatus(false);
         Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(4,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
 }
 
 public class StateD11_6 : Base_SceneState
@@ -131,14 +141,25 @@ public class StateD11_6 : Base_SceneState
     // ReSharper disable Unity.PerformanceAnalysis
     public override void OnEnter()
     {
+        depthD1SceneController.UIEvaluation.RefreshCheckListImage(3);
+        depthD1SceneController.TurnOnCollidersAndInit();
         depthD1SceneController.isLeverScrewUnwound = false;
-
+        
+        depthD1SceneController.TurnOffCollider((int)DepthC1_GameObj.ConnectionScrewA);
+        depthD1SceneController.TurnOffCollider((int)DepthC1_GameObj.ConnectionScrewB);
+        depthD1SceneController.TurnOffCollider((int)DepthC1_GameObj.ConnectionScrewC);
+        depthD1SceneController.TurnOffCollider((int)DepthC1_GameObj.ConnectionScrewD);
         base.OnEnter();
         depthD1SceneController.limitSwitchPivotController.SetLimitSwitchControllableOrClickable(false);
         Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(5,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
 }
 
 
@@ -152,13 +173,20 @@ public class StateD11_7 : Base_SceneState
     // ReSharper disable Unity.PerformanceAnalysis
     public override void OnEnter()
     {
+        depthD1SceneController.TurnOffCollider((int)DepthC1_GameObj.LeverScrew);
+        
         depthD1SceneController.isWindSession = true;
         depthD1SceneController.SetScrewStatus(true);
         base.OnEnter();
         Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(6,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
 }
 
 
@@ -176,7 +204,12 @@ public class StateD11_8 : Base_SceneState
         Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_Multimeter);
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(7,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
 }
 
 
@@ -189,9 +222,17 @@ public class StateD11_9 : Base_SceneState
 
     // ReSharper disable Unity.PerformanceAnalysis
     public override void OnEnter()
-    {base.OnEnter();}
+    {
+        depthD1SceneController.TakeDefaultMultimeter();
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(8,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
 }
 
 
@@ -204,7 +245,15 @@ public class StateD11_10 : Base_SceneState
 
     // ReSharper disable Unity.PerformanceAnalysis
     public override void OnEnter()
-    {base.OnEnter();}
+    {
+        depthD1SceneController.SetToResistantMode();
+        depthD1SceneController.multimeterController.isConductive = true; 
+        depthD1SceneController.isAnodePut = false;
+        
+        depthD1SceneController.multimeterController.SetMeasureGuideStatus(true);
+        depthD1SceneController.TurnOnCollidersAndInit();
+        base.OnEnter();
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }
@@ -227,7 +276,12 @@ public class StateD11_11 : Base_SceneState
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(9,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
 }
 
 
@@ -241,6 +295,7 @@ public class StateD11_12 : Base_SceneState
     // ReSharper disable Unity.PerformanceAnalysis
     public override void OnEnter()
     {
+        depthD1SceneController.UIEvaluation.RefreshCheckListImage(4);
         depthD1SceneController.ClearTool();
         depthD1SceneController.controlPanel.SetPowerHandleOff();
         depthD1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.PowerHandle,false);
@@ -248,7 +303,12 @@ public class StateD11_12 : Base_SceneState
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}
+
+    public override void OnExit()
+    {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(10,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
 }
 
 
@@ -262,7 +322,7 @@ public class StateD11_13 : Base_SceneState
     // ReSharper disable Unity.PerformanceAnalysis
     public override void OnEnter()
     {
-        depthD1SceneController.UIEvaluation.RefreshCheckListImage(6);
+        depthD1SceneController.UIEvaluation.RefreshCheckListImage(5);
         depthD1SceneController.contentController.SetInstructionShowOrHideStatus(false);
         depthD1SceneController.UIEvaluation.UI_OnEvalFinish();
         base.OnEnter();

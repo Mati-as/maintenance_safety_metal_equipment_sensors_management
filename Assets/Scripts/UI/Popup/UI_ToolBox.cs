@@ -139,7 +139,8 @@ public class UI_ToolBox : UI_Popup
     }
     public void SetToolBox(bool isOn)
     {
-        _animator.SetBool(UI_ON,isOn);
+        _isToolBoxOn = isOn;
+        _animator.SetBool(UI_ON,_isToolBoxOn);
     }
 
 

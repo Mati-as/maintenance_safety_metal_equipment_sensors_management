@@ -334,8 +334,8 @@ public class DepthC13_State_12 : Base_SceneState
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA,false);
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB,false);
         
-        _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewA,"접속단자 A");
-        _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewB,"접속단자 B");
+      //  _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewA,"접속단자 A");
+     //   _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewB,"접속단자 B");
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}
@@ -365,8 +365,8 @@ public class DepthC13_State_13 : Base_SceneState
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewC);
         
         
-        _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewC,"접속단자 C");
-        _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewD,"접속단자 D");
+     //   _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewC,"접속단자 C");
+     //   _depthC1SceneController.ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewD,"접속단자 D");
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}

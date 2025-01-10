@@ -67,15 +67,10 @@ public class DepthD1_SceneController : DepthC1_SceneController
         foreach (DepthC1_GameObj obj in Enum.GetValues(typeof(DepthC1_GameObj)))
         {
             if (GetObject((int)obj) == null ||
-                //정답오답 여부에 포함되지 않는 오브젝트들을 할당합니다. 
-                obj == DepthC1_GameObj.ConnectionScrewA ||
-                obj == DepthC1_GameObj.ConnectionScrewB ||
-                obj == DepthC1_GameObj.ConnectionScrewC ||
-                obj == DepthC1_GameObj.ConnectionScrewD ||
+                //정답오답 여부에 포함되지 않는 오브젝트들을 할당합니다.
                 obj == DepthC1_GameObj.LeverHandleReadjustTargetPos ||
                 obj == DepthC1_GameObj.MultimeterHandleHighlight ||
-                obj == DepthC1_GameObj.LimitSwitch ||
-                obj == DepthC1_GameObj.LimitSwitch
+                obj == DepthC1_GameObj.LimitSwitch 
                )
             {
                 Logger.Log($"no object is set: {obj}");
@@ -217,7 +212,7 @@ public class DepthD1_SceneController : DepthC1_SceneController
                 animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = true;
                 animatorMap[(int)DepthC1_GameObj.Probe_Anode].SetBool(TO_SCREW_A, true);
 
-                ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewB, "접속단자 B");
+             //   ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewB, "접속단자 B");
 
                 SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA);
                 SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB, false);
@@ -256,7 +251,7 @@ public class DepthD1_SceneController : DepthC1_SceneController
 
                 DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() =>
                 {
-                    ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewD, "접속단자 D");
+                 //   ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewD, "접속단자 D");
                     SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD, false);
                     BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewD);
 

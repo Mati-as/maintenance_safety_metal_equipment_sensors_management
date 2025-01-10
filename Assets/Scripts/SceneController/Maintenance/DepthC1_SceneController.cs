@@ -956,7 +956,7 @@ public class DepthC1_SceneController : Base_SceneController
                 animatorMap[(int)DepthC1_GameObj.Probe_Anode].enabled = true;
                 animatorMap[(int)DepthC1_GameObj.Probe_Anode].SetBool(TO_SCREW_A, true);
                 
-                ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewB, "접속단자 B");
+               // ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewB, "접속단자 B");
                 
                 SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewA);
                 SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewB, false);
@@ -1013,7 +1013,7 @@ public class DepthC1_SceneController : Base_SceneController
                 DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() =>
                 {
                                     
-                    ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewD, "접속단자 D");
+                   // ChangeTooltipText((int)DepthC1_GameObj.ConnectionScrewD, "접속단자 D");
                     SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD, false);
                     BlinkHighlight((int)DepthC1_GameObj.ConnectionScrewD);
 
