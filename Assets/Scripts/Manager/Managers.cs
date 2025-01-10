@@ -37,7 +37,7 @@ public class Managers : MonoBehaviour
         set { s_ui_Persistent = value;}
     }
     
-    public static EvaluationManager evaluationManager
+    public static EvaluationManager EvaluationManager
     {get{Init();
         return s_evaluationManager;}}
     

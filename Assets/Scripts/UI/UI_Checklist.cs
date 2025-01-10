@@ -115,7 +115,7 @@ public class UI_Checklist : UI_Popup
     
     public void OnInitUI()
     {
-        Managers.evaluationManager.IsCorrectMapInit();
+        Managers.EvaluationManager.IsCorrectMapInit();
         
         if(thisAnimator!=null)thisAnimator.SetBool(Define.UI_ON, false);
         GetObject((int)UI.UI_ScoreBoard).SetActive(false);

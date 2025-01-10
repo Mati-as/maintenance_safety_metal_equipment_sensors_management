@@ -15,8 +15,6 @@ public class StateD21_1 : Base_SceneState
     // ReSharper disable Unity.PerformanceAnalysis
     public override void OnEnter()
     {
-      
-       
         depthD2SceneController.indicator.ShowErrorMessage();
        
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.TS_CompensatingWire);
@@ -37,8 +35,7 @@ public class StateD21_1 : Base_SceneState
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.TemperatureSensor);
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.MultimeterHandleHighlight,false);
      
-      
-        depthD2SceneController.contentController.SetInstructionShowOrHideStatus(true);
+        
         depthD2SceneController.UIEvaluation.Init();
         depthD2SceneController.UIEvaluation.SetChecklistAnimStatus(false);
 
@@ -61,15 +58,14 @@ public class StateD21_2 : Base_SceneState
             
         base.OnEnter();
         depthD2SceneController.UIEvaluation.UI_OnEvalStart();
-  
-        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_TemperatureSensor);
+        Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_TemperatureSensor);
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-        Managers.evaluationManager.SaveIsCorrectStatusPerItems(1,
-            Managers.evaluationManager.isAlreadyWrongAnswerChecked);
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(1,
+            Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
     }
 }
@@ -87,18 +83,17 @@ public class StateD21_3 : Base_SceneState
        
 //        Logger.Log("전원 On Off 하이라이트 동작 중 --------------------");
         depthD2SceneController.UIEvaluation.RefreshCheckListImage(1);
-        
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.PowerHandle,false);
       //  depthD2SceneController.HighlightBlink((int)DepthC_GameObj.PowerHandle);
         base.OnEnter();
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.PowerHandle);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.PowerHandle);
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-        Managers.evaluationManager.SaveIsCorrectStatusPerItems(2,
-            Managers.evaluationManager.isAlreadyWrongAnswerChecked);
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(2,
+            Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         
         base.OnExit();
     }
@@ -115,7 +110,7 @@ public class StateD21_4 : Base_SceneState
     {
         
         depthD2SceneController.UIEvaluation.RefreshCheckListImage(2);
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TankValve);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TankValve);
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.TankValve,false);
         //depthD2SceneController.HighlightBlink((int)DepthC_GameObj.TankValve);
         base.OnEnter();
@@ -124,8 +119,8 @@ public class StateD21_4 : Base_SceneState
 
     public override void OnExit()
     {
-        Managers.evaluationManager.SaveIsCorrectStatusPerItems(3,
-            Managers.evaluationManager.isAlreadyWrongAnswerChecked);
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(3,
+            Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
     }
 }
@@ -142,9 +137,9 @@ public class StateD21_5 : Base_SceneState
     {
         depthD2SceneController.UIEvaluation.RefreshCheckListImage(3);
         
-        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_Cover);
-        Managers.evaluationManager.isScoringState = false;
+        Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_Cover);
+        Managers.EvaluationManager.isScoringState = false;
         
       
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.TS_Cover, false);
@@ -187,9 +182,9 @@ public class StateD21_5 : Base_SceneState
 
     public override void OnExit()
     {
-        Managers.evaluationManager.isScoringState = false;
-        Managers.evaluationManager.SaveIsCorrectStatusPerItems(4,
-            Managers.evaluationManager.isAlreadyWrongAnswerChecked);
+        Managers.EvaluationManager.isScoringState = false;
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(4,
+            Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
       
     }
@@ -205,11 +200,11 @@ public class StateD21_6 : Base_SceneState
     public override void OnEnter()
     {
         
-        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
     
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewA);
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewB);
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewC);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewA);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewB);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewC);
         
        Logger.Log("드라이버 파트-------------------------");
      
@@ -241,7 +236,7 @@ public class StateD21_7 : Base_SceneState
         depthD2SceneController.GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(true);
         depthD2SceneController.TurnOnCollidersAndInit();
         
-        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_Multimeter);
+        Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_Multimeter);
         
      
        
@@ -294,12 +289,12 @@ public class StateD21_8 : Base_SceneState
         
         
         depthD2SceneController.multimeterController.OnGroundNothing();
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.Multimeter);
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.MultimeterHandleHighlight);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.Multimeter);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.MultimeterHandleHighlight);
         
 
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewA);
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewB);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewA);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewB);
         
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalA);
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB);
@@ -360,8 +355,8 @@ public class StateD21_9 : Base_SceneState
         
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB, false);
         
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewA);
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_GroundingTerminalB);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewA);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_GroundingTerminalB);
 
         
         depthD2SceneController.animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
@@ -384,8 +379,8 @@ public class StateD21_9 : Base_SceneState
     public override void OnExit()
     {
         depthD2SceneController.SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
-        Managers.evaluationManager.SaveIsCorrectStatusPerItems(7,
-            Managers.evaluationManager.isAlreadyWrongAnswerChecked);
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(7,
+            Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
     }
 }
@@ -403,11 +398,11 @@ public class StateD21_10 : Base_SceneState
         
         CurrentScene.BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
       
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewA);
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewB);
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewC);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewA);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewB);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.TS_InnerScrewC);
         
-        Managers.evaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
+        Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_ElectricScrewdriver);
         
         depthD2SceneController.isWindSession = true;
         depthD2SceneController.ClearTool();
@@ -452,8 +447,8 @@ public class StateD21_10 : Base_SceneState
 
     public override void OnExit()
     {
-        Managers.evaluationManager.SaveIsCorrectStatusPerItems(5,
-            Managers.evaluationManager.isAlreadyWrongAnswerChecked);
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(5,
+            Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
     }
 }
@@ -471,7 +466,7 @@ public class StateD21_11 : Base_SceneState
         depthD2SceneController.UIEvaluation.RefreshCheckListImage(5);
       
         depthD2SceneController.controlPanel.SetPowerHandleOff();
-        Managers.evaluationManager.objAnswerToClick.Add((int)DepthC2_GameObj.PowerHandle);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC2_GameObj.PowerHandle);
         depthD2SceneController.ClearTool();
         base.OnEnter();
     }
@@ -479,8 +474,8 @@ public class StateD21_11 : Base_SceneState
 
     public override void OnExit()
     {
-        Managers.evaluationManager.SaveIsCorrectStatusPerItems(6,
-            Managers.evaluationManager.isAlreadyWrongAnswerChecked);
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(6,
+            Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
     }
 }

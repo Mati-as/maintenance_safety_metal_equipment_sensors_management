@@ -57,7 +57,7 @@ public class Base_SceneState : ISceneState
         //평가하기가 아닌경우
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation)
         {
-            Managers.evaluationManager.InitPerState();
+            Managers.EvaluationManager.InitPerState();
         }
 
         if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.SensorOverview)
@@ -118,7 +118,7 @@ public class Base_SceneState : ISceneState
      */
        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation)
        {
-           Managers.evaluationManager.EvalmodeOnStateExit();
+           Managers.EvaluationManager.EvalmodeOnStateExit();
           
        }
        CurrentScene.TurnOffAllRegisteredHighlights();

@@ -204,7 +204,7 @@
   <TextData ID="31105" kor="먼저 검출 스위치의 조절 레버를 육안 점검하겠습니다. 검출 스위치 내부의 레버가 휘거나 움직임이 원활하지 않을 경우 검출물의 상태를 측정할 수 없으며, 심할 경우 검출물이 이탈할 수 있습니다. 화면에 표기된 &#60;color=#FFA500&#62;검출 스위치 조절 레버&#60;/color&#62;를 클릭해 점검해주세요." eng="eng Test" />
   <TextData ID="31106" kor="다음으로 조절 레버가 정상작동 하는지 확인하겠습니다. 화면에 표기된 &#60;color=#FFA500&#62;레버&#60;/color&#62;를 클릭해 &#60;color=#FFA500&#62;좌우로 조작&#60;/color&#62;하고, &#60;color=#FFA500&#62;동작램프&#60;/color&#62;가 &#60;color=#FFA500&#62;정상 점등&#60;/color&#62;하는지 확인해주세요." eng="eng Test" />
 
-  <!-- Depth 3-1-1 검출 스위치 점검(내부) -->
+  <!-- Depth 3-1-1 검출스위치점검(내부) -->
   <TextData ID="31107" kor="다음으로 검출 스위치의 내부를 점검하겠습니다. 내부 점검을 통해 내부 &#60;color=#FFA500&#62;도선 이상&#60;/color&#62;을 &#60;color=#FFA500&#62;확인&#60;/color&#62;하고 &#60;color=#FFA500&#62;통전 상태 확인&#60;/color&#62;을 통해 동작에 이상이 없는지 확인하는 것이 중요합니다." eng="eng Test" />
   <TextData ID="31108" kor="먼저 검출 스위치의 덮개를 열고 내부에 이상이 없는지 확인하겠습니다. 화면에 표시된 검출 스위치 덮개를 클릭해 열어주세요." eng="eng Test" />
   <TextData ID="31109" kor="검출 스위치의 경우 검출물과 직접 접촉으로 인해 발생하는 진동, 충격으로 인해 내부 접속단자가 풀려 정상 작동하지 않을 수 있습니다. 화면에 표기된 &#60;color=#FFA500&#62;접속나사&#60;/color&#62;를 클릭해 점검해주세요." eng="eng Test" />
@@ -224,22 +224,25 @@
   <TextData ID="31205" kor="검출 스위치 조절 레버를 풀고 조절 레버를 목표 위치까지 이동하겠습니다.  전동 드라이버를 활용해 검출 스위치 &#60;color=#FFA500&#62;레버 조절 나사&#60;/color&#62;를 풀어주세요." eng="eng Test" />
   <TextData ID="31206" kor="레버 조절 나사를 재조정하도록 하겠습니다.  조절 레버를 화면에 표기된 &#60;color=#FFA500&#62;목표위치&#60;/color&#62;까지 &#60;color=#FFA500&#62;조정&#60;/color&#62;해주세요." eng="eng Test" />
 
-  <!-- Depth 3-1-3 -->
+  <!-- Depth 3-1-3 --><!-- Depth 3-1-1 검출스위치정비 스크립트 -->
   <TextData ID="31301" kor="다음은 검출 스위치 정비 방법에 대해 알아보겠습니다. 일반적으로 검출 스위치의 정비 순서는 고장난 &#60;color=#FFA500&#62;검출 스위치 탈거&#60;/color&#62;, &#60;color=#FFA500&#62;새로운 검출 스위치 교체&#60;/color&#62;, &#60;color=#FFA500&#62;정상 작동 확인&#60;/color&#62; 순서로 진행됩니다." eng="eng Test" />
   <TextData ID="31302" kor="검출 스위치 정비 작업을 시작하도록 하겠습니다. 먼저 도구함에서 새로 설치할 &#60;color=#FFA500&#62;예비 검출 스위치&#60;/color&#62;를 클릭해 꺼내주세요." eng="eng Test" />
   <TextData ID="31303" kor="다음으로 작업 전 안전을 위해 중요한 안전 절차인 설비 전원 차단 과정을 수행하겠습니다. 먼저 &#60;color=#FFA500&#62;전원 차단 스위치&#60;/color&#62;를 눌러 전원을 차단해주세요." eng="eng Test" />
   <TextData ID="31304" kor="다음으로 교체할 기존 검출 스위치를 철거하도록 하겠습니다. 기존 검출 스위치에 연결된 접속 나사 해체를 위해 &#60;color=#FFA500&#62;검출 스위치 덮개&#60;/color&#62;를 열어주세요." eng="eng Test" />
   <TextData ID="31305" kor="도구함을 클릭해 전동 드라이버를 꺼내고 &#60;color=#FFA500&#62;접속 나사&#60;/color&#62;에 연결된 보상 도선을 &#60;color=#FFA500&#62;해체&#60;/color&#62;해주세요." eng="eng Test" />
   <TextData ID="31306" kor="다음으로 기존 검출 스위치를 클릭해 회수하고, 꺼내놓은 &#60;color=#FFA500&#62;예비 검출 스위치&#60;/color&#62;를 클릭해 설치해주세요." eng="eng Test" />
-  <TextData ID="31307" kor="새로 설치된 검출 스위치의 조절 레버를 검출 거리만큼 조절하겠습니다. 레버의 &#60;color=#FFA500&#62;조절 나사&#60;/color&#62;를 풀고 &#60;color=#FFA500&#62;목표 위치&#60;/color&#62;로 조정해주세요." eng="eng Test" />
+  <TextData ID="31307" kor="새로 설치된 검출 스위치의 조절 레버를 검출 거리만큼 조절하겠습니다. 레버의&#60;color=#FFA500&#62; 조절 나사&#60;/color&#62;를 풀고 &#60;color=#FFA500&#62;목표 위치&#60;/color&#62;로 조정해주세요." eng="eng Test" />
   <TextData ID="31308" kor="다음으로 새로 설치된 검출 스위치의 보상도선을 다시 연결하겠습니다. 검출 스위치의 &#60;color=#FFA500&#62;접속나사&#60;/color&#62;를 다시 &#60;color=#FFA500&#62;체결&#60;/color&#62;해주세요." eng="eng Test" />
   <TextData ID="31309" kor="마지막으로 검출 스위치의 정상작동을 확인하기 위해 접속단자의 통전 상태를 확인하겠습니다. 도구함을 클릭해 &#60;color=#FFA500&#62;디지털 미터&#60;/color&#62;를 꺼내주세요." eng="eng Test" />
   <TextData ID="31310" kor="&#60;color=#FFA500&#62;다이얼&#60;/color&#62;을 돌려 &#60;color=#FFA500&#62;저항(Ω)측정 모드&#60;/color&#62;로 맞춰주세요. 측정은 프로브의 극에 상관없이 두 지점을 측정합니다." eng="eng Test" />
   <TextData ID="31311" kor="다음으로 &#60;color=#FFA500&#62;기능 변경 버튼&#60;/color&#62;을 클릭해 통전 기능으로 모드를 변경하고 &#60;color=#FFA500&#62;통전 상태&#60;/color&#62;를 &#60;color=#FFA500&#62;확인&#60;/color&#62;하도록 하겠습니다." eng="eng Test" />
   <TextData ID="31312" kor="화면에 나타난 프로브를 측정 가이드를 참고해 순차적으로 &#60;color=#FFA500&#62;통전 상태&#60;/color&#62;를 확인해주세요. 각 &#60;color=#FFA500&#62;접속 단자&#60;/color&#62;를 디지털 미터의 프로브로 접촉하도록 하고 이때 &#60;color=#FFA500&#62;
-	통전 알람&#60;/color&#62;이  나오는지 &#60;color=#FFA500&#62;확인&#60;/color&#62;해주세요." eng="eng Test" />
+	통전 알람&#60;/color&#62;이 나오는지 &#60;color=#FFA500&#62;확인&#60;/color&#62;해주세요." eng="eng Test" />
   <TextData ID="31313" kor="화면에 나타난 프로브를 측정 가이드를 참고해 순차적으로 &#60;color=#FFA500&#62;통전 상태&#60;/color&#62;를 확인해주세요. 각 &#60;color=#FFA500&#62;접속 단자&#60;/color&#62;를 디지털 미터의 프로브로 
-	접촉하도록 하고 이때 &#60;color=#FFA500&#62;통전 알람&#60;/color&#62;이  나오는지 &#60;color=#FFA500&#62;확인&#60;/color&#62;해주세요." eng="eng Test"/>
+	접촉하도록 하고 이때 &#60;color=#FFA500&#62;통전 알람&#60;/color&#62;이 나오는지 &#60;color=#FFA500&#62;확인&#60;/color&#62;해주세요." eng="eng Test"/>
+  <TextData ID="31314" kor="잘 하셨습니다. 이제 설비의 전원을 다시 켜고 정비 작업을 마치도록 하겠습니다." eng="eng Test"/>
+
+  
   <!-- Depth 3-2-1 -->
   <TextData ID="32101" kor="온도 센서의 점검방식과 고장유형을 알아보고 이에 따른 정비 방법을 알아보겠습니다." eng="eng Test" />
   <TextData ID="32102" kor="점검 방법은 센서 외부를 점검하는 &#60;color=#FFA500&#62;외부 점검&#60;/color&#62;과 온도 센서 내부의 단자대, 전선 연결상태를 확인하는 &#60;color=#FFA500&#62;내부 점검&#60;/color&#62;이 있습니다. 먼저 측온저항체의 외부 점검에 대해 알아보겠습니다." eng="eng Test" />
@@ -435,21 +438,23 @@
   <TextData ID="35326" kor="잘 하셨습니다. 이제 설비의 전원을 다시 켜고 정비 작업을 마치도록 하겠습니다." eng="Well done. Now turn the equipment power back on to complete the maintenance work." />
 
 
-  <!-- Depth 3-3-1 -->
-  <TextData ID="41101" kor="" eng="eng Test" />
-  <TextData ID="41102" kor="테스트 Depth 4-2-1-02." eng="eng Test" />
-  <TextData ID="41103" kor="테스트 Depth 4-2-1-03." eng="eng Test" />
-  <TextData ID="41104" kor="테스트 Depth 4-2-1-04." eng="eng Test" />
-  <TextData ID="41105" kor="테스트 Depth 4-2-1-05." eng="eng Test" />
-  <TextData ID="41106" kor="테스트 Depth 4-2-1-06." eng="eng Test" />
-  <TextData ID="41107" kor="테스트 Depth 4-2-1-07." eng="eng Test" />
-  <TextData ID="41108" kor="테스트 Depth 4-2-1-08." eng="eng Test" />
-  <TextData ID="41109" kor="테스트 Depth 4-2-1-09." eng="eng Test" />
-  <TextData ID="41110" kor="테스트 Depth 4-2-1-10." eng="eng Test" />
-
-
-
-  <!-- 평가하기 항목 부분 -->
+  <!-- 검출스위치 평가하기 스크립트 --> -->
+  <TextData ID="41101" kor="금속제조 설비 계측 센서 정비 실습 중 검출 스위치 정비 과정의 평가를 진행하겠습니다. 화면에 표기된 수행 리스트를 확인하고 순서대로 정비를 진행하겠습니다." eng="eng Test" />
+  <TextData ID="41102" kor="도구함으로 가서, 새로 교체할 검출스위치를 꺼내주세요." eng="eng Test" />
+  <TextData ID="41103" kor="설비 전원을 차단해주세요." eng="eng Test" />
+  <TextData ID="41104" kor="접속나사를 해체하기 위해 검출 스위치 덮개를 열어주세요."  eng="eng Test" />
+  <TextData ID="41105" kor="전동드라이버를 꺼내 해체합니다." eng="eng Test" />
+  <TextData ID="41106" kor="새로 설치된 검출 스위치의 조절 레버를 검출 거리만큼 조절하겠습니다. 레버의조절 나사를 풀고 목표 위치로 조정해주세요." eng="eng Test" />
+  <TextData ID="41107" kor="다음으로 새로 설치된 검출 스위치의 보상도선을 다시 연결하겠습니다. 검출 스위치의 접속나사를 다시 체결해주세요." eng="eng Test" />
+  <TextData ID="41108" kor="도구함 내 디지털 미터를 클릭해 꺼내주세요." eng="eng Test" />
+  <TextData ID="41109" kor="저항(Ω) 측정 모드로 변경하고, 통전모드 전환 버튼을 눌러 해당모드로 전환합니다." eng="eng Test" />
+  <TextData ID="41110" kor="검출 스위치의 상단 접지부분 출력신호 여부를 확인해주세요." eng="eng Test" />
+  <TextData ID="41111" kor="이번에는 하단 접지부분 출력신호 여부를 확인해주세요."  eng="eng Test" />
+  <TextData ID="41112" kor="전원을 켜고 정상동작을 확인해주세요." eng="eng Test" />
+  
+  
+  
+  <!-- 검출스위치 평가하기 결과화면 항목부분 -->
   <TextData ID="4101" kor="교체 온도 센서 준비" eng="eng Test" />
   <TextData ID="4102" kor="작업 전 전원 차단" eng="eng Test" />
   <TextData ID="4103" kor="검출스위치 해체" eng="eng Test" />
@@ -461,7 +466,8 @@
   <TextData ID="4109" kor="" eng="eng Test" />
   <TextData ID="41010" kor="" eng="eng Test" />
   <TextData ID="41011" kor="" eng="eng Test" />
-  <!-- 평가하기 체크리스트 부분 -->
+  
+  <!-- 검출스위치평가하기 좌측체크리스트 부분 -->
   <TextData ID="41001" kor="새 검출스위치 준비" eng="eng Test" />
   <TextData ID="41002" kor="작업 전 전원 차단" eng="eng Test" />
   <TextData ID="41003" kor="검출스위치 해체" eng="eng Test" />
@@ -475,13 +481,18 @@
   <TextData ID="410011" kor="" eng="eng Test" />
   <TextData ID="410012" kor="" eng="eng Test" />
   
-   <!-- Depth2 온도센서 평가하기-->
+  
+  
+  
+  
+  
+   <!-- Depth2 온도센서 평가하기 스크립트-->
   <TextData ID="42101" kor="금속제조 설비 계측 센서 정비 실습 중 온도 센서 정비 과정의 평가를 진행하겠습니다. 화면에 표기된 수행 리스트를 확인하고 순서대로 정비를 진행하겠습니다." eng="eng Test" />
   <TextData ID="42102" kor="도구함으로 가서, 새로 교체할 온도센서를 꺼내주세요." eng="eng Test" />
   <TextData ID="42103" kor="설비 전원을 차단해주세요." eng="eng Test" />
   <TextData ID="42104" kor="밸브를 조작해 배관 내 잔류물을 제거해주세요." eng="eng Test" />
-  <TextData ID="42105" kor="온도센서 덮개를 열고, 전동드라이버를 이용해 접속나사를 해체해주세요." eng="eng Test" />
-  <TextData ID="42106" kor="센서 덮개를 열고, 전동드라이버를 꺼내 해체합니다." eng="eng Test" />
+  <TextData ID="42105" kor="접속나사를 해체하기 위해 온도센서 덮개를 열어주세요." eng="eng Test" />
+  <TextData ID="42106" kor="전동드라이버를 꺼내 해체합니다." eng="eng Test" />
   <TextData ID="42107" kor="도구함 내 디지털 미터를 클릭해 꺼내주세요." eng="eng Test" />
   <TextData ID="42108" kor="저항(Ω) 측정 모드로 변경하고, 출력신호를 확인해주세요." eng="eng Test" />
   <TextData ID="42109" kor="접지부분 출력신호를 확인해주세요." eng="eng Test" />

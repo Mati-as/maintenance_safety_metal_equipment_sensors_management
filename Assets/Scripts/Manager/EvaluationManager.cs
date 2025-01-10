@@ -62,6 +62,20 @@ public class EvaluationManager : MonoBehaviour
     //(참조) UI_Evalutation에서 평가항목 정,오답여부 로직  시 사용
     public Dictionary<int, bool> isCorrectMap = new Dictionary<int, bool>()
     {
+        { 410, false },
+        { 411, false },
+        { 412, false },
+        { 413, false },
+        { 414, false },
+        { 415, false },
+        { 416, false },
+        { 417, false },
+        { 418, false },
+        { 419, false },
+        { 4110, false },
+        { 4111, false },
+        { 4112, false },
+        
         { 420, false },
         { 421, false },
         { 422, false },
@@ -79,6 +93,20 @@ public class EvaluationManager : MonoBehaviour
     
     public void IsCorrectMapInit() =>  isCorrectMap = new Dictionary<int, bool>()
     {
+        { 410, false },
+        { 411, false },
+        { 412, false },
+        { 413, false },
+        { 414, false },
+        { 415, false },
+        { 416, false },
+        { 417, false },
+        { 418, false },
+        { 419, false },
+        { 4110, false },
+        { 4111, false },
+        { 4112, false },
+        
         { 420, false },
         { 421, false },
         { 422, false },
@@ -123,7 +151,7 @@ public class EvaluationManager : MonoBehaviour
     }
 
 
-    public List<int> objAnswerToClick =  new List<int>();
+    [FormerlySerializedAs("objAnswerToClick")] public List<int> ObjAnswerToClick =  new List<int>();
     public List<int> UIanswerToClick = new List<int>();
     
     
@@ -232,7 +260,7 @@ public class EvaluationManager : MonoBehaviour
 
         
         bool isAnswerObject = false;
-        foreach(var clikcableObj in objAnswerToClick)
+        foreach(var clikcableObj in ObjAnswerToClick)
         {
             Logger.Log($"answer : {(DepthC2_GameObj)clikcableObj} : Current Clicked Obj {clickedObj}" );
             if (clikcableObj == (int)clickedObj)
@@ -329,7 +357,7 @@ public class EvaluationManager : MonoBehaviour
 
     public void EvalmodeOnStateExit()
     {
-        objAnswerToClick = new List<int>();
+        ObjAnswerToClick = new List<int>();
         UIanswerToClick = new List<int>();
 
         if (Managers.ContentInfo.PlayData.Count <= 2)

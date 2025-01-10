@@ -460,14 +460,14 @@ public class UI_ContentController : UI_Popup
         var rect_1 = (RectTransform)Text_image.transform;
         rect_1.sizeDelta =
             new Vector2(
-                (int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.Preferences.IsEng
-                    ? text.Length * 20
+                Managers.Data.CheckIfEngMode()
+                    ? text.Length * 16
                     : text.Length * 30, 50);
         var rect_2 = (RectTransform)Text_tooltip.transform;
         rect_2.sizeDelta =
             new Vector2(
-                (int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.Preferences.IsEng
-                    ? text.Length * 20
+                Managers.Data.CheckIfEngMode()
+                    ? text.Length * 16
                     : text.Length * 30, 50);
     }
 
@@ -1081,7 +1081,8 @@ public class UI_ContentController : UI_Popup
         Precheck();
         
         //Depth1이 실습단계인 경우 (중복방지 로직포함)-----------------------------------------
-        if (Managers.ContentInfo.PlayData.Depth2 != depth2 &&Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.MaintenancePractice)
+        if (Managers.ContentInfo.PlayData.Depth2 != depth2 &&
+            Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.MaintenancePractice)
         {
           
             Managers.ContentInfo.PlayData.Depth2 = depth2;

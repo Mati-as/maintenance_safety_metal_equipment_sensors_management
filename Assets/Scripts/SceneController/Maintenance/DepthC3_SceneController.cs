@@ -18,38 +18,32 @@ using Sequence = DG.Tweening.Sequence;
 /// </summary>
 public enum DepthC3_GameObj
 {
+    //Highlight X
     ElectricScrewdriver,
     Multimeter,
     MultimeterHandleHighlight,
     Probe_Anode, // negative
     Probe_Cathode, // positive,
     CathodeSensorInput,
-        
+    PressureSensor_Display,
+    PressureSensor_Display_Uni,
+    PressureCalibrator,
+    
+    //Highlight O
     ConnectionScrewA,
     ConnectionScrewB,
     ConnectionScrewC,
     ConnectionScrewD,
     PowerHandle,
     PressureSensor,
-    PressureSensorScale,
-    PressureSensorToConditionerCable,
     PressureSensorHose,
     PressureSensorAdapter,
     PressureSensorAdapter_Sub,
     PressureSensorDamagedPart,
-    PressureSensor_Display,
-    PressureSensor_Display_Uni,
-    NewPressureSensor,
     PressureSensorWaterPipeValve, // FluidInsidePipe
-    
-    
-    ControlPanelFrontDoor,
     AnodeSensorOutput,
-    PowerCable,
-    PressureCalibrator,
     PressureSensorConnectingPipe, //연결 배관
     PressureSensorConnectingScrew, // 연결 나사 (어댑터)
-    
     //하이라이트 및 툴팁 적용을 위한 enum (객체컨트롤은 PressureCalibrator에서합니다.)
     Btn_F1 , 
     Btn_F2,
@@ -69,16 +63,53 @@ public enum DepthC3_GameObj
 public class DepthC3_SceneController : Base_SceneController
 {
 
-    #region 압력교정기
+    #region 압력교정기 컨트롤러
 
-    [FormerlySerializedAs("_pressureCalibratorController")] public PressureCalibratorController pressureCalibratorController;
+    public PressureCalibratorController pressureCalibratorController;
 
     #endregion
     
     
     
+    protected override void SetObjectName() => ObjectNameMap = new Dictionary<int, ObjectTextData>
+{
+    // Highlight X
+
+    // Highlight O
+    { (int)DepthC3_GameObj.ConnectionScrewA, new ObjectTextData((int)DepthC3_GameObj.ConnectionScrewA, "접속 나사 A", "Connection Screw A") },
+    { (int)DepthC3_GameObj.ConnectionScrewB, new ObjectTextData((int)DepthC3_GameObj.ConnectionScrewB, "접속 나사 B", "Connection Screw B") },
+    { (int)DepthC3_GameObj.ConnectionScrewC, new ObjectTextData((int)DepthC3_GameObj.ConnectionScrewC, "접속 나사 C", "Connection Screw C") },
+    { (int)DepthC3_GameObj.ConnectionScrewD, new ObjectTextData((int)DepthC3_GameObj.ConnectionScrewD, "접속 나사 D", "Connection Screw D") },
+    { (int)DepthC3_GameObj.PowerHandle, new ObjectTextData((int)DepthC3_GameObj.PowerHandle, "전원 핸들", "Power Handle") },
+    { (int)DepthC3_GameObj.PressureSensor, new ObjectTextData((int)DepthC3_GameObj.PressureSensor, "압력 센서", "Pressure Sensor") },
+    { (int)DepthC3_GameObj.PressureSensorHose, new ObjectTextData((int)DepthC3_GameObj.PressureSensorHose, "압력 센서 호스", "Pressure Sensor Hose") },
+    { (int)DepthC3_GameObj.PressureSensorAdapter, new ObjectTextData((int)DepthC3_GameObj.PressureSensorAdapter, "압력 센서 어댑터", "Pressure Sensor Adapter") },
+    { (int)DepthC3_GameObj.PressureSensorAdapter_Sub, new ObjectTextData((int)DepthC3_GameObj.PressureSensorAdapter_Sub, "압력 센서 어댑터 (보조)", "Pressure Sensor Adapter (Sub)") },
+    { (int)DepthC3_GameObj.PressureSensorDamagedPart, new ObjectTextData((int)DepthC3_GameObj.PressureSensorDamagedPart, "손상된 압력 센서 부품", "Damaged Pressure Sensor Part") },
+    { (int)DepthC3_GameObj.PressureSensor_Display, new ObjectTextData((int)DepthC3_GameObj.PressureSensor_Display, "압력 센서 디스플레이", "Pressure Sensor Display") },
+    { (int)DepthC3_GameObj.PressureSensor_Display_Uni, new ObjectTextData((int)DepthC3_GameObj.PressureSensor_Display_Uni, "압력 센서 디스플레이(단위)", "Pressure Sensor Display (Unit)") },
+    { (int)DepthC3_GameObj.PressureSensorWaterPipeValve, new ObjectTextData((int)DepthC3_GameObj.PressureSensorWaterPipeValve, "압력 센서 배관 밸브", "Pressure Sensor Water Pipe Valve") },
+    { (int)DepthC3_GameObj.AnodeSensorOutput, new ObjectTextData((int)DepthC3_GameObj.AnodeSensorOutput, "양극 센서 출력", "Anode Sensor Output") },
+    { (int)DepthC3_GameObj.PressureCalibrator, new ObjectTextData((int)DepthC3_GameObj.PressureCalibrator, "압력 교정기", "Pressure Calibrator") },
+    { (int)DepthC3_GameObj.PressureSensorConnectingPipe, new ObjectTextData((int)DepthC3_GameObj.PressureSensorConnectingPipe, "연결 배관", "Connecting Pipe") },
+    { (int)DepthC3_GameObj.PressureSensorConnectingScrew, new ObjectTextData((int)DepthC3_GameObj.PressureSensorConnectingScrew, "연결 나사", "Connecting Screw") },
+
+    // 하이라이트 및 툴팁 적용을 위한 버튼
+    { (int)DepthC3_GameObj.Btn_F1, new ObjectTextData((int)DepthC3_GameObj.Btn_F1, "F1 버튼", "F1 Button") },
+    { (int)DepthC3_GameObj.Btn_F2, new ObjectTextData((int)DepthC3_GameObj.Btn_F2, "F2 버튼", "F2 Button") },
+    { (int)DepthC3_GameObj.Btn_F3, new ObjectTextData((int)DepthC3_GameObj.Btn_F3, "F3 버튼", "F3 Button") },
+    { (int)DepthC3_GameObj.Btn_F4, new ObjectTextData((int)DepthC3_GameObj.Btn_F4, "F4 버튼", "F4 Button") },
+    { (int)DepthC3_GameObj.Btn_Tasks, new ObjectTextData((int)DepthC3_GameObj.Btn_Tasks, "작업 버튼", "Tasks Button") },
+    { (int)DepthC3_GameObj.Btn_Arrow_Down, new ObjectTextData((int)DepthC3_GameObj.Btn_Arrow_Down, "아래 화살표", "Arrow Down") },
+    { (int)DepthC3_GameObj.Btn_Arrow_Up, new ObjectTextData((int)DepthC3_GameObj.Btn_Arrow_Up, "위 화살표", "Arrow Up") },
+    { (int)DepthC3_GameObj.Btn_Enter, new ObjectTextData((int)DepthC3_GameObj.Btn_Enter, "엔터 버튼", "Enter Button") },
+    { (int)DepthC3_GameObj.Btn_Vent, new ObjectTextData((int)DepthC3_GameObj.Btn_Vent, "배출 버튼", "Vent Button") },
+    { (int)DepthC3_GameObj.Btn_Number_One, new ObjectTextData((int)DepthC3_GameObj.Btn_Number_One, "숫자 1 버튼", "Number One") },
+    { (int)DepthC3_GameObj.Btn_Number_Zero, new ObjectTextData((int)DepthC3_GameObj.Btn_Number_Zero, "숫자 0 버튼", "Number Zero") }
+};
     
-private readonly int UNWOUND_COUNT_GOAL = 1;
+
+    private readonly int UNWOUND_COUNT_GOAL = 1;
     private int _unwoundCount;
     
     public void InitTransform(DepthC3_GameObj obj, bool isAll =false)
@@ -109,6 +140,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
 
 
     /// <summary>
+    /// 011025 미사용권장 (애니메이션으로 초기화하는것이 더 낫다고 판단함)
     /// 1.Depth1,2,3 통틀어서, 초기위치가 불변인 객체만 사용권장
     /// (예를들어, LeverHandle의 초기위치는 depth1,2에서 다르므로 사용권장하지않음)
     /// 2.위치가 새롭게 변경되는 경우 Animation으로 위치,각도를 초기화거나, 별도 로직 추가 사용권장.
@@ -218,13 +250,13 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     private void BindEventForPsCalibrator()
     {
 
-        BindHighlight((int)DepthC3_GameObj.Btn_F1,"F1");
+        //BindHighlight((int)DepthC3_GameObj.Btn_F1,"F1");
         
         
-        BindHighlight((int)DepthC3_GameObj.Btn_F2,"F2");
+        //BindHighlight((int)DepthC3_GameObj.Btn_F2,"F2");
         
         
-        BindHighlight((int)DepthC3_GameObj.Btn_F3,"F3");
+        //BindHighlight((int)DepthC3_GameObj.Btn_F3,"F3");
         GetObject((int)DepthC3_GameObj.Btn_F3).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 10)
@@ -241,7 +273,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
             }
         });
         
-        BindHighlight((int)DepthC3_GameObj.Btn_F4,"F4");
+        //BindHighlight((int)DepthC3_GameObj.Btn_F4,"F4");
         GetObject((int)DepthC3_GameObj.Btn_F4).BindEvent(() =>
         {
             
@@ -268,7 +300,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         
-        BindHighlight((int)DepthC3_GameObj.Btn_Vent,"VENT");
+        //BindHighlight((int)DepthC3_GameObj.Btn_Vent,"VENT");
         GetObject((int)DepthC3_GameObj.Btn_Vent).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 9)
@@ -279,7 +311,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         
-        BindHighlight((int)DepthC3_GameObj.Btn_Tasks,"TASKS");
+        //BindHighlight((int)DepthC3_GameObj.Btn_Tasks,"TASKS");
         GetObject((int)DepthC3_GameObj.Btn_Tasks).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 11)
@@ -292,7 +324,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
 
         
-        BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Down,"DOWN");
+        //BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Down,"DOWN");
         GetObject((int)DepthC3_GameObj.Btn_Arrow_Down).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 14)
@@ -309,10 +341,10 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         
         
-        BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Up,"UP");
+        //BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Up,"UP");
         
         
-        BindHighlight((int)DepthC3_GameObj.Btn_Enter,"ENTER");
+        //BindHighlight((int)DepthC3_GameObj.Btn_Enter,"ENTER");
         GetObject((int)DepthC3_GameObj.Btn_Enter).BindEvent(() =>
         {
        
@@ -339,7 +371,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         
-        BindHighlight((int)DepthC3_GameObj.Btn_Number_One,"1");
+        //BindHighlight((int)DepthC3_GameObj.Btn_Number_One,"1");
         GetObject((int)DepthC3_GameObj.Btn_Number_One).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12)
@@ -356,7 +388,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         
-        BindHighlight((int)DepthC3_GameObj.Btn_Number_Zero,"0");
+        //BindHighlight((int)DepthC3_GameObj.Btn_Number_Zero,"0");
         GetObject((int)DepthC3_GameObj.Btn_Number_Zero).BindEvent(() =>
         {
             
@@ -486,20 +518,20 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         
         
-        BindHighlight((int)DepthC3_GameObj.CathodeSensorInput,"시그널 컨디셔너 입력단자");
-        BindHighlight((int)DepthC3_GameObj.AnodeSensorOutput,"센서 출력 단자");
-        BindHighlight((int)DepthC3_GameObj.PressureSensor,"압력 센서");
-        BindHighlight((int)DepthC3_GameObj.PressureCalibrator,"압력 교정기");
-        BindHighlight((int)DepthC3_GameObj.PressureSensorConnectingPipe,"배관 연결부");
-        BindHighlight((int)DepthC3_GameObj.PressureSensorConnectingScrew,"연결부 고정 나사");
-        BindHighlight((int)DepthC3_GameObj.MultimeterHandleHighlight,"전류모드로 설정");
+        //BindHighlight((int)DepthC3_GameObj.CathodeSensorInput,"시그널 컨디셔너 입력단자");
+        //BindHighlight((int)DepthC3_GameObj.AnodeSensorOutput,"센서 출력 단자");
+        //BindHighlight((int)DepthC3_GameObj.PressureSensor,"압력 센서");
+        //BindHighlight((int)DepthC3_GameObj.PressureCalibrator,"압력 교정기");
+        //BindHighlight((int)DepthC3_GameObj.PressureSensorConnectingPipe,"배관 연결부");
+        //BindHighlight((int)DepthC3_GameObj.PressureSensorConnectingScrew,"연결부 고정 나사");
+        //BindHighlight((int)DepthC3_GameObj.MultimeterHandleHighlight,"전류모드로 설정");
 
         
         
-        BindHighlight((int)DepthC3_GameObj.ConnectionScrewA,"나사");
-        BindHighlight((int)DepthC3_GameObj.ConnectionScrewB,"나사");
-        BindHighlight((int)DepthC3_GameObj.ConnectionScrewC,"나사");
-        BindHighlight((int)DepthC3_GameObj.ConnectionScrewD,"나사");
+        //BindHighlight((int)DepthC3_GameObj.ConnectionScrewA,"나사");
+        //BindHighlight((int)DepthC3_GameObj.ConnectionScrewB,"나사");
+        //BindHighlight((int)DepthC3_GameObj.ConnectionScrewC,"나사");
+        //BindHighlight((int)DepthC3_GameObj.ConnectionScrewD,"나사");
         
                 
         GetObject((int)DepthC3_GameObj.PressureSensorConnectingScrew).BindEvent(() =>
@@ -553,10 +585,10 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         BindInteractionEvent();
         
-        BindHighlight((int)DepthC3_GameObj.PressureSensorDamagedPart,"변형(손상된) 감압부");
+        //BindHighlight((int)DepthC3_GameObj.PressureSensorDamagedPart,"변형(손상된) 감압부");
         
           
-        BindHighlight((int)DepthC3_GameObj.PressureSensorAdapter,"압력센서 어댑터");
+        //BindHighlight((int)DepthC3_GameObj.PressureSensorAdapter,"압력센서 어댑터");
         GetObject((int)DepthC3_GameObj.PressureSensorAdapter).BindEvent(() =>
         {
             
@@ -566,7 +598,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
                 OnStepMissionComplete(animationNumber:3);
             }  
         });
-        BindHighlight((int)DepthC3_GameObj.PressureSensorAdapter_Sub,"압력센서 어댑터");
+        //BindHighlight((int)DepthC3_GameObj.PressureSensorAdapter_Sub,"압력센서 어댑터");
         GetObject((int)DepthC3_GameObj.PressureSensorAdapter_Sub).BindEvent(() =>
         {
             
@@ -622,10 +654,10 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         BindInteractionEvent();
         BindEventForPsCalibrator();
         
-        BindHighlight((int)DepthC3_GameObj.ConnectionScrewB,"나사");
+        //BindHighlight((int)DepthC3_GameObj.ConnectionScrewB,"나사");
         
         
-        BindHighlight((int)DepthC3_GameObj.PressureSensorWaterPipeValve,"밸브 열기");        
+        //BindHighlight((int)DepthC3_GameObj.PressureSensorWaterPipeValve,"밸브 열기");        
         GetObject((int)DepthC3_GameObj.PressureSensorWaterPipeValve).BindEvent(() =>
         {
             Logger.Log("잔유물제거---------------------");
@@ -636,7 +668,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         
-        BindHighlight((int)DepthC3_GameObj.PowerHandle,"전원 차단");
+        //BindHighlight((int)DepthC3_GameObj.PowerHandle,"전원 차단");
         
         GetObject((int)DepthC3_GameObj.PowerHandle).BindEvent(() =>
         {
@@ -649,7 +681,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
                
-        BindHighlight((int)DepthC3_GameObj.PressureSensor,"기존 압력센서 회수");
+        //BindHighlight((int)DepthC3_GameObj.PressureSensor,"기존 압력센서 회수");
         
         GetObject((int)DepthC3_GameObj.PressureSensor).BindEvent(() =>
         {

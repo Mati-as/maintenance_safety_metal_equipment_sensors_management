@@ -162,6 +162,7 @@ public class UI_Evaluation : UI_Popup
         GetButton((int)Btns.Btn_Restart).gameObject.BindEvent(() =>
         {
             OnRestartBtnOnEvalClicked?.Invoke();
+            
         });
 
 
@@ -174,7 +175,7 @@ public class UI_Evaluation : UI_Popup
     
     public void OnInitUI()
     {
-        Managers.evaluationManager.IsCorrectMapInit();
+        Managers.EvaluationManager.IsCorrectMapInit();
 
         GetObject((int)UI.UI_CheckList).SetActive(true);
          if(_UIchecklistAnimator!=null)_UIchecklistAnimator.SetBool(Define.UI_ON, false);
@@ -207,20 +208,20 @@ public class UI_Evaluation : UI_Popup
          
         }
         
-        if (Managers.evaluationManager.currentDepthScore < 30)
+        if (Managers.EvaluationManager.currentDepthScore < 30)
         {
             SetStarImage(0);
             GetTMP((int)TMPs.TMP_OverallEvalText).text = "미흡";
             return;
         }
-        if (Managers.evaluationManager.currentDepthScore  < 70)
+        if (Managers.EvaluationManager.currentDepthScore  < 70)
         {
             SetStarImage(1);
             GetTMP((int)TMPs.TMP_OverallEvalText).text = "보통";
             return;
 
         }
-        if (Managers.evaluationManager.currentDepthScore  > 70)
+        if (Managers.EvaluationManager.currentDepthScore  > 70)
         {
             GetTMP((int)TMPs.TMP_OverallEvalText).text = "우수";
             SetStarImage(2);
@@ -230,7 +231,7 @@ public class UI_Evaluation : UI_Popup
 
     public void UI_OnEvalStart()
     {
-        Managers.evaluationManager.OnEvalStart();
+        Managers.EvaluationManager.OnEvalStart();
         
         GetObject((int)UI.UI_CheckList).SetActive(true);
         if(_UIchecklistAnimator!=null) _UIchecklistAnimator.SetBool(Define.UI_ON, true);
@@ -245,8 +246,8 @@ public class UI_Evaluation : UI_Popup
         // _currentTotalScore =
         //     Managers.evaluationManager.scorePerDepthMap[int.Parse(currentDepth1.ToString() + currentDepth2.ToString())];
            
-        Managers.evaluationManager.SaveResult(int.Parse(currentDepth1.ToString() + currentDepth2.ToString()),
-            Managers.evaluationManager.currentDepthScore);
+        Managers.EvaluationManager.SaveResult(int.Parse(currentDepth1.ToString() + currentDepth2.ToString()),
+            Managers.EvaluationManager.currentDepthScore);
 
         GetObject((int)UI.UI_CheckList).SetActive(true);
         
@@ -288,10 +289,10 @@ public class UI_Evaluation : UI_Popup
             var key = int.Parse(depth1 + depth2 + i);
 
             _textMap[int.Parse(_evalId + i.ToString() + TMP_SCORE_CHILD_ORDER)].text
-                = Managers.evaluationManager.isCorrectMap[key]
-                    ? Managers.evaluationManager.SCORE_PER_ITEM_MAP[key].ToString()
+                = Managers.EvaluationManager.isCorrectMap[key]
+                    ? Managers.EvaluationManager.SCORE_PER_ITEM_MAP[key].ToString()
                     : 0.ToString();
-            Logger.Log($"{i}번 문항 정답? {Managers.evaluationManager.isCorrectMap[key]} ");
+            Logger.Log($"{i}번 문항 정답? {Managers.EvaluationManager.isCorrectMap[key]} ");
         }
     }
 
@@ -301,10 +302,10 @@ public class UI_Evaluation : UI_Popup
         var currentDepth1 = Managers.ContentInfo.PlayData.Depth1;
         var currentDepth2 = Managers.ContentInfo.PlayData.Depth2;
         
-        DOVirtual.Float(0,Managers.evaluationManager.scorePerDepthMap[int.Parse(currentDepth1.ToString() + currentDepth2.ToString())], 2f,
+        DOVirtual.Float(0,Managers.EvaluationManager.scorePerDepthMap[int.Parse(currentDepth1.ToString() + currentDepth2.ToString())], 2f,
             val => { GetTMP((int)TMPs.TotalScore).text = ((int)val).ToString(); });
         
-        Logger.Log($"총점: {Managers.evaluationManager.scorePerDepthMap[int.Parse(currentDepth1.ToString() + currentDepth2.ToString())]}");
+        Logger.Log($"총점: {Managers.EvaluationManager.scorePerDepthMap[int.Parse(currentDepth1.ToString() + currentDepth2.ToString())]}");
     }
 
 

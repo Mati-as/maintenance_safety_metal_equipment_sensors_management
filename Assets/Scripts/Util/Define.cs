@@ -85,7 +85,7 @@ public class Define
 	//씬초기화시에만 사용중, 추후 필요없을 가능성 높음(12/12/24)
 	public enum DepthC_Sensor
 	{
-		ProximitySensor=1,
+		LimitSwitch=1,
 		TemperatureSensor=2,
 		PressureSensor=3,
 		FlowSensor=4,

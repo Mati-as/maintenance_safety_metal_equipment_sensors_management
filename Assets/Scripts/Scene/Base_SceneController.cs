@@ -17,7 +17,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     protected Dictionary<int, ObjectTextData> ObjectNameMap;
     protected virtual void SetObjectName(){}
 
-    protected virtual void BindAllClickableObj(){}
+    protected virtual void BindHLForAllClickableObj(){}
 
     private WaitForSeconds _waitBeforeNextStep;
     private readonly float _waitBeforeNextStepSeconds = 0.1f;
@@ -81,12 +81,12 @@ public class Base_SceneController : MonoBehaviour, ISceneController
 
         
         Assert.IsNotNull(ObjectNameMap);
-        
-        
-        bool isKorMode = (int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.LanguageMode.Kor;
+
+
+        bool isEng = Managers.Data.CheckIfEngMode();
         if (ObjectNameMap.TryGetValue(enumId, out var textData))
         {
-            string displayText = isKorMode ? textData.Kor : textData.Eng;
+            string displayText = isEng ? textData.Eng : textData.Kor;
             Debug.Log($"Binding Highlight: {displayText}");
             BindHighlight(enumId,displayText);
         }
@@ -716,14 +716,14 @@ public class Base_SceneController : MonoBehaviour, ISceneController
             SetHighlight(gameObj);
             contentController.SetToolTipActiveStatus();
             contentController.SetToolTipText(_toolTipTextMap[gameObj]);
-            Logger.Log(" Enter_ On 마우스 손가락 이미지로 변경 ----------------------------");
+        //    Logger.Log(" Enter_ On 마우스 손가락 이미지로 변경 ----------------------------");
             Cursor.SetCursor(Managers.cursorImageManager.Get_hand_image(), Vector2.zero, CursorMode.ForceSoftware);
         }, Define.UIEvent.PointerEnter);
 
         // PointerExit 이벤트 바인딩
         GetObject((int)gameObj).BindEvent(() =>
         {
-            Logger.Log(" Enter_ Exit 마우스 화살표  이미지로 변경 ----------------------------");
+//            Logger.Log(" Enter_ Exit 마우스 화살표  이미지로 변경 ----------------------------");
             SetHighlight(gameObj,false);
             Cursor.SetCursor(Managers.cursorImageManager.Get_arrow_image(), Vector2.zero, CursorMode.ForceSoftware);
             contentController.SetToolTipActiveStatus(false);

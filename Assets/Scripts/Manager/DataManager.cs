@@ -251,9 +251,9 @@ public class DataManager
         //Debug.Log("SAVED DATA WRITE");
     }
 
-    public static bool CheckIfKoreanMode()
+    public bool CheckIfEngMode()
     {
-        if ((int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.LanguageMode.Kor)
+        if ((int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.LanguageMode.Eng)
             return true;
         else return false;
     }

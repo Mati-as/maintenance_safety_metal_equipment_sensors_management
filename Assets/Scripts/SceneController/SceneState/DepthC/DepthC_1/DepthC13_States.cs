@@ -82,6 +82,7 @@ public class DepthC13_State_3 : Base_SceneState
 
     public override void OnEnter()
     {
+        _depthC1SceneController.controlPanel.SetPowerHandleOn();
         _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.PowerHandle,false);
         _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.PowerHandle);
         base.OnEnter();
@@ -181,7 +182,6 @@ public class DepthC13_State_7 : Base_SceneState
     {
         _depthC1SceneController.ClearTool();
         _depthC1SceneController.limitSwitchPivotController.SetLimitSwitchControllableOrClickable(false);
-
         _depthC1SceneController.isLeverScrewUnwound = false;
         
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
@@ -373,7 +373,6 @@ public class DepthC13_State_13 : Base_SceneState
 
     public override void OnExit()
     {
-       
         base.OnExit();
     }
 }
@@ -392,11 +391,12 @@ public class DepthC13_State_14 : Base_SceneState
     public override void OnEnter()
     {
 
-        Managers.Scene.LoadScene(SceneType.DepthC2);
-        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewC);
-        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.ConnectionScrewD);
+        base.OnEnter();
+        _depthC1SceneController.SetHighlightIgnore((int)DepthC1_GameObj.PowerHandle,false);
+        _depthC1SceneController.BlinkHighlight((int)DepthC1_GameObj.PowerHandle);
+        _depthC1SceneController.controlPanel.SetPowerHandleOff();
         _depthC1SceneController.ClearTool();
-        CurrentScene.PlayAnimation(0);
+       
 
     }
     public override void OnStep(){base.OnStep();}
@@ -418,8 +418,12 @@ public class DepthC13_State_15 : Base_SceneState
         _depthC1SceneController = currentScene;
     }
 
-    
-    public override void OnEnter(){base.OnEnter();}
+
+    public override void OnEnter()
+    {
+        Managers.Scene.LoadScene(SceneType.DepthC2);
+       
+    }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
 }

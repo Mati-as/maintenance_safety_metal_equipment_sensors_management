@@ -115,7 +115,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
 
             GetObject((int)obj).BindEvent(() =>
             {
-                Managers.evaluationManager.CheckIfAnswerIsCorrect((int)obj);
+                Managers.EvaluationManager.CheckIfAnswerIsCorrect((int)obj);
                 Logger.Log($"Evaluation Event Bound : {obj}");
             });
         }
@@ -264,7 +264,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
 
     public override void OnElectricScrewdriverBtnClicked()
     {
-        if (!Managers.evaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_ElectricScrewdriver)) return;
+        if (!Managers.EvaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_ElectricScrewdriver)) return;
         base.OnElectricScrewdriverBtnClicked();
         
     }
@@ -273,7 +273,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
     {
         if (Managers.ContentInfo.PlayData.Depth1 != 4) return;
 
-        if (!Managers.evaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_Multimeter)) return;
+        if (!Managers.EvaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_Multimeter)) return;
        
         
         InitializeTool();
@@ -314,7 +314,7 @@ public class DepthD2_SceneController : DepthC2_SceneController
      
      protected override void OnUIBtnToolBoxTemperatureSensorClicked()
      {
-         if (!Managers.evaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_TemperatureSensor)) return;
+         if (!Managers.EvaluationManager.CheckIfAnswerIsCorrect(UI_ToolBox.Btns.Btn_TemperatureSensor)) return;
          
          if (Managers.ContentInfo.PlayData.Depth3 == 2 && Managers.ContentInfo.PlayData.Count == 5 )
          {

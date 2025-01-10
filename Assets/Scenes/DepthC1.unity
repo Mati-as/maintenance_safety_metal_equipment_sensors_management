@@ -192,10 +192,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: "DepthC1_AnimationController_ \uB9AC\uBC0B\uC2A4\uC704\uCE58 --------------"
       objectReference: {fileID: 0}
-    - target: {fileID: 5797536883867483545, guid: 2f70db49a79f3fc47a3d545022a0231f,
+    - target: {fileID: 2965912909139407485, guid: 2f70db49a79f3fc47a3d545022a0231f,
         type: 3}
-      propertyPath: rmsCount
-      value: 32
+      propertyPath: m_Animations.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2965912909139407485, guid: 2f70db49a79f3fc47a3d545022a0231f,
+        type: 3}
+      propertyPath: m_Animations.Array.data[11]
+      value: 
+      objectReference: {fileID: 7400000, guid: 2073f2cc666ed99478ad7108984d08d6, type: 2}
+    - target: {fileID: 2965912909139407485, guid: 2f70db49a79f3fc47a3d545022a0231f,
+        type: 3}
+      propertyPath: m_Animations.Array.data[12]
+      value: 
+      objectReference: {fileID: 7400000, guid: bd051b55c8f32ab45b854135dc842142, type: 2}
+    - target: {fileID: 2965912909139407485, guid: 2f70db49a79f3fc47a3d545022a0231f,
+        type: 3}
+      propertyPath: m_Animations.Array.data[13]
+      value: 
+      objectReference: {fileID: 7400000, guid: 9ef139b9ad45b0142904b7b26cef0a31, type: 2}
+    - target: {fileID: 5797536884272534328, guid: 2f70db49a79f3fc47a3d545022a0231f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 80.221
+      objectReference: {fileID: 0}
+    - target: {fileID: 5797536884272534328, guid: 2f70db49a79f3fc47a3d545022a0231f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -57.239
+      objectReference: {fileID: 0}
+    - target: {fileID: 5797536884272534328, guid: 2f70db49a79f3fc47a3d545022a0231f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 19.207
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f70db49a79f3fc47a3d545022a0231f, type: 3}
