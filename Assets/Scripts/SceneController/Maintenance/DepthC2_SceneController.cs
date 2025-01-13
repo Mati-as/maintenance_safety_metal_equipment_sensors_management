@@ -16,6 +16,7 @@ using Sequence = DG.Tweening.Sequence;
 public enum DepthC2_GameObj
 {
     // Common------------------
+    //Highlight X
     ElectricScrewdriver,
     Multimeter,
     MultimeterHandleHighlight,
@@ -23,8 +24,12 @@ public enum DepthC2_GameObj
     Probe_Anode, // negative
     Probe_Cathode, // positive
     Wrench,
-        
+    //주의: 튜토리얼전용
+    TS_CoverScrew,
+    LookAtPoint3,
+    
     //Temperature sesnor ----------
+    //Highlight O
     TS_CompensatingWire,
     TS_Stabilizer,
     TS_SensingElement,
@@ -45,9 +50,7 @@ public enum DepthC2_GameObj
     PowerHandle,
     TankValve,
     
-    //주의: 튜토리얼전용
-    TS_CoverScrew,
-    LookAtPoint3
+
     
 
 }
@@ -56,6 +59,68 @@ public enum DepthC2_GameObj
 public class DepthC2_SceneController : Base_SceneController
 {
 
+    
+        // Highlight 가능한 오브젝트로만 구성
+    protected override void SetObjectName() => ObjectNameMap = new Dictionary<int, ObjectTextData>
+    {
+        // 공통 오브젝트
+        // { (int)DepthC2_GameObj.ElectricScrewdriver, new ObjectTextData((int)DepthC2_GameObj.ElectricScrewdriver, "전동 드라이버", "Electric Screwdriver") },
+        // { (int)DepthC2_GameObj.MultimeterHandleHighlight, new ObjectTextData((int)DepthC2_GameObj.MultimeterHandleHighlight, "멀티미터 다이얼", "Multimeter Dial") },
+        // { (int)DepthC2_GameObj.Indicator, new ObjectTextData((int)DepthC2_GameObj.Indicator, "인디케이터", "Indicator") },
+        // { (int)DepthC2_GameObj.Probe_Anode, new ObjectTextData((int)DepthC2_GameObj.Probe_Anode, "양극 프로브", "Probe (Anode)") },
+        // { (int)DepthC2_GameObj.Probe_Cathode, new ObjectTextData((int)DepthC2_GameObj.Probe_Cathode, "음극 프로브", "Probe (Cathode)") },
+        
+        // 온도 센서 관련
+    { (int)DepthC2_GameObj.TS_CompensatingWire, new ObjectTextData((int)DepthC2_GameObj.TS_CompensatingWire, "보상 도선", "Compensating Wire") },
+    { (int)DepthC2_GameObj.TS_Stabilizer, new ObjectTextData((int)DepthC2_GameObj.TS_Stabilizer, "안정기", "Stabilizer") },
+    { (int)DepthC2_GameObj.TS_SensingElement, new ObjectTextData((int)DepthC2_GameObj.TS_SensingElement, "센싱 엘리먼트", "Sensing Element") },
+    { (int)DepthC2_GameObj.TS_Cover, new ObjectTextData((int)DepthC2_GameObj.TS_Cover, "온도 센서 덮개", "Temperature Sensor Cover") },
+    { (int)DepthC2_GameObj.TS_LockingScrew, new ObjectTextData((int)DepthC2_GameObj.TS_LockingScrew, "고정 나사", "Locking Screw") },
+    { (int)DepthC2_GameObj.TS_ConnectionPiping, new ObjectTextData((int)DepthC2_GameObj.TS_ConnectionPiping, "연결 배관", "Connection Piping") },
+    { (int)DepthC2_GameObj.TS_InnerScrewA, new ObjectTextData((int)DepthC2_GameObj.TS_InnerScrewA, "내부 나사 A", "Inner Screw A") },
+    { (int)DepthC2_GameObj.TS_InnerScrewB, new ObjectTextData((int)DepthC2_GameObj.TS_InnerScrewB, "내부 나사 B", "Inner Screw B") },
+    { (int)DepthC2_GameObj.TS_InnerScrewC, new ObjectTextData((int)DepthC2_GameObj.TS_InnerScrewC, "내부 나사 C", "Inner Screw C") },
+    { (int)DepthC2_GameObj.TS_GroundingTerminalA, new ObjectTextData((int)DepthC2_GameObj.TS_GroundingTerminalA, "접지 단자 A", "Grounding Terminal A") },
+    { (int)DepthC2_GameObj.TS_GroundingTerminalB, new ObjectTextData((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지 단자 B", "Grounding Terminal B") },
+    { (int)DepthC2_GameObj.TemperatureSensor, new ObjectTextData((int)DepthC2_GameObj.TemperatureSensor, "온도 센서", "Temperature Sensor") },
+    { (int)DepthC2_GameObj.OnTempSensor_Pipe, new ObjectTextData((int)DepthC2_GameObj.OnTempSensor_Pipe, "센서가 장착된 배관", "Pipe with Sensor") },
+    { (int)DepthC2_GameObj.NewTemperatureSensor, new ObjectTextData((int)DepthC2_GameObj.NewTemperatureSensor, "새 온도 센서", "New Temperature Sensor") },
+    { (int)DepthC2_GameObj.Pipe_WaterEffect, new ObjectTextData((int)DepthC2_GameObj.Pipe_WaterEffect, "배관 물 효과", "Pipe Water Effect") },
+    { (int)DepthC2_GameObj.WaterLeakEffect, new ObjectTextData((int)DepthC2_GameObj.WaterLeakEffect, "물 누출 효과", "Water Leak Effect") },
+    { (int)DepthC2_GameObj.WaterDecal, new ObjectTextData((int)DepthC2_GameObj.WaterDecal, "물 데칼", "Water Decal") },
+    { (int)DepthC2_GameObj.PowerHandle, new ObjectTextData((int)DepthC2_GameObj.PowerHandle, "전원 핸들", "Power Handle") },
+    { (int)DepthC2_GameObj.TankValve, new ObjectTextData((int)DepthC2_GameObj.TankValve, "탱크 밸브", "Tank Valve") },
+
+        // 튜토리얼 전용
+        { (int)DepthC2_GameObj.TS_CoverScrew, new ObjectTextData((int)DepthC2_GameObj.TS_CoverScrew, "덮개 나사", "Cover Screw") },
+       // { (int)DepthC2_GameObj.LookAtPoint3, new ObjectTextData((int)DepthC2_GameObj.LookAtPoint3, "참조 포인트", "Reference Point") }
+    };
+
+    protected override void BindHLForAllClickableObj()
+    {
+        SetObjectName();
+
+        // Highlight O
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_CompensatingWire);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_Stabilizer);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_SensingElement);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_Cover);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_LockingScrew);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_ConnectionPiping);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_InnerScrewA);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_InnerScrewB);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_InnerScrewC);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_GroundingTerminalA);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TS_GroundingTerminalB);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TemperatureSensor);
+        BindHighlightWithEnum((int)DepthC2_GameObj.OnTempSensor_Pipe);
+        BindHighlightWithEnum((int)DepthC2_GameObj.NewTemperatureSensor);
+        BindHighlightWithEnum((int)DepthC2_GameObj.Pipe_WaterEffect);
+        BindHighlightWithEnum((int)DepthC2_GameObj.WaterLeakEffect);
+        BindHighlightWithEnum((int)DepthC2_GameObj.WaterDecal);
+        BindHighlightWithEnum((int)DepthC2_GameObj.PowerHandle);
+        BindHighlightWithEnum((int)DepthC2_GameObj.TankValve);
+    }
     public Dictionary<int, float> currentScrewGaugeStatus; // 나사 게이지 캐싱
     public Dictionary<int, Animator> animatorMap;
     public Dictionary<int, Sequence> _seqMap;
@@ -356,6 +421,7 @@ public class DepthC2_SceneController : Base_SceneController
         GetScrewColliders();
         contentController.OnDepth2Init(2); // 함수명에 혼동의여지있으나, 로직은 동일하게 동작합니다. 
         PreCommonInit();
+       
     }
 
     private void LateCommonInit()
@@ -406,20 +472,20 @@ public class DepthC2_SceneController : Base_SceneController
       
         GetObject((int)DepthC2_GameObj.TemperatureSensor).SetActive(true);
        // StartCoroutine(OnSceneStartCo());
-
-        BindHighlight((int)DepthC2_GameObj.TS_CompensatingWire, "보상전선");
-        BindHighlight((int)DepthC2_GameObj.TS_Stabilizer, "고정자");
-        BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "센서 연결부분 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개");
-        BindHighlight((int)DepthC2_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 체결확인");
-        BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
-        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalA, "A 접지");
-        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "B 접지");
-        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정");
+        //
+        // //BindHighlight((int)DepthC2_GameObj.TS_CompensatingWire, "보상전선");
+        // //BindHighlight((int)DepthC2_GameObj.TS_Stabilizer, "고정자");
+        // //BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "센서 연결부분 확인");
+        // //BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개");
+        // //BindHighlight((int)DepthC2_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
+        // //BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 체결확인");
+        // //BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
+        // //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
+        // //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 확인");
+        // //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
+        // //BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalA, "A 접지");
+        // //BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "B 접지");
+        // //BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정");
 
         GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(false);
         GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(false);
@@ -489,7 +555,7 @@ public class DepthC2_SceneController : Base_SceneController
                 animatorMap[(int)DepthC2_GameObj.Probe_Anode].enabled = true;
                 animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
                 
-                BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
+                //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
                 
                 SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
                 SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
@@ -506,7 +572,7 @@ public class DepthC2_SceneController : Base_SceneController
                 animatorMap[(int)DepthC2_GameObj.Probe_Anode].SetBool(PROBE_TO_SCREWB, true);
                 
                 
-                BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+                //BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
                 SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB, false);
                 BlinkHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB);
 
@@ -614,14 +680,14 @@ public class DepthC2_SceneController : Base_SceneController
        
         
         #region 3.2.2 온도센서 고장 유형
-        BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 탈거");
+        //BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 탈거");
        // BindAndAddToDictionaryAndInit((int)DepthC_GameObj.TemperatureSensor, "온도센서 수거");
-        BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개 열기");
-        BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "변형된 감온부");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사 체결");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사 체결");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사 체결");
-        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
+        //BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개 열기");
+        //BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "변형된 감온부");
+        //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
+        //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "나사");
+        //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
+        //BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
         SetScrewDriverSection();
 
         GetObject((int)DepthC2_GameObj.TS_LockingScrew).BindEvent(() =>
@@ -662,23 +728,23 @@ public class DepthC2_SceneController : Base_SceneController
         UnBindEventAttatchedObj();
         InitProbePos();
         
-        BindHighlight((int)DepthC2_GameObj.TS_CompensatingWire, "보상전선");
-        BindHighlight((int)DepthC2_GameObj.TS_Stabilizer, "고정자");
-        BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "센서 연결부분 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개");
-        BindHighlight((int)DepthC2_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 체결확인");
-        BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 확인");
-        BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
-        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalA, "A 접지");
-        BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "B 접지");
-        BindHighlight((int)DepthC2_GameObj.PowerHandle, "전원 끄기");
-        BindHighlight((int)DepthC2_GameObj.NewTemperatureSensor, "새 온도센서");
-        BindHighlight((int)DepthC2_GameObj.TankValve, "밸브");
-        BindHighlight((int)DepthC2_GameObj.TemperatureSensor, "교체 할 센서");
-        BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
+        //BindHighlight((int)DepthC2_GameObj.TS_CompensatingWire, "보상전선");
+        //BindHighlight((int)DepthC2_GameObj.TS_Stabilizer, "고정자");
+        //BindHighlight((int)DepthC2_GameObj.TS_SensingElement, "센서 연결부분 확인");
+        //BindHighlight((int)DepthC2_GameObj.TS_Cover, "덮개");
+        //BindHighlight((int)DepthC2_GameObj.OnTempSensor_Pipe, "배관 연결 확인");
+        //BindHighlight((int)DepthC2_GameObj.TS_LockingScrew, "고정나사 체결확인");
+        //BindHighlight((int)DepthC2_GameObj.TS_ConnectionPiping, "연결부 누수 확인");
+        //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewA, "나사");
+        //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "보상도선 확인");
+        //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewC, "나사");
+        //BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalA, "A 접지");
+        //BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "B 접지");
+        //BindHighlight((int)DepthC2_GameObj.PowerHandle, "전원 끄기");
+        //BindHighlight((int)DepthC2_GameObj.NewTemperatureSensor, "새 온도센서");
+        //BindHighlight((int)DepthC2_GameObj.TankValve, "밸브");
+        //BindHighlight((int)DepthC2_GameObj.TemperatureSensor, "교체 할 센서");
+        //BindHighlight((int)DepthC2_GameObj.MultimeterHandleHighlight, "저항측정 모드로 설정하기");
         
 #region 3.2.3 온도 센서 정비 (추가부분)
         UI_ToolBox.ToolBoxOnEvent -= OnToolBoxClicked;
@@ -773,7 +839,7 @@ public class DepthC2_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Count == 10)
             {
                 
-                BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
+                //BindHighlight((int)DepthC2_GameObj.TS_InnerScrewB, "측정단자 B");
                 SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewB, false);
                 BlinkHighlight((int)DepthC2_GameObj.TS_InnerScrewB);
                 
@@ -787,7 +853,7 @@ public class DepthC2_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 != 3) return;
             if (Managers.ContentInfo.PlayData.Count != 11) return;
             
-            BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
+            //BindHighlight((int)DepthC2_GameObj.TS_GroundingTerminalB, "접지");
             
             SetHighlightIgnore((int)DepthC2_GameObj.TS_InnerScrewA);
             SetHighlightIgnore((int)DepthC2_GameObj.TS_GroundingTerminalB, false);
@@ -1598,7 +1664,7 @@ public class DepthC2_SceneController : Base_SceneController
         defaultRotationMap.TryAdd((int)DepthC2_GameObj.Probe_Anode,GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.rotation);
         controlPanel = GetObject((int)DepthC2_GameObj.PowerHandle).GetComponent<ControlPanelController>();
 
-
+        BindHLForAllClickableObj();
         GetObject((int)DepthC2_GameObj.Wrench).SetActive(false);
     }
 

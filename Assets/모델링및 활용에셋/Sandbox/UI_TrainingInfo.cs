@@ -1,4 +1,5 @@
 
+using System.Net.Mime;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,11 +13,18 @@ public class UI_TrainingInfo : UI_Popup
         Head_Depth1_2, // Heading one 
         Text_TrainingGoal,
         Text_TrainingInfo,
+        Text_Confirm,
     }
 
     enum Images
     {
         Image_TrainingIntro
+    }
+    
+    enum TMPs
+    {
+        TMP_TrainingGoal,
+        TMP_TrainingInfo
     }
 
     public bool isInit;
@@ -30,14 +38,17 @@ public class UI_TrainingInfo : UI_Popup
     public override bool Init()
     {
         if (!base.Init()) return false;
-        if(!isInit)BindText(typeof(Texts));
+        
+        BindText(typeof(Texts));
         BindImage(typeof(Images));
+        BindTMP(typeof(TMPs));
+        
+        
+        
         RefreshUI();
-        
-        
-      
-        isInit = true;
-        return isInit;
+
+
+        return true;
     }
 
     private void SetIntroImage()
@@ -64,24 +75,25 @@ public class UI_TrainingInfo : UI_Popup
         
         Logger.Log($"{Managers.ContentInfo.PlayData.CurrentDepthStatus} : Training Goal Refresh UI  -----------");
         
-        GetText((int)Texts.Head_Depth1).text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.Depth1 + "0000")].kor;
+        GetText((int)Texts.Head_Depth1).text = Managers.GetText(int.Parse(Managers.ContentInfo.PlayData.Depth1 + "0000"));
         
         
-        
-        // GetText((int)Texts.Head_Depth3).text =
-        //     Managers.Data.Texts[int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
-        //                                   $"{Managers.ContentInfo.PlayData.Depth2}" + DEPTH1)].kor;
 
         GetText((int)Texts.Head_Depth1_2).text =
-            Managers.Data.Texts[int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
-                                          $"{Managers.ContentInfo.PlayData.Depth2}" + DEPTH2)].kor;
+            Managers.GetText(int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
+                                          $"{Managers.ContentInfo.PlayData.Depth2}" + DEPTH2));
 
         GetText((int)Texts.Text_TrainingGoal).text =
-            Managers.Data.Texts[int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
-                                          $"{Managers.ContentInfo.PlayData.Depth2}" + GOAL)].kor;
+            Managers.GetText(int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
+                                          $"{Managers.ContentInfo.PlayData.Depth2}" + GOAL));
 
         GetText((int)Texts.Text_TrainingInfo).text =
-            Managers.Data.Texts[int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
-                                          $"{Managers.ContentInfo.PlayData.Depth2}" + INFO)].kor;
+            Managers.GetText(int.Parse($"{Managers.ContentInfo.PlayData.Depth1}" +
+                                          $"{Managers.ContentInfo.PlayData.Depth2}" + INFO));
+
+        GetTMP((int)TMPs.TMP_TrainingGoal).text = Managers.Data.IsEngMode() ? "Training Objectives" : "훈련 목표";
+        GetTMP((int)TMPs.TMP_TrainingInfo).text = Managers.Data.IsEngMode() ? "Training Details" : "훈련 내용";
+        GetText((int)Texts.Text_Confirm).text = Managers.Data.IsEngMode() ? "Confirm" : "확인";
+
     }
 }

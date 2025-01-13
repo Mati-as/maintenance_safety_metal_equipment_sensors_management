@@ -25,8 +25,18 @@ public class UI_Persistent : UI_Scene
         Btn_SkipIntro,
       
     }
-    
 
+
+    private enum TMPs
+    {
+        TMP_Skip,
+        TMP_MainMenu,
+        TMP_Help    ,
+        TMP_FullMenu,
+        TMP_Settings,
+        TMP_Quit    ,
+        
+    }
 
     private enum UI
     {
@@ -51,6 +61,7 @@ public class UI_Persistent : UI_Scene
         gameObject.GetComponent<Canvas>().sortingOrder = 20;
         BindButton(typeof(Btns));
         BindObject(typeof(UI));
+        BindTMP(typeof(TMPs));
         persisten_menu = GetObject((int)UI.Persistent_Menu);
        
 
@@ -87,10 +98,10 @@ public class UI_Persistent : UI_Scene
         SetupButton((int)Btns.Btn_Setting, OnSettingBtnClicked);
         SetupButton((int)Btns.Btn_Close, OnCloseBtnClicked);
 
-      
-        
-        
+
+
         GetButton((int)Btns.Btn_SkipIntro).gameObject.SetActive(false);
+        RefreshText();
 
         _fadeEffectImage = GetObject((int)UI.FadeInOutEffect).GetComponent<Image>();
         SetStatus(false);
@@ -353,32 +364,45 @@ public class UI_Persistent : UI_Scene
         _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, duration));
     }
 
-    public void FadeOut(float duration =1.5f)
-    {
-        _fadeEffectSeq?.Kill();
-        _fadeEffectSeq = DOTween.Sequence();
+    // public void FadeOut(float duration =1.5f)
+    // {
+    //     _fadeEffectSeq?.Kill();
+    //     _fadeEffectSeq = DOTween.Sequence();
+    //
+    //     _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, 0.0001f));
+    //     _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, duration));
+    // }
+    //
+    // public void FadeOutAndIn()
+    // {
+    //     _fadeEffectSeq?.Kill();
+    //     _fadeEffectSeq = DOTween.Sequence();
+    //     
+    //     _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, 1.35f));
+    //     _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, 1.0f));
+    //     
+    // }
+    //
+    // public void FadeOutAndInForDepth3()
+    // {
+    //     _fadeEffectSeq?.Kill();
+    //     _fadeEffectSeq = DOTween.Sequence();
+    //     
+    //     _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, 0.5f));
+    //     _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, 0.7f));
+    //     
+    // }
 
-        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, 0.0001f));
-        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, duration));
-    }
-
-    public void FadeOutAndIn()
+    public void RefreshText()
     {
-        _fadeEffectSeq?.Kill();
-        _fadeEffectSeq = DOTween.Sequence();
-        
-        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, 1.35f));
-        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, 1.0f));
+        GetTMP((int)TMPs.TMP_MainMenu).text = Managers.Data.IsEngMode() ? "Main Menu" : "메인화면";
+        GetTMP((int)TMPs.TMP_Help     ).text = Managers.Data.IsEngMode() ? "Help" : "도움말";
+        GetTMP((int)TMPs.TMP_FullMenu).text = Managers.Data.IsEngMode() ? "Full Menu" : "전체메뉴";
+        GetTMP((int)TMPs.TMP_Settings).text = Managers.Data.IsEngMode() ? "Settings" : "환경설정";
+        GetTMP((int)TMPs.TMP_Quit    )    .text = Managers.Data.IsEngMode() ? "Quit" : "종료";
+        GetTMP((int)TMPs.TMP_Skip    )    .text = Managers.Data.IsEngMode() ? "Skip" : "건너뛰기";
         
     }
     
-    public void FadeOutAndInForDepth3()
-    {
-        _fadeEffectSeq?.Kill();
-        _fadeEffectSeq = DOTween.Sequence();
-        
-        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(1, 0.5f));
-        _fadeEffectSeq.Append(_fadeEffectImage.DOFade(0, 0.7f));
-        
-    }
+    
 }

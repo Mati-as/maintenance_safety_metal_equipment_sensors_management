@@ -29,7 +29,7 @@ public enum Btns
     Btn_CameraInit,
     //Btn_Evaluation,
     Btn_ToolBox,
-    Btn_Guidebook,
+    //Btn_Guidebook,
     Btn_TrainingInfo_Confirm,
 
     //  UI_Depth3_List, // Active Area
@@ -85,16 +85,21 @@ public class UI_ContentController : UI_Popup
         Text_Current3Depth,
         Text_Instruction,
         Text_Depth2_A,
+        
         Text_Depth2_B,
         Text_Depth2_C,
         Text_Depth2_D,
         Text_Depth2_E,
+        
         Text_Depth3_A,
         Text_Depth3_B,
         Text_Depth3_C,
         Text_Depth3_D,
         Text_Depth3_E,
-        Text_NextDepth2, Text_PrevDepth2
+        
+        Text_NextDepth2, Text_PrevDepth2,
+        TMP_Guidebook,
+        TMP_ToolBox,
         
     }
 
@@ -339,10 +344,10 @@ public class UI_ContentController : UI_Popup
         if (_highlightImageMap == null) _highlightImageMap = new Dictionary<int, Image>();
         
         
-        Image GuidebookHlImage = GetButton((int)(Btns.Btn_Guidebook))
-            .GetComponentsInChildren<Image>(true) // Gets all Image components
-            .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); 
-        _highlightImageMap.TryAdd((int)Btns.Btn_Guidebook, GuidebookHlImage);
+        // Image GuidebookHlImage = GetButton((int)(Btns.Btn_Guidebook))
+        //     .GetComponentsInChildren<Image>(true) // Gets all Image components
+        //     .FirstOrDefault(img => img.gameObject.name != gameObject.name && img.gameObject.name == "Highlight_Image"); 
+        // _highlightImageMap.TryAdd((int)Btns.Btn_Guidebook, GuidebookHlImage);
         
         Image ToolboxImage = GetButton((int)(Btns.Btn_ToolBox))
             .GetComponentsInChildren<Image>(true) // Gets all Image components
@@ -460,13 +465,13 @@ public class UI_ContentController : UI_Popup
         var rect_1 = (RectTransform)Text_image.transform;
         rect_1.sizeDelta =
             new Vector2(
-                Managers.Data.CheckIfEngMode()
+                Managers.Data.IsEngMode()
                     ? text.Length * 16
                     : text.Length * 30, 50);
         var rect_2 = (RectTransform)Text_tooltip.transform;
         rect_2.sizeDelta =
             new Vector2(
-                Managers.Data.CheckIfEngMode()
+                Managers.Data.IsEngMode()
                     ? text.Length * 16
                     : text.Length * 30, 50);
     }
@@ -587,7 +592,7 @@ public class UI_ContentController : UI_Popup
     
     public void HideToolBoxBtn()
     {
-        GetButton((int)Btns.Btn_Guidebook).gameObject.SetActive(false);
+      //  GetButton((int)Btns.Btn_Guidebook).gameObject.SetActive(false);
         GetButton((int)Btns.Btn_ToolBox).gameObject.SetActive(false);
     }
 
@@ -659,22 +664,20 @@ public class UI_ContentController : UI_Popup
     private void RefreshText()
     {
         var depth1 = Managers.ContentInfo.PlayData.Depth1.ToString();
-        texts[(int)TMPs.Text_Depth1_Title].text = Managers.Data.Texts[int.Parse(depth1 + "0000")].kor;
+        texts[(int)TMPs.Text_Depth1_Title].text = Managers.GetText(int.Parse(depth1 + "0000"));
         var depth1Int = Managers.ContentInfo.PlayData.Depth1;
 
         var depth2 = Managers.ContentInfo.PlayData.Depth2.ToString();
         var depth2Int = Managers.ContentInfo.PlayData.Depth2;
-        // Debug.Log($"depth 2 count : {ContentPlayData.DEPTH_TWO_COUNT_DATA[depth1Int]}");
-        //Debug.Log($"depth 3 count : {ContentPlayData.DEPTH_THREE_COUNT_DATA[int.Parse(depth1+depth2)]}");
-
+     
         var depth2Count = 1;
         for (var i = (int)TMPs.Text_Depth2_A;
              i < (int)TMPs.Text_Depth2_A + ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[depth1Int];
              i++)
         {
-            texts[i].text = Managers.Data.Texts[int.Parse(depth1 + "00" + depth2Count + "0")].kor;
+            texts[i].text = Managers.GetText(int.Parse(depth1 + "00" + depth2Count + "0"));
             depth2Count++;
-            //Debug.Log($"Depth2 텍스트 변환 완료 :{ texts[i].gameObject.name} : { texts[i].text}");
+       
         }
 
 
@@ -683,7 +686,7 @@ public class UI_ContentController : UI_Popup
              i < (int)TMPs.Text_Depth3_A + ContentPlayData.DEPTH_THREE_COUNT_DATA[int.Parse(depth1 + depth2)];
              i++)
         {
-            texts[i].text = Managers.Data.Texts[int.Parse(depth1 + "00" + depth2 + depth3Count)].kor;
+            texts[i].text = Managers.GetText(int.Parse(depth1 + "00" + depth2 + depth3Count));
             depth3Count++;
             // Debug.Log($"Depth3 텍스트 변환 완료 : { texts[i].text}");
         }
@@ -708,22 +711,22 @@ public class UI_ContentController : UI_Popup
             {
                     GetTMP((int)TMPs.Text_PrevDepth2).text = string.Empty;
                 if (Managers.Data.Texts.ContainsKey(processedNextDepth2))
-                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.Data.Texts[processedNextDepth2].kor;
+                    GetTMP((int)TMPs.Text_NextDepth2).text =Managers.GetText(processedNextDepth2);
             }
             else if (Managers.ContentInfo.PlayData.Depth2 ==
                     ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.SensorOverview])
             {
                 if (Managers.Data.Texts.ContainsKey(processedPrevDepth2))
-                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[processedPrevDepth2].kor;
+                    GetTMP((int)TMPs.Text_PrevDepth2).text =Managers.GetText(processedPrevDepth2);
                 if (Managers.Data.Texts.ContainsKey(20010))
-                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.Data.Texts[20010].kor;
+                    GetTMP((int)TMPs.Text_NextDepth2).text =Managers.GetText(20010);
             }
             else
             {
                 if (Managers.Data.Texts.ContainsKey(processedPrevDepth2))
-                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[processedPrevDepth2].kor;
+                    GetTMP((int)TMPs.Text_PrevDepth2).text =Managers.GetText(processedPrevDepth2);
                 if (Managers.Data.Texts.ContainsKey(processedNextDepth2))
-                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.Data.Texts[processedNextDepth2].kor;
+                    GetTMP((int)TMPs.Text_NextDepth2).text =Managers.GetText(processedNextDepth2);
             }
         }
 
@@ -732,26 +735,26 @@ public class UI_ContentController : UI_Popup
             if (Managers.ContentInfo.PlayData.Depth2 == 1)
             {
                 if (Managers.Data.Texts.ContainsKey(10020))
-                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[10020].kor;
+                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.GetText(10020);
                 if (Managers.Data.Texts.ContainsKey(processedNextDepth2))
-                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.Data.Texts[processedNextDepth2].kor;
+                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.GetText(processedNextDepth2);
             }
             else if (Managers.ContentInfo.PlayData.Depth2 ==
                      ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.Safety])
             {
                 if (Managers.Data.Texts.ContainsKey(processedPrevDepth2))
-                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[processedPrevDepth2].kor;
+                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.GetText(processedPrevDepth2);
                 if (Managers.Data.Texts.ContainsKey(30010))
-                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.Data.Texts[30010].kor;
+                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.GetText(30010);
             }
             else
             {
                 if (Managers.Data.Texts.ContainsKey(processedPrevDepth2))
                     GetTMP((int)TMPs.Text_PrevDepth2).text =
-                        Managers.Data.Texts[processedPrevDepth2].kor;
+                        Managers.GetText(processedPrevDepth2);
                 if (Managers.Data.Texts.ContainsKey(processedNextDepth2))
                     GetTMP((int)TMPs.Text_NextDepth2).text =
-                        Managers.Data.Texts[processedNextDepth2].kor;
+                        Managers.GetText(processedNextDepth2);
             }
         }
 
@@ -760,28 +763,29 @@ public class UI_ContentController : UI_Popup
             if (Managers.ContentInfo.PlayData.Depth2 == 1)
             {
                 if (Managers.Data.Texts.ContainsKey(20030))
-                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[20030].kor;
+                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.GetText(20030);
                 if (Managers.Data.Texts.ContainsKey(processedNextDepth2))
-                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.Data.Texts[processedNextDepth2].kor;
+                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.GetText(processedNextDepth2);
             }
             else if (Managers.ContentInfo.PlayData.Depth2 ==
                      ContentPlayData.DEPTH_TWO_MAX_COUNT_DATA[(int)Define.Depth.MaintenancePractice])
             {
                 if (Managers.Data.Texts.ContainsKey(processedPrevDepth2))
-                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[processedPrevDepth2].kor;
+                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.GetText(processedPrevDepth2);
                 GetTMP((int)TMPs.Text_NextDepth2).text = string.Empty; //평가하기?
             }
             else
             {
                 if (Managers.Data.Texts.ContainsKey(processedPrevDepth2))
-                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.Data.Texts[processedPrevDepth2].kor;
+                    GetTMP((int)TMPs.Text_PrevDepth2).text = Managers.GetText(processedPrevDepth2);
                 if (Managers.Data.Texts.ContainsKey(processedNextDepth2))
-                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.Data.Texts[processedNextDepth2].kor;
+                    GetTMP((int)TMPs.Text_NextDepth2).text = Managers.GetText(processedNextDepth2);
             }
         }
-          
 
-     
+
+        GetTMP((int)TMPs.TMP_ToolBox).text = Managers.Data.IsEngMode() ? "Toolbox" : "도구함";
+        //GetTMP((int)TMPs.TMP_Guidebook).text = Managers.Data.IsEngMode() ? "GuideBook" :"가이드북";
 
         
 
@@ -789,8 +793,8 @@ public class UI_ContentController : UI_Popup
          
         //current  depth3 refresh----------------------------------------------
         texts[(int)TMPs.Text_Current3Depth].text =
-            Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
-                + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + Managers.ContentInfo.PlayData.CurrentDepthStatus[2])].kor;
+            Managers.GetText(int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
+                + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + Managers.ContentInfo.PlayData.CurrentDepthStatus[2]));
 
         Logger.Log($"depth3 문구 변경 현재 뎁스인포 :{int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] +"00"+ Managers.ContentInfo.PlayData.Depth2 + Managers.ContentInfo.PlayData.Depth3)}");
 
@@ -810,7 +814,7 @@ public class UI_ContentController : UI_Popup
             65f + (charCountWithoutSpaces * 35f), // width based on non-space characters
             currentDepth3UIRect.sizeDelta.y);
         
-      Logger.Log($"{texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.Depth2 + Managers.ContentInfo.PlayData.Depth3)].kor}");
+      Logger.Log($"{texts[(int)TMPs.Text_Current3Depth].text = Managers.GetText(int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.Depth2 + Managers.ContentInfo.PlayData.Depth3))}");
       
     //    Logger.Log($"Current Depth Size delta = {currentDepth3UIRect.sizeDelta.x}");
     }
@@ -1068,7 +1072,7 @@ public class UI_ContentController : UI_Popup
         }
         
         texts[(int)TMPs.Text_Instruction].text =
-            Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus)].kor;
+            Managers.GetText(int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus));
         //영문버전 도입시 반영 //Managers.GetText(int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus));
     }
 
@@ -1213,7 +1217,7 @@ public class UI_ContentController : UI_Popup
             return;
         }
         texts[(int)TMPs.Text_Instruction].text =
-           Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus)].kor;
+           Managers.GetText(int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus));
     }
 
     private void OnDepthOneTitleHover()
@@ -1295,14 +1299,7 @@ public class UI_ContentController : UI_Popup
             _depth3Btns[i].gameObject.SetActive(true);
         }
         
-        // Logger.Log($"depth 3 current: {texts[(int)TMPs.Text_Current3Depth].text = Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00" + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + 1)].kor}");
-        //
-        //
-        // Managers.ContentInfo.PlayData.Depth3 = depth3Num;
-        // texts[(int)TMPs.Text_Current3Depth].text =
-        //     Managers.Data.Texts[int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"
-        //         + Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + depth3Num)].kor;
-
+    
         Logger.Log($"depth3 문구 변경 현재 뎁스인포 :{int.Parse(Managers.ContentInfo.PlayData.CurrentDepthStatus[0] + "00"+ Managers.ContentInfo.PlayData.CurrentDepthStatus[1] + depth3Num)} ");
                    
         

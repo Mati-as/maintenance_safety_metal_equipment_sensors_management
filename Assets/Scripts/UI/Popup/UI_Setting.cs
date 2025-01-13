@@ -39,6 +39,32 @@ public class UI_Setting : UI_Popup
         Toggle_Resolution_1920x1080,
         Toggle_Resolution_2560x1440
     }
+    
+    public enum TMPs
+    {
+        TMP_Head,
+        TMP_VolumeSettings,
+        TMP_MasterVolume,
+        TMP_Effect,
+        TMP_BGM,
+        TMP_ScreenMode_Heading,
+        TMP_FullScreen,
+        TMP_WindowMode,
+        TMP_ScreenMode_SmallHeading,
+        TMP_Resolution,
+        TMP_GraphicQuality_Title,
+        TMP_GraphicQuality_Low,
+        TMP_GraphicQuality_Mid,
+        TMP_GraphicQuality_High,
+        TMP_GraphicQuality_Auto,
+        TMP_ControlGuide_Heading,
+        TMP_ControlGuide_SmallHeading,
+        TMP_ControlGuidePopUp_On,
+        TMP_ControlGuidePopUp_Off,
+        TMP_Language_SmallHeading,
+        TMP_Language_Heading,
+        TMP_Narration
+    }
 
     //sensor-related part.-----------------------------------
     public static event Action OnRefreshEvent;
@@ -67,6 +93,9 @@ public class UI_Setting : UI_Popup
         BindButton(typeof(Btns));
         BindToggle(typeof(Toggles));
         BindSlider(typeof(Sliders));
+        BindTMP(typeof(TMPs));
+        
+        RefreshText();
 
         GetToggle((int)Toggles.Toggle_Resolution_1280x720).onValueChanged
             .AddListener(_ => OnResolutionChanged(1280, 720));
@@ -190,7 +219,6 @@ public class UI_Setting : UI_Popup
         });
 
         SetVolumeSlider();
-
         InitialSetting();
         
         
@@ -201,8 +229,9 @@ public class UI_Setting : UI_Popup
             Managers.Data.Preference[(int)Define.Preferences.IsEng] = GetSlider((int)Sliders.Slider_Language).value;
             Managers.UI.isEngMode =  (int)Managers.Data.Preference[(int)Define.Preferences.IsEng];
             Managers.Data.SaveCurrentSetting();
-            
-            
+            RefreshText();
+
+
         });
 
         return true;
@@ -445,7 +474,38 @@ public class UI_Setting : UI_Popup
 
 
 
+  public override void RefreshText()
+{
+    GetTMP((int)TMPs.TMP_Head).text = Managers.Data.IsEngMode() ? "Settings" : "환경 설정";
 
+    GetTMP((int)TMPs.TMP_VolumeSettings).text = Managers.Data.IsEngMode() ? "Volume Settings" : "음량 설정";
+    GetTMP((int)TMPs.TMP_MasterVolume).text = Managers.Data.IsEngMode() ? "Master Volume" : "전체 음량";
+    GetTMP((int)TMPs.TMP_Effect).text = Managers.Data.IsEngMode() ? "Effects" : "효과음";
+    GetTMP((int)TMPs.TMP_BGM).text = Managers.Data.IsEngMode() ? "BGM" : "배경음";
+    GetTMP((int)TMPs.TMP_Narration).text = Managers.Data.IsEngMode() ? "Narration" : "내레이션";
+
+    GetTMP((int)TMPs.TMP_ScreenMode_Heading).text = Managers.Data.IsEngMode() ? "Screen Mode" : "화면 설정";
+    GetTMP((int)TMPs.TMP_ScreenMode_SmallHeading).text = Managers.Data.IsEngMode() ? "Screen Settings" : "화면 모드";
+    GetTMP((int)TMPs.TMP_FullScreen).text = Managers.Data.IsEngMode() ? "Full Screen" : "전체화면";
+    GetTMP((int)TMPs.TMP_WindowMode).text = Managers.Data.IsEngMode() ? "Windowed Mode" : "창 모드";
+
+    GetTMP((int)TMPs.TMP_Resolution).text = Managers.Data.IsEngMode() ? "Resolution" : "해상도";
+
+    GetTMP((int)TMPs.TMP_GraphicQuality_Title).text = Managers.Data.IsEngMode() ? "Graphics Quality" : "그래픽 품질";
+    GetTMP((int)TMPs.TMP_GraphicQuality_Low).text = Managers.Data.IsEngMode() ? "Low" : "낮음";
+    GetTMP((int)TMPs.TMP_GraphicQuality_Mid).text = Managers.Data.IsEngMode() ? "Medium" : "중간";
+    GetTMP((int)TMPs.TMP_GraphicQuality_High).text = Managers.Data.IsEngMode() ? "High" : "높음";
+    GetTMP((int)TMPs.TMP_GraphicQuality_Auto).text = Managers.Data.IsEngMode() ? "Auto" : "자동";
+
+    GetTMP((int)TMPs.TMP_ControlGuide_Heading).text = Managers.Data.IsEngMode() ? "Control Guide" : "조작법 안내";
+    GetTMP((int)TMPs.TMP_ControlGuide_SmallHeading).text = Managers.Data.IsEngMode() ? "Control Guide" : "조작법 안내";
+    GetTMP((int)TMPs.TMP_ControlGuidePopUp_On).text = Managers.Data.IsEngMode() ? "On" : "켜기";
+    GetTMP((int)TMPs.TMP_ControlGuidePopUp_Off).text = Managers.Data.IsEngMode() ? "Off" : "끄기";
+    
+    GetTMP((int)TMPs.TMP_Language_SmallHeading).text = Managers.Data.IsEngMode() ? "Language" : "언어 설정";
+    GetTMP((int)TMPs.TMP_Language_Heading).text = Managers.Data.IsEngMode() ? "Language Settings" : "언어";
+   
+}
 
 #endregion
 }

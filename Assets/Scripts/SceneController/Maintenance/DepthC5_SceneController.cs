@@ -19,26 +19,27 @@ using Sequence = DG.Tweening.Sequence;
 /// </summary>
 public enum DepthC5_GameObj
 {
-    LevelSensor,
-    NewLevelSensor,
+    
+    //Highlight X
     LookAtPoint_LevelSensor,
     ElectricScrewdriver,
     Multimeter,
     MultimeterHandleHighlight,
     Probe_Anode, // negative
     Probe_Cathode, // positive,
-    CathodeSensorInput,
     Wrench,
+    
+    //Highlight O
+    LevelSensor,
+    NewLevelSensor,
+    CathodeSensorInput,
     LevelSensor_PipeValve,
     ConnectionScrewA,
     ConnectionScrewB,
     ConnectionScrewC,
     ConnectionScrewD,
     PowerHandle,
-        
     AnodeSensorOutput,
-  
-    LevelSensorConnectingPipe, //연결 배관
     LevelSensorConnectingScrew, // 연결 나사 (어댑터)
     ContaminatedRod,
     PanelDoorHandle,
@@ -56,6 +57,54 @@ public enum DepthC5_GameObj
 public class DepthC5_SceneController : Base_SceneController
 {
 
+    protected override void SetObjectName() => ObjectNameMap = new Dictionary<int, ObjectTextData>
+{
+    // Highlight O
+    { (int)DepthC5_GameObj.LevelSensor, new ObjectTextData((int)DepthC5_GameObj.LevelSensor, "레벨 센서", "Level Sensor") },
+    { (int)DepthC5_GameObj.NewLevelSensor, new ObjectTextData((int)DepthC5_GameObj.NewLevelSensor, "새 레벨 센서", "New Level Sensor") },
+    { (int)DepthC5_GameObj.CathodeSensorInput, new ObjectTextData((int)DepthC5_GameObj.CathodeSensorInput, "음극 센서 입력", "Cathode Sensor Input") },
+    { (int)DepthC5_GameObj.LevelSensor_PipeValve, new ObjectTextData((int)DepthC5_GameObj.LevelSensor_PipeValve, "레벨 센서 배관 밸브", "Level Sensor Pipe Valve") },
+    { (int)DepthC5_GameObj.ConnectionScrewA, new ObjectTextData((int)DepthC5_GameObj.ConnectionScrewA, "접속 나사 A", "Connection Screw A") },
+    { (int)DepthC5_GameObj.ConnectionScrewB, new ObjectTextData((int)DepthC5_GameObj.ConnectionScrewB, "접속 나사 B", "Connection Screw B") },
+    { (int)DepthC5_GameObj.ConnectionScrewC, new ObjectTextData((int)DepthC5_GameObj.ConnectionScrewC, "접속 나사 C", "Connection Screw C") },
+    { (int)DepthC5_GameObj.ConnectionScrewD, new ObjectTextData((int)DepthC5_GameObj.ConnectionScrewD, "접속 나사 D", "Connection Screw D") },
+    { (int)DepthC5_GameObj.PowerHandle, new ObjectTextData((int)DepthC5_GameObj.PowerHandle, "전원 핸들", "Power Handle") },
+    { (int)DepthC3_GameObj.CathodeSensorInput, new ObjectTextData((int)DepthC5_GameObj.CathodeSensorInput, "센서 신호 입력 단자", "Sensor Signal Input Terminal") },
+    { (int)DepthC3_GameObj.AnodeSensorOutput, new ObjectTextData((int)DepthC5_GameObj.AnodeSensorOutput, "센서 신호 출력 단자", "Sensor Signal Output Terminal") },
+    { (int)DepthC5_GameObj.LevelSensorConnectingScrew, new ObjectTextData((int)DepthC5_GameObj.LevelSensorConnectingScrew, "레벨 센서 연결 나사", "Level Sensor Connecting Screw") },
+    { (int)DepthC5_GameObj.ContaminatedRod, new ObjectTextData((int)DepthC5_GameObj.ContaminatedRod, "오염된 막대", "Contaminated Rod") },
+    { (int)DepthC5_GameObj.PanelDoorHandle, new ObjectTextData((int)DepthC5_GameObj.PanelDoorHandle, "패널 도어 핸들", "Panel Door Handle") },
+    { (int)DepthC5_GameObj.BlockingPipePart, new ObjectTextData((int)DepthC5_GameObj.BlockingPipePart, "배관 차단 부품", "Blocking Pipe Part") },
+    { (int)DepthC5_GameObj.LevelSensor_TankWaterFluidEffect, new ObjectTextData((int)DepthC5_GameObj.LevelSensor_TankWaterFluidEffect, "레벨 센서 탱크 물 효과", "Level Sensor Tank Water Fluid Effect") },
+    { (int)DepthC5_GameObj.LevelSensor_ResidueTankWaterFluidEffect, new ObjectTextData((int)DepthC5_GameObj.LevelSensor_ResidueTankWaterFluidEffect, "레벨 센서 잔류 탱크 물 효과", "Level Sensor Residue Tank Water Fluid Effect") },
+    { (int)DepthC5_GameObj.ModeOrEnterBtn, new ObjectTextData((int)DepthC5_GameObj.ModeOrEnterBtn, "모드/엔터 버튼", "Mode/Enter Button") },
+    { (int)DepthC5_GameObj.SetBtn, new ObjectTextData((int)DepthC5_GameObj.SetBtn, "설정 버튼", "Set Button") }
+};
+
+    protected override void BindHLForAllClickableObj()
+    {
+        SetObjectName();
+
+      //  Highlight O
+       BindHighlightWithEnum((int)DepthC5_GameObj.LevelSensor);
+       BindHighlightWithEnum((int)DepthC5_GameObj.NewLevelSensor);
+       BindHighlightWithEnum((int)DepthC5_GameObj.CathodeSensorInput);
+       BindHighlightWithEnum((int)DepthC5_GameObj.LevelSensor_PipeValve);
+       BindHighlightWithEnum((int)DepthC5_GameObj.ConnectionScrewA);
+       BindHighlightWithEnum((int)DepthC5_GameObj.ConnectionScrewB);
+       BindHighlightWithEnum((int)DepthC5_GameObj.ConnectionScrewC);
+       BindHighlightWithEnum((int)DepthC5_GameObj.ConnectionScrewD);
+       BindHighlightWithEnum((int)DepthC5_GameObj.PowerHandle);
+       BindHighlightWithEnum((int)DepthC5_GameObj.AnodeSensorOutput);
+       BindHighlightWithEnum((int)DepthC5_GameObj.LevelSensorConnectingScrew);
+       BindHighlightWithEnum((int)DepthC5_GameObj.ContaminatedRod);
+       BindHighlightWithEnum((int)DepthC5_GameObj.PanelDoorHandle);
+       BindHighlightWithEnum((int)DepthC5_GameObj.BlockingPipePart);
+       BindHighlightWithEnum((int)DepthC5_GameObj.LevelSensor_TankWaterFluidEffect);
+       BindHighlightWithEnum((int)DepthC5_GameObj.LevelSensor_ResidueTankWaterFluidEffect);
+       BindHighlightWithEnum((int)DepthC5_GameObj.ModeOrEnterBtn);
+       BindHighlightWithEnum((int)DepthC5_GameObj.SetBtn);
+    }
    
     #region 레벨센서 디스플레이
 
@@ -214,8 +263,7 @@ public class DepthC5_SceneController : Base_SceneController
     private void BindEventForLevelSensorDisplay()
     {
    
-        BindHighlight((int)DepthC5_GameObj.ModeOrEnterBtn,
-            Managers.Data.Preference[(int)Define.Preferences.IsEng]== 0 ?"모드/엔터 버튼" : "Mode/Enter Button");
+        //BindHighlight((int)DepthC5_GameObj.ModeOrEnterBtn, Managers.Data.Preference[(int)Define.Preferences.IsEng]== 0 ?"모드/엔터 버튼" : "Mode/Enter Button"));//
        
         
         
@@ -323,10 +371,10 @@ public class DepthC5_SceneController : Base_SceneController
 #endregion END----Mode Enter Btn------------------------
 
 
-        #region  setting 버튼을 통한 컨트롤----------------------------
+      //  #region  setting 버튼을 통한 컨트롤----------------------------
 
-        BindHighlight((int)DepthC5_GameObj.SetBtn,
-            Managers.Data.Preference[(int)Define.Preferences.IsEng]== 0 ?"셋 버튼" : "Set Button");
+        //BindHighlight((int)DepthC5_GameObj.SetBtn,
+          //  Managers.Data.Preference[(int)Define.Preferences.IsEng]== 0 ?"셋 버튼" : "Set Button");
         
         GetObject((int)DepthC5_GameObj.SetBtn).BindEvent(() =>
         {
@@ -422,7 +470,7 @@ public class DepthC5_SceneController : Base_SceneController
         });
     }
     
-    #endregion setting 버튼을 통한 컨트롤----------------------------
+   // #endregion setting 버튼을 통한 컨트롤----------------------------
 
     [Range(-500, 500f)] public float _toolPosXOffset = 0.3f;
     [Range(-500f, 500f)] public float _toolPosYOffset = -0.3f;
@@ -560,7 +608,7 @@ public class DepthC5_SceneController : Base_SceneController
         InitProbePos();
         
                 
-        BindHighlight((int)DepthC5_GameObj.LevelSensorConnectingScrew,"연결부 고정 나사");
+        //BindHighlight((int)DepthC5_GameObj.LevelSensorConnectingScrew,"연결부 고정 나사");
         GetObject((int)DepthC5_GameObj.LevelSensorConnectingScrew).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 5) 
@@ -574,7 +622,7 @@ public class DepthC5_SceneController : Base_SceneController
 
 
         
-        BindHighlight((int)DepthC5_GameObj.ContaminatedRod,"측정부 오염 확인 및 청소");
+        //BindHighlight((int)DepthC5_GameObj.ContaminatedRod,"측정부 오염 확인 및 청소");
         GetObject((int)DepthC5_GameObj.ContaminatedRod).BindEvent(() =>
         {
             
@@ -588,14 +636,14 @@ public class DepthC5_SceneController : Base_SceneController
         
         
         
-        BindHighlight((int)DepthC5_GameObj.CathodeSensorInput,"시그널 컨디셔너 입력단자");
-        BindHighlight((int)DepthC5_GameObj.AnodeSensorOutput,"센서 출력 단자");
+        //BindHighlight((int)DepthC5_GameObj.CathodeSensorInput,"시그널 컨디셔너 입력단자");
+        //BindHighlight((int)DepthC5_GameObj.AnodeSensorOutput,"센서 출력 단자");
         
-        BindHighlight((int)DepthC5_GameObj.MultimeterHandleHighlight,"전류모드로 설정");
-        BindHighlight((int)DepthC5_GameObj.ConnectionScrewA,"나사");
-        BindHighlight((int)DepthC5_GameObj.ConnectionScrewB,"접속단자");
-        BindHighlight((int)DepthC5_GameObj.ConnectionScrewC,"나사");
-        BindHighlight((int)DepthC5_GameObj.ConnectionScrewD,"나사");
+        //BindHighlight((int)DepthC5_GameObj.MultimeterHandleHighlight,"전류모드로 설정");
+        //BindHighlight((int)DepthC5_GameObj.ConnectionScrewA,"나사");
+        //BindHighlight((int)DepthC5_GameObj.ConnectionScrewB,"접속단자");
+        //BindHighlight((int)DepthC5_GameObj.ConnectionScrewC,"나사");
+        //BindHighlight((int)DepthC5_GameObj.ConnectionScrewD,"나사");
         
                 
 
@@ -629,7 +677,7 @@ public class DepthC5_SceneController : Base_SceneController
 
       
         
-        BindHighlight((int)DepthC5_GameObj.BlockingPipePart,"막힌 배관 청소");
+        //BindHighlight((int)DepthC5_GameObj.BlockingPipePart,"막힌 배관 청소");
         GetObject((int)DepthC5_GameObj.BlockingPipePart).BindEvent(() =>
         {
             
@@ -641,7 +689,7 @@ public class DepthC5_SceneController : Base_SceneController
         });
         
                 
-        BindHighlight((int)DepthC5_GameObj.PanelDoorHandle,"전원 패널 덮개 열기");
+        //BindHighlight((int)DepthC5_GameObj.PanelDoorHandle,"전원 패널 덮개 열기");
         GetObject((int)DepthC5_GameObj.PanelDoorHandle).BindEvent(() =>
         {
             
@@ -696,7 +744,7 @@ public class DepthC5_SceneController : Base_SceneController
 
     
         
-        BindHighlight((int)DepthC5_GameObj.PowerHandle,"전원 차단");
+        //BindHighlight((int)DepthC5_GameObj.PowerHandle,"전원 차단");
         GetObject((int)DepthC5_GameObj.PowerHandle).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 3) 
@@ -707,7 +755,7 @@ public class DepthC5_SceneController : Base_SceneController
         });
 
         
-        BindHighlight((int)DepthC5_GameObj.LevelSensor_PipeValve,"밸브 개방");
+        //BindHighlight((int)DepthC5_GameObj.LevelSensor_PipeValve,"밸브 개방");
         GetObject((int)DepthC5_GameObj.LevelSensor_PipeValve).BindEvent(() =>
         {
             
@@ -719,7 +767,7 @@ public class DepthC5_SceneController : Base_SceneController
         });
 
         
-        BindHighlight((int)DepthC5_GameObj.LevelSensor,"새로운 유량센서로 교체");
+        //BindHighlight((int)DepthC5_GameObj.LevelSensor,"새로운 유량센서로 교체");
         GetObject((int)DepthC5_GameObj.LevelSensor).BindEvent(() =>
         {
           
@@ -870,7 +918,7 @@ public class DepthC5_SceneController : Base_SceneController
         
         currentScrewGaugeStatus = new Dictionary<int, float>();
         
-        BindHighlight((int)DepthC5_GameObj.ConnectionScrewB,"접속단자");
+        //BindHighlight((int)DepthC5_GameObj.ConnectionScrewB,"접속단자");
 
         
         currentScrewGaugeStatus.TryAdd((int)DepthC5_GameObj.ConnectionScrewA, 0);

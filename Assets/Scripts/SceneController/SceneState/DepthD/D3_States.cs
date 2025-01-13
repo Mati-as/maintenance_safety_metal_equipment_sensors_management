@@ -154,3 +154,213 @@ public class StateD31_10 : Base_SceneState
     public override void OnExit(){base.OnExit();}
 }
 
+
+
+public class StateD31_11 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_11(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_12 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_12(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_13 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_13(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_14 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_14(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_15 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_15(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_16 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_16(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_17 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_17(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_18 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_18(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_19 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_19(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_20 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_20(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_21 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_21(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+public class StateD31_22 : Base_SceneState
+{
+    // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+    DepthD3_SceneController depthD2SceneController;
+    public StateD31_22(DepthD3_SceneController currentScene) : base(currentScene)
+    { depthD2SceneController = currentScene;}
+
+    // ReSharper disable Unity.PerformanceAnalysis
+    public override void OnEnter()
+    {base.OnEnter();}
+    public override void OnStep(){base.OnStep();}
+    public override void OnExit(){base.OnExit();}
+}
+
+
+// public class StateD31_23 : Base_SceneState
+// {
+//     // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+//     DepthD3_SceneController depthD2SceneController;
+//     public StateD31_23(DepthD3_SceneController currentScene) : base(currentScene)
+//     { depthD2SceneController = currentScene;}
+//
+//     // ReSharper disable Unity.PerformanceAnalysis
+//     public override void OnEnter()
+//     {base.OnEnter();}
+//     public override void OnStep(){base.OnStep();}
+//     public override void OnExit(){base.OnExit();}
+// }
+//
+//
+// public class StateD31_24 : Base_SceneState
+// {
+//     // 부모 클래스 생성자를 호출하여 CurrentScene에 접근 가능
+//     DepthD3_SceneController depthD2SceneController;
+//     public StateD31_24(DepthD3_SceneController currentScene) : base(currentScene)
+//     { depthD2SceneController = currentScene;}
+//
+//     // ReSharper disable Unity.PerformanceAnalysis
+//     public override void OnEnter()
+//     {base.OnEnter();}
+//     public override void OnStep(){base.OnStep();}
+//     public override void OnExit(){base.OnExit();}
+// }

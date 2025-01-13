@@ -90,9 +90,9 @@ public class UI_Main : UI_Popup
 
     public override void RefreshText()
     {
-        if (Managers.Data.CheckIfEngMode())
+        if (Managers.Data.IsEngMode())
         {
-            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
+            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.IsEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
             //GetTMP((int)TMPs.TMP_DepthB).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
             GetTMP((int)TMPs.Title_Heading1).text =
                 "Maintenance and Safety Management of\n Metal Manufacturing Equipment and Measurement Sensors";
@@ -100,7 +100,7 @@ public class UI_Main : UI_Popup
         }
         else
         {
-            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
+            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.IsEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
             // GetTMP((int)TMPs.TMP_DepthB).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
            
             GetTMP((int)TMPs.Title_Heading1).text = "금속제조설비 계측센서\n정비 및 안전관리";
@@ -108,10 +108,10 @@ public class UI_Main : UI_Popup
                 "Maintenance and Safety Management of\nMetal Manufacturing Equipment and Measurement Sensors";
         }
 
-        GetTMP((int)TMPs.TMP_Start).text = Managers.Data.CheckIfEngMode() ? "START" : "시작하기";
+        GetTMP((int)TMPs.TMP_Start).text = Managers.Data.IsEngMode() ? "START" : "시작하기";
        // GetTMP((int)TMPs.TMP_Start).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
        
-       GetTMP((int)TMPs.TMP_ClickInducing).text = Managers.Data.CheckIfEngMode() ? "   Click the Start button to initiate the training" : "시작하기 버튼을 클릭하여 훈련을 시작하세요";
+       GetTMP((int)TMPs.TMP_ClickInducing).text = Managers.Data.IsEngMode() ? "   Click the Start button to initiate the training" : "시작하기 버튼을 클릭하여 훈련을 시작하세요";
     
     }
 
@@ -136,7 +136,8 @@ public class UI_Main : UI_Popup
             GetTMP((int)TMPs.Eng).text = "<color=#FFFFFF>English</color>";
             Managers.Data.Preference[(int)Define.Preferences.IsEng] = (int)Define.LanguageMode.Eng;
         }
-        
+
+        Managers.UI_Persistent.RefreshText();
         RefreshText();
     }
 

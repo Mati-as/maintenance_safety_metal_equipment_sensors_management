@@ -83,7 +83,7 @@ public class Base_SceneController : MonoBehaviour, ISceneController
         Assert.IsNotNull(ObjectNameMap);
 
 
-        bool isEng = Managers.Data.CheckIfEngMode();
+        bool isEng = Managers.Data.IsEngMode();
         if (ObjectNameMap.TryGetValue(enumId, out var textData))
         {
             string displayText = isEng ? textData.Eng : textData.Kor;
@@ -683,15 +683,25 @@ public class Base_SceneController : MonoBehaviour, ISceneController
     public void AddToHighlightDictionary(int gameObj)
     {
         var objName = GetObject((int)gameObj).name;
-        var highlightEffect = GetObject((int)gameObj).GetComponent<HighlightEffect>();
+        HighlightEffect highlightEffect = null;
+        GetObject((int)gameObj).TryGetComponent<HighlightEffect>(out highlightEffect);
 
         //초기하이라이트 설정
-        SetDefaultHighlight(ref highlightEffect);
-        if (!objectHighlightMap.ContainsKey((int)gameObj))
+
+        if (highlightEffect != null)
         {
+            SetDefaultHighlight(ref highlightEffect);
+            if (!objectHighlightMap.ContainsKey((int)gameObj))
+            {
 //  Logger.Log($"하이라이트 Key 추가 ------- {gameObj} :{(DepthC1_GameObj)gameObj}");
-            objectHighlightMap.Add((int)gameObj, highlightEffect);
+                objectHighlightMap.Add((int)gameObj, highlightEffect);
+            }
         }
+        else
+        {
+            Logger.Log($"{GetObject((int)gameObj).name} 은 Highlight Component가 없습니다. ");
+        }
+  
     }
 
     private void SetDefaultHighlight(ref HighlightEffect effect)

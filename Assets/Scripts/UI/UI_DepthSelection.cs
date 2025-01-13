@@ -77,9 +77,9 @@ public class UI_DepthSelection : UI_Popup
 
     public override void RefreshText()
     {
-        if (Managers.Data.CheckIfEngMode())
+        if (Managers.Data.IsEngMode())
         {
-            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
+            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.IsEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
             //GetTMP((int)TMPs.TMP_DepthB).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
             GetTMP((int)TMPs.Title_Heading1).text =
                 "Maintenance and Safety Management of\n Metal Manufacturing Equipment and Measurement Sensors";
@@ -87,7 +87,7 @@ public class UI_DepthSelection : UI_Popup
         }
         else
         {
-            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
+            GetTMP((int)TMPs.Title_Heading1).fontSize = Managers.Data.IsEngMode() ? ENG_SIZE_HEAD1_ENG : KOR_SIZE_HEAD1_KOR;
            // GetTMP((int)TMPs.TMP_DepthB).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
            
             GetTMP((int)TMPs.Title_Heading1).text = "금속제조설비 계측센서\n정비 및 안전관리";
@@ -96,14 +96,18 @@ public class UI_DepthSelection : UI_Popup
         }
 
 
-        GetTMP((int)TMPs.TMP_DepthA).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
-        GetTMP((int)TMPs.TMP_DepthB).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
-        GetTMP((int)TMPs.TMP_DepthC).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
-        GetTMP((int)TMPs.TMP_DepthD).fontSize = Managers.Data.CheckIfEngMode() ? ENG_SIZE : KOR_SIZE;
+        GetTMP((int)TMPs.TMP_DepthA).fontSize = Managers.Data.IsEngMode() ? ENG_SIZE : KOR_SIZE;
+        GetTMP((int)TMPs.TMP_DepthB).fontSize = Managers.Data.IsEngMode() ? ENG_SIZE : KOR_SIZE;
+        GetTMP((int)TMPs.TMP_DepthC).fontSize = Managers.Data.IsEngMode() ? ENG_SIZE : KOR_SIZE;
+        GetTMP((int)TMPs.TMP_DepthD).fontSize = Managers.Data.IsEngMode() ? ENG_SIZE : KOR_SIZE;
 
         GetTMP((int)TMPs.TMP_DepthA).text = Managers.GetText(10000);
         GetTMP((int)TMPs.TMP_DepthB).text = Managers.GetText(20000);
-        GetTMP((int)TMPs.TMP_DepthC).text = Managers.GetText(30000);
+        
+        // 줄바꿈 이슈로 인해(다른곳에서는 이id를 줄바꿈없이 사용함) DepthSelect의 Depth3만 다음과같이 삼항연산자로 하드코딩하여 구분했습니다.
+        // 부득이한경우가 아니면 이렇게 사용하지않고 최대한 id를 사용하서 구성했습니다. -250110- 
+        GetTMP((int)TMPs.TMP_DepthC).text = Managers.Data.IsEngMode() ? "Maintenance of\nMeasuring Sensors" :"계측 센서 정비";
+        
         GetTMP((int)TMPs.TMP_DepthD).text = Managers.GetText(40000);
     }
     

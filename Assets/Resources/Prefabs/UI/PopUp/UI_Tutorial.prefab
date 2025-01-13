@@ -107,6 +107,11 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uC870\uC791\uBC95 \uC548\uB0B4"
       objectReference: {fileID: 0}
+    - target: {fileID: 2536218029673370114, guid: b4c656591bea196409411d6e8007de78,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 549.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3356683505760688677, guid: b4c656591bea196409411d6e8007de78,
         type: 3}
       propertyPath: m_Name

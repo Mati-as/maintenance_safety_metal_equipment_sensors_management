@@ -300,6 +300,18 @@ public class DepthD5_SceneController : DepthC5_SceneController
              { 4218, new  StateD51_8(this) },
              { 4219, new  StateD51_9(this) },
              { 42110, new StateD51_10(this) },
+             { 42111, new StateD51_11(this) },
+             { 42112, new StateD51_12(this) },
+             { 42113, new StateD51_13(this) },
+             { 42114, new StateD51_14(this) },
+             { 42115, new StateD51_15(this) },
+             { 42116, new StateD51_16(this) },
+             { 42117, new StateD51_17(this) },
+             { 42118, new StateD51_18(this) },
+             { 42119, new StateD51_19(this) },
+             { 42120, new StateD51_20(this) },
+             { 42121, new StateD51_21(this) },
+             { 42122, new StateD51_22(this) },
         
        
          };

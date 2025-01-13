@@ -18,28 +18,25 @@ using Sequence = DG.Tweening.Sequence;
 /// </summary>
 public enum DepthC4_GameObj
 {
-    FlowSensor,
-    NewFlowSensor,
-    
+    //Highlight X
     ElectricScrewdriver,
     Multimeter,
-    MultimeterHandleHighlight,
     Probe_Anode, // negative
     Probe_Cathode, // positive,
-    CathodeSensorInput,
     Wrench,
         
+    //Highlight O
+    FlowSensor,
+    NewFlowSensor,
+    CathodeSensorInput,
+    MultimeterHandleHighlight,
     ConnectionScrewA,
     ConnectionScrewB,
     ConnectionScrewC,
     ConnectionScrewD,
     PowerHandle,
-    
     FlowerSensor_Valve,
-        
-    ControlPanelFrontDoor,
     AnodeSensorOutput,
-    PowerCable,
     PressureCalibrator,
     FlowSensorConnectingPipe, //연결 배관
     FlowSensorConnectingScrew, // 연결 나사 (어댑터)
@@ -65,7 +62,73 @@ public enum DepthC4_GameObj
 public class DepthC4_SceneController : Base_SceneController
 {
 
+    protected override void SetObjectName() => ObjectNameMap = new Dictionary<int, ObjectTextData>
+{
+    // Highlight O
+    { (int)DepthC4_GameObj.FlowSensor, new ObjectTextData((int)DepthC4_GameObj.FlowSensor, "유량 센서", "Flow Sensor") },
+    { (int)DepthC4_GameObj.NewFlowSensor, new ObjectTextData((int)DepthC4_GameObj.NewFlowSensor, "새 유량 센서", "New Flow Sensor") },
+    { (int)DepthC4_GameObj.MultimeterHandleHighlight, new ObjectTextData((int)DepthC4_GameObj.MultimeterHandleHighlight, "멀티미터 핸들", "Multimeter Handle") },
+    { (int)DepthC4_GameObj.ConnectionScrewA, new ObjectTextData((int)DepthC4_GameObj.ConnectionScrewA, "접속 나사 A", "Connection Screw A") },
+    { (int)DepthC4_GameObj.ConnectionScrewB, new ObjectTextData((int)DepthC4_GameObj.ConnectionScrewB, "접속 나사 B", "Connection Screw B") },
+    { (int)DepthC4_GameObj.ConnectionScrewC, new ObjectTextData((int)DepthC4_GameObj.ConnectionScrewC, "접속 나사 C", "Connection Screw C") },
+    { (int)DepthC4_GameObj.ConnectionScrewD, new ObjectTextData((int)DepthC4_GameObj.ConnectionScrewD, "접속 나사 D", "Connection Screw D") },
+    { (int)DepthC4_GameObj.PowerHandle, new ObjectTextData((int)DepthC4_GameObj.PowerHandle, "전원 핸들", "Power Handle") },
+    { (int)DepthC4_GameObj.FlowerSensor_Valve, new ObjectTextData((int)DepthC4_GameObj.FlowerSensor_Valve, "유량 센서 밸브", "Flow Sensor Valve") },
+    { (int)DepthC3_GameObj.CathodeSensorInput, new ObjectTextData((int)DepthC3_GameObj.CathodeSensorInput, "센서 신호 입력 단자", "Sensor Signal Input Terminal") },
+    { (int)DepthC3_GameObj.AnodeSensorOutput, new ObjectTextData((int)DepthC3_GameObj.AnodeSensorOutput, "센서 신호 출력 단자", "Sensor Signal Output Terminal") },
+    { (int)DepthC4_GameObj.PressureCalibrator, new ObjectTextData((int)DepthC4_GameObj.PressureCalibrator, "압력 교정기", "Pressure Calibrator") },
+    { (int)DepthC4_GameObj.FlowSensorConnectingPipe, new ObjectTextData((int)DepthC4_GameObj.FlowSensorConnectingPipe, "유량 센서 연결 배관", "Flow Sensor Connecting Pipe") },
+    { (int)DepthC4_GameObj.FlowSensorConnectingScrew, new ObjectTextData((int)DepthC4_GameObj.FlowSensorConnectingScrew, "유량 센서 연결 나사", "Flow Sensor Connecting Screw") },
+    { (int)DepthC4_GameObj.ResidueBlockingPiping, new ObjectTextData((int)DepthC4_GameObj.ResidueBlockingPiping, "배관 막힘", "Residue Blocking Piping") },
+    { (int)DepthC4_GameObj.WaterEffect, new ObjectTextData((int)DepthC4_GameObj.WaterEffect, "물 효과", "Water Effect") },
+    
+    // 버튼 관련
+    { (int)DepthC4_GameObj.Btn_F1, new ObjectTextData((int)DepthC4_GameObj.Btn_F1, "F1 버튼", "F1 Button") },
+    { (int)DepthC4_GameObj.Btn_F2, new ObjectTextData((int)DepthC4_GameObj.Btn_F2, "F2 버튼", "F2 Button") },
+    { (int)DepthC4_GameObj.Btn_F3, new ObjectTextData((int)DepthC4_GameObj.Btn_F3, "루프 전원 버튼", "Loop Power Button") },
+    { (int)DepthC4_GameObj.Btn_F4, new ObjectTextData((int)DepthC4_GameObj.Btn_F4, "계속 버튼", "Continue Button") },
+    { (int)DepthC4_GameObj.Btn_Tasks, new ObjectTextData((int)DepthC4_GameObj.Btn_Tasks, "작업 버튼", "Tasks Button") },
+    { (int)DepthC4_GameObj.Btn_Arrow_Down, new ObjectTextData((int)DepthC4_GameObj.Btn_Arrow_Down, "아래 화살표 버튼", "Arrow Down Button") },
+    { (int)DepthC4_GameObj.Btn_Arrow_Up, new ObjectTextData((int)DepthC4_GameObj.Btn_Arrow_Up, "위 화살표 버튼", "Arrow Up Button") },
+    { (int)DepthC4_GameObj.Btn_Enter, new ObjectTextData((int)DepthC4_GameObj.Btn_Enter, "엔터 버튼", "Enter Button") },
+    { (int)DepthC4_GameObj.Btn_Vent, new ObjectTextData((int)DepthC4_GameObj.Btn_Vent, "환기 버튼", "Vent Button") },
+    { (int)DepthC4_GameObj.Btn_Number_One, new ObjectTextData((int)DepthC4_GameObj.Btn_Number_One, "숫자 1 버튼", "Number 1 Button") },
+    { (int)DepthC4_GameObj.Btn_Number_Zero, new ObjectTextData((int)DepthC4_GameObj.Btn_Number_Zero, "숫자 0 버튼", "Number 0 Button") }
+};
    
+    protected override void BindHLForAllClickableObj()
+    {
+        SetObjectName();
+
+        // Highlight O
+        BindHighlightWithEnum((int)DepthC4_GameObj.FlowSensor);
+        BindHighlightWithEnum((int)DepthC4_GameObj.NewFlowSensor);
+        BindHighlightWithEnum((int)DepthC4_GameObj.MultimeterHandleHighlight);
+        BindHighlightWithEnum((int)DepthC4_GameObj.ConnectionScrewA);
+        BindHighlightWithEnum((int)DepthC4_GameObj.ConnectionScrewB);
+        BindHighlightWithEnum((int)DepthC4_GameObj.ConnectionScrewC);
+        BindHighlightWithEnum((int)DepthC4_GameObj.ConnectionScrewD);
+        BindHighlightWithEnum((int)DepthC4_GameObj.PowerHandle);
+        BindHighlightWithEnum((int)DepthC4_GameObj.FlowerSensor_Valve);
+        BindHighlightWithEnum((int)DepthC4_GameObj.AnodeSensorOutput);
+        BindHighlightWithEnum((int)DepthC4_GameObj.PressureCalibrator);
+        BindHighlightWithEnum((int)DepthC4_GameObj.FlowSensorConnectingPipe);
+        BindHighlightWithEnum((int)DepthC4_GameObj.FlowSensorConnectingScrew);
+        BindHighlightWithEnum((int)DepthC4_GameObj.ResidueBlockingPiping);
+        BindHighlightWithEnum((int)DepthC4_GameObj.WaterEffect);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_F1);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_F2);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_F3);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_F4);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_Tasks);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_Arrow_Down);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_Arrow_Up);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_Enter);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_Vent);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_Number_One);
+        BindHighlightWithEnum((int)DepthC4_GameObj.Btn_Number_Zero);
+    }
+
     #region 압력교정기
 
    public PressureCalibratorController pressureCalibratorController;
@@ -215,13 +278,13 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
     private void BindEventForPsCalibrator()
     {
 
-        BindHighlight((int)DepthC4_GameObj.Btn_F1,"F1");
+        //BindHighlight((int)DepthC4_GameObj.Btn_F1,"F1");
         
         
-        BindHighlight((int)DepthC4_GameObj.Btn_F2,"F2");
+        //BindHighlight((int)DepthC4_GameObj.Btn_F2,"F2");
         
         
-        BindHighlight((int)DepthC4_GameObj.Btn_F3,"F3");
+        //BindHighlight((int)DepthC4_GameObj.Btn_F3,"F3");
         GetObject((int)DepthC4_GameObj.Btn_F3).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 10)
@@ -238,7 +301,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
             }
         });
         
-        BindHighlight((int)DepthC4_GameObj.Btn_F4,"F4");
+        //BindHighlight((int)DepthC4_GameObj.Btn_F4,"F4");
         GetObject((int)DepthC4_GameObj.Btn_F4).BindEvent(() =>
         {
             
@@ -265,7 +328,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         
-        BindHighlight((int)DepthC4_GameObj.Btn_Vent,"VENT");
+        //BindHighlight((int)DepthC4_GameObj.Btn_Vent,"VENT");
         GetObject((int)DepthC4_GameObj.Btn_Vent).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 9)
@@ -276,7 +339,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         
-        BindHighlight((int)DepthC4_GameObj.Btn_Tasks,"TASKS");
+        //BindHighlight((int)DepthC4_GameObj.Btn_Tasks,"TASKS");
         GetObject((int)DepthC4_GameObj.Btn_Tasks).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 11)
@@ -289,7 +352,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
 
         
-        BindHighlight((int)DepthC4_GameObj.Btn_Arrow_Down,"DOWN");
+        //BindHighlight((int)DepthC4_GameObj.Btn_Arrow_Down,"DOWN");
         GetObject((int)DepthC4_GameObj.Btn_Arrow_Down).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 14)
@@ -306,10 +369,10 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         
         
-        BindHighlight((int)DepthC4_GameObj.Btn_Arrow_Up,"UP");
+        //BindHighlight((int)DepthC4_GameObj.Btn_Arrow_Up,"UP");
         
         
-        BindHighlight((int)DepthC4_GameObj.Btn_Enter,"ENTER");
+        //BindHighlight((int)DepthC4_GameObj.Btn_Enter,"ENTER");
         GetObject((int)DepthC4_GameObj.Btn_Enter).BindEvent(() =>
         {
        
@@ -336,7 +399,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         
-        BindHighlight((int)DepthC4_GameObj.Btn_Number_One,"1");
+        //BindHighlight((int)DepthC4_GameObj.Btn_Number_One,"1");
         GetObject((int)DepthC4_GameObj.Btn_Number_One).BindEvent(() =>
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12)
@@ -353,7 +416,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         });
         
         
-        BindHighlight((int)DepthC4_GameObj.Btn_Number_Zero,"0");
+        //BindHighlight((int)DepthC4_GameObj.Btn_Number_Zero,"0");
         GetObject((int)DepthC4_GameObj.Btn_Number_Zero).BindEvent(() =>
         {
             
@@ -477,11 +540,11 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         
         
-        BindHighlight((int)DepthC4_GameObj.CathodeSensorInput,"시그널 컨디셔너 입력단자");
-        BindHighlight((int)DepthC4_GameObj.AnodeSensorOutput,"센서 출력 단자");
+        //BindHighlight((int)DepthC4_GameObj.CathodeSensorInput,"시그널 컨디셔너 입력단자");
+        //BindHighlight((int)DepthC4_GameObj.AnodeSensorOutput,"센서 출력 단자");
         
-        BindHighlight((int)DepthC4_GameObj.PressureCalibrator,"압력 교정기");
-        BindHighlight((int)DepthC4_GameObj.FlowSensorConnectingPipe,"배관 연결부");
+        //BindHighlight((int)DepthC4_GameObj.PressureCalibrator,"압력 교정기");
+        //BindHighlight((int)DepthC4_GameObj.FlowSensorConnectingPipe,"배관 연결부");
         GetObject((int)DepthC4_GameObj.FlowSensorConnectingPipe).BindEvent(() =>
         {
             Logger.Log("배관 연결부 확인---------------------");
@@ -492,7 +555,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
             }  
         });
         
-        BindHighlight((int)DepthC4_GameObj.FlowSensorConnectingScrew,"연결부 고정 나사");
+        //BindHighlight((int)DepthC4_GameObj.FlowSensorConnectingScrew,"연결부 고정 나사");
         GetObject((int)DepthC4_GameObj.FlowSensorConnectingScrew).BindEvent(() =>
         {
             Logger.Log("배관 연결부 확인---------------------");
@@ -503,14 +566,14 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
             }  
         });
 
-        BindHighlight((int)DepthC4_GameObj.MultimeterHandleHighlight,"전류모드로 설정");
+        //BindHighlight((int)DepthC4_GameObj.MultimeterHandleHighlight,"전류모드로 설정");
 
         
         
-        BindHighlight((int)DepthC4_GameObj.ConnectionScrewA,"나사");
-        BindHighlight((int)DepthC4_GameObj.ConnectionScrewB,"나사");
-        BindHighlight((int)DepthC4_GameObj.ConnectionScrewC,"나사");
-        BindHighlight((int)DepthC4_GameObj.ConnectionScrewD,"나사");
+        //BindHighlight((int)DepthC4_GameObj.ConnectionScrewA,"나사");
+        //BindHighlight((int)DepthC4_GameObj.ConnectionScrewB,"나사");
+        //BindHighlight((int)DepthC4_GameObj.ConnectionScrewC,"나사");
+        //BindHighlight((int)DepthC4_GameObj.ConnectionScrewD,"나사");
         
                 
 
@@ -543,7 +606,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         
         BindInteractionEvent();
         
-        BindHighlight((int)DepthC4_GameObj.ResidueBlockingPiping,"배관 막힘");
+        //BindHighlight((int)DepthC4_GameObj.ResidueBlockingPiping,"배관 막힘");
         GetObject((int)DepthC4_GameObj.ResidueBlockingPiping).BindEvent(() =>
         {
             
@@ -554,7 +617,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
             }  
         });
         
-        BindHighlight((int)DepthC4_GameObj.FlowerSensor_Valve,"밸브");
+        //BindHighlight((int)DepthC4_GameObj.FlowerSensor_Valve,"밸브");
         
         GetObject((int)DepthC4_GameObj.FlowerSensor_Valve).BindEvent(() =>
         {
@@ -585,6 +648,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         defaultRotationMap.TryAdd((int)DepthC4_GameObj.Probe_Anode,GetObject((int)DepthC4_GameObj.Probe_Cathode).transform.rotation);
         C4_PreCommonObjInit();
         UnBindEventAttatchedObj();
+        BindHLForAllClickableObj();
     }
     private void C4_PreCommonObjInit()
     {
@@ -610,11 +674,11 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         BindInteractionEvent();
         BindEventForPsCalibrator();
         
-        BindHighlight((int)DepthC4_GameObj.ConnectionScrewB,"나사");
+        //BindHighlight((int)DepthC4_GameObj.ConnectionScrewB,"나사");
         
         
        
-        BindHighlight((int)DepthC4_GameObj.PowerHandle,"전원 차단");
+        //BindHighlight((int)DepthC4_GameObj.PowerHandle,"전원 차단");
         
         GetObject((int)DepthC4_GameObj.PowerHandle).BindEvent(() =>
         {
@@ -625,7 +689,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
             }  
         });
         
-        BindHighlight((int)DepthC4_GameObj.FlowerSensor_Valve,"밸브");
+        //BindHighlight((int)DepthC4_GameObj.FlowerSensor_Valve,"밸브");
         
         GetObject((int)DepthC4_GameObj.FlowerSensor_Valve).BindEvent(() =>
         {
@@ -637,7 +701,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
             }  
         });
     
-        BindHighlight((int)DepthC4_GameObj.NewFlowSensor,"새로운 유량센서로 교체");
+        //BindHighlight((int)DepthC4_GameObj.NewFlowSensor,"새로운 유량센서로 교체");
         
         GetObject((int)DepthC4_GameObj.NewFlowSensor).BindEvent(() =>
         {

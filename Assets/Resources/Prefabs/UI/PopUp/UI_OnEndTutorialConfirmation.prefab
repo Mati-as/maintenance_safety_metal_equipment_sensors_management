@@ -100,18 +100,38 @@ PrefabInstance:
     - target: {fileID: 850815903323477532, guid: b4c656591bea196409411d6e8007de78,
         type: 3}
       propertyPath: m_text
-      value: "\uB2E4\uC74C \uD559\uC2B5\uC73C\uB85C \uC774\uB3D9\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?\n<color=orange>[\uAE30\uBCF8\uD559\uC2B5
-        - \uAE08\uC18D\uC81C\uC870\uC124\uBE44 \uAD6C\uC131\uD655\uC778] </color>"
+      value: Would you like to move on to the next lesson?\n<color=orange>[Basic
+        Training- Checking Metal Manufacturing Equipment]</color>
+      objectReference: {fileID: 0}
+    - target: {fileID: 850815903323477532, guid: b4c656591bea196409411d6e8007de78,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 850815903323477532, guid: b4c656591bea196409411d6e8007de78,
         type: 3}
       propertyPath: m_fontStyle
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 850815903323477532, guid: b4c656591bea196409411d6e8007de78,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1993001309183821059, guid: b4c656591bea196409411d6e8007de78,
         type: 3}
       propertyPath: m_text
       value: "\uC54C\uB9BC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536218029673370114, guid: b4c656591bea196409411d6e8007de78,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536218029673370114, guid: b4c656591bea196409411d6e8007de78,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3356683505760688677, guid: b4c656591bea196409411d6e8007de78,
         type: 3}

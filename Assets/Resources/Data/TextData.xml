@@ -462,7 +462,7 @@
   <TextData ID="4105" kor="디지털미터 조작 - 검출스위치 통전 상태 측정" eng="eng Test" />
   <TextData ID="4106" kor="리밋스위치 체결" eng="eng Test" />
   <TextData ID="4107" kor="정상동작확인" eng="eng Test" />
-  <TextData ID="4108" kor="정상동작확인" eng="eng Test" />
+  <TextData ID="4108" kor="" eng="eng Test" />
   <TextData ID="4109" kor="" eng="eng Test" />
   <TextData ID="41010" kor="" eng="eng Test" />
   <TextData ID="41011" kor="" eng="eng Test" />
@@ -511,6 +511,7 @@
   <TextData ID="4209" kor="정상동작확인" eng="eng Test" />
   <TextData ID="42010" kor="" eng="eng Test" />
   <TextData ID="42011" kor="" eng="eng Test" />
+  
   <!-- 평가하기 체크리스트 부분 -->
   <TextData ID="42001" kor="새 온도 센서 준비" eng="eng Test" />
   <TextData ID="42002" kor="작업 전 전원 차단" eng="eng Test" />
@@ -524,78 +525,171 @@
   <TextData ID="420010" kor="" eng="eng Test" />
   <TextData ID="420011" kor="" eng="eng Test" />
   <TextData ID="420012" kor="" eng="eng Test" />
+
+
+
+  <!-- Depth2 압력 평가하기 스크립트-->
+  <TextData ID="43101" kor="압력 센서 정비 과정에 대한 평가를 시작하겠습니다. 화면에 표기된 수행 리스트를 참고하여 순서대로 작업을 진행해주세요." eng="" />
+  <TextData ID="43102" kor="도구함에서 새로 교체할 압력 센서를 꺼내주세요." eng="" />
+  <TextData ID="43103" kor="작업 전 전원을 차단해주세요." eng="" />
+  <TextData ID="43104" kor="배관 내부 잔류 압력을 제거하기 위해 밸브를 열어주세요." eng="" />
+  <TextData ID="43105" kor="기존 압력 센서를 철거하기 위해 전동 드라이버를 사용해 접속 단자를 해체해주세요." eng="" />
+  <TextData ID="43106" kor="도구함에서 새 압력 센서를 클릭해 설치해주세요." eng="" />
+  <TextData ID="43107" kor="압력 센서의 전류를 측정하도록 하겠습니다.먼저 드라이버를 이용해 접속 단자를 클릭해 분리해주세요." eng="" />
+  <TextData ID="43108" kor="도구함을 클릭해 디지털 미터를 꺼내주세요." eng="" />
+  <TextData ID="43109" kor="다이얼을 돌려 직류 전류(A) 측정 모드로 맞춰주세요." eng="" />
+  <TextData ID="43110" kor="프로브를 시그널 컨디셔너의 입력,출력 단자에 적절히 연결해 측정해주세요. 입력되는 압력이 0일 때 전류가 4mA가 측정되는지 확인 해주세요." eng="" />
+  <TextData ID="43111" kor="다음으로 압력 교정을 시작하기 위해 자동 압력 교정기를 도구함에서 클릭해 꺼내주세요." eng="" />
+  <TextData ID="43112" kor="자동 압력 교정기의 적절한 버튼을 눌러 압력 교정을 진행합니다. 먼저 자동 압력 교정기의 초기 설정을 진행하기 위한 버튼을 클릭해주세요." eng="" />
+  <TextData ID="43113" kor="교정기의 압력을 초기화해주세요." eng="" />
+  <TextData ID="43114" kor="연결할 센서의 종류를 설정해주세요." eng="" />
+  <TextData ID="43115" kor="압력 센서(Pressure Transmitter)를 선택해주세요." eng="" />
+  <TextData ID="43116" kor="교정을 위한 제로점과 스팬점을 설정하기 위해 적절한 버튼을 클릭해 해당 항목으로 이동해주세요." eng="" />
+  <TextData ID="43117" kor="스팬점을 100으로 설정한 뒤, 입력 해주세요." eng="" />
+  <TextData ID="43118" kor="버튼 조작을 통해 압력 센서에 전원을 공급하고, 자동 테스트 화면으로 이동 하세요." eng="" />
+  <TextData ID="43119" kor="자동 테스트를 시작해주세요." eng="" />
+  <TextData ID="43120" kor="자동 교정 과정이 완료될 때까지 기다려주세요." eng="" />
+  <TextData ID="43121" kor="교정 과정이 성공적으로 완료되었습니다. 화면 상단에 PASS 표시를 확인해주세요." eng="" />
+  <TextData ID="43122" kor="설비의 전원을 다시 켜고 정비 작업을 완료해주세요." eng="" />
+
+  <!-- 평가하기 항목 부분 -->
+  <TextData ID="4301" kor="압력 센서 준비" eng="Prepare the pressure sensor" />
+  <TextData ID="4302" kor="작업 전 전원 차단" eng="Turn off the power before starting the task" />
+  <TextData ID="4303" kor="배관 잔류 압력 제거" eng="Release residual pressure in the pipeline" />
+  <TextData ID="4304" kor="압력 센서 접속나사 해체" eng="Remove the existing sensor" />
+  <TextData ID="4305" kor="압력 센서 출력 신호 확인" eng="Install the new pressure sensor" />
+  <TextData ID="4306" kor="압력 센서 교정" eng="Prepare the pressure calibrator" />
+  <TextData ID="4307" kor="설비 전원 복구" eng="Perform pressure calibration" />
+  <TextData ID="4308" kor="" eng="" />
+  <TextData ID="4309" kor="" eng="" />
+  <TextData ID="43010" kor="" eng="" />
+  <!-- 평가하기 체크리스트 부분 -->
+  <TextData ID="43001" kor="예비 유량 센서 준비" eng="Prepare a spare flow sensor" />
+  <TextData ID="43002" kor="전원 차단" eng="Turn off power" />
+  <TextData ID="43003" kor="배관 잔류물 제거" eng="Remove residue from the pipeline" />
+  <TextData ID="43004" kor="압력 센서 출력 신호 확인" eng="Remove the existing flow sensor" />
+  <TextData ID="43005" kor="압력 센서 교정" eng="Install a new flow sensor" />
+  <TextData ID="43006" kor="설비 전원 복구" eng="Set up the pressure calibrator" />
+
+
   
-  <!-- Depth 3-3-1 -->
-  <TextData ID="43101" kor="테스트 Depth 3-3-1-01." eng="eng Test" />
-  <TextData ID="43102" kor="테스트 Depth 3-3-1-02." eng="eng Test" />
-  <TextData ID="43103" kor="테스트 Depth 3-3-1-03." eng="eng Test" />
-  <TextData ID="43104" kor="테스트 Depth 3-3-1-04." eng="eng Test" />
-  <TextData ID="43105" kor="테스트 Depth 3-3-1-05." eng="eng Test" />
-  <TextData ID="43106" kor="테스트 Depth 3-3-1-06." eng="eng Test" />
-  <TextData ID="43107" kor="테스트 Depth 3-3-1-07." eng="eng Test" />
-  <TextData ID="43108" kor="테스트 Depth 3-3-1-08." eng="eng Test" />
-  <TextData ID="43109" kor="테스트 Depth 3-3-1-09." eng="eng Test" />
-  <TextData ID="43110" kor="테스트 Depth 3-3-1-10." eng="eng Test" />
-  <!-- Depth 3-342 -->
-  <TextData ID="43201" kor="테스트 Depth 3-3-2-01." eng="eng Test" />
-  <TextData ID="43202" kor="테스트 Depth 3-3-2-02." eng="eng Test" />
-  <TextData ID="43203" kor="테스트 Depth 3-3-2-03." eng="eng Test" />
-  <TextData ID="43204" kor="테스트 Depth 3-3-2-04." eng="eng Test" />
-  <TextData ID="43205" kor="테스트 Depth 3-3-2-05." eng="eng Test" />
-  <!-- Depth 3-343 -->
-  <TextData ID="43301" kor="테스트 Depth 3-3-3-01." eng="eng Test" />
-  <TextData ID="43302" kor="테스트 Depth 3-3-3-02." eng="eng Test" />
-  <TextData ID="43303" kor="테스트 Depth 3-3-3-03." eng="eng Test" />
-  <TextData ID="43304" kor="테스트 Depth 3-3-3-04." eng="eng Test" />
-  <!-- Depth 3-441 -->
-  <TextData ID="44101" kor="테스트 Depth 3-4-1-01." eng="eng Test" />
-  <TextData ID="44102" kor="테스트 Depth 3-4-1-02." eng="eng Test" />
-  <TextData ID="44103" kor="테스트 Depth 3-4-1-03." eng="eng Test" />
-  <TextData ID="44104" kor="테스트 Depth 3-4-1-04." eng="eng Test" />
-  <TextData ID="44105" kor="테스트 Depth 3-4-1-05." eng="eng Test" />
-  <TextData ID="44106" kor="테스트 Depth 3-4-1-06." eng="eng Test" />
-  <TextData ID="44107" kor="테스트 Depth 3-4-1-07." eng="eng Test" />
-  <TextData ID="44108" kor="테스트 Depth 3-4-1-08." eng="eng Test" />
-  <TextData ID="44109" kor="테스트 
-  Depth 3-4-1-09." eng="eng Test" />
-  <TextData ID="44110" kor="테스트 Depth 3-4-1-10." eng="eng Test" />
-  <!-- Depth 3-442 -->
-  <TextData ID="44201" kor="테스트 Depth 3-4-2-01." eng="eng Test" />
-  <TextData ID="44202" kor="테스트 Depth 3-4-2-02." eng="eng Test" />
-  <TextData ID="44203" kor="테스트 Depth 3-4-2-03." eng="eng Test" />
-  <!-- Depth 3-443 -->
-  <TextData ID="44301" kor="테스트 Depth 3-4-3-01." eng="eng Test" />
-  <TextData ID="44302" kor="테스트 Depth 3-4-3-02." eng="eng Test" />
-  <TextData ID="44303" kor="테스트 Depth 3-4-3-03." eng="eng Test" />
-  <TextData ID="44304" kor="테스트 Depth 3-4-3-04." eng="eng Test" />
-  <!-- Depth 3-54-->
-  <!-- Depth 3-541 -->
-  <TextData ID="45101" kor="테스트 Depth 3-5-1-01." eng="eng Test" />
-  <TextData ID="45102" kor="테스트 Depth 3-5-1-02." eng="eng Test" />
-  <TextData ID="45103" kor="테스트 Depth 3-5-1-03." eng="eng Test" />
-  <TextData ID="45104" kor="테스트 Depth 3-5-1-04." eng="eng Test" />
-  <!-- Depth 3-542 -->
-  <TextData ID="45201" kor="테스트 Depth 3-5-2-01." eng="eng Test" />
-  <TextData ID="45202" kor="테스트 Depth 3-5-2-02." eng="eng Test" />
-  <TextData ID="45203" kor="테스트 Depth 3-5-2-03." eng="eng Test" />
-  <!-- Depth 3-543 -->
-  <TextData ID="45301" kor="테스트 Depth 3-5-3-01." eng="eng Test" />
-  <TextData ID="45302" kor="테스트 Depth 3-5-3-02." eng="eng Test" />
-  <TextData ID="45303" kor="테스트 Depth 3-5-3-03." eng="eng Test" />
+
+  <!-- Depth4                         유량센서              평가하기        스크립트-->
+  <TextData ID="44101" kor="유량 센서 정비 과정에 대한 평가를 시작하겠습니다. 화면에 표기된 수행 리스트를 참고하여 순서대로 작업을 진행해주세요." eng="" />
+  <TextData ID="44102" kor="도구함에서 새로 교체할 유량 센서를 꺼내주세요." eng="" />
+  <TextData ID="44103" kor="작업 전 전원을 차단해주세요." eng="" />
+  <TextData ID="44104" kor="배관 내부 잔류 압력을 제거하기 위해 밸브를 열어주세요." eng="" />
+  <TextData ID="44105" kor="전동 드라이버를 사용해 기존 유량 센서의 접속 단자를 해체해주세요." eng="" />
+  <TextData ID="44106" kor="도구함에서 새 유량 센서를 선택해 설치해주세요." eng="" />
+  <TextData ID="44107" kor="유량 센서의 전류를 측정하도록 하겠습니다. 먼저 전동 드라이버를 이용해 접속 단자를 클릭해 분리해주세요." eng="" />
+  <TextData ID="44108" kor="도구함에서 디지털 미터를 꺼내주세요." eng="" />
+  <TextData ID="44109" kor="디지털 미터의 다이얼을 돌려 직류 전류(A) 측정 모드로 맞춰주세요." eng="" />
+  <TextData ID="44110" kor="프로브를 시그널 컨디셔너의 입력 및 출력 단자에 적절히 연결해 측정해주세요. 입력되는 유량이 0일 때 전류가 4mA로 측정되는지 확인해주세요." eng="" />
+  <TextData ID="44111" kor="교정을 시작하기 위해 자동 압력 교정기를 도구함에서 클릭해 꺼내주세요." eng="" />
+  <TextData ID="44112" kor="자동 압력 교정기의 초기 설정을 진행하기 위해 [VENT] 버튼을 클릭해주세요." eng="" />
+  <TextData ID="44113" kor="적절한 버튼을 클릭해 교정기의 압력을 초기화해주세요." eng="" />
+  <TextData ID="44114" kor="적절한 버튼을 클릭해 연결할 센서의 종류를 설정해주세요." eng="" />
+  <TextData ID="44115" kor="적절한 버튼을 클릭해 유량 센서를 선택해주세요." eng="" />
+  <TextData ID="44116" kor="교정을 위한 제로점과 스팬점을 설정하기 위해 적절한 버튼을 클릭해 해당 항목으로 이동 해주세요." eng="" />
+  <TextData ID="44117" kor="숫자 버튼을 클릭해 스팬점을 100으로 설정한 뒤 [ENTER] 버튼을 클릭해주세요." eng="" />
+  <TextData ID="44118" kor="[Turn Loop Power up] 버튼을 클릭해 유량 센서에 전원을 공급하고, [Continue] 버튼을 클릭해주세요." eng="" />
+  <TextData ID="44119" kor="[Auto Test] 버튼을 클릭해 자동 테스트를 시작해주세요." eng="" />
+  <TextData ID="44120" kor="자동 교정 과정이 완료될 때까지 기다려주세요." eng="" />
+  <TextData ID="44121" kor="교정 과정이 성공적으로 완료되었습니다. 화면 상단에 PASS 표시를 확인해주세요." eng="" />
+  <TextData ID="44122" kor="설비의 전원을 다시 켜고 정비 작업을 완료해주세요." eng="" />
+
   
+    <!-- 평가하기 항목 부분 -->
+  <TextData ID="4401" kor="유량 센서 준비" eng="Prepare the flow sensor" />
+  <TextData ID="4402" kor="작업 전 전원 차단" eng="Turn off power before starting" />
+  <TextData ID="4403" kor="배관 잔류 압력 제거" eng="Release residual pressure in the pipeline" />
+  <TextData ID="4404" kor="기존 유량 센서 철거" eng="Remove the existing flow sensor" />
+  <TextData ID="4405" kor="새 유량 센서 설치" eng="Install the new flow sensor" />
+  <TextData ID="4406" kor="압력 교정기 준비" eng="Prepare the pressure calibrator" />
+  <TextData ID="4407" kor="제로점 및 스팬점 설정" eng="Set zero and span points" />
+  <TextData ID="4408" kor="출력 신호 확인" eng="Verify output signals" />
+  <TextData ID="4409" kor="정비 완료 후 전원 복구" eng="Restore power after maintenance" />
+  <TextData ID="44010" kor="" eng="" />
+  <!-- 평가하기 체크리스트 부분 -->
+  <TextData ID="44001" kor="예비 유량 센서 준비" eng="Prepare a spare flow sensor" />
+  <TextData ID="44002" kor="전원 차단" eng="Turn off power" />
+  <TextData ID="44003" kor="배관 잔류물 제거" eng="Remove residue from the pipeline" />
+  <TextData ID="44004" kor="압력 센서 출력 신호 확인" eng="Remove the existing flow sensor" />
+  <TextData ID="44005" kor="압력 센서 교정" eng="Install a new flow sensor" />
+  <TextData ID="44006" kor="설비 전원 복구" eng="Set up the pressure calibrator" />
+  
+
+
+
+
+
+  <!-- Depth4                         레벨센서              평가하기        스크립트-->
+  <TextData ID="45101" kor="레벨 센서 정비 과정에 대한 평가를 시작하겠습니다. 화면에 표기된 수행 리스트를 참고하여 순서대로 작업을 진행해주세요." eng="" />
+  <TextData ID="45102" kor="도구함에서 새로 교체할 레벨 센서를 꺼내주세요." eng="" />
+  <TextData ID="45103" kor="작업 전 전원을 차단해주세요." eng="" />
+  <TextData ID="45104" kor="배관 내부 잔류 압력을 제거하기 위해 밸브를 열어주세요." eng="" />
+  <TextData ID="45105" kor="기존 레벨 센서를 철거하기 위해 전동 드라이버를 사용해 접속 단자를 해체해주세요." eng="" />
+  <TextData ID="45106" kor="도구함에서 새 레벨 센서를 선택해 설치해주세요." eng="" />
+  <TextData ID="45107" kor="새로 설치된 레벨 센서의 기본 파라미터 값 설정 작업을 수행하도록 하겠습니다. 도구함에서 새 레벨 센서를 선택하고 클릭해 설치해주세요." eng="" />
+  <TextData ID="45108" kor="레벨 센서의 전류를 측정하도록 하겠습니다. 먼저 전동 드라이버를 이용해 접속 단자를 클릭해 분리해주세요." eng="" />
+  <TextData ID="45109" kor="도구함에서 디지털 미터를 꺼내주세요." eng="" />
+  <TextData ID="45110" kor="디지털 미터의 다이얼을 돌려 직류 전류(A) 측정 모드로 맞춰주세요." eng="" />
+  <TextData ID="45111" kor="프로브를 시그널 컨디셔너의 입력 및 출력 단자에 적절히 연결해 측정해주세요. 입력되는 유량이 0일 때 전류가 4mA로 측정되는지 확인해주세요." eng="" />
+  <TextData ID="45112" kor="교정을 시작하겠습니다. SP 설정 값을 확인하기 위해 디스플레이의 적절한 메뉴로 이동해주세요." eng="" />
+  <TextData ID="45113" kor="SP 설정 메뉴를 활성화하기 위해 적절한 버튼을 클릭해주세요." eng="" />
+  <TextData ID="45114" kor="SP 설정 값을 확인한 뒤 저장 버튼을 클릭해주세요." eng="" />
+  <TextData ID="45115" kor="RP 설정 값을 확인하기 위해 디스플레이의 적절한 메뉴로 이동해주세요." eng="" />
+  <TextData ID="45116" kor="RP 설정 메뉴를 활성화하기 위해 적절한 버튼을 클릭해주세요." eng="" />
+  <TextData ID="45117" kor="RP 설정 값을 확인한 뒤 저장 버튼을 클릭해주세요." eng="" />
+  <TextData ID="45118" kor="SP와 RP 설정 값을 변경하기 위해 설정 메뉴로 이동해주세요." eng="" />
+  <TextData ID="45119" kor="SP 설정 값을 12로 변경한 뒤 저장 버튼을 클릭해주세요." eng="" />
+  <TextData ID="45120" kor="RP 설정 값을 적절히 조정한 뒤 저장 버튼을 클릭해주세요." eng="" />
+  <TextData ID="45121" kor="회로 상태를 설정하기 위해 디스플레이 메뉴로 이동해주세요." eng="" />
+  <TextData ID="45122" kor="회로 상태를 '열림 상태'로 변경한 뒤 저장 버튼을 클릭해주세요." eng="" />
+  <TextData ID="45123" kor="설정 작업이 완료되었습니다. 보상 도선을 다시 연결해주세요." eng="" />
+  <TextData ID="45124" kor="이제 설비의 전원을 다시 켜고 정비 작업을 마치도록 하겠습니다." eng="" />
+
+
+  <!-- 평가하기 항목 부분5-->
+  <TextData ID="4501" kor="레벨 센서 준비" eng="Prepare the level sensor" />
+  <TextData ID="4502" kor="작업 전 전원 차단" eng="Turn off the power before starting the task" />
+  <TextData ID="4503" kor="배관 잔류 압력 제거" eng="Release residual pressure in the pipeline" />
+  <TextData ID="4504" kor="기존 레벨 센서 철거" eng="Remove the existing level sensor" />
+  <TextData ID="4505" kor="새 레벨 센서 설치" eng="Install the new level sensor" />
+  <TextData ID="4506" kor="SP 값 확인 및 설정" eng="Check and set the SP value" />
+  <TextData ID="4507" kor="RP 값 확인 및 설정" eng="Check and set the RP value" />
+  <TextData ID="4508" kor="회로 상태 설정" eng="Configure the circuit state" />
+  <TextData ID="4509" kor="보상 도선 연결" eng="Reconnect the compensating wire" />
+  <TextData ID="45010" kor="정비 후 설비 전원 복구" eng="Restore the equipment power after maintenance" />
+  <TextData ID="45011" kor="정비 작업 완료" eng="Complete the maintenance work" />
+  <!-- 평가하기 체크리스트5부분 -->
+  <TextData ID="45001" kor="예비 레벨 센서 준비" eng="Prepare a spare level sensor" />
+  <TextData ID="45002" kor="전원 차단 수행" eng="Perform power shutdown" />
+  <TextData ID="45003" kor="배관 내 잔류물 제거" eng="Remove residue in the pipeline" />
+  <TextData ID="45004" kor="기존 센서 철거" eng="Remove the existing sensor" />
+  <TextData ID="45005" kor="새 센서 설치" eng="Install the new sensor" />
+  <TextData ID="45006" kor="SP 값 확인 및 설정" eng="Check and configure SP value" />
+  <TextData ID="45007" kor="RP 값 확인 및 설정" eng="Check and configure RP value" />
+  <TextData ID="45008" kor="회로 상태 설정" eng="Set the circuit state" />
+  <TextData ID="45009" kor="보상 도선 연결" eng="Reconnect the compensating wire" />
+  <TextData ID="450010" kor="설비 전원 복구" eng="Restore the equipment power" />
+  <TextData ID="450011" kor="정비 작업 완료 확인" eng="Verify maintenance completion" />
+  <TextData ID="450012" kor="최종 상태 점검" eng="Final state inspection" />
+
   
   <!-- 인덱스 및 타이틀                                            -->
   <!-- Depth 1 타이틀 -->
   <TextData ID="10000" kor="기본 학습" eng="Basic Training" />
   <!-- Depth 2 타이틀 -->
-  <TextData ID="10010" kor="금속제조 설비 구성" eng="eng Test" />
-  <TextData ID="10020" kor="계측센서 구조 이해" eng="eng Test" />
+  <TextData ID="10010" kor="금속제조 설비 구성" eng="Configuration of Metal Manufacturing Equipment" />
+  <TextData ID="10020" kor="계측센서 구조 이해" eng="Understanding the Structure of Measurement Sensors" />
   <!-- Depth 3 타이틀 -->
-  <TextData ID="10011" kor="제조 설비 및 계측센서 구성" eng="eng Test" />
-  <TextData ID="10012" kor="제조 설비 및 계측센서 개요" eng="eng Test" />
+  <TextData ID="10011" kor="제조 설비 및 계측센서 구성" eng="Configuration of Manufacturing Equipment and Measurement Sensors" />
+  <TextData ID="10012" kor="제조 설비 및 계측센서 개요" eng="Overview of Manufacturing Equipment and Measurement Sensors" />
 
 
   <TextData ID="10021" kor="제조 설비 및 계측센서 개요" eng="eng Test" />
+  
   <!-- Depth 3 타이틀  이전내용
   <TextData ID="10021" kor="검출 스위치" eng="eng Test" />
   <TextData ID="10022" kor="온도 센서" eng="eng Test" />
@@ -606,78 +700,66 @@
   <!-- Depth 2 1 -->
   <TextData ID="20000" kor="안전 관리" eng="Safety Management" />
   <!-- Depth 2 2 -->
-  <TextData ID="20010" kor="안전 장구" eng="eng Test" />
-  <TextData ID="20020" kor="점검 도구" eng="eng Test" />
-  <TextData ID="20030" kor="안전 사고 사례" eng="eng Test" />
+  <TextData ID="20010" kor="안전 장구" eng="Safety Equipment" />
+  <TextData ID="20020" kor="점검 도구" eng="Inspection Tools" />
+  <TextData ID="20030" kor="안전 사고 사례" eng="Safety Incident Cases" />
   <!-- Depth 2 -3 -->
-  <TextData ID="20011" kor="안전 장구 착용" eng="eng Test" />
-  <TextData ID="20021" kor="점검 도구 확인" eng="eng Test" />
-  <TextData ID="20031" kor="안전 작업 방법 및 조치사항" eng="eng Test" />
-  <TextData ID="20032" kor="안전 사고 사례" eng="eng Test" />
+  <TextData ID="20011" kor="안전 장구 착용" eng="Wearing Safety Equipment" />
+  <TextData ID="20021" kor="점검 도구 확인" eng="Inspection Tool Check" />
+  <TextData ID="20031" kor="안전 작업 방법 및 조치사항" eng="Safe Work Procedures and Actions" />
+  <TextData ID="20032" kor="안전 사고 사례" eng="Safety Incident Examples" />
 
   <!-- Depth 1 타이틀 -->
-  <TextData ID="30000" kor="계측 센서 정비" eng="Maintenance of&#xA;Measuring Sensors" />
+  <TextData ID="30000" kor="계측 센서 정비" eng="Maintenance of Measuring Sensors" />
   <!-- Depth 2 타이틀 -->
-  <TextData ID="30010" kor="검출 스위치" eng="eng Test" />
-  <TextData ID="30020" kor="온도 센서" eng="eng Test" />
-  <TextData ID="30030" kor="압력 센서" eng="eng Test" />
-  <TextData ID="30040" kor="유량 센서" eng="eng Test" />
-  <TextData ID="30050" kor="레벨 센서" eng="eng Test" />
+  <TextData ID="30010" kor="검출 스위치" eng="Detection Switch" />
+  <TextData ID="30020" kor="온도 센서" eng="Temperature Sensor" />
+  <TextData ID="30030" kor="압력 센서" eng="Pressure Sensor" />
+  <TextData ID="30040" kor="유량 센서" eng="Flow Sensor" />
+  <TextData ID="30050" kor="레벨 센서" eng="Level Sensor" />
 
-  
   <!-- Depth 3 타이틀 -->
-  <TextData ID="30011" kor="검출스위치 점검" eng="eng Test" />
-  <TextData ID="30012" kor="검출스위치 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30013" kor="검출스위치 센서 정비" eng="eng Test" />
+  <TextData ID="30011" kor="검출스위치 점검" eng="Detection Switch Inspection" />
+  <TextData ID="30012" kor="검출스위치 고장 유형 이해" eng="Understanding Detection Switch Failure Types" />
+  <TextData ID="30013" kor="검출스위치 센서 정비" eng="Maintenance of Detection Switch Sensor" />
 
-  
-  <TextData ID="30021" kor="온도센서 점검" eng="eng Test" />
-  <TextData ID="30022" kor="온도센서 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30023" kor="온도센서 정비" eng="eng Test" />
+  <TextData ID="30021" kor="온도센서 점검" eng="Temperature Sensor Inspection" />
+  <TextData ID="30022" kor="온도센서 고장 유형 이해" eng="Understanding Temperature Sensor Failure Types" />
+  <TextData ID="30023" kor="온도센서 정비" eng="Temperature Sensor Maintenance" />
 
-  
-  <TextData ID="30031" kor="압력센서 점검" eng="eng Test" />
-  <TextData ID="30032" kor="압력센서 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30033" kor="압력센서 정비" eng="eng Test" />
+  <TextData ID="30031" kor="압력센서 점검" eng="Pressure Sensor Inspection" />
+  <TextData ID="30032" kor="압력센서 고장 유형 이해" eng="Understanding Pressure Sensor Failure Types" />
+  <TextData ID="30033" kor="압력센서 정비" eng="Pressure Sensor Maintenance" />
 
-  <TextData ID="30041" kor="유량센서 점검" eng="eng Test" />
-  <TextData ID="30042" kor="유량센서 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30043" kor="유량센서 정비" eng="eng Test" />
+  <TextData ID="30041" kor="유량센서 점검" eng="Flow Sensor Inspection" />
+  <TextData ID="30042" kor="유량센서 고장 유형 이해" eng="Understanding Flow Sensor Failure Types" />
+  <TextData ID="30043" kor="유량센서 정비" eng="Flow Sensor Maintenance" />
 
-  
-  <TextData ID="30051" kor="레벨센서 점검" eng="eng Test" />
-  <TextData ID="30052" kor="레벨센서 고장 유형 이해" eng="eng Test" />
-  <TextData ID="30053" kor="레벨센서 정비" eng="eng Test" />
-
+  <TextData ID="30051" kor="레벨센서 점검" eng="Level Sensor Inspection" />
+  <TextData ID="30052" kor="레벨센서 고장 유형 이해" eng="Understanding Level Sensor Failure Types" />
+  <TextData ID="30053" kor="레벨센서 정비" eng="Level Sensor Maintenance" />
 
   <!-- Depth 1 타이틀 -->
   <TextData ID="40000" kor="평가하기" eng="Evaluation" />
   <!-- Depth 2 타이틀 -->
-  <TextData ID="40010" kor="검출스위치" eng="eng Test" />
-  <TextData ID="40020" kor="온도센서" eng="eng Test" />
-  <TextData ID="40030" kor="압력센서" eng="eng Test" />
-  <TextData ID="40040" kor="유량센서" eng="eng Test" />
-  <TextData ID="40050" kor="레벨센서" eng="eng Test" />
+  <TextData ID="40010" kor="검출스위치" eng="Detection Switch" />
+  <TextData ID="40020" kor="온도센서" eng="Temperature Sensor" />
+  <TextData ID="40030" kor="압력센서" eng="Pressure Sensor" />
+  <TextData ID="40040" kor="유량센서" eng="Flow Sensor" />
+  <TextData ID="40050" kor="레벨센서" eng="Level Sensor" />
 
   <!-- Depth 1 타이틀 -->
-  <TextData ID="50000" kor="조작 방법 안내" eng="eng Test" />
+  <TextData ID="50000" kor="조작 방법 안내" eng="Operation Guide" />
   <!-- Depth 2 타이틀 -->
-  <TextData ID="50010" kor="조작 방법 안내" eng="eng Test" />
-  <TextData ID="50011" kor="조작 방법 안내" eng="eng Test" />
-
-
+  <TextData ID="50010" kor="조작 방법 안내" eng="Operation Instructions" />
+  <TextData ID="50011" kor="조작 방법 안내" eng="Usage Instructions" />
 
   <!-- Depth 3 타이틀 -->
-  <TextData ID="40011" kor="평가하기" eng="eng Test" />
-  
-  <TextData ID="40021" kor="평가하기" eng="eng Test" />
-  
-  <TextData ID="40031" kor="평가하기" eng="eng Test" />
-  
-  <TextData ID="40041" kor="평가하기" eng="eng Test" />
-  
-  <TextData ID="40051" kor="평가하기" eng="eng Test" />
-
+  <TextData ID="40011" kor="검출스위치 정비 평가하기" eng="Evaluate Maintenance of Detection Switch" />
+  <TextData ID="40021" kor="온도센서 정비 평가하기" eng="Evaluate Maintenance of Temperature Sensor" />
+  <TextData ID="40031" kor="압력센서 정비 평가하기" eng="Evaluate Maintenance of Pressure Sensor" />
+  <TextData ID="40041" kor="유량센서 정비 평가하기" eng="Evaluate Maintenance of Flow Sensor" />
+  <TextData ID="40051" kor="레벨센서 정비 평가하기" eng="Evaluate Maintenance of Level Sensor" />
 
 
 

@@ -25,6 +25,13 @@ public class UI_Tutorial : UI_Popup
         
     }
 
+    public enum TMPs
+    {
+        TMP_ConfirmationHead,
+        TMP_ConfirmationBody,
+        TMP_Yes,
+        TMP_No,
+    }
     private bool _isTutorialEndedOrSkipped;
    
     public bool isTutorialEndedOrSkipped
@@ -38,7 +45,9 @@ public class UI_Tutorial : UI_Popup
         
         BindButton(typeof(Btns));
         BindObject(typeof(UI));
-      
+        BindTMP(typeof(TMPs));
+
+        RefreshText();
         
         GetButton((int)Btns.Btn_Confirmation_Yes).gameObject.BindEvent(() =>
         {
@@ -66,6 +75,12 @@ public class UI_Tutorial : UI_Popup
     }
 
 
-
+    public override void RefreshText()
+    {
+        GetTMP((int)TMPs.TMP_ConfirmationHead).text = Managers.Data.IsEngMode() ? "Operation Guide" : "조작법 안내";
+        GetTMP((int)TMPs.TMP_ConfirmationBody).text = Managers.Data.IsEngMode() ? "Would you like to start the operation guide?" : "조작법 안내를 시작 하시겠습니까?";
+        GetTMP((int)TMPs.TMP_Yes).text = Managers.Data.IsEngMode() ? "YES" : "네";
+        GetTMP((int)TMPs.TMP_No).text = Managers.Data.IsEngMode() ? "NO" : "아니오";
+    }
 
 }

@@ -44,6 +44,7 @@ public enum DepthC3_GameObj
     AnodeSensorOutput,
     PressureSensorConnectingPipe, //연결 배관
     PressureSensorConnectingScrew, // 연결 나사 (어댑터)
+    
     //하이라이트 및 툴팁 적용을 위한 enum (객체컨트롤은 PressureCalibrator에서합니다.)
     Btn_F1 , 
     Btn_F2,
@@ -76,6 +77,8 @@ public class DepthC3_SceneController : Base_SceneController
     // Highlight X
 
     // Highlight O
+    
+    { (int)DepthC3_GameObj.MultimeterHandleHighlight, new ObjectTextData((int)DepthC3_GameObj.MultimeterHandleHighlight, "멀티미터 다이얼", "Multimeter Dial") },
     { (int)DepthC3_GameObj.ConnectionScrewA, new ObjectTextData((int)DepthC3_GameObj.ConnectionScrewA, "접속 나사 A", "Connection Screw A") },
     { (int)DepthC3_GameObj.ConnectionScrewB, new ObjectTextData((int)DepthC3_GameObj.ConnectionScrewB, "접속 나사 B", "Connection Screw B") },
     { (int)DepthC3_GameObj.ConnectionScrewC, new ObjectTextData((int)DepthC3_GameObj.ConnectionScrewC, "접속 나사 C", "Connection Screw C") },
@@ -89,7 +92,8 @@ public class DepthC3_SceneController : Base_SceneController
     { (int)DepthC3_GameObj.PressureSensor_Display, new ObjectTextData((int)DepthC3_GameObj.PressureSensor_Display, "압력 센서 디스플레이", "Pressure Sensor Display") },
     { (int)DepthC3_GameObj.PressureSensor_Display_Uni, new ObjectTextData((int)DepthC3_GameObj.PressureSensor_Display_Uni, "압력 센서 디스플레이(단위)", "Pressure Sensor Display (Unit)") },
     { (int)DepthC3_GameObj.PressureSensorWaterPipeValve, new ObjectTextData((int)DepthC3_GameObj.PressureSensorWaterPipeValve, "압력 센서 배관 밸브", "Pressure Sensor Water Pipe Valve") },
-    { (int)DepthC3_GameObj.AnodeSensorOutput, new ObjectTextData((int)DepthC3_GameObj.AnodeSensorOutput, "양극 센서 출력", "Anode Sensor Output") },
+    { (int)DepthC3_GameObj.CathodeSensorInput, new ObjectTextData((int)DepthC3_GameObj.CathodeSensorInput, "센서 신호 입력 단자", "Sensor Signal Input Terminal") },
+    { (int)DepthC3_GameObj.AnodeSensorOutput, new ObjectTextData((int)DepthC3_GameObj.AnodeSensorOutput, "센서 신호 출력 단자", "Sensor Signal Output Terminal") },
     { (int)DepthC3_GameObj.PressureCalibrator, new ObjectTextData((int)DepthC3_GameObj.PressureCalibrator, "압력 교정기", "Pressure Calibrator") },
     { (int)DepthC3_GameObj.PressureSensorConnectingPipe, new ObjectTextData((int)DepthC3_GameObj.PressureSensorConnectingPipe, "연결 배관", "Connecting Pipe") },
     { (int)DepthC3_GameObj.PressureSensorConnectingScrew, new ObjectTextData((int)DepthC3_GameObj.PressureSensorConnectingScrew, "연결 나사", "Connecting Screw") },
@@ -107,7 +111,39 @@ public class DepthC3_SceneController : Base_SceneController
     { (int)DepthC3_GameObj.Btn_Number_One, new ObjectTextData((int)DepthC3_GameObj.Btn_Number_One, "숫자 1 버튼", "Number One") },
     { (int)DepthC3_GameObj.Btn_Number_Zero, new ObjectTextData((int)DepthC3_GameObj.Btn_Number_Zero, "숫자 0 버튼", "Number Zero") }
 };
-    
+    protected override void BindHLForAllClickableObj()
+    {
+        SetObjectName();
+
+        // Highlight O
+        BindHighlightWithEnum((int)DepthC3_GameObj.MultimeterHandleHighlight);
+        BindHighlightWithEnum((int)DepthC3_GameObj.ConnectionScrewA);
+        BindHighlightWithEnum((int)DepthC3_GameObj.ConnectionScrewB);
+        BindHighlightWithEnum((int)DepthC3_GameObj.ConnectionScrewC);
+        BindHighlightWithEnum((int)DepthC3_GameObj.ConnectionScrewD);
+        BindHighlightWithEnum((int)DepthC3_GameObj.PowerHandle);
+        BindHighlightWithEnum((int)DepthC3_GameObj.PressureSensor);
+        BindHighlightWithEnum((int)DepthC3_GameObj.PressureSensorHose);
+        BindHighlightWithEnum((int)DepthC3_GameObj.PressureSensorAdapter);
+        BindHighlightWithEnum((int)DepthC3_GameObj.PressureSensorAdapter_Sub);
+        BindHighlightWithEnum((int)DepthC3_GameObj.PressureSensorDamagedPart);
+        BindHighlightWithEnum((int)DepthC3_GameObj.PressureSensorWaterPipeValve);
+        BindHighlightWithEnum((int)DepthC3_GameObj.CathodeSensorInput);
+        BindHighlightWithEnum((int)DepthC3_GameObj.AnodeSensorOutput);
+        BindHighlightWithEnum((int)DepthC3_GameObj.PressureSensorConnectingPipe);
+        BindHighlightWithEnum((int)DepthC3_GameObj.PressureSensorConnectingScrew);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_F1);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_F2);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_F3);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_F4);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_Tasks);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_Arrow_Down);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_Arrow_Up);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_Enter);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_Vent);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_Number_One);
+        BindHighlightWithEnum((int)DepthC3_GameObj.Btn_Number_Zero);
+    }
 
     private readonly int UNWOUND_COUNT_GOAL = 1;
     private int _unwoundCount;
@@ -247,7 +283,7 @@ public class DepthC3_SceneController : Base_SceneController
             }
         }
     }
-    private void BindEventForPsCalibrator()
+    protected virtual void BindEventForPsCalibrator()
     {
 
         //BindHighlight((int)DepthC3_GameObj.Btn_F1,"F1");
@@ -490,7 +526,7 @@ public class DepthC3_SceneController : Base_SceneController
         C3_PreCommonObjInit();
 
     }
-    private void LateCommonInit()
+    protected void LateCommonInit()
     {
         
         ClearTool();
@@ -628,6 +664,7 @@ public class DepthC3_SceneController : Base_SceneController
         defaultRotationMap.TryAdd((int)DepthC3_GameObj.Probe_Anode,GetObject((int)DepthC3_GameObj.Probe_Cathode).transform.rotation);
         C3_PreCommonObjInit();
         UnBindEventAttatchedObj();
+        BindHLForAllClickableObj();
     }
     private void C3_PreCommonObjInit()
     {
@@ -933,7 +970,7 @@ public class DepthC3_SceneController : Base_SceneController
     /// 1.전류 측정모드 분리를 위한 압력센서 전용 멀티미터 클래스 초기화 로직입니다
     /// 2. 다른센서 사용 XX
     /// </summary>
-    private void SetPressureSensorCurrentCheckMultimeterSection()
+    protected void SetPressureSensorCurrentCheckMultimeterSection()
     {
         multimeterController = GetObject((int)DepthC3_GameObj.Multimeter).GetComponent<CurrentCheckableMultimeterController>();
  
@@ -958,7 +995,7 @@ public class DepthC3_SceneController : Base_SceneController
         }
     }
     
-    private void InitScrewForConductiveCheck()
+    protected void InitScrewForConductiveCheck()
     {
         GetObject((int)DepthC3_GameObj.AnodeSensorOutput).BindEvent(() =>
         {

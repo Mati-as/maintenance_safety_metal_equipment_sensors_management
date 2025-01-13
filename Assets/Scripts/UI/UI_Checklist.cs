@@ -102,14 +102,14 @@ public class UI_Checklist : UI_Popup
         return true;
     }
 
-    private void RefreshText()
+    public override void RefreshText()
     {
         var depth1 = Managers.ContentInfo.PlayData.Depth1.ToString();
         var depth2 = Managers.ContentInfo.PlayData.Depth2.ToString();
-        
+
         for (var i = 1; i <= GetObject((int)UI.CheckLists).transform.childCount; i++)
             _textMap[int.Parse(_checklistId + i.ToString())].text =
-                Managers.Data.Texts[int.Parse(depth1 + depth2 + "00" + (i))].kor;
+                Managers.GetText(int.Parse(depth1 + depth2 + "00" + i));
     }
 
     

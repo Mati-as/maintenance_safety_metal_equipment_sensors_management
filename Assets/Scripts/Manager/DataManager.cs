@@ -251,7 +251,7 @@ public class DataManager
         //Debug.Log("SAVED DATA WRITE");
     }
 
-    public bool CheckIfEngMode()
+    public bool IsEngMode()
     {
         if ((int)Managers.Data.Preference[(int)Define.Preferences.IsEng] == (int)Define.LanguageMode.Eng)
             return true;

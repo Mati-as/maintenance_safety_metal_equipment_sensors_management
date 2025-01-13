@@ -12,7 +12,13 @@ public class UI_MainConfirmation : UI_Popup
         Btn_Close
     }
     
-    
+    public enum TMPs
+    {
+        TMP_ConfirmationHead,
+        TMP_ConfirmationBody,
+        TMP_Yes,
+        TMP_No,
+    }
     
     private bool _isTutorialEndedOrSkipped;
    
@@ -26,7 +32,9 @@ public class UI_MainConfirmation : UI_Popup
     {
         
         BindButton(typeof(Btns));
-      
+        BindTMP(typeof(TMPs));
+
+        RefreshText();
         
         GetButton((int)Btns.Btn_Confirmation_Yes).gameObject.BindEvent(() =>
         {
@@ -49,4 +57,11 @@ public class UI_MainConfirmation : UI_Popup
 
     }
 
+    public override void RefreshText()
+    {
+        GetTMP((int)TMPs.TMP_ConfirmationHead).text = Managers.Data.IsEngMode() ? "Return to Main Screen" : "메인화면 이동";
+        GetTMP((int)TMPs.TMP_ConfirmationBody).text = Managers.Data.IsEngMode() ? "Would you like to return to the main screen?" : "메인화면으로 이동하시겠습니까?";
+        GetTMP((int)TMPs.TMP_Yes).text = Managers.Data.IsEngMode() ? "Yes" : "네";
+        GetTMP((int)TMPs.TMP_No).text = Managers.Data.IsEngMode() ? "No" : "아니오";
+    }
 }
