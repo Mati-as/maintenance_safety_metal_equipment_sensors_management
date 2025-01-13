@@ -150,7 +150,7 @@ public class UI_ToolBox : UI_Popup
     {
 
         //평가하기의 경우 도구를 모두 보여주기
-        if (Managers.ContentInfo.PlayData.Depth1 ==4)
+        if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation)
         {
             
             for (int i = (int)Btns.Btn_ElectricScrewdriver; i < Enum.GetValues(typeof(Btns)).Length ; i++)

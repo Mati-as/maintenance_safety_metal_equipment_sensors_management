@@ -232,7 +232,11 @@ public class PressureCalibratorController : UI_Popup
     
     }
 
-    public void OnBtn_F3Clicked()
+    
+    /// <summary>
+    /// Zero Pressure or TurnLoop Power up
+    /// </summary>
+    public void OnBtn_F3Clicked_ZPressureOrLoopPower()
     {
         //The Case of _isLoopPowerBtn
         if (_currentUI == UI.PressureAndMeasureSetting)
@@ -248,7 +252,10 @@ public class PressureCalibratorController : UI_Popup
        
     }
 
-    public void OnBtn_F4Clicked() //AUTO TEST OR CONTINUE...
+    /// <summary>
+    /// AuotTest Or Continue
+    /// </summary>
+    public void OnBtn_F4Clicked_ATContinue() //AUTO TEST OR CONTINUE...
     {
         if (_currentUI == UI.PressureAndMeasureSetting && _isLoopPowerBtnClicked)
         {

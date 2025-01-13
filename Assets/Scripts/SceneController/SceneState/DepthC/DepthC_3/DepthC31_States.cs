@@ -59,7 +59,7 @@ public class DepthC31_State_1 : Base_SceneState
        
     
         base.OnEnter();
-        _depthC3SceneController.cameraController.isControllable = true;
+      //  _depthC3SceneController.cameraController.isControllable = true;
     }
 
     public override void OnStep()
@@ -119,7 +119,7 @@ public class DepthC31_State_3 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        _depthC3SceneController.cameraController.isControllable = true;
+      //  _depthC3SceneController.cameraController.isControllable = true;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -139,7 +139,7 @@ public class DepthC31_State_4 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
-        _depthC3SceneController.cameraController.isControllable = true;
+      //  _depthC3SceneController.cameraController.isControllable = true;
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit(){base.OnExit();}
@@ -161,7 +161,7 @@ public class DepthC31_State_5 : Base_SceneState
         
      
         base.OnEnter();
-        _depthC3SceneController.cameraController.isControllable = false;
+      //  _depthC3SceneController.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
 
@@ -295,7 +295,6 @@ public class DepthC31_State_9 : Base_SceneState
         _depthC3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
         CurrentScene.cameraController.isControllable = false;
-        
       
     }
     public override void OnStep(){base.OnStep();}
@@ -372,7 +371,7 @@ public class DepthC31_State_11 : Base_SceneState
         _depthC3SceneController.multimeterController.SetToCurrentModeAndRotation();
         _depthC3SceneController.currentActiveTool = (int)DepthC3_GameObj.Multimeter;
         
-        _depthC3SceneController.cameraController.isControllable = false;
+      //  _depthC3SceneController.cameraController.isControllable = false;
 
     }
     public override void OnStep(){base.OnStep();}

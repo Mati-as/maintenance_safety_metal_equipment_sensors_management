@@ -631,7 +631,6 @@ public class DepthC33_State_21 : Base_SceneState
         base.OnEnter();
         _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.Calibrating);
         _depthC3SceneController.cameraController.isControllable = false;
-        _depthC3SceneController.ChangeTooltipText((int)DepthC3_GameObj.Btn_F4, "F4: Auto Test");
         _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F4, false);
         _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_F4);
     }

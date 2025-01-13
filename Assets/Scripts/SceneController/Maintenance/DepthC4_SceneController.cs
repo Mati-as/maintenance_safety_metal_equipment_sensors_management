@@ -289,13 +289,13 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 10)
             {
-                pressureCalibratorController.OnBtn_F3Clicked();
+                pressureCalibratorController.OnBtn_F3Clicked_ZPressureOrLoopPower();
                 OnStepMissionComplete(animationNumber:10);
             }
             
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 16)
             {
-                pressureCalibratorController.OnBtn_F3Clicked();
+                pressureCalibratorController.OnBtn_F3Clicked_ZPressureOrLoopPower();
                 ChangeTooltipText((int)DepthC4_GameObj.Btn_F4, "F4 : Continue");
                
             }
@@ -307,7 +307,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
             
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 16)
             {
-                pressureCalibratorController.OnBtn_F4Clicked();
+                pressureCalibratorController.OnBtn_F4Clicked_ATContinue();
                 OnStepMissionComplete(animationNumber:16);
                
             }
@@ -315,7 +315,7 @@ private readonly int UNWOUND_COUNT_GOAL = 1;
                      
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 20)
             {
-                pressureCalibratorController.OnBtn_F4Clicked();
+                pressureCalibratorController.OnBtn_F4Clicked_ATContinue();
                 OnStepMissionComplete(animationNumber:20);
             }
             

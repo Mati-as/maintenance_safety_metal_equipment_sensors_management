@@ -311,7 +311,7 @@
   <TextData ID="33206" kor="다음 고장 유형은 압력 센서의 내부 회로 고장, 부품 이상으로 인해  압력 센서의 전면 지시부 표시가 정상적으로 동작하지 않는 &#60;color=#FFA500&#62;지시부 표시 불량&#60;/color&#62; 유형입니다." eng="eng Test" />
   <TextData ID="33207" kor="해당 고장 유형의 경우 &#60;color=#FFA500&#62;출력 신호&#60;/color&#62;와 &#60;color=#FFA500&#62;전면 지시부&#60;/color&#62;가 동일한지 확인하는 것이 중요하며 전면 지시부의 이상이 발생한 경우 일반적으로 새로운 압력 센서로 교체하도록 합니다. 새로운 압력 센서로 교체하도록 하겠습니다. 도구함에 있는 &#60;color=#FFA500&#62;새로운 압력센서&#60;/color&#62;를 클릭해 교체해주세요." eng="eng Test" />
 
-  <!-- Depth 3-3-3 -->
+  <!-- Depth 3-3-3   압력정비, 압력센서정비-->
   <TextData ID="33301" kor="다음은 압력 센서 정비 방법에 대해 알아보겠습니다. 일반적으로 압력 센서의 정비 순서는 고장난 &#60;color=#FFA500&#62;압력 센서 탈거&#60;/color&#62;, &#60;color=#FFA500&#62;새로운 압력 센서 교체&#60;/color&#62;, &#60;color=#FFA500&#62;교정&#60;/color&#62; 순서로 진행됩니다." eng="eng Test" />
   <TextData ID="33302" kor="압력 센서 정비 작업을 시작하도록 하겠습니다. 먼저 도구함에서 새로 설치할 &#60;color=#FFA500&#62;예비 압력 센서&#60;/color&#62;를 클릭해 꺼내주세요." eng="eng Test" />
   <TextData ID="33303" kor="다음으로 작업 전 안전을 위해 중요한 안전 절차인 설비 전원 차단 및 배관내 잔류 압력과 가스를 제거하는 과정을 수행하겠습니다. 먼저 &#60;color=#FFA500&#62;전원 차단 스위치&#60;/color&#62;를 눌러 전원을 차단해주세요." eng="eng Test" />
@@ -359,7 +359,7 @@
   <TextData ID="34206" kor="해당 고장 유형의 경우 배관에 설치된 &#60;color=#FFA500&#62;밸브&#60;/color&#62;의 &#60;color=#FFA500&#62;올바른 상태&#60;/color&#62;를 확인하는 것이 중요하며 이로 인해 센서 파손, 신호 왜곡 심할 경우 내부의 유체가 유출 될 수 있는 위험상황을 초래할 수 있습니다. &#60;color=#FFA500&#62;밸브&#60;/color&#62;를 확인하도록 하겠습니다." eng="For this failure type, it’s crucial to check the proper state of the valves installed in the piping. Incorrect valve states can lead to sensor damage, signal distortion, or even hazardous situations such as fluid leakage. Let’s inspect the valves." />
   <TextData ID="34207" kor="밸브가 완전히 개방되지 않음을 확인하였습니다. &#60;color=#FFA500&#62;밸브&#60;/color&#62;를 조작해 배관을 완전히 개방해주세요." eng="The valve is confirmed to be not fully open. Operate the valve to fully open the piping." />
 
-  <!-- Depth 3-4-3 -->
+  <!-- Depth 3-4-3  유량정비, 유량센서정비-->
   <TextData ID="34301" kor="다음은 유량 센서 정비 방법에 대해 알아보겠습니다. 일반적으로 유량 센서의 정비 순서는 &#60;color=#FFA500&#62;유량 센서 탈거&#60;/color&#62;, &#60;color=#FFA500&#62;새로운 유량 센서 교체&#60;/color&#62;, &#60;color=#FFA500&#62;교정&#60;/color&#62; 순서로 진행됩니다." eng="Next, let’s look at the maintenance procedures for flow sensors. Typically, maintenance involves removing the faulty sensor, replacing it with a new one, and performing calibration." />
   <TextData ID="34302" kor="유량 센서 정비 작업을 시작하도록 하겠습니다. 먼저 도구함에서 새로 설치할 &#60;color=#FFA500&#62;예비 유량 센서&#60;/color&#62;를 클릭해 꺼내주세요." eng="Let’s begin the maintenance work for the flow sensor. First, click the spare flow sensor in the toolbox to retrieve it." />
   <TextData ID="34303" kor="다음으로 작업 전 안전을 위해 중요한 안전 절차인 설비 전원 차단 및 배관내 잔류 압력과 가스를 제거하는 과정을 수행하겠습니다. 먼저 &#60;color=#FFA500&#62;전원 차단 스위치&#60;/color&#62;를 눌러 전원을 차단해주세요." eng="Next, we will perform essential safety procedures before starting the work: turning off the equipment power and removing residual pressure and gas from the piping. First, press the power-off switch to disconnect the power." />
@@ -409,7 +409,7 @@
   <TextData ID="35208" kor="화면에 표기된 도구함을 클릭해 &#60;color=#FFA500&#62;전동 드라이버&#60;/color&#62;를 꺼내주세요." eng="Click the toolbox displayed on the screen to take out the electric screwdriver." />
   <TextData ID="35209" kor="레벨 센서 보상도선 &#60;color=#FFA500&#62;접속 단자&#60;/color&#62;를 확인하고 전동 드라이버를 이용해 다시 &#60;color=#FFA500&#62;체결&#60;/color&#62;해주세요." eng="Check the connection terminals of the level sensor compensation wire and reattach them using the electric screwdriver." />
 
-  <!-- Depth 3-5-3 -->
+  <!-- Depth 3-5-3 레벨정비,레벨센서정비 -->
   <TextData ID="35301" kor="다음은 레벨 센서 정비 방법에 대해 알아보겠습니다. 일반적으로 레벨 센서의 정비 순서는 &#60;color=#FFA500&#62;레벨 센서 탈거&#60;/color&#62;, &#60;color=#FFA500&#62;새로운 레벨 센서 교체&#60;/color&#62;, &#60;color=#FFA500&#62;기본 설정&#60;/color&#62; 순서로 진행됩니다." eng="Next, we will learn about the maintenance methods for level sensors. Generally, the maintenance sequence involves removing the faulty level sensor, replacing it with a new one, and performing basic configuration." />
   <TextData ID="35302" kor="레벨 센서 정비 작업을 시작하도록 하겠습니다. 먼저 도구함에서 새로 설치할 &#60;color=#FFA500&#62;예비 레벨 센서&#60;/color&#62;를 클릭해 꺼내주세요." eng="Let's begin the maintenance work for the level sensor. First, click the toolbox to take out the spare level sensor to be installed." />
   <TextData ID="35303" kor="다음으로 작업 전 안전을 위해 중요한 안전 절차인 설비 전원 차단 및 배관내 잔류 압력과 가스를 제거하는 과정을 수행하겠습니다. 먼저 &#60;color=#FFA500&#62;전원 차단 스위치&#60;/color&#62;를 눌러 전원을 차단해주세요." eng="Next, for safety before starting the work, we will perform the crucial safety procedures of shutting off the facility's power and releasing the residual pressure and gas in the pipes. First, press the power-off switch to turn off the power." />
@@ -528,31 +528,29 @@
 
 
 
-  <!-- Depth2 압력 평가하기 스크립트-->
+  <!-- Depth2 압력평가하기 스크립트-->
   <TextData ID="43101" kor="압력 센서 정비 과정에 대한 평가를 시작하겠습니다. 화면에 표기된 수행 리스트를 참고하여 순서대로 작업을 진행해주세요." eng="" />
   <TextData ID="43102" kor="도구함에서 새로 교체할 압력 센서를 꺼내주세요." eng="" />
   <TextData ID="43103" kor="작업 전 전원을 차단해주세요." eng="" />
   <TextData ID="43104" kor="배관 내부 잔류 압력을 제거하기 위해 밸브를 열어주세요." eng="" />
   <TextData ID="43105" kor="기존 압력 센서를 철거하기 위해 전동 드라이버를 사용해 접속 단자를 해체해주세요." eng="" />
   <TextData ID="43106" kor="도구함에서 새 압력 센서를 클릭해 설치해주세요." eng="" />
-  <TextData ID="43107" kor="압력 센서의 전류를 측정하도록 하겠습니다.먼저 드라이버를 이용해 접속 단자를 클릭해 분리해주세요." eng="" />
-  <TextData ID="43108" kor="도구함을 클릭해 디지털 미터를 꺼내주세요." eng="" />
-  <TextData ID="43109" kor="다이얼을 돌려 직류 전류(A) 측정 모드로 맞춰주세요." eng="" />
-  <TextData ID="43110" kor="프로브를 시그널 컨디셔너의 입력,출력 단자에 적절히 연결해 측정해주세요. 입력되는 압력이 0일 때 전류가 4mA가 측정되는지 확인 해주세요." eng="" />
-  <TextData ID="43111" kor="다음으로 압력 교정을 시작하기 위해 자동 압력 교정기를 도구함에서 클릭해 꺼내주세요." eng="" />
-  <TextData ID="43112" kor="자동 압력 교정기의 적절한 버튼을 눌러 압력 교정을 진행합니다. 먼저 자동 압력 교정기의 초기 설정을 진행하기 위한 버튼을 클릭해주세요." eng="" />
-  <TextData ID="43113" kor="교정기의 압력을 초기화해주세요." eng="" />
-  <TextData ID="43114" kor="연결할 센서의 종류를 설정해주세요." eng="" />
-  <TextData ID="43115" kor="압력 센서(Pressure Transmitter)를 선택해주세요." eng="" />
-  <TextData ID="43116" kor="교정을 위한 제로점과 스팬점을 설정하기 위해 적절한 버튼을 클릭해 해당 항목으로 이동해주세요." eng="" />
-  <TextData ID="43117" kor="스팬점을 100으로 설정한 뒤, 입력 해주세요." eng="" />
-  <TextData ID="43118" kor="버튼 조작을 통해 압력 센서에 전원을 공급하고, 자동 테스트 화면으로 이동 하세요." eng="" />
-  <TextData ID="43119" kor="자동 테스트를 시작해주세요." eng="" />
-  <TextData ID="43120" kor="자동 교정 과정이 완료될 때까지 기다려주세요." eng="" />
-  <TextData ID="43121" kor="교정 과정이 성공적으로 완료되었습니다. 화면 상단에 PASS 표시를 확인해주세요." eng="" />
-  <TextData ID="43122" kor="설비의 전원을 다시 켜고 정비 작업을 완료해주세요." eng="" />
+  <TextData ID="43107" kor="새로 설치한 압력 센서의 전류를 측정하도록 하겠습니다.도구함을 클릭해 디지털 미터를 꺼내주세요." eng="" />
+  <TextData ID="43108" kor="다이얼을 돌려 직류 전류(A) 측정 모드로 맞춰주세요." eng="" />
+  <TextData ID="43109" kor="프로브를 시그널 컨디셔너의 입력,출력 단자에 적절히 연결해 측정해주세요. 입력되는 압력이 0일 때 전류가 4mA가 측정되는지 확인 해주세요." eng="" />
+  <TextData ID="43110" kor="다음으로 압력 교정을 시작하기 위해 자동 압력 교정기를 도구함에서 클릭해 꺼내주세요." eng="" />
+  <TextData ID="43111" kor="자동 압력 교정기의 적절한 버튼을 눌러 압력 교정을 진행합니다. 먼저 자동 압력 교정기의 초기 설정을 진행하기 위한 버튼을 클릭해주세요." eng="" /> <!--Vent-->
+  <TextData ID="43112" kor="교정기의 압력을 초기화해주세요." eng="" /> <!--Zero Pressure-->
+  <TextData ID="43113" kor="연결할 센서의 종류를 설정하는 화면으로 이동하여, 압력 센서(Pressure Transmitter)를 선택해주세요." eng="" /><!--Task ->1 -->
+  <TextData ID="43114" kor="교정을 위한 제로점과 스팬점을 설정하기 위해 적절한 버튼을 클릭해 해당 항목으로 커서를 이동해주세요." eng="" />
+  <TextData ID="43115" kor="스팬점을 100으로 설정한 뒤, 입력 해주세요." eng="" /><!-- 100 -> Enter-->
+  <TextData ID="43116" kor="버튼 조작을 통해 압력 센서에 전원을 공급하고, 테스트 조건 설정화면으로 이동하세요." eng="" /><!---> F3 , F4-->
+  <TextData ID="43117" kor="테스트 조건을 [3↑]으로 설정하고, 자동테스트 시작화면으로 이동하세요" eng="" />
+  <TextData ID="43118" kor="자동 테스트를 시작해주세요." eng="" /> <!-- Auto Test-->
+  <TextData ID="43119" kor="교정 과정이 성공적으로 완료되었습니다.설비의 전원을 다시 켜고 정비 작업을 완료해주세요" eng="" />
 
-  <!-- 평가하기 항목 부분 -->
+  
+  <!-- 압력 평가 압력평가하기 항목 부분 Pressure Evaluation-->
   <TextData ID="4301" kor="압력 센서 준비" eng="Prepare the pressure sensor" />
   <TextData ID="4302" kor="작업 전 전원 차단" eng="Turn off the power before starting the task" />
   <TextData ID="4303" kor="배관 잔류 압력 제거" eng="Release residual pressure in the pipeline" />
@@ -563,15 +561,21 @@
   <TextData ID="4308" kor="" eng="" />
   <TextData ID="4309" kor="" eng="" />
   <TextData ID="43010" kor="" eng="" />
-  <!-- 평가하기 체크리스트 부분 -->
+  <!-- 압력 평가 압력평가하기 체크리스트 부분 Pressure Evaluation-->
   <TextData ID="43001" kor="예비 유량 센서 준비" eng="Prepare a spare flow sensor" />
   <TextData ID="43002" kor="전원 차단" eng="Turn off power" />
   <TextData ID="43003" kor="배관 잔류물 제거" eng="Remove residue from the pipeline" />
   <TextData ID="43004" kor="압력 센서 출력 신호 확인" eng="Remove the existing flow sensor" />
   <TextData ID="43005" kor="압력 센서 교정" eng="Install a new flow sensor" />
   <TextData ID="43006" kor="설비 전원 복구" eng="Set up the pressure calibrator" />
+  <TextData ID="43007" kor="" eng="" />
+  <TextData ID="43008" kor="" eng="" />
+  <TextData ID="43009" kor="" eng="" />
+  <TextData ID="430010" kor="" eng="" />
+  <TextData ID="430011" kor="" eng="" />
 
-
+  
+  
   
 
   <!-- Depth4                         유량센서              평가하기        스크립트-->
@@ -617,7 +621,11 @@
   <TextData ID="44004" kor="압력 센서 출력 신호 확인" eng="Remove the existing flow sensor" />
   <TextData ID="44005" kor="압력 센서 교정" eng="Install a new flow sensor" />
   <TextData ID="44006" kor="설비 전원 복구" eng="Set up the pressure calibrator" />
-  
+  <TextData ID="44007" kor="" eng="" />
+  <TextData ID="44008" kor="" eng="" />
+  <TextData ID="44009" kor="" eng="" />
+  <TextData ID="440010" kor="" eng="" />
+  <TextData ID="440011" kor="" eng="" />
 
 
 

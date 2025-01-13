@@ -43,6 +43,19 @@ public class EvaluationManager : MonoBehaviour
         { 428, 1 },
         { 429, 1 },
         { 4210, 1 },
+        
+        
+        // 인덱스 참조를 위한 - 1
+        { 431, 10 },
+        { 432, 20 },
+        { 433, 20 },
+        { 434, 10 },
+        { 435, 20 },
+        { 436, 10 },
+        { 437, 10 },
+        { 438, 1 },
+        { 439, 1 },
+        { 4310, 1 }
     };
 #endregion
 
@@ -128,6 +141,28 @@ public class EvaluationManager : MonoBehaviour
     public int currentDepthScore; // 저장하기 단계가아닌, 평가중의 실시간 점수
     public int currentItemsToEvaluate { get; private set; }
     private bool _isScoringState = true;
+
+
+    private const int WRONG_CLIKED_COUNT_LIMIT = 3; 
+    private int _wrongClickedCount;
+
+    public int wrongClickedCount
+    {
+        get { return _wrongClickedCount; }
+        set
+        {
+            _wrongClickedCount = value;
+            if (WRONG_CLIKED_COUNT_LIMIT < _wrongClickedCount)
+            {
+                OnWrongClickedMoreThanLimit();
+            }
+        }
+    }
+
+    public void OnWrongClickedMoreThanLimit()
+    {
+        
+    }
     public bool isCurrentClickAnswer;
 
     public bool isScoringState

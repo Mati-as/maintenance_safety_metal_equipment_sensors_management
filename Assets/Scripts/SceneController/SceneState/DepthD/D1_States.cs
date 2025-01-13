@@ -38,7 +38,7 @@ public class StateD11_2 : Base_SceneState
     {
         
         depthD1SceneController.UIEvaluation.UI_OnEvalStart();
-        Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_TemperatureSensor);
+        Managers.EvaluationManager.UIanswerToClick.Add((int)UI_ToolBox.Btns.Btn_LimitSwitch);
         base.OnEnter();
     }
     public override void OnStep(){base.OnStep();}

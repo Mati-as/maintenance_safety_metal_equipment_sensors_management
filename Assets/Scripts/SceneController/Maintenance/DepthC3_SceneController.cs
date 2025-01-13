@@ -35,6 +35,7 @@ public enum DepthC3_GameObj
     ConnectionScrewC,
     ConnectionScrewD,
     PowerHandle,
+    NewPressureSensor,
     PressureSensor,
     PressureSensorHose,
     PressureSensorAdapter,
@@ -77,7 +78,7 @@ public class DepthC3_SceneController : Base_SceneController
     // Highlight X
 
     // Highlight O
-    
+    { (int)DepthC3_GameObj.NewPressureSensor, new ObjectTextData((int)DepthC3_GameObj.NewPressureSensor, "새 압력센서", "New Pressure Sensor") },
     { (int)DepthC3_GameObj.MultimeterHandleHighlight, new ObjectTextData((int)DepthC3_GameObj.MultimeterHandleHighlight, "멀티미터 다이얼", "Multimeter Dial") },
     { (int)DepthC3_GameObj.ConnectionScrewA, new ObjectTextData((int)DepthC3_GameObj.ConnectionScrewA, "접속 나사 A", "Connection Screw A") },
     { (int)DepthC3_GameObj.ConnectionScrewB, new ObjectTextData((int)DepthC3_GameObj.ConnectionScrewB, "접속 나사 B", "Connection Screw B") },
@@ -246,6 +247,15 @@ public class DepthC3_SceneController : Base_SceneController
             
                     _unwoundCount = 0;//초기화 
                 }
+                if (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation && Managers.ContentInfo.PlayData.Count == 5)
+                {
+                    Logger.Log($"모든 나사 풀림 (11) XXXXXXXleft screw(s) to unwind {UNWOUND_COUNT_GOAL - _unwoundCount}");
+                    ClearTool();
+                    //↑↓ 순서바뀌지않도록주의
+                    OnStepMissionComplete(animationNumber:5);
+            
+                    _unwoundCount = 0;//초기화 
+                }
                 
             
             }
@@ -297,13 +307,13 @@ public class DepthC3_SceneController : Base_SceneController
         {
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 10)
             {
-                pressureCalibratorController.OnBtn_F3Clicked();
+                pressureCalibratorController.OnBtn_F3Clicked_ZPressureOrLoopPower();
                 OnStepMissionComplete(animationNumber:10);
             }
             
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 16)
             {
-                pressureCalibratorController.OnBtn_F3Clicked();
+                pressureCalibratorController.OnBtn_F3Clicked_ZPressureOrLoopPower();
                 ChangeTooltipText((int)DepthC3_GameObj.Btn_F4, "F4 : Continue");
                
             }
@@ -315,7 +325,7 @@ public class DepthC3_SceneController : Base_SceneController
             
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 16)
             {
-                pressureCalibratorController.OnBtn_F4Clicked();
+                pressureCalibratorController.OnBtn_F4Clicked_ATContinue();
                 OnStepMissionComplete(animationNumber:16);
                
             }
@@ -323,7 +333,7 @@ public class DepthC3_SceneController : Base_SceneController
                      
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 20)
             {
-                pressureCalibratorController.OnBtn_F4Clicked();
+                pressureCalibratorController.OnBtn_F4Clicked_ATContinue();
                 OnStepMissionComplete(animationNumber:20);
             }
             
@@ -664,7 +674,7 @@ public class DepthC3_SceneController : Base_SceneController
         defaultRotationMap.TryAdd((int)DepthC3_GameObj.Probe_Anode,GetObject((int)DepthC3_GameObj.Probe_Cathode).transform.rotation);
         C3_PreCommonObjInit();
         UnBindEventAttatchedObj();
-        BindHLForAllClickableObj();
+      
     }
     private void C3_PreCommonObjInit()
     {
@@ -761,6 +771,8 @@ public class DepthC3_SceneController : Base_SceneController
         
             OnStepMissionComplete(animationNumber:7);
         }
+        
+        
     }
 
     private void ToolBoxNewAdapterClicked()
@@ -1001,7 +1013,8 @@ public class DepthC3_SceneController : Base_SceneController
         {
           
             
-            if((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 11))
+            if((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 11)||
+            Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation && Managers.ContentInfo.PlayData.Count == 9)
             {
                 animatorMap[(int)DepthC3_GameObj.Probe_Anode].enabled = true;
                 animatorMap[(int)DepthC3_GameObj.Probe_Anode].SetBool(MULTIMETER_ON, true);
@@ -1016,40 +1029,35 @@ public class DepthC3_SceneController : Base_SceneController
 
                 DOVirtual.Float(0, 0, 2f, _ => { }).OnComplete(() => { isAnodePut = true; });
             }
-            
-           
-
         });
-     
+
         GetObject((int)DepthC3_GameObj.CathodeSensorInput).BindEvent(() =>
         {
-            
-                    
-            if ((Managers.ContentInfo.PlayData.Depth3 == 1 &&Managers.ContentInfo.PlayData.Count == 11)||
-                (Managers.ContentInfo.PlayData.Depth3 == 3 &&Managers.ContentInfo.PlayData.Count == 12))
+            if ((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 11) ||
+                (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 12) ||
+                (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation &&
+                 Managers.ContentInfo.PlayData.Count == 9))
             {
-                
                 if (!isAnodePut) return;
 
                 Logger.Log("Probe Set == 12");
                 animatorMap[(int)DepthC3_GameObj.Probe_Cathode].enabled = true;
                 animatorMap[(int)DepthC3_GameObj.Probe_Cathode].SetBool(MULTIMETER_ON, true);
-                
+
                 Action action11 = multimeterController.PS_OnAllProbeSetOnCurrentCheckMode;
                 if (Managers.ContentInfo.PlayData.Count == 11)
-                {
-                    OnStepMissionComplete(animationNumber: 11, delayTimeAmount: new WaitForSeconds(6f),ActionBeforeDelay:action11);
-                }
+                    OnStepMissionComplete(animationNumber: 11, delayTimeAmount: new WaitForSeconds(6f),
+                        ActionBeforeDelay: action11);
 
                 Action action = multimeterController.PS_OnAllProbeSetOnCurrentCheckMode;
-                         if (Managers.ContentInfo.PlayData.Count == 12)
-                {
-                    OnStepMissionComplete(animationNumber: 12, delayTimeAmount: new WaitForSeconds(6f),ActionBeforeDelay:action);
-                }
-   
-                
+                if (Managers.ContentInfo.PlayData.Count == 12)
+                    OnStepMissionComplete(animationNumber: 12, delayTimeAmount: new WaitForSeconds(6f),
+                        ActionBeforeDelay: action);
+
+                if (Managers.ContentInfo.PlayData.Count == 9)
+                    OnStepMissionComplete(animationNumber: 9, delayTimeAmount: new WaitForSeconds(6f),
+                        ActionBeforeDelay: action11);
             }
-            
         }, Define.UIEvent.PointerDown);
 
 
@@ -1230,7 +1238,8 @@ public class DepthC3_SceneController : Base_SceneController
     private bool  CheckDriverUsability()
     {
         if (((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 8) ||
-              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 5)))
+              (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 5)||
+              (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation && Managers.ContentInfo.PlayData.Count == 5)))
         {
             return true;
         }
@@ -1400,8 +1409,9 @@ public class DepthC3_SceneController : Base_SceneController
 
             if ((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 11 &&
                  !isAnodePut)
-                || (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 11 &&
+                || (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation && Managers.ContentInfo.PlayData.Count == 9 &&
                     !isAnodePut)
+                
 
                 )
             {
@@ -1414,7 +1424,7 @@ public class DepthC3_SceneController : Base_SceneController
             if
                 ((Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 11 &&
                   isAnodePut)
-                 || (Managers.ContentInfo.PlayData.Depth3 == 1 && Managers.ContentInfo.PlayData.Count == 11 &&
+                 || (Managers.ContentInfo.PlayData.Depth1 == (int)Define.Depth.Evaluation && Managers.ContentInfo.PlayData.Count == 9 &&
                      isAnodePut)
                  )
             {
