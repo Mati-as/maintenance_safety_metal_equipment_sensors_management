@@ -7,7 +7,6 @@ using HighlightPlus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 

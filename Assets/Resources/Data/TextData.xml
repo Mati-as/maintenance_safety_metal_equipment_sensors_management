@@ -116,11 +116,9 @@
   <!-- Depth 2-2-1 -->
   <TextData ID="22101" kor="계측센서 정비 작업을 위해 전기 작업시 활용하는 점검 도구를 준비하도록 하겠습니다" eng="eng Test" />
   <TextData ID="22102" kor="계측센서 정비 작업시에 활용되는 점검도구에는 전동드라이버, 디지털 미터, 자동압력 교정기, 스트립퍼 등이 있습니다. 작업대에 비치된 점검 도구를 클릭하면 각 점검 도구에 대한 설명을 확인할 수 있습니다." eng="eng Test" />
-  <TextData ID="22103" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
-  <TextData ID="22104" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
-  <TextData ID="22105" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
-  <TextData ID="22106" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
-  <TextData ID="22107" kor="화면에 좌측에 표기되는 계측 센서 정비 전 점검도구 체크리스트를 확인하고 체크리스트의 점검 도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
+  <TextData ID="22103" kor="도구를 클릭해 도구함에 넣도록 하겠습니다." eng="eng Test" />
+  <TextData ID="22104" kor="잘 하셨습니다 필요한 도구를 모두 도구함에 넣었습니다." eng="eng Test" />
+  
   
 
   <!-- Depth 2-2-2 -->
@@ -798,7 +796,67 @@
   <TextData ID="318822" kor="평가하기" eng="eng Test" />
   <TextData ID="318823" kor="평가하기" eng="eng Test" />
   <TextData ID="318824" kor="평가하기" eng="eng Test" />
-  
-  
-  
+
+
+  <!-- B 안전장비 설명 목록-->
+  <TextData ID="2991" kor="안전모" eng="Helmet" />
+  <TextData ID="29910" kor="작업 중 발생할 수 있는 추락 물체, 충격, 또는 전기 사고로부터 작업자의 머리를 보호합니다." 
+            eng="Protects the worker's head from falling objects, impacts, or electrical accidents during work." />
+
+  <TextData ID="299100" kor="- 안전모는 작업 전 외관을 점검하여 균열 또는 손상이 없는지 확인하세요.
+&#xA;- 머리에 맞는 사이즈로 조정하고, 턱 끈을 단단히 고정하여 착용합니다.
+&#xA;- 안전모의 내부 라이너가 손상되지 않았는지 확인하고, 규격 인증 마크가 있는 제품을 사용하세요.
+&#xA;- 작업 후에는 안전모를 청결하게 유지하고, 오염이나 손상이 있을 경우 교체하세요." 
+            eng="- Inspect the helmet for cracks or damage before use.
+&#xA;- Adjust the helmet to fit properly and secure the chin strap tightly.
+&#xA;- Ensure the internal liner is intact and use a product with a certified safety mark.
+&#xA;- Keep the helmet clean after use and replace it if it is damaged or contaminated." />
+
+  <TextData ID="2992" kor="절연 장갑" eng="Insulated Gloves" />
+  <TextData ID="29920" kor="전기 작업 시 감전 사고를 방지하기 위해 손을 보호합니다." eng="Protects hands from electric shocks during electrical work." />
+  <TextData ID="299200" kor="- 착용 전 장갑 내부와 외부를 점검하여 손상 여부를 확인하세요.&#xA;- 작업 중에는 반드시 절연장갑 위에 보호용 커버 장갑을 덧대어 사용해야 합니다." eng="- Inspect the inside and outside of the gloves for damage before use.&#xA;- Always wear protective cover gloves over insulated gloves during work." />
+
+  <TextData ID="2993" kor="귀마개" eng="Earplugs" />
+  <TextData ID="29930" kor="- 소음이 심한 작업 환경에서 청각 보호를 위해 사용합니다." eng="- Used to protect hearing in noisy work environments." />
+  <TextData ID="299300" kor="- 귀마개는 양쪽 귀에 잘 맞도록 착용해야 하며, 작업 전 청결 상태를 점검합니다.&#xA;- 장시간 사용 시에는 주기적으로 교체하세요." eng="- Fit earplugs properly in both ears and check cleanliness before use.&#xA;- Replace them periodically during prolonged use." />
+
+  <TextData ID="2994" kor="방진 마스크" eng="Dust Mask" />
+  <TextData ID="29940" kor="작업 환경의 미세먼지와 유해 입자로부터 작업자의 호흡기를 보호합니다." eng="Protects the worker's respiratory system from fine dust and harmful particles in the work environment." />
+  <TextData ID="299400" kor="- 마스크는 작업 환경에 적합한 필터 등급을 선택해야 합니다.&#xA;- 착용 시 얼굴에 밀착되도록 조정하며, 사용 후에는 반드시 폐기합니다." eng="- Choose a mask with a filter grade suitable for the work environment.&#xA;- Adjust for a tight seal on the face and discard after use." />
+
+  <TextData ID="2995" kor="보호 안경" eng="Safety Glasses" />
+  <TextData ID="29950" kor="작업 중 발생하는 이물질, 화학물질, 또는 강한 빛으로부터 눈을 보호합니다." eng="Protects eyes from debris, chemicals, or intense light during work." />
+  <TextData ID="299500" kor="- 작업 유형에 따라 적합한 렌즈와 코팅 처리가 된 보호안경을 선택합니다.&#xA;- 착용 전 렌즈에 흠집이나 손상이 없는지 확인하세요." eng="- Choose safety glasses with appropriate lenses and coatings for the task.&#xA;- Check lenses for scratches or damage before wearing." />
+
+  <TextData ID="2996" kor="절연화" eng="Insulated Shoes" />
+  <TextData ID="29960" kor="고압 전류가 흐르는 환경에서 작업자의 발을 감전으로부터 보호하기 위해 착용합니다." eng="Protects the worker's feet from electric shocks in high-voltage environments." />
+  <TextData ID="299600" kor="- 절연장화는 작업 전 외관을 점검하여 구멍이나 찢어짐이 없는지 확인해야 합니다.&#xA;- 발에 맞는 사이즈를 선택하여 착용하며, 바닥에 미끄럼 방지 처리가 되어 있어야 합니다." eng="- Inspect insulated shoes for holes or tears before use.&#xA;- Wear the correct size and ensure the soles have anti-slip treatment." />
+
+  <TextData ID="2997" kor="방염복" eng="Flame-Resistant Clothing" />
+  <TextData ID="29970" kor="고온 환경에서 작업자의 신체를 화상이나 열로부터 보호하기 위해 착용합니다." eng="Protects the worker's body from burns or heat in high-temperature environments." />
+  <TextData ID="299700" kor="- 고열작업복은 난연성과 방열 성능이 검증된 소재로 제작된 것을 사용해야 합니다.&#xA;- 착용 전 외관에 손상이나 오염 여부를 점검하고, 손상이 있을 경우 교체합니다.&#xA;- 작업 중에는 몸에 밀착되도록 착용하여 열이 내부로 유입되지 않도록 하며, 작업 종료 후에는 반드시 세척 및 보관 지침에 따라 관리합니다." eng="- Use flame-resistant clothing made from tested materials.&#xA;- Check for damage or contamination before wearing and replace if necessary.&#xA;- Wear snugly to prevent heat penetration and follow cleaning and storage guidelines after use." />
+
+
+
+  <TextData ID="2981" kor="전동 드라이버" eng="" />
+  <TextData ID="29810" kor="계측 센서 철거 및 분해 작업 시 활용되며 조절 나사, 고정 나사를 체결할 수 있습니다." eng="" />
+  <TextData ID="298100" kor="- 배터리 충전 상태와 토크 설정값이 정비 작업에 적절한지 확인하며 드라이버 비트 마모 여부를 점검할 수 있습니다." eng="" />
+
+  <TextData ID="2982" kor="멀티 미터" eng="" />
+  <TextData ID="29820" kor="계측 센서의 조정 및 정상 작동 확인을 위해 활용되며, 전류, 저항 등 다양한 전기적 특성을 측정할 수 있습니다." eng="" />
+  <TextData ID="298200" kor="- 프로브의 상태를 확인하고 디지털 미터의 측정 모드와 기기의 보정 상태를 사전에 점검할 수 있습니다." eng="" />
+
+  <TextData ID="2983" kor="자동 압력 교정기" eng="" />
+  <TextData ID="29830" kor="센서 데이터의 신뢰성을 확보하고 센서의 정확도(오차 범위)를 확인할 수 있습니다." eng="" />
+  <TextData ID="298300" kor="- 전원 케이블과 압력 호스에 이상이 없는지 점검하고, 사용하는 압력 범위 단위가 올바른지 확인할 수 있습니다." eng="" />
+
+  <TextData ID="2984" kor="스트립퍼" eng="" />
+  <TextData ID="29840" kor="전선 피복을 제거하여 도체를 노출함으로써 연결 작업, 납땜, 또는 단자 작업이 가능하도록 합니다." eng="" />
+  <TextData ID="298400" kor="- 스트립퍼 날의 손상 여부와 사용할 환경(직경, 재질)에 적절한지 점검할 수 있습니다." eng="" />
+
+  <TextData ID="2985" kor="렌치" eng="" />
+  <TextData ID="29850" kor="볼트 및 너트를 체결 혹은 분해하는 작업에 사용되며, 다양한 크기의 볼트와 너트에 맞게 조정이 가능합니다." eng="" />
+  <TextData ID="298500" kor="- 렌치의 조정 부분이 부드럽게 작동하는지 확인하고, 손잡이 또는 헤드 부분에 균열이나 손상이 없는지 점검할 수 있습니다. 작업 대상에 맞는 크기와 유형의 렌치를 선택하여 사용합니다." eng="" />
+
+
 </ArrayOfTextData>

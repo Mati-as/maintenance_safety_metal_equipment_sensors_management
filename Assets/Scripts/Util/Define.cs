@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Serialization;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Define
 {
@@ -99,7 +95,24 @@ public class Define
 	
 	//public const int PleaseTouchScreen = 6501;
 
+
 	
+	public const int Safety_Helmet =2991;
+	public const int Safety_InsulatedGloves= 2992;
+	public const int Safety_EarPlugs= 2993;
+	public const int Safety_Mask= 2994;
+	public const int Safety_ProtectiveGoggles= 2995;
+	public const int Safety_Shoes= 2996;
+	public const int Safety_FlameResistantSuit= 2997;
+
 	
-	
+	public const int Safety_ElectronicDriver =2981;
+	public const int Safety_Multimeter= 2982;
+	public const int Safety_PressureCalibrator= 2983;
+	public const int Safety_Stripper= 2984;
+	public const int Safety_Wrench= 2985;
+
+
+
+
 }

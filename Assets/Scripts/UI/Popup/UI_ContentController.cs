@@ -2,13 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
@@ -71,7 +69,7 @@ public class UI_ContentController : UI_Popup
         UI_ToolTip,
         UI_ToolBox,
         UI_Checklist,
-        
+        UI_SafetyCheckOnly_Tooltip,
         UI_DrverOnly_GaugeSlider,
         UI_CurrentDepth_Mid,
         ToggleGroup_TopMenuBar,
@@ -103,7 +101,7 @@ public class UI_ContentController : UI_Popup
         
     }
 
-
+    public UI_SafetyCheckEquipmentList safetyCheckOnly_Tooltip;
     private readonly TextMeshProUGUI[] texts = new TextMeshProUGUI[Enum.GetValues(typeof(TMPs)).Length];
 
     private Animator animator_depth3Hide;
@@ -261,8 +259,7 @@ public class UI_ContentController : UI_Popup
 #endif 
 
         _currentMainCam =Camera.main.GetComponent<Inplay_CameraController>();
-        
-        
+       
         BindUIElements();
         InitTopMenu();
         InitDepth2Toggles();
@@ -289,6 +286,11 @@ public class UI_ContentController : UI_Popup
             }
         }
 
+        safetyCheckOnly_Tooltip =
+            GetObject((int)UI.UI_SafetyCheckOnly_Tooltip).GetComponent<UI_SafetyCheckEquipmentList>();
+
+            
+            
         OnSensorOverall();
         EmptyInstructionTextBox();
         

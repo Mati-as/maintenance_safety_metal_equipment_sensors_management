@@ -1,7 +1,4 @@
-﻿using System;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 
 public class Managers : MonoBehaviour
 {

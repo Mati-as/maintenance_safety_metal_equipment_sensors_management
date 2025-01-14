@@ -78,10 +78,22 @@ public class StateB21_3 : Base_SceneState
 
 public class StateB21_4 : Base_SceneState
 {
-    DepthB_SceneController _depthBceneController;
+    DepthB_SceneController _depthBSceneController;
     public StateB21_4(DepthB_SceneController currentScene) : base(currentScene)
-    {_depthBceneController = currentScene;}
-    public override void OnEnter() {base.OnEnter();}
+    {_depthBSceneController = currentScene;}
+    public override void OnEnter()
+    {
+        Managers.ContentInfo.PlayData.Depth1 = 2;
+        Managers.ContentInfo.PlayData.Depth2 = 2;
+        Managers.ContentInfo.PlayData.Depth3 = 1;
+        Managers.ContentInfo.PlayData.Count = 1;
+
+        
+        _depthBSceneController.contentController.Refresh();
+        _depthBSceneController.DepthB21Init();    
+        base.OnEnter();
+        _depthBSceneController.PlayAnimation(1);
+    }
 
     public override void OnStep(){base.OnStep();}
 

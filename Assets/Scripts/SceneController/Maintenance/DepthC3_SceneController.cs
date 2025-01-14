@@ -534,6 +534,7 @@ public class DepthC3_SceneController : Base_SceneController
         controlPanel = GetObject((int)DepthC3_GameObj.PowerHandle).GetComponent<ControlPanelController>();
         
         C3_PreCommonObjInit();
+        BindHLForAllClickableObj();
 
     }
     protected void LateCommonInit()
