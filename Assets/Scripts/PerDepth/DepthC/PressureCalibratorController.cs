@@ -26,6 +26,18 @@ public class PressureCalibratorController : UI_Popup
     private Base_SceneController _currentSceneController;
 
     private UI _currentUI;
+
+    public UI currentUI
+    {
+        get
+        {
+            return _currentUI;
+        }
+        set
+        {
+            _currentUI = value;
+        }
+    }
     
     //taskUI에서 loopPower와 continue버튼 필요
     private bool _isVented;
@@ -268,7 +280,7 @@ public class PressureCalibratorController : UI_Popup
             return;
         }
 
-        if (!_isLoopPowerBtnClicked)
+        if (_currentUI ==  UI.CalibrationModeSetting &&!_isLoopPowerBtnClicked)
         {
             Logger.Log("F3:Loop Power Btn must be clicked first. ");
             return;
@@ -278,12 +290,14 @@ public class PressureCalibratorController : UI_Popup
         if (_currentUI == UI.CalibrationModeSetting)
         {
             TurnOnUI(UI.Calibrating);
-            
+            return;
         }
+        
         
         if (_currentUI == UI.Calibrating)
         {
            CalibratePressure();
+           return;
         }
                
  
@@ -291,6 +305,7 @@ public class PressureCalibratorController : UI_Popup
 
     private bool _numberOneClickedOnSpanSetSession;
     private bool _numberZeroClickedOneTimeOnSpanSetSession;
+    private bool _isNumberOnePutForHundred; //1보다 0을 먼저누르는것을 방지하기위한 bool
     
     public void OnBtnNumberOneClicked()
     {
@@ -309,10 +324,18 @@ public class PressureCalibratorController : UI_Popup
         
         if (_currentUI == UI.PressureAndMeasureSetting)
         {
+            if (_isNumberOnePutForHundred)
+            {
+                Logger.Log("이미 1이 한번 클릭되었습니다.");
+                return;
+            }
+            
             GetNonUITMP((int)NonUITMPs.Pressure100Psi).text = "1";
+            _isNumberOnePutForHundred = true;
         }
     }
 
+    
     public void OnBtnNumberZeroClicked()
     {
         if (_currentUI == UI.PressureAndMeasureSetting && !_numberZeroClickedOneTimeOnSpanSetSession)
@@ -321,19 +344,32 @@ public class PressureCalibratorController : UI_Popup
             {
                 _numberZeroClickedOneTimeOnSpanSetSession = true;
             });
-            
+
+            if (!_isNumberOnePutForHundred)
+            {
+                Logger.Log("1을먼저 눌러야 합니다.");
+                return;
+            }
             GetNonUITMP((int)NonUITMPs.Pressure100Psi).text = "10";
+            is100PsiSet = false;
         }
         
         if (_currentUI == UI.PressureAndMeasureSetting && _numberZeroClickedOneTimeOnSpanSetSession)
         {
+            if (!_isNumberOnePutForHundred)
+            {
+                Logger.Log("1을먼저 눌러야 합니다.");
+                return;
+            }
             GetNonUITMP((int)NonUITMPs.Pressure100Psi).text = "100";
+            is100PsiSet = true;
         }
     }
 
     private bool _hasDownToPressureSpanPoint;
     private bool _hasDownToTestStrategy;
     public bool is100PsiSet;
+    public bool isStrategy3Up;
     public void OnEnterBtnClicked()
     {
         if (_currentUI == UI.Default)
@@ -343,16 +379,22 @@ public class PressureCalibratorController : UI_Popup
             _isContinueClicked = false;
                 
             TurnOnUI(UI.Tasks);
+            return;
         }
         
-        if (_currentUI == UI.CalibrationModeSetting)
+        if (_currentUI == UI.CalibrationModeSetting && _hasDownToTestStrategy)
         {
             TurnOnUI(UI.TestStrategy);
+            return;
         }
         
-        if (_currentUI == UI.TestStrategy)
+        if (_currentUI == UI.TestStrategy )
         {
+            Logger.Log($"{_currentUI} 에서 CalibrationModeSetting으로 이동 ");
             TurnOnUI(UI.CalibrationModeSetting);
+            SetTestStrategyModeString("3↑");
+            isStrategy3Up = true;
+            return;
         }
         
                 
@@ -360,6 +402,7 @@ public class PressureCalibratorController : UI_Popup
         {
             GetNonUITMP((int)NonUITMPs.Pressure100Psi).text = "100.000psi";
             is100PsiSet = true;
+            return;
         }
     }
     public void OnDownBtnClicked()
@@ -421,8 +464,11 @@ public class PressureCalibratorController : UI_Popup
         
         TurnOffAllUI();
         GetObject((int)ui).gameObject.SetActive(true);
-        _currentUI = ui;
+     
         OnThisUIInit(ui);
+        _currentUI = ui;
+        
+        Logger.Log($"현재 자동 압력 교정기 UI : {ui}");
 
     }
 
@@ -442,8 +488,8 @@ public class PressureCalibratorController : UI_Popup
 
     public void KillCalibratePressureSeq()
     {
-        _textAnimSeqMap[(int)UI.Calibrating]?.Kill();
-        _textAnimSeqMap[(int)UI.Calibrating] = DOTween.Sequence();
+       if(_textAnimSeqMap.ContainsKey((int)UI.Calibrating)) _textAnimSeqMap[(int)UI.Calibrating]?.Kill();
+       if(_textAnimSeqMap.ContainsKey((int)UI.Calibrating)) _textAnimSeqMap[(int)UI.Calibrating] = DOTween.Sequence();
     }
 
 
@@ -606,7 +652,7 @@ public class PressureCalibratorController : UI_Popup
                is100PsiSet = false;
                GetObject((int)UI.SelectedYellowBgA).gameObject.SetActive(true);
                GetObject((int)UI.SelectedYellowBgB).gameObject.SetActive(false);
-               
+               isStrategy3Up = false;
                
                break;
            case UI.CalibrationModeSetting:
@@ -618,7 +664,7 @@ public class PressureCalibratorController : UI_Popup
                _hasDownToTestStrategy = false;
                break;
            case UI.TestStrategy:
-             
+               isStrategy3Up = false;
            
                
                break;

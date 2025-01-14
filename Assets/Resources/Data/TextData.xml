@@ -534,7 +534,7 @@
   <TextData ID="43103" kor="작업 전 전원을 차단해주세요." eng="" />
   <TextData ID="43104" kor="배관 내부 잔류 압력을 제거하기 위해 밸브를 열어주세요." eng="" />
   <TextData ID="43105" kor="기존 압력 센서를 철거하기 위해 전동 드라이버를 사용해 접속 단자를 해체해주세요." eng="" />
-  <TextData ID="43106" kor="도구함에서 새 압력 센서를 클릭해 설치해주세요." eng="" />
+  <TextData ID="43106" kor="꺼내놓은 새 압력 센서를 클릭해 설치해주세요." eng="" />
   <TextData ID="43107" kor="새로 설치한 압력 센서의 전류를 측정하도록 하겠습니다.도구함을 클릭해 디지털 미터를 꺼내주세요." eng="" />
   <TextData ID="43108" kor="다이얼을 돌려 직류 전류(A) 측정 모드로 맞춰주세요." eng="" />
   <TextData ID="43109" kor="프로브를 시그널 컨디셔너의 입력,출력 단자에 적절히 연결해 측정해주세요. 입력되는 압력이 0일 때 전류가 4mA가 측정되는지 확인 해주세요." eng="" />
@@ -545,13 +545,13 @@
   <TextData ID="43114" kor="교정을 위한 제로점과 스팬점을 설정하기 위해 적절한 버튼을 클릭해 해당 항목으로 커서를 이동해주세요." eng="" />
   <TextData ID="43115" kor="스팬점을 100으로 설정한 뒤, 입력 해주세요." eng="" /><!-- 100 -> Enter-->
   <TextData ID="43116" kor="버튼 조작을 통해 압력 센서에 전원을 공급하고, 테스트 조건 설정화면으로 이동하세요." eng="" /><!---> F3 , F4-->
-  <TextData ID="43117" kor="테스트 조건을 [3↑]으로 설정하고, 자동테스트 시작화면으로 이동하세요" eng="" />
+  <TextData ID="43117" kor="테스트 방식을 [3↑]으로 설정하고, 자동테스트 시작화면으로 이동하세요" eng="" /><!---> Down , Enter, Enter-->
   <TextData ID="43118" kor="자동 테스트를 시작해주세요." eng="" /> <!-- Auto Test-->
   <TextData ID="43119" kor="교정 과정이 성공적으로 완료되었습니다.설비의 전원을 다시 켜고 정비 작업을 완료해주세요" eng="" />
 
   
   <!-- 압력 평가 압력평가하기 항목 부분 Pressure Evaluation-->
-  <TextData ID="4301" kor="압력 센서 준비" eng="Prepare the pressure sensor" />
+  <TextData ID="4301" kor="새 압력 센서 준비" eng="Prepare the pressure sensor" />
   <TextData ID="4302" kor="작업 전 전원 차단" eng="Turn off the power before starting the task" />
   <TextData ID="4303" kor="배관 잔류 압력 제거" eng="Release residual pressure in the pipeline" />
   <TextData ID="4304" kor="압력 센서 접속나사 해체" eng="Remove the existing sensor" />

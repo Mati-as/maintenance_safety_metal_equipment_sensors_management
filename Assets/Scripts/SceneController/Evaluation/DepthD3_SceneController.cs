@@ -49,7 +49,9 @@ public class DepthD3_SceneController : DepthC3_SceneController
         isScrewUnwindMap = new Dictionary<int, bool>();
         animatorMap = new Dictionary<int, Animator>();
         defaultRotationMap = new Dictionary<int, Quaternion>();
-
+        
+        pressureCalibratorController = GetObject((int)DepthC3_GameObj.PressureCalibrator).GetComponent<PressureCalibratorController>();
+        
         PreCommonInit();
 
         SetPressureSensorCurrentCheckMultimeterSection();
@@ -195,8 +197,8 @@ public class DepthD3_SceneController : DepthC3_SceneController
 
             if (Managers.ContentInfo.PlayData.Count == 16)
             {
+                Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_F4);
                 pressureCalibratorController.OnBtn_F3Clicked_ZPressureOrLoopPower();
-                ChangeTooltipText((int)DepthC3_GameObj.Btn_F4, "F4 : Continue");
             }
         });
 
@@ -208,17 +210,25 @@ public class DepthD3_SceneController : DepthC3_SceneController
                 pressureCalibratorController.OnBtn_F4Clicked_ATContinue();
                 OnStepMissionComplete(animationNumber: 16);
             }
+            
+            
+            
+            // 설정후 Continue로 넘어가기 
+            if (Managers.ContentInfo.PlayData.Count == 17)
+            {
+                if(pressureCalibratorController.isStrategy3Up && pressureCalibratorController.currentUI==
+                   PressureCalibratorController.UI.CalibrationModeSetting)
+                    OnStepMissionComplete(animationNumber: 17);
+            }
+         
 
-
-            if (Managers.ContentInfo.PlayData.Count == 20)
+            // 자동 교정 시작하기.
+            if (Managers.ContentInfo.PlayData.Count == 18)
             {
                 pressureCalibratorController.OnBtn_F4Clicked_ATContinue();
-                OnStepMissionComplete(animationNumber: 20);
+                OnStepMissionComplete(animationNumber: 18,delayTimeAmount: new WaitForSeconds(20f));
             }
 
-            //AutoTest
-            if (Managers.ContentInfo.PlayData.Count == 19)
-                OnStepMissionComplete(animationNumber: 19);
         });
 
 
@@ -236,10 +246,10 @@ public class DepthD3_SceneController : DepthC3_SceneController
         //BindHighlight((int)DepthC3_GameObj.Btn_Tasks,"TASKS");
         GetObject((int)DepthC3_GameObj.Btn_Tasks).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Count == 11)
+            if (Managers.ContentInfo.PlayData.Count == 13)
             {
+                Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Number_One);
                 pressureCalibratorController.OnTasksBtnClicked();
-                OnStepMissionComplete(animationNumber: 11);
             }
         });
 
@@ -247,14 +257,17 @@ public class DepthD3_SceneController : DepthC3_SceneController
         //BindHighlight((int)DepthC3_GameObj.Btn_Arrow_Down,"DOWN");
         GetObject((int)DepthC3_GameObj.Btn_Arrow_Down).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Count == 15)
+            if (Managers.ContentInfo.PlayData.Count == 14)
             {
                 pressureCalibratorController.OnDownBtnClicked();
-                OnStepMissionComplete(animationNumber: 15);
+                OnStepMissionComplete(animationNumber: 14);
             }
 
-            if (Managers.ContentInfo.PlayData.Count == 18)
+            if (Managers.ContentInfo.PlayData.Count == 17)
+            {
                 pressureCalibratorController.OnDownBtnClicked();
+                Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Enter);
+            }
         });
 
 
@@ -264,46 +277,61 @@ public class DepthD3_SceneController : DepthC3_SceneController
         //BindHighlight((int)DepthC3_GameObj.Btn_Enter,"ENTER");
         GetObject((int)DepthC3_GameObj.Btn_Enter).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Count == 16)
+            if (Managers.ContentInfo.PlayData.Count == 15)
             {
                 pressureCalibratorController.OnEnterBtnClicked();
-                if (pressureCalibratorController.is100PsiSet) OnStepMissionComplete(animationNumber: 16);
+                if (pressureCalibratorController.is100PsiSet) OnStepMissionComplete(animationNumber: 15);
             }
 
-            if (Managers.ContentInfo.PlayData.Count == 18)
+            if (Managers.ContentInfo.PlayData.Count == 17)
             {
                 pressureCalibratorController.OnEnterBtnClicked();
-                OnStepMissionComplete(animationNumber: 18);
             }
 
 
-            if (Managers.ContentInfo.PlayData.Count == 18)
-            {
-                pressureCalibratorController.OnEnterBtnClicked();
-                OnStepMissionComplete(animationNumber: 18);
-            }
+    
         });
 
 
         //BindHighlight((int)DepthC3_GameObj.Btn_Number_One,"1");
         GetObject((int)DepthC3_GameObj.Btn_Number_One).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Count == 13)
+            if (Managers.ContentInfo.PlayData.Count == 13
+                && pressureCalibratorController.currentUI ==PressureCalibratorController.UI.Tasks)
             {
                 pressureCalibratorController.OnBtnNumberOneClicked();
                 OnStepMissionComplete(animationNumber: 13);
             }
 
-            if (Managers.ContentInfo.PlayData.Count == 16)
+            if (Managers.ContentInfo.PlayData.Count == 15)
+            {
+                Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Number_Zero);
+   
+                   
+                Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Number_Zero);
                 pressureCalibratorController.OnBtnNumberOneClicked();
+            }
         });
 
 
         //BindHighlight((int)DepthC3_GameObj.Btn_Number_Zero,"0");
         GetObject((int)DepthC3_GameObj.Btn_Number_Zero).BindEvent(() =>
         {
-            if (Managers.ContentInfo.PlayData.Count == 16)
+            if (Managers.ContentInfo.PlayData.Count == 15)
+            {
                 pressureCalibratorController.OnBtnNumberZeroClicked();
+                
+                if (pressureCalibratorController.is100PsiSet)
+                {
+                    Managers.EvaluationManager.ObjAnswerToClick.Remove((int)DepthC3_GameObj.Btn_Number_Zero);
+                    Managers.EvaluationManager.ObjAnswerToClick.Remove((int)DepthC3_GameObj.Btn_Number_One);
+                    Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Enter);
+                }
+                else
+                {
+                    Managers.EvaluationManager.ObjAnswerToClick.Remove((int)DepthC3_GameObj.Btn_Number_One);
+                }
+            }
         });
     }
 
@@ -366,47 +394,12 @@ public class DepthD3_SceneController : DepthC3_SceneController
         if (Managers.ContentInfo.PlayData.Count == 11)
             if (isOn)
                 OnStepMissionComplete(animationNumber: 11);
+        if (Managers.ContentInfo.PlayData.Count == 19)
+            if (isOn)
+                OnStepMissionComplete(animationNumber: 19);
     }
 
 
-    // protected override void SetToolPos()
-    // {
-    //     var distanceFromCamera = 0.09f;
-    //     var mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x + _toolPosXOffset,
-    //         Input.mousePosition.y + _toolPosYOffset,
-    //         distanceFromCamera));
-    //
-    //
-    //     if (isDriverOn && currentActiveTool == (int)DepthC2_GameObj.ElectricScrewdriver)
-    //     {
-    //         GetObject((int)DepthC2_GameObj.ElectricScrewdriver).SetActive(isDriverOn);
-    //         GetObject((int)DepthC2_GameObj.ElectricScrewdriver).transform.position = mousePosition;
-    //     }
-    //     else if (isMultimeterOn && currentActiveTool == (int)DepthC2_GameObj.Multimeter &&
-    //              multimeterController.isCurrentCheckMode)
-    //     {
-    //         GetObject((int)DepthC2_GameObj.Probe_Cathode).SetActive(isMultimeterOn);
-    //         GetObject((int)DepthC2_GameObj.Probe_Anode).SetActive(isMultimeterOn);
-    //
-    //         if ((Managers.ContentInfo.PlayData.Count >= 8 && !isAnodePut) ||
-    //             (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count >= 8 && !isAnodePut))
-    //         {
-    //             GetObject((int)DepthC2_GameObj.Probe_Anode).transform.rotation =
-    //                 defaultRotationMap[(int)DepthC2_GameObj.Probe_Anode];
-    //
-    //             GetObject((int)DepthC2_GameObj.Probe_Anode).transform.position = mousePosition;
-    //         }
-    //
-    //         if ((Managers.ContentInfo.PlayData.Count >= 8 && isAnodePut) ||
-    //             (Managers.ContentInfo.PlayData.Depth1 == 4 && Managers.ContentInfo.PlayData.Count >= 98 && isAnodePut))
-    //         {
-    //             GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.rotation =
-    //                 defaultRotationMap[(int)DepthC2_GameObj.Probe_Cathode];
-    //
-    //             GetObject((int)DepthC2_GameObj.Probe_Cathode).transform.position = mousePosition;
-    //         }
-    //     }
-    // }
 
     private void InitializeD2States()
     {
@@ -431,6 +424,7 @@ public class DepthD3_SceneController : DepthC3_SceneController
             { 43117, new DepthD31_State_17(this) },
             { 43118, new DepthD31_State_18(this) },
             { 43119, new DepthD31_State_19(this) },
+            { 43120, new DepthD31_State_20(this) },
             // { 43120, new DepthD31_State_20(this) },
             // { 43121, new DepthD31_State_21(this) }
         };

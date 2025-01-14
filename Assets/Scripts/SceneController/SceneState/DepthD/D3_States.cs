@@ -51,6 +51,7 @@ public class DepthD31_State_2 : Base_SceneState
     public override void OnEnter()
     {
         CurrentScene.contentController.SetScriptUI();
+        _depthD3SceneController.UIEvaluation.UI_OnEvalStart();
         base.OnEnter();
         CurrentScene.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         CurrentScene.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_PressureSensor);
@@ -74,6 +75,7 @@ public class DepthD31_State_3 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        _depthD3SceneController.UIEvaluation.RefreshCheckListImage(1);
         _depthD3SceneController.controlPanel.SetPowerHandleOn();
         Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.PowerHandle);
      
@@ -96,6 +98,7 @@ public class DepthD31_State_4 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        _depthD3SceneController.UIEvaluation.RefreshCheckListImage(2);
         _depthD3SceneController.controlPanel.SetPowerHandleOff();
         Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.PressureSensorWaterPipeValve);
 
@@ -105,7 +108,7 @@ public class DepthD31_State_4 : Base_SceneState
 
     public override void OnExit()
     {
- 
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(3,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
     }
 }
@@ -123,7 +126,7 @@ public class DepthD31_State_5 : Base_SceneState
     {
 
       
-        
+        _depthD3SceneController.UIEvaluation.RefreshCheckListImage(3);
         _depthD3SceneController.isWindSession = false;
         
         foreach (var key in _depthD3SceneController.currentScrewGaugeStatus.Keys.ToList())
@@ -144,7 +147,7 @@ public class DepthD31_State_5 : Base_SceneState
         _depthD3SceneController.animatorMap[(int)DepthC3_GameObj.ConnectionScrewB].enabled = false;
         
         _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.ConnectionScrewB,false);
-        _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.ConnectionScrewB);
+     //   _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.ConnectionScrewB);
 
 
         
@@ -157,7 +160,14 @@ public class DepthD31_State_5 : Base_SceneState
         //CurrentScene.cameraController.isControllable = false;
     }
     public override void OnStep(){base.OnStep();}
-    public override void OnExit(){base.OnExit();}}
+
+    public override void OnExit()
+    {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(4,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
+    
+}
 
 public class DepthD31_State_6 : Base_SceneState
 {
@@ -239,8 +249,7 @@ public class DepthD31_State_8 : Base_SceneState
         _depthD3SceneController.multimeterController.PS_SetToDefaultMode();
         _depthD3SceneController.currentActiveTool = (int)DepthC3_GameObj.Multimeter;
         
-        _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.MultimeterHandleHighlight,false);
-        _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.MultimeterHandleHighlight);
+       
         Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.MultimeterHandleHighlight);
         
         //Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Multimeter);
@@ -270,7 +279,7 @@ public class DepthD31_State_9 : Base_SceneState
         Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.CathodeSensorInput);
         Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.AnodeSensorOutput);
         _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.CathodeSensorInput,false);
-        _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.CathodeSensorInput);
+        _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.AnodeSensorOutput);
       
      
     }
@@ -278,6 +287,7 @@ public class DepthD31_State_9 : Base_SceneState
 
     public override void OnExit()
     {
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(5,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Vent);
         base.OnExit();
     }
@@ -294,6 +304,7 @@ public class DepthD31_State_10 : Base_SceneState
     public override void OnEnter()
     {
         base.OnEnter();
+        _depthD3SceneController.UIEvaluation.RefreshCheckListImage(4);
         _depthD3SceneController.ClearTool();
         _depthD3SceneController.contentController.BlinkBtnUI((int)Btns.Btn_ToolBox);
         _depthD3SceneController.contentController.uiToolBox.Refresh(UI_ToolBox.Btns.Btn_Multimeter);
@@ -315,39 +326,41 @@ public class DepthD31_State_10 : Base_SceneState
 
 public class DepthD31_State_11 : Base_SceneState
 {
-    private readonly DepthD3_SceneController _depthC3SceneController;
+    private readonly DepthD3_SceneController _depthD3SceneController;
 
     public DepthD31_State_11(DepthD3_SceneController currentScene) : base(currentScene)
     {
-        _depthC3SceneController = currentScene;
+        _depthD3SceneController = currentScene;
     }
 
 
       public override void OnEnter()
     {
         base.OnEnter();
-        _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.Default);
-        _depthC3SceneController.pressureCalibratorController.BootPressureCalibrator();
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Vent, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Vent);
+        _depthD3SceneController.UIEvaluation.RefreshCheckListImage(5);
+        _depthD3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.Default);
+        _depthD3SceneController.pressureCalibratorController.BootPressureCalibrator();
+      
+        
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Vent);
      
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Vent);
+      
         base.OnExit();
     }
 }
 
 public class DepthD31_State_12 : Base_SceneState
 {
-    private readonly DepthD3_SceneController _depthC3SceneController;
+    private readonly DepthD3_SceneController _depthD3SceneController;
 
     public DepthD31_State_12(DepthD3_SceneController currentScene) : base(currentScene)
     {
-        _depthC3SceneController = currentScene;
+        _depthD3SceneController = currentScene;
     }
 
 
@@ -355,29 +368,27 @@ public class DepthD31_State_12 : Base_SceneState
     {
         base.OnEnter();
         
-        _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.Default);
-        _depthC3SceneController.ChangeTooltipText((int)DepthC3_GameObj.Btn_F3,"0으로 압력 초기화 [ZERO PRESSURE]");
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F3, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_F3);
+        _depthD3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.Default);
+        _depthD3SceneController.ChangeTooltipText((int)DepthC3_GameObj.Btn_F3,"0으로 압력 초기화 [ZERO PRESSURE]");
+       
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_F3);
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-  
-   _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F3);
-   _depthC3SceneController.ChangeTooltipText((int)DepthC3_GameObj.Btn_F3,"");
+        
         base.OnExit();
     }
 }
 
 public class DepthD31_State_13 : Base_SceneState
 {
-    private readonly DepthD3_SceneController _depthC3SceneController;
+    private readonly DepthD3_SceneController _depthD3SceneController;
 
     public DepthD31_State_13(DepthD3_SceneController currentScene) : base(currentScene)
     {
-        _depthC3SceneController = currentScene;
+        _depthD3SceneController = currentScene;
     }
 
 
@@ -386,20 +397,17 @@ public class DepthD31_State_13 : Base_SceneState
     {
         base.OnEnter();
        
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Tasks, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Tasks);
+       // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Tasks, false);
+        //_depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Tasks);
         
-        _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.Tasks);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Tasks);
+      
         
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_One, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Number_One);
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_One, false);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Tasks, false);
         base.OnExit();
     }
 }
@@ -408,25 +416,23 @@ public class DepthD31_State_13 : Base_SceneState
 
 public class DepthD31_State_14 : Base_SceneState
 {
-    private readonly DepthD3_SceneController _depthC3SceneController;
+    private readonly DepthD3_SceneController _depthD3SceneController;
 
     public DepthD31_State_14(DepthD3_SceneController currentScene) : base(currentScene)
     {
-        _depthC3SceneController = currentScene;
+        _depthD3SceneController = currentScene;
     }
     
     public override void OnEnter()
     {
         base.OnEnter();
         
-        _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.PressureAndMeasureSetting);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Arrow_Down, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Arrow_Down);
+        _depthD3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.PressureAndMeasureSetting);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Arrow_Down);
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Arrow_Down, false);
         base.OnExit();
     }
 }
@@ -434,33 +440,35 @@ public class DepthD31_State_14 : Base_SceneState
 
 public class DepthD31_State_15 : Base_SceneState
 {
-    private DepthD3_SceneController _depthC3SceneController;
+    private DepthD3_SceneController _depthD3SceneController;
 
     public DepthD31_State_15(DepthD3_SceneController currentScene) : base(currentScene)
     {
-        _depthC3SceneController = currentScene;
+        _depthD3SceneController = currentScene;
     }
 
     public override void OnEnter()
     {
         base.OnEnter();
-        _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.PressureAndMeasureSetting);
-        _depthC3SceneController.pressureCalibratorController.CursorOnMaxPressureSetting();//커서옮긴상황
+        _depthD3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.PressureAndMeasureSetting);
+        _depthD3SceneController.pressureCalibratorController.CursorOnMaxPressureSetting();//커서옮긴상황
         
         
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_One, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Number_One);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_Zero, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Number_Zero);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Enter, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Enter);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_One, false);
+        // _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Number_One);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_Zero, false);
+        // _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Number_Zero);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Enter, false);
+        // _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Enter);
+        
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Number_One);
     }
     public override void OnStep(){base.OnStep();}
     public override void OnExit()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_Zero);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_One);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Enter);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_Zero);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Number_One);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Enter);
         base.OnExit();
     }
 }
@@ -468,20 +476,22 @@ public class DepthD31_State_15 : Base_SceneState
 
 public class DepthD31_State_16 : Base_SceneState
 {
-    private DepthD3_SceneController _depthC3SceneController;
+    private DepthD3_SceneController _depthD3SceneController;
     public DepthD31_State_16(DepthD3_SceneController currentScene) : base(currentScene)
     {
-        _depthC3SceneController = currentScene;
+        _depthD3SceneController = currentScene;
     }
 
 
     public override void OnEnter()
     {
         
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F3, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_F3);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F4, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_F4);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F3, false);
+        // _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_F3);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F4, false);
+        // _depthD3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_F4);
+        
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_F3);
         base.OnEnter();
 
     }
@@ -489,8 +499,8 @@ public class DepthD31_State_16 : Base_SceneState
 
     public override void OnExit()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F3);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F4);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F3);
+        // _depthD3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F4);
         base.OnExit();
     }
 }
@@ -500,22 +510,18 @@ public class DepthD31_State_16 : Base_SceneState
 
 public class DepthD31_State_17 : Base_SceneState
 {
-    private DepthD3_SceneController _depthC3SceneController;
+    private DepthD3_SceneController _depthD3SceneController;
     public DepthD31_State_17(DepthD3_SceneController currentScene) : base(currentScene)
     {
-        _depthC3SceneController = currentScene;
+        _depthD3SceneController = currentScene;
     }
 
 
     public override void OnEnter()
     {
-        _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.CalibrationModeSetting);
-       // _depthC3SceneController.pressureCalibratorController.CursorOnTestStrategySetting();
+        _depthD3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.CalibrationModeSetting);
+         Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_Arrow_Down);
         
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Arrow_Down, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Arrow_Down);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Enter, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_Enter);
         base.OnEnter();
 
     }
@@ -523,8 +529,6 @@ public class DepthD31_State_17 : Base_SceneState
 
     public override void OnExit()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Arrow_Down);
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_Enter);
         base.OnExit();
     }
 }
@@ -534,10 +538,10 @@ public class DepthD31_State_17 : Base_SceneState
 
 public class DepthD31_State_18 : Base_SceneState
 {
-    private DepthD3_SceneController _depthC3SceneController;
+    private DepthD3_SceneController _depthD3SceneController;
     public DepthD31_State_18(DepthD3_SceneController currentScene) : base(currentScene)
     {
-        _depthC3SceneController = currentScene;
+        _depthD3SceneController = currentScene;
     }
 
 
@@ -545,17 +549,17 @@ public class DepthD31_State_18 : Base_SceneState
     {
         base.OnEnter();
         
-        _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.CalibrationModeSetting);
-        _depthC3SceneController.pressureCalibratorController.CursorOnTestStrategySetting();
-        _depthC3SceneController.pressureCalibratorController.SetTestStrategyModeString("3↑");
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F4, false);
-        _depthC3SceneController.BlinkHighlight((int)DepthC3_GameObj.Btn_F4);
+        _depthD3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.Calibrating);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.Btn_F4);
+
+      
+        
     }
     public override void OnStep(){base.OnStep();}
 
     public override void OnExit()
     {
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.Btn_F4);
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(6,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
         base.OnExit();
     }
 
@@ -567,21 +571,47 @@ public class DepthD31_State_18 : Base_SceneState
 
 public class DepthD31_State_19 : Base_SceneState
 {
-    private DepthD3_SceneController _depthC3SceneController;
+    private DepthD3_SceneController _depthD3SceneController;
     public DepthD31_State_19(DepthD3_SceneController currentScene) : base(currentScene)
     {
-        _depthC3SceneController = currentScene;
+        _depthD3SceneController = currentScene;
     }
 
 
     public override void OnEnter()
     {
         base.OnEnter();
-        _depthC3SceneController.pressureCalibratorController.KillCalibratePressureSeq();
-        _depthC3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.CalibrationFinish);
+        _depthD3SceneController.pressureCalibratorController.KillCalibratePressureSeq();
+        _depthD3SceneController.pressureCalibratorController.TurnOnUI(PressureCalibratorController.UI.CalibrationFinish);
         
-        _depthC3SceneController.controlPanel.SetPowerHandleOff();
-        _depthC3SceneController.SetHighlightIgnore((int)DepthC3_GameObj.PowerHandle, false);
+        Managers.EvaluationManager.ObjAnswerToClick.Add((int)DepthC3_GameObj.PowerHandle);
+      
+    }
+    public override void OnStep(){base.OnStep();}
+
+    public override void OnExit()
+    {
+        _depthD3SceneController.UIEvaluation.RefreshCheckListImage(5);
+        Managers.EvaluationManager.SaveIsCorrectStatusPerItems(7,Managers.EvaluationManager.isAlreadyWrongAnswerChecked);
+        base.OnExit();
+    }
+}
+
+
+public class DepthD31_State_20 : Base_SceneState
+{
+    private DepthD3_SceneController _depthD3SceneController;
+    public DepthD31_State_20(DepthD3_SceneController currentScene) : base(currentScene)
+    {
+        _depthD3SceneController = currentScene;
+    }
+
+
+    public override void OnEnter()
+    {
+        _depthD3SceneController.UIEvaluation.RefreshCheckListImage(6);
+        _depthD3SceneController.contentController.SetInstructionShowOrHideStatus(false);
+        _depthD3SceneController.UIEvaluation.UI_OnEvalFinish();
       
     }
     public override void OnStep(){base.OnStep();}

@@ -49,6 +49,7 @@ public class UI_Evaluation : UI_Popup
         TotalScore,
         Head_CurrentEvalDepth,
         IncorrectCount,
+        TMP_Heading_ScoreResults,
         TMP_OverallEvalText//한글로 미흡 보통 우수 표시하는부분
     }
 
@@ -273,11 +274,15 @@ public class UI_Evaluation : UI_Popup
 
         for (var i = 1; i <= GetObject((int)UI.Eval_Items).transform.childCount; i++)
             _textMap[int.Parse(_evalId + i.ToString())].text =
-                Managers.Data.Texts[int.Parse(depth1 + depth2 + "0" + (i))].kor;
+                Managers.GetText(int.Parse(depth1 + depth2 + "0" + (i)));
 
         for (var i = 1; i <= GetObject((int)UI.CheckLists).transform.childCount; i++)
             _textMap[int.Parse(_checklistId + i.ToString())].text =
-                Managers.Data.Texts[int.Parse(depth1 + depth2 + "00" + (i))].kor;
+                Managers.GetText(int.Parse(depth1 + depth2 + "00" + (i)));
+
+        GetTMP((int)TMPs.Head_CurrentEvalDepth).text =   Managers.GetText(int.Parse(depth1 + depth2 + "0"));
+        GetTMP((int)TMPs.TMP_Heading_ScoreResults).text = Managers.Data.IsEngMode() ? "Evaluation - Score Results" : "평가하기 - 점수결과 확인";
+
     }
 
     private void ShowEvalItemScores()
@@ -360,15 +365,5 @@ public class UI_Evaluation : UI_Popup
         _wrongUIAnimseq.Append(GetObject((int)UI.UI_OnWrongAnswer).transform.DOScale(0f, 1f));
     }
 
-    // private void InitImage(int currentDepthInfo)
-    // {
-    //     Logger.Log($"current Image Info : {currentDepthInfo}");
-    //     GetImage((int)Image.EvalTutorialImageA).sprite = 
-    //         Resources.Load<Sprite>("Image/"+currentDepthInfo + "EvalTutorialImageA");
-    //     GetImage((int)Image.EvalTutorialImageA).sprite = 
-    //         Resources.Load<Sprite>("Image/"+currentDepthInfo + "EvalTutorialImageB");
-    //     GetImage((int)Image.EvalTutorialImageA).sprite = 
-    //         Resources.Load<Sprite>("Image/"+currentDepthInfo + "EvalTutorialImageC");
-    // }
-    //
+  
 }

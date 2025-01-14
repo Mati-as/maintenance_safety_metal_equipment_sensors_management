@@ -102,6 +102,20 @@ public class EvaluationManager : MonoBehaviour
         { 4210, false },
         { 4211, false },
         { 4212, false },
+        
+        { 430, false },
+        { 431, false },
+        { 432, false },
+        { 433, false },
+        { 434, false },
+        { 435, false },
+        { 436, false },
+        { 437, false },
+        { 438, false },
+        { 439, false },
+        { 4310, false },
+        { 4311, false },
+        { 4312, false },
     };
     
     public void IsCorrectMapInit() =>  isCorrectMap = new Dictionary<int, bool>()
@@ -133,6 +147,20 @@ public class EvaluationManager : MonoBehaviour
         { 4210, false },
         { 4211, false },
         { 4212, false },
+        
+        { 430, false },
+        { 431, false },
+        { 432, false },
+        { 433, false },
+        { 434, false },
+        { 435, false },
+        { 436, false },
+        { 437, false },
+        { 438, false },
+        { 439, false },
+        { 4310, false },
+        { 4311, false },
+        { 4312, false },
     };
     
     #endregion

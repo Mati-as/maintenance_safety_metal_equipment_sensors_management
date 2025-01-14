@@ -314,7 +314,7 @@ public class DepthC3_SceneController : Base_SceneController
             if (Managers.ContentInfo.PlayData.Depth3 == 3 && Managers.ContentInfo.PlayData.Count == 16)
             {
                 pressureCalibratorController.OnBtn_F3Clicked_ZPressureOrLoopPower();
-                ChangeTooltipText((int)DepthC3_GameObj.Btn_F4, "F4 : Continue");
+             
                
             }
         });
